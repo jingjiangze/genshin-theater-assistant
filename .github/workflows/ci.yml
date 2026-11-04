@@ -1,0 +1,74 @@
+name: ci
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  powershell-suite:
+    name: PowerShell 语法 + 测试
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 打印环境
+        shell: powershell
+        run: |
+          $PSVersionTable.PSVersion
+          dotnet --version
+
+      - name: 语法检查（所有 .ps1）
+        shell: powershell
+        run: |
+          $bad = 0
+          Get-ChildItem -Recurse -Filter *.ps1 -File | ForEach-Object {
+            $tokens = $null; $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors)
+            if ($errors -and $errors.Count -gt 0) {
+              $bad++
+              Write-Host "ERR $($_.Name): $($errors[0].Message)"
+            }
+          }
+          if ($bad -gt 0) { throw "$bad 个脚本语法错误" }
+          Write-Host "语法检查通过"
+
+      - name: 测试套件
+        shell: powershell
+        run: |
+          .\tests\run-tests.ps1
+          if ($LASTEXITCODE -ne 0) { throw "测试失败 (exit $LASTEXITCODE)" }
+
+  build-csharp:
+    name: C# 编译（单文件发布）
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: 还原
+        run: dotnet restore app/TheaterAssistant.csproj
+
+      - name: 编译
+        run: dotnet build app/TheaterAssistant.csproj -c Release --no-restore
+
+      - name: 单文件发布
+        run: >
+          dotnet publish app/TheaterAssistant.csproj -c Release -r win-x64
+          --self-contained true -o dist --no-restore
+
+      - name: 产物信息
+        shell: powershell
+        run: |
+          Get-ChildItem dist | Select-Object Name, Length
+          if (-not (Test-Path dist/TheaterAssistant.exe)) { throw "没有产出 exe" }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TheaterAssistant-ci-${{ github.sha }}
+          path: dist/
+          retention-days: 7

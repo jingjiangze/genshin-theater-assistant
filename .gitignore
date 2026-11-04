@@ -1,0 +1,33 @@
+# 构建产物 / 运行产物
+dist/
+bin/
+obj/
+*.user
+*.suo
+
+# 运行期数据（不要提交）
+logs/
+samples/*.png
+samples/*.txt
+samples/dump-*
+tests/_bench/
+tests/_tmp/
+templates/_*.png
+
+# 本地临时脚本（历史版本 / 调试用）
+_*.ps1
+*-v01.ps1.bak
+theater-overlay-v02.ps1
+tests/_bench-step4.txt
+tests/run-tests.ps1.bak
+
+# OCR 模型（体积大；按 models/README.md 自行放置）
+models/**/*.onnx
+models/**/*.txt
+!models/README.md
+
+# 编辑器
+.vs/
+.idea/
+.DS_Store
+Thumbs.db

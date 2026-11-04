@@ -1,0 +1,9 @@
+﻿{
+  "templates": [
+    { "name": "act1",   "file": "act1.png",   "threshold": 0.88 },
+    { "name": "act2",   "file": "act2.png",   "threshold": 0.88 },
+    { "name": "act3",   "file": "act3.png",   "threshold": 0.88 },
+    { "name": "choice", "file": "choice.png", "threshold": 0.86 },
+    { "name": "result", "file": "result.png", "threshold": 0.86 }
+  ]
+}

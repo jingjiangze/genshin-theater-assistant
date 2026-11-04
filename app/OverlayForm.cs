@@ -1,0 +1,316 @@
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+namespace TheaterAssistant;
+
+internal static class Program
+{
+    [STAThread]
+    private static void Main()
+    {
+        ApplicationConfiguration.Initialize();
+        Application.Run(new OverlayForm());
+    }
+}
+
+/// <summary>
+/// 剧诗悬浮窗：置顶、不抢焦点、默认点击穿透、半透明圆角。
+/// 样式参照 genshin_artifact_auxiliary（深色半透明无边框 + 顶部状态行）与 BetterGI 的覆盖层观感。
+/// 只读屏幕像素，不注入、不读进程内存、不模拟键鼠。
+/// </summary>
+internal sealed class OverlayForm : Form
+{
+    private const int WM_HOTKEY = 0x0312;
+    private const int MOD_ALT = 0x0001;
+    private const int MOD_CONTROL = 0x0002;
+    private const int HOTKEY_TOGGLE = 1;   // Ctrl+Alt+H 显隐
+    private const int HOTKEY_CLICK = 2;    // Ctrl+Alt+L 穿透 ⇄ 可拖动
+    private const int HOTKEY_SAVE = 3;     // Ctrl+Alt+D 存帧
+
+    private const int GWL_EXSTYLE = -20;
+    private const int WS_EX_TRANSPARENT = 0x20;
+    private const int WS_EX_NOACTIVATE = 0x08000000;
+
+    [DllImport("user32.dll")] private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+    [DllImport("user32.dll")] private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+    [DllImport("user32.dll")] private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+    [DllImport("user32.dll")] private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+    [DllImport("user32.dll")] private static extern bool SetWindowDisplayAffinity(IntPtr hWnd, uint dwAffinity);
+
+    private readonly System.Windows.Forms.Timer _timer = new() { Interval = 1000 };
+    private readonly Font _titleFont = new("Microsoft YaHei UI", 9.5f, FontStyle.Bold);
+    private readonly Font _bodyFont = new("Microsoft YaHei UI", 9.5f, FontStyle.Regular);
+
+    private readonly OcrService _ocr = new();
+    private readonly List<TemplateEntry> _templates = new();
+    private RosterData _roster;
+    private TheaterData _theater;
+
+    private bool _clickThrough = true;
+    private bool _busy;
+    private string _header = "剧诗助手 · 等待游戏窗口";
+    private readonly List<string> _lines = new() { "启动中…" };
+    private string _lastCaptureHint = "";
+
+    private Point _dragStart;
+    private bool _dragging;
+
+    public OverlayForm()
+    {
+        FormBorderStyle = FormBorderStyle.None;
+        StartPosition = FormStartPosition.Manual;
+        ShowInTaskbar = false;
+        TopMost = true;
+        BackColor = Color.FromArgb(18, 21, 30);
+        Size = new Size(600, 236);
+        Location = new Point(40, 80);
+        DoubleBuffered = true;
+        Text = "剧诗助手";
+
+        _theater = TheaterData.Load(Path.Combine(AppContext.BaseDirectory, "data", "season29.json"));
+        _roster = RosterData.TryLoad(Path.Combine(AppContext.BaseDirectory, "roster.json"));
+
+        var tplDir = Path.Combine(AppContext.BaseDirectory, "templates");
+        if (Directory.Exists(tplDir))
+        {
+            foreach (var f in Directory.GetFiles(tplDir, "*.png"))
+            {
+                var name = Path.GetFileNameWithoutExtension(f);
+                if (name.StartsWith('_')) continue;
+                _templates.Add(new TemplateEntry(name, new Bitmap(f), 0.86));
+            }
+        }
+
+        _timer.Tick += OnTick;
+        Shown += OnShown;
+    }
+
+    protected override bool ShowWithoutActivation => true;
+
+    protected override CreateParams CreateParams
+    {
+        get
+        {
+            var cp = base.CreateParams;
+            cp.ExStyle |= WS_EX_NOACTIVATE | (int)0x00000080; // 80 = WS_EX_TOOLWINDOW，不进 Alt+Tab
+            if (_clickThrough) cp.ExStyle |= WS_EX_TRANSPARENT;
+            return cp;
+        }
+    }
+
+    private void OnShown(object sender, EventArgs e)
+    {
+        SetWindowDisplayAffinity(Handle, 0x11); // WDA_EXCLUDEFROMCAPTURE：自己不被截进画面
+        ApplyRoundedRegion();
+        RegisterHotKey(Handle, HOTKEY_TOGGLE, MOD_CONTROL | MOD_ALT, (int)Keys.H);
+        RegisterHotKey(Handle, HOTKEY_CLICK, MOD_CONTROL | MOD_ALT, (int)Keys.L);
+        RegisterHotKey(Handle, HOTKEY_SAVE, MOD_CONTROL | MOD_ALT, (int)Keys.D);
+
+        _ = _ocr.InitializeAsync(Path.Combine(AppContext.BaseDirectory, "models"));
+        _timer.Start();
+    }
+
+    private void ApplyRoundedRegion()
+    {
+        using var path = RoundedRect(new Rectangle(0, 0, Width, Height), 10);
+        Region = new Region(path);
+    }
+
+    private static GraphicsPath RoundedRect(Rectangle r, int radius)
+    {
+        var p = new GraphicsPath();
+        int d = radius * 2;
+        p.AddArc(r.X, r.Y, d, d, 180, 90);
+        p.AddArc(r.Right - d - 1, r.Y, d, d, 270, 90);
+        p.AddArc(r.Right - d - 1, r.Bottom - d - 1, d, d, 0, 90);
+        p.AddArc(r.X, r.Bottom - d - 1, d, d, 90, 90);
+        p.CloseFigure();
+        return p;
+    }
+
+    protected override void WndProc(ref Message m)
+    {
+        if (m.Msg == WM_HOTKEY)
+        {
+            int id = m.WParam.ToInt32();
+            if (id == HOTKEY_TOGGLE) Visible = !Visible;
+            else if (id == HOTKEY_CLICK) SetClickThrough(!_clickThrough);
+            else if (id == HOTKEY_SAVE) SaveFrame();
+            return;
+        }
+
+        if (m.Msg == 0x0084 && _clickThrough) // WM_NCHITTEST
+        {
+            m.Result = (IntPtr)(-1); // HTTRANSPARENT
+            return;
+        }
+        base.WndProc(ref m);
+    }
+
+    private void SetClickThrough(bool on)
+    {
+        _clickThrough = on;
+        int ex = GetWindowLong(Handle, GWL_EXSTYLE);
+        ex = on ? (ex | WS_EX_TRANSPARENT) : (ex & ~WS_EX_TRANSPARENT);
+        SetWindowLong(Handle, GWL_EXSTYLE, ex);
+    }
+
+    private async void OnTick(object sender, EventArgs e)
+    {
+        if (_busy) return;
+        _busy = true;
+        try
+        {
+            var win = GameWindow.Find("原神");
+            if (win == IntPtr.Zero)
+            {
+                _header = "剧诗助手 · 没找到游戏窗口";
+                _lines.Clear();
+                _lines.Add("请把原神切到窗口化 / 窗口全屏，并让它在前台可见");
+                Invalidate();
+                return;
+            }
+
+            using var bmp = ScreenCapture.CaptureClient(win);
+            if (bmp == null)
+            {
+                _lines.Clear();
+                _lines.Add("截图失败（窗口最小化？）");
+                Invalidate();
+                return;
+            }
+
+            var hits = Matcher.Scan(bmp, _templates);
+            string text = await _ocr.RecognizeAsync(bmp) ?? "";
+            var advice = TheaterLogic.Evaluate(hits, text, _theater, _roster);
+
+            _header = advice.Header;
+            _lines.Clear();
+            _lines.AddRange(advice.Lines);
+            _lastCaptureHint = advice.Diagnostics;
+            Invalidate();
+        }
+        catch (Exception ex)
+        {
+            _lines.Clear();
+            _lines.Add("错误: " + ex.Message);
+            Invalidate();
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    private void SaveFrame()
+    {
+        try
+        {
+            var win = GameWindow.Find("原神");
+            if (win == IntPtr.Zero) return;
+            using var bmp = ScreenCapture.CaptureClient(win);
+            if (bmp == null) return;
+            var dir = Path.Combine(AppContext.BaseDirectory, "samples");
+            Directory.CreateDirectory(dir);
+            var p = Path.Combine(dir, $"dump-{DateTime.Now:HHmmss}.png");
+            bmp.Save(p, System.Drawing.Imaging.ImageFormat.Png);
+            _lines.Add("已存帧: " + Path.GetFileName(p));
+            Invalidate();
+        }
+        catch { /* 静默 */ }
+    }
+
+    protected override void OnMouseDown(MouseEventArgs e)
+    {
+        if (!_clickThrough && e.Button == MouseButtons.Left)
+        {
+            _dragging = true;
+            _dragStart = e.Location;
+        }
+        base.OnMouseDown(e);
+    }
+
+    protected override void OnMouseMove(MouseEventArgs e)
+    {
+        if (_dragging)
+        {
+            Left += e.X - _dragStart.X;
+            Top += e.Y - _dragStart.Y;
+        }
+        base.OnMouseMove(e);
+    }
+
+    protected override void OnMouseUp(MouseEventArgs e)
+    {
+        _dragging = false;
+        base.OnMouseUp(e);
+    }
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        var g = e.Graphics;
+        g.SmoothingMode = SmoothingMode.AntiAlias;
+        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+        using (var bg = new LinearGradientBrush(ClientRectangle,
+                   Color.FromArgb(26, 30, 42), Color.FromArgb(15, 17, 24), 90f))
+        {
+            g.FillRectangle(bg, ClientRectangle);
+        }
+
+        // 左侧强调条
+        using (var accent = new SolidBrush(Color.FromArgb(198, 168, 96)))
+        {
+            g.FillRectangle(accent, 0, 0, 4, Height);
+        }
+
+        // 顶部状态行
+        using (var headBrush = new SolidBrush(Color.FromArgb(236, 240, 252)))
+        {
+            g.DrawString(_header, _titleFont, headBrush, new PointF(16, 10));
+        }
+        using (var pen = new Pen(Color.FromArgb(52, 58, 76)))
+        {
+            g.DrawLine(pen, 14, 34, Width - 14, 34);
+        }
+
+        // 正文
+        using var bodyBrush2 = new SolidBrush(Color.FromArgb(198, 206, 224));
+        float y = 40;
+        foreach (var line in _lines)
+        {
+            var size = g.MeasureString(line, _bodyFont, Width - 32);
+            g.DrawString(line, _bodyFont, bodyBrush2, new RectangleF(16, y, Width - 32, size.Height + 4));
+            y += size.Height + 2;
+            if (y > Height - 26) break;
+        }
+
+        // 底部：热键提示 + 诊断
+        using var footBrush = new SolidBrush(Color.FromArgb(140, 148, 168));
+        using var footFont = new Font("Microsoft YaHei UI", 8f);
+        var foot = _clickThrough
+            ? "Ctrl+Alt+L 可拖动 · Ctrl+Alt+H 显隐 · Ctrl+Alt+D 存帧"
+            : "拖动中（穿透已关）· Ctrl+Alt+L 恢复穿透";
+        g.DrawString(foot, footFont, footBrush, new PointF(16, Height - 20));
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _timer.Stop();
+            _timer.Dispose();
+            UnregisterHotKey(Handle, HOTKEY_TOGGLE);
+            UnregisterHotKey(Handle, HOTKEY_CLICK);
+            UnregisterHotKey(Handle, HOTKEY_SAVE);
+            _ocr.Dispose();
+            foreach (var t in _templates) t.Bitmap.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+}
+
+internal sealed record TemplateEntry(string Name, Bitmap Bitmap, double Threshold);

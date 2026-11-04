@@ -1,0 +1,1197 @@
+{
+ "generatedAt": "2026-11-04T17:22:36.063Z",
+ "season": 29,
+ "elements": [
+  "Hydro",
+  "Electro",
+  "Geo"
+ ],
+ "startsAt": "2026-11-01T04:00:00.000Z",
+ "opening": [
+  "Yelan",
+  "Aino",
+  "Flins",
+  "Fischl",
+  "Zhongli",
+  "Kachina"
+ ],
+ "guests": [
+  "Qiqi",
+  "Odette",
+  "Vesna",
+  "Jahoda"
+ ],
+ "bossStages": [
+  {
+   "act": 3,
+   "bosses": [
+    {
+     "name": "Jadeplume Terrorshroom",
+     "iconUrl": "https://static.wikia.nocookie.net/gensin-impact/images/e/e8/Jadeplume_Terrorshroom_Icon.png/revision/latest?cb=20220824024707"
+    }
+   ]
+  },
+  {
+   "act": 6,
+   "bosses": [
+    {
+     "name": "Lord of the Hidden Depths: Whisperer of Nightmares",
+     "iconUrl": "https://static.wikia.nocookie.net/gensin-impact/images/5/5a/Lord_of_the_Hidden_Depths_Whisperer_of_Nightmares_Icon.png/revision/latest?cb=20260114092748"
+    }
+   ]
+  },
+  {
+   "act": 8,
+   "bosses": [
+    {
+     "name": "Battle-Hardened Samachurl",
+     "iconUrl": "https://static.wikia.nocookie.net/gensin-impact/images/2/21/Churldric_Icon.png/revision/latest?cb=20260507130634"
+    }
+   ]
+  },
+  {
+   "act": 10,
+   "bosses": [
+    {
+     "name": "Radiant Moonfly",
+     "iconUrl": "https://static.wikia.nocookie.net/gensin-impact/images/f/f3/Radiant_Moonfly_Icon.png/revision/latest?cb=20250910024517"
+    }
+   ]
+  }
+ ],
+ "acts": {
+  "Easy": {
+   "1": {
+    "level": 75,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Oprichniki patrol",
+      "enemies": "6 enemies total.\nWave 1: 2 Oprichniki Line Trooper + 1 Oprichniki Hailstorm Cannoneer.\nWave 2: 1 Oprichniki Support Trooper + 2 Oprichniki Hailstorm Cannoneer.",
+      "res": "Oprichniki Line Trooper: Physical -20%.\nOprichniki Hailstorm Cannoneer: Physical -20%.\nOprichniki Support Trooper: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 20s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Vishap pair",
+      "enemies": "2 enemies total.\nWave 1: 1 Geovishap (Pyro).\nWave 2: 1 Primordial Bathysmal Vishap.",
+      "res": "Geovishap: Physical 30%; Geo 50%.\nPrimordial Bathysmal Vishap: Physical, Hydro 30%.\nThe Geovishap's Pyro transformation adds 20% Pyro RES.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 25s.",
+      "mech": "Primordial Bathysmal Vishap: Cleansing Shower drains 10 Energy from the active character. If they have less than 10 Energy, it also causes HP loss.",
+      "rec": "Electro",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tepetlisaurus and Iktomisaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tepetlisaurus + 1 Tepetlisaurus Warrior: Shard Striker + 1 Tepetlisaurus Warrior: Rockbreaker Blade.\nWave 2: 1 Iktomisaurus + 1 Iktomisaurus Warrior: Icy Tidebearer + 1 Iktomisaurus Warrior: Cryocrystal Cannon.",
+      "res": "Tepetlisaurus: Geo 50%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.\nIktomisaurus: Cryo 50%.\nIktomisaurus Warrior: Icy Tidebearer: Physical -20%.\nIktomisaurus Warrior: Cryocrystal Cannon: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 15s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "2": {
+    "level": 75,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Fluid Avatars of Lava",
+      "enemies": "2 enemies in one wave: 2 × Fluid Avatar of Lava.",
+      "res": "Fluid Avatar of Lava: Pyro 70%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "Permanent Pyro Aura: The Fluid Avatar of Lava always has a Pyro infusion. Hydro attacks can trigger Vaporize and Electro attacks can trigger Overloaded without applying Pyro yourself.",
+      "rec": "Hydro",
+      "key": "",
+      "chars": "Mualani"
+     },
+     {
+      "name": "Normal · Tatankasaurus group",
+      "enemies": "5 enemies total.\nWave 1: 3 Tatankasaurus.\nWave 2: 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.",
+      "res": "Tatankasaurus: Electro 50%.\nTatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tatankasaurus and Qucusaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tatankasaurus + 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.\nWave 2: 1 Qucusaurus + 1 Qucusaurus Warrior: Heartstar Hammer + 1 Qucusaurus Warrior: Blazing Sky.",
+      "res": "Tatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.\nTatankasaurus: Electro 50%.\nQucusaurus: Pyro 50%.\nQucusaurus Warrior: Heartstar Hammer: Physical -20%.\nQucusaurus Warrior: Blazing Sky: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "3": {
+    "level": 80,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Jadeplume Terrorshroom",
+      "enemies": "",
+      "res": "Jadeplume Terrorshroom: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 25%; Dendro 80%. Weak: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%; Dendro 55%.",
+      "req": "Clear: defeat all opponents within 1m 45s. | Star Challenge: finish within 1m 10s.",
+      "mech": "Fury Meter: Electro hits add 2% to the Fury meter; Quicken, Aggravate, and Spread add 15%. Pyro hits remove 34%. Several attacks apply Dendro to the boss itself, letting Electro build the meter without a Dendro teammate. Activated State: A full meter triggers one empowered attack sequence followed by roughly 15s of exhaustion. This mechanic also reduces all RES by 25%. Prepare your main damage window for that collapse. The empowered attack is random. Furious Charge sends it dashing across the arena twice, making it harder to hit and potentially wasting time before it collapses.",
+      "rec": "",
+      "key": "Electro Hits",
+      "chars": ""
+     }
+    ]
+   }
+  },
+  "Normal": {
+   "1": {
+    "level": 80,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Oprichniki patrol",
+      "enemies": "6 enemies total.\nWave 1: 2 Oprichniki Line Trooper + 1 Oprichniki Hailstorm Cannoneer.\nWave 2: 1 Oprichniki Support Trooper + 2 Oprichniki Hailstorm Cannoneer.",
+      "res": "Oprichniki Line Trooper: Physical -20%.\nOprichniki Hailstorm Cannoneer: Physical -20%.\nOprichniki Support Trooper: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 20s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Vishap pair",
+      "enemies": "2 enemies total.\nWave 1: 1 Geovishap (Pyro).\nWave 2: 1 Primordial Bathysmal Vishap.",
+      "res": "Geovishap: Physical 30%; Geo 50%.\nPrimordial Bathysmal Vishap: Physical, Hydro 30%.\nThe Geovishap's Pyro transformation adds 20% Pyro RES.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 25s.",
+      "mech": "Primordial Bathysmal Vishap: Cleansing Shower drains 10 Energy from the active character. If they have less than 10 Energy, it also causes HP loss.",
+      "rec": "Electro",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tepetlisaurus and Iktomisaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tepetlisaurus + 1 Tepetlisaurus Warrior: Shard Striker + 1 Tepetlisaurus Warrior: Rockbreaker Blade.\nWave 2: 1 Iktomisaurus + 1 Iktomisaurus Warrior: Icy Tidebearer + 1 Iktomisaurus Warrior: Cryocrystal Cannon.",
+      "res": "Tepetlisaurus: Geo 50%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.\nIktomisaurus: Cryo 50%.\nIktomisaurus Warrior: Icy Tidebearer: Physical -20%.\nIktomisaurus Warrior: Cryocrystal Cannon: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 15s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "2": {
+    "level": 80,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Fluid Avatars of Lava",
+      "enemies": "2 enemies in one wave: 2 × Fluid Avatar of Lava.",
+      "res": "Fluid Avatar of Lava: Pyro 70%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "Permanent Pyro Aura: The Fluid Avatar of Lava always has a Pyro infusion. Hydro attacks can trigger Vaporize and Electro attacks can trigger Overloaded without applying Pyro yourself.",
+      "rec": "Hydro",
+      "key": "",
+      "chars": "Mualani"
+     },
+     {
+      "name": "Normal · Tatankasaurus group",
+      "enemies": "5 enemies total.\nWave 1: 3 Tatankasaurus.\nWave 2: 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.",
+      "res": "Tatankasaurus: Electro 50%.\nTatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tatankasaurus and Qucusaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tatankasaurus + 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.\nWave 2: 1 Qucusaurus + 1 Qucusaurus Warrior: Heartstar Hammer + 1 Qucusaurus Warrior: Blazing Sky.",
+      "res": "Tatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.\nTatankasaurus: Electro 50%.\nQucusaurus: Pyro 50%.\nQucusaurus Warrior: Heartstar Hammer: Physical -20%.\nQucusaurus Warrior: Blazing Sky: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "3": {
+    "level": 85,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Jadeplume Terrorshroom",
+      "enemies": "",
+      "res": "Jadeplume Terrorshroom: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 25%; Dendro 80%. Weak: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%; Dendro 55%.",
+      "req": "Clear: defeat all opponents within 1m 45s. | Star Challenge: finish within 1m 10s.",
+      "mech": "Fury Meter: Electro hits add 2% to the Fury meter; Quicken, Aggravate, and Spread add 15%. Pyro hits remove 34%. Several attacks apply Dendro to the boss itself, letting Electro build the meter without a Dendro teammate. Activated State: A full meter triggers one empowered attack sequence followed by roughly 15s of exhaustion. This mechanic also reduces all RES by 25%. Prepare your main damage window for that collapse. The empowered attack is random. Furious Charge sends it dashing across the arena twice, making it harder to hit and potentially wasting time before it collapses.",
+      "rec": "",
+      "key": "Electro Hits",
+      "chars": ""
+     }
+    ]
+   },
+   "4": {
+    "level": 85,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Defense Sequence · Saurian-Crowned Warriors",
+      "enemies": "",
+      "res": "Qucusaurus Warrior: Heartstar Hammer: Physical -20%.\nQucusaurus Warrior: Blazing Sky: Physical -20%.\nYumkasaurus Warrior: Flowing Skyfire: Physical -20%.\nYumkasaurus Warrior: Whirling Leaves: Physical -20%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 10s countdown; each defeat removes 15s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Defense Sequence · Landcruisers and Oprichniki",
+      "enemies": "",
+      "res": "Oprichniki Grenadier: Physical -20%.\nOprichniki Bombardier: Physical -20%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 20s countdown; each defeat removes 20s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2.",
+      "mech": "Landcruisers: Trigger Electro-Charged or Lunar-Charged four times during an empowered attack to interrupt and paralyze it for 2s (Storm) or 5s (Fire Support).",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "High-Pressure Defense · Ruin machines",
+      "enemies": "",
+      "res": "Ruin Guard: Physical 70%.\nRuin Grader: Physical 70%.\nRuin Scout: Physical 50%.\nRuin Destroyer: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Cruiser: Physical 30%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 20s countdown; each defeat removes 20s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2 or 3.",
+      "mech": "Ruin Guard: Hit its exposed eye or rear core twice in quick succession to paralyze it for roughly 15s. Ruin Grader: Strike glowing ankle and eye weak points when exposed. Each weak-point system stays disabled for roughly 20s. Disabling both fully paralyzes it until one system recovers; the remaining paralysis time depends on when each was disabled. Sentinels: Hit exposed cores twice to paralyze them for roughly 15s. The Scout exposes its core before a headbutt; the Destroyer exposes it during beam-field and vacuum attacks. Move around a Defender's frontal ward rather than attacking into it.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "5": {
+    "level": 85,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Ruin Sentinels",
+      "enemies": "",
+      "res": "Ruin Scout: Physical 50%.\nRuin Cruiser: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Destroyer: Physical 30%.",
+      "req": "Clear: defeat at least 7 opponents within 2m. | Star Challenge: defeat 9 opponents. | Active enemies: 2.",
+      "mech": "Weak Points: Hit a Sentinel's exposed core twice to paralyze it for roughly 15s. The Scout exposes its core before its headbutt, the Cruiser during several charged shots, and the Destroyer during beam-field and vacuum attacks. Defender: Its raised ward blocks attacks from the front.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Hydro Mimics",
+      "enemies": "",
+      "res": "Hydro Mimic Boar: Physical, Electro, Cryo, Dendro, Anemo, Geo 15%; Pyro -40%; Hydro immune.\nHydro Mimic Crane: Physical, Pyro, Cryo, Dendro, Anemo, Geo 15%; Hydro immune; Electro -40%.\nHydro Mimic Squirrel: Physical, Electro, Cryo, Dendro, Anemo, Geo 15%; Pyro -40%; Hydro immune.\nHydro Mimic Mallard: Physical, Pyro, Electro, Dendro, Anemo, Geo 15%; Hydro immune; Cryo -40%.\nHydro Mimic Finch: Physical, Pyro, Electro, Cryo, Dendro, Anemo 15%; Hydro immune; Geo -40%.\nHydro Mimic Crab: Physical, Pyro, Electro, Dendro, Anemo, Geo 15%; Hydro immune; Cryo -40%.\nHydro Mimic Frog: Physical, Pyro, Electro, Cryo, Dendro, Anemo 15%; Hydro immune; Geo -40%.",
+      "req": "Clear: defeat at least 20 opponents within 2m. | Star Challenge: defeat 24 opponents. | Active enemies: 3.",
+      "mech": "Innate Hydro: Hydro damage is ineffective because the Mimics are immune. Their permanent Hydro aura lets Electro trigger Electro-Charged or Lunar-Charged, and Geo trigger Crystallize or Lunar-Crystallize, without bringing a Hydro character.",
+      "rec": "",
+      "key": "avoid:Avoid Hydro",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Kairagi and Nobushi",
+      "enemies": "",
+      "res": "Kairagi: Fiery Might: Physical -20%.\nKairagi: Dancing Thunder: Physical -20%.\nNobushi: Hitsukeban: Physical -20%.\nNobushi: Kikouban: Physical -20%.",
+      "req": "Clear: defeat at least 12 opponents within 2m. | Star Challenge: defeat 15 opponents. | Active enemies: 3.",
+      "mech": "Kairagi Pair: When one dies, a surviving Kairagi can enter its revenge state, recover 50% of its Max HP, gain interruption resistance, and become immune to Freeze and petrification. When a pair is active, lower both together and try to finish them close together.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "6": {
+    "level": 90,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Whisperer of Nightmares",
+      "enemies": "",
+      "res": "Lord of the Hidden Depths: Whisperer of Nightmares: Weak: all damage types -60%.",
+      "req": "Clear: defeat all opponents within 1m 50s. | Star Challenge: finish within 1m 15s.",
+      "mech": "Deepdark Ward: The boss moves to the center and creates a ward worth 45% of its Max HP. Only elemental and reaction damage reduces it; Physical damage does not. Lunar Reaction damage deals 3 times its normal damage to the ward. Fishers: Four appear during the charge. Each defeated Fisher removes 25% of the boss's ward, so defeating all four can break it without directly attacking the boss. Ward Break: Breaking it before the charge finishes deals 20% of the boss's Max HP to it, defeats surviving Fishers, paralyzes the boss for 10s. Ward break also reduces all RES by 70%. Save damage for the weakened window. Failed Ward Break: If the ward remains when charging finishes, the boss consumes its Fishers and releases a powerful arena-wide attack. It takes no ward-break damage and does not become weakened or paralyzed.",
+      "rec": "",
+      "key": "Lunar Damage",
+      "chars": "Flins,Ineffa,Columbina,Zibai,Linnea"
+     }
+    ]
+   }
+  },
+  "Hard": {
+   "1": {
+    "level": 85,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Oprichniki patrol",
+      "enemies": "6 enemies total.\nWave 1: 2 Oprichniki Line Trooper + 1 Oprichniki Hailstorm Cannoneer.\nWave 2: 1 Oprichniki Support Trooper + 2 Oprichniki Hailstorm Cannoneer.",
+      "res": "Oprichniki Line Trooper: Physical -20%.\nOprichniki Hailstorm Cannoneer: Physical -20%.\nOprichniki Support Trooper: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 20s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Vishap pair",
+      "enemies": "2 enemies total.\nWave 1: 1 Geovishap (Pyro).\nWave 2: 1 Primordial Bathysmal Vishap.",
+      "res": "Geovishap: Physical 30%; Geo 50%.\nPrimordial Bathysmal Vishap: Physical, Hydro 30%.\nThe Geovishap's Pyro transformation adds 20% Pyro RES.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 25s.",
+      "mech": "Primordial Bathysmal Vishap: Cleansing Shower drains 10 Energy from the active character. If they have less than 10 Energy, it also causes HP loss.",
+      "rec": "Electro",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tepetlisaurus and Iktomisaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tepetlisaurus + 1 Tepetlisaurus Warrior: Shard Striker + 1 Tepetlisaurus Warrior: Rockbreaker Blade.\nWave 2: 1 Iktomisaurus + 1 Iktomisaurus Warrior: Icy Tidebearer + 1 Iktomisaurus Warrior: Cryocrystal Cannon.",
+      "res": "Tepetlisaurus: Geo 50%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.\nIktomisaurus: Cryo 50%.\nIktomisaurus Warrior: Icy Tidebearer: Physical -20%.\nIktomisaurus Warrior: Cryocrystal Cannon: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 15s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "2": {
+    "level": 85,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Fluid Avatars of Lava",
+      "enemies": "2 enemies in one wave: 2 × Fluid Avatar of Lava.",
+      "res": "Fluid Avatar of Lava: Pyro 70%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "Permanent Pyro Aura: The Fluid Avatar of Lava always has a Pyro infusion. Hydro attacks can trigger Vaporize and Electro attacks can trigger Overloaded without applying Pyro yourself.",
+      "rec": "Hydro",
+      "key": "",
+      "chars": "Mualani"
+     },
+     {
+      "name": "Normal · Tatankasaurus group",
+      "enemies": "5 enemies total.\nWave 1: 3 Tatankasaurus.\nWave 2: 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.",
+      "res": "Tatankasaurus: Electro 50%.\nTatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tatankasaurus and Qucusaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tatankasaurus + 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.\nWave 2: 1 Qucusaurus + 1 Qucusaurus Warrior: Heartstar Hammer + 1 Qucusaurus Warrior: Blazing Sky.",
+      "res": "Tatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.\nTatankasaurus: Electro 50%.\nQucusaurus: Pyro 50%.\nQucusaurus Warrior: Heartstar Hammer: Physical -20%.\nQucusaurus Warrior: Blazing Sky: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "3": {
+    "level": 90,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Jadeplume Terrorshroom",
+      "enemies": "",
+      "res": "Jadeplume Terrorshroom: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 25%; Dendro 80%. Weak: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%; Dendro 55%.",
+      "req": "Clear: defeat all opponents within 1m 45s. | Star Challenge: finish within 1m 10s.",
+      "mech": "Fury Meter: Electro hits add 2% to the Fury meter; Quicken, Aggravate, and Spread add 15%. Pyro hits remove 34%. Several attacks apply Dendro to the boss itself, letting Electro build the meter without a Dendro teammate. Activated State: A full meter triggers one empowered attack sequence followed by roughly 15s of exhaustion. This mechanic also reduces all RES by 25%. Prepare your main damage window for that collapse. The empowered attack is random. Furious Charge sends it dashing across the arena twice, making it harder to hit and potentially wasting time before it collapses.",
+      "rec": "",
+      "key": "Electro Hits",
+      "chars": ""
+     }
+    ]
+   },
+   "4": {
+    "level": 90,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Defense Sequence · Saurian-Crowned Warriors",
+      "enemies": "",
+      "res": "Qucusaurus Warrior: Heartstar Hammer: Physical -20%.\nQucusaurus Warrior: Blazing Sky: Physical -20%.\nYumkasaurus Warrior: Flowing Skyfire: Physical -20%.\nYumkasaurus Warrior: Whirling Leaves: Physical -20%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 10s countdown; each defeat removes 15s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Defense Sequence · Landcruisers and Oprichniki",
+      "enemies": "",
+      "res": "Oprichniki Grenadier: Physical -20%.\nOprichniki Bombardier: Physical -20%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 20s countdown; each defeat removes 20s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2.",
+      "mech": "Landcruisers: Trigger Electro-Charged or Lunar-Charged four times during an empowered attack to interrupt and paralyze it for 2s (Storm) or 5s (Fire Support).",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "High-Pressure Defense · Ruin machines",
+      "enemies": "",
+      "res": "Ruin Guard: Physical 70%.\nRuin Grader: Physical 70%.\nRuin Scout: Physical 50%.\nRuin Destroyer: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Cruiser: Physical 30%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 20s countdown; each defeat removes 20s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2 or 3.",
+      "mech": "Ruin Guard: Hit its exposed eye or rear core twice in quick succession to paralyze it for roughly 15s. Ruin Grader: Strike glowing ankle and eye weak points when exposed. Each weak-point system stays disabled for roughly 20s. Disabling both fully paralyzes it until one system recovers; the remaining paralysis time depends on when each was disabled. Sentinels: Hit exposed cores twice to paralyze them for roughly 15s. The Scout exposes its core before a headbutt; the Destroyer exposes it during beam-field and vacuum attacks. Move around a Defender's frontal ward rather than attacking into it.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "5": {
+    "level": 90,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Ruin Sentinels",
+      "enemies": "",
+      "res": "Ruin Scout: Physical 50%.\nRuin Cruiser: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Destroyer: Physical 30%.",
+      "req": "Clear: defeat at least 7 opponents within 2m. | Star Challenge: defeat 9 opponents. | Active enemies: 2.",
+      "mech": "Weak Points: Hit a Sentinel's exposed core twice to paralyze it for roughly 15s. The Scout exposes its core before its headbutt, the Cruiser during several charged shots, and the Destroyer during beam-field and vacuum attacks. Defender: Its raised ward blocks attacks from the front.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Hydro Mimics",
+      "enemies": "",
+      "res": "Hydro Mimic Boar: Physical, Electro, Cryo, Dendro, Anemo, Geo 15%; Pyro -40%; Hydro immune.\nHydro Mimic Crane: Physical, Pyro, Cryo, Dendro, Anemo, Geo 15%; Hydro immune; Electro -40%.\nHydro Mimic Squirrel: Physical, Electro, Cryo, Dendro, Anemo, Geo 15%; Pyro -40%; Hydro immune.\nHydro Mimic Mallard: Physical, Pyro, Electro, Dendro, Anemo, Geo 15%; Hydro immune; Cryo -40%.\nHydro Mimic Finch: Physical, Pyro, Electro, Cryo, Dendro, Anemo 15%; Hydro immune; Geo -40%.\nHydro Mimic Crab: Physical, Pyro, Electro, Dendro, Anemo, Geo 15%; Hydro immune; Cryo -40%.\nHydro Mimic Frog: Physical, Pyro, Electro, Cryo, Dendro, Anemo 15%; Hydro immune; Geo -40%.",
+      "req": "Clear: defeat at least 20 opponents within 2m. | Star Challenge: defeat 24 opponents. | Active enemies: 3.",
+      "mech": "Innate Hydro: Hydro damage is ineffective because the Mimics are immune. Their permanent Hydro aura lets Electro trigger Electro-Charged or Lunar-Charged, and Geo trigger Crystallize or Lunar-Crystallize, without bringing a Hydro character.",
+      "rec": "",
+      "key": "avoid:Avoid Hydro",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Kairagi and Nobushi",
+      "enemies": "",
+      "res": "Kairagi: Fiery Might: Physical -20%.\nKairagi: Dancing Thunder: Physical -20%.\nNobushi: Hitsukeban: Physical -20%.\nNobushi: Kikouban: Physical -20%.",
+      "req": "Clear: defeat at least 12 opponents within 2m. | Star Challenge: defeat 15 opponents. | Active enemies: 3.",
+      "mech": "Kairagi Pair: When one dies, a surviving Kairagi can enter its revenge state, recover 50% of its Max HP, gain interruption resistance, and become immune to Freeze and petrification. When a pair is active, lower both together and try to finish them close together.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "6": {
+    "level": 92,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Whisperer of Nightmares",
+      "enemies": "",
+      "res": "Lord of the Hidden Depths: Whisperer of Nightmares: Weak: all damage types -60%.",
+      "req": "Clear: defeat all opponents within 1m 50s. | Star Challenge: finish within 1m 15s.",
+      "mech": "Deepdark Ward: The boss moves to the center and creates a ward worth 45% of its Max HP. Only elemental and reaction damage reduces it; Physical damage does not. Lunar Reaction damage deals 3 times its normal damage to the ward. Fishers: Four appear during the charge. Each defeated Fisher removes 25% of the boss's ward, so defeating all four can break it without directly attacking the boss. Ward Break: Breaking it before the charge finishes deals 20% of the boss's Max HP to it, defeats surviving Fishers, paralyzes the boss for 10s. Ward break also reduces all RES by 70%. Save damage for the weakened window. Failed Ward Break: If the ward remains when charging finishes, the boss consumes its Fishers and releases a powerful arena-wide attack. It takes no ward-break damage and does not become weakened or paralyzed.",
+      "rec": "",
+      "key": "Lunar Damage",
+      "chars": "Flins,Ineffa,Columbina,Zibai,Linnea"
+     }
+    ]
+   },
+   "7": {
+    "level": 92,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Consecrated beasts",
+      "enemies": "2 enemies in one wave: the Consecrated Red Vulture and Consecrated Scorpion.",
+      "res": "Consecrated Red Vulture: Consecrated Enhance: Physical, Hydro, Electro, Cryo, Dendro, Anemo, Geo 40%; Pyro 70%.\nConsecrated Scorpion: Consecrated Enhance: Physical, Pyro, Hydro, Cryo, Dendro, Anemo, Geo 40%; Electro 70%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "Energy Blocks: After their special attacks, a Beast can release a block lasting 6s. The Scorpion's takes one Electro hit or six other elemental hits; the Vulture's takes one Pyro hit or six other elemental hits. Without a Pyro character, use repeated elemental hits for the Vulture. Counterattack: Breaking a block grants energy for 10s. Hit the corresponding Beast before it expires to consume it, deal 15% of the Beast's Max HP as damage, and paralyze it for roughly 10s. Holding the energy causes party HP loss, so use it promptly. Resistance Change: The Beast exits its enhanced form during the mechanic and returns to it if the block or absorbed energy is not used in time. Its Freeze resistance makes Freeze less reliable for stopping its attacks.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Wilderness Hunter",
+      "enemies": "1 enemy in one wave: Wilderness Hunter.",
+      "res": "",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 35s.",
+      "mech": "Maximum HP Bar: The gray section filling from the right shows how much maximum HP has been removed. The Hunter is only defeated when its maximum HP reaches zero. Grief-Stricken: Its body turns gray, making this state visually recognizable. Depleting ordinary HP triggers this state for 10s instead of defeating it. Damage during this window reduces maximum HP. Ascendant Gleam: Bring at least two Moonsign characters to enable Ascendant Gleam. An ability enhanced by Moonsign: Ascendant Gleam can trigger Grief-Stricken early. During Grief-Stricken, 65% of damage taken reduces its maximum HP; Ascendant Gleam increases this to 90%. Reserve your strongest damage for these windows. Recovery: After a normal HP-depletion window, it can recover to its remaining maximum HP. During an early Gleam-triggered window it can still attack.",
+      "rec": "",
+      "key": "Ascendant Gleam",
+      "chars": "Aino,Flins,Ineffa,Columbina,Zibai,Linnea,Illuga,Jahoda"
+     },
+     {
+      "name": "Elite Assault · Saurian-Crowned Warrior pairs",
+      "enemies": "6 enemies total.\nWave 1: 1 Qucusaurus Warrior: Blazing Sky + 1 Qucusaurus Warrior: Heartstar Hammer.\nWave 2: 1 Iktomisaurus Warrior: Icy Tidebearer + 1 Iktomisaurus Warrior: Cryocrystal Cannon.\nWave 3: 1 Tepetlisaurus Warrior: Shard Striker + 1 Tepetlisaurus Warrior: Rockbreaker Blade.",
+      "res": "Qucusaurus Warrior: Blazing Sky: Physical -20%.\nQucusaurus Warrior: Heartstar Hammer: Physical -20%.\nIktomisaurus Warrior: Icy Tidebearer: Physical -20%.\nIktomisaurus Warrior: Cryocrystal Cannon: Physical -20%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 20s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "8": {
+    "level": 95,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Radiant Moonfly",
+      "enemies": "",
+      "res": "Radiant Moonfly: Pyro, Dendro 70%.",
+      "req": "Clear: defeat Radiant Moonfly; deadline unknown. | Target time: 1m 10s.",
+      "mech": "Radiant Cocoon: Its opening energy blast marks affected characters and causes HP loss. While marked, they lose 50% Damage Bonus, 40% Incoming Healing Bonus, and 100% CRIT Rate. Favonius weapons cannot trigger if the character can no longer score a critical hit; Lunar and Stellar damage are affected by the CRIT loss too. Avoid the Mark: Use invincibility frames (i-frames) to avoid the debuff on your active character. They then need no healing to clear it, but cannot gain the buff awarded for clearing it through healing. Alternatively, bait the Moonfly away from the center, then run to the opposite side of the arena to stay outside the attack's range and avoid the debuff entirely. Remove the Mark: Heal affected damage dealers to full HP. Teamwide healing helps when several characters contribute damage; a carry with strong self-healing may handle its own mark. Clearing the mark removes its penalties and grants 15% CRIT Rate and 50% Damage Bonus for 15s. Attack Cycle: It alternates Dendro and Pyro attack sequences, then releases an arena-wide blast before 15s of exhaustion. Use healing to recover your damage output while avoiding its projectiles and blasts.",
+      "rec": "",
+      "key": "Healing",
+      "chars": "Sigewinne,Sangonomiya Kokomi,Barbara,Alyosha,Qiqi,Linnea,Noelle,Dori,Kuki Shinobu,Jahoda,Vodyanitsa,Xilonen,Furina"
+     }
+    ]
+   }
+  },
+  "Visionary": {
+   "1": {
+    "level": 85,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Oprichniki patrol",
+      "enemies": "6 enemies total.\nWave 1: 2 Oprichniki Line Trooper + 1 Oprichniki Hailstorm Cannoneer.\nWave 2: 1 Oprichniki Support Trooper + 2 Oprichniki Hailstorm Cannoneer.",
+      "res": "Oprichniki Line Trooper: Physical -20%.\nOprichniki Hailstorm Cannoneer: Physical -20%.\nOprichniki Support Trooper: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 20s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Vishap pair",
+      "enemies": "2 enemies total.\nWave 1: 1 Geovishap (Pyro).\nWave 2: 1 Primordial Bathysmal Vishap.",
+      "res": "Geovishap: Physical 30%; Geo 50%.\nPrimordial Bathysmal Vishap: Physical, Hydro 30%.\nThe Geovishap's Pyro transformation adds 20% Pyro RES.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 25s.",
+      "mech": "Primordial Bathysmal Vishap: Cleansing Shower drains 10 Energy from the active character. If they have less than 10 Energy, it also causes HP loss.",
+      "rec": "Electro",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tepetlisaurus and Iktomisaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tepetlisaurus + 1 Tepetlisaurus Warrior: Shard Striker + 1 Tepetlisaurus Warrior: Rockbreaker Blade.\nWave 2: 1 Iktomisaurus + 1 Iktomisaurus Warrior: Icy Tidebearer + 1 Iktomisaurus Warrior: Cryocrystal Cannon.",
+      "res": "Tepetlisaurus: Geo 50%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.\nIktomisaurus: Cryo 50%.\nIktomisaurus Warrior: Icy Tidebearer: Physical -20%.\nIktomisaurus Warrior: Cryocrystal Cannon: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 15s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "2": {
+    "level": 85,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Fluid Avatars of Lava",
+      "enemies": "2 enemies in one wave: 2 × Fluid Avatar of Lava.",
+      "res": "Fluid Avatar of Lava: Pyro 70%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "Permanent Pyro Aura: The Fluid Avatar of Lava always has a Pyro infusion. Hydro attacks can trigger Vaporize and Electro attacks can trigger Overloaded without applying Pyro yourself.",
+      "rec": "Hydro",
+      "key": "",
+      "chars": "Mualani"
+     },
+     {
+      "name": "Normal · Tatankasaurus group",
+      "enemies": "5 enemies total.\nWave 1: 3 Tatankasaurus.\nWave 2: 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.",
+      "res": "Tatankasaurus: Electro 50%.\nTatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tatankasaurus and Qucusaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tatankasaurus + 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.\nWave 2: 1 Qucusaurus + 1 Qucusaurus Warrior: Heartstar Hammer + 1 Qucusaurus Warrior: Blazing Sky.",
+      "res": "Tatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.\nTatankasaurus: Electro 50%.\nQucusaurus: Pyro 50%.\nQucusaurus Warrior: Heartstar Hammer: Physical -20%.\nQucusaurus Warrior: Blazing Sky: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "3": {
+    "level": 90,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Jadeplume Terrorshroom",
+      "enemies": "",
+      "res": "Jadeplume Terrorshroom: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 25%; Dendro 80%. Weak: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%; Dendro 55%.",
+      "req": "Clear: defeat all opponents within 1m 45s. | Star Challenge: finish within 1m 10s.",
+      "mech": "Fury Meter: Electro hits add 2% to the Fury meter; Quicken, Aggravate, and Spread add 15%. Pyro hits remove 34%. Several attacks apply Dendro to the boss itself, letting Electro build the meter without a Dendro teammate. Activated State: A full meter triggers one empowered attack sequence followed by roughly 15s of exhaustion. This mechanic also reduces all RES by 25%. Prepare your main damage window for that collapse. The empowered attack is random. Furious Charge sends it dashing across the arena twice, making it harder to hit and potentially wasting time before it collapses.",
+      "rec": "",
+      "key": "Electro Hits",
+      "chars": ""
+     }
+    ]
+   },
+   "4": {
+    "level": 90,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Defense Sequence · Saurian-Crowned Warriors",
+      "enemies": "",
+      "res": "Qucusaurus Warrior: Heartstar Hammer: Physical -20%.\nQucusaurus Warrior: Blazing Sky: Physical -20%.\nYumkasaurus Warrior: Flowing Skyfire: Physical -20%.\nYumkasaurus Warrior: Whirling Leaves: Physical -20%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 10s countdown; each defeat removes 15s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Defense Sequence · Landcruisers and Oprichniki",
+      "enemies": "",
+      "res": "Oprichniki Grenadier: Physical -20%.\nOprichniki Bombardier: Physical -20%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 20s countdown; each defeat removes 20s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2.",
+      "mech": "Landcruisers: Trigger Electro-Charged or Lunar-Charged four times during an empowered attack to interrupt and paralyze it for 2s (Storm) or 5s (Fire Support).",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "High-Pressure Defense · Ruin machines",
+      "enemies": "",
+      "res": "Ruin Guard: Physical 70%.\nRuin Grader: Physical 70%.\nRuin Scout: Physical 50%.\nRuin Destroyer: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Cruiser: Physical 30%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 20s countdown; each defeat removes 20s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2 or 3.",
+      "mech": "Ruin Guard: Hit its exposed eye or rear core twice in quick succession to paralyze it for roughly 15s. Ruin Grader: Strike glowing ankle and eye weak points when exposed. Each weak-point system stays disabled for roughly 20s. Disabling both fully paralyzes it until one system recovers; the remaining paralysis time depends on when each was disabled. Sentinels: Hit exposed cores twice to paralyze them for roughly 15s. The Scout exposes its core before a headbutt; the Destroyer exposes it during beam-field and vacuum attacks. Move around a Defender's frontal ward rather than attacking into it.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "5": {
+    "level": 90,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Ruin Sentinels",
+      "enemies": "",
+      "res": "Ruin Scout: Physical 50%.\nRuin Cruiser: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Destroyer: Physical 30%.",
+      "req": "Clear: defeat at least 7 opponents within 2m. | Star Challenge: defeat 9 opponents. | Active enemies: 2.",
+      "mech": "Weak Points: Hit a Sentinel's exposed core twice to paralyze it for roughly 15s. The Scout exposes its core before its headbutt, the Cruiser during several charged shots, and the Destroyer during beam-field and vacuum attacks. Defender: Its raised ward blocks attacks from the front.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Hydro Mimics",
+      "enemies": "",
+      "res": "Hydro Mimic Boar: Physical, Electro, Cryo, Dendro, Anemo, Geo 15%; Pyro -40%; Hydro immune.\nHydro Mimic Crane: Physical, Pyro, Cryo, Dendro, Anemo, Geo 15%; Hydro immune; Electro -40%.\nHydro Mimic Squirrel: Physical, Electro, Cryo, Dendro, Anemo, Geo 15%; Pyro -40%; Hydro immune.\nHydro Mimic Mallard: Physical, Pyro, Electro, Dendro, Anemo, Geo 15%; Hydro immune; Cryo -40%.\nHydro Mimic Finch: Physical, Pyro, Electro, Cryo, Dendro, Anemo 15%; Hydro immune; Geo -40%.\nHydro Mimic Crab: Physical, Pyro, Electro, Dendro, Anemo, Geo 15%; Hydro immune; Cryo -40%.\nHydro Mimic Frog: Physical, Pyro, Electro, Cryo, Dendro, Anemo 15%; Hydro immune; Geo -40%.",
+      "req": "Clear: defeat at least 20 opponents within 2m. | Star Challenge: defeat 24 opponents. | Active enemies: 3.",
+      "mech": "Innate Hydro: Hydro damage is ineffective because the Mimics are immune. Their permanent Hydro aura lets Electro trigger Electro-Charged or Lunar-Charged, and Geo trigger Crystallize or Lunar-Crystallize, without bringing a Hydro character.",
+      "rec": "",
+      "key": "avoid:Avoid Hydro",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Kairagi and Nobushi",
+      "enemies": "",
+      "res": "Kairagi: Fiery Might: Physical -20%.\nKairagi: Dancing Thunder: Physical -20%.\nNobushi: Hitsukeban: Physical -20%.\nNobushi: Kikouban: Physical -20%.",
+      "req": "Clear: defeat at least 12 opponents within 2m. | Star Challenge: defeat 15 opponents. | Active enemies: 3.",
+      "mech": "Kairagi Pair: When one dies, a surviving Kairagi can enter its revenge state, recover 50% of its Max HP, gain interruption resistance, and become immune to Freeze and petrification. When a pair is active, lower both together and try to finish them close together.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "6": {
+    "level": 92,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Whisperer of Nightmares",
+      "enemies": "",
+      "res": "Lord of the Hidden Depths: Whisperer of Nightmares: Weak: all damage types -60%.",
+      "req": "Clear: defeat all opponents within 1m 50s. | Star Challenge: finish within 1m 15s.",
+      "mech": "Deepdark Ward: The boss moves to the center and creates a ward worth 45% of its Max HP. Only elemental and reaction damage reduces it; Physical damage does not. Lunar Reaction damage deals 3 times its normal damage to the ward. Fishers: Four appear during the charge. Each defeated Fisher removes 25% of the boss's ward, so defeating all four can break it without directly attacking the boss. Ward Break: Breaking it before the charge finishes deals 20% of the boss's Max HP to it, defeats surviving Fishers, paralyzes the boss for 10s. Ward break also reduces all RES by 70%. Save damage for the weakened window. Failed Ward Break: If the ward remains when charging finishes, the boss consumes its Fishers and releases a powerful arena-wide attack. It takes no ward-break damage and does not become weakened or paralyzed.",
+      "rec": "",
+      "key": "Lunar Damage",
+      "chars": "Flins,Ineffa,Columbina,Zibai,Linnea"
+     }
+    ]
+   },
+   "7": {
+    "level": 92,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Consecrated beasts",
+      "enemies": "2 enemies in one wave: the Consecrated Red Vulture and Consecrated Scorpion.",
+      "res": "Consecrated Red Vulture: Consecrated Enhance: Physical, Hydro, Electro, Cryo, Dendro, Anemo, Geo 40%; Pyro 70%.\nConsecrated Scorpion: Consecrated Enhance: Physical, Pyro, Hydro, Cryo, Dendro, Anemo, Geo 40%; Electro 70%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "Energy Blocks: After their special attacks, a Beast can release a block lasting 6s. The Scorpion's takes one Electro hit or six other elemental hits; the Vulture's takes one Pyro hit or six other elemental hits. Without a Pyro character, use repeated elemental hits for the Vulture. Counterattack: Breaking a block grants energy for 10s. Hit the corresponding Beast before it expires to consume it, deal 15% of the Beast's Max HP as damage, and paralyze it for roughly 10s. Holding the energy causes party HP loss, so use it promptly. Resistance Change: The Beast exits its enhanced form during the mechanic and returns to it if the block or absorbed energy is not used in time. Its Freeze resistance makes Freeze less reliable for stopping its attacks.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Wilderness Hunter",
+      "enemies": "1 enemy in one wave: Wilderness Hunter.",
+      "res": "",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 35s.",
+      "mech": "Maximum HP Bar: The gray section filling from the right shows how much maximum HP has been removed. The Hunter is only defeated when its maximum HP reaches zero. Grief-Stricken: Its body turns gray, making this state visually recognizable. Depleting ordinary HP triggers this state for 10s instead of defeating it. Damage during this window reduces maximum HP. Ascendant Gleam: Bring at least two Moonsign characters to enable Ascendant Gleam. An ability enhanced by Moonsign: Ascendant Gleam can trigger Grief-Stricken early. During Grief-Stricken, 65% of damage taken reduces its maximum HP; Ascendant Gleam increases this to 90%. Reserve your strongest damage for these windows. Recovery: After a normal HP-depletion window, it can recover to its remaining maximum HP. During an early Gleam-triggered window it can still attack.",
+      "rec": "",
+      "key": "Ascendant Gleam",
+      "chars": "Aino,Flins,Ineffa,Columbina,Zibai,Linnea,Illuga,Jahoda"
+     },
+     {
+      "name": "Elite Assault · Saurian-Crowned Warrior pairs",
+      "enemies": "6 enemies total.\nWave 1: 1 Qucusaurus Warrior: Blazing Sky + 1 Qucusaurus Warrior: Heartstar Hammer.\nWave 2: 1 Iktomisaurus Warrior: Icy Tidebearer + 1 Iktomisaurus Warrior: Cryocrystal Cannon.\nWave 3: 1 Tepetlisaurus Warrior: Shard Striker + 1 Tepetlisaurus Warrior: Rockbreaker Blade.",
+      "res": "Qucusaurus Warrior: Blazing Sky: Physical -20%.\nQucusaurus Warrior: Heartstar Hammer: Physical -20%.\nIktomisaurus Warrior: Icy Tidebearer: Physical -20%.\nIktomisaurus Warrior: Cryocrystal Cannon: Physical -20%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 20s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "8": {
+    "level": 95,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Battle-Hardened Samachurl",
+      "enemies": "",
+      "res": "Battle-Hardened Samachurl: Cooking: all damage types 120%. Satisfied: all damage types 120%. Paralyzed: all damage types -50%.",
+      "req": "Clear: defeat all opponents within 1m 50s. | Star Challenge: finish within 1m 15s.",
+      "mech": "Cooking Progress Meter: The meter fills while the bonfire beneath the pot is lit. The fire has 1U of Pyro gauge. Hydro, Electro, Cryo, Anemo, or Geo can extinguish it and stop the meter from filling; this does not destroy the pot. Delicious Hot Pot: The pot has 30U of Geo gauge. Use Geo or other blunt attacks to destroy it before cooking finishes. Reignition: Fire circles appear at random positions roughly every 3s and relight the fire if they hit the pot. One extinguish is usually enough: a circle is unlikely to hit the pot, and a late relight usually leaves too little time to finish cooking. Retry if an unlucky relight lets the meter fill. Pot Destroyed: Breaking the pot deals True Physical damage equal to 10% of the boss's Max HP plus the damage dealt to the pot, capped at 20% of the boss's Max HP. It also paralyzes the boss and opens a 10s weakened damage window. Failed Pot Break: If the pot survives the 16s deadline with unfinished soup, the boss becomes Enraged for 30s, doubling its ATK. If cooking finishes, it becomes Satisfied for 30s and recovers 20% of its Max HP. Extinguishing the fire alone does not complete the mechanic.",
+      "rec": "",
+      "key": "Geo / Blunt Attacks",
+      "chars": "Zibai,Noelle,Navia,Zhongli"
+     }
+    ]
+   },
+   "9": {
+    "level": 95,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal bounty · Stonehide Lawachurl and Hilichurls",
+      "enemies": "",
+      "res": "Stonehide Lawachurl: Physical 50%; Geo 70%.",
+      "req": "Clear: defeat 2 bounty opponents within 1m 25s. | Star Challenge: complete the bounty objective within 55s. | Active enemies: 1.",
+      "mech": "Bounty Priority: Focus the marked Stonehide Lawachurls. Smaller Hilichurls do not advance the bounty target. Stone Force: Its ward has 20U of Geo gauge. It enables stronger attacks without changing the Lawachurl's resistance.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal bounty · Landcruisers",
+      "enemies": "",
+      "res": "",
+      "req": "Clear: defeat 2 bounty opponents within 1m 40s. | Star Challenge: complete the bounty objective within 1m 5s. | Active enemies: 1.",
+      "mech": "Bounty Priority: The Cutting Edge All-Purpose Storm Landcruiser is the target. Supporting Landcruisers do not count toward the bounty total. Interrupt: During the bounty's powered melee sequence or sustained barrage, trigger Electro-Charged or Lunar-Charged four times to interrupt and paralyze it for 2s.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault bounty · Ruin machines",
+      "enemies": "",
+      "res": "Ruin Grader: Physical 70%.\nRuin Guard: Physical 70%.\nRuin Scout: Physical 50%.\nRuin Destroyer: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Cruiser: Physical 30%.",
+      "req": "Clear: defeat 3 bounty opponents within 1m 40s. | Star Challenge: complete the bounty objective within 1m 5s. | Active enemies: 1.",
+      "mech": "Bounty Priority: Ruin Guards and Ruin Graders are the targets. Supporting Sentinels do not advance the bounty requirement, so focus damage on the marked large machines. Ruin Guard: Hit its exposed eye or rear core twice in quick succession to paralyze it for roughly 15s. Ruin Grader: Strike glowing ankle and eye weak points during its attacks. Each weak-point system stays disabled for roughly 20s. Disabling both fully paralyzes it until one system recovers; the remaining paralysis time depends on when each was disabled.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "10": {
+    "level": 100,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Radiant Moonfly",
+      "enemies": "",
+      "res": "Radiant Moonfly: Pyro, Dendro 70%.",
+      "req": "Clear: defeat all opponents within 1m 45s. | Star Challenge: finish within 1m 10s.",
+      "mech": "Radiant Cocoon: Its opening energy blast marks affected characters and causes HP loss. While marked, they lose 50% Damage Bonus, 40% Incoming Healing Bonus, and 100% CRIT Rate. Favonius weapons cannot trigger if the character can no longer score a critical hit; Lunar and Stellar damage are affected by the CRIT loss too. Avoid the Mark: Use invincibility frames (i-frames) to avoid the debuff on your active character. They then need no healing to clear it, but cannot gain the buff awarded for clearing it through healing. Alternatively, bait the Moonfly away from the center, then run to the opposite side of the arena to stay outside the attack's range and avoid the debuff entirely. Remove the Mark: Heal affected damage dealers to full HP. Teamwide healing helps when several characters contribute damage; a carry with strong self-healing may handle its own mark. Clearing the mark removes its penalties and grants 15% CRIT Rate and 50% Damage Bonus for 15s. Attack Cycle: It alternates Dendro and Pyro attack sequences, then releases an arena-wide blast before 15s of exhaustion. Use healing to recover your damage output while avoiding its projectiles and blasts.",
+      "rec": "",
+      "key": "Healing",
+      "chars": "Sigewinne,Sangonomiya Kokomi,Barbara,Alyosha,Qiqi,Linnea,Noelle,Dori,Kuki Shinobu,Jahoda,Vodyanitsa,Xilonen,Furina"
+     }
+    ]
+   }
+  },
+  "Lunar": {
+   "1": {
+    "level": 85,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Oprichniki patrol",
+      "enemies": "6 enemies total.\nWave 1: 2 Oprichniki Line Trooper + 1 Oprichniki Hailstorm Cannoneer.\nWave 2: 1 Oprichniki Support Trooper + 2 Oprichniki Hailstorm Cannoneer.",
+      "res": "Oprichniki Line Trooper: Physical -20%.\nOprichniki Hailstorm Cannoneer: Physical -20%.\nOprichniki Support Trooper: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 20s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Vishap pair",
+      "enemies": "2 enemies total.\nWave 1: 1 Geovishap (Pyro).\nWave 2: 1 Primordial Bathysmal Vishap.",
+      "res": "Geovishap: Physical 30%; Geo 50%.\nPrimordial Bathysmal Vishap: Physical, Hydro 30%.\nThe Geovishap's Pyro transformation adds 20% Pyro RES.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 25s.",
+      "mech": "Primordial Bathysmal Vishap: Cleansing Shower drains 10 Energy from the active character. If they have less than 10 Energy, it also causes HP loss.",
+      "rec": "Electro",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tepetlisaurus and Iktomisaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tepetlisaurus + 1 Tepetlisaurus Warrior: Shard Striker + 1 Tepetlisaurus Warrior: Rockbreaker Blade.\nWave 2: 1 Iktomisaurus + 1 Iktomisaurus Warrior: Icy Tidebearer + 1 Iktomisaurus Warrior: Cryocrystal Cannon.",
+      "res": "Tepetlisaurus: Geo 50%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.\nIktomisaurus: Cryo 50%.\nIktomisaurus Warrior: Icy Tidebearer: Physical -20%.\nIktomisaurus Warrior: Cryocrystal Cannon: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 15s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "2": {
+    "level": 85,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Fluid Avatars of Lava",
+      "enemies": "2 enemies in one wave: 2 × Fluid Avatar of Lava.",
+      "res": "Fluid Avatar of Lava: Pyro 70%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "Permanent Pyro Aura: The Fluid Avatar of Lava always has a Pyro infusion. Hydro attacks can trigger Vaporize and Electro attacks can trigger Overloaded without applying Pyro yourself.",
+      "rec": "Hydro",
+      "key": "",
+      "chars": "Mualani"
+     },
+     {
+      "name": "Normal · Tatankasaurus group",
+      "enemies": "5 enemies total.\nWave 1: 3 Tatankasaurus.\nWave 2: 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.",
+      "res": "Tatankasaurus: Electro 50%.\nTatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Tatankasaurus and Qucusaurus groups",
+      "enemies": "6 enemies total.\nWave 1: 1 Tatankasaurus + 1 Tatankasaurus Warrior: Skybreaker + 1 Tatankasaurus Warrior: Spiritlight Chaser.\nWave 2: 1 Qucusaurus + 1 Qucusaurus Warrior: Heartstar Hammer + 1 Qucusaurus Warrior: Blazing Sky.",
+      "res": "Tatankasaurus Warrior: Skybreaker: Physical -20%.\nTatankasaurus Warrior: Spiritlight Chaser: Physical -20%.\nTatankasaurus: Electro 50%.\nQucusaurus: Pyro 50%.\nQucusaurus Warrior: Heartstar Hammer: Physical -20%.\nQucusaurus Warrior: Blazing Sky: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "3": {
+    "level": 90,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Jadeplume Terrorshroom",
+      "enemies": "",
+      "res": "Jadeplume Terrorshroom: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 25%; Dendro 80%. Weak: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%; Dendro 55%.",
+      "req": "Clear: defeat all opponents within 1m 45s. | Star Challenge: finish within 1m 10s.",
+      "mech": "Fury Meter: Electro hits add 2% to the Fury meter; Quicken, Aggravate, and Spread add 15%. Pyro hits remove 34%. Several attacks apply Dendro to the boss itself, letting Electro build the meter without a Dendro teammate. Activated State: A full meter triggers one empowered attack sequence followed by roughly 15s of exhaustion. This mechanic also reduces all RES by 25%. Prepare your main damage window for that collapse. The empowered attack is random. Furious Charge sends it dashing across the arena twice, making it harder to hit and potentially wasting time before it collapses.",
+      "rec": "",
+      "key": "Electro Hits",
+      "chars": ""
+     }
+    ]
+   },
+   "4": {
+    "level": 90,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Defense Sequence · Saurian-Crowned Warriors",
+      "enemies": "",
+      "res": "Qucusaurus Warrior: Heartstar Hammer: Physical -20%.\nQucusaurus Warrior: Blazing Sky: Physical -20%.\nYumkasaurus Warrior: Flowing Skyfire: Physical -20%.\nYumkasaurus Warrior: Whirling Leaves: Physical -20%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 10s countdown; each defeat removes 15s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Defense Sequence · Landcruisers and Oprichniki",
+      "enemies": "",
+      "res": "Oprichniki Grenadier: Physical -20%.\nOprichniki Bombardier: Physical -20%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 20s countdown; each defeat removes 20s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2.",
+      "mech": "Landcruisers: Trigger Electro-Charged or Lunar-Charged four times during an empowered attack to interrupt and paralyze it for 2s (Storm) or 5s (Fire Support).",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "High-Pressure Defense · Ruin machines",
+      "enemies": "",
+      "res": "Ruin Guard: Physical 70%.\nRuin Grader: Physical 70%.\nRuin Scout: Physical 50%.\nRuin Destroyer: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Cruiser: Physical 30%.",
+      "req": "Clear: protect the Ley Line Monolith through a 3m 20s countdown; each defeat removes 20s. | Star Challenge: finish with at least 35% monolith HP. | Active enemies: 2 or 3.",
+      "mech": "Ruin Guard: Hit its exposed eye or rear core twice in quick succession to paralyze it for roughly 15s. Ruin Grader: Strike glowing ankle and eye weak points when exposed. Each weak-point system stays disabled for roughly 20s. Disabling both fully paralyzes it until one system recovers; the remaining paralysis time depends on when each was disabled. Sentinels: Hit exposed cores twice to paralyze them for roughly 15s. The Scout exposes its core before a headbutt; the Destroyer exposes it during beam-field and vacuum attacks. Move around a Defender's frontal ward rather than attacking into it.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "5": {
+    "level": 90,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Ruin Sentinels",
+      "enemies": "",
+      "res": "Ruin Scout: Physical 50%.\nRuin Cruiser: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Destroyer: Physical 30%.",
+      "req": "Clear: defeat at least 7 opponents within 2m. | Star Challenge: defeat 9 opponents. | Active enemies: 2.",
+      "mech": "Weak Points: Hit a Sentinel's exposed core twice to paralyze it for roughly 15s. The Scout exposes its core before its headbutt, the Cruiser during several charged shots, and the Destroyer during beam-field and vacuum attacks. Defender: Its raised ward blocks attacks from the front.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Hydro Mimics",
+      "enemies": "",
+      "res": "Hydro Mimic Boar: Physical, Electro, Cryo, Dendro, Anemo, Geo 15%; Pyro -40%; Hydro immune.\nHydro Mimic Crane: Physical, Pyro, Cryo, Dendro, Anemo, Geo 15%; Hydro immune; Electro -40%.\nHydro Mimic Squirrel: Physical, Electro, Cryo, Dendro, Anemo, Geo 15%; Pyro -40%; Hydro immune.\nHydro Mimic Mallard: Physical, Pyro, Electro, Dendro, Anemo, Geo 15%; Hydro immune; Cryo -40%.\nHydro Mimic Finch: Physical, Pyro, Electro, Cryo, Dendro, Anemo 15%; Hydro immune; Geo -40%.\nHydro Mimic Crab: Physical, Pyro, Electro, Dendro, Anemo, Geo 15%; Hydro immune; Cryo -40%.\nHydro Mimic Frog: Physical, Pyro, Electro, Cryo, Dendro, Anemo 15%; Hydro immune; Geo -40%.",
+      "req": "Clear: defeat at least 20 opponents within 2m. | Star Challenge: defeat 24 opponents. | Active enemies: 3.",
+      "mech": "Innate Hydro: Hydro damage is ineffective because the Mimics are immune. Their permanent Hydro aura lets Electro trigger Electro-Charged or Lunar-Charged, and Geo trigger Crystallize or Lunar-Crystallize, without bringing a Hydro character.",
+      "rec": "",
+      "key": "avoid:Avoid Hydro",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault · Kairagi and Nobushi",
+      "enemies": "",
+      "res": "Kairagi: Fiery Might: Physical -20%.\nKairagi: Dancing Thunder: Physical -20%.\nNobushi: Hitsukeban: Physical -20%.\nNobushi: Kikouban: Physical -20%.",
+      "req": "Clear: defeat at least 12 opponents within 2m. | Star Challenge: defeat 15 opponents. | Active enemies: 3.",
+      "mech": "Kairagi Pair: When one dies, a surviving Kairagi can enter its revenge state, recover 50% of its Max HP, gain interruption resistance, and become immune to Freeze and petrification. When a pair is active, lower both together and try to finish them close together.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "6": {
+    "level": 92,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Whisperer of Nightmares",
+      "enemies": "",
+      "res": "Lord of the Hidden Depths: Whisperer of Nightmares: Weak: all damage types -60%.",
+      "req": "Clear: defeat all opponents within 1m 50s. | Star Challenge: finish within 1m 15s.",
+      "mech": "Deepdark Ward: The boss moves to the center and creates a ward worth 45% of its Max HP. Only elemental and reaction damage reduces it; Physical damage does not. Lunar Reaction damage deals 3 times its normal damage to the ward. Fishers: Four appear during the charge. Each defeated Fisher removes 25% of the boss's ward, so defeating all four can break it without directly attacking the boss. Ward Break: Breaking it before the charge finishes deals 20% of the boss's Max HP to it, defeats surviving Fishers, paralyzes the boss for 10s. Ward break also reduces all RES by 70%. Save damage for the weakened window. Failed Ward Break: If the ward remains when charging finishes, the boss consumes its Fishers and releases a powerful arena-wide attack. It takes no ward-break damage and does not become weakened or paralyzed.",
+      "rec": "",
+      "key": "Lunar Damage",
+      "chars": "Flins,Ineffa,Columbina,Zibai,Linnea"
+     }
+    ]
+   },
+   "7": {
+    "level": 92,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal · Consecrated beasts",
+      "enemies": "2 enemies in one wave: the Consecrated Red Vulture and Consecrated Scorpion.",
+      "res": "Consecrated Red Vulture: Consecrated Enhance: Physical, Hydro, Electro, Cryo, Dendro, Anemo, Geo 40%; Pyro 70%.\nConsecrated Scorpion: Consecrated Enhance: Physical, Pyro, Hydro, Cryo, Dendro, Anemo, Geo 40%; Electro 70%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 5s.",
+      "mech": "Energy Blocks: After their special attacks, a Beast can release a block lasting 6s. The Scorpion's takes one Electro hit or six other elemental hits; the Vulture's takes one Pyro hit or six other elemental hits. Without a Pyro character, use repeated elemental hits for the Vulture. Counterattack: Breaking a block grants energy for 10s. Hit the corresponding Beast before it expires to consume it, deal 15% of the Beast's Max HP as damage, and paralyze it for roughly 10s. Holding the energy causes party HP loss, so use it promptly. Resistance Change: The Beast exits its enhanced form during the mechanic and returns to it if the block or absorbed energy is not used in time. Its Freeze resistance makes Freeze less reliable for stopping its attacks.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal · Wilderness Hunter",
+      "enemies": "1 enemy in one wave: Wilderness Hunter.",
+      "res": "",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 35s.",
+      "mech": "Maximum HP Bar: The gray section filling from the right shows how much maximum HP has been removed. The Hunter is only defeated when its maximum HP reaches zero. Grief-Stricken: Its body turns gray, making this state visually recognizable. Depleting ordinary HP triggers this state for 10s instead of defeating it. Damage during this window reduces maximum HP. Ascendant Gleam: Bring at least two Moonsign characters to enable Ascendant Gleam. An ability enhanced by Moonsign: Ascendant Gleam can trigger Grief-Stricken early. During Grief-Stricken, 65% of damage taken reduces its maximum HP; Ascendant Gleam increases this to 90%. Reserve your strongest damage for these windows. Recovery: After a normal HP-depletion window, it can recover to its remaining maximum HP. During an early Gleam-triggered window it can still attack.",
+      "rec": "",
+      "key": "Ascendant Gleam",
+      "chars": "Aino,Flins,Ineffa,Columbina,Zibai,Linnea,Illuga,Jahoda"
+     },
+     {
+      "name": "Elite Assault · Saurian-Crowned Warrior pairs",
+      "enemies": "6 enemies total.\nWave 1: 1 Qucusaurus Warrior: Blazing Sky + 1 Qucusaurus Warrior: Heartstar Hammer.\nWave 2: 1 Iktomisaurus Warrior: Icy Tidebearer + 1 Iktomisaurus Warrior: Cryocrystal Cannon.\nWave 3: 1 Tepetlisaurus Warrior: Shard Striker + 1 Tepetlisaurus Warrior: Rockbreaker Blade.",
+      "res": "Qucusaurus Warrior: Blazing Sky: Physical -20%.\nQucusaurus Warrior: Heartstar Hammer: Physical -20%.\nIktomisaurus Warrior: Icy Tidebearer: Physical -20%.\nIktomisaurus Warrior: Cryocrystal Cannon: Physical -20%.\nTepetlisaurus Warrior: Shard Striker: Physical -20%.\nTepetlisaurus Warrior: Rockbreaker Blade: Physical -20%.",
+      "req": "Clear: defeat all opponents. | Star Challenge: finish within 1m 20s.",
+      "mech": "",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "8": {
+    "level": 95,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Battle-Hardened Samachurl",
+      "enemies": "",
+      "res": "Battle-Hardened Samachurl: Cooking: all damage types 120%. Satisfied: all damage types 120%. Paralyzed: all damage types -50%.",
+      "req": "Clear: defeat all opponents within 1m 50s. | Star Challenge: finish within 1m 15s.",
+      "mech": "Cooking Progress Meter: The meter fills while the bonfire beneath the pot is lit. The fire has 1U of Pyro gauge. Hydro, Electro, Cryo, Anemo, or Geo can extinguish it and stop the meter from filling; this does not destroy the pot. Delicious Hot Pot: The pot has 30U of Geo gauge. Use Geo or other blunt attacks to destroy it before cooking finishes. Reignition: Fire circles appear at random positions roughly every 3s and relight the fire if they hit the pot. One extinguish is usually enough: a circle is unlikely to hit the pot, and a late relight usually leaves too little time to finish cooking. Retry if an unlucky relight lets the meter fill. Pot Destroyed: Breaking the pot deals True Physical damage equal to 10% of the boss's Max HP plus the damage dealt to the pot, capped at 20% of the boss's Max HP. It also paralyzes the boss and opens a 10s weakened damage window. Failed Pot Break: If the pot survives the 16s deadline with unfinished soup, the boss becomes Enraged for 30s, doubling its ATK. If cooking finishes, it becomes Satisfied for 30s and recovers 20% of its Max HP. Extinguishing the fire alone does not complete the mechanic.",
+      "rec": "",
+      "key": "Geo / Blunt Attacks",
+      "chars": "Zibai,Noelle,Navia,Zhongli"
+     }
+    ]
+   },
+   "9": {
+    "level": 95,
+    "boss": false,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Normal bounty · Stonehide Lawachurl and Hilichurls",
+      "enemies": "",
+      "res": "Stonehide Lawachurl: Physical 50%; Geo 70%.",
+      "req": "Clear: defeat 2 bounty opponents within 1m 25s. | Star Challenge: complete the bounty objective within 55s. | Active enemies: 1.",
+      "mech": "Bounty Priority: Focus the marked Stonehide Lawachurls. Smaller Hilichurls do not advance the bounty target. Stone Force: Its ward has 20U of Geo gauge. It enables stronger attacks without changing the Lawachurl's resistance.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Normal bounty · Landcruisers",
+      "enemies": "",
+      "res": "",
+      "req": "Clear: defeat 2 bounty opponents within 1m 40s. | Star Challenge: complete the bounty objective within 1m 5s. | Active enemies: 1.",
+      "mech": "Bounty Priority: The Cutting Edge All-Purpose Storm Landcruiser is the target. Supporting Landcruisers do not count toward the bounty total. Interrupt: During the bounty's powered melee sequence or sustained barrage, trigger Electro-Charged or Lunar-Charged four times to interrupt and paralyze it for 2s.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     },
+     {
+      "name": "Elite Assault bounty · Ruin machines",
+      "enemies": "",
+      "res": "Ruin Grader: Physical 70%.\nRuin Guard: Physical 70%.\nRuin Scout: Physical 50%.\nRuin Destroyer: Physical 30%.\nRuin Defender: Physical 50%.\nRuin Cruiser: Physical 30%.",
+      "req": "Clear: defeat 3 bounty opponents within 1m 40s. | Star Challenge: complete the bounty objective within 1m 5s. | Active enemies: 1.",
+      "mech": "Bounty Priority: Ruin Guards and Ruin Graders are the targets. Supporting Sentinels do not advance the bounty requirement, so focus damage on the marked large machines. Ruin Guard: Hit its exposed eye or rear core twice in quick succession to paralyze it for roughly 15s. Ruin Grader: Strike glowing ankle and eye weak points during its attacks. Each weak-point system stays disabled for roughly 20s. Disabling both fully paralyzes it until one system recovers; the remaining paralysis time depends on when each was disabled.",
+      "rec": "",
+      "key": "",
+      "chars": ""
+     }
+    ]
+   },
+   "10": {
+    "level": 100,
+    "boss": true,
+    "lunar": false,
+    "encounters": [
+     {
+      "name": "Climactic Showdown · Radiant Moonfly",
+      "enemies": "",
+      "res": "Radiant Moonfly: Pyro, Dendro 70%.",
+      "req": "Clear: defeat all opponents within 1m 45s. | Star Challenge: finish within 1m 10s.",
+      "mech": "Radiant Cocoon: Its opening energy blast marks affected characters and causes HP loss. While marked, they lose 50% Damage Bonus, 40% Incoming Healing Bonus, and 100% CRIT Rate. Favonius weapons cannot trigger if the character can no longer score a critical hit; Lunar and Stellar damage are affected by the CRIT loss too. Avoid the Mark: Use invincibility frames (i-frames) to avoid the debuff on your active character. They then need no healing to clear it, but cannot gain the buff awarded for clearing it through healing. Alternatively, bait the Moonfly away from the center, then run to the opposite side of the arena to stay outside the attack's range and avoid the debuff entirely. Remove the Mark: Heal affected damage dealers to full HP. Teamwide healing helps when several characters contribute damage; a carry with strong self-healing may handle its own mark. Clearing the mark removes its penalties and grants 15% CRIT Rate and 50% Damage Bonus for 15s. Attack Cycle: It alternates Dendro and Pyro attack sequences, then releases an arena-wide blast before 15s of exhaustion. Use healing to recover your damage output while avoiding its projectiles and blasts.",
+      "rec": "",
+      "key": "Healing",
+      "chars": "Sigewinne,Sangonomiya Kokomi,Barbara,Alyosha,Qiqi,Linnea,Noelle,Dori,Kuki Shinobu,Jahoda,Vodyanitsa,Xilonen,Furina"
+     }
+    ]
+   },
+   "11": {
+    "level": 100,
+    "boss": false,
+    "lunar": true,
+    "encounters": [
+     {
+      "name": "Arcana Challenge 1 · Consecrated beasts",
+      "enemies": "",
+      "res": "Consecrated Fanged Beast: Consecrated Enhance: Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 40%; Dendro 70%.\nConsecrated Scorpion: Consecrated Enhance: Physical, Pyro, Hydro, Cryo, Dendro, Anemo, Geo 40%; Electro 70%.\nConsecrated Horned Crocodile: Consecrated Enhance: Physical, Pyro, Electro, Cryo, Dendro, Anemo, Geo 40%; Hydro 70%.\nConsecrated Red Vulture: Consecrated Enhance: Physical, Hydro, Electro, Cryo, Dendro, Anemo, Geo 40%; Pyro 70%.",
+      "req": "Clear: survive the 6m initial countdown with at least one character standing; each defeat removes 30s. | Star Challenge: defeat 10 opponents. | Active enemies: 1.",
+      "mech": "",
+      "rec": "",
+      "key": "Healing;Shielding",
+      "chars": ""
+     }
+    ]
+   },
+   "12": {
+    "level": 100,
+    "boss": false,
+    "lunar": true,
+    "encounters": [
+     {
+      "name": "Arcana Challenge 2 · Potapo’s Solidarity",
+      "enemies": "",
+      "res": "Potapo's Solidarity: Secret Shadow's Re-Emergence: Cryo 50%.",
+      "req": "Clear: defeat all opponents within 2m 5s. | Star Challenge: finish within 1m 25s.",
+      "mech": "Protection Spirit HP: Healing received by your party also fills the friendly Protection Spirit's HP bar. At full HP, it attacks the Hostile Spirit. Continue healing to strengthen its attack and trigger the stronger Decisive attack.",
+      "rec": "",
+      "key": "Healing",
+      "chars": "Sigewinne,Sangonomiya Kokomi,Barbara,Alyosha,Qiqi,Linnea,Noelle,Dori,Kuki Shinobu,Jahoda,Vodyanitsa,Xilonen,Furina"
+     }
+    ]
+   }
+  }
+ }
+}
