@@ -50,6 +50,7 @@ internal sealed class OverlayForm : Form
     private RosterData _roster;
     private GuideWindow _guide;
     private LlmAdvisor _llm;
+    private GuideNotes _notes;
     private int? _llmForAct;
     private string _bucketKey = "";
     private int? _currentAct;
@@ -80,6 +81,7 @@ internal sealed class OverlayForm : Form
         _roster = RosterData.TryLoad(Path.Combine(AppContext.BaseDirectory, "roster.json"));
 
         _llm = LlmAdvisor.TryLoad(Path.Combine(AppContext.BaseDirectory, "data", "llm.json"));
+        _notes = GuideNotes.Load(Path.Combine(AppContext.BaseDirectory, "data", "guide-notes.json"));
         LoadTemplatesFor(0, 0);
 
         _timer.Tick += OnTick;
@@ -193,6 +195,11 @@ internal sealed class OverlayForm : Form
             _header = advice.Header;
             _lines.Clear();
             _lines.AddRange(advice.Lines);
+            if (advice.Act.HasValue)
+            {
+                var note = _notes.ActNote(advice.Act.Value);
+                if (!string.IsNullOrWhiteSpace(note)) _lines.Add("节奏: " + note);
+            }
             _lastCaptureHint = advice.Diagnostics;
             _currentAct = advice.Act;
 
