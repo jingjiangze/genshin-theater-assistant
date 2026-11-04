@@ -143,6 +143,47 @@ internal sealed class OcrService : IDisposable
         });
     }
 
+    /// <summary>
+    /// 只识别一个相对区域（0~1），并可放大若干倍——用于「第N幕」这种小字。
+    /// 区域相对整个窗口，天然适配任意分辨率。
+    /// </summary>
+    public Task<string> RecognizeRegionAsync(Bitmap frame, RectangleF relative, int scale = 2)
+    {
+        if (!_ready || _ocr == null) return Task.FromResult<string>(null);
+
+        return Task.Run(() =>
+        {
+            try
+            {
+                int x = (int)(frame.Width * relative.X);
+                int y = (int)(frame.Height * relative.Y);
+                int w = Math.Max(8, (int)(frame.Width * relative.Width));
+                int h = Math.Max(8, (int)(frame.Height * relative.Height));
+                if (x + w > frame.Width) w = frame.Width - x;
+                if (y + h > frame.Height) h = frame.Height - y;
+                if (w <= 0 || h <= 0) return null;
+
+                using var crop = frame.Clone(new Rectangle(x, y, w, h), System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                using var scaled = new Bitmap(Math.Max(8, w * scale), Math.Max(8, h * scale));
+                using (var g = Graphics.FromImage(scaled))
+                {
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(crop, 0, 0, scaled.Width, scaled.Height);
+                }
+
+                using var ms = new MemoryStream();
+                scaled.Save(ms, ImageFormat.Png);
+                ms.Position = 0;
+                using var sk = SKBitmap.Decode(ms.ToArray());
+                if (sk == null) return null;
+
+                var result = _ocr.Detect(sk, RapidOcrNet.RapidOcrOptions.Default);
+                return result?.StrRes ?? "";
+            }
+            catch { return null; }
+        });
+    }
+
     public void Dispose()
     {
         try { _ocr?.Dispose(); } catch { }
