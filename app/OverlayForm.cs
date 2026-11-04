@@ -53,6 +53,7 @@ internal sealed class OverlayForm : Form
     private GuideNotes _notes;
     private int? _llmForAct;
     private string _bucketKey = "";
+    private readonly HashSet<int> _autoSaved = new();
     private int? _currentAct;
     private TheaterData _theater;
 
@@ -191,6 +192,19 @@ internal sealed class OverlayForm : Form
             var hits = Matcher.Scan(bmp, _templates);
             string text = await _ocr.RecognizeAsync(bmp) ?? "";
             var advice = TheaterLogic.Evaluate(hits, text, _theater, _roster);
+
+            // 没有模板时，自动为每个识别到的幕存一张原始帧，作为后续做模板的素材
+            if (advice.Act.HasValue && _templates.Count == 0 && _autoSaved.Add(advice.Act.Value))
+            {
+                try
+                {
+                    var dir = Path.Combine(AppContext.BaseDirectory, "samples", "auto");
+                    Directory.CreateDirectory(dir);
+                    bmp.Save(Path.Combine(dir, $"act{advice.Act.Value}-{bmp.Width}x{bmp.Height}.png"),
+                             System.Drawing.Imaging.ImageFormat.Png);
+                }
+                catch { }
+            }
 
             _header = advice.Header;
             _lines.Clear();
