@@ -200,6 +200,10 @@ internal sealed class OverlayForm : Form
                 var note = _notes.ActNote(advice.Act.Value);
                 if (!string.IsNullOrWhiteSpace(note)) _lines.Add("节奏: " + note);
             }
+            else if (!string.IsNullOrWhiteSpace(_ocr.Status))
+            {
+                _lines.Add("OCR: " + _ocr.Status);
+            }
             _lastCaptureHint = advice.Diagnostics;
             _currentAct = advice.Act;
 

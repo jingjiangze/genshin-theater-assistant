@@ -41,11 +41,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <!-- OCR 模型（内置）。缺省时程序自动降级为"仅模板匹配" -->
-    <Content Include="models\**\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <!-- OCR 模型：作为嵌入资源打进单文件 exe，运行时解压到 %LOCALAPPDATA%\TheaterAssistant\models -->
+    <EmbeddedResource Include="models\**\*.onnx" />
+    <EmbeddedResource Include="models\**\*.txt" />
   </ItemGroup>
 
 </Project>

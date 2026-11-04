@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using SkiaSharp;
 
@@ -27,6 +27,7 @@ internal sealed class OcrService : IDisposable
         {
             try
             {
+                modelsDir = ExtractEmbeddedModels() ?? modelsDir;
                 var v6Det = Path.Combine(modelsDir, "v6", "PP-OCRv6_det_small.onnx");
                 var v6Rec = Path.Combine(modelsDir, "v6", "PP-OCRv6_rec_small.onnx");
                 var v6Key = Path.Combine(modelsDir, "v6", "ppocrv6_small_dict.txt");
@@ -64,6 +65,56 @@ internal sealed class OcrService : IDisposable
                 _ready = false;
             }
         });
+    }
+
+    /// <summary>
+    /// 把嵌入在 exe 里的模型解压到 %LOCALAPPDATA%\TheaterAssistant\models，
+    /// 返回模型根目录；没有嵌入资源时返回 null（调用方回退到 exe 同级目录）。
+    /// </summary>
+    private static string ExtractEmbeddedModels()
+    {
+        try
+        {
+            var asm = typeof(OcrService).Assembly;
+            var res = asm.GetManifestResourceNames()
+                .Where(n => n.Contains(".models.", StringComparison.OrdinalIgnoreCase)
+                            && (n.EndsWith(".onnx", StringComparison.OrdinalIgnoreCase)
+                                || n.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)))
+                .ToList();
+            if (res.Count == 0) return null;
+
+            var root = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "TheaterAssistant", "models");
+
+            foreach (var name in res)
+            {
+                var idx = name.IndexOf(".models.", StringComparison.OrdinalIgnoreCase);
+                var rel = name[(idx + ".models.".Length)..];      // 例：v5.ch_PP-OCRv5_rec_mobile_infer.onnx
+                var dot = rel.IndexOf('.');
+                if (dot <= 0) continue;
+
+                var dir = Path.Combine(root, rel[..dot]);
+                var file = rel[(dot + 1)..];
+                var dest = Path.Combine(dir, file);
+                Directory.CreateDirectory(dir);
+
+                using var stream = asm.GetManifestResourceStream(name);
+                if (stream == null) continue;
+
+                // 已存在且大小一致就跳过，避免每次启动都写盘
+                if (File.Exists(dest) && new FileInfo(dest).Length == stream.Length) continue;
+
+                using var fs = File.Create(dest);
+                stream.CopyTo(fs);
+            }
+
+            return root;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     /// <summary>识别整帧文字；未就绪/失败返回 null（调用方按"无 OCR"处理）。</summary>
