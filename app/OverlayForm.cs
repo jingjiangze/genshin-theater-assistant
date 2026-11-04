@@ -199,7 +199,7 @@ internal sealed class OverlayForm : Form
             var advice = TheaterLogic.Evaluate(hits, text, _theater, _roster);
             if (!advice.Act.HasValue)
             {
-                var bandText = await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.30f, 0.84f, 0.25f, 0.08f), 4);
+                var bandText = await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3);
                 if (!string.IsNullOrWhiteSpace(bandText))
                     advice = TheaterLogic.Evaluate(hits, text + " " + bandText, _theater, _roster, bandText);
             }

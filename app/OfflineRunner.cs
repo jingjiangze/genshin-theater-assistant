@@ -55,13 +55,13 @@ internal static class OfflineRunner
             var ocr = new OcrService();
             ocr.InitializeAsync(Path.Combine(baseDir, "models")).GetAwaiter().GetResult();
             var text = ocr.RecognizeAsync(img).GetAwaiter().GetResult() ?? "";
-            string ocr2(Bitmap b, RectangleF rel) => ocr.RecognizeRegionAsync(b, rel, 4).GetAwaiter().GetResult() ?? "";
+            string ocr2(Bitmap b, RectangleF rel) => ocr.RecognizeRegionAsync(b, rel, 3).GetAwaiter().GetResult() ?? "";
 
             var advice = TheaterLogic.Evaluate(hits, text, theater, roster);
             // 幕次标签是小字：整帧没认出时，单独放大识别底部中央条带
             if (!advice.Act.HasValue)
             {
-                var band = new RectangleF(0.30f, 0.84f, 0.25f, 0.08f);
+                var band = new RectangleF(0.28f, 0.82f, 0.46f, 0.14f);
                 var bandText = ocr2(img, band);
                 lines.Add("bandraw : " + (bandText ?? "<null>"));
                 if (!string.IsNullOrWhiteSpace(bandText))
