@@ -6,6 +6,23 @@ using System.Windows.Forms;
 
 namespace TheaterAssistant;
 
+/// <summary>
+/// 单文件 exe 若开启 IncludeAllContentForSelfExtract，AppPaths.Dir 可能指向解包临时目录；
+/// 用户自己放在 exe 旁边的 templates/data 就找不到。统一以 exe 所在目录为准。
+/// </summary>
+internal static class AppPaths
+{
+    public static string Dir
+    {
+        get
+        {
+            var p = Environment.ProcessPath;
+            var d = string.IsNullOrEmpty(p) ? null : Path.GetDirectoryName(p);
+            return string.IsNullOrEmpty(d) ? AppContext.BaseDirectory : d;
+        }
+    }
+}
+
 internal static class Program
 {
     [STAThread]
@@ -83,11 +100,11 @@ internal sealed class OverlayForm : Form
         DoubleBuffered = true;
         Text = "剧诗助手";
 
-        _theater = TheaterData.Load(Path.Combine(AppContext.BaseDirectory, "data", "season29.json"));
-        _roster = RosterData.TryLoad(Path.Combine(AppContext.BaseDirectory, "roster.json"));
+        _theater = TheaterData.Load(Path.Combine(AppPaths.Dir, "data", "season29.json"));
+        _roster = RosterData.TryLoad(Path.Combine(AppPaths.Dir, "roster.json"));
 
-        _llm = LlmAdvisor.TryLoad(Path.Combine(AppContext.BaseDirectory, "data", "llm.json"));
-        _notes = GuideNotes.Load(Path.Combine(AppContext.BaseDirectory, "data", "guide-notes.json"));
+        _llm = LlmAdvisor.TryLoad(Path.Combine(AppPaths.Dir, "data", "llm.json"));
+        _notes = GuideNotes.Load(Path.Combine(AppPaths.Dir, "data", "guide-notes.json"));
         LoadTemplatesFor(0, 0);
 
         _timer.Tick += OnTick;
@@ -116,7 +133,7 @@ internal sealed class OverlayForm : Form
         RegisterHotKey(Handle, HOTKEY_SAVE, MOD_CONTROL | MOD_ALT, (int)Keys.D);
         RegisterHotKey(Handle, HOTKEY_GUIDE, MOD_CONTROL | MOD_ALT, (int)Keys.G);
 
-        _ = _ocr.InitializeAsync(Path.Combine(AppContext.BaseDirectory, "models"));
+        _ = _ocr.InitializeAsync(Path.Combine(AppPaths.Dir, "models"));
         _timer.Start();
     }
 
@@ -209,7 +226,7 @@ internal sealed class OverlayForm : Form
             {
                 try
                 {
-                    var dir = Path.Combine(AppContext.BaseDirectory, "samples", "auto");
+                    var dir = Path.Combine(AppPaths.Dir, "samples", "auto");
                     Directory.CreateDirectory(dir);
                     bmp.Save(Path.Combine(dir, $"act{advice.Act.Value}-{bmp.Width}x{bmp.Height}.png"),
                              System.Drawing.Imaging.ImageFormat.Png);
@@ -280,7 +297,7 @@ internal sealed class OverlayForm : Form
     /// </summary>
     private void LoadTemplatesFor(int width, int height)
     {
-        var root = Path.Combine(AppContext.BaseDirectory, "templates");
+        var root = Path.Combine(AppPaths.Dir, "templates");
         if (!Directory.Exists(root)) return;
 
         var dir = root;
@@ -330,7 +347,7 @@ internal sealed class OverlayForm : Form
 
             using var bmp = ScreenCapture.CaptureClient(win);
             if (bmp == null) return;
-            var dir = Path.Combine(AppContext.BaseDirectory, "samples");
+            var dir = Path.Combine(AppPaths.Dir, "samples");
             Directory.CreateDirectory(dir);
             var p = Path.Combine(dir, $"dump-{DateTime.Now:HHmmss}.png");
             bmp.Save(p, System.Drawing.Imaging.ImageFormat.Png);

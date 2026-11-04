@@ -22,7 +22,7 @@ internal static class OfflineRunner
         {
             if (!File.Exists(imagePath)) throw new FileNotFoundException(imagePath);
 
-            var baseDir = AppContext.BaseDirectory;
+            var baseDir = AppPaths.Dir;
             var theater = TheaterData.Load(Path.Combine(baseDir, "data", "season29.json"));
             var roster = RosterData.TryLoad(Path.Combine(baseDir, "roster.json"));
             var notes = GuideNotes.Load(Path.Combine(baseDir, "data", "guide-notes.json"));
