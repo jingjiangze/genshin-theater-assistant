@@ -1,90 +1,33 @@
 name: release
 
 on:
-  push:
-    tags: [ 'v*' ]
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
 
 permissions:
   contents: write
 
 jobs:
-  release:
-    name: 打包并发布
+  build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-
-      - name: 版本号
-        id: ver
+      - name: publish
+        run: dotnet publish app/TheaterAssistant.csproj -c Release -o dist
+      - name: zip
         shell: powershell
         run: |
-          if ($env:GITHUB_REF -like 'refs/tags/v*') {
-            $v = $env:GITHUB_REF -replace '^refs/tags/v',''
-          } else {
-            $v = "0.0.0-" + $env:GITHUB_SHA.Substring(0,7)
-          }
-          "version=$v" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          Write-Host "version=$v"
-
-      # ---------- 1) 单文件 exe（不含中文 OCR 模型，靠模板匹配 + latin 兜底） ----------
-      - name: 单文件发布
-        run: >
-          dotnet publish app/TheaterAssistant.csproj -c Release -r win-x64
-          --self-contained true -p:Version=${{ steps.ver.outputs.version }} -o dist/single
-
-      # ---------- 2) 便携包（exe 文件夹 + PowerShell 版 + 数据 + 模板说明） ----------
-      - name: 组装便携包
-        shell: powershell
-        run: |
-          $out = "dist/TheaterAssistant-${{ steps.ver.outputs.version }}"
-          New-Item -ItemType Directory -Force -Path $out | Out-Null
-          Copy-Item dist/single/* $out -Recurse -Force
-          Copy-Item theater-overlay.ps1, crop-template.ps1, README.md, AUDIT-2026-11-05.md $out -Force
-          Copy-Item data $out -Recurse -Force
-          Copy-Item templates $out -Recurse -Force
-          New-Item -ItemType Directory -Force -Path "$out/models" | Out-Null
-          Copy-Item models/README.md "$out/models/" -Force
-          Get-ChildItem $out -Recurse -File | Measure-Object Length -Sum | ForEach-Object {
-            "便携包大小: {0:N1} MB" -f ($_.Sum / 1MB)
-          }
-
-      - name: 压缩
-        shell: powershell
-        run: |
-          $name = "TheaterAssistant-${{ steps.ver.outputs.version }}"
-          Compress-Archive -Path "dist/$name" -DestinationPath "dist/$name-win-x64.zip" -CompressionLevel Optimal
-          Copy-Item dist/single/TheaterAssistant.exe "dist/TheaterAssistant-${{ steps.ver.outputs.version }}-single.exe" -Force
-          Get-ChildItem dist -File | Select-Object Name, Length
-
-      - name: 校验和
-        shell: powershell
-        run: |
-          Get-ChildItem dist -File -Filter '*.exe' | ForEach-Object {
-            $h = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower()
-            "$h  $($_.Name)"
-          } | Out-File dist/SHA256SUMS.txt -Encoding ascii
-          Get-Content dist/SHA256SUMS.txt
-
-      - name: 上传 Release
-        uses: softprops/action-gh-release@v2
+          Compress-Archive -Path dist/* -DestinationPath TheaterAssistant-win-x64.zip -Force
+      - uses: actions/upload-artifact@v4
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Theater Assistant ${{ steps.ver.outputs.version }}
-          draft: true
-          files: |
-            dist/*.zip
-            dist/*-single.exe
-            dist/SHA256SUMS.txt
-          body: |
-            幻想真境剧诗助手 ${{ steps.ver.outputs.version }}
-
-            - `*-single.exe`：单文件，直接双击（未内置中文 OCR 模型，建议配合模板匹配使用）
-            - `*-win-x64.zip`：便携包，含 PowerShell 版 + 数据 + 模型放置说明
-            - 中文 OCR 需要自行放入 `models/v5` 或 `models/v6`，见包内 `models/README.md`
-
-            仅读屏幕像素，不注入、不读内存、不模拟输入。
+          name: TheaterAssistant
+          path: TheaterAssistant-win-x64.zip
+      - uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: TheaterAssistant-win-x64.zip
