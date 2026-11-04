@@ -20,7 +20,7 @@ jobs:
       - name: publish
         run: dotnet publish app/TheaterAssistant.csproj -c Release -o dist
       - name: zip
-        shell: powershell
+        shell: pwsh
         run: |
           Compress-Archive -Path dist/* -DestinationPath TheaterAssistant-win-x64.zip -Force
       - uses: actions/upload-artifact@v4

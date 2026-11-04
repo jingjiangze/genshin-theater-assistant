@@ -14,13 +14,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: 打印环境
-        shell: powershell
+        shell: pwsh
         run: |
           $PSVersionTable.PSVersion
           dotnet --version
 
       - name: 语法检查（所有 .ps1）
-        shell: powershell
+        shell: pwsh
         run: |
           $bad = 0
           Get-ChildItem -Recurse -Filter *.ps1 -File | ForEach-Object {
@@ -35,7 +35,7 @@ jobs:
           Write-Host "语法检查通过"
 
       - name: 测试套件
-        shell: powershell
+        shell: pwsh
         run: |
           .\tests\run-tests.ps1
           if ($LASTEXITCODE -ne 0) { throw "测试失败 (exit $LASTEXITCODE)" }
@@ -62,7 +62,7 @@ jobs:
           --self-contained true -o dist --no-restore
 
       - name: 产物信息
-        shell: powershell
+        shell: pwsh
         run: |
           Get-ChildItem dist | Select-Object Name, Length
           if (-not (Test-Path dist/TheaterAssistant.exe)) { throw "没有产出 exe" }
