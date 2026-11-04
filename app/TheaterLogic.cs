@@ -28,6 +28,7 @@ internal sealed class TheaterData
         public string Req;
         public string Mech;
         public string Rec;
+        public string Chars;
     }
 
     public static TheaterData Load(string path)
@@ -64,7 +65,8 @@ internal sealed class TheaterData
                                 Res = Str(e, "res"),
                                 Req = Str(e, "req"),
                                 Mech = Str(e, "mech"),
-                                Rec = Str(e, "rec")
+                                Rec = Str(e, "rec"),
+                                Chars = Str(e, "chars")
                             });
                         }
                     }
@@ -161,6 +163,19 @@ internal sealed class RosterData
         if (string.IsNullOrEmpty(n)) return "";
         var k = new string(n.Where(char.IsLetterOrDigit).ToArray()).ToLowerInvariant();
         return Alias.TryGetValue(k, out var alias) ? alias : k;
+    }
+
+    public bool Owns(string name) => _owned.ContainsKey(Norm(name));
+
+    public int CountElement(TheaterData t, string element, int minLevel)
+    {
+        int n = 0;
+        foreach (var kv in _owned)
+        {
+            if (kv.Key == "traveler" || kv.Value < minLevel) continue;
+            if (_element.TryGetValue(kv.Key, out var el) && string.Equals(el, element, StringComparison.OrdinalIgnoreCase)) n++;
+        }
+        return n;
     }
 
     /// <summary>返回 (可出场人数, 最高可进档位, 明细)。未加载角色池时返回 null。</summary>
@@ -261,8 +276,18 @@ internal static class TheaterLogic
 
             if (a != null && a.Encounters.Count > 0)
             {
-                var e = a.Encounters[0];
-                if (!string.IsNullOrEmpty(e.Req)) lines.Add("限时/星章: " + e.Req);
+                var ranked = PlanRanker.Rank(a.Encounters, roster, data);
+                var top = ranked[0];
+                if (!string.IsNullOrEmpty(top.Encounter.Req)) lines.Add("限时/星章: " + top.Encounter.Req);
+                if (ranked.Count > 1)
+                {
+                    var alt = string.Join(" / ", ranked.Skip(1).Take(2).Select(r => $"{Short(r.Encounter.Name)}({r.Score})"));
+                    lines.Add($"优先遇到: {Short(top.Encounter.Name)}({top.Score}，{top.Reason})｜备选 {alt}");
+                }
+                else
+                {
+                    lines.Add($"本次遭遇: {Short(top.Encounter.Name)}（{top.Reason}）");
+                }
             }
             lines.Add("耐力 2 点/人；别在头两幕把开幕主力耗光");
             return Finish(header, lines, roster, data, src, act);
@@ -293,6 +318,12 @@ internal static class TheaterLogic
     }
 
     private static string hitName(string s) => s.Length > 60 ? s[..60] + "…" : s;
+
+    private static string Short(string name)
+    {
+        var i = name.LastIndexOf('·');
+        return (i >= 0 ? name[(i + 1)..] : name).Trim();
+    }
 
     private static Advice Finish(string header, List<string> lines, RosterData roster, TheaterData data, string src, int? act)
     {

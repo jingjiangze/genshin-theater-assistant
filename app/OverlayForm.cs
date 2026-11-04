@@ -48,6 +48,9 @@ internal sealed class OverlayForm : Form
     private readonly List<TemplateEntry> _templates = new();
     private RosterData _roster;
     private GuideWindow _guide;
+    private LlmAdvisor _llm;
+    private int? _llmForAct;
+    private string _bucketKey = "";
     private int? _currentAct;
     private TheaterData _theater;
 
@@ -75,16 +78,8 @@ internal sealed class OverlayForm : Form
         _theater = TheaterData.Load(Path.Combine(AppContext.BaseDirectory, "data", "season29.json"));
         _roster = RosterData.TryLoad(Path.Combine(AppContext.BaseDirectory, "roster.json"));
 
-        var tplDir = Path.Combine(AppContext.BaseDirectory, "templates");
-        if (Directory.Exists(tplDir))
-        {
-            foreach (var f in Directory.GetFiles(tplDir, "*.png"))
-            {
-                var name = Path.GetFileNameWithoutExtension(f);
-                if (name.StartsWith('_')) continue;
-                _templates.Add(new TemplateEntry(name, new Bitmap(f), 0.86));
-            }
-        }
+        _llm = LlmAdvisor.TryLoad(Path.Combine(AppContext.BaseDirectory, "data", "llm.json"));
+        LoadTemplatesFor(0, 0);
 
         _timer.Tick += OnTick;
         Shown += OnShown;
@@ -178,6 +173,9 @@ internal sealed class OverlayForm : Form
                 return;
             }
 
+            GameWindow.GetClientRect(win, out var cr);
+            LoadTemplatesFor(cr.Right - cr.Left, cr.Bottom - cr.Top);
+
             using var bmp = ScreenCapture.CaptureClient(win);
             if (bmp == null)
             {
@@ -196,6 +194,28 @@ internal sealed class OverlayForm : Form
             _lines.AddRange(advice.Lines);
             _lastCaptureHint = advice.Diagnostics;
             _currentAct = advice.Act;
+
+            if (_llm is { Enabled: true } && advice.Act.HasValue && _llmForAct != advice.Act)
+            {
+                _llmForAct = advice.Act;
+                var snapshot = advice.Lines.Take(3).ToList();
+                var header = advice.Header;
+                var rosterLine = _roster.Loaded ? "已导入角色池" : "未导入角色池";
+                _ = _llm.RefineAsync(header, snapshot, rosterLine).ContinueWith(t =>
+                {
+                    var extra = t.Result;
+                    if (string.IsNullOrWhiteSpace(extra) || IsDisposed) return;
+                    try
+                    {
+                        BeginInvoke(new Action(() =>
+                        {
+                            _lines.Insert(0, "AI: " + extra.Replace("\n", " ").Trim());
+                            Invalidate();
+                        }));
+                    }
+                    catch { }
+                });
+            }
             Invalidate();
         }
         catch (Exception ex)
@@ -217,12 +237,60 @@ internal sealed class OverlayForm : Form
         _guide.ShowFor(_currentAct);
     }
 
+    /// <summary>
+    /// 按游戏客户区分辨率挑模板目录：templates\<宽>x<高>\ 优先，
+    /// 允许 ±12% 宽度差（窗口微调/DPI 缩放），否则退回 templates\ 根目录。
+    /// </summary>
+    private void LoadTemplatesFor(int width, int height)
+    {
+        var root = Path.Combine(AppContext.BaseDirectory, "templates");
+        if (!Directory.Exists(root)) return;
+
+        var dir = root;
+        if (width > 0)
+        {
+            var best = Directory.GetDirectories(root)
+                .Select(d => new { Dir = d, Ok = TryParseSize(Path.GetFileName(d), out int dw, out int dh), W = dw, H = dh })
+                .Where(x => x.Ok && Math.Abs(x.W - width) <= Math.Max(32, (int)(width * 0.12)))
+                .OrderBy(x => Math.Abs(x.W - width))
+                .FirstOrDefault();
+            if (best != null) dir = best.Dir;
+        }
+
+        var key = dir + "|" + width + "x" + height;
+        if (key == _bucketKey) return;
+        _bucketKey = key;
+
+        foreach (var t in _templates) t.Bitmap.Dispose();
+        _templates.Clear();
+
+        foreach (var f in Directory.GetFiles(dir, "*.png"))
+        {
+            var name = Path.GetFileNameWithoutExtension(f);
+            if (name.StartsWith('_')) continue;
+            try { _templates.Add(new TemplateEntry(name, new Bitmap(f), 0.86)); } catch { }
+        }
+    }
+
+    private static bool TryParseSize(string name, out int w, out int h)
+    {
+        w = h = 0;
+        var m = System.Text.RegularExpressions.Regex.Match(name, @"^(\d{3,5})x(\d{3,5})$");
+        if (!m.Success) return false;
+        w = int.Parse(m.Groups[1].Value);
+        h = int.Parse(m.Groups[2].Value);
+        return true;
+    }
+
     private void SaveFrame()
     {
         try
         {
             var win = GameWindow.Find("原神");
             if (win == IntPtr.Zero) return;
+            GameWindow.GetClientRect(win, out var cr);
+            LoadTemplatesFor(cr.Right - cr.Left, cr.Bottom - cr.Top);
+
             using var bmp = ScreenCapture.CaptureClient(win);
             if (bmp == null) return;
             var dir = Path.Combine(AppContext.BaseDirectory, "samples");
@@ -321,6 +389,7 @@ internal sealed class OverlayForm : Form
             UnregisterHotKey(Handle, HOTKEY_GUIDE);
             _guide?.Shutdown();
             _ocr.Dispose();
+            _llm?.Dispose();
             foreach (var t in _templates) t.Bitmap.Dispose();
         }
         base.Dispose(disposing);

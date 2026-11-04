@@ -1,0 +1,7 @@
+﻿{
+  "enabled": false,
+  "endpoint": "https://api.deepseek.com/v1/chat/completions",
+  "model": "deepseek-chat",
+  "apiKeyEnv": "DEEPSEEK_API_KEY",
+  "_note": "复制为 data/llm.json 再把 enabled 改 true；密钥只从环境变量读，不写进文件。关闭时程序完全不联网。"
+}
