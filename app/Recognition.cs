@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -91,6 +91,9 @@ internal static class Matcher
         public int X, Y;
     }
 
+    // 常用分辨率候选缩放：模板只需一份，运行时自动尝试这几档
+    private static readonly float[] Scales = { 1.00f, 0.90f, 1.12f, 1.25f };
+
     public static List<Hit> Scan(Bitmap frame, IEnumerable<TemplateEntry> templates, int step = 2)
     {
         var result = new List<Hit>();
@@ -151,6 +154,40 @@ internal static class Matcher
 
             double rmse = Math.Sqrt(bestFine / Math.Max(1.0, tw * th));
             double score = 1.0 - rmse / 255.0;
+
+            // 单尺度未过阈值时，换几个缩放再试（模板只做一份，兼容 90%/112%/125% 等缩放）
+            if (score < t.Threshold)
+            {
+                foreach (var s in Scales)
+                {
+                    if (Math.Abs(s - 1.0f) < 0.001f) continue;
+                    using var scaled = Resize(t.Bitmap, s);
+                    byte[] st = Gray(scaled, out int sw, out int sh);
+                    if (sw > fw || sh > fh) continue;
+
+                    double sb = double.MaxValue; int sx = 0, sy = 0;
+                    for (int y = 0; y + sh <= fh; y += step)
+                        for (int x = 0; x + sw <= fw; x += step)
+                        {
+                            double sum = 0;
+                            for (int j = 0; j < sh; j += 2)
+                            {
+                                int fo = (y + j) * fw + x, to = j * sw;
+                                for (int i = 0; i < sw; i += 2)
+                                {
+                                    double d = f[fo + i] - st[to + i];
+                                    sum += d * d;
+                                }
+                            }
+                            if (sum < sb) { sb = sum; sx = x; sy = y; }
+                        }
+
+                    double sRmse = Math.Sqrt(sb / Math.Max(1.0, (sw / 2) * (sh / 2)));
+                    double sScore = 1.0 - sRmse / 255.0;
+                    if (sScore > score) { score = sScore; rx = sx; ry = sy; }
+                }
+            }
+
             if (score >= t.Threshold)
             {
                 result.Add(new Hit { Name = t.Name, Score = Math.Round(score, 4), X = rx, Y = ry });
@@ -158,6 +195,17 @@ internal static class Matcher
         }
 
         return result;
+    }
+
+    private static Bitmap Resize(Bitmap src, float scale)
+    {
+        int w = Math.Max(8, (int)Math.Round(src.Width * scale));
+        int h = Math.Max(8, (int)Math.Round(src.Height * scale));
+        var dst = new Bitmap(w, h);
+        using var g = Graphics.FromImage(dst);
+        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        g.DrawImage(src, 0, 0, w, h);
+        return dst;
     }
 
     private static byte[] Gray(Bitmap src, out int w, out int h)
