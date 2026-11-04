@@ -50,6 +50,13 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: 同步随包资源到 app/
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force app/data, app/templates, app/models | Out-Null
+          Copy-Item data/* app/data -Recurse -Force
+          Copy-Item templates/* app/templates -Recurse -Force
+
       - name: 还原
         run: dotnet restore app/TheaterAssistant.csproj
 

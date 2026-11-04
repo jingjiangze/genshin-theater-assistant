@@ -17,6 +17,24 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
+
+      - name: 拉取中文 OCR 模型（带 SHA256 校验）
+        shell: pwsh
+        run: .\models\fetch-models.ps1
+
+      - name: 同步随包资源到 app/
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force app/data, app/templates, app/models | Out-Null
+          Copy-Item data/* app/data -Recurse -Force
+          Copy-Item templates/* app/templates -Recurse -Force
+          foreach ($v in 'v5','v6') {
+            if (Test-Path "models/$v") {
+              New-Item -ItemType Directory -Force "app/models/$v" | Out-Null
+              Copy-Item "models/$v/*" "app/models/$v" -Force
+            }
+          }
+          Get-ChildItem app/models -Recurse -File | Measure-Object Length -Sum | ForEach-Object { "模型总大小 {0:N1} MB" -f ($_.Sum/1MB) }
       - name: publish
         run: dotnet publish app/TheaterAssistant.csproj -c Release -o dist
       - name: zip
