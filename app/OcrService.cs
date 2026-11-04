@@ -163,7 +163,11 @@ internal sealed class OcrService : IDisposable
                 if (y + h > frame.Height) h = frame.Height - y;
                 if (w <= 0 || h <= 0) return null;
 
-                using var crop = frame.Clone(new Rectangle(x, y, w, h), System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                using var crop = new Bitmap(w, h);
+                using (var g0 = Graphics.FromImage(crop))
+                {
+                    g0.DrawImage(frame, new Rectangle(0, 0, w, h), new Rectangle(x, y, w, h), GraphicsUnit.Pixel);
+                }
                 using var scaled = new Bitmap(Math.Max(8, w * scale), Math.Max(8, h * scale));
                 using (var g = Graphics.FromImage(scaled))
                 {
@@ -180,7 +184,7 @@ internal sealed class OcrService : IDisposable
                 var result = _ocr.Detect(sk, RapidOcrNet.RapidOcrOptions.Default);
                 return result?.StrRes ?? "";
             }
-            catch { return null; }
+            catch (Exception ex) { return "OCRERR:" + ex.Message; }
         });
     }
 

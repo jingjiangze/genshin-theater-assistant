@@ -63,6 +63,7 @@ internal static class OfflineRunner
             {
                 var band = new RectangleF(0.30f, 0.84f, 0.25f, 0.08f);
                 var bandText = ocr2(img, band);
+                lines.Add("bandraw : " + (bandText ?? "<null>"));
                 if (!string.IsNullOrWhiteSpace(bandText))
                 {
                     text = text + " " + bandText;
