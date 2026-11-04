@@ -110,6 +110,34 @@ pwsh -File .\build-exe.ps1        # C# 版：需要 .NET SDK 8+
 | 胡桃工具箱等本地缓存读取 | 否 | 读游戏文件，非零风险 | ⚠️ 不建议 |
 
 结论：**官方没有公开的账号数据接口**，"尽量不登录"的唯一干净路径是 OCR 扫角色界面，其次手动导入。
+
+## 模板制作（一条命令）
+
+```powershell
+# 1) 打一场剧诗，程序会把识别到幕次的原始帧存到 samples/auto/
+#    或随时按 Ctrl+Alt+D 存帧
+
+# 2) 用 specs 指定要裁的区域（帧内像素坐标）
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\make-templates.ps1 `
+  -Frame .\samples\auto\act3-1920x1080.png -Specs .\tools\specs.example.json
+
+# 3) 输出：templates/1920x1080/*.png，并当场用匹配器自检（分数 + 坐标）
+```
+
+工具会拒绝越界坐标，并要求每个模板在原帧上的匹配分 ≥0.95 且坐标误差 ≤2px，否则退出码 1。
+`templates/<宽>x<高>/` 会被运行时按当前客户区自动选中（±12% 容差）。
+
+## 踩坑记录（PowerShell 5.1）
+
+**带 `[string]` 类型约束的 param 变量，赋别的类型会被静默 ToString()。**
+
+```powershell
+param([string]$Frame)
+$frame = [System.Drawing.Bitmap]::FromFile($path)
+$frame.GetType().FullName   # => System.String  ← 直接被转成字符串
+```
+
+本仓库被这个坑绊过两次（`$Src/$src`、`$Frame/$frame`）。规则：**param 名与局部变量名不要同名**，或局部改用 `$img` / `$srcPath` 这类名字。
 ## 数据从哪来
 
 `data/season29.json` 由社区整理的赛季数据（Fandom MediaWiki 赛季模板 / BWIKI 规则页）转换而来，
