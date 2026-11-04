@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -27,6 +27,8 @@
   <ItemGroup>
     <!-- Apache-2.0；PP-OCRv5/v6 ONNX 管线（SkiaSharp + OnnxRuntime），跨平台，AOT 友好 -->
     <PackageReference Include="RapidOcrNet" Version="4.2.0" />
+    <!-- 内嵌 B站官方播放器 / BWIKI 页面；缺失运行时自动退回系统浏览器 -->
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4314.35" />
   </ItemGroup>
 
   <ItemGroup>

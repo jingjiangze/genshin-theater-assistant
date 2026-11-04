@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -47,6 +47,8 @@ internal sealed class OverlayForm : Form
     private readonly OcrService _ocr = new();
     private readonly List<TemplateEntry> _templates = new();
     private RosterData _roster;
+    private GuideWindow _guide;
+    private int? _currentAct;
     private TheaterData _theater;
 
     private bool _clickThrough = true;
@@ -108,6 +110,7 @@ internal sealed class OverlayForm : Form
         RegisterHotKey(Handle, HOTKEY_TOGGLE, MOD_CONTROL | MOD_ALT, (int)Keys.H);
         RegisterHotKey(Handle, HOTKEY_CLICK, MOD_CONTROL | MOD_ALT, (int)Keys.L);
         RegisterHotKey(Handle, HOTKEY_SAVE, MOD_CONTROL | MOD_ALT, (int)Keys.D);
+        RegisterHotKey(Handle, HOTKEY_GUIDE, MOD_CONTROL | MOD_ALT, (int)Keys.G);
 
         _ = _ocr.InitializeAsync(Path.Combine(AppContext.BaseDirectory, "models"));
         _timer.Start();
@@ -139,6 +142,7 @@ internal sealed class OverlayForm : Form
             if (id == HOTKEY_TOGGLE) Visible = !Visible;
             else if (id == HOTKEY_CLICK) SetClickThrough(!_clickThrough);
             else if (id == HOTKEY_SAVE) SaveFrame();
+            else if (id == HOTKEY_GUIDE) ToggleGuide();
             return;
         }
 
@@ -191,6 +195,7 @@ internal sealed class OverlayForm : Form
             _lines.Clear();
             _lines.AddRange(advice.Lines);
             _lastCaptureHint = advice.Diagnostics;
+            _currentAct = advice.Act;
             Invalidate();
         }
         catch (Exception ex)
@@ -203,6 +208,13 @@ internal sealed class OverlayForm : Form
         {
             _busy = false;
         }
+    }
+
+    private void ToggleGuide()
+    {
+        _guide ??= new GuideWindow();
+        if (_guide.Visible) { _guide.Hide(); return; }
+        _guide.ShowFor(_currentAct);
     }
 
     private void SaveFrame()
@@ -292,7 +304,7 @@ internal sealed class OverlayForm : Form
         using var footBrush = new SolidBrush(Color.FromArgb(140, 148, 168));
         using var footFont = new Font("Microsoft YaHei UI", 8f);
         var foot = _clickThrough
-            ? "Ctrl+Alt+L 可拖动 · Ctrl+Alt+H 显隐 · Ctrl+Alt+D 存帧"
+            ? "Ctrl+Alt+L 拖动 · Ctrl+Alt+H 显隐 · Ctrl+Alt+D 存帧 · Ctrl+Alt+G 攻略"
             : "拖动中（穿透已关）· Ctrl+Alt+L 恢复穿透";
         g.DrawString(foot, footFont, footBrush, new PointF(16, Height - 20));
     }
@@ -306,6 +318,8 @@ internal sealed class OverlayForm : Form
             UnregisterHotKey(Handle, HOTKEY_TOGGLE);
             UnregisterHotKey(Handle, HOTKEY_CLICK);
             UnregisterHotKey(Handle, HOTKEY_SAVE);
+            UnregisterHotKey(Handle, HOTKEY_GUIDE);
+            _guide?.Shutdown();
             _ocr.Dispose();
             foreach (var t in _templates) t.Bitmap.Dispose();
         }

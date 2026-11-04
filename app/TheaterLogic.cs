@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace TheaterAssistant;
@@ -196,7 +196,7 @@ internal sealed class RosterData
     }
 }
 
-internal sealed record Advice(string Header, List<string> Lines, string Diagnostics);
+internal sealed record Advice(string Header, List<string> Lines, string Diagnostics, int? Act = null);
 
 /// <summary>剧本决策：只看识别结果 + 第 29 期数据；不含任何游戏内操作。</summary>
 internal static class TheaterLogic
@@ -303,7 +303,7 @@ internal static class TheaterLogic
             lines.Add($"池子 {count} 人 → 最高可进【{best}】（{detail}）");
         }
 
-        return new Advice(header, lines, $"act={act?.ToString() ?? "?"}, src={src}");
+        return new Advice(header, lines, $"act={act?.ToString() ?? "?"}, src={src}", act);
     }
 
     private static bool TryCn(string s, out int value)

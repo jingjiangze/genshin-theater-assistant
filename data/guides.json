@@ -1,0 +1,25 @@
+{
+  "season": 29,
+  "note": "手工策展。kind=search 走 B站站内搜索深链；kind=url 直达；kind=video 用官方嵌入播放器（bvid 必填）。不抓取、不登录、不走非公开接口。",
+  "defaults": [
+    { "title": "B站：第29期 总览（按播放量）", "kind": "search", "keyword": "幻想真境剧诗 第29期 攻略" },
+    { "title": "B站：当期配队", "kind": "search", "keyword": "幻想真境剧诗 29期 配队" },
+    { "title": "BWIKI：剧诗总览（规则真源）", "kind": "url", "url": "https://wiki.biligame.com/ys/%E5%B9%BB%E6%83%B3%E7%9C%9F%E5%A2%83%E5%89%A7%E8%AF%97" },
+    { "title": "米游社：搜索", "kind": "url", "url": "https://www.miyoushe.com/ys/search?keyword=%E5%B9%BB%E6%83%B3%E7%9C%9F%E5%A2%83%E5%89%A7%E8%AF%97" },
+    { "title": "NGA：搜索", "kind": "url", "url": "https://bbs.nga.cn/thread.php?key=%E5%B9%BB%E6%83%B3%E7%9C%9F%E5%A2%83%E5%89%A7%E8%AF%97&fid=650" }
+  ],
+  "acts": {
+    "1": [{ "title": "B站：第1幕 打法", "kind": "search", "keyword": "幻想真境剧诗 第29期 第一幕" }],
+    "2": [{ "title": "B站：第2幕 打法", "kind": "search", "keyword": "幻想真境剧诗 第29期 第二幕" }],
+    "3": [{ "title": "B站：翠翎恐蕈 打法", "kind": "search", "keyword": "幻想真境剧诗 翠翎恐蕈 打法" }],
+    "4": [{ "title": "B站：第4幕 地脉镇石保卫", "kind": "search", "keyword": "幻想真境剧诗 地脉镇石 保卫 打法" }],
+    "5": [{ "title": "B站：第5幕 打法", "kind": "search", "keyword": "幻想真境剧诗 第29期 第五幕" }],
+    "6": [{ "title": "B站：深黯魇语之主 破盾", "kind": "search", "keyword": "幻想真境剧诗 深黯 钓客 破盾" }],
+    "7": [{ "title": "B站：第7幕 打法", "kind": "search", "keyword": "幻想真境剧诗 第29期 第七幕" }],
+    "8": [{ "title": "B站：强化丘丘萨满 砸锅", "kind": "search", "keyword": "幻想真境剧诗 丘丘萨满 砸锅" }],
+    "9": [{ "title": "B站：第9幕 击破悬赏", "kind": "search", "keyword": "幻想真境剧诗 击破悬赏 打法" }],
+    "10": [{ "title": "B站：蕴光月守宫 奶满解标记", "kind": "search", "keyword": "幻想真境剧诗 月守宫 奶满 标记" }],
+    "11": [{ "title": "B站：圣牌挑战 1", "kind": "search", "keyword": "幻想真境剧诗 圣牌挑战 攻略" }],
+    "12": [{ "title": "B站：圣牌挑战 2", "kind": "search", "keyword": "幻想真境剧诗 圣牌挑战 攻略" }]
+  }
+}

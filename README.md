@@ -1,4 +1,4 @@
-# 幻想真境剧诗 · 助手（Theater Assistant）
+﻿# 幻想真境剧诗 · 助手（Theater Assistant）
 
 只做一件事：**在你打《原神》幻想真境剧诗时，识别当前第几幕 / 是否在三选一界面，并在置顶小窗里给出该幕的打法要点。**
 
@@ -48,6 +48,26 @@ pwsh -File .\build.ps1            # PS 版：语法 + 测试 + 打包
 pwsh -File .\build-exe.ps1        # C# 版：需要 .NET SDK 8+
 ```
 
+## 攻略接入（B站 / BWIKI / 米游社 / NGA）
+
+悬浮窗识别出「第几幕」后，`Ctrl+Alt+G` 打开攻略窗：左侧是当前幕优先的入口清单，右侧内嵌网页/播放器。
+
+`data/guides.json` 里三类入口：
+
+| kind | 行为 | 例子 |
+|---|---|---|
+| `search` | 拼 B站站内搜索深链（按播放量排序） | `{"title":"B站：第3幕","kind":"search","keyword":"幻想真境剧诗 翠翎恐蕈 打法"}` |
+| `video` | 用 **B站官方嵌入播放器** 内嵌播放 | `{"title":"某UP主讲解","kind":"video","bvid":"BV1xxxxxxxxx"}` |
+| `url` | 直接打开页面（BWIKI / 米游社 / NGA） | `{"title":"BWIKI 总览","kind":"url","url":"https://..."}` |
+
+边界（写死的行为）：
+
+- **不抓取**页面、**不调用** B站非公开接口（不用 wbi 签名、不带 cookie）、**不登录**账号
+- 嵌入仅使用官方外链播放器 `player.bilibili.com/player.html?bvid=...`（已实测返回 200）
+- WebView2 Runtime 缺失时自动退回系统浏览器打开，不报错
+- `guides.json` 是纯文本，可自己加 BV 号、换成别的社区链接
+
+> 已核验：B站官方嵌入播放器可达。**未核验**（PENDING）：米游社 / NGA 的搜索 URL 结构可能变化，失效就在 `guides.json` 里改。
 ## 数据从哪来
 
 `data/season29.json` 由社区整理的赛季数据（Fandom MediaWiki 赛季模板 / BWIKI 规则页）转换而来，
