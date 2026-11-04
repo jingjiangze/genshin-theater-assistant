@@ -29,6 +29,7 @@ internal sealed class OverlayForm : Form
     private const int HOTKEY_TOGGLE = 1;   // Ctrl+Alt+H 显隐
     private const int HOTKEY_CLICK = 2;    // Ctrl+Alt+L 穿透 ⇄ 可拖动
     private const int HOTKEY_SAVE = 3;     // Ctrl+Alt+D 存帧
+    private const int HOTKEY_GUIDE = 4;    // Ctrl+Alt+G 攻略窗
 
     private const int GWL_EXSTYLE = -20;
     private const int WS_EX_TRANSPARENT = 0x20;

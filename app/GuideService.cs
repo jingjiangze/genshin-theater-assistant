@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace TheaterAssistant;
 
@@ -66,8 +66,11 @@ internal static class GuideService
         }
     }
 
-    private static string Str(JsonElement e, string name) =>
-        e.TryGetProperty(name, out var v) && v.ValueKind == JsonValueKind.String ? v.GetValueOrDefault<string>() ?? "" : "";
+    private static string Str(JsonElement e, string name)
+    {
+        if (!e.TryGetProperty(name, out var v) || v.ValueKind != JsonValueKind.String) return "";
+        return v.GetString() ?? "";
+    }
 
     /// <summary>当前幕的关键词（给"搜索"按钮用）。</summary>
     public static string ActKeyword(int act, string bossHint)
