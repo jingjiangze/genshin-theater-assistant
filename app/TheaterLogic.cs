@@ -217,6 +217,8 @@ internal sealed record Advice(string Header, List<string> Lines, string Diagnost
 internal static class TheaterLogic
 {
     private static readonly Regex ActRegex = new(@"第\s*([一二三四五六七八九十0-9]{1,3})\s*幕", RegexOptions.Compiled);
+    // 宽松版：只用于「底部条带」这种只剩幕次文字的区域（小字常把"幕"识别丢）
+    private static readonly Regex ActLoose = new(@"第\s*([一二三四五六七八九十0-9]{1,2})", RegexOptions.Compiled);
 
     private static readonly Dictionary<int, string> BossAdvice = new()
     {
@@ -228,7 +230,7 @@ internal static class TheaterLogic
 
     private const string EventAdvice = "三选一：缺人拿「伙伴」→ 输出缺口拿「辉彩祝福」→ 都不缺才拿「神秘收获」";
 
-    public static Advice Evaluate(List<Matcher.Hit> hits, string text, TheaterData data, RosterData roster)
+    public static Advice Evaluate(List<Matcher.Hit> hits, string text, TheaterData data, RosterData roster, string bandText = null)
     {
         string src = "—";
         int? act = null;
@@ -241,6 +243,17 @@ internal static class TheaterLogic
             if (m.Success) { kind = "act"; act = int.Parse(m.Groups[1].Value); src = $"模板 {h.Score}"; break; }
             if (h.Name == "choice") { kind = "choice"; src = $"模板 {h.Score}"; break; }
             if (h.Name == "result") { kind = "result"; src = $"模板 {h.Score}"; break; }
+        }
+
+        // 底部条带：小字常丢"幕"字，这里用宽松规则兜底
+        if (kind == "unknown" && !string.IsNullOrEmpty(bandText))
+        {
+            var bt = Regex.Replace(bandText, @"\s+", "");
+            var bm = ActLoose.Match(bt);
+            if (bm.Success && TryCn(bm.Groups[1].Value, out int bn))
+            {
+                kind = "act"; act = bn; src = "OCR(条带)";
+            }
         }
 
         if (kind == "unknown" && !string.IsNullOrEmpty(text))

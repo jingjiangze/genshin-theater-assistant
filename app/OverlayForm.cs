@@ -197,6 +197,12 @@ internal sealed class OverlayForm : Form
             var hits = Matcher.Scan(bmp, _templates);
             string text = await _ocr.RecognizeAsync(bmp) ?? "";
             var advice = TheaterLogic.Evaluate(hits, text, _theater, _roster);
+            if (!advice.Act.HasValue)
+            {
+                var bandText = await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.30f, 0.84f, 0.25f, 0.08f), 4);
+                if (!string.IsNullOrWhiteSpace(bandText))
+                    advice = TheaterLogic.Evaluate(hits, text + " " + bandText, _theater, _roster, bandText);
+            }
 
             // 没有模板时，自动为每个识别到的幕存一张原始帧，作为后续做模板的素材
             if (advice.Act.HasValue && _templates.Count == 0 && _autoSaved.Add(advice.Act.Value))
