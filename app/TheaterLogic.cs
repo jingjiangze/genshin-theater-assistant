@@ -294,7 +294,7 @@ internal static class TheaterLogic
             var strictNums = new HashSet<int>();
 
             foreach (Match sm in strictAll)
-                if (TryCn(sm.Groups[1].Value, out int sn)) strictNums.Add(sn);
+                if (TryCn(sm.Groups[1].Value, out int sv)) strictNums.Add(sv);
             Match strict = strictNums.Count == 1 ? ActRegex.Match(bt) : Match.Empty;
             if (strictNums.Count > 1)
             {
