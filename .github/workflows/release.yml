@@ -37,6 +37,15 @@ jobs:
           Get-ChildItem app/models -Recurse -File | Measure-Object Length -Sum | ForEach-Object { "模型总大小 {0:N1} MB" -f ($_.Sum/1MB) }
       - name: publish
         run: dotnet publish app/TheaterAssistant.csproj -c Release -o dist
+
+      - name: 发布前自检（不通过就不发）
+        shell: pwsh
+        run: |
+          & .\dist\TheaterAssistant.exe --selftest --with-ocr
+          $code = $LASTEXITCODE
+          if (Test-Path .\dist\selftest-report.txt) { Get-Content .\dist\selftest-report.txt -Encoding UTF8 }
+          if ($code -ne 0) { throw "自检失败，拒绝发布 (exit $code)" }
+
       - name: zip
         shell: pwsh
         run: |

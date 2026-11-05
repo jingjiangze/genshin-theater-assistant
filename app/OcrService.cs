@@ -1,8 +1,18 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Drawing.Imaging;
 using SkiaSharp;
 
 namespace TheaterAssistant;
+
+/// <summary>一条 OCR 结果：文字 + 帧内轴对齐包围盒（像素）+ 检测置信度。</summary>
+internal sealed class OcrBox
+{
+    public string Text = "";
+    public Rectangle Rect;
+    public double Score;
+
+    public override string ToString() => $"{Text} @({Rect.X},{Rect.Y} {Rect.Width}x{Rect.Height}) {Score:0.00}";
+}
 
 /// <summary>
 /// OCR 适配层：RapidOcrNet（Apache-2.0，PP-OCRv5/v6 ONNX，只用 CPU/DirectML）。
@@ -185,6 +195,100 @@ internal sealed class OcrService : IDisposable
                 return result?.StrRes ?? "";
             }
             catch (Exception ex) { return "OCRERR:" + ex.Message; }
+        });
+    }
+
+    /// <summary>
+    /// 返回带坐标的 OCR 结果（批量模板工厂用）。
+    /// 可先裁相对区域再放大识别，最后把坐标按同一变换折回整帧坐标系，
+    /// 因此「小字放大后识别」也能得到正确的帧内矩形。
+    /// 未就绪/失败返回 null。
+    /// </summary>
+    public Task<List<OcrBox>> RecognizeBoxesAsync(Bitmap frame, RectangleF? region = null, int scale = 1)
+    {
+        if (!_ready || _ocr == null || frame == null) return Task.FromResult<List<OcrBox>>(null);
+
+        return Task.Run(() =>
+        {
+            Bitmap crop = null, scaled = null;
+            try
+            {
+                int ox = 0, oy = 0;
+                var src = frame;
+
+                if (region.HasValue)
+                {
+                    ox = (int)(frame.Width * region.Value.X);
+                    oy = (int)(frame.Height * region.Value.Y);
+                    int w = Math.Max(8, (int)(frame.Width * region.Value.Width));
+                    int h = Math.Max(8, (int)(frame.Height * region.Value.Height));
+                    if (ox + w > frame.Width) w = frame.Width - ox;
+                    if (oy + h > frame.Height) h = frame.Height - oy;
+                    if (w <= 0 || h <= 0) return null;
+
+                    crop = new Bitmap(w, h);
+                    using (var g0 = Graphics.FromImage(crop))
+                    {
+                        g0.DrawImage(frame, new Rectangle(0, 0, w, h), new Rectangle(ox, oy, w, h), GraphicsUnit.Pixel);
+                    }
+                    src = crop;
+                }
+
+                if (scale > 1)
+                {
+                    scaled = new Bitmap(src.Width * scale, src.Height * scale);
+                    using (var g = Graphics.FromImage(scaled))
+                    {
+                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                        g.DrawImage(src, 0, 0, scaled.Width, scaled.Height);
+                    }
+                    src = scaled;
+                }
+
+                using var ms = new MemoryStream();
+                src.Save(ms, ImageFormat.Png);
+                using var sk = SKBitmap.Decode(ms.ToArray());
+                if (sk == null) return null;
+
+                var result = _ocr.Detect(sk, RapidOcrNet.RapidOcrOptions.Default);
+                var list = new List<OcrBox>();
+                if (result?.TextBlocks == null) return list;
+
+                foreach (var block in result.TextBlocks)
+                {
+                    var pts = block.BoxPoints;
+                    if (pts == null || pts.Length == 0 || string.IsNullOrWhiteSpace(block.Text)) continue;
+
+                    int minX = int.MaxValue, minY = int.MaxValue, maxX = int.MinValue, maxY = int.MinValue;
+                    foreach (var p in pts)
+                    {
+                        if (p.X < minX) minX = p.X;
+                        if (p.Y < minY) minY = p.Y;
+                        if (p.X > maxX) maxX = p.X;
+                        if (p.Y > maxY) maxY = p.Y;
+                    }
+
+                    // 放大/偏移的逆变换：折回整帧坐标系
+                    int x = ox + (int)Math.Round(minX / (double)scale);
+                    int y = oy + (int)Math.Round(minY / (double)scale);
+                    int w = (int)Math.Round((maxX - minX) / (double)scale);
+                    int h = (int)Math.Round((maxY - minY) / (double)scale);
+                    if (w <= 0 || h <= 0) continue;
+
+                    list.Add(new OcrBox { Text = block.Text.Trim(), Rect = new Rectangle(x, y, w, h), Score = block.BoxScore });
+                }
+
+                return list;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                scaled?.Dispose();
+                crop?.Dispose();
+            }
         });
     }
 

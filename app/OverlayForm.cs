@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -26,15 +26,59 @@ internal static class AppPaths
 internal static class Program
 {
     [STAThread]
-    private static void Main(string[] args)
+    private static int Main(string[] args)
     {
-        if (args.Length >= 2 && args[0] == "--frame")
+        if (args.Length >= 1)
         {
-            OfflineRunner.Run(args[1]);
-            return;
+            switch (args[0])
+            {
+                // 离线全链路自检：一张图 → 模板 + OCR + 判定 + 攻略
+                case "--frame":
+                    if (args.Length >= 2) { OfflineRunner.Run(args[1]); return 0; }
+                    break;
+
+                // 批量适配：帧目录 → 模板（OCR 锚点派生 + 在场/缺席双向量检）
+                case "--batch":
+                    if (args.Length >= 2)
+                    {
+                        return BatchRunner.Run(args[1], Opt(args, "--out"),
+                            OptDouble(args, "--min-present", 0.92),
+                            OptDouble(args, "--max-absent", 0.80));
+                    }
+                    break;
+
+                // 生成合成帧（自检/CI 用，不需要用户的游戏截图）
+                case "--synth":
+                    if (args.Length >= 2) return BatchRunner.WriteSynth(args[1]);
+                    break;
+
+                // 纯函数自检；--with-ocr 追加 OCR 坐标端到端断言
+                case "--selftest":
+                    return SelfTest.Run(args.Contains("--with-ocr", StringComparer.OrdinalIgnoreCase));
+
+                case "--version":
+                    Cli.Attach();
+                    Cli.Say("TheaterAssistant 0.4.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    return 0;
+            }
         }
+
         ApplicationConfiguration.Initialize();
         Application.Run(new OverlayForm());
+        return 0;
+    }
+
+    private static string Opt(string[] args, string name)
+    {
+        int i = Array.FindIndex(args, a => string.Equals(a, name, StringComparison.OrdinalIgnoreCase));
+        return i >= 0 && i + 1 < args.Length ? args[i + 1] : null;
+    }
+
+    private static double OptDouble(string[] args, string name, double fallback)
+    {
+        var s = Opt(args, name);
+        return double.TryParse(s, System.Globalization.NumberStyles.Float,
+            System.Globalization.CultureInfo.InvariantCulture, out var v) ? v : fallback;
     }
 }
 
