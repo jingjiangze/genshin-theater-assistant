@@ -185,7 +185,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.11.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.11.1 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -261,6 +261,9 @@ internal sealed class OverlayForm : Form
     private readonly Dictionary<string, int> _autoSavedCount = new(StringComparer.Ordinal);
     private string _autoSaveHint = "";
     private string _lastAnnounced = "";
+    private int _tickCount;
+    private int _textAge;
+    private string _cachedText = "";
     private int? _currentAct;
     private TheaterData _theater;
 
@@ -398,15 +401,23 @@ internal sealed class OverlayForm : Form
                 return;
             }
 
+            // 性能策略（1080p 实测）：整帧 OCR 是最贵的一步（~2s/次），没必要每 tick 都做。
+            //   · 每 tick：模板匹配（半分辨率粗筛）+ 底部条带 OCR（面积小，~0.2s）
+            //   · 整帧 OCR：每 3 tick 一次，或条带没给出幕次时立刻补一次
             var hits = Matcher.Scan(bmp, _templates);
-            string text = await _ocr.RecognizeAsync(bmp) ?? "";
-
-            // 底部条带（幕次标签所在位置）比整帧文字可靠：整帧里可能混进攻略贴字/增益说明里的"第N幕"。
-            // 所以只要没有模板直接命中幕次，就一定要看条带 —— 而不是"等文字判不出幕次才回头看"。
-            string bandText = null;
             bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
-            if (!actFromTemplate)
-                bandText = await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3);
+            string bandText = actFromTemplate ? null
+                : await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3);
+
+            _tickCount++;
+            bool needFullText = _tickCount % 3 == 0 || string.IsNullOrWhiteSpace(bandText) || _cachedText.Length == 0;
+            if (needFullText)
+            {
+                _cachedText = await _ocr.RecognizeAsync(bmp) ?? _cachedText;
+                _textAge = 0;
+            }
+            else _textAge++;
+            string text = _cachedText;
 
             var advice = TheaterLogic.Evaluate(hits, text, _theater, _roster, bandText);
 
