@@ -142,12 +142,14 @@ internal static class TemplateFactory
         bool InListRow(int i)
         {
             int peers = 0;
+            int hi = actBoxes[i].Rect.Height;
+            int tolY = Math.Max(8, hi / 2);          // OCR 框有抖动：幕次条的 10 个标签 y/h 都不完全齐
             for (int j = 0; j < actBoxes.Count; j++)
             {
                 if (i == j) continue;
                 if (actBoxes[j].Num == actBoxes[i].Num) continue;
-                if (Math.Abs(actBoxes[j].Rect.Y - actBoxes[i].Rect.Y) > 8) continue;
-                if (Math.Abs(actBoxes[j].Rect.Height - actBoxes[i].Rect.Height) > 8) continue;
+                if (Math.Abs(actBoxes[j].Rect.Y - actBoxes[i].Rect.Y) > tolY) continue;
+                if (Math.Abs(actBoxes[j].Rect.Height - hi) > Math.Max(8, hi / 2)) continue;
                 peers++;
             }
             return peers >= 2;                      // 同一排至少三个不同幕次 → 是列表
