@@ -28,6 +28,28 @@ internal static class Program
     [STAThread]
     private static int Main(string[] args)
     {
+        try
+        {
+            return RunCore(args);
+        }
+        catch (Exception ex)
+        {
+            // 无控制台的 WinExe 崩了只会给一个 0xE0434352，这里落盘堆栈，CI 与用户都能查
+            try
+            {
+                var path = Path.Combine(AppPaths.Dir, "crash-" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".txt");
+                File.WriteAllText(path, ex.ToString(), System.Text.Encoding.UTF8);
+                Cli.Attach();
+                Cli.Say("崩溃，堆栈已写入: " + path);
+                Cli.Say(ex.ToString());
+            }
+            catch { }
+            return 3;
+        }
+    }
+
+    private static int RunCore(string[] args)
+    {
         if (args.Length >= 1)
         {
             switch (args[0])

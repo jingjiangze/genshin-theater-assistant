@@ -102,10 +102,20 @@ jobs:
           $synth = Join-Path $env:RUNNER_TEMP 'batch-frames'
           $out   = Join-Path $env:RUNNER_TEMP 'batch-templates'
           Remove-Item $synth, $out -Recurse -Force -ErrorAction SilentlyContinue
+          $o = Join-Path $env:RUNNER_TEMP 'batch.stdout.txt'
+          $e = Join-Path $env:RUNNER_TEMP 'batch.stderr.txt'
+
           $p1 = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--synth `"$synth`"" -Wait -PassThru
           if ($p1.ExitCode -ne 0) { throw "生成合成帧失败 (exit $($p1.ExitCode))" }
-          $p2 = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--batch `"$synth`" --out `"$out`"" -Wait -PassThru
+
+          $p2 = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--batch `"$synth`" --out `"$out`"" -Wait -PassThru -RedirectStandardOutput $o -RedirectStandardError $e
           Write-Host "batch exit=$($p2.ExitCode)"
+          if (Test-Path $o) { Write-Host '--- batch stdout ---'; Get-Content $o -Encoding UTF8 }
+          if (Test-Path $e) { Write-Host '--- batch stderr ---'; Get-Content $e -Encoding UTF8 }
+          Get-ChildItem .\dist -Filter 'crash-*.txt' -ErrorAction SilentlyContinue | ForEach-Object {
+            Write-Host "--- $($_.Name) ---"; Get-Content $_.FullName -Encoding UTF8
+          }
+
           $report = Join-Path $out 'batch-report.json'
           if (-not (Test-Path $report)) { throw "没有产出 batch-report.json" }
           if (Test-Path (Join-Path $out 'batch-report.md')) { Get-Content (Join-Path $out 'batch-report.md') -Encoding UTF8 }
@@ -117,6 +127,7 @@ jobs:
           if ($j.installed -lt 2) { throw "通过质检的模板过少：$($j.installed)" }
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: TheaterAssistant-ci-${{ github.sha }}
           path: dist/
