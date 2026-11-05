@@ -279,7 +279,7 @@ internal static class SelfTest
         catch (Exception ex) { Check("characters.json 有中文名", false, ex.Message); }
 
         // 离线检索（BM25）：与 tools/audit-retrieval.mjs 同口径，CI 里守住召回
-        GuideIndex.Load(AppPaths.Data("guide-corpus.json"));
+        GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
         if (!GuideIndex.Loaded)
         {
             Check("攻略语料可加载", false, "data/guide-corpus.json 缺失");
@@ -320,6 +320,8 @@ internal static class SelfTest
             }
             catch (Exception ex) { Check("extra 语料可合并进索引", false, ex.Message); }
             finally { try { File.Delete(tmpExtra); } catch { } }
+
+            Check("多语料源已合并", GuideIndex.Count >= 30, $"索引共 {GuideIndex.Count} 条（主语料 23 + wiki/extra）");
 
             Check("检索结果带出处", GuideIndex.Search("第3幕 翠翎恐蕈", 3, 1).All(h => !string.IsNullOrWhiteSpace(h.SourceLabel)), "source 非空");
         }

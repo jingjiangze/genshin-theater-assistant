@@ -55,8 +55,13 @@ internal static class GuideIndex
     public static void LoadWithExtra(string path)
     {
         Load(path);
-        var extra = Path.Combine(Path.GetDirectoryName(path) ?? ".", "guide-corpus-extra.json");
-        if (File.Exists(extra)) Append(extra);
+        var dir = Path.GetDirectoryName(path) ?? ".";
+        // 两类外部语料：--corpus-scan 从视频抽的、fetch-wiki-corpus 从 BWIKI 抽的
+        foreach (var name in new[] { "guide-corpus-extra.json", "guide-corpus-wiki.json" })
+        {
+            var p = Path.Combine(dir, name);
+            if (File.Exists(p)) Append(p);
+        }
     }
 
     /// <summary>把另一个同格式语料追加进索引（按 id 去重）。</summary>
