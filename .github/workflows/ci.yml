@@ -126,6 +126,13 @@ jobs:
           if ($j.candidates -lt 2) { throw "候选模板过少：$($j.candidates)" }
           if ($j.installed -lt 2) { throw "通过质检的模板过少：$($j.installed)" }
 
+          # 幕次判定回归门：a1/a2/c1/c2 都写了「第3幕」，必须仍判出第 3 幕
+          # （曾因"大堂词压掉条带"过度修复，把这 4 帧的幕次判成空，而当时 CI 不查 act 所以没报错）
+          $actRows = @($j.frameDetail | Where-Object { $_.act -ne $null })
+          Write-Host "判出幕次的帧: $($actRows.Count) 条（$($actRows.File -join ', ')）"
+          if ($actRows.Count -lt 4) { throw "幕次判定回归：期望 ≥4 帧判出幕次，实际 $($actRows.Count)" }
+          if (-not ($actRows | Where-Object { $_.act -eq 3 })) { throw "幕次判定回归：合成帧写的是第3幕，未判出 3" }
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
