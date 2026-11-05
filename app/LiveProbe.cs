@@ -62,7 +62,10 @@ internal static class LiveProbe
     {
         Cli.Attach();
         if (!File.Exists(png)) { Cli.Say("找不到图片: " + png); return 2; }
-        Cli.Say($"假游戏窗口：{Path.GetFileName(png)} → {w}x{h}，标题「{title}」，关掉窗口结束");
+        var vs = SystemInformation.VirtualScreen;                 // 别让窗口比桌面还大，否则抓屏边缘是屏幕外
+        if (w > vs.Width) w = vs.Width;
+        if (h > vs.Height) h = vs.Height;
+        Cli.Say($"假游戏窗口：{Path.GetFileName(png)} → {w}x{h}（桌面 {vs.Width}x{vs.Height}），标题「{title}」，关掉窗口结束");
         using var form = new FakeGameForm(png, w, h, string.IsNullOrWhiteSpace(title) ? DefaultTitle : title);
         Application.Run(form);
         return 0;
@@ -160,6 +163,13 @@ internal static class LiveProbe
         using var source = new Bitmap(srcPath);
         lines.Add($"源帧 {source.Width}x{source.Height}");
 
+        // 桌面装不下请求尺寸时（例如本机 1640x1066 上请求 1920x1080）窗口会被夹住，
+        // 抓到的画面边缘就是屏幕外/任务栏，所以先把尺寸夹到虚拟屏，再只比中间 90% 区域。
+        var vs = SystemInformation.VirtualScreen;
+        if (w > vs.Width) w = vs.Width;
+        if (h > vs.Height) h = vs.Height;
+        lines.Add($"桌面 {vs.Width}x{vs.Height} → 用 {w}x{h}");
+
         var needle = string.IsNullOrWhiteSpace(title) ? DefaultTitle : title;
         using var form = new FakeGameForm(srcPath, w, h, needle);
         form.Show();
@@ -197,12 +207,15 @@ internal static class LiveProbe
                         return 4;
                     }
 
-                    // 抓到的画面必须真的是那张帧（按实际客户区缩放后仍应高度相似）
+                    // 抓到的画面必须真的是那张帧。只比中间 90%：边缘会被任务栏/窗口边界污染。
                     using var probeScaled = new Bitmap(source, new Size(bmp.Width, bmp.Height));
+                    int ix = Math.Max(0, bmp.Width / 20), iy = Math.Max(0, bmp.Height / 20);
+                    int iw = bmp.Width - ix * 2, ih = bmp.Height - iy * 2;
+                    using var probeCore = probeScaled.Clone(new Rectangle(ix, iy, iw, ih), PixelFormat.Format32bppArgb);
                     var gCaptured = TemplateFactory.GrayFrame.From(bmp);
-                    var gSource = TemplateFactory.GrayFrame.From(probeScaled);
-                    double sim = TemplateFactory.ScoreAt(gCaptured, gSource, 0, 0);
-                    Check("抓到的画面=源帧", sim >= 0.95, $"相似度 {sim:0.0000}（源帧缩放到 {bmp.Width}x{bmp.Height}）");
+                    var gCore = TemplateFactory.GrayFrame.From(probeCore);
+                    double sim = TemplateFactory.ScoreAt(gCaptured, gCore, ix, iy);
+                    Check("抓到的画面=源帧", sim >= 0.95, $"相似度 {sim:0.0000}（比中间 {iw}x{ih}）");
 
                     // 识别链路
                     using var ocr = new OcrService();
