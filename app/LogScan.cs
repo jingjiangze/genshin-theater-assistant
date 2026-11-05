@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -27,8 +27,8 @@ internal static class LogScan
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Low", "miHoYo", "原神", "Player.log"),
     };
 
-    private static readonly Regex AvatarIdRe = new(@"""avatarId"\s*:\s*(\d{6,12})", RegexOptions.Compiled);
-    private static readonly Regex LevelPairRe = new(@"""avatarId"\s*:\s*(\d{6,12})[^}]{0,400}?""level"\s*:\s*(\d{1,2})", RegexOptions.Compiled);
+    private static readonly Regex AvatarIdRe = new(@"""avatarId""\s*:\s*(\d{6,12})", RegexOptions.Compiled);
+    private static readonly Regex LevelPairRe = new(@"""avatarId""\s*:\s*(\d{6,12})[^}]{0,400}?""level""\s*:\s*(\d{1,2})", RegexOptions.Compiled);
 
     /// <summary>从注册表找安装目录（只读）。</summary>
     internal static string FindInstallDir()
