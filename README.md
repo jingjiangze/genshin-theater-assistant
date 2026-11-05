@@ -219,3 +219,42 @@ $frame.GetType().FullName   # => System.String  ← 直接被转成字符串
 - 代码：MIT（见 `LICENSE`）
 - 依赖：RapidOcrNet / PP-OCR 模型 = Apache-2.0
 - 游戏内容与数据：归 miHoYo 所有；本仓库只做玩家自用的辅助显示
+
+## 真机模拟实测（不打开游戏也能跑真链路）
+
+开一个标题为「原神」的假游戏窗口，把一张真实剧诗帧当画面，然后走**和正式运行完全一样**的路径：
+`EnumWindows` 找窗口 → `GetClientRect` 取客户区 → `GDI CopyFromScreen` 抓像素 → 模板匹配 + OCR + 状态判定。
+
+```powershell
+.\TheaterAssistant.exe --fakegame samples\frame.png --size 1920x1080   # 起假窗口，手动观察（关窗结束）
+.\TheaterAssistant.exe --probe-live --title 原神 --frames 2            # 抓窗口出诊断（存到 samples\probe\）
+.\TheaterAssistant.exe --selftest-live --png 某张帧.png --size 1600x900 # 全自动：起窗口→抓帧→断言→退出码
+```
+
+`--selftest-live` 的断言（CI 每次 push 都跑）：
+
+| 断言 | 说明 |
+|---|---|
+| 窗口可被发现 | `Find` 有返回 |
+| 命中的是假窗口 | 窗口 pid == 本进程 pid（防止抓到"标题里提到原神"的浏览器/聊天窗口） |
+| 客户区可用 | 实测客户区，不假设等于请求尺寸（小桌面会把窗口夹住） |
+| 抓帧尺寸=客户区 | `CaptureClient` 的输出尺寸与客户区一致 |
+| **抓到的画面=源帧** | 中间 90% 区域灰度相似度 ≥0.95（证明 GDI 真的抓到了渲染内容，不是黑屏/别家窗口） |
+| OCR 可用 / 从抓帧派生规格 / 判定不为空 | 识别链路真的跑通 |
+
+退出码：`0` 通过、`1` 断言失败、`4` 抓屏为空白（无桌面会话 → 跳过，不算失败）。
+
+实测记录：
+
+| 环境 | 结果 |
+|---|---|
+| GitHub Actions（windows-latest，1024×768 桌面） | **8/8 通过**，客户区 1044×788（被夹住），抓屏相似度 **0.9962**，OCR 3 文本框，派生 `act3,hall,title`，判定「第 3 幕」 |
+| 本机（175% 缩放、多屏 5760×2160，agent shell 会话内） | 窗口/客户区/pid 断言全过，但**抓屏拿到的是宿主桌面**（相似度 0.31–0.66，派生为空）→ 环境问题（见下），非代码问题 |
+
+> 本机这条异常已定位：假窗口物理矩形确实是 `(0,0)-(1920,1080)`、客户端 1920×1080、pid 也对，但 GDI 抓该区域得到的是宿主客户端窗口 —— agent shell 所在的窗口站/桌面与交互桌面不是同一个合成面。
+> 在你自己开的普通 PowerShell 里跑 `--selftest-live` 就能得到正常结果（也可用 `--fakegame` 肉眼确认）。
+
+### 顺带修掉的两个真 bug（真机模拟才暴露的）
+
+1. **`GameWindow.Find` 标题匹配过松**：原来"标题包含「原神」"就算，于是浏览器开着原神攻略页、聊天窗口里提到原神时会被误判成游戏窗口（本地实测抓到的其实是宿主聊天窗口）。改为多信号打分：进程名像原神 +100、`UnityWndClass` +50、标题**完全等于** +40、仅包含且长度接近 +10，客户区 <640×360 直接排除。
+2. **未声明 DPI 感知**：`ClientToScreen` 返回逻辑坐标、`CopyFromScreen` 按物理像素取，缩放屏（125%/150%/175%）上抓屏整体错位。已在启动时声明 `PerMonitorV2`（`ApplicationHighDpiMode` + `SetHighDpiMode`），本机桌面因此从 4114×1458 正确识别为 5760×2160。
