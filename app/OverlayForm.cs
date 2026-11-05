@@ -28,6 +28,10 @@ internal static class Program
     [STAThread]
     private static int Main(string[] args)
     {
+        // 必须在任何窗口创建之前声明 DPI 感知：否则 ClientToScreen 返回逻辑坐标、
+        // CopyFromScreen 按物理像素取，缩放屏（125%/150%）上抓屏会整体错位。
+        try { Application.SetHighDpiMode(HighDpiMode.PerMonitorV2); } catch { }
+
         try
         {
             return RunCore(args);

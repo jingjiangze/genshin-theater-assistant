@@ -22,6 +22,9 @@
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
     <DebugType>none</DebugType>
+
+    <!-- DPI 感知：不声明的话 ClientToScreen 给逻辑坐标、CopyFromScreen 按物理像素取，缩放屏上抓屏整体错位 -->
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
   </PropertyGroup>
 
   <ItemGroup>
