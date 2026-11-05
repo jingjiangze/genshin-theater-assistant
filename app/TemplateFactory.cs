@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text.Json;
@@ -103,7 +103,7 @@ internal static class TemplateFactory
     }
 
     /// <summary>坐标裁剪 + 边距 + 边界收敛。返回 null 表示这一条不可用。</summary>
-    public static SpecRow MakeSpec(string name, string text, double score, Rectangle box, int frameW, int frameH, double padRatio = 0.35)
+    public static SpecRow MakeSpec(string name, string text, double score, Rectangle box, int frameW, int frameH, double padRatio = 0.15)
     {
         if (box.Width <= 0 || box.Height <= 0) return null;
         int pad = Math.Max(2, (int)Math.Round(box.Height * padRatio));
@@ -120,7 +120,7 @@ internal static class TemplateFactory
     }
 
     /// <summary>OCR 文本框 → 模板规格（同名只保留置信度最高的一条）。</summary>
-    public static List<SpecRow> Derive(IEnumerable<OcrBox> boxes, int frameW, int frameH)
+    public static List<SpecRow> Derive(IEnumerable<OcrBox> boxes, int frameW, int frameH, double padRatio = 0.15)
     {
         var best = new Dictionary<string, SpecRow>(StringComparer.Ordinal);
         if (boxes == null) return new List<SpecRow>();
@@ -185,7 +185,7 @@ internal static class TemplateFactory
                     name = rule.Prefix + n.Value;
                 }
 
-                var row = MakeSpec(name, text, box.Score, box.Rect, frameW, frameH);
+                var row = MakeSpec(name, text, box.Score, box.Rect, frameW, frameH, padRatio);
                 if (row == null) continue;
                 if (!best.TryGetValue(name, out var cur) || row.Score > cur.Score) best[name] = row;
                 break; // 一条文本只归一个标签，避免同一处产出多个模板

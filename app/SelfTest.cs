@@ -77,11 +77,16 @@ internal static class SelfTest
     // ---- 2. 规格边距与边界收敛 ----
     private static void CheckMakeSpec()
     {
-        // box(10,10,100,40) @1000x600，pad = round(40*0.35) = 14
-        // 左上同时被边界吃掉 4px：x=0,w=128-4=124 / y=0,h=68-4=64
+        // box(10,10,100,40) @1000x600，pad = round(40*0.15) = 6
+        // 左上被边界吃掉 6px：x=4,w=112-6=106？不——x=10-6=4 未越界，w=100+12=112，h=40+12=52
         var s = TemplateFactory.MakeSpec("t", "TESTLABEL", 0.9, new Rectangle(10, 10, 100, 40), 1000, 600);
-        bool ok = s != null && s.X == 0 && s.Y == 0 && s.W == 124 && s.H == 64;
-        Check("MakeSpec 边距/收敛", ok, s == null ? "null" : $"{s.X},{s.Y} {s.W}x{s.H}（期望 0,0 124x64）");
+        bool ok = s != null && s.X == 4 && s.Y == 4 && s.W == 112 && s.H == 52;
+        Check("MakeSpec 边距/收敛", ok, s == null ? "null" : $"{s.X},{s.Y} {s.W}x{s.H}（期望 4,4 112x52）");
+
+        // 越界时边界吃掉：box 贴左上角 → pad 被裁掉
+        var clamp = TemplateFactory.MakeSpec("t", "TESTLABEL", 0.9, new Rectangle(2, 2, 100, 40), 1000, 600);
+        bool okClamp = clamp != null && clamp.X == 0 && clamp.Y == 0 && clamp.W == 108 && clamp.H == 48;
+        Check("MakeSpec 贴边收敛", okClamp, clamp == null ? "null" : $"{clamp.X},{clamp.Y} {clamp.W}x{clamp.H}（期望 0,0 108x48）");
 
         // 越界右侧收敛
         var r = TemplateFactory.MakeSpec("t", "x", 0.9, new Rectangle(950, 570, 100, 40), 1000, 600);
@@ -115,7 +120,7 @@ internal static class SelfTest
         Check("Derive 命名", namesOk, string.Join(",", names));
 
         var act = specs.FirstOrDefault(s => s.Name == "act3");
-        bool actOk = act != null && act.X == 86 && act.Y == 586 && act.Text == "第3幕";  // pad = round(40*0.35)=14
+        bool actOk = act != null && act.X == 94 && act.Y == 594 && act.Text == "第3幕";  // pad = round(40*0.15)=6
         Check("Derive 幕次矩形", actOk, act == null ? "null" : $"{act.X},{act.Y} {act.W}x{act.H}");
 
         var test = specs.FirstOrDefault(s => s.Name == "test");

@@ -75,7 +75,7 @@ internal static class BatchRunner
         public TemplateFactory.SpecRow Spec;
     }
 
-    public static int Run(string frameDir, string outDir, double minPresent, double maxAbsent)
+    public static int Run(string frameDir, string outDir, double minPresent, double maxAbsent, double padRatio = 0.15)
     {
         Cli.Attach();
         var started = Stopwatch.StartNew();
@@ -123,7 +123,7 @@ internal static class BatchRunner
                 rec.H = rec.Image.Height;
                 int scale = rec.W < 900 ? 2 : 1;                    // 小图放大后再识别，否则小字全丢
                 rec.Boxes = ocr.RecognizeBoxesAsync(rec.Image, null, scale).GetAwaiter().GetResult() ?? new List<OcrBox>();
-                rec.Specs = TemplateFactory.Derive(rec.Boxes, rec.W, rec.H);
+                rec.Specs = TemplateFactory.Derive(rec.Boxes, rec.W, rec.H, padRatio);
 
                 // 幕次：整帧文本 + 底部条带（0.28,0.82,0.46,0.14）+3x，与运行时同一套
                 var text = string.Join("\n", rec.Boxes.Select(b => b.Text));

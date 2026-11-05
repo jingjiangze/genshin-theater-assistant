@@ -65,7 +65,8 @@ internal static class Program
                     {
                         return BatchRunner.Run(args[1], Opt(args, "--out"),
                             OptDouble(args, "--min-present", 0.92),
-                            OptDouble(args, "--max-absent", 0.80));
+                            OptDouble(args, "--max-absent", 0.80),
+                            OptDouble(args, "--pad", 0.15));
                     }
                     break;
 
