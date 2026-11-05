@@ -28,7 +28,10 @@
 | 缺席不误报 `absentMax` | 同分辨率下**没有**该标签的帧，整帧都不该命中 | < 0.80（低于运行时阈值 0.86） |
 
 ```powershell
-# 1) 存帧：游戏里按 Ctrl+Alt+D 存到 samples\auto\（或自己放录屏抽帧）
+# 1) 存帧（三选一，都会落到 samples\auto\）
+#    · 游戏里按 Ctrl+Alt+D → samples\auto\manual-HHmmss.png
+#    · 悬浮窗自动攒素材 → samples\auto\<状态>-<宽>x<高>[-序号].png（每键最多 6 张）
+#    · 自己整理录屏抽帧，直接放到任意目录
 # 2) 批量适配
 .\TheaterAssistant.exe --batch samples\auto --out templates
 # 3) 看报告
