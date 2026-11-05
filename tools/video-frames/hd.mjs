@@ -8,7 +8,7 @@
 import { chromium } from 'playwright-core';
 import fs from 'node:fs';
 
-const exe = process.env.BROWSER_PATH || 'C:\\Users\\16891\\AppData\\Local\\Thorium\\Application\\thorium.exe';
+const exe = process.env.BROWSER_PATH;   // 存在才用（本机 Thorium），否则用 playwright 自带 chromium
 const rawCookie = process.env.BILI_COOKIE || '';
 if (!rawCookie.trim()) {
   console.error('缺少 BILI_COOKIE 环境变量');
@@ -34,11 +34,12 @@ let stamps = args.filter(a => !a.startsWith('out=') && !a.startsWith('spread='))
 const spread = spreadArg ? parseInt(spreadArg.slice(7), 10) : 0;
 fs.mkdirSync(outDir, { recursive: true });
 
-const browser = await chromium.launch({
-  executablePath: exe,
+const launchOpts = {
   headless: true,
   args: ['--disable-gpu', '--mute-audio', '--autoplay-policy=no-user-gesture-required', '--lang=zh-CN'],
-});
+};
+if (exe && fs.existsSync(exe)) launchOpts.executablePath = exe;   // runner 上没有 Thorium → 用自带 chromium
+const browser = await chromium.launch(launchOpts);
 const ctx = await browser.newContext({
   viewport: { width: 1920, height: 1080 },
   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36',

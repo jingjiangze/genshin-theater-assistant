@@ -1,9 +1,10 @@
-﻿// 搜同类视频：用 cookie 打开 B站站内搜索（按播放量排序），抽出 BV 号 + 标题。
+﻿import fs from 'node:fs';
+// 搜同类视频：用 cookie 打开 B站站内搜索（按播放量排序），抽出 BV 号 + 标题。
 //   node search.mjs "幻想真境剧诗 全程" 8
 // 只在页面 DOM 里取 href/标题，不调私有接口、不做签名。
 import { chromium } from 'playwright-core';
 
-const exe = process.env.BROWSER_PATH || 'C:\\Users\\16891\\AppData\\Local\\Thorium\\Application\\thorium.exe';
+const exe = process.env.BROWSER_PATH;   // 存在才用（本机 Thorium），否则用 playwright 自带 chromium
 const rawCookie = process.env.BILI_COOKIE || '';
 const keyword = process.argv[2] || '幻想真境剧诗 全程';
 const want = parseInt(process.argv[3] || '8', 10);
@@ -13,7 +14,9 @@ const cookies = rawCookie.split(';').map(s => s.trim()).filter(Boolean).map(kv =
   return { name: kv.slice(0, i), value: kv.slice(i + 1), domain: '.bilibili.com', path: '/' };
 }).filter(c => c.name && c.value !== undefined);
 
-const browser = await chromium.launch({ executablePath: exe, headless: true, args: ['--disable-gpu', '--lang=zh-CN'] });
+const launchOpts = { headless: true, args: ['--disable-gpu', '--lang=zh-CN'] };
+if (exe && fs.existsSync(exe)) launchOpts.executablePath = exe;
+const browser = await chromium.launch(launchOpts);
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: 'zh-CN' });
 if (cookies.length) await ctx.addCookies(cookies);
 const page = await ctx.newPage();

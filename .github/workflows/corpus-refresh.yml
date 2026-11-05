@@ -1,4 +1,4 @@
-name: corpus-refresh
+﻿name: corpus-refresh
 
 # 持续语料训练（定时 + 手动）：
 #   1) 用 BILI_COOKIE secret 搜 B站新视频（剧诗全程/攻略），抽 1080p 帧
@@ -28,6 +28,10 @@ on:
         description: '每个视频抽帧数'
         required: false
         default: '12'
+      bvids:
+        description: '直接指定 BV 号（逗号分隔，填了就跳过搜索）'
+        required: false
+        default: ''
       commit:
         description: '提交语料回 main（true/false）'
         required: false
@@ -81,12 +85,15 @@ jobs:
           BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
         run: |
           if (-not $env:BILI_COOKIE) { throw "缺少 secret BILI_COOKIE" }
+          $direct = "${{ github.event.inputs.bvids }}"
+          if ($direct) { "BVS=$direct" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding UTF8; Write-Host "使用指定 BV：$direct"; exit 0 }
           $kw = "${{ github.event.inputs.keyword }}"; if (-not $kw) { $kw = '幻想真境剧诗 全程' }
           $n = "${{ github.event.inputs.videos }}"; if (-not $n) { $n = '2' }
           cd tools\video-frames
           $json = node search.mjs "$kw" $n
           $json | Out-File -Encoding UTF8 $env:RUNNER_TEMP\bvs.json
           $j = ($json -join "`n") | ConvertFrom-Json
+          if (-not $j -or -not $j.items -or $j.items.Count -eq 0) { throw "搜索没返回视频（关键词：$kw）——可用 bvids 输入直填" }
           Write-Host "搜到 $($j.items.Count) 个视频："
           $j.items | ForEach-Object { Write-Host "  $($_.bv)  $($_.title)" }
           $bvs = ($j.items | Select-Object -ExpandProperty bv) -join ','
