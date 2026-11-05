@@ -29,8 +29,11 @@ const bvid = process.argv[2];
 const args = process.argv.slice(3);
 const outArg = args.find(a => a.startsWith('out='));
 const spreadArg = args.find(a => a.startsWith('spread='));
+const everyArg = args.find(a => a.startsWith('every='));
+const rangeArg = args.find(a => a.startsWith('range='));
+const maxArg = args.find(a => a.startsWith('max='));
 const outDir = outArg ? outArg.slice(4) : './hd';
-let stamps = args.filter(a => !a.startsWith('out=') && !a.startsWith('spread=')).map(Number).filter(n => Number.isFinite(n));
+let stamps = args.filter(a => !a.startsWith('out=') && !a.startsWith('spread=') && !a.startsWith('every=') && !a.startsWith('range=') && !a.startsWith('max=')).map(Number).filter(n => Number.isFinite(n));
 const spread = spreadArg ? parseInt(spreadArg.slice(7), 10) : 0;
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -159,7 +162,21 @@ async function grabScreenshot() {
 }
 
 const realDur = ready.dur || pick.dur || 0;
-if (spread > 0) {
+if (everyArg || rangeArg) {
+  const every = everyArg ? Math.max(0.5, parseFloat(everyArg.slice(6))) : 0;
+  const cap = maxArg ? parseInt(maxArg.slice(4), 10) : 400;
+  let from = 0, to = realDur * 0.98;
+  if (rangeArg) {
+    const [a, b] = rangeArg.slice(6).split('-').map(Number);
+    if (Number.isFinite(a)) from = a;
+    if (Number.isFinite(b)) to = b;
+  }
+  stamps = [];
+  const step = every > 0 ? every : Math.max(1, (to - from) / cap);
+  for (let t2 = from; t2 <= to && stamps.length < cap; t2 += step) stamps.push(Math.round(t2 * 10) / 10);
+  console.log(`按秒抽帧：${step}s/帧，区间 ${from}-${Math.round(to)}s，共 ${stamps.length} 帧`);
+}
+if (spread > 0 && !everyArg && !rangeArg) {
   // 均匀铺开：跳过片头片尾各 5%，避免抓到黑屏/片尾
   stamps = [];
   const from = Math.min(15, realDur * 0.05), to = realDur * 0.95;

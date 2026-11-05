@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -139,102 +139,108 @@ internal static class Matcher
 
         byte[] f = Gray(frame, out int fw, out int fh);
 
+        // 半分辨率预筛：整帧扫描的成本与「帧面积 × 模板面积」成正比，
+        // 直接在全分辨率上对每个模板扫 5 次（1 次 + 4 档缩放）在 1080p 下要 30 秒/帧（实测 39s）。
+        // 改成先在 1/2 图上粗筛定位，再回到全分辨率只在该点 ±6px 内精确比对。
+        using var halfBmp = Resize(frame, 0.5f);
+        byte[] h = Gray(halfBmp, out int hw, out int hh);
+
         foreach (var t in templates)
         {
             byte[] tpl = Gray(t.Bitmap, out int tw, out int th);
             if (tw > fw || th > fh) continue;
 
-            double best = double.MaxValue;
+            double best = -1;
             int bx = 0, by = 0;
+            float usedScale = 1.0f;
 
-            for (int y = 0; y + th <= fh; y += step)
+            // 1) 半分辨率上试 1.00 与各缩放档，取最优（这里便宜：面积只有 1/4）
+            foreach (var s in Scales)
             {
-                for (int x = 0; x + tw <= fw; x += step)
-                {
-                    double sum = 0;
-                    for (int j = 0; j < th; j += 2)
-                    {
-                        int fo = (y + j) * fw + x;
-                        int to = j * tw;
-                        for (int i = 0; i < tw; i += 2)
-                        {
-                            double d = f[fo + i] - tpl[to + i];
-                            sum += d * d;
-                        }
-                    }
-                    if (sum < best) { best = sum; bx = x; by = y; }
-                }
+                using var scaledTpl = Resize(t.Bitmap, s * 0.5f);
+                byte[] ht = Gray(scaledTpl, out int htw, out int hth);
+                if (htw > hw || hth > hh) continue;
+
+                double sc = Coarse(h, hw, hh, ht, htw, hth, 2, 2, out int hx, out int hy);
+                if (sc > best) { best = sc; bx = (int)Math.Round(hx * 2.0); by = (int)Math.Round(hy * 2.0); usedScale = s; }
+            }
+            if (best < 0) continue;
+
+            // 明显不像就跳过（避免为不存在的模板做精确比对）
+            if (best < t.Threshold - 0.22) continue;
+
+            // 2) 回全分辨率，在粗筛点附近 ±6px 精确比对（用对应缩放后的模板）
+            byte[] fineTpl;
+            int ftw, fth;
+            if (Math.Abs(usedScale - 1.0f) < 0.001f) { fineTpl = tpl; ftw = tw; fth = th; }
+            else
+            {
+                using var sc2 = Resize(t.Bitmap, usedScale);
+                fineTpl = Gray(sc2, out ftw, out fth);
             }
 
-            // 细化：全分辨率，避免与粗扫抽样口径混比
+            double bestFine = -1;
             int rx = bx, ry = by;
-            double bestFine = double.MaxValue;
-            int y0 = Math.Max(0, by - step), y1 = Math.Min(fh - th, by + step);
-            int x0 = Math.Max(0, bx - step), x1 = Math.Min(fw - tw, bx + step);
-            for (int y = y0; y <= y1; y++)
+            for (int y = Math.Max(0, by - 6); y <= Math.Min(fh - fth, by + 6); y++)
             {
-                for (int x = x0; x <= x1; x++)
+                for (int x = Math.Max(0, bx - 6); x <= Math.Min(fw - ftw, bx + 6); x++)
                 {
-                    double sum = 0;
-                    for (int j = 0; j < th; j++)
+                    long sum = 0;
+                    for (int j = 0; j < fth; j++)
                     {
                         int fo = (y + j) * fw + x;
-                        int to = j * tw;
-                        for (int i = 0; i < tw; i++)
+                        int to = j * ftw;
+                        for (int i = 0; i < ftw; i++)
                         {
-                            double d = f[fo + i] - tpl[to + i];
+                            int d = f[fo + i] - fineTpl[to + i];
                             sum += d * d;
                         }
                     }
-                    if (sum < bestFine) { bestFine = sum; rx = x; ry = y; }
+                    double rmse = Math.Sqrt(sum / Math.Max(1.0, ftw * (double)fth));
+                    double sc3 = 1.0 - rmse / 255.0;
+                    if (sc3 > bestFine) { bestFine = sc3; rx = x; ry = y; }
                 }
             }
 
-            double rmse = Math.Sqrt(bestFine / Math.Max(1.0, tw * th));
-            double score = 1.0 - rmse / 255.0;
-
-            // 单尺度未过阈值时，换几个缩放再试（模板只做一份，兼容 90%/112%/125% 等缩放）
-            if (score < t.Threshold)
-            {
-                foreach (var s in Scales)
-                {
-                    if (Math.Abs(s - 1.0f) < 0.001f) continue;
-                    using var scaled = Resize(t.Bitmap, s);
-                    byte[] st = Gray(scaled, out int sw, out int sh);
-                    if (sw > fw || sh > fh) continue;
-
-                    double sb = double.MaxValue; int sx = 0, sy = 0;
-                    for (int y = 0; y + sh <= fh; y += step)
-                        for (int x = 0; x + sw <= fw; x += step)
-                        {
-                            double sum = 0;
-                            for (int j = 0; j < sh; j += 2)
-                            {
-                                int fo = (y + j) * fw + x, to = j * sw;
-                                for (int i = 0; i < sw; i += 2)
-                                {
-                                    double d = f[fo + i] - st[to + i];
-                                    sum += d * d;
-                                }
-                            }
-                            if (sum < sb) { sb = sum; sx = x; sy = y; }
-                        }
-
-                    double sRmse = Math.Sqrt(sb / Math.Max(1.0, (sw / 2) * (sh / 2)));
-                    double sScore = 1.0 - sRmse / 255.0;
-                    if (sScore > score) { score = sScore; rx = sx; ry = sy; }
-                }
-            }
-
-            if (score >= t.Threshold)
-            {
-                result.Add(new Hit { Name = t.Name, Score = Math.Round(score, 4), X = rx, Y = ry });
-            }
+            if (bestFine >= t.Threshold)
+                result.Add(new Hit { Name = t.Name, Score = Math.Round(bestFine, 4), X = rx, Y = ry });
         }
 
         return result;
     }
 
+    /// <summary>粗扫：位置与像素双重抽样，返回最优分与位置。</summary>
+    private static double Coarse(byte[] frame, int fw, int fh, byte[] tpl, int tw, int th,
+        int step, int sample, out int bx, out int by)
+    {
+        double best = -1;
+        bx = 0; by = 0;
+        int cols = (tw + sample - 1) / sample;
+        int rows = (th + sample - 1) / sample;
+        double norm = Math.Max(1.0, cols * (double)rows);
+
+        for (int y = 0; y + th <= fh; y += step)
+        {
+            for (int x = 0; x + tw <= fw; x += step)
+            {
+                long sum = 0;
+                for (int j = 0; j < th; j += sample)
+                {
+                    int fo = (y + j) * fw + x;
+                    int to = j * tw;
+                    for (int i = 0; i < tw; i += sample)
+                    {
+                        int d = frame[fo + i] - tpl[to + i];
+                        sum += (long)d * d;
+                    }
+                }
+                double rmse = Math.Sqrt(sum / norm);
+                double sc = 1.0 - rmse / 255.0;
+                if (sc > best) { best = sc; bx = x; by = y; }
+            }
+        }
+        return best;
+    }
     private static Bitmap Resize(Bitmap src, float scale)
     {
         int w = Math.Max(8, (int)Math.Round(src.Width * scale));
