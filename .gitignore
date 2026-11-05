@@ -38,3 +38,5 @@ _verify/
 *.png.txt
 *.result.json
 
+_verify*/
+_lead-verify*/

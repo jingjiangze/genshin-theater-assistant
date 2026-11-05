@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -109,7 +109,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.5.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.5.1 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
