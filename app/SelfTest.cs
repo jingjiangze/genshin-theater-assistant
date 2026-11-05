@@ -242,6 +242,27 @@ internal static class SelfTest
               && TemplateEntry.ThresholdFor("hall") == 0.86 && TemplateEntry.ThresholdFor("team") == 0.86,
               $"act8={TemplateEntry.ThresholdFor("act8")} hall={TemplateEntry.ThresholdFor("hall")}");
 
+        // 语料扫描的过滤规则（纯函数）：别把界面文案当攻略收进语料
+        var worthYes = new[] { "1幕需2雷岩、3幕需2水雷", "队伍：钟离+菲谢尔+卡齐娜+挂件", "选关：愚人众 优先打带标记的" };
+        var worthNo = new[] { "演出准备", "Lv.90", "第1幕", "队伍配置", "×24", "已编入" };
+        var badW = worthYes.Where(s => !CorpusScan.LineWorthy(s)).Concat(worthNo.Where(CorpusScan.LineWorthy)).ToList();
+        Check("语料过滤规则", badW.Count == 0, badW.Count == 0 ? $"{worthYes.Length} 收 / {worthNo.Length} 拒" : "错判: " + string.Join(",", badW));
+        Check("语料幕次推断", CorpusScan.GuessAct("3幕需2水雷") == 3 && CorpusScan.GuessAct("队伍：钟离") == 0,
+            $"3幕→{CorpusScan.GuessAct("3幕需2水雷")} / 无→{CorpusScan.GuessAct("队伍：钟离")}");
+
+        // 一行"现在做"：每种状态都必须是可在游戏里直接执行的祈使句
+        var na3 = TheaterLogic.NextAction("act", 3);
+        var na6 = TheaterLogic.NextAction("act", 6);
+        var na8 = TheaterLogic.NextAction("act", 8);
+        var na10 = TheaterLogic.NextAction("act", 10);
+        var naChoice = TheaterLogic.NextAction("choice", null);
+        var naTeam = TheaterLogic.NextAction("team", null);
+        Check("现在做·四个首领各有专属动作",
+            na3.Contains("怒气") && na6.Contains("钓客") && na8.Contains("锅") && na10.Contains("标记"),
+            $"{na3} | {na6} | {na8} | {na10}");
+        Check("现在做·三选一与队伍", naChoice.Contains("伙伴") && naTeam.Contains("28"), $"{naChoice} | {naTeam}");
+        Check("现在做·未知状态不瞎指挥", TheaterLogic.NextAction("unknown", null) == null, "null");
+
         // 中文名映射：characters.json 的键是英文，但 OCR/游戏 UI 是中文，必须能按中文名判"有没有这个角色"
         try
         {

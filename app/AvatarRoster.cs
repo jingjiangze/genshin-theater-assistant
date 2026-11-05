@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Text;
@@ -167,17 +167,59 @@ internal static class AvatarRoster
         string bestName = null;
         double bestScore = -1;
 
+        // 用边缘图相关性而不是原始像素 SSD：游戏格子里有元素底色、等级条、描边，
+        // 而头像是"卡面图标"，直接比像素只能到 0.4–0.6（实测）。边缘图对配色不敏感，能拉开差距。
+        var tileEdges = Edges(frameGray, inner);
+
         foreach (var t in tpls)
         {
             using var scaled = Resize(t.Bitmap, inner.Width, inner.Height);
             var g = TemplateFactory.GrayFrame.From(scaled);
-            double s = TemplateFactory.ScoreAt(frameGray, g, inner.X, inner.Y);
+            var tplEdges = Edges(g, new Rectangle(0, 0, g.W, g.H));
+            double s = Corr(tileEdges, tplEdges);
             topSink?.Add((t.Name, Math.Round(s, 4)));
             if (s > bestScore) { bestScore = s; bestName = t.Name; }
         }
 
         if (topSink != null) topSink.Sort((a, b) => b.Item2.CompareTo(a.Item2));
         return (bestName, bestScore);
+    }
+
+    /// <summary>取一块区域的梯度幅值图（|dx|+|dy|，0~255），用来做边缘相关性。</summary>
+    private static float[] Edges(TemplateFactory.GrayFrame f, Rectangle r)
+    {
+        int w = Math.Max(1, r.Width), h = Math.Max(1, r.Height);
+        var e = new float[w * h];
+        for (int y = 0; y < h; y++)
+        {
+            int fy = Math.Min(f.H - 2, Math.Max(1, r.Y + y));
+            for (int x = 0; x < w; x++)
+            {
+                int fx = Math.Min(f.W - 2, Math.Max(1, r.X + x));
+                int gx = f.Data[fy * f.W + (fx + 1)] - f.Data[fy * f.W + (fx - 1)];
+                int gy = f.Data[(fy + 1) * f.W + fx] - f.Data[(fy - 1) * f.W + fx];
+                e[y * w + x] = Math.Abs(gx) + Math.Abs(gy);
+            }
+        }
+        return e;
+    }
+
+    /// <summary>皮尔逊相关系数（-1~1）：只看形状是否一致，不受整体亮度/配色影响。</summary>
+    private static double Corr(float[] a, float[] b)
+    {
+        int n = Math.Min(a.Length, b.Length);
+        if (n == 0) return 0;
+        double ma = 0, mb = 0;
+        for (int i = 0; i < n; i++) { ma += a[i]; mb += b[i]; }
+        ma /= n; mb /= n;
+        double num = 0, da = 0, db = 0;
+        for (int i = 0; i < n; i++)
+        {
+            double x = a[i] - ma, y = b[i] - mb;
+            num += x * y; da += x * x; db += y * y;
+        }
+        if (da <= 0 || db <= 0) return 0;
+        return num / Math.Sqrt(da * db);
     }
 
     private static Bitmap Resize(Bitmap src, int w, int h)

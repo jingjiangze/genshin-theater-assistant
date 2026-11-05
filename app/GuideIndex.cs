@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -50,6 +50,55 @@ internal static class GuideIndex
 
     /// <summary>BM25 参数与实验脚本一致（k1=1.5 / b=0.75）。</summary>
     private const double K1 = 1.5, B = 0.75;
+
+    /// <summary>加载主语料；若同目录存在 guide-corpus-extra.json（--corpus-scan 产物）则一并合并。</summary>
+    public static void LoadWithExtra(string path)
+    {
+        Load(path);
+        var extra = Path.Combine(Path.GetDirectoryName(path) ?? ".", "guide-corpus-extra.json");
+        if (File.Exists(extra)) Append(extra);
+    }
+
+    /// <summary>把另一个同格式语料追加进索引（按 id 去重）。</summary>
+    public static void Append(string path)
+    {
+        try
+        {
+            if (!File.Exists(path)) return;
+            using var doc = JsonDocument.Parse(File.ReadAllText(path));
+            if (!doc.RootElement.TryGetProperty("entries", out var arr)) return;
+
+            var have = new HashSet<string>(_docs.Select(d => d.Id), StringComparer.Ordinal);
+            int added = 0;
+            foreach (var e in arr.EnumerateArray())
+            {
+                var entry = new Entry
+                {
+                    Id = Str(e, "id"), Title = Str(e, "title"), Text = Str(e, "text"), Source = Str(e, "source"),
+                    Act = e.TryGetProperty("act", out var a) && a.ValueKind == JsonValueKind.Number ? a.GetInt32() : 0,
+                    Tags = e.TryGetProperty("tags", out var tg) && tg.ValueKind == JsonValueKind.Array
+                        ? tg.EnumerateArray().Select(t => t.GetString() ?? "").ToArray() : Array.Empty<string>(),
+                };
+                if (string.IsNullOrWhiteSpace(entry.Id) || !have.Add(entry.Id)) continue;
+                _docs.Add(entry);
+                _tokens.Add(Tokenize($"{entry.Title} {entry.Text} {string.Join(" ", entry.Tags)} 第{entry.Act}幕"));
+                added++;
+            }
+            if (added == 0) return;
+            Reindex();
+            _loaded = _docs.Count > 0;
+        }
+        catch { }
+    }
+
+    private static void Reindex()
+    {
+        _df = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (var toks in _tokens)
+            foreach (var t in toks.Distinct())
+                _df[t] = _df.TryGetValue(t, out var c) ? c + 1 : 1;
+        _avgLen = _tokens.Count == 0 ? 1 : _tokens.Average(t => (double)t.Count);
+    }
 
     public static void Load(string path)
     {

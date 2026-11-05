@@ -408,6 +408,30 @@ internal static class TheaterLogic
         return new Advice("剧诗助手 · 等待识别", lines, "act=?, src=" + src, null, "unknown");
     }
 
+    /// <summary>
+    /// 一行"现在做"：把当前状态压成一句祈使句，让用户不用读整段文字也能动。
+    /// 纯函数（CI 可断言），不依赖识别细节。
+    /// </summary>
+    internal static string NextAction(string kind, int? act)
+    {
+        switch (kind)
+        {
+            case "act":
+                if (!act.HasValue) return "现在做：跟着屏幕上的提示推进，先别交主力耐力";
+                if (act.Value == 3) return "现在做：用雷把怒气条推满，满条后 15 秒内把爆发全打出去";
+                if (act.Value == 6) return "现在做：先杀掉 4 个钓客削 25% 盾，破盾瘫痪那 10 秒再爆发";
+                if (act.Value == 8) return "现在做：16 秒内用岩/钝击把锅打碎，别只顾灭火";
+                if (act.Value == 10) return "现在做：被标记就立刻奶满或无敌帧躲开，解除后才是输出窗口";
+                return $"现在做：清怪推进第 {act.Value} 幕，耐力留给 3/6/8/10 幕";
+            case "choice": return "现在做：缺人拿「伙伴」，输出不够拿「辉彩祝福」，都不缺才选「神秘收获」";
+            case "team": return "现在做：待命角色凑到 28 人再开月谕，额外编入名额别空着";
+            case "difficulty": return "现在做：角色池不够 22 人就先打卓越，够 28 人再上月谕";
+            case "result": return "现在做：要重来就走回溯，回到上一个首领关结束时的状态";
+            case "theater": return "现在做：点「演出准备」进本，先确认开幕角色用了试用";
+            default: return null;
+        }
+    }
+
     private static string hitName(string s) => s.Length > 60 ? s[..60] + "…" : s;
 
     private static string Short(string name)
@@ -418,6 +442,9 @@ internal static class TheaterLogic
 
     private static Advice Finish(string header, List<string> lines, RosterData roster, TheaterData data, string src, int? act, string kind)
     {
+        // 一句话结论永远放第一行：用户要的是"现在做什么"，不是读完一段分析
+        var next = NextAction(kind, act);
+        if (!string.IsNullOrEmpty(next)) lines.Insert(0, "▶ " + next);
         var elig = roster.Eligibility(data);
         if (elig.HasValue)
         {

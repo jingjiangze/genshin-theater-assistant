@@ -115,6 +115,11 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 从视频帧抽攻略文字，补充语料（--corpus-scan frames --out ... --bvid BVxxx）
+                case "--corpus-scan":
+                    if (args.Length >= 2) return CorpusScan.Run(args[1], Opt(args, "--out"), Opt(args, "--bvid"));
+                    break;
+
                 // 离线攻略检索：BM25 检索 data/guide-corpus.json，结果带出处
                 case "--advise":
                     {
@@ -157,7 +162,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.7.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.8.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -261,7 +266,7 @@ internal sealed class OverlayForm : Form
 
         _llm = LlmAdvisor.TryLoad(AppPaths.Data("llm.json"));
         _notes = GuideNotes.Load(AppPaths.Data("guide-notes.json"));
-        GuideIndex.Load(AppPaths.Data("guide-corpus.json"));
+        GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
         LoadTemplatesFor(0, 0);
 
         _timer.Tick += OnTick;
