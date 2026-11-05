@@ -115,6 +115,22 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 资源包 / 更新（MAA 式：程序与资源都能更新）
+                case "--check-update":
+                    return Updater.CheckUpdate();
+                case "--packs":
+                    return Updater.Run(null, true);
+                case "--fetch-model":
+                    return Updater.Run(args.Length >= 2 && !args[1].StartsWith("--", StringComparison.Ordinal) ? args[1] : null, false);
+
+                // 语音：--say "文本" 直接念；--voices 列系统语音；--selftest-speak 自检
+                case "--say":
+                    return Speech.RunCli(args.Length >= 2 && !args[1].StartsWith("--", StringComparison.Ordinal) ? args[1] : null, false);
+                case "--voices":
+                    return Speech.RunCli(null, true);
+                case "--selftest-speak":
+                    return Speech.RunCli("剧诗助手语音自检通过。", true);
+
                 // 从视频帧抽攻略文字，补充语料（--corpus-scan frames --out ... --bvid BVxxx）
                 case "--corpus-scan":
                     if (args.Length >= 2) return CorpusScan.Run(args[1], Opt(args, "--out"), Opt(args, "--bvid"));
@@ -162,7 +178,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.9.1 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.10.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -237,6 +253,7 @@ internal sealed class OverlayForm : Form
     private readonly HashSet<string> _autoSaved = new(StringComparer.Ordinal);
     private readonly Dictionary<string, int> _autoSavedCount = new(StringComparer.Ordinal);
     private string _autoSaveHint = "";
+    private string _lastAnnounced = "";
     private int? _currentAct;
     private TheaterData _theater;
 
@@ -267,6 +284,7 @@ internal sealed class OverlayForm : Form
         _llm = LlmAdvisor.TryLoad(AppPaths.Data("llm.json"));
         _notes = GuideNotes.Load(AppPaths.Data("guide-notes.json"));
         GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
+        Speech.LoadAndConfigure(AppPaths.Data("speech.json"));
         LoadTemplatesFor(0, 0);
 
         _timer.Tick += OnTick;
@@ -422,6 +440,14 @@ internal sealed class OverlayForm : Form
             _header = advice.Header;
             _lines.Clear();
             _lines.AddRange(advice.Lines);
+
+            // 语音播报：只在「状态/幕次」真的变了时读一句"现在做"，避免刷屏
+            var announceKey = (advice.Kind ?? "unknown") + "-" + (advice.Act?.ToString() ?? "-");
+            if (advice.Kind != "unknown" && announceKey != _lastAnnounced)
+            {
+                _lastAnnounced = announceKey;
+                Speech.Announce(advice.Kind, advice.Act, advice.Lines.FirstOrDefault() ?? "");
+            }
 
             // 离线攻略检索：用"第N幕 + 当前判定"当查询，命中的中文攻略条目连出处一起显示
             if (GuideIndex.Loaded && advice.Kind != "unknown")

@@ -242,6 +242,25 @@ internal static class SelfTest
               && TemplateEntry.ThresholdFor("hall") == 0.86 && TemplateEntry.ThresholdFor("team") == 0.86,
               $"act8={TemplateEntry.ThresholdFor("act8")} hall={TemplateEntry.ThresholdFor("hall")}");
 
+        // 语音归一化：播报要读的句子不能带"▶ 现在做："和分隔符号
+        var speech1 = Speech.NormalizeForSpeech("▶ 现在做：用雷把怒气条推满，满条后 15 秒内把爆发全打出去");
+        var speech2 = Speech.NormalizeForSpeech("耐力 2 点/人｜别在头两幕耗光");
+        Check("语音归一化", speech1.StartsWith("用雷") && !speech1.Contains("▶") && !speech2.Contains("｜"),
+            speech1 + " / " + speech2);
+
+        // 资源包哈希校验（临时文件，验完即删）
+        var tmpPack = Path.Combine(Path.GetTempPath(), "ta-pack-" + Guid.NewGuid().ToString("N") + ".bin");
+        try
+        {
+            File.WriteAllText(tmpPack, "theater-assistant-pack-probe");
+            var good = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(tmpPack)));
+            Check("资源包哈希校验",
+                Updater.VerifyHash(tmpPack, good) && !Updater.VerifyHash(tmpPack, new string('0', 64)) && Updater.VerifyHash(tmpPack, ""),
+                "好哈希通过 / 坏哈希拒绝 / 空哈希跳过");
+        }
+        catch (Exception ex) { Check("资源包哈希校验", false, ex.Message); }
+        finally { try { File.Delete(tmpPack); } catch { } }
+
         // 语料扫描的过滤规则（纯函数）：别把界面文案当攻略收进语料
         var worthYes = new[] { "1幕需2雷岩、3幕需2水雷", "队伍：钟离+菲谢尔+卡齐娜+挂件", "选关：愚人众 优先打带标记的" };
         var worthNo = new[] { "演出准备", "Lv.90", "第1幕", "队伍配置", "×24", "已编入" };

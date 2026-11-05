@@ -1,0 +1,8 @@
+﻿{
+  "enabled": true,
+  "rate": 1,
+  "volume": 100,
+  "minSecondsBetween": 6,
+  "onlyKinds": [],
+  "note": "SAPI 系统语音，离线。enabled=false 可彻底关掉；onlyKinds 非空时只播报这些状态（act/choice/team/difficulty/theater/result）"
+}

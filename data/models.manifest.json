@@ -1,0 +1,4 @@
+﻿{
+  "note": "资源包清单。每个 pack：name/kind/size/sha256/urls[]。urls 按顺序尝试（GitHub 镜像优先，官方兜底）。本文件故意留空——URL 与 SHA256 必须实测后写，不能猜。",
+  "packs": []
+}
