@@ -115,6 +115,13 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 视频模拟运行：按时间顺序逐帧跑完整链路，输出时序报告
+                case "--replay":
+                    if (args.Length >= 2)
+                        return ReplayRunner.Run(args[1], Opt(args, "--out"), Opt(args, "--json"),
+                            (int)OptDouble(args, "--min-stable", 2));
+                    break;
+
                 // 资源包 / 更新（MAA 式：程序与资源都能更新）
                 case "--check-update":
                     return Updater.CheckUpdate();
@@ -178,7 +185,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.10.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.11.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }

@@ -1,4 +1,4 @@
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 
@@ -21,6 +21,10 @@ internal sealed class LlmAdvisor : IDisposable
     private readonly string _apiKey;
 
     public bool Enabled { get; }
+
+    /// <summary>最近一次调用的健康状态（给悬浮窗诊断用）：ok / 冷却中 / 未探测。</summary>
+    public string Health { get; private set; } = "未探测";
+    private DateTime _coolUntil = DateTime.MinValue;
 
     private LlmAdvisor(string endpoint, string model, string apiKey)
     {
@@ -47,16 +51,16 @@ internal sealed class LlmAdvisor : IDisposable
             var key = string.IsNullOrWhiteSpace(keyEnv) ? "" : Environment.GetEnvironmentVariable(keyEnv) ?? "";
             return new LlmAdvisor(endpoint, model, key);
         }
-        catch
-        {
-            return null;
-        }
+        catch { return null; }
     }
 
     /// <summary>返回 null 表示"不用模型 / 调用失败"，调用方应继续用规则文本。</summary>
     public async Task<string> RefineAsync(string stateLine, IReadOnlyList<string> ruleLines, string rosterLine)
     {
         if (!Enabled) return null;
+
+        // 端点健康检查：失败后冷却 5 分钟，避免每次幕次变化都等 3 秒超时
+        if (DateTime.UtcNow < _coolUntil) { Health = $"冷却中(至 {_coolUntil:HH:mm:ss})"; return null; }
 
         try
         {
@@ -82,7 +86,13 @@ internal sealed class LlmAdvisor : IDisposable
                 req.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
 
             using var resp = await _http.SendAsync(req).ConfigureAwait(false);
-            if (!resp.IsSuccessStatusCode) return null;
+            if (!resp.IsSuccessStatusCode)
+            {
+                Health = $"HTTP {(int)resp.StatusCode} → 冷却 5 分钟";
+                _coolUntil = DateTime.UtcNow.AddMinutes(5);
+                return null;
+            }
+            Health = "ok";
 
             using var doc = JsonDocument.Parse(await resp.Content.ReadAsStringAsync().ConfigureAwait(false));
             var text = doc.RootElement
@@ -93,8 +103,10 @@ internal sealed class LlmAdvisor : IDisposable
 
             return string.IsNullOrWhiteSpace(text) ? null : text.Trim();
         }
-        catch
+        catch (Exception ex)
         {
+            Health = "不可用(" + ex.GetType().Name + ") → 冷却 5 分钟";
+            _coolUntil = DateTime.UtcNow.AddMinutes(5);
             return null;
         }
     }
