@@ -288,6 +288,13 @@ internal static class SelfTest
         }
 
         using var form = new OverlayForm();
+
+        // 生产悬浮窗会随 DPI 缩放（AutoScale），自检也按同一比例放大画布，
+        // 否则高 DPI 下固定 600x236 一定文字溢出——那是测具的问题，不是程序的问题。
+        float dpiScale = Math.Max(1f, form.DeviceDpi / 96f);
+        int W = (int)Math.Round(600 * dpiScale);
+        int H = (int)Math.Round(236 * dpiScale);
+
         using var bmp = form.RenderPreview(
             "第 3 幕 · 来源 模板 act3=0.980",
             new[]
@@ -297,9 +304,9 @@ internal static class SelfTest
                 "耐力 2 点/人；别在头两幕把开幕主力耗光",
             },
             clickThrough: true,
-            size: new Size(600, 236));
+            size: new Size(W, H));
 
-        Check("渲染尺寸", bmp.Width == 600 && bmp.Height == 236, $"{bmp.Width}x{bmp.Height}");
+        Check("渲染尺寸（按 DPI 缩放）", bmp.Width == W && bmp.Height == H, $"{bmp.Width}x{bmp.Height}（DPI {form.DeviceDpi} → 缩放 {dpiScale:0.00}）");
 
         // 左侧 4px 强调条必须是金色（198,168,96）
         var accent = bmp.GetPixel(1, bmp.Height / 2);
@@ -313,9 +320,9 @@ internal static class SelfTest
 
         // 顶部标题行必须有比背景亮很多的文字像素
         int bright = 0;
-        for (int x = 16; x < Math.Min(bmp.Width, 560); x++)
+        for (int x = 16; x < Math.Min(bmp.Width, W - 40); x++)
         {
-            for (int y = 8; y < 32; y++)
+            for (int y = 8; y < 32 + (int)(6 * dpiScale); y++)
             {
                 var p = bmp.GetPixel(x, y);
                 if (p.R > 150 && p.G > 150 && p.B > 150) bright++;
@@ -325,15 +332,39 @@ internal static class SelfTest
 
         // 正文区也得有文字像素（证明多行排版真的画了东西）
         int body = 0;
-        for (int x = 16; x < Math.Min(bmp.Width, 590); x++)
+        for (int x = 16; x < Math.Min(bmp.Width, W - 10); x++)
         {
-            for (int y = 40; y < 150; y++)
+            for (int y = 40; y < Math.Min(bmp.Height, 150 + (int)(60 * dpiScale)); y++)
             {
                 var p = bmp.GetPixel(x, y);
                 if (p.R > 140 && p.G > 140 && p.B > 140) body++;
             }
         }
         Check("正文有文字像素", body > 150, $"亮点 {body} 个");
+
+        // 溢出检测：最后 4 列里有亮点 = 文字被画到边界外（175% 下曾把"攻略"裁掉）
+        int edge = 0;
+        for (int y = 0; y < bmp.Height; y++)
+        {
+            for (int x = bmp.Width - 4; x < bmp.Width; x++)
+            {
+                var p = bmp.GetPixel(x, y);
+                if (p.R > 120 && p.G > 120 && p.B > 120) edge++;
+            }
+        }
+        Check("文字不溢出右边", edge == 0, $"右边 4 列亮点 {edge} 个");
+
+        // 底部热键行也必须在画布内（贴底 2 行不该有亮点）
+        int bottom = 0;
+        for (int y = bmp.Height - 2; y < bmp.Height; y++)
+        {
+            for (int x = 0; x < bmp.Width; x++)
+            {
+                var p = bmp.GetPixel(x, y);
+                if (p.R > 120 && p.G > 120 && p.B > 120) bottom++;
+            }
+        }
+        Check("文字不溢出底边", bottom == 0, $"底部 2 行亮点 {bottom} 个");
 
         try
         {

@@ -46,6 +46,23 @@ jobs:
           if (Test-Path .\dist\selftest-report.txt) { Get-Content .\dist\selftest-report.txt -Encoding UTF8 }
           if ($p.ExitCode -ne 0) { throw "自检失败，拒绝发布 (exit $($p.ExitCode))" }
 
+      - name: 发布前渲染自检（悬浮窗画到 bitmap 断言）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest-visual' -Wait -PassThru
+          if (Test-Path .\dist\selftest-visual-report.txt) { Get-Content .\dist\selftest-visual-report.txt -Encoding UTF8 }
+          if ($p.ExitCode -ne 0) { throw "渲染自检失败，拒绝发布 (exit $($p.ExitCode))" }
+
+      - name: 发布前真机模拟实测（抓屏为空则跳过，不算失败）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest-live --size 1600x900' -Wait -PassThru
+          if (Test-Path .\dist\selftest-live-report.txt) { Get-Content .\dist\selftest-live-report.txt -Encoding UTF8 }
+          if ($p.ExitCode -eq 4) { Write-Host "::warning::真机模拟被跳过（无桌面会话）" }
+          elseif ($p.ExitCode -ne 0) { throw "真机模拟失败，拒绝发布 (exit $($p.ExitCode))" }
+
       - name: zip
         shell: pwsh
         run: |

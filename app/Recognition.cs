@@ -44,11 +44,13 @@ internal static class GameWindow
 
     /// <summary>
     /// 按多个信号打分选窗口，而不是"第一个标题包含就算"：
-    ///   进程名像原神（YuanShen/Genshin…） +100、UnityWndClass +50、标题完全等于 needle +40、
+    ///   preferPid 命中 +200（自检用：真游戏在跑时也能锁定假窗口）、
+    ///   进程名像原神 +100、UnityWndClass +50、标题完全等于 needle +40、
     ///   标题只是把 needle 当子串且不长 +10；客户区小于 640x360 直接不算。
-    /// 之前的宽松匹配会把"浏览器开着原神攻略页""聊天窗口标题提到原神"当成游戏窗口。
+    /// 最低分线 40：只有"标题包含"这一条弱证据不算找到 ——
+    /// 否则游戏没开时，浏览器开着原神攻略页就会被当成游戏窗口（审计实测抓到过）。
     /// </summary>
-    public static IntPtr Find(string titleNeedle)
+    public static IntPtr Find(string titleNeedle, int preferPid = 0)
     {
         IntPtr best = IntPtr.Zero;
         int bestScore = 0;
@@ -70,8 +72,9 @@ internal static class GameWindow
             if (w < 640 || hh < 360) return true;          // 太小，不可能是游戏画面
 
             int score = 0;
+            if (preferPid != 0 && pid == (uint)preferPid) score += 200;
             if (LooksLikeGameProcess(pid)) score += 100;
-            if (cls.ToString() == "UnityWndClass") score += 50;
+            if (string.Equals(cls.ToString(), "UnityWndClass", StringComparison.OrdinalIgnoreCase)) score += 50;
             if (needle.Length > 0)
             {
                 if (string.Equals(title, needle, StringComparison.OrdinalIgnoreCase)) score += 40;
@@ -82,7 +85,7 @@ internal static class GameWindow
             return true;
         }, IntPtr.Zero);
 
-        return bestScore > 0 ? best : IntPtr.Zero;
+        return bestScore >= 40 ? best : IntPtr.Zero;        // 弱证据不算命中
     }
 
     /// <summary>窗口归属进程（用于诊断"到底抓到了谁的窗口"）。</summary>

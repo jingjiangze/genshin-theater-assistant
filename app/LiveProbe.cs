@@ -149,6 +149,21 @@ internal static class LiveProbe
             if (!ok) fails++;
         }
 
+        // 报告必须**每种退出路径**都落盘：跳过(4)时也要有报告，否则 CI 只看到"没报错"却没有任何证据
+        void Emit(int exitCode)
+        {
+            lines.Add(exitCode == 4
+                ? "SKIP  本机没有可捕获的桌面会话：既不算通过也不算失败"
+                : $"通过 {lines.Count(l => l.StartsWith("PASS"))} / 失败 {fails}");
+            foreach (var l in lines) Cli.Say(l);
+            try
+            {
+                File.WriteAllText(Path.Combine(AppPaths.Dir, "selftest-live-report.txt"),
+                    string.Join(Environment.NewLine, lines), Encoding.UTF8);
+            }
+            catch { }
+        }
+
         // 没有指定图片时，现场画一张"像剧诗界面"的帧（不依赖任何外部素材）
         string srcPath = png;
         Bitmap owned = null;
@@ -180,7 +195,7 @@ internal static class LiveProbe
             var sw = Stopwatch.StartNew();
             while (sw.ElapsedMilliseconds < 1500) { Application.DoEvents(); Thread.Sleep(40); }
 
-            var win = GameWindow.Find(needle);
+            var win = GameWindow.Find(needle, Environment.ProcessId);   // 真游戏在跑时也锁定本进程的假窗口
             Check("窗口可被发现", win != IntPtr.Zero, win == IntPtr.Zero ? "没找到" : $"0x{win:X}");
             if (win != IntPtr.Zero)
             {
@@ -209,8 +224,7 @@ internal static class LiveProbe
                     var mean = MeanGray(bmp);
                     if (mean < 3.0)
                     {
-                        lines.Add($"SKIP  抓屏为空白（灰度均值 {mean:0.00}）：当前没有可捕获的桌面会话");
-                        foreach (var l in lines) Cli.Say(l);
+                        Emit(4);
                         return 4;
                     }
 
@@ -254,15 +268,9 @@ internal static class LiveProbe
             try { if (File.Exists(srcPath) && png != srcPath) File.Delete(srcPath); } catch { }
         }
 
-        lines.Add($"通过 {lines.Count(l => l.StartsWith("PASS"))} / 失败 {fails}");
-        foreach (var l in lines) Cli.Say(l);
-        try
-        {
-            File.WriteAllText(Path.Combine(AppPaths.Dir, "selftest-live-report.txt"),
-                string.Join(Environment.NewLine, lines), Encoding.UTF8);
-        }
-        catch { }
-        return fails == 0 ? 0 : 1;
+        var exit = fails == 0 ? 0 : 1;
+        Emit(exit);
+        return exit;
     }
 
     private static List<TemplateEntry> LoadTemplates(int width)

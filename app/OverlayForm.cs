@@ -109,7 +109,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.5.1 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.5.2 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -182,6 +182,8 @@ internal sealed class OverlayForm : Form
     private int? _llmForAct;
     private string _bucketKey = "";
     private readonly HashSet<string> _autoSaved = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, int> _autoSavedCount = new(StringComparer.Ordinal);
+    private string _autoSaveHint = "";
     private int? _currentAct;
     private TheaterData _theater;
 
@@ -327,24 +329,37 @@ internal sealed class OverlayForm : Form
                     advice = TheaterLogic.Evaluate(hits, text + " " + bandText, _theater, _roster, bandText);
             }
 
-            // 自动攒素材：按「状态 + 幕次 + 分辨率」去重存原始帧。
-            // 不再只在"没有模板时"存 —— 模板只影响判定路径，素材该攒还是要攒（--batch 的输入就是它）。
+            // 自动攒素材：按「状态 + 幕次 + 分辨率 + 画面签名」去重存原始帧。
+            // 用签名而不是只按 key 去重：同一幕的不同界面（选人/战斗/BUFF 结算）都要能攒下来；
+            // 每个 key 最多 6 张，避免长局把磁盘写爆。存盘失败不再静默，直接写进诊断行。
             var stateKind = advice.Kind ?? "unknown";
             if (stateKind != "unknown")
             {
                 var key = $"{stateKind}-{advice.Act?.ToString() ?? "-"}-{bmp.Width}x{bmp.Height}";
-                if (_autoSaved.Add(key))
+                var sig = QuickSignature(bmp);
+                if (_autoSaved.Add(key + "#" + sig))
                 {
                     try
                     {
-                        var dir = Path.Combine(AppPaths.Dir, "samples", "auto");
-                        Directory.CreateDirectory(dir);
-                        var fileName = advice.Act.HasValue
-                            ? $"act{advice.Act.Value}-{bmp.Width}x{bmp.Height}.png"
-                            : $"{stateKind}-{bmp.Width}x{bmp.Height}.png";
-                        bmp.Save(Path.Combine(dir, fileName), System.Drawing.Imaging.ImageFormat.Png);
+                        var n = _autoSavedCount.TryGetValue(key, out var c) ? c + 1 : 1;
+                        if (n > 6)
+                        {
+                            _autoSaved.Remove(key + "#" + sig);
+                        }
+                        else
+                        {
+                            _autoSavedCount[key] = n;
+                            var dir = Path.Combine(AppPaths.Dir, "samples", "auto");
+                            Directory.CreateDirectory(dir);
+                            var baseName = advice.Act.HasValue ? $"act{advice.Act.Value}" : stateKind;
+                            var fileName = n == 1
+                                ? $"{baseName}-{bmp.Width}x{bmp.Height}.png"
+                                : $"{baseName}-{bmp.Width}x{bmp.Height}-{n}.png";
+                            bmp.Save(Path.Combine(dir, fileName), System.Drawing.Imaging.ImageFormat.Png);
+                            _autoSaveHint = $"素材 +1 · {fileName}";
+                        }
                     }
-                    catch { }
+                    catch (Exception ex) { _autoSaveHint = "素材存盘失败: " + ex.Message; }
                 }
             }
 
@@ -361,6 +376,7 @@ internal sealed class OverlayForm : Form
                 _lines.Add("OCR: " + _ocr.Status);
             }
             _lastCaptureHint = advice.Diagnostics;
+            if (!string.IsNullOrEmpty(_autoSaveHint)) _lines.Add(_autoSaveHint);
             _currentAct = advice.Act;
 
             if (_llm is { Enabled: true } && advice.Act.HasValue && _llmForAct != advice.Act)
@@ -461,14 +477,15 @@ internal sealed class OverlayForm : Form
 
             using var bmp = ScreenCapture.CaptureClient(win);
             if (bmp == null) return;
-            var dir = Path.Combine(AppPaths.Dir, "samples");
+            // 手动存帧与自动攒素材放同一目录：一条 --batch samples\auto 就能吃全
+            var dir = Path.Combine(AppPaths.Dir, "samples", "auto");
             Directory.CreateDirectory(dir);
-            var p = Path.Combine(dir, $"dump-{DateTime.Now:HHmmss}.png");
+            var p = Path.Combine(dir, $"manual-{DateTime.Now:HHmmss}.png");
             bmp.Save(p, System.Drawing.Imaging.ImageFormat.Png);
             _lines.Add("已存帧: " + Path.GetFileName(p));
             Invalidate();
         }
-        catch { /* 静默 */ }
+        catch (Exception ex) { _lines.Add("存帧失败: " + ex.Message); Invalidate(); }
     }
 
     protected override void OnMouseDown(MouseEventArgs e)
@@ -520,6 +537,23 @@ internal sealed class OverlayForm : Form
             DrawContent(g);
         }
         return bmp;
+    }
+
+    /// <summary>4x4 灰度缩略签名：用来区分"同一状态的不同画面"（只花 16 次 GetPixel）。</summary>
+    private static string QuickSignature(Bitmap bmp)
+    {
+        var sb = new System.Text.StringBuilder(16);
+        for (int gy = 0; gy < 4; gy++)
+        {
+            for (int gx = 0; gx < 4; gx++)
+            {
+                int x = Math.Min(bmp.Width - 1, bmp.Width * (gx * 2 + 1) / 8);
+                int y = Math.Min(bmp.Height - 1, bmp.Height * (gy * 2 + 1) / 8);
+                var p = bmp.GetPixel(x, y);
+                sb.Append(((p.R + p.G + p.B) / 3 / 16).ToString("x"));
+            }
+        }
+        return sb.ToString();
     }
 
     private void DrawContent(Graphics g)

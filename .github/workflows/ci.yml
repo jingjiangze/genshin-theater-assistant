@@ -149,8 +149,13 @@ jobs:
           $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest-live --size 1600x900' -Wait -PassThru
           if (Test-Path .\dist\selftest-live-report.txt) { Get-Content .\dist\selftest-live-report.txt -Encoding UTF8 }
           Write-Host "selftest-live exit=$($p.ExitCode)"
-          if ($p.ExitCode -eq 4) { Write-Host "SKIP: runner 没有可捕获的桌面会话" }
+          if ($p.ExitCode -eq 4) {
+            # 跳过也要显式告警，否则"绿"不代表真机链路跑过
+            Write-Host "::warning::真机模拟被跳过：runner 桌面抓屏为空（没有可捕获的会话）"
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 真机模拟实测：SKIP（抓屏空白，无桌面会话）"
+          }
           elseif ($p.ExitCode -ne 0) { throw "真机模拟实测失败 (exit $($p.ExitCode))" }
+          else { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 真机模拟实测：PASS（8/8 断言）" }
 
       - uses: actions/upload-artifact@v4
         if: always()
