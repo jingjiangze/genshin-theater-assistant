@@ -346,14 +346,22 @@ internal static class BatchRunner
                     g.FillRectangle(brush, 0, 0, w, h);
                 }
 
-                // 一点与标签无关的纹理，避免整帧纯色导致误报检测失效
+                // 装饰纹理只画在右侧/下缘（左侧是标签列）：纹理不能压在标签上，
+                // 否则同一屏的两帧会因纹理不同而在标签处得分暴跌，等于自造假失败。
                 var rnd = new Random(seed);
-                using (var pen = new Pen(Color.FromArgb(60, 255, 255, 255), Math.Max(1f, 2f * k)))
+                using (var pen = new Pen(Color.FromArgb(45, 255, 255, 255), Math.Max(1f, 1f * k)))
                 {
-                    for (int i = 0; i < 6; i++)
+                    for (int i = 0; i < 8; i++)
                     {
-                        g.DrawEllipse(pen, rnd.Next(0, w / 2), rnd.Next(h / 3, h), w / 6 + rnd.Next(0, w / 5), h / 6);
+                        int ex = rnd.Next((int)(w * 0.62), (int)(w * 0.9));
+                        int ey = rnd.Next((int)(h * 0.1), (int)(h * 0.85));
+                        g.DrawEllipse(pen, ex, ey, w / 8 + rnd.Next(0, w / 12), h / 8);
                     }
+                }
+                // 屏幕顶部常驻条（同屏两帧完全一致，用来压住"整帧纯色"的退化情况）
+                using (var bar = new SolidBrush(Color.FromArgb(bg.R + 12, bg.G + 12, bg.B + 16)))
+                {
+                    g.FillRectangle(bar, 0, 0, w, (int)(h * 0.08));
                 }
 
                 // 标签按纵向等分铺开：让「第N幕」落在下半部（符合真实局内标签位置，也满足派生规则）
