@@ -177,7 +177,9 @@ internal static class LiveProbe
             {
                 GameWindow.GetClientRect(win, out var cr);
                 int cw = cr.Right - cr.Left, ch = cr.Bottom - cr.Top;
-                Check("客户区尺寸", cw == w && ch == h, $"{cw}x{ch}（期望 {w}x{h}）");
+                // 不假设"请求的尺寸就是拿到的尺寸"：小桌面会把窗口夹到最大跟踪尺寸
+                // （CI runner 桌面 1024x768 → 请求 1600x900 实际得到 ~1044x788）。
+                Check("客户区可用", cw > 200 && ch > 200, $"{cw}x{ch}（请求 {w}x{h}）");
 
                 using var bmp = ScreenCapture.CaptureClient(win);
                 if (bmp == null)
@@ -186,7 +188,7 @@ internal static class LiveProbe
                 }
                 else
                 {
-                    Check("抓帧尺寸", bmp.Width == w && bmp.Height == h, $"{bmp.Width}x{bmp.Height}");
+                    Check("抓帧尺寸=客户区", bmp.Width == cw && bmp.Height == ch, $"{bmp.Width}x{bmp.Height}（客户区 {cw}x{ch}）");
                     var mean = MeanGray(bmp);
                     if (mean < 3.0)
                     {
@@ -195,12 +197,12 @@ internal static class LiveProbe
                         return 4;
                     }
 
-                    // 抓到的画面必须真的是那张帧（缩放后仍应高度相似）
-                    using var probeScaled = new Bitmap(source, new Size(w, h));
+                    // 抓到的画面必须真的是那张帧（按实际客户区缩放后仍应高度相似）
+                    using var probeScaled = new Bitmap(source, new Size(bmp.Width, bmp.Height));
                     var gCaptured = TemplateFactory.GrayFrame.From(bmp);
                     var gSource = TemplateFactory.GrayFrame.From(probeScaled);
                     double sim = TemplateFactory.ScoreAt(gCaptured, gSource, 0, 0);
-                    Check("抓到的画面=源帧", sim >= 0.95, $"相似度 {sim:0.0000}");
+                    Check("抓到的画面=源帧", sim >= 0.95, $"相似度 {sim:0.0000}（源帧缩放到 {bmp.Width}x{bmp.Height}）");
 
                     // 识别链路
                     using var ocr = new OcrService();
