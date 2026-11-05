@@ -1,4 +1,4 @@
-namespace TheaterAssistant;
+﻿namespace TheaterAssistant;
 
 /// <summary>
 /// 幕次时序稳定器：把"逐帧识别出来的幕次"变成"可信的当前幕次"。
@@ -30,9 +30,8 @@ internal sealed class ActStabilizer
     {
         if (!observed.HasValue)
         {
-            // 没看到幕次：保持已确认的结果，避免 unknown/act 来回抖
-            _pending = null;
-            _pendingCount = 0;
+            // 没观测到幕次：保持已确认结果，但**不清零**候选计数 ——
+            // 条带 OCR 经常漏一帧，若清零，`9, 漏, 9` 就永远确认不了（CI 断言抓到过）。
             return _committed;
         }
 
