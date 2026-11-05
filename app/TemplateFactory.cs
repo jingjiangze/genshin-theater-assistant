@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text.Json;
@@ -331,5 +331,7 @@ internal static class TemplateFactory
     {
         WriteIndented = true,
         Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+        // 必须包含字段：replay 的 Step 用的是公共字段，默认只序列化属性 → 会写出 100 个 {}（实测踩过）
+        IncludeFields = true,
     };
 }

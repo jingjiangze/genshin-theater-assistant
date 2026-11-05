@@ -253,6 +253,9 @@ internal static class SelfTest
         Check("决策·读编入人数", ts1 == (4, 4) && ts2.Size == 26 && ts3 == (0, 0),
             $"{ts1} / {ts2} / {ts3}");
 
+        // JSON 选项必须序列化"公共字段"（replay 的 Step 是字段；否则写出空对象，蒸馏全 0）
+        Check("JSON 选项包含字段", TemplateFactory.JsonOpts.IncludeFields, "IncludeFields=" + TemplateFactory.JsonOpts.IncludeFields);
+
         // 本地日志解析（纯函数）：只认 avatarId/level，其余字段丢弃
         var log = "{\"avatarId\":10000060,\"level\":90} {\"avatarId\":10000046,\"level\":80} junk {\"avatarId\":10000060,\"level\":90}";
         var parsed = LogScan.ParseCharacters(log);
