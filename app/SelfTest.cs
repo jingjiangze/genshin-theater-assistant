@@ -242,6 +242,21 @@ internal static class SelfTest
               && TemplateEntry.ThresholdFor("hall") == 0.86 && TemplateEntry.ThresholdFor("team") == 0.86,
               $"act8={TemplateEntry.ThresholdFor("act8")} hall={TemplateEntry.ThresholdFor("hall")}");
 
+        // 中文名映射：characters.json 的键是英文，但 OCR/游戏 UI 是中文，必须能按中文名判"有没有这个角色"
+        try
+        {
+            using var cdoc = System.Text.Json.JsonDocument.Parse(File.ReadAllText(AppPaths.Data("characters.json")));
+            int zhCount = cdoc.RootElement.TryGetProperty("zhNames", out var zhEl) ? zhEl.EnumerateObject().Count() : 0;
+            Check("characters.json 有中文名", zhCount >= 120, $"zhNames {zhCount} 条");
+            if (zhCount > 0)
+            {
+                Check("中文名可被 RosterScan 词典命中",
+                    RosterScan.MatchName("夜兰", zhEl.EnumerateObject().Where(p => p.Name == "Yelan").Select(p => p.Value.GetString())) == "夜兰",
+                    "夜兰");
+            }
+        }
+        catch (Exception ex) { Check("characters.json 有中文名", false, ex.Message); }
+
         Check("RosterScan 等级解析",
             RosterScan.MatchLevel("Lv.90") == 90 && RosterScan.MatchLevel("lv 70") == 70 && RosterScan.MatchLevel("等级") == null,
             $"Lv.90→{RosterScan.MatchLevel("Lv.90")} / lv 70→{RosterScan.MatchLevel("lv 70")}");

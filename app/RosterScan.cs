@@ -68,8 +68,15 @@ internal static class RosterScan
         try
         {
             using var doc = JsonDocument.Parse(File.ReadAllText(charPath));
+            // 中文名优先入表：OCR 读到的是中文，英文键只在极少数情况下用得上
+            if (doc.RootElement.TryGetProperty("zhNames", out var zh))
+                foreach (var p in zh.EnumerateObject())
+                {
+                    var cn = p.Value.GetString();
+                    if (!string.IsNullOrWhiteSpace(cn) && !names.Contains(cn)) names.Add(cn);
+                }
             if (doc.RootElement.TryGetProperty("characters", out var chars))
-                foreach (var p in chars.EnumerateObject()) names.Add(p.Name);
+                foreach (var p in chars.EnumerateObject()) if (!names.Contains(p.Name)) names.Add(p.Name);
         }
         catch (Exception ex)
         {
@@ -139,6 +146,12 @@ internal static class RosterScan
             using var doc = JsonDocument.Parse(File.ReadAllText(charPath));
             if (doc.RootElement.TryGetProperty("characters", out var chars))
                 foreach (var p in chars.EnumerateObject()) elements[p.Name] = p.Value.GetString() ?? "";
+            if (doc.RootElement.TryGetProperty("zhNames", out var zh))
+                foreach (var p in zh.EnumerateObject())
+                {
+                    var cn = p.Value.GetString();
+                    if (!string.IsNullOrWhiteSpace(cn) && elements.TryGetValue(p.Name, out var el)) elements[cn] = el;
+                }
         }
         catch { }
 

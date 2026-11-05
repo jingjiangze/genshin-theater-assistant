@@ -138,6 +138,19 @@ internal sealed class RosterData
                     r._element[Norm(p.Name)] = p.Value.GetString() ?? "";
                 }
             }
+
+            // 中文名别名：游戏 UI 与 OCR 都是中文，角色池很可能用中文键；
+            // 元素表必须同时认英文键与中文键，否则 CountElement/Owns 全部空转。
+            if (doc.RootElement.TryGetProperty("zhNames", out var zh))
+            {
+                foreach (var p in zh.EnumerateObject())
+                {
+                    var cn = p.Value.GetString();
+                    if (string.IsNullOrWhiteSpace(cn)) continue;
+                    if (r._element.TryGetValue(Norm(p.Name), out var el) && !string.IsNullOrEmpty(el))
+                        r._element[Norm(cn)] = el;
+                }
+            }
         }
 
         if (File.Exists(goodPath))
