@@ -273,6 +273,87 @@ internal static class SelfTest
         Check("OCR→派生规格", specs.Any(s => s.Name == "test"), string.Join(",", specs.Select(s => s.Name)));
     }
 
+    // ---- 7. UI 层：把悬浮窗渲染成 bitmap 后断言配色与文字像素 ----
+    /// <summary>不需要桌面会话，CI 里也能跑；同时把渲染结果存成 visual-preview.png 供人眼看。</summary>
+    public static int RunVisual()
+    {
+        Cli.Attach();
+        int pass = 0, fail = 0;
+        var lines = new List<string> { "=== 悬浮窗渲染自检 ===" };
+
+        void Check(string name, bool ok, string detail)
+        {
+            lines.Add((ok ? "PASS  " : "FAIL  ") + name + "  " + detail);
+            if (ok) pass++; else fail++;
+        }
+
+        using var form = new OverlayForm();
+        using var bmp = form.RenderPreview(
+            "第 3 幕 · 来源 模板 act3=0.980",
+            new[]
+            {
+                "首领·翠翎恐蕈｜1:45（星章 1:10）｜雷推怒气条（火 -34%）",
+                "优先遇到: 翠翎恐蕈(9，双雷共鸣)｜备选 遗迹机兵(6) / 熔岩游像(5)",
+                "耐力 2 点/人；别在头两幕把开幕主力耗光",
+            },
+            clickThrough: true,
+            size: new Size(600, 236));
+
+        Check("渲染尺寸", bmp.Width == 600 && bmp.Height == 236, $"{bmp.Width}x{bmp.Height}");
+
+        // 左侧 4px 强调条必须是金色（198,168,96）
+        var accent = bmp.GetPixel(1, bmp.Height / 2);
+        bool accentOk = accent.R > 150 && accent.G > 120 && accent.B < 130;
+        Check("左侧金色强调条", accentOk, $"RGB({accent.R},{accent.G},{accent.B})");
+
+        // 背景应是深色（角落采样，避开强调条）
+        var bg = bmp.GetPixel(bmp.Width - 6, bmp.Height - 6);
+        bool bgOk = bg.R < 60 && bg.G < 60 && bg.B < 70;
+        Check("深色背景", bgOk, $"RGB({bg.R},{bg.G},{bg.B})");
+
+        // 顶部标题行必须有比背景亮很多的文字像素
+        int bright = 0;
+        for (int x = 16; x < Math.Min(bmp.Width, 560); x++)
+        {
+            for (int y = 8; y < 32; y++)
+            {
+                var p = bmp.GetPixel(x, y);
+                if (p.R > 150 && p.G > 150 && p.B > 150) bright++;
+            }
+        }
+        Check("标题行有文字像素", bright > 40, $"亮点 {bright} 个");
+
+        // 正文区也得有文字像素（证明多行排版真的画了东西）
+        int body = 0;
+        for (int x = 16; x < Math.Min(bmp.Width, 590); x++)
+        {
+            for (int y = 40; y < 150; y++)
+            {
+                var p = bmp.GetPixel(x, y);
+                if (p.R > 140 && p.G > 140 && p.B > 140) body++;
+            }
+        }
+        Check("正文有文字像素", body > 150, $"亮点 {body} 个");
+
+        try
+        {
+            var outPath = Path.Combine(AppPaths.Dir, "visual-preview.png");
+            bmp.Save(outPath, System.Drawing.Imaging.ImageFormat.Png);
+            lines.Add("已存预览：" + outPath);
+        }
+        catch { }
+
+        lines.Add($"通过 {pass} / 失败 {fail}");
+        foreach (var l in lines) Cli.Say(l);
+        try
+        {
+            File.WriteAllText(Path.Combine(AppPaths.Dir, "selftest-visual-report.txt"),
+                string.Join(Environment.NewLine, lines), Encoding.UTF8);
+        }
+        catch { }
+        return fail == 0 ? 0 : 1;
+    }
+
     // ---- 合成素材 ----
     private static Bitmap MakePattern(int w, int h, int seed)
     {

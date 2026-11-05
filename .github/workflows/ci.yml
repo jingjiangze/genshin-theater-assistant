@@ -133,6 +133,15 @@ jobs:
           if ($actRows.Count -lt 4) { throw "幕次判定回归：期望 ≥4 帧判出幕次，实际 $($actRows.Count)" }
           if (-not ($actRows | Where-Object { $_.act -eq 3 })) { throw "幕次判定回归：合成帧写的是第3幕，未判出 3" }
 
+      - name: 悬浮窗渲染自检（画到 bitmap 上断言）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest-visual' -Wait -PassThru
+          if (Test-Path .\dist\selftest-visual-report.txt) { Get-Content .\dist\selftest-visual-report.txt -Encoding UTF8 }
+          Write-Host "selftest-visual exit=$($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { throw "悬浮窗渲染自检失败 (exit $($p.ExitCode))" }
+
       - name: 真机模拟实测（假游戏窗口 → GDI 抓屏 → 识别）；无桌面会话时跳过
         shell: pwsh
         run: |

@@ -83,6 +83,10 @@ internal static class Program
                 case "--selftest":
                     return SelfTest.Run(args.Contains("--with-ocr", StringComparer.OrdinalIgnoreCase));
 
+                // 悬浮窗渲染自检（把窗画到 bitmap 上断言，不需要桌面会话）
+                case "--selftest-visual":
+                    return SelfTest.RunVisual();
+
                 // 真机模拟：把一张帧当真游戏画面显示出来（手动观察用）
                 case "--fakegame":
                     if (args.Length >= 2)
@@ -495,7 +499,31 @@ internal sealed class OverlayForm : Form
 
     protected override void OnPaint(PaintEventArgs e)
     {
-        var g = e.Graphics;
+        DrawContent(e.Graphics);
+    }
+
+    /// <summary>
+    /// 只给自检用：注入一组状态并渲染成 bitmap（不开定时器、不注册热键、不显示窗口）。
+    /// 这样"绘制到底对不对"能在没有桌面会话的 CI 里被断言，也能存成图让人眼看。
+    /// </summary>
+    internal Bitmap RenderPreview(string header, IEnumerable<string> lines, bool clickThrough, Size size)
+    {
+        _header = header ?? "";
+        _lines.Clear();
+        if (lines != null) _lines.AddRange(lines);
+        _clickThrough = clickThrough;
+        ClientSize = size;
+
+        var bmp = new Bitmap(size.Width, size.Height);
+        using (var g = Graphics.FromImage(bmp))
+        {
+            DrawContent(g);
+        }
+        return bmp;
+    }
+
+    private void DrawContent(Graphics g)
+    {
         g.SmoothingMode = SmoothingMode.AntiAlias;
         g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
