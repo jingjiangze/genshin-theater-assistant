@@ -88,29 +88,31 @@ jobs:
       - name: 自检（纯函数 + OCR 坐标）
         shell: pwsh
         run: |
-          & .\dist\TheaterAssistant.exe --selftest --with-ocr
-          $code = $LASTEXITCODE
+          chcp 65001 > $null
+          # WinExe 从 pwsh 直接调用不会同步返回，必须 Start-Process -Wait 才能拿到退出码
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest --with-ocr' -Wait -PassThru
           if (Test-Path .\dist\selftest-report.txt) { Get-Content .\dist\selftest-report.txt -Encoding UTF8 }
-          Write-Host "selftest exit=$code"
-          if ($code -ne 0) { throw "自检失败 (exit $code)" }
+          Write-Host "selftest exit=$($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { throw "自检失败 (exit $($p.ExitCode))" }
 
       - name: 批量适配端到端（合成帧 → 模板 + 质检报告）
         shell: pwsh
         run: |
+          chcp 65001 > $null
           $synth = Join-Path $env:RUNNER_TEMP 'batch-frames'
           $out   = Join-Path $env:RUNNER_TEMP 'batch-templates'
           Remove-Item $synth, $out -Recurse -Force -ErrorAction SilentlyContinue
-          & .\dist\TheaterAssistant.exe --synth $synth
-          & .\dist\TheaterAssistant.exe --batch $synth --out $out
-          $code = $LASTEXITCODE
-          Write-Host "batch exit=$code"
+          $p1 = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--synth `"$synth`"" -Wait -PassThru
+          if ($p1.ExitCode -ne 0) { throw "生成合成帧失败 (exit $($p1.ExitCode))" }
+          $p2 = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--batch `"$synth`" --out `"$out`"" -Wait -PassThru
+          Write-Host "batch exit=$($p2.ExitCode)"
           $report = Join-Path $out 'batch-report.json'
           if (-not (Test-Path $report)) { throw "没有产出 batch-report.json" }
           if (Test-Path (Join-Path $out 'batch-report.md')) { Get-Content (Join-Path $out 'batch-report.md') -Encoding UTF8 }
           $j = Get-Content $report -Raw -Encoding UTF8 | ConvertFrom-Json
           Write-Host "候选模板 $($j.candidates) / 安装 $($j.installed)"
           Get-ChildItem $out -Recurse -Filter *.png | Select-Object FullName, Length
-          if ($code -ne 0) { throw "批量适配失败 (exit $code)" }
+          if ($p2.ExitCode -ne 0) { throw "批量适配失败 (exit $($p2.ExitCode))" }
           if ($j.candidates -lt 2) { throw "候选模板过少：$($j.candidates)" }
           if ($j.installed -lt 2) { throw "通过质检的模板过少：$($j.installed)" }
 

@@ -41,10 +41,10 @@ jobs:
       - name: 发布前自检（不通过就不发）
         shell: pwsh
         run: |
-          & .\dist\TheaterAssistant.exe --selftest --with-ocr
-          $code = $LASTEXITCODE
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest --with-ocr' -Wait -PassThru
           if (Test-Path .\dist\selftest-report.txt) { Get-Content .\dist\selftest-report.txt -Encoding UTF8 }
-          if ($code -ne 0) { throw "自检失败，拒绝发布 (exit $code)" }
+          if ($p.ExitCode -ne 0) { throw "自检失败，拒绝发布 (exit $($p.ExitCode))" }
 
       - name: zip
         shell: pwsh

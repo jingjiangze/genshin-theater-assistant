@@ -1,4 +1,4 @@
-﻿# 幻想真境剧诗 · 助手（Theater Assistant）
+# 幻想真境剧诗 · 助手（Theater Assistant）
 
 只做一件事：**在你打《原神》幻想真境剧诗时，识别当前第几幕 / 是否在三选一界面，并在置顶小窗里给出该幕的打法要点。**
 
@@ -111,23 +111,58 @@ pwsh -File .\build-exe.ps1        # C# 版：需要 .NET SDK 8+
 
 结论：**官方没有公开的账号数据接口**，"尽量不登录"的唯一干净路径是 OCR 扫角色界面，其次手动导入。
 
-## 模板制作（一条命令）
+## 模板制作：批量适配（v0.4.0，推荐）
+
+不用手写像素坐标。把一个**帧目录**丢进去即可——游戏截图、`Ctrl+Alt+D` 存下来的帧、录屏抽帧都行：
 
 ```powershell
-# 1) 打一场剧诗，程序会把识别到幕次的原始帧存到 samples/auto/
-#    或随时按 Ctrl+Alt+D 存帧
+.\TheaterAssistant.exe --batch samples\auto --out templates
+notepad templates\batch-report.md
+```
 
-# 2) 用 specs 指定要裁的区域（帧内像素坐标）
+它做的事：
+
+1. 逐帧跑 OCR，拿到每条文字的**四边形坐标**（`OcrResult.TextBlocks.BoxPoints`，已折回整帧坐标系）
+2. 用标签表把文字锚点映射成模板名：`第N幕 → actN`、`演出准备/助演嘉宾/演出回顾/奖励一览 → hall`、
+   `选择角色 → choice`、`演出结算 → result`、`开始挑战 → begin`、`难度 → diff`
+3. 按矩形裁图，并做**双向量检**：
+
+| 口径 | 含义 | 门槛 | 为什么 |
+|---|---|---|---|
+| 在场一致性 `presentMin` | 同分辨率下同样识别出该标签的其它帧，模板必须仍在原位 ±24px 命中 | ≥ 0.92 | 证明不是裁到一次性画面 |
+| 缺席不误报 `absentMax` | 同分辨率下**没有**该标签的帧，整帧扫描都不该命中 | < 0.80 | 低于运行阈值 0.86 才不会假阳性 |
+
+4. 只把两条都过的模板写进 `templates/<宽>x<高>/`，并留下 `_specs.json` 与 `batch-report.json/.md`
+
+因为坐标是从 OCR 现算的，**任意分辨率都能产出该分辨率自己的一套模板**：
+1080p 的帧产出 `1920x1080/`，`2560x1440`、`3440x1440` 同理，不需要手工换算。
+
+配套命令：
+
+```powershell
+.\TheaterAssistant.exe --selftest              # 纯函数自检（不需要模型、不需要游戏）
+.\TheaterAssistant.exe --selftest --with-ocr   # 追加"OCR 坐标是否可用"的端到端断言
+.\TheaterAssistant.exe --synth tests\_tmp\frames   # 生成合成帧，用来验证整条流水线
+```
+
+## 模板制作：手工裁剪（保留）
+
+```powershell
+# 用 specs 指定要裁的区域（帧内像素坐标）
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\make-templates.ps1 `
   -Frame .\samples\auto\act3-1920x1080.png -Specs .\tools\specs.example.json
-
-# 3) 输出：templates/1920x1080/*.png，并当场用匹配器自检（分数 + 坐标）
 ```
 
 工具会拒绝越界坐标，并要求每个模板在原帧上的匹配分 ≥0.95 且坐标误差 ≤2px，否则退出码 1。
-`templates/<宽>x<高>/` 会被运行时按当前客户区自动选中（±12% 容差）。
+
+> 批量适配的已知限制：**公开视频源拿不到干净的高分辨率帧**。B站未登录的 DASH 只给 360p/480p，
+> 元素截图带弹幕/UP 叠字/摄像头。想要 1080p 模板，用自己游戏里按 `Ctrl+Alt+D` 存的帧（客户区原始像素，无叠加）。
+
 
 ## 踩坑记录（PowerShell 5.1）
+
+**WinExe 从 PowerShell 直接 `& .\xxx.exe --selftest` 不会同步返回**，`$LASTEXITCODE` 是空的：
+用 `Start-Process -Wait -PassThru` 再读 `.ExitCode`，否则 CI 里会「命令成功但退出码为空」直接误判失败。
 
 **带 `[string]` 类型约束的 param 变量，赋别的类型会被静默 ToString()。**
 

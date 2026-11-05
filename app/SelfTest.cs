@@ -77,9 +77,10 @@ internal static class SelfTest
     private static void CheckMakeSpec()
     {
         // box(10,10,100,40) @1000x600，pad = round(40*0.35) = 14
+        // 左上同时被边界吃掉 4px：x=0,w=128-4=124 / y=0,h=68-4=64
         var s = TemplateFactory.MakeSpec("t", "TESTLABEL", 0.9, new Rectangle(10, 10, 100, 40), 1000, 600);
-        bool ok = s != null && s.X == 0 && s.Y == 0 && s.W == 124 && s.H == 68;
-        Check("MakeSpec 边距/收敛", ok, s == null ? "null" : $"{s.X},{s.Y} {s.W}x{s.H}（期望 0,0 124x68）");
+        bool ok = s != null && s.X == 0 && s.Y == 0 && s.W == 124 && s.H == 64;
+        Check("MakeSpec 边距/收敛", ok, s == null ? "null" : $"{s.X},{s.Y} {s.W}x{s.H}（期望 0,0 124x64）");
 
         // 越界右侧收敛
         var r = TemplateFactory.MakeSpec("t", "x", 0.9, new Rectangle(950, 570, 100, 40), 1000, 600);
