@@ -265,7 +265,7 @@ internal static class SelfTest
         }
         else
         {
-            var cases = new (string Q, int? Act, string Expect)[]
+            var qlCases = new (string Q, int? Act, string Expect)[]
             {
                 ("第3幕 翠翎恐蕈 怎么打", 3, "act3-boss"),
                 ("深黯魇语之主 钓客 破盾", 6, "act6-boss"),
@@ -274,15 +274,15 @@ internal static class SelfTest
                 ("三选一 选什么", null, "rule-三选一"),
                 ("月谕 编入 28 人", null, "rule-difficulty"),
             };
-            int bad = 0;
-            var detail = new List<string>();
-            foreach (var c in cases)
+            int qlBad = 0;
+            var qlDetail = new List<string>();
+            foreach (var c in qlCases)
             {
                 var top = GuideIndex.Search(c.Q, c.Act, 1).FirstOrDefault();
                 var got = top?.Entry.Id ?? "<null>";
-                if (got != c.Expect) { bad++; detail.Add($"{c.Q}→{got}(期望{c.Expect})"); }
+                if (got != c.Expect) { qlBad++; qlDetail.Add($"{c.Q}→{got}(期望 {c.Expect})"); }
             }
-            Check("攻略检索 hit@1", bad == 0, $"{cases.Length} 例，失败 {bad}" + (bad > 0 ? "：" + string.Join("; ", detail) : ""));
+            Check("攻略检索 hit@1", qlBad == 0, $"{qlCases.Length} 例，失败 {qlBad}" + (qlBad > 0 ? "：" + string.Join("; ", qlDetail) : ""));
             Check("检索结果带出处", GuideIndex.Search("第3幕 翠翎恐蕈", 3, 1).All(h => !string.IsNullOrWhiteSpace(h.SourceLabel)), "source 非空");
         }
 
