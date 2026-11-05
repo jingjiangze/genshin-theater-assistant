@@ -115,6 +115,16 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 免登陆角色池（头像路线）：只有头像+Lv 的网格也能认人
+                case "--roster-avatars":
+                    if (args.Length >= 2)
+                    {
+                        return AvatarRoster.Run(args[1], Opt(args, "--avatars"), Opt(args, "--out"),
+                            args.Contains("--probe", StringComparer.OrdinalIgnoreCase),
+                            OptDouble(args, "--min-score", 0.55));
+                    }
+                    break;
+
                 // 真机模拟：把一张帧当真游戏画面显示出来（手动观察用）
                 case "--fakegame":
                     if (args.Length >= 2)

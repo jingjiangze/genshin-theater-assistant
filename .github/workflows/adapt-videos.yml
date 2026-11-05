@@ -1,0 +1,122 @@
+name: adapt-videos
+
+# 批量视频适配：在 GitHub Actions 上跑，不在本机跑。
+#   · 用 BILI_COOKIE secret 取 1080p dash 帧（未登录只有 360p）
+#   · 抽帧 → --batch 质检 → 产出 templates/<宽x高>/*.png + 报告
+#   · 结果作为 artifact 上传；commit=true 时直接提交回仓库（默认不提交，避免无关改动进 history）
+#
+# 用法：Actions → adapt-videos → Run workflow
+#   bvids : 空格分隔的 BV 号，例如 "BV1eExm6dEmt BV1saaz6qEbH"
+#   spread: 每个视频均匀抽多少帧（默认 12）
+#   commit: 是否把通过的模板提交回 main（默认 false）
+
+on:
+  workflow_dispatch:
+    inputs:
+      bvids:
+        description: '空格分隔的 BV 号'
+        required: true
+        default: 'BV1eExm6dEmt'
+      spread:
+        description: '每个视频抽帧数'
+        required: false
+        default: '12'
+      commit:
+        description: '把通过的模板提交回 main（true/false）'
+        required: false
+        default: 'false'
+  schedule:
+    # 每周一 03:00 UTC 自动抓一批（可用 secrets 控制是否启用）
+    - cron: '0 3 * * 1'
+
+permissions:
+  contents: write
+
+jobs:
+  adapt:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: 取帧依赖（playwright + chromium）
+        shell: pwsh
+        run: |
+          cd tools\video-frames
+          if (-not (Test-Path package.json)) { npm init -y | Out-Null }
+          npm i playwright-core --no-audit --no-fund
+          npx playwright install chromium
+
+      - name: 拉 OCR 模型并构建 exe
+        shell: pwsh
+        run: |
+          .\models\fetch-models.ps1
+          New-Item -ItemType Directory -Force app/data, app/templates, app/models | Out-Null
+          Copy-Item data/* app/data -Recurse -Force
+          Copy-Item templates/* app/templates -Recurse -Force
+          foreach ($v in 'v5','v6') {
+            if (Test-Path "models/$v") {
+              New-Item -ItemType Directory -Force "app/models/$v" | Out-Null
+              Copy-Item "models/$v/*" "app/models/$v" -Force
+            }
+          }
+          dotnet publish app/TheaterAssistant.csproj -c Release -o dist
+
+      - name: 抽帧（cookie 只从 secret 读，不落盘不进日志）
+        shell: pwsh
+        env:
+          BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
+        run: |
+          if (-not $env:BILI_COOKIE) { throw "缺少 secret BILI_COOKIE（B站登录 cookie）" }
+          $bvids = "${{ github.event.inputs.bvids }}"
+          if (-not $bvids) { $bvids = 'BV1eExm6dEmt' }
+          $spread = "${{ github.event.inputs.spread }}"
+          if (-not $spread) { $spread = '12' }
+          New-Item -ItemType Directory -Force frames | Out-Null
+          cd tools\video-frames
+          foreach ($bv in $bvids.Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
+            Write-Host "=== $bv ==="
+            node hd.mjs $bv "spread=$spread" "out=../../frames"
+          }
+
+      - name: 批量适配并在 CI 内跑质检
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $o = Join-Path $env:RUNNER_TEMP 'adapt.out.txt'
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--batch `"$PWD\frames`" --out `"$PWD\templates`"" -Wait -PassThru -RedirectStandardOutput $o
+          if (Test-Path $o) { Get-Content $o -Encoding UTF8 }
+          $report = 'templates\batch-report.json'
+          if (-not (Test-Path $report)) { throw "没有产出 batch-report.json" }
+          $j = Get-Content $report -Raw -Encoding UTF8 | ConvertFrom-Json
+          Write-Host "帧 $($j.frames.Count) · 候选 $($j.candidates) · 安装 $($j.installed)（双向 $($j.verified)）"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 视频适配：帧 $($j.frames.Count) / 候选 $($j.candidates) / 安装 $($j.installed)"
+          Get-ChildItem templates -Recurse -Filter *.png | Where-Object { $_.FullName -notmatch '\\model' } | Select-Object FullName, Length
+          if ($p.ExitCode -ne 0) { throw "批量适配失败 (exit $($p.ExitCode))" }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: adapt-templates-${{ github.run_id }}
+          path: |
+            templates/**/*.png
+            templates/batch-report.json
+            templates/batch-report.md
+          retention-days: 30
+
+      - name: 提交通过的模板（可选）
+        if: ${{ github.event.inputs.commit == 'true' }}
+        shell: pwsh
+        run: |
+          git config user.name "adapt-bot"
+          git config user.email "adapt-bot@users.noreply.github.com"
+          git add templates
+          if (git diff --cached --quiet) { Write-Host "没有新模板"; exit 0 }
+          git commit -m "chore(templates): 视频批量适配产物（CI ${{ github.run_id }}）"
+          git push
