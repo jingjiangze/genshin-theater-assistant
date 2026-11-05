@@ -431,3 +431,38 @@ node tools/fetch-avatars.mjs --out assets/avatars        # yatta 索引 + enka C
 | bge-small-zh ONNX 向量检索 | **+95 MB**（exe 从 100MB 变 ~200MB） | 未采用：现有语料量级下没有提升空间 |
 
 语料涨到几百条、或要让"口语提问"也能命中时，再引入向量重排（模型作为可选下载包，不塞进 exe）。
+
+## 语音播报（v0.10.0，零依赖离线）
+
+状态或幕次变化时，程序会用 **Windows 内置语音**读一句"现在做"，你不用看屏幕。
+
+```powershell
+.\TheaterAssistant.exe --voices            # 列系统语音（本机有 Huihui 中文）
+.\TheaterAssistant.exe --say "第3幕，用雷推怒气"   # 手动试一句
+.\TheaterAssistant.exe --selftest-speak    # 自检（无语音则返回 4 跳过）
+```
+
+配置 `data/speech.json`：
+
+```json
+{ "enabled": true, "rate": 1, "volume": 100, "minSecondsBetween": 6, "onlyKinds": [] }
+```
+
+`onlyKinds` 非空时只播报这些状态（`act` / `choice` / `team` / `difficulty` / `theater` / `result`）。
+
+## 资源包与更新（MAA 式）
+
+```powershell
+.\TheaterAssistant.exe --packs                    # 清单与安装状态
+.\TheaterAssistant.exe --fetch-model bge-small-zh # 按镜像顺序下载 + SHA256 校验 + 原子替换
+.\TheaterAssistant.exe --check-update             # 查最新 release
+```
+
+清单 `data/models.manifest.json`（**故意留空**，URL/SHA 必须实测后填）：
+
+```json
+{ "packs": [ { "name": "bge-small-zh", "kind": "embedding", "size": 24000000,
+               "sha256": "<实测>", "urls": ["https://镜像/…", "https://github.com/…"] } ] }
+```
+
+下载落 `%LOCALAPPDATA%\TheaterAssistant\packs`，失败保留上一版；程序本身更新走 Releases 覆盖 exe，数据与资源包不用重下。
