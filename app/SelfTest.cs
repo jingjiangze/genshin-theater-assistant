@@ -242,6 +242,13 @@ internal static class SelfTest
               && TemplateEntry.ThresholdFor("hall") == 0.86 && TemplateEntry.ThresholdFor("team") == 0.86,
               $"act8={TemplateEntry.ThresholdFor("act8")} hall={TemplateEntry.ThresholdFor("hall")}");
 
+        // 从界面文字读编入人数（实测文案两种写法）
+        var ts1 = ChoiceDecider.ParseTeamSize("已额外编入4/4名待命角色，并根据额外编入的角色数量获得增益");
+        var ts2 = ChoiceDecider.ParseTeamSize("编入的角色数量 26");
+        var ts3 = ChoiceDecider.ParseTeamSize("队伍配置");
+        Check("决策·读编入人数", ts1 == (4, 4) && ts2.Size == 26 && ts3 == (0, 0),
+            $"{ts1} / {ts2} / {ts3}");
+
         // 决策引擎：解析卡片 + 按幕次给出"选第几张"
         var shopText = "战斗·普通\n战斗·普通\n雷晶·进阶\n感电·原态";
         var shopOpts = ChoiceDecider.ParseOptions(shopText.Split('\n'));

@@ -273,7 +273,8 @@ internal sealed class OverlayForm : Form
     private int _textAge;
     private string _cachedText = "";
     private readonly ActStabilizer _actStab = new();
-    private int _teamSize;   // 已编入人数（能从 OCR 读到就更新）
+    private int _teamSize;   // 已编入人数（从界面文字读，读不到就用上次值）
+    private int _teamTarget = 4;
     private int? _currentAct;
     private TheaterData _theater;
 
@@ -485,10 +486,14 @@ internal sealed class OverlayForm : Form
             // 决策优先：屏幕上出现可选项（买卡/三选一）时，直接给出"选第几张"，不用玩家自己判断
             var optLines = (text ?? "").Split('\n').Select(s => s.Trim()).Where(s => s.Length > 0).ToList();
             if (bandText != null) optLines.Add(bandText.Trim());
+            var (teamNow, teamMax) = ChoiceDecider.ParseTeamSize(text ?? "");
+            if (teamNow > 0) _teamSize = teamNow;
+            if (teamMax > 0) _teamTarget = teamMax;
+
             var options = ChoiceDecider.ParseOptions(optLines);
             if (options.Count >= 2)
             {
-                var dec = ChoiceDecider.Decide(options, advice.Act ?? 0, _teamSize, 4);
+                var dec = ChoiceDecider.Decide(options, advice.Act ?? 0, _teamSize, _teamTarget);
                 if (dec != null) _lines.Insert(0, "▶ " + dec.Sentence);
             }
 

@@ -51,6 +51,24 @@ internal static class ChoiceDecider
         return "";
     }
 
+    private static readonly Regex TeamSizeRe = new(@"已(?:额外)?编入\s*(\d{1,2})\s*/\s*(\d{1,2})", RegexOptions.Compiled);
+    private static readonly Regex TeamSizeAlt = new(@"编入的角色数量[^\d]{0,6}(\d{1,2})", RegexOptions.Compiled);
+
+    /// <summary>
+    /// 从界面文字里读"已编入人数/上限"（实测文案：`已额外编入4/4名待命角色`、`编入的角色数量 26`）。
+    /// 读不到返回 (0,0)，调用方保持原值。
+    /// </summary>
+    internal static (int Size, int Target) ParseTeamSize(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return (0, 0);
+        var m = TeamSizeRe.Match(text);
+        if (m.Success && int.TryParse(m.Groups[1].Value, out var s) && int.TryParse(m.Groups[2].Value, out var tg))
+            return (s, tg);
+        var a = TeamSizeAlt.Match(text);
+        if (a.Success && int.TryParse(a.Groups[1].Value, out var one)) return (one, 0);
+        return (0, 0);
+    }
+
     /// <summary>从 OCR 文本里解析「可选项」；只认带分隔符的卡片行，避免把界面文案当卡片。</summary>
     internal static List<Option> ParseOptions(IEnumerable<string> lines)
     {
