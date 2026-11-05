@@ -109,7 +109,7 @@ internal static class LiveProbe
             // 与正式运行同序：没有模板幕次命中就一定看底部条带（条带比整帧文字可靠）
             bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
             string band = actFromTemplate ? null
-                : ocr.RecognizeRegionAsync(bmp, new RectangleF(0.335f, 0.82f, 0.33f, 0.14f), 3).GetAwaiter().GetResult();
+                : ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3).GetAwaiter().GetResult();
             var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
 
             var mean = MeanGray(bmp);
@@ -251,7 +251,7 @@ internal static class LiveProbe
                     var hits = Matcher.Scan(bmp, LoadTemplates(bmp.Width));
                     var text = string.Join("\n", (boxes ?? new List<OcrBox>()).Select(b => b.Text));
                     var advice = TheaterLogic.Evaluate(hits, text, theater, roster,
-                        ocr.RecognizeRegionAsync(bmp, new RectangleF(0.335f, 0.82f, 0.33f, 0.14f), 3).GetAwaiter().GetResult());
+                        ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3).GetAwaiter().GetResult());
                     lines.Add($"      判定: kind={advice.Kind ?? "unknown"} act={advice.Act?.ToString() ?? "-"} 命中 " +
                               $"{(hits.Count > 0 ? string.Join(", ", hits.Select(h => $"{h.Name}={h.Score}")) : "无")}");
                     Check("判定不为空", !string.IsNullOrWhiteSpace(advice.Header), advice.Header);

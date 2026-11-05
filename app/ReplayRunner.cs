@@ -24,6 +24,8 @@ internal static class ReplayRunner
         public int Act;
         public int StableAct;
         public int RawAct;
+        public int TruthAct;   // 视频自带幕次标签（严格含'幕'）→ 当标准答案
+        public string BandText = "";
         public string Kind = "";
         public string Header = "";
         public string NextAction = "";
@@ -70,9 +72,17 @@ internal static class ReplayRunner
 
                 bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
                 string band = actFromTemplate ? null
-                    : ocr.RecognizeRegionAsync(img, new RectangleF(0.335f, 0.82f, 0.33f, 0.14f), 3).GetAwaiter().GetResult();
+                    : ocr.RecognizeRegionAsync(img, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3).GetAwaiter().GetResult();
 
                 var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
+                // 标准答案：底部条带里**严格**读到「第N幕」才算（视频本身的操作/标签，不是我们的推断）
+                int truthAct = 0;
+                if (!string.IsNullOrEmpty(band))
+                {
+                    var tm = System.Text.RegularExpressions.Regex.Match(band, @"第\s*([0-9]{1,2})\s*幕");
+                    if (tm.Success) int.TryParse(tm.Groups[1].Value, out truthAct);
+                }
+
                 var rawAct = advice.Act;
                 var stableAct = stab.Push(rawAct);          // 与运行时同一套时序稳定
                 var query = (stableAct.HasValue ? $"第{stableAct}幕 " : "") + (advice.Lines.FirstOrDefault() ?? "");
@@ -83,6 +93,8 @@ internal static class ReplayRunner
                     Frame = Path.GetFileNameWithoutExtension(f),
                     Act = stableAct ?? 0,
                     RawAct = rawAct ?? 0,
+                    TruthAct = truthAct,
+                    BandText = (band ?? "").Replace("\n", " ").Trim(),
                     StableAct = stableAct ?? 0,
                     Kind = advice.Kind ?? "unknown",
                     Header = advice.Header,
@@ -130,6 +142,12 @@ internal static class ReplayRunner
                 flips.Add($"{steps[i - 2].Kind}/{steps[i - 1].Kind} @ {steps[i].Frame}");
         }
 
+        // ---- 对答案：只在"视频给出了真值"的帧上算准确率 ----
+        var truthFrames = steps.Where(s => s.TruthAct > 0).ToList();
+        var wrong = truthFrames.Where(s => s.Act != s.TruthAct).ToList();
+        int missed = truthFrames.Count(s => s.Act == 0);
+        double acc = truthFrames.Count == 0 ? 0 : 100.0 * (truthFrames.Count - wrong.Count) / truthFrames.Count;
+
         var perKind = steps.GroupBy(s => s.Kind).OrderByDescending(g => g.Count())
             .Select(g => $"{g.Key}={g.Count()}").ToList();
         int retrieved = steps.Count(s => s.TopHit.Length > 0);
@@ -142,6 +160,10 @@ internal static class ReplayRunner
             $"- 帧数：{steps.Count}（按文件名排序模拟时间顺序）",
             $"- 总耗时：{sw.ElapsedMilliseconds} ms（平均 {sw.ElapsedMilliseconds / Math.Max(1, steps.Count)} ms/帧）",
             $"- 本帧识别到幕次：{steps.Count(s => s.RawAct > 0)} 帧；沿用上一帧：{steps.Count(s => s.RawAct == 0 && s.Act > 0)} 帧",
+            $"- **对答案**：有真值 {truthFrames.Count} 帧，判对 {truthFrames.Count - wrong.Count}，准确率 **{acc:0.0}%**（其中漏判 {missed}）",
+            wrong.Count > 0
+              ? $"- 错例（前 8 条）：{string.Join("；", wrong.Take(8).Select(s => $"{s.Frame}: 我们={s.Act}/真值={s.TruthAct}/条带『{s.BandText}』"))}"
+              : "- 错例：无",
             $"- 状态分布：{string.Join("，", perKind)}",
             $"- 给出「现在做」：{withNext}/{steps.Count}；检索命中：{retrieved}/{steps.Count}",
             $"- 幕次序列（原始）：{string.Join(" → ", rawSeq)}；跳变 {rawJumps.Count} 次{(rawJumps.Count > 0 ? "：" + string.Join("；", rawJumps.Take(4)) : "")}",

@@ -193,7 +193,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.13.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.13.1 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -418,7 +418,7 @@ internal sealed class OverlayForm : Form
             var hits = Matcher.Scan(bmp, _templates);
             bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
             string bandText = actFromTemplate ? null
-                : await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.335f, 0.82f, 0.33f, 0.14f), 3);
+                : await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3);
 
             _tickCount++;
             bool needFullText = _tickCount % 3 == 0 || string.IsNullOrWhiteSpace(bandText) || _cachedText.Length == 0;

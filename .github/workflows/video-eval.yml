@@ -1,0 +1,144 @@
+name: video-eval
+
+# 用真实视频做"对答案"回归：
+#   抽帧 → --replay 逐帧跑完整链路 → 用视频自带的「第N幕」当标准答案算准确率 → 上传报告
+# 优先选攻略 UP 主的高难度纯净流（标题里带 攻略/满花/卓越/月谕/全程），这类画面干净、幕次标签清楚。
+#
+# 用法：Actions → video-eval → Run workflow
+#   bvids : 空格分隔的 BV 号（留空则用关键词搜索前 N 个）
+#   keyword / videos / every / max / min-acc
+
+on:
+  workflow_dispatch:
+    inputs:
+      bvids:
+        description: 'BV 号（空格分隔，留空则搜索）'
+        required: false
+        default: 'BV1saaz6qEbH BV1G86xBFEk5'
+      keyword:
+        description: '搜索关键词（bvids 为空时使用）'
+        required: false
+        default: '幻想真境剧诗 月谕 攻略 全程'
+      videos:
+        description: '搜索取前 N 个'
+        required: false
+        default: '2'
+      every:
+        description: '每 N 秒一帧'
+        required: false
+        default: '5'
+      max:
+        description: '每个视频最多抽帧'
+        required: false
+        default: '200'
+      min-acc:
+        description: '准确率下限（0 = 只报告不卡）'
+        required: false
+        default: '0'
+  schedule:
+    - cron: '0 5 * * 5'   # 每周五 05:00 UTC
+
+permissions:
+  contents: read
+
+jobs:
+  eval:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: 依赖
+        shell: pwsh
+        run: |
+          cd tools\video-frames
+          if (-not (Test-Path package.json)) { npm init -y | Out-Null }
+          npm i playwright-core --no-audit --no-fund
+          npx playwright install chromium
+
+      - name: 构建
+        shell: pwsh
+        run: |
+          .\models\fetch-models.ps1
+          New-Item -ItemType Directory -Force app/data, app/templates, app/models | Out-Null
+          Copy-Item data/* app/data -Recurse -Force
+          Copy-Item templates/* app/templates -Recurse -Force
+          foreach ($v in 'v5','v6') {
+            if (Test-Path "models/$v") {
+              New-Item -ItemType Directory -Force "app/models/$v" | Out-Null
+              Copy-Item "models/$v/*" "app/models/$v" -Force
+            }
+          }
+          dotnet publish app/TheaterAssistant.csproj -c Release -o dist
+
+      - name: 解析视频列表
+        shell: pwsh
+        run: |
+          $bvs = "${{ github.event.inputs.bvids }}"
+          if (-not $bvs) {
+            $kw = "${{ github.event.inputs.keyword }}"; if (-not $kw) { $kw = '幻想真境剧诗 月谕 攻略 全程' }
+            $n  = "${{ github.event.inputs.videos }}"; if (-not $n) { $n = '2' }
+            cd tools\video-frames
+            $json = node search.mjs "$kw" $n
+            $j = ($json -join "`n") | ConvertFrom-Json
+            if (-not $j.items -or $j.items.Count -eq 0) { throw "搜索没结果（关键词：$kw）" }
+            $bvs = ($j.items | Select-Object -ExpandProperty bv) -join ' '
+          }
+          "BVS=$bvs" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding UTF8
+          Write-Host "待评测：$bvs"
+
+      - name: 抽帧
+        shell: pwsh
+        env:
+          BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
+        run: |
+          if (-not $env:BILI_COOKIE) { throw "缺少 secret BILI_COOKIE" }
+          $every = "${{ github.event.inputs.every }}"; if (-not $every) { $every = '5' }
+          $max   = "${{ github.event.inputs.max }}";   if (-not $max)   { $max   = '200' }
+          New-Item -ItemType Directory -Force frames | Out-Null
+          cd tools\video-frames
+          foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
+            Write-Host "=== $bv ==="
+            node hd.mjs $bv "every=$every" "max=$max" "out=../../frames/$bv"
+          }
+
+      - name: 逐视频评测（对答案）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $minAcc = [double]"${{ github.event.inputs.min-acc }}"
+          if (-not $minAcc) { $minAcc = 0 }
+          $summary = @()
+          foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
+            $dir = "frames/$bv"
+            if (-not (Test-Path $dir)) { Write-Host "跳过 $bv（无帧）"; continue }
+            $md = "frames/$bv-replay.md"
+            $js = "frames/$bv-replay.json"
+            $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--replay `"$dir`" --out `"$md`" --json `"$js`"" -Wait -PassThru -RedirectStandardOutput "$env:RUNNER_TEMP\$bv.out.txt"
+            Get-Content "$env:RUNNER_TEMP\$bv.out.txt" -Encoding UTF8 | Select-Object -First 14
+            $acc = 0.0
+            if (Test-Path $md) {
+              $line = Select-String -Path $md -Pattern '准确率 \*\*([\d\.]+)%' | Select-Object -First 1
+              if ($line) { $acc = [double]$line.Matches[0].Groups[1].Value }
+            }
+            $summary += "| $bv | $acc% | exit=$($p.ExitCode) |"
+            if ($minAcc -gt 0 -and $acc -lt $minAcc) { throw "$bv 准确率 $acc% 低于下限 $minAcc%" }
+          }
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 视频对答案回归"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 视频 | 幕次准确率 | 退出码 |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|"
+          foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: video-eval-${{ github.run_id }}
+          path: |
+            frames/*-replay.md
+            frames/*-replay.json
+          retention-days: 30
