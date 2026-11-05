@@ -257,6 +257,35 @@ internal static class SelfTest
         }
         catch (Exception ex) { Check("characters.json 有中文名", false, ex.Message); }
 
+        // 离线检索（BM25）：与 tools/audit-retrieval.mjs 同口径，CI 里守住召回
+        GuideIndex.Load(AppPaths.Data("guide-corpus.json"));
+        if (!GuideIndex.Loaded)
+        {
+            Check("攻略语料可加载", false, "data/guide-corpus.json 缺失");
+        }
+        else
+        {
+            var cases = new (string Q, int? Act, string Expect)[]
+            {
+                ("第3幕 翠翎恐蕈 怎么打", 3, "act3-boss"),
+                ("深黯魇语之主 钓客 破盾", 6, "act6-boss"),
+                ("丘丘萨满 砸锅", 8, "act8-boss"),
+                ("月守宫 标记怎么解", 10, "act10-boss"),
+                ("三选一 选什么", null, "rule-三选一"),
+                ("月谕 编入 28 人", null, "rule-difficulty"),
+            };
+            int bad = 0;
+            var detail = new List<string>();
+            foreach (var c in cases)
+            {
+                var top = GuideIndex.Search(c.Q, c.Act, 1).FirstOrDefault();
+                var got = top?.Entry.Id ?? "<null>";
+                if (got != c.Expect) { bad++; detail.Add($"{c.Q}→{got}(期望{c.Expect})"); }
+            }
+            Check("攻略检索 hit@1", bad == 0, $"{cases.Length} 例，失败 {bad}" + (bad > 0 ? "：" + string.Join("; ", detail) : ""));
+            Check("检索结果带出处", GuideIndex.Search("第3幕 翠翎恐蕈", 3, 1).All(h => !string.IsNullOrWhiteSpace(h.SourceLabel)), "source 非空");
+        }
+
         Check("RosterScan 等级解析",
             RosterScan.MatchLevel("Lv.90") == 90 && RosterScan.MatchLevel("lv 70") == 70 && RosterScan.MatchLevel("等级") == null,
             $"Lv.90→{RosterScan.MatchLevel("Lv.90")} / lv 70→{RosterScan.MatchLevel("lv 70")}");

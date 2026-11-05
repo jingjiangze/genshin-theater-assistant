@@ -115,6 +115,16 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 离线攻略检索：BM25 检索 data/guide-corpus.json，结果带出处
+                case "--advise":
+                    {
+                        var q = args.Length >= 2 && !args[1].StartsWith("--", StringComparison.Ordinal) ? args[1] : null;
+                        int? actArg = null;
+                        var asArg = Opt(args, "--act");
+                        if (int.TryParse(asArg, out var an)) actArg = an;
+                        return GuideIndex.RunCli(q, actArg, (int)OptDouble(args, "--top", 3));
+                    }
+
                 // 免登陆角色池（头像路线）：只有头像+Lv 的网格也能认人
                 case "--roster-avatars":
                     if (args.Length >= 2)
@@ -147,7 +157,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.6.1 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.7.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -251,6 +261,7 @@ internal sealed class OverlayForm : Form
 
         _llm = LlmAdvisor.TryLoad(AppPaths.Data("llm.json"));
         _notes = GuideNotes.Load(AppPaths.Data("guide-notes.json"));
+        GuideIndex.Load(AppPaths.Data("guide-corpus.json"));
         LoadTemplatesFor(0, 0);
 
         _timer.Tick += OnTick;
@@ -406,6 +417,13 @@ internal sealed class OverlayForm : Form
             _header = advice.Header;
             _lines.Clear();
             _lines.AddRange(advice.Lines);
+
+            // 离线攻略检索：用"第N幕 + 当前判定"当查询，命中的中文攻略条目连出处一起显示
+            if (GuideIndex.Loaded && advice.Kind != "unknown")
+            {
+                var q = (advice.Act.HasValue ? $"第{advice.Act}幕 " : "") + (advice.Lines.FirstOrDefault() ?? "");
+                foreach (var l in GuideIndex.ToLines(GuideIndex.Search(q, advice.Act, 2), 2)) _lines.Add(l);
+            }
             if (advice.Act.HasValue)
             {
                 var note = _notes.ActNote(advice.Act.Value);
