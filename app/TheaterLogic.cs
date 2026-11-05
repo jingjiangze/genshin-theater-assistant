@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace TheaterAssistant;
@@ -219,6 +219,8 @@ internal static class TheaterLogic
     private static readonly Regex ActRegex = new(@"第\s*([一二三四五六七八九十0-9]{1,3})\s*幕", RegexOptions.Compiled);
     // 宽松版：只用于「底部条带」这种只剩幕次文字的区域（小字常把"幕"识别丢）
     private static readonly Regex ActLoose = new(@"第\s*([一二三四五六七八九十0-9]{1,2})", RegexOptions.Compiled);
+    // 大堂/演出准备界面的专属锚点：命中即说明"这不是某一幕的进行中画面"
+    private static readonly Regex HallRegex = new(@"演出准备|演出回顾|助演嘉宾|奖励一览|助演阵容", RegexOptions.Compiled);
 
     private static readonly Dictionary<int, string> BossAdvice = new()
     {
@@ -245,14 +247,30 @@ internal static class TheaterLogic
             if (h.Name == "result") { kind = "result"; src = $"模板 {h.Score}"; break; }
         }
 
+        // 大堂界面的锚点：这些界面本身没有"当前幕次"，
+        // 底部的 第一幕…第十幕 是幕次列表而不是当前进度，必须先认界面再谈幕次。
+        if (kind == "unknown" && !string.IsNullOrEmpty(text) && HallRegex.IsMatch(text))
+        {
+            kind = "theater";
+            src = "OCR(大厅锚点)";
+        }
+
         // 底部条带：小字常丢"幕"字，这里用宽松规则兜底
         if (kind == "unknown" && !string.IsNullOrEmpty(bandText))
         {
             var bt = Regex.Replace(bandText, @"\s+", "");
-            var bm = ActLoose.Match(bt);
-            if (bm.Success && TryCn(bm.Groups[1].Value, out int bn))
+            var nums = new List<int>();
+            foreach (Match bm in ActLoose.Matches(bt))
             {
-                kind = "act"; act = bn; src = "OCR(条带)";
+                if (TryCn(bm.Groups[1].Value, out int bn) && !nums.Contains(bn)) nums.Add(bn);
+            }
+            if (nums.Count == 1)
+            {
+                kind = "act"; act = nums[0]; src = "OCR(条带)";
+            }
+            else if (nums.Count > 1)
+            {
+                note = $"条带里出现多个幕次({string.Join("/", nums)})，判断为幕次列表，不采信";
             }
         }
 
@@ -303,29 +321,34 @@ internal static class TheaterLogic
                 }
             }
             lines.Add("耐力 2 点/人；别在头两幕把开幕主力耗光");
+            if (!string.IsNullOrEmpty(note)) lines.Add(note);
             return Finish(header, lines, roster, data, src, act);
         }
 
         if (kind == "choice")
         {
             lines.Add(EventAdvice);
+            if (!string.IsNullOrEmpty(note)) lines.Add(note);
             return Finish("三选一 · 来源 " + src, lines, roster, data, src, null);
         }
 
         if (kind == "theater")
         {
             lines.Add("还没进幕：先确认人数够档，再排前四幕");
+            if (!string.IsNullOrEmpty(note)) lines.Add(note);
             return Finish("剧诗界面 · 来源 " + src, lines, roster, data, src, null);
         }
 
         if (kind == "result")
         {
             lines.Add("要重来就走回溯：回到上一个首领关结束时的状态");
+            if (!string.IsNullOrEmpty(note)) lines.Add(note);
             return Finish("结算/回溯 · 来源 " + src, lines, roster, data, src, null);
         }
 
         var hitNames = hits.Count > 0 ? string.Join(", ", hits.Select(h => $"{h.Name}={h.Score}")) : "无";
         lines.Add("没认出幕次（模板命中: " + hitName(hitNames) + "）");
+        if (!string.IsNullOrEmpty(note)) lines.Add(note);
         lines.Add("Ctrl+Alt+D 存一帧，用来做锚点模板");
         return new Advice("剧诗助手 · 等待识别", lines, "act=?, src=" + src);
     }

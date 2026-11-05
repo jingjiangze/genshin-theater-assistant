@@ -31,3 +31,10 @@ models/**/*.txt
 .idea/
 .DS_Store
 Thumbs.db
+
+# 本地验收产物（从 CI 产物下载的 exe / 跑出来的模板与报告，不进仓库）
+_lead-verify/
+_verify/
+*.png.txt
+*.result.json
+

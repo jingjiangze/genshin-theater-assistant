@@ -31,6 +31,7 @@ internal static class SelfTest
         CheckActNumbers();
         CheckMakeSpec();
         CheckDerive();
+        CheckHallVsBand();
         CheckScoreMath();
         CheckCropRoundTrip();
 
@@ -120,6 +121,38 @@ internal static class SelfTest
         var test = specs.FirstOrDefault(s => s.Name == "test");
         bool dupOk = test != null;
         Check("Derive 去重/ASCII", dupOk, test == null ? "null" : test.Text);
+
+        // 幕次列表帧（第一幕/第二幕/第三幕 并排）不能派生 actN，否则十个模板同时命中
+        var listBoxes = new List<OcrBox>
+        {
+            new() { Text = "第一幕", Rect = new Rectangle(100, 600, 90, 24), Score = 0.9 },
+            new() { Text = "第二幕", Rect = new Rectangle(200, 600, 90, 24), Score = 0.9 },
+            new() { Text = "第三幕", Rect = new Rectangle(300, 600, 90, 24), Score = 0.9 },
+        };
+        var listSpecs = TemplateFactory.Derive(listBoxes, 1280, 720);
+        Check("Derive 幕次列表不派生 actN", listSpecs.All(s => !s.Name.StartsWith("act", StringComparison.Ordinal)),
+            listSpecs.Count == 0 ? "（空）" : string.Join(",", listSpecs.Select(s => s.Name)));
+    }
+
+    // ---- 3b. 界面判定：大堂锚点优先于底部幕次列表 ----
+    private static void CheckHallVsBand()
+    {
+        var data = TheaterData.Load(Path.Combine(AppPaths.Dir, "data", "season29.json"));
+        var roster = new RosterData();
+
+        // 真实 640x360 大堂帧的实测 OCR 文本：底部幕次标签被读成「第5品」，不能据此判成第 5 幕
+        var hallAdvice = TheaterLogic.Evaluate(new List<Matcher.Hit>(),
+            "助演阵容\n演出准备\n演出回顾\n第5品", data, roster, "第5品");
+        Check("大堂锚点压过条带", hallAdvice.Act == null && hallAdvice.Header.Contains("剧诗界面"),
+            $"act={hallAdvice.Act?.ToString() ?? "-"} header={hallAdvice.Header}");
+
+        // 进行中画面：条带只认出一个幕次 → 正常判定
+        var actAdvice = TheaterLogic.Evaluate(new List<Matcher.Hit>(), "选人", data, roster, "小第1第");
+        Check("条带单幕次可用", actAdvice.Act == 1, $"act={actAdvice.Act?.ToString() ?? "-"}");
+
+        // 条带里出现多个幕次 → 判为列表，不采信
+        var multi = TheaterLogic.Evaluate(new List<Matcher.Hit>(), "战斗", data, roster, "第1 第3 第5");
+        Check("条带多幕次不采信", multi.Act == null, $"act={multi.Act?.ToString() ?? "-"}");
     }
 
     // ---- 4. 相似度数学 ----

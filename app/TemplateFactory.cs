@@ -51,6 +51,9 @@ internal static class TemplateFactory
         new() { Name = "diff",   Pattern = @"难度|普通模式|困难模式|极难模式|无畏模式" },
     };
 
+    /// <summary>严格幕次正则（必须带“幕”字），只用于判断“整帧是不是幕次列表”。</summary>
+    private static readonly Regex ActNumRegex = new(@"第\s*([一二三四五六七八九十0-9]{1,3})\s*幕", RegexOptions.Compiled);
+
     /// <summary>一条模板规格（坐标是帧内像素，与被裁剪的那一帧绑定）。</summary>
     internal sealed class SpecRow
     {
@@ -121,6 +124,20 @@ internal static class TemplateFactory
         var best = new Dictionary<string, SpecRow>(StringComparer.Ordinal);
         if (boxes == null) return new List<SpecRow>();
 
+        // 幕次选择条会把 第一幕…第十幕 并排列出：整帧出现多个不同幕次时，"actN" 不能当状态锚点，
+        // 否则十个模板会同时命中。这种帧一律不派生 act 系列模板。
+        var actNumbers = new HashSet<int>();
+        foreach (var b in boxes)
+        {
+            if (b == null || string.IsNullOrWhiteSpace(b.Text)) continue;
+            foreach (Match mm in ActNumRegex.Matches(b.Text))
+            {
+                var num = ParseActNumber(mm.Groups[1].Value);
+                if (num.HasValue) actNumbers.Add(num.Value);
+            }
+        }
+        bool actAmbiguous = actNumbers.Count > 1;
+
         foreach (var box in boxes)
         {
             if (box == null || string.IsNullOrWhiteSpace(box.Text)) continue;
@@ -139,6 +156,7 @@ internal static class TemplateFactory
                 {
                     var n = ParseActNumber(m.Groups.Count > 1 ? m.Groups[1].Value : "");
                     if (!n.HasValue) continue;
+                    if (actAmbiguous) continue;                 // 幕次列表帧：不派生 actN
                     name = rule.Prefix + n.Value;
                 }
 
