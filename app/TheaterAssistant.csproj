@@ -11,7 +11,7 @@
     <AssemblyName>TheaterAssistant</AssemblyName>
     <RootNamespace>TheaterAssistant</RootNamespace>
     <Product>幻想真境剧诗 · 助手</Product>
-    <Version>0.9.0</Version>
+    <Version>0.9.1</Version>
 
     <!-- 单文件自包含：把 exe + 运行时 + 数据 + 模型打成同一个文件 -->
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
