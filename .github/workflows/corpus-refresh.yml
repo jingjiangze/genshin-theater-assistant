@@ -128,7 +128,10 @@ jobs:
         shell: pwsh
         run: |
           chcp 65001 > $null
-          Copy-Item data/*.json app/data -Force
+          # 单文件 exe 的 data 是打包时嵌入的，必须把「刚抓的语料」放到 exe 同级 data/ 才会被读到
+          # （AppPaths.Resolve 优先 exe 同级，其次解包目录）
+          New-Item -ItemType Directory -Force dist/data | Out-Null
+          Copy-Item data/*.json dist/data -Force
           $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest' -Wait -PassThru
           if (Test-Path .\dist\selftest-report.txt) { Get-Content .\dist\selftest-report.txt -Encoding UTF8 | Select-Object -Last 6 }
           if ($p.ExitCode -ne 0) { throw "语料刷新后自检失败，拒绝提交" }
