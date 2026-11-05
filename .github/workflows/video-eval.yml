@@ -14,7 +14,7 @@ on:
       bvids:
         description: 'BV 号（空格分隔，留空则搜索）'
         required: false
-        default: 'BV1saaz6qEbH BV1G86xBFEk5'
+        default: ''
       keyword:
         description: '搜索关键词（bvids 为空时使用）'
         required: false
