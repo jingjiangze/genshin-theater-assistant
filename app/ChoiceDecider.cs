@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace TheaterAssistant;
 
@@ -81,8 +81,9 @@ internal static class ChoiceDecider
             if (line.Length > 20) continue;
 
             var kind = line.Contains("战斗", StringComparison.Ordinal) ? Kind.Battle : Kind.Buff;
-            if (list.All(o => o.Raw != line))
-                list.Add(new Option { Index = list.Count + 1, Raw = line, Kind = kind, Element = ElementOf(line) });
+            // 注意：**不去重**。商店里经常出现两张同名卡（实测「战斗·普通」×2），
+            // 去重会让"第N张"与界面对不上，玩家照做就选错。
+            list.Add(new Option { Index = list.Count + 1, Raw = line, Kind = kind, Element = ElementOf(line) });
         }
         return list;
     }
