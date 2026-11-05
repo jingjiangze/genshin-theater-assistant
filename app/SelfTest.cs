@@ -186,6 +186,26 @@ internal static class SelfTest
         // 条带明确带"幕"字时，即使是大堂界面也照信（高精度路径）
         var strictBand = TheaterLogic.Evaluate(new List<Matcher.Hit>(), "助演阵容\n演出准备", data, roster, "第2幕");
         Check("条带带幕字优先", strictBand.Act == 2, $"act={strictBand.Act?.ToString() ?? "-"}");
+
+        // 真实截图复现：难度选择界面写「完成『圣牌挑战』并通过第十幕演出可抽取…」，
+        // 绝不能据此判成当前第 10 幕
+        var diffScreen = TheaterLogic.Evaluate(new List<Matcher.Hit>(),
+            "难度选择\n卓越模式\n月谕模式\n完成12场战斗演出后结束剧演\n完成「圣牌挑战」并通过第十幕演出可抽取「月谕圣牌」\n本期角色元素类型限制\n参演要求\n至少编入28名角色以开启演出",
+            data, roster, null);
+        Check("难度选择不被当成第10幕", diffScreen.Act == null && diffScreen.Kind == "difficulty",
+            $"act={diffScreen.Act?.ToString() ?? "-"} kind={diffScreen.Kind} header={diffScreen.Header}");
+
+        // 队伍配置界面同样归 team
+        var teamScreen = TheaterLogic.Evaluate(new List<Matcher.Hit>(),
+            "队伍配置\n开幕角色\n试用角色\n待命角色\n已选开幕与待命角色", data, roster, null);
+        Check("队伍配置判 team", teamScreen.Kind == "team" && teamScreen.Act == null,
+            $"kind={teamScreen.Kind} act={teamScreen.Act?.ToString() ?? "-"}");
+
+        // 模板命中 team 也走同一语义
+        var teamHit = TheaterLogic.Evaluate(
+            new List<Matcher.Hit> { new() { Name = "team", Score = 0.97, X = 0, Y = 0 } },
+            "", data, roster, null);
+        Check("模板 team 命中判 team", teamHit.Kind == "team", $"kind={teamHit.Kind} header={teamHit.Header}");
     }
 
     // ---- 4. 相似度数学 ----

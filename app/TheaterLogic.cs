@@ -221,6 +221,10 @@ internal static class TheaterLogic
     private static readonly Regex ActLoose = new(@"第\s*([一二三四五六七八九十0-9]{1,2})", RegexOptions.Compiled);
     // 大堂/演出准备界面的专属锚点：命中即说明"这不是某一幕的进行中画面"
     private static readonly Regex HallRegex = new(@"演出准备|演出回顾|助演嘉宾|奖励一览|助演阵容", RegexOptions.Compiled);
+    // 菜单/面板类界面锚点。这些界面里会出现"第十幕演出"之类的规则文案，
+    // 绝不能据此判成当前第 10 幕 —— 真实截图（难度选择界面）就踩过这个坑。
+    private static readonly Regex DifficultyRegex = new(@"难度选择|参演要求|角色元素类型限制|卓越模式|月谕模式", RegexOptions.Compiled);
+    private static readonly Regex TeamRegex = new(@"队伍配置|开幕角色|待命角色|可选角色|特邀角色|邀请助演|编入的角色", RegexOptions.Compiled);
 
     private static readonly Dictionary<int, string> BossAdvice = new()
     {
@@ -244,12 +248,22 @@ internal static class TheaterLogic
             var m = Regex.Match(h.Name, @"^act(\d{1,2})$");
             if (m.Success) { kind = "act"; act = int.Parse(m.Groups[1].Value); src = $"模板 {h.Score}"; break; }
             if (h.Name == "choice") { kind = "choice"; src = $"模板 {h.Score}"; break; }
+            if (h.Name == "team") { kind = "team"; src = $"模板 {h.Score}"; break; }
+            if (h.Name is "diff") { kind = "difficulty"; src = $"模板 {h.Score}"; break; }
             if (h.Name == "result") { kind = "result"; src = $"模板 {h.Score}"; break; }
             // --batch 派生出来的界面锚点：都表示"在剧诗界面里，但不是某一幕的战斗画面"
             if (h.Name is "title" or "hall" or "begin" or "diff")
             {
                 kind = "theater"; src = $"模板 {h.Name}={h.Score}"; break;
             }
+        }
+
+        // 先认菜单/面板界面：难度选择与队伍配置都带"参演要求/编入角色"这类文案，
+        // 里面可能出现"第十幕演出"（规则说明），若不先拦会被判成当前第 10 幕（真实截图复现过）。
+        if (kind == "unknown" && !string.IsNullOrEmpty(text))
+        {
+            if (DifficultyRegex.IsMatch(text)) { kind = "difficulty"; src = "OCR(难度面板)"; }
+            else if (TeamRegex.IsMatch(text)) { kind = "team"; src = "OCR(队伍配置面板)"; }
         }
 
         // 大堂界面（演出准备/助演嘉宾/奖励一览…）的底部是 第一幕…第十幕 的列表，
@@ -335,6 +349,22 @@ internal static class TheaterLogic
             lines.Add("耐力 2 点/人；别在头两幕把开幕主力耗光");
             if (!string.IsNullOrEmpty(note)) lines.Add(note);
             return Finish(header, lines, roster, data, src, act, "act");
+        }
+
+        if (kind == "difficulty")
+        {
+            lines.Add("难度选择：卓越模式 = 12 场战斗演出；月谕模式 = 圣牌挑战 + 第十幕，且需 ≥28 名 70 级角色（可邀 1 名助演）");
+            lines.Add("角色池不够就先打卓越模式；月谕的额外编入名额会给开幕增益，别空着");
+            if (!string.IsNullOrEmpty(note)) lines.Add(note);
+            return Finish("难度选择 · 来源 " + src, lines, roster, data, src, null, "difficulty");
+        }
+
+        if (kind == "team")
+        {
+            lines.Add("队伍配置：开幕角色先塞试用 + 自己高练度主 C；待命角色凑够 28 人才能开月谕模式");
+            lines.Add("额外编入每多 1 名待命角色，开幕演出多给一份增益（4/4 时是满额）");
+            if (!string.IsNullOrEmpty(note)) lines.Add(note);
+            return Finish("队伍配置 · 来源 " + src, lines, roster, data, src, null, "team");
         }
 
         if (kind == "choice")

@@ -46,10 +46,13 @@ internal static class TemplateFactory
         new() { Prefix = "act",  Pattern = @"第\s*([一二三四五六七八九十0-9]{1,3})\s*幕" },
         new() { Name = "title",  Pattern = @"幻想真境剧诗|真境剧诗" },
         new() { Name = "hall",   Pattern = @"演出准备|助演嘉宾|演出回顾|奖励一览|演出详情|助演阵容" },
-        new() { Name = "choice", Pattern = @"选择角色|试用角色|选择一名|助演角色|待命角色|可选角色|邀请助演|编入的角色" },
+        // 队伍配置界面（真实截图里的 队伍配置/开幕角色/待命角色/可选角色/特邀角色）
+        new() { Name = "team",   Pattern = @"队伍配置|开幕角色|待命角色|可选角色|特邀角色|邀请助演|编入的角色" },
+        // 三选一事件界面：只留事件卡片自己的锚点，别再拿"待命角色"这类菜单文字当选择界面
+        new() { Name = "choice", Pattern = @"选择角色|选择一名|神秘收获|辉彩祝福|伙伴·" },
         new() { Name = "result", Pattern = @"演出结算|演出完成|演出结束|结算奖励|挑战结算" },
-        new() { Name = "begin",  Pattern = @"开始挑战|开始演出|进入演出|开始剧诗" },
-        new() { Name = "diff",   Pattern = @"难度|普通模式|困难模式|极难模式|无畏模式|月谕|卓越" },
+        new() { Name = "begin",  Pattern = @"开始挑战|开始演出|进入演出|开始剧诗|前往挑战" },
+        new() { Name = "diff",   Pattern = @"难度选择|难度|普通模式|困难模式|极难模式|无畏模式|月谕|卓越|常规挑战" },
     };
 
     /// <summary>严格幕次正则（必须带“幕”字），只用于判断“整帧是不是幕次列表”。</summary>
