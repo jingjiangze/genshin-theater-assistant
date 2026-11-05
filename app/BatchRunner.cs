@@ -68,6 +68,7 @@ internal static class BatchRunner
         public string Source = "";
         public double PresentMin = 1.0;
         public double AbsentMax = 0.0;
+        public double PosStablePct = 1.0;      // 在场帧里命中位置与源位置一致的占比（参考项，不参与门槛）
         public int PresentCount, AbsentCount;
         public bool Verified;                 // 有缺席帧才算真正验证过"不误报"
         public bool Installed;
@@ -191,18 +192,22 @@ internal static class BatchRunner
                 using var crop = TemplateFactory.Crop(srcPair.Frame.Image, spec);
                 var tplGray = TemplateFactory.GrayFrame.From(crop);
 
-                // (1) 在场一致性：同分辨率下同样识别出该标签的其它帧，必须仍在原位附近命中
+                // (1) 在场一致性：同分辨率下同样识别出该标签的其它帧，必须能在**整帧**里命中。
+                //     不用"±24px 窗口"判定：同一标签在不同界面可能出现在不同位置，而运行时 Matcher.Scan
+                //     本来就是整帧搜索，窗口口径会把合格的模板冤杀。窗口命中率只作为"定位稳定性"参考项。
                 var presentScores = new List<double>();
+                int inPlace = 0;
                 foreach (var other in members)
                 {
                     if (ReferenceEquals(other, srcPair.Frame)) continue;
                     if (other.Specs.All(s => s.Name != name)) continue;
-                    var win = new Rectangle(spec.X - 24, spec.Y - 24, 48, 48);
-                    var hit = TemplateFactory.BestIn(other.Gray, tplGray, win);
-                    presentScores.Add(hit.Score);
+                    var best = TemplateFactory.BestInFrame(other.Gray, tplGray, scanStep);
+                    presentScores.Add(best.Score);
+                    if (best.X >= 0 && Math.Abs(best.X - spec.X) <= 24 && Math.Abs(best.Y - spec.Y) <= 24) inPlace++;
                 }
                 tr.PresentCount = presentScores.Count + 1;                 // +1 = 源帧自身（构造上 1.0）
                 tr.PresentMin = presentScores.Count == 0 ? 1.0 : Math.Round(presentScores.Min(), 4);
+                tr.PosStablePct = presentScores.Count == 0 ? 1.0 : Math.Round(inPlace / (double)presentScores.Count, 4);
 
                 // (2) 缺席不误报：同分辨率下没有该标签的帧，整帧都不该命中
                 //     1080p/2K 全帧扫描很贵，所以按分辨率自适应步长，并限制缺席样本数（取文件名序前 N 个）
@@ -210,7 +215,7 @@ internal static class BatchRunner
                 var absentScores = new List<double>();
                 foreach (var other in absentFrames)
                 {
-                    absentScores.Add(TemplateFactory.BestInFrame(other.Gray, tplGray, scanStep));
+                    absentScores.Add(TemplateFactory.BestInFrame(other.Gray, tplGray, scanStep).Score);
                 }
                 tr.AbsentCount = absentScores.Count;
                 tr.AbsentMax = absentScores.Count == 0 ? 0.0 : Math.Round(absentScores.Max(), 4);
@@ -251,13 +256,13 @@ internal static class BatchRunner
         int installed = results.Count(r => r.Installed);
         int verified = results.Count(r => r.Installed && r.Verified);
         lines.Add("");
-        lines.Add("分辨率      模板       文本                 尺寸      在场最低  缺席最高  验证  结论");
+        lines.Add("分辨率      模板       文本                 尺寸      在场最低  缺席最高  定位   验证  结论");
         foreach (var r in results)
         {
             var size = r.W + "x" + r.H;
             var verdict = r.Installed ? "安装" : "拒绝:" + r.Note;
             lines.Add($"{r.Bucket,-11} {r.Name,-10} {Trim(r.Text, 18),-20} {size,-9} " +
-                      $"{r.PresentMin,8:0.000} {r.AbsentMax,9:0.000}  {(r.Verified ? "双向" : "单向"),-4} {verdict}");
+                      $"{r.PresentMin,8:0.000} {r.AbsentMax,9:0.000} {r.PosStablePct,6:0.00}  {(r.Verified ? "双向" : "单向"),-4} {verdict}");
         }
         lines.Add("");
         lines.Add($"帧 {frames.Count} · 分辨率 {buckets.Count} · 候选模板 {results.Count} · 安装 {installed}（双向量检 {verified}）· 拒绝 {results.Count - installed} · 用时 {started.ElapsedMilliseconds} ms");
@@ -271,7 +276,7 @@ internal static class BatchRunner
         report["templates"] = results.Select(r => new
         {
             r.Bucket, r.Name, r.Text, r.W, r.H, r.X, r.Y, r.Source,
-            r.PresentMin, r.AbsentMax, r.PresentCount, r.AbsentCount, r.Verified, r.Installed, r.Note,
+            r.PresentMin, r.AbsentMax, r.PosStablePct, r.PresentCount, r.AbsentCount, r.Verified, r.Installed, r.Note,
         }).ToList();
         report["frameDetail"] = frames.Select(f => new
         {

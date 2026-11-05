@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text.Json;
@@ -274,13 +274,13 @@ internal static class TemplateFactory
         return (best, bx, by);
     }
 
-    /// <summary>全帧粗扫（供"缺席不误报"检测用）：位置与像素双重抽样，够用且不慢。</summary>
-    public static double BestInFrame(GrayFrame frame, GrayFrame tpl, int step = 4, int sample = 2)
+    /// <summary>全帧粗扫（供质检用）：位置与像素双重抽样，够用且不慢。返回最优分与位置。</summary>
+    public static (double Score, int X, int Y) BestInFrame(GrayFrame frame, GrayFrame tpl, int step = 4, int sample = 2)
     {
-        if (tpl.W > frame.W || tpl.H > frame.H) return 0.0;
+        if (tpl.W > frame.W || tpl.H > frame.H) return (0.0, -1, -1);
         if (step < 1) step = 1;
         if (sample < 1) sample = 1;
-        double best = 0;
+        double best = 0; int bx = -1, by = -1;
         int cols = (tpl.W + sample - 1) / sample;
         int rows = (tpl.H + sample - 1) / sample;
         double norm = Math.Max(1.0, cols * (double)rows);
@@ -301,10 +301,10 @@ internal static class TemplateFactory
                 }
                 double rmse = Math.Sqrt(sum / norm);
                 double s = 1.0 - rmse / 255.0;
-                if (s > best) best = s;
+                if (s > best) { best = s; bx = x; by = y; }
             }
         }
-        return best;
+        return (best, bx, by);
     }
 
     public static Bitmap Crop(Bitmap frame, SpecRow spec) =>

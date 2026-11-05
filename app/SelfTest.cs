@@ -215,8 +215,12 @@ internal static class SelfTest
         var hit = TemplateFactory.BestIn(gc, ga, new Rectangle(100, 30, 160, 90));
         Check("BestIn 定位", hit.Score > 0.999 && hit.X == 137 && hit.Y == 61, $"{hit.Score:0.0000} @{hit.X},{hit.Y}");
 
-        double absent = TemplateFactory.BestInFrame(gc, TemplateFactory.GrayFrame.From(MakeSolid(200, 60, Color.FromArgb(168, 168, 168))));
+        double absent = TemplateFactory.BestInFrame(gc, TemplateFactory.GrayFrame.From(MakeSolid(200, 60, Color.FromArgb(168, 168, 168)))).Score;
         Check("BestInFrame 缺席不误报", absent < 0.8, absent.ToString("0.0000"));
+
+        var located = TemplateFactory.BestInFrame(gc, ga, 2, 1);
+        Check("BestInFrame 全帧定位", located.Score > 0.999 && located.X == 137 && located.Y == 61,
+            $"{located.Score:0.0000} @{located.X},{located.Y}");
     }
 
     // ---- 5. 裁剪 → 回找（模板工厂最小闭环） ----
