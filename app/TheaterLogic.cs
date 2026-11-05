@@ -288,7 +288,18 @@ internal static class TheaterLogic
         if (kind == "unknown" && !string.IsNullOrEmpty(bandText))
         {
             var bt = Regex.Replace(bandText, @"\s+", "");
-            var strict = ActRegex.Match(bt);                 // 明确带"幕"：信
+            // 严格带"幕"也要防"幕次列表"：实测底部条带里会同时出现 第5幕/第6幕/第7幕，
+            // 取第一个匹配就会把当前幕判错（video-eval 42.1% 的主因）。
+            var strictAll = ActRegex.Matches(bt);
+            var strictNums = new HashSet<int>();
+
+            foreach (Match sm in strictAll)
+                if (TryCn(sm.Groups[1].Value, out int sn)) strictNums.Add(sn);
+            Match strict = strictNums.Count == 1 ? ActRegex.Match(bt) : Match.Empty;
+            if (strictNums.Count > 1)
+            {
+                note = $"条带里出现多个幕次({string.Join("/", strictNums)})，判为幕次列表，不采信";
+            }
             var nums = new List<int>();
             foreach (Match bm in ActLoose.Matches(bt))
             {

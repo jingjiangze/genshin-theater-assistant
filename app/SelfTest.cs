@@ -180,6 +180,10 @@ internal static class SelfTest
         var multi = TheaterLogic.Evaluate(new List<Matcher.Hit>(), "战斗", data, roster, "第1 第3 第5");
         Check("条带多幕次不采信", multi.Act == null, $"act={multi.Act?.ToString() ?? "-"}");
 
+        // 条带里同时出现多个「第N幕」（底部幕次列表）时，严格路径也必须拒绝 —— video-eval 42.1% 的主因
+        var multiStrict = TheaterLogic.Evaluate(new List<Matcher.Hit>(), "战斗", data, roster, "第5幕 第6幕 第7幕");
+        Check("条带多幕次(严格)不采信", multiStrict.Act == null, $"act={multiStrict.Act?.ToString() ?? "-"}");
+
         // 反过来：整帧出现大堂词（视频里 UP 常贴"助演阵容"）不能压掉幕内画面的幕次判定
         var inRun = TheaterLogic.Evaluate(new List<Matcher.Hit>(), "助演阵容\n第3幕", data, roster, null);
         Check("大堂词不压幕内幕次", inRun.Act == 3, $"act={inRun.Act?.ToString() ?? "-"} header={inRun.Header}");

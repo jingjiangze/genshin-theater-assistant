@@ -79,8 +79,10 @@ internal static class ReplayRunner
                 int truthAct = 0;
                 if (!string.IsNullOrEmpty(band))
                 {
-                    var tm = System.Text.RegularExpressions.Regex.Match(band, @"第\s*([0-9]{1,2})\s*幕");
-                    if (tm.Success) int.TryParse(tm.Groups[1].Value, out truthAct);
+                    // 真值同样要求"条带里恰好一个幕次"：多个=幕次列表，不能当标准答案
+                    var tms = System.Text.RegularExpressions.Regex.Matches(band, @"第\s*([0-9]{1,2})\s*幕");
+                    var nums = tms.Select(m => int.TryParse(m.Groups[1].Value, out var v) ? v : -1).Where(v => v > 0).Distinct().ToList();
+                    if (nums.Count == 1) truthAct = nums[0];
                 }
 
                 var rawAct = advice.Act;
