@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -64,7 +64,7 @@ internal static class RosterScan
 
         // 角色名词典：data/characters.json 的键就是中文名
         var names = new List<string>();
-        var charPath = Path.Combine(AppPaths.Dir, "data", "characters.json");
+        var charPath = AppPaths.Data("characters.json");
         try
         {
             using var doc = JsonDocument.Parse(File.ReadAllText(charPath));
@@ -79,7 +79,7 @@ internal static class RosterScan
         Cli.Say($"角色词典 {names.Count} 个名字");
 
         using var ocr = new OcrService();
-        ocr.InitializeAsync(Path.Combine(AppPaths.Dir, "models")).GetAwaiter().GetResult();
+        ocr.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();
         Cli.Say("OCR: " + ocr.Status);
 
         var found = new Dictionary<string, (int Count, int? Level)>(StringComparer.Ordinal);

@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -12,6 +12,7 @@ namespace TheaterAssistant;
 /// </summary>
 internal static class AppPaths
 {
+    /// <summary>exe 所在目录（用户可见的落盘位置：报告、素材、roster.json）。</summary>
     public static string Dir
     {
         get
@@ -21,6 +22,28 @@ internal static class AppPaths
             return string.IsNullOrEmpty(d) ? AppContext.BaseDirectory : d;
         }
     }
+
+    /// <summary>单文件 exe 的解包目录：data/templates/models 被 IncludeAllContentForSelfExtract 解到这里。</summary>
+    public static string Base => AppContext.BaseDirectory;
+
+    /// <summary>
+    /// 依次在「exe 同级 → 解包目录」里找相对路径，返回第一个存在的。
+    /// 这是必须的：发布包把 data/、templates/ 打进单文件 exe，运行期只在解包目录里存在；
+    /// 而用户自己往 exe 旁边放的同名目录要优先（覆盖内置）。都没有就返回 exe 同级，便于报错定位。
+    /// </summary>
+    public static string Resolve(string relative)
+    {
+        foreach (var root in new[] { Dir, Base })
+        {
+            var p = Path.Combine(root, relative);
+            if (File.Exists(p) || Directory.Exists(p)) return p;
+        }
+        return Path.Combine(Dir, relative);
+    }
+
+    public static string Data(string name) => Resolve(Path.Combine("data", name));
+    public static string TemplatesRoot => Resolve("templates");
+    public static string ModelsRoot => Resolve("models");
 }
 
 internal static class Program
@@ -213,11 +236,11 @@ internal sealed class OverlayForm : Form
         DoubleBuffered = true;
         Text = "剧诗助手";
 
-        _theater = TheaterData.Load(Path.Combine(AppPaths.Dir, "data", "season29.json"));
+        _theater = TheaterData.Load(AppPaths.Data("season29.json"));
         _roster = RosterData.TryLoad(Path.Combine(AppPaths.Dir, "roster.json"));
 
-        _llm = LlmAdvisor.TryLoad(Path.Combine(AppPaths.Dir, "data", "llm.json"));
-        _notes = GuideNotes.Load(Path.Combine(AppPaths.Dir, "data", "guide-notes.json"));
+        _llm = LlmAdvisor.TryLoad(AppPaths.Data("llm.json"));
+        _notes = GuideNotes.Load(AppPaths.Data("guide-notes.json"));
         LoadTemplatesFor(0, 0);
 
         _timer.Tick += OnTick;
@@ -246,7 +269,7 @@ internal sealed class OverlayForm : Form
         RegisterHotKey(Handle, HOTKEY_SAVE, MOD_CONTROL | MOD_ALT, (int)Keys.D);
         RegisterHotKey(Handle, HOTKEY_GUIDE, MOD_CONTROL | MOD_ALT, (int)Keys.G);
 
-        _ = _ocr.InitializeAsync(Path.Combine(AppPaths.Dir, "models"));
+        _ = _ocr.InitializeAsync(AppPaths.ModelsRoot);
         _timer.Start();
     }
 
@@ -434,7 +457,7 @@ internal sealed class OverlayForm : Form
     /// </summary>
     private void LoadTemplatesFor(int width, int height)
     {
-        var root = Path.Combine(AppPaths.Dir, "templates");
+        var root = AppPaths.TemplatesRoot;
         if (!Directory.Exists(root)) return;
 
         var dir = root;

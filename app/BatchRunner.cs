@@ -84,7 +84,7 @@ internal static class BatchRunner
         var report = new Dictionary<string, object>();
 
         frameDir = Path.GetFullPath(frameDir);
-        outDir = string.IsNullOrWhiteSpace(outDir) ? Path.Combine(AppPaths.Dir, "templates") : Path.GetFullPath(outDir);
+        outDir = string.IsNullOrWhiteSpace(outDir) ? AppPaths.TemplatesRoot : Path.GetFullPath(outDir);
 
         if (!Directory.Exists(frameDir))
         {
@@ -107,10 +107,10 @@ internal static class BatchRunner
         }
 
         using var ocr = new OcrService();
-        ocr.InitializeAsync(Path.Combine(AppPaths.Dir, "models")).GetAwaiter().GetResult();
+        ocr.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();
         Cli.Say("OCR: " + ocr.Status);
 
-        var theater = TheaterData.Load(Path.Combine(AppPaths.Dir, "data", "season29.json"));
+        var theater = TheaterData.Load(AppPaths.Data("season29.json"));
         var roster = RosterData.TryLoad(Path.Combine(AppPaths.Dir, "roster.json"));
 
         // ---- 阶段 1：逐帧 OCR + 派生规格 + 幕次判定 ----

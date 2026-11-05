@@ -163,7 +163,7 @@ internal static class SelfTest
     // ---- 3b. 界面判定：大堂锚点优先于底部幕次列表 ----
     private static void CheckHallVsBand()
     {
-        var data = TheaterData.Load(Path.Combine(AppPaths.Dir, "data", "season29.json"));
+        var data = TheaterData.Load(AppPaths.Data("season29.json"));
         var roster = new RosterData();
 
         // 真实 640x360 大堂帧的实测 OCR 文本：底部幕次标签被读成「第5品」，不能据此判成第 5 幕
@@ -309,7 +309,7 @@ internal static class SelfTest
     // ---- 7. 可选：OCR 真的给出坐标 ----
     private static void CheckOcrBoxes()
     {
-        var modelsDir = Path.Combine(AppPaths.Dir, "models");
+        var modelsDir = AppPaths.ModelsRoot;
         using var ocr = new OcrService();
         ocr.InitializeAsync(modelsDir).GetAwaiter().GetResult();
         Lines.Add("OCR: " + ocr.Status);

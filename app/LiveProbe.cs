@@ -237,7 +237,7 @@ internal static class LiveProbe
 
                     // 识别链路
                     using var ocr = new OcrService();
-                    ocr.InitializeAsync(Path.Combine(AppPaths.Dir, "models")).GetAwaiter().GetResult();
+                    ocr.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();
                     var boxes = ocr.RecognizeBoxesAsync(bmp, null, bmp.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
                     Check("OCR 可用", boxes != null && boxes.Count > 0, boxes == null ? "未就绪" : $"文本框 {boxes.Count} 条");
                     if (boxes != null)
@@ -246,7 +246,7 @@ internal static class LiveProbe
                         Check("从抓帧派生规格", specs.Count > 0, specs.Count == 0 ? "无" : string.Join(",", specs.Select(s => s.Name)));
                     }
 
-                    var theater = TheaterData.Load(Path.Combine(AppPaths.Dir, "data", "season29.json"));
+                    var theater = TheaterData.Load(AppPaths.Data("season29.json"));
                     var roster = RosterData.TryLoad(Path.Combine(AppPaths.Dir, "roster.json"));
                     var hits = Matcher.Scan(bmp, LoadTemplates(bmp.Width));
                     var text = string.Join("\n", (boxes ?? new List<OcrBox>()).Select(b => b.Text));
@@ -273,7 +273,7 @@ internal static class LiveProbe
     private static List<TemplateEntry> LoadTemplates(int width)
     {
         var list = new List<TemplateEntry>();
-        var root = Path.Combine(AppPaths.Dir, "templates");
+        var root = AppPaths.TemplatesRoot;
         if (!Directory.Exists(root)) return list;
 
         var dir = root;
