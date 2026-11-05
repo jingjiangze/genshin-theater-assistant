@@ -1,4 +1,4 @@
-name: adapt-videos
+﻿name: adapt-videos
 
 # 批量视频适配：在 GitHub Actions 上跑，不在本机跑。
 #   · 用 BILI_COOKIE secret 取 1080p dash 帧（未登录只有 360p）
@@ -27,7 +27,7 @@ on:
         default: 'false'
   schedule:
     # 每周一 03:00 UTC 自动抓一批（可用 secrets 控制是否启用）
-    - cron: '0 3 * * 1'
+    - cron: '0 3 * * 1,5'
 
 permissions:
   contents: write

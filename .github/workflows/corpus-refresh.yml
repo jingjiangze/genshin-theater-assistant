@@ -37,7 +37,7 @@ on:
         required: false
         default: 'true'
   schedule:
-    - cron: '0 4 * * 3'   # 每周三 04:00 UTC
+    - cron: '0 4 * * 1,4'   # 每周一/周四 04:00 UTC
 
 permissions:
   contents: write

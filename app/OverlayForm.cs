@@ -115,6 +115,14 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 手法：--routine --act 6 / --routine
+                case "--routine":
+                    {
+                        int? ra = null;
+                        if (int.TryParse(Opt(args, "--act"), out var rn)) ra = rn;
+                        return Routine.RunCli(ra);
+                    }
+
                 // 本地日志读角色数据（只读日志、只取角色字段）
                 case "--log-scan":
                     return LogScan.Run(args.Length >= 2 && !args[1].StartsWith("--", StringComparison.Ordinal) ? args[1] : null,
@@ -205,7 +213,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.15.1 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.16.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -318,6 +326,7 @@ internal sealed class OverlayForm : Form
         _notes = GuideNotes.Load(AppPaths.Data("guide-notes.json"));
         GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
         Speech.LoadAndConfigure(AppPaths.Data("speech.json"));
+        Routine.Load(AppPaths.Data("rotations.json"));
         LoadTemplatesFor(0, 0);
 
         _timer.Tick += OnTick;
@@ -508,6 +517,10 @@ internal sealed class OverlayForm : Form
                 var dec = ChoiceDecider.Decide(options, advice.Act ?? 0, _teamSize, _teamTarget);
                 if (dec != null) _lines.Insert(0, "▶ " + dec.Sentence);
             }
+
+            // 手法提示：给出"手该怎么按"，最多 2 行（首领幕优先专属，其余给通用）
+            if (advice.Act.HasValue)
+                foreach (var l in Routine.LinesFor(advice.Act, 2)) _lines.Add(l);
 
             // 离线攻略检索：用"第N幕 + 当前判定"当查询，命中的中文攻略条目连出处一起显示
             if (GuideIndex.Loaded && advice.Kind != "unknown")

@@ -32,11 +32,11 @@ on:
         required: false
         default: '200'
       min-acc:
-        description: '准确率下限（0 = 只报告不卡）'
+        description: '准确率下限（默认 95，低于则 CI 失败）'
         required: false
-        default: '0'
+        default: '95'
   schedule:
-    - cron: '0 5 * * 5'   # 每周五 05:00 UTC
+    - cron: '0 5 * * *'   # 每天 05:00 UTC（对答案回归）
 
 permissions:
   contents: read

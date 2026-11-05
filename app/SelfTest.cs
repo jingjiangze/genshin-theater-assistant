@@ -256,6 +256,13 @@ internal static class SelfTest
         // JSON 选项必须序列化"公共字段"（replay 的 Step 是字段；否则写出空对象，蒸馏全 0）
         Check("JSON 选项包含字段", TemplateFactory.JsonOpts.IncludeFields, "IncludeFields=" + TemplateFactory.JsonOpts.IncludeFields);
 
+        // 手法数据：首领幕必须有专属编排，且带出处
+        Routine.Load(AppPaths.Data("rotations.json"));
+        var r6 = Routine.LinesFor(6, 3);
+        var r3 = Routine.LinesFor(3, 3);
+        Check("手法·首领幕有编排", Routine.Loaded && r6.Count >= 2 && r3.Count >= 2 && r6[0].Contains("钓客"),
+            $"载入 {Routine.Count} 幕，第6幕 {r6.Count} 步：{(r6.Count > 0 ? r6[0] : "-")}");
+
         // 本地日志解析（纯函数）：只认 avatarId/level，其余字段丢弃
         var log = "{\"avatarId\":10000060,\"level\":90} {\"avatarId\":10000046,\"level\":80} junk {\"avatarId\":10000060,\"level\":90}";
         var parsed = LogScan.ParseCharacters(log);
