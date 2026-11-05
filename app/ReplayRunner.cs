@@ -72,7 +72,7 @@ internal static class ReplayRunner
 
                 bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
                 string band = actFromTemplate ? null
-                    : ocr.RecognizeRegionAsync(img, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3).GetAwaiter().GetResult();
+                    : ocr.RecognizeRegionAsync(img, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
 
                 var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
                 // 标准答案：底部条带里**严格**读到「第N幕」才算（视频本身的操作/标签，不是我们的推断）

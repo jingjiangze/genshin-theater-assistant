@@ -128,7 +128,7 @@ internal static class BatchRunner
 
                 // 幕次：整帧文本 + 底部条带（0.28,0.82,0.46,0.14）+3x，与运行时同一套
                 var text = string.Join("\n", rec.Boxes.Select(b => b.Text));
-                var band = ocr.RecognizeRegionAsync(rec.Image, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3)
+                var band = ocr.RecognizeRegionAsync(rec.Image, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3)
                     .GetAwaiter().GetResult();
                 var advice = TheaterLogic.Evaluate(new List<Matcher.Hit>(), text, theater, roster, band);
                 rec.Act = advice.Act;
