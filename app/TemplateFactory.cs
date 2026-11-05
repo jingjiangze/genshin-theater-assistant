@@ -304,6 +304,15 @@ internal static class TemplateFactory
                 if (s > best) { best = s; bx = x; by = y; }
             }
         }
+
+        // 粗扫网格一定对不准（step=4/6 会落在离真实位置 1-3px 的地方，文字边缘一差就掉分），
+        // 必须在命中点周围做一次全分辨率细化，否则会把合格的模板判成"在场不足"。
+        if (best > 0.5 && bx >= 0)
+        {
+            var r = BestIn(frame, tpl, new Rectangle(bx - step, by - step, step * 2, step * 2));
+            if (r.Score > best) { best = r.Score; bx = r.X; by = r.Y; }
+        }
+
         return (best, bx, by);
     }
 

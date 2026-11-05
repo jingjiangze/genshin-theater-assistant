@@ -218,10 +218,10 @@ internal static class SelfTest
         double absent = TemplateFactory.BestInFrame(gc, TemplateFactory.GrayFrame.From(MakeSolid(200, 60, Color.FromArgb(168, 168, 168)))).Score;
         Check("BestInFrame 缺席不误报", absent < 0.8, absent.ToString("0.0000"));
 
-        // 全帧粗扫是抽样网格（step=2），奇数坐标会落到偶数格上，所以只要求 ±1px 与 >0.90
+        // 粗扫 + 命中点细化后应精确落回 (137,61)
         var located = TemplateFactory.BestInFrame(gc, ga, 2, 2);
         Check("BestInFrame 全帧定位",
-            located.Score > 0.90 && Math.Abs(located.X - 137) <= 1 && Math.Abs(located.Y - 61) <= 1,
+            located.Score > 0.999 && located.X == 137 && located.Y == 61,
             $"{located.Score:0.0000} @{located.X},{located.Y}");
     }
 
