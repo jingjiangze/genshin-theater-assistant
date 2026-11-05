@@ -211,7 +211,7 @@ internal sealed class RosterData
     }
 }
 
-internal sealed record Advice(string Header, List<string> Lines, string Diagnostics, int? Act = null);
+internal sealed record Advice(string Header, List<string> Lines, string Diagnostics, int? Act = null, string Kind = null);
 
 /// <summary>剧本决策：只看识别结果 + 第 29 期数据；不含任何游戏内操作。</summary>
 internal static class TheaterLogic
@@ -245,6 +245,11 @@ internal static class TheaterLogic
             if (m.Success) { kind = "act"; act = int.Parse(m.Groups[1].Value); src = $"模板 {h.Score}"; break; }
             if (h.Name == "choice") { kind = "choice"; src = $"模板 {h.Score}"; break; }
             if (h.Name == "result") { kind = "result"; src = $"模板 {h.Score}"; break; }
+            // --batch 派生出来的界面锚点：都表示"在剧诗界面里，但不是某一幕的战斗画面"
+            if (h.Name is "title" or "hall" or "begin" or "diff")
+            {
+                kind = "theater"; src = $"模板 {h.Name}={h.Score}"; break;
+            }
         }
 
         // 大堂界面（演出准备/助演嘉宾/奖励一览…）的底部是 第一幕…第十幕 的列表，
@@ -329,35 +334,35 @@ internal static class TheaterLogic
             }
             lines.Add("耐力 2 点/人；别在头两幕把开幕主力耗光");
             if (!string.IsNullOrEmpty(note)) lines.Add(note);
-            return Finish(header, lines, roster, data, src, act);
+            return Finish(header, lines, roster, data, src, act, "act");
         }
 
         if (kind == "choice")
         {
             lines.Add(EventAdvice);
             if (!string.IsNullOrEmpty(note)) lines.Add(note);
-            return Finish("三选一 · 来源 " + src, lines, roster, data, src, null);
+            return Finish("三选一 · 来源 " + src, lines, roster, data, src, null, "choice");
         }
 
         if (kind == "theater")
         {
             lines.Add("还没进幕：先确认人数够档，再排前四幕");
             if (!string.IsNullOrEmpty(note)) lines.Add(note);
-            return Finish("剧诗界面 · 来源 " + src, lines, roster, data, src, null);
+            return Finish("剧诗界面 · 来源 " + src, lines, roster, data, src, null, "theater");
         }
 
         if (kind == "result")
         {
             lines.Add("要重来就走回溯：回到上一个首领关结束时的状态");
             if (!string.IsNullOrEmpty(note)) lines.Add(note);
-            return Finish("结算/回溯 · 来源 " + src, lines, roster, data, src, null);
+            return Finish("结算/回溯 · 来源 " + src, lines, roster, data, src, null, "result");
         }
 
         var hitNames = hits.Count > 0 ? string.Join(", ", hits.Select(h => $"{h.Name}={h.Score}")) : "无";
         lines.Add("没认出幕次（模板命中: " + hitName(hitNames) + "）");
         if (!string.IsNullOrEmpty(note)) lines.Add(note);
         lines.Add("Ctrl+Alt+D 存一帧，用来做锚点模板");
-        return new Advice("剧诗助手 · 等待识别", lines, "act=?, src=" + src);
+        return new Advice("剧诗助手 · 等待识别", lines, "act=?, src=" + src, null, "unknown");
     }
 
     private static string hitName(string s) => s.Length > 60 ? s[..60] + "…" : s;
@@ -368,7 +373,7 @@ internal static class TheaterLogic
         return (i >= 0 ? name[(i + 1)..] : name).Trim();
     }
 
-    private static Advice Finish(string header, List<string> lines, RosterData roster, TheaterData data, string src, int? act)
+    private static Advice Finish(string header, List<string> lines, RosterData roster, TheaterData data, string src, int? act, string kind)
     {
         var elig = roster.Eligibility(data);
         if (elig.HasValue)
@@ -377,7 +382,7 @@ internal static class TheaterLogic
             lines.Add($"池子 {count} 人 → 最高可进【{best}】（{detail}）");
         }
 
-        return new Advice(header, lines, $"act={act?.ToString() ?? "?"}, src={src}", act);
+        return new Advice(header, lines, $"act={act?.ToString() ?? "?"}, src={src}", act, kind);
     }
 
     private static bool TryCn(string s, out int value)

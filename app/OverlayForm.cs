@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -79,9 +79,29 @@ internal static class Program
                 case "--selftest":
                     return SelfTest.Run(args.Contains("--with-ocr", StringComparer.OrdinalIgnoreCase));
 
+                // 真机模拟：把一张帧当真游戏画面显示出来（手动观察用）
+                case "--fakegame":
+                    if (args.Length >= 2)
+                    {
+                        var (fw, fh) = ParseSize(Opt(args, "--size"), 1920, 1080);
+                        return LiveProbe.RunFakeGame(args[1], fw, fh, Opt(args, "--title"));
+                    }
+                    break;
+
+                // 真机链路探测：找窗口 → GDI 抓帧 → 模板 + OCR + 判定
+                case "--probe-live":
+                    return LiveProbe.RunProbe(Opt(args, "--title"), (int)OptDouble(args, "--frames", 1), Opt(args, "--out"));
+
+                // 自动化的"真机模拟实测"：起假窗口 → 抓帧 → 比对源帧 → 识别 → 断言（4=无桌面会话跳过）
+                case "--selftest-live":
+                    {
+                        var (lw, lh) = ParseSize(Opt(args, "--size"), 1920, 1080);
+                        return LiveProbe.RunSelfTest(Opt(args, "--png"), lw, lh, Opt(args, "--title"));
+                    }
+
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.4.1 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.5.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -102,6 +122,17 @@ internal static class Program
         var s = Opt(args, name);
         return double.TryParse(s, System.Globalization.NumberStyles.Float,
             System.Globalization.CultureInfo.InvariantCulture, out var v) ? v : fallback;
+    }
+
+    /// <summary>解析 "1920x1080" 形式的尺寸参数。</summary>
+    private static (int W, int H) ParseSize(string s, int defW, int defH)
+    {
+        if (!string.IsNullOrWhiteSpace(s))
+        {
+            var m = System.Text.RegularExpressions.Regex.Match(s, @"^\s*(\d{3,5})\s*[xX*]\s*(\d{3,5})\s*$");
+            if (m.Success) return (int.Parse(m.Groups[1].Value), int.Parse(m.Groups[2].Value));
+        }
+        return (defW, defH);
     }
 }
 
@@ -142,7 +173,7 @@ internal sealed class OverlayForm : Form
     private GuideNotes _notes;
     private int? _llmForAct;
     private string _bucketKey = "";
-    private readonly HashSet<int> _autoSaved = new();
+    private readonly HashSet<string> _autoSaved = new(StringComparer.Ordinal);
     private int? _currentAct;
     private TheaterData _theater;
 
@@ -288,17 +319,25 @@ internal sealed class OverlayForm : Form
                     advice = TheaterLogic.Evaluate(hits, text + " " + bandText, _theater, _roster, bandText);
             }
 
-            // 没有模板时，自动为每个识别到的幕存一张原始帧，作为后续做模板的素材
-            if (advice.Act.HasValue && _templates.Count == 0 && _autoSaved.Add(advice.Act.Value))
+            // 自动攒素材：按「状态 + 幕次 + 分辨率」去重存原始帧。
+            // 不再只在"没有模板时"存 —— 模板只影响判定路径，素材该攒还是要攒（--batch 的输入就是它）。
+            var stateKind = advice.Kind ?? "unknown";
+            if (stateKind != "unknown")
             {
-                try
+                var key = $"{stateKind}-{advice.Act?.ToString() ?? "-"}-{bmp.Width}x{bmp.Height}";
+                if (_autoSaved.Add(key))
                 {
-                    var dir = Path.Combine(AppPaths.Dir, "samples", "auto");
-                    Directory.CreateDirectory(dir);
-                    bmp.Save(Path.Combine(dir, $"act{advice.Act.Value}-{bmp.Width}x{bmp.Height}.png"),
-                             System.Drawing.Imaging.ImageFormat.Png);
+                    try
+                    {
+                        var dir = Path.Combine(AppPaths.Dir, "samples", "auto");
+                        Directory.CreateDirectory(dir);
+                        var fileName = advice.Act.HasValue
+                            ? $"act{advice.Act.Value}-{bmp.Width}x{bmp.Height}.png"
+                            : $"{stateKind}-{bmp.Width}x{bmp.Height}.png";
+                        bmp.Save(Path.Combine(dir, fileName), System.Drawing.Imaging.ImageFormat.Png);
+                    }
+                    catch { }
                 }
-                catch { }
             }
 
             _header = advice.Header;

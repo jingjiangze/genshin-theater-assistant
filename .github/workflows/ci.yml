@@ -133,6 +133,16 @@ jobs:
           if ($actRows.Count -lt 4) { throw "幕次判定回归：期望 ≥4 帧判出幕次，实际 $($actRows.Count)" }
           if (-not ($actRows | Where-Object { $_.act -eq 3 })) { throw "幕次判定回归：合成帧写的是第3幕，未判出 3" }
 
+      - name: 真机模拟实测（假游戏窗口 → GDI 抓屏 → 识别）；无桌面会话时跳过
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest-live --size 1600x900' -Wait -PassThru
+          if (Test-Path .\dist\selftest-live-report.txt) { Get-Content .\dist\selftest-live-report.txt -Encoding UTF8 }
+          Write-Host "selftest-live exit=$($p.ExitCode)"
+          if ($p.ExitCode -eq 4) { Write-Host "SKIP: runner 没有可捕获的桌面会话" }
+          elseif ($p.ExitCode -ne 0) { throw "真机模拟实测失败 (exit $($p.ExitCode))" }
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
