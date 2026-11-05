@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -76,7 +76,7 @@ internal static class BatchRunner
         public TemplateFactory.SpecRow Spec;
     }
 
-    public static int Run(string frameDir, string outDir, double minPresent, double maxAbsent, double padRatio = 0.15)
+    public static int Run(string frameDir, string outDir, double minPresent, double maxAbsent = 0.82, double padRatio = 0.15)
     {
         Cli.Attach();
         var started = Stopwatch.StartNew();

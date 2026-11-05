@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -291,7 +291,7 @@ internal static class LiveProbe
         {
             var name = Path.GetFileNameWithoutExtension(f);
             if (name.StartsWith('_')) continue;
-            try { list.Add(new TemplateEntry(name, new Bitmap(f), 0.86)); } catch { }
+            try { list.Add(new TemplateEntry(name, new Bitmap(f), TemplateEntry.ThresholdFor(name))); } catch { }
         }
         return list;
     }

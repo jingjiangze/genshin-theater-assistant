@@ -232,6 +232,11 @@ internal static class SelfTest
         }
         Check("RosterScan 名字匹配", bad == 0, $"{cases.Length} 例，失败 {bad}" + (bad > 0 ? "：" + string.Join(",", detail) : ""));
 
+        // 模板级阈值：actN 更严（跨幕相似度实测 0.80–0.81），其它界面锚点 0.86
+        Check("模板阈值分级", TemplateEntry.ThresholdFor("act8") == 0.90 && TemplateEntry.ThresholdFor("act10") == 0.90
+              && TemplateEntry.ThresholdFor("hall") == 0.86 && TemplateEntry.ThresholdFor("team") == 0.86,
+              $"act8={TemplateEntry.ThresholdFor("act8")} hall={TemplateEntry.ThresholdFor("hall")}");
+
         Check("RosterScan 等级解析",
             RosterScan.MatchLevel("Lv.90") == 90 && RosterScan.MatchLevel("lv 70") == 70 && RosterScan.MatchLevel("等级") == null,
             $"Lv.90→{RosterScan.MatchLevel("Lv.90")} / lv 70→{RosterScan.MatchLevel("lv 70")}");

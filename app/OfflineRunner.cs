@@ -46,7 +46,7 @@ internal static class OfflineRunner
                 {
                     var name = Path.GetFileNameWithoutExtension(f);
                     if (name.StartsWith('_')) continue;
-                    templates.Add(new TemplateEntry(name, new Bitmap(f), 0.86));
+                    templates.Add(new TemplateEntry(name, new Bitmap(f), TemplateEntry.ThresholdFor(name)));
                 }
             }
 
