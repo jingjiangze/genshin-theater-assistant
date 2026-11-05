@@ -127,7 +127,7 @@ internal sealed class RosterData
     {
         var r = new RosterData();
 
-        var charPath = Path.Combine(AppContext.BaseDirectory, "data", "characters.json");
+        var charPath = Path.Combine(AppPaths.Dir, "data", "characters.json");   // 单文件 exe 下 BaseDirectory 可能是解包临时目录
         if (File.Exists(charPath))
         {
             using var doc = JsonDocument.Parse(File.ReadAllText(charPath));

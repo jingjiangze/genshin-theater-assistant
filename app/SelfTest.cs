@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Text;
@@ -32,6 +32,7 @@ internal static class SelfTest
         CheckMakeSpec();
         CheckDerive();
         CheckHallVsBand();
+        CheckRosterScan();
         CheckScoreMath();
         CheckCropRoundTrip();
 
@@ -208,7 +209,35 @@ internal static class SelfTest
         Check("模板 team 命中判 team", teamHit.Kind == "team", $"kind={teamHit.Kind} header={teamHit.Header}");
     }
 
-    // ---- 4. 相似度数学 ----
+    // ---- 4. 角色名匹配（免登录角色池的核心） ----
+    private static void CheckRosterScan()
+    {
+        var names = new[] { "夜兰", "纳西妲", "雷电将军", "芭芭拉", "流浪者" };
+        var cases = new (string S, string Expect)[]
+        {
+            ("夜兰", "夜兰"),
+            ("夜兰Lv.90", "夜兰"),         // 名字和等级贴在一起
+            ("Lv.90 夜兰", "夜兰"),
+            ("雷电将军", "雷电将军"),       // 不能被更短的"雷电"吃掉（词典里也没有"雷电"）
+            ("我的角色", null),
+            ("战斗·普通", null),
+            ("", null),
+        };
+        int bad = 0;
+        var detail = new List<string>();
+        foreach (var c in cases)
+        {
+            var got = RosterScan.MatchName(c.S, names);
+            if (got != c.Expect) { bad++; detail.Add($"{c.S}→{got ?? "null"}"); }
+        }
+        Check("RosterScan 名字匹配", bad == 0, $"{cases.Length} 例，失败 {bad}" + (bad > 0 ? "：" + string.Join(",", detail) : ""));
+
+        Check("RosterScan 等级解析",
+            RosterScan.MatchLevel("Lv.90") == 90 && RosterScan.MatchLevel("lv 70") == 70 && RosterScan.MatchLevel("等级") == null,
+            $"Lv.90→{RosterScan.MatchLevel("Lv.90")} / lv 70→{RosterScan.MatchLevel("lv 70")}");
+    }
+
+    // ---- 5. 相似度数学 ----
     private static void CheckScoreMath()
     {
         using var a = MakePattern(240, 120, 0);
@@ -245,7 +274,7 @@ internal static class SelfTest
             $"{located.Score:0.0000} @{located.X},{located.Y}");
     }
 
-    // ---- 5. 裁剪 → 回找（模板工厂最小闭环） ----
+    // ---- 6. 裁剪 → 回找（模板工厂最小闭环） ----
     private static void CheckCropRoundTrip()
     {
         using var frame = MakeFrameLike(1280, 720);
@@ -267,7 +296,7 @@ internal static class SelfTest
             $"{hit.Score:0.0000} @{hit.X},{hit.Y} 期望 {spec.X},{spec.Y}");
     }
 
-    // ---- 6. 可选：OCR 真的给出坐标 ----
+    // ---- 7. 可选：OCR 真的给出坐标 ----
     private static void CheckOcrBoxes()
     {
         var modelsDir = Path.Combine(AppPaths.Dir, "models");
@@ -293,7 +322,7 @@ internal static class SelfTest
         Check("OCR→派生规格", specs.Any(s => s.Name == "test"), string.Join(",", specs.Select(s => s.Name)));
     }
 
-    // ---- 7. UI 层：把悬浮窗渲染成 bitmap 后断言配色与文字像素 ----
+    // ---- 8. UI 层：把悬浮窗渲染成 bitmap 后断言配色与文字像素 ----
     /// <summary>不需要桌面会话，CI 里也能跑；同时把渲染结果存成 visual-preview.png 供人眼看。</summary>
     public static int RunVisual()
     {

@@ -87,6 +87,11 @@ internal static class Program
                 case "--selftest-visual":
                     return SelfTest.RunVisual();
 
+                // 免登录角色池：角色界面截图 → OCR + 角色名词典 → roster.json
+                case "--roster-scan":
+                    if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
+                    break;
+
                 // 真机模拟：把一张帧当真游戏画面显示出来（手动观察用）
                 case "--fakegame":
                     if (args.Length >= 2)
@@ -109,7 +114,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.5.3 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.6.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }

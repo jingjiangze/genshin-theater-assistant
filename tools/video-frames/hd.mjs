@@ -1,4 +1,4 @@
-// 用已登录 cookie 抓 B站视频的**高清原生帧**（1080p/更高），供 `--batch` 派生模板。
+﻿// 用已登录 cookie 抓 B站视频的**高清原生帧**（1080p/更高），供 `--batch` 派生模板。
 // 用法（cookie 只走环境变量，不落盘、不进仓库）：
 //   $env:BILI_COOKIE = 'SESSDATA=...; bili_jct=...; ...'
 //   node hd.mjs BV193xp6WErn 20 60 200 out=./hd
@@ -28,8 +28,10 @@ const cookies = rawCookie
 const bvid = process.argv[2];
 const args = process.argv.slice(3);
 const outArg = args.find(a => a.startsWith('out='));
+const spreadArg = args.find(a => a.startsWith('spread='));
 const outDir = outArg ? outArg.slice(4) : './hd';
-const stamps = args.filter(a => !a.startsWith('out=')).map(Number).filter(n => Number.isFinite(n));
+let stamps = args.filter(a => !a.startsWith('out=') && !a.startsWith('spread=')).map(Number).filter(n => Number.isFinite(n));
+const spread = spreadArg ? parseInt(spreadArg.slice(7), 10) : 0;
 fs.mkdirSync(outDir, { recursive: true });
 
 const browser = await chromium.launch({
@@ -156,6 +158,13 @@ async function grabScreenshot() {
 }
 
 const realDur = ready.dur || pick.dur || 0;
+if (spread > 0) {
+  // 均匀铺开：跳过片头片尾各 5%，避免抓到黑屏/片尾
+  stamps = [];
+  const from = Math.min(15, realDur * 0.05), to = realDur * 0.95;
+  for (let i = 0; i < spread; i++) stamps.push(Math.round(from + (to - from) * (i / Math.max(1, spread - 1))));
+  console.log('spread 时间点:', stamps.join(','));
+}
 for (const t of stamps) {
   if (realDur && t > realDur - 2) { console.log('  skip(超出时长)', t); continue; }
   await seek(t);
