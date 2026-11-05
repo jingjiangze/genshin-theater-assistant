@@ -50,13 +50,12 @@ internal static class BatchRunner
     {
         public string Path;
         public Bitmap Image;
+        public int W, H;                       // 载入时快照：Image 稍后会被 Dispose，不能靠它算宽高
         public TemplateFactory.GrayFrame Gray;
         public List<OcrBox> Boxes = new();
         public List<TemplateFactory.SpecRow> Specs = new();
         public int? Act;
         public string ActSource = "";
-        public int W => Image.Width;
-        public int H => Image.Height;
     }
 
     internal sealed class TemplateResult
@@ -118,6 +117,8 @@ internal static class BatchRunner
             try
             {
                 var rec = new FrameRec { Path = f, Image = new Bitmap(f) };
+                rec.W = rec.Image.Width;
+                rec.H = rec.Image.Height;
                 int scale = rec.W < 900 ? 2 : 1;                    // 小图放大后再识别，否则小字全丢
                 rec.Boxes = ocr.RecognizeBoxesAsync(rec.Image, null, scale).GetAwaiter().GetResult() ?? new List<OcrBox>();
                 rec.Specs = TemplateFactory.Derive(rec.Boxes, rec.W, rec.H);
@@ -233,8 +234,6 @@ internal static class BatchRunner
             catch { }
         }
 
-        foreach (var f in frames) f.Image?.Dispose();
-
         // ---- 阶段 3：报告 ----
         int installed = results.Count(r => r.Installed);
         lines.Add("");
@@ -277,6 +276,8 @@ internal static class BatchRunner
         {
             lines.Add("写报告失败: " + ex.Message);
         }
+
+        foreach (var f in frames) f.Image?.Dispose();
 
         foreach (var l in lines) Cli.Say(l);
         return installed > 0 || results.Count == 0 ? 0 : 1;
