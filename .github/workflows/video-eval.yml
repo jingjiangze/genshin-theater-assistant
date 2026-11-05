@@ -134,6 +134,18 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|"
           foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
 
+      - name: 提取操作用法候选（连招/购买/配队/行动）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
+            $dir = "frames/$bv"
+            if (-not (Test-Path $dir)) { continue }
+            $out = "frames/$bv-ops.json"
+            $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--extract-ops `"$dir`" --out `"$out`" --bvid $bv" -Wait -PassThru -RedirectStandardOutput "$env:RUNNER_TEMP\$bv-ops.txt"
+            Get-Content "$env:RUNNER_TEMP\$bv-ops.txt" -Encoding UTF8 | Select-Object -First 3
+          }
+
       - name: 蒸馏经验（样本 → SUMMARY.md + rules.json）
         shell: pwsh
         run: |
@@ -149,6 +161,7 @@ jobs:
           path: |
             frames/*-replay.md
             frames/*-replay.json
+            frames/*-ops.json
             docs/experience/SUMMARY.md
             docs/experience/rules.json
           retention-days: 30
