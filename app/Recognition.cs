@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -17,6 +17,7 @@ internal static class GameWindow
     [DllImport("user32.dll")] internal static extern bool GetClientRect(IntPtr hWnd, out RECT r);
     [DllImport("user32.dll")] internal static extern bool ClientToScreen(IntPtr hWnd, ref POINT p);
     [DllImport("user32.dll")] internal static extern IntPtr GetForegroundWindow();
+    [DllImport("user32.dll")] internal static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint pid);
 
     [StructLayout(LayoutKind.Sequential)]
     internal struct RECT { public int Left, Top, Right, Bottom; }
@@ -24,37 +25,71 @@ internal static class GameWindow
     [StructLayout(LayoutKind.Sequential)]
     internal struct POINT { public int X, Y; }
 
-    /// <summary>按标题/类名找窗口；优先 UnityWndClass。</summary>
+    /// <summary>游戏进程名特征（b服/国际服/云原神都覆盖）。</summary>
+    private static readonly string[] GameProcessHints = { "yuanshen", "genshin", "yuanshencloud", "cloudgenshin" };
+
+    private static bool LooksLikeGameProcess(uint pid)
+    {
+        try
+        {
+            var name = System.Diagnostics.Process.GetProcessById((int)pid).ProcessName;
+            if (string.IsNullOrEmpty(name)) return false;
+            name = name.ToLowerInvariant();
+            foreach (var hint in GameProcessHints)
+                if (name.Contains(hint, StringComparison.Ordinal)) return true;
+        }
+        catch { }
+        return false;
+    }
+
+    /// <summary>
+    /// 按多个信号打分选窗口，而不是"第一个标题包含就算"：
+    ///   进程名像原神（YuanShen/Genshin…） +100、UnityWndClass +50、标题完全等于 needle +40、
+    ///   标题只是把 needle 当子串且不长 +10；客户区小于 640x360 直接不算。
+    /// 之前的宽松匹配会把"浏览器开着原神攻略页""聊天窗口标题提到原神"当成游戏窗口。
+    /// </summary>
     public static IntPtr Find(string titleNeedle)
     {
         IntPtr best = IntPtr.Zero;
-        bool bestIsUnity = false;
+        int bestScore = 0;
+        var needle = (titleNeedle ?? "").Trim();
 
         EnumWindows((h, _) =>
         {
             if (!IsWindowVisible(h)) return true;
 
+            GetWindowThreadProcessId(h, out uint pid);
             var cls = new StringBuilder(256);
             GetClassName(h, cls, 256);
-
             var sb = new StringBuilder(512);
             GetWindowText(h, sb, 512);
-            var title = sb.ToString();
+            var title = sb.ToString().Trim();
 
-            bool match = cls.ToString() == "UnityWndClass"
-                         || (titleNeedle.Length > 0 && title.Contains(titleNeedle, StringComparison.OrdinalIgnoreCase));
-            if (!match) return true;
+            GetClientRect(h, out var r);
+            int w = r.Right - r.Left, hh = r.Bottom - r.Top;
+            if (w < 640 || hh < 360) return true;          // 太小，不可能是游戏画面
 
-            bool isUnity = cls.ToString() == "UnityWndClass";
-            if (best == IntPtr.Zero || (isUnity && !bestIsUnity))
+            int score = 0;
+            if (LooksLikeGameProcess(pid)) score += 100;
+            if (cls.ToString() == "UnityWndClass") score += 50;
+            if (needle.Length > 0)
             {
-                best = h;
-                bestIsUnity = isUnity;
+                if (string.Equals(title, needle, StringComparison.OrdinalIgnoreCase)) score += 40;
+                else if (title.Contains(needle, StringComparison.OrdinalIgnoreCase) && title.Length <= needle.Length + 24) score += 10;
             }
+
+            if (score > bestScore) { bestScore = score; best = h; }
             return true;
         }, IntPtr.Zero);
 
-        return best;
+        return bestScore > 0 ? best : IntPtr.Zero;
+    }
+
+    /// <summary>窗口归属进程（用于诊断"到底抓到了谁的窗口"）。</summary>
+    public static int ProcessIdOf(IntPtr hWnd)
+    {
+        GetWindowThreadProcessId(hWnd, out uint pid);
+        return (int)pid;
     }
 }
 

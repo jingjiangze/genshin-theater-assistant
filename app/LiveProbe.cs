@@ -182,6 +182,13 @@ internal static class LiveProbe
 
             var win = GameWindow.Find(needle);
             Check("窗口可被发现", win != IntPtr.Zero, win == IntPtr.Zero ? "没找到" : $"0x{win:X}");
+            if (win != IntPtr.Zero)
+            {
+                // 关键断言：必须抓到"我们自己的假窗口"，而不是桌面上别的标题里提到"原神"的窗口
+                int pid = GameWindow.ProcessIdOf(win);
+                Check("命中的是假窗口（不是别人的窗口）", pid == Environment.ProcessId,
+                    $"窗口进程 pid={pid}，本进程 pid={Environment.ProcessId}");
+            }
 
             if (win != IntPtr.Zero)
             {
