@@ -25,6 +25,22 @@ async function wikitext(page) {
   return j.parse?.wikitext || '';
 }
 
+/** 模板参数里常藏着机制说明（例如 {{怪物技能|描述=...}}）：先把"参数值"抽出来，再交给人眼/语料 */
+function templateValues(text) {
+  const out = [];
+  const re = /\{\{([^{}]{2,80})\|([^{}]{10,4000})\}\}/g;
+  let m;
+  while ((m = re.exec(text))) {
+    const body = m[2];
+    for (const part of body.split('|')) {
+      const eq = part.indexOf('=');
+      const val = (eq >= 0 ? part.slice(eq + 1) : part).trim();
+      if (cjkLen(val) >= 16 && !/^\d+$/.test(val)) out.push(val);
+    }
+  }
+  return out;
+}
+
 /** 清洗 wikitext：去模板/标签/表格/文件/引用，保留可读中文句子 */
 function clean(text) {
   let s = text;

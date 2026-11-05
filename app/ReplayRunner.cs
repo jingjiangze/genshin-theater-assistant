@@ -141,7 +141,7 @@ internal static class ReplayRunner
             "",
             $"- 帧数：{steps.Count}（按文件名排序模拟时间顺序）",
             $"- 总耗时：{sw.ElapsedMilliseconds} ms（平均 {sw.ElapsedMilliseconds / Math.Max(1, steps.Count)} ms/帧）",
-            $"- 判出幕次：{acted.Count} 帧；幕次序列：{string.Join(" → ", acted.Select(s => s.Act).Distinct())}",
+            $"- 本帧识别到幕次：{steps.Count(s => s.RawAct > 0)} 帧；沿用上一帧：{steps.Count(s => s.RawAct == 0 && s.Act > 0)} 帧",
             $"- 状态分布：{string.Join("，", perKind)}",
             $"- 给出「现在做」：{withNext}/{steps.Count}；检索命中：{retrieved}/{steps.Count}",
             $"- 幕次序列（原始）：{string.Join(" → ", rawSeq)}；跳变 {rawJumps.Count} 次{(rawJumps.Count > 0 ? "：" + string.Join("；", rawJumps.Take(4)) : "")}",
