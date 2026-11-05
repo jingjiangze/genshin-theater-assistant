@@ -253,6 +253,20 @@ internal static class SelfTest
         Check("决策·读编入人数", ts1 == (4, 4) && ts2.Size == 26 && ts3 == (0, 0),
             $"{ts1} / {ts2} / {ts3}");
 
+        // 本地日志解析（纯函数）：只认 avatarId/level，其余字段丢弃
+        var log = "{\"avatarId\":10000060,\"level\":90} {\"avatarId\":10000046,\"level\":80} junk {\"avatarId\":10000060,\"level\":90}";
+        var parsed = LogScan.ParseCharacters(log);
+        Check("日志解析·角色ID与等级", parsed.Count == 2 && parsed[10000060] == 90 && parsed[10000046] == 80,
+            string.Join(",", parsed.Select(kv => $"{kv.Key}=Lv{kv.Value}")));
+
+        // 蒸馏解析（纯函数）
+        var rep = Distiller.Parse("{\"frames\":3,\"jumps\":[\"1→3\"],\"flips\":[1],\"steps\":[" +
+            "{\"Frame\":\"a\",\"Act\":3,\"RawAct\":3,\"TruthAct\":3,\"Kind\":\"act\",\"Ms\":100}," +
+            "{\"Frame\":\"b\",\"Act\":2,\"RawAct\":4,\"TruthAct\":4,\"Kind\":\"act\",\"Ms\":120}," +
+            "{\"Frame\":\"c\",\"Act\":0,\"RawAct\":0,\"TruthAct\":0,\"Kind\":\"unknown\",\"Ms\":80}]}", "t.json");
+        Check("蒸馏解析·准确率与错例", rep.Frames == 3 && rep.TruthFrames == 2 && rep.StableRight == 1 && rep.RawRight == 2 && rep.Mismatches.Count == 1,
+            $"frames={rep.Frames} truth={rep.TruthFrames} stable={rep.StableRight} raw={rep.RawRight} mism={rep.Mismatches.Count}");
+
         // 决策引擎：解析卡片 + 按幕次给出"选第几张"
         var shopText = "战斗·普通\n战斗·普通\n雷晶·进阶\n感电·原态";
         var shopOpts = ChoiceDecider.ParseOptions(shopText.Split('\n'));

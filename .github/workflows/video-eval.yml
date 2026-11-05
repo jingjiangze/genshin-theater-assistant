@@ -1,4 +1,4 @@
-name: video-eval
+﻿name: video-eval
 
 # 用真实视频做"对答案"回归：
 #   抽帧 → --replay 逐帧跑完整链路 → 用视频自带的「第N幕」当标准答案算准确率 → 上传报告
@@ -141,4 +141,6 @@ jobs:
           path: |
             frames/*-replay.md
             frames/*-replay.json
+            docs/experience/SUMMARY.md
+            docs/experience/rules.json
           retention-days: 30

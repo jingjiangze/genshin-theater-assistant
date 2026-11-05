@@ -115,6 +115,18 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 本地日志读角色数据（只读日志、只取角色字段）
+                case "--log-scan":
+                    return LogScan.Run(args.Length >= 2 && !args[1].StartsWith("--", StringComparison.Ordinal) ? args[1] : null,
+                        Opt(args, "--out"));
+
+                // 把多份 replay 报告蒸馏成经验（数字 + 规则）
+                case "--distill":
+                    {
+                        var ins = args.Skip(1).Where(a => !a.StartsWith("--", StringComparison.Ordinal)).ToList();
+                        return Distiller.Run(ins, Opt(args, "--out"));
+                    }
+
                 // 决策：--decide "战斗·普通\n雷晶·进阶\n感电·原态" --act 3 --team 3 --target 4
                 case "--decide":
                     {
@@ -193,7 +205,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.14.1 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.15.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
