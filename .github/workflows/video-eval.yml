@@ -134,6 +134,14 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|"
           foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
 
+      - name: 蒸馏经验（样本 → SUMMARY.md + rules.json）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--distill `"$PWD\frames`" --out `"$PWD\docs\experience`"" -Wait -PassThru -RedirectStandardOutput "$env:RUNNER_TEMP\distill.txt"
+          Get-Content "$env:RUNNER_TEMP\distill.txt" -Encoding UTF8 | Select-Object -First 6
+          if (Test-Path .\docs\experience\SUMMARY.md) { Get-Content .\docs\experience\SUMMARY.md -Encoding UTF8 | Select-Object -First 14 }
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:

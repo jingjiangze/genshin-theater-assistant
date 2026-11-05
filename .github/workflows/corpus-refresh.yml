@@ -119,6 +119,11 @@ jobs:
           $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--corpus-scan `"$PWD\frames`" --out `"$PWD\data\guide-corpus-extra.json`" --bvid `"$env:BVS`"" -Wait -PassThru
           if ($p.ExitCode -ne 0) { Write-Host "::warning::corpus-scan 退出码 $($p.ExitCode)（可能没抽到可用文字）" }
 
+      - name: 生成角色 ID→名字表（公开静态元数据）
+        shell: pwsh
+        continue-on-error: true
+        run: node tools/fetch-avatar-ids.mjs
+
       - name: 抓 BWIKI 语料
         shell: pwsh
         run: |
