@@ -247,26 +247,33 @@ internal static class TheaterLogic
             if (h.Name == "result") { kind = "result"; src = $"模板 {h.Score}"; break; }
         }
 
-        // 大堂界面的锚点：这些界面本身没有"当前幕次"，
-        // 底部的 第一幕…第十幕 是幕次列表而不是当前进度，必须先认界面再谈幕次。
-        if (kind == "unknown" && !string.IsNullOrEmpty(text) && HallRegex.IsMatch(text))
-        {
-            kind = "theater";
-            src = "OCR(大厅锚点)";
-        }
+        // 大堂界面（演出准备/助演嘉宾/奖励一览…）的底部是 第一幕…第十幕 的列表，
+        // 不是"当前幕次"。所以：条带里没有明确"幕"字时，只要整帧出现大堂锚点就不采信条带。
+        // 注意不能反过来用大堂锚点直接压掉幕次——视频源常被 UP 贴字，幕内画面也可能出现这些词。
+        bool looksHall = !string.IsNullOrEmpty(text) && HallRegex.IsMatch(text);
 
         // 底部条带：小字常丢"幕"字，这里用宽松规则兜底
         if (kind == "unknown" && !string.IsNullOrEmpty(bandText))
         {
             var bt = Regex.Replace(bandText, @"\s+", "");
+            var strict = ActRegex.Match(bt);                 // 明确带"幕"：信
             var nums = new List<int>();
             foreach (Match bm in ActLoose.Matches(bt))
             {
                 if (TryCn(bm.Groups[1].Value, out int bn) && !nums.Contains(bn)) nums.Add(bn);
             }
-            if (nums.Count == 1)
+
+            if (strict.Success && TryCn(strict.Groups[1].Value, out int sn))
+            {
+                kind = "act"; act = sn; src = "OCR(条带)";
+            }
+            else if (nums.Count == 1 && !looksHall)
             {
                 kind = "act"; act = nums[0]; src = "OCR(条带)";
+            }
+            else if (nums.Count == 1)
+            {
+                note = $"条带读到「{bt}」但整帧是大堂界面，判为幕次列表，不采信";
             }
             else if (nums.Count > 1)
             {

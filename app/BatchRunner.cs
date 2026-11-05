@@ -69,8 +69,10 @@ internal static class BatchRunner
         public double PresentMin = 1.0;
         public double AbsentMax = 0.0;
         public int PresentCount, AbsentCount;
+        public bool Verified;                 // 有缺席帧才算真正验证过"不误报"
         public bool Installed;
         public string Note = "";
+        public TemplateFactory.SpecRow Spec;
     }
 
     public static int Run(string frameDir, string outDir, double minPresent, double maxAbsent)
@@ -166,6 +168,7 @@ internal static class BatchRunner
                                .OrderBy(n => n, StringComparer.Ordinal)
                                .ToList();
 
+            // 实际安装用的规格：_specs.json 必须与装出来的模板同源，不能另取"同名第一条"
             foreach (var name in names)
             {
                 // 源帧：同名规格里 OCR 置信度最高的那一帧
@@ -212,9 +215,11 @@ internal static class BatchRunner
                 bool passPresent = tr.PresentMin >= minPresent;
                 bool passAbsent = tr.AbsentCount == 0 || tr.AbsentMax < maxAbsent;
                 tr.Installed = passPresent && passAbsent;
+                tr.Verified = tr.AbsentCount > 0;                       // 没有缺席帧 = 只做了构造性自证
                 if (!passPresent) tr.Note = "在场一致性不足";
                 else if (!passAbsent) tr.Note = "缺席帧出现误报";
-                else if (tr.AbsentCount == 0) tr.Note = "单一样本（无缺席帧可验）";
+                else if (!tr.Verified) tr.Note = "单一样本（该分辨率下没有缺席帧可验误报）";
+                tr.Spec = spec;
 
                 if (tr.Installed)
                 {
@@ -224,39 +229,46 @@ internal static class BatchRunner
                 results.Add(tr);
             }
 
-            // 该分辨率的规格表一起落盘，方便用 tools/make-templates.ps1 复算
+            // 该分辨率的规格表一起落盘，方便用 tools/make-templates.ps1 复算。
+            // 只写"实际装出来的那一条"（results 里的 Spec 就是裁剪源规格），否则 specs 与模板不同源。
             var specFile = Path.Combine(dirOut, "_specs.json");
-            var allSpecs = members.SelectMany(m => m.Specs).GroupBy(s => s.Name).Select(gp => gp.First()).ToList();
+            var installedSpecs = results
+                .Where(r => r.Bucket == bucket.Key && r.Installed && r.Spec != null)
+                .Select(r => r.Spec)
+                .OrderBy(s => s.Name, StringComparer.Ordinal)
+                .ToList();
             try
             {
-                File.WriteAllText(specFile, JsonSerializer.Serialize(allSpecs, TemplateFactory.JsonOpts), Encoding.UTF8);
+                File.WriteAllText(specFile, JsonSerializer.Serialize(installedSpecs, TemplateFactory.JsonOpts), Encoding.UTF8);
             }
             catch { }
         }
 
         // ---- 阶段 3：报告 ----
         int installed = results.Count(r => r.Installed);
+        int verified = results.Count(r => r.Installed && r.Verified);
         lines.Add("");
-        lines.Add("分辨率      模板       文本                 尺寸      在场最低  缺席最高  结论");
+        lines.Add("分辨率      模板       文本                 尺寸      在场最低  缺席最高  验证  结论");
         foreach (var r in results)
         {
             var size = r.W + "x" + r.H;
             var verdict = r.Installed ? "安装" : "拒绝:" + r.Note;
             lines.Add($"{r.Bucket,-11} {r.Name,-10} {Trim(r.Text, 18),-20} {size,-9} " +
-                      $"{r.PresentMin,8:0.000} {r.AbsentMax,9:0.000}  {verdict}");
+                      $"{r.PresentMin,8:0.000} {r.AbsentMax,9:0.000}  {(r.Verified ? "双向" : "单向"),-4} {verdict}");
         }
         lines.Add("");
-        lines.Add($"帧 {frames.Count} · 分辨率 {buckets.Count} · 候选模板 {results.Count} · 安装 {installed} · 拒绝 {results.Count - installed} · 用时 {started.ElapsedMilliseconds} ms");
+        lines.Add($"帧 {frames.Count} · 分辨率 {buckets.Count} · 候选模板 {results.Count} · 安装 {installed}（双向量检 {verified}）· 拒绝 {results.Count - installed} · 用时 {started.ElapsedMilliseconds} ms");
         lines.Add("输出目录: " + outDir);
 
         report["frames"] = files.Select(Path.GetFileName).ToList();
         report["ocr"] = ocr.Status;
         report["installed"] = installed;
+        report["verified"] = verified;
         report["candidates"] = results.Count;
         report["templates"] = results.Select(r => new
         {
             r.Bucket, r.Name, r.Text, r.W, r.H, r.X, r.Y, r.Source,
-            r.PresentMin, r.AbsentMax, r.PresentCount, r.AbsentCount, r.Installed, r.Note,
+            r.PresentMin, r.AbsentMax, r.PresentCount, r.AbsentCount, r.Verified, r.Installed, r.Note,
         }).ToList();
         report["frameDetail"] = frames.Select(f => new
         {

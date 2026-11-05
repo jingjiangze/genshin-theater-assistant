@@ -143,7 +143,7 @@ internal static class SelfTest
         // 真实 640x360 大堂帧的实测 OCR 文本：底部幕次标签被读成「第5品」，不能据此判成第 5 幕
         var hallAdvice = TheaterLogic.Evaluate(new List<Matcher.Hit>(),
             "助演阵容\n演出准备\n演出回顾\n第5品", data, roster, "第5品");
-        Check("大堂锚点压过条带", hallAdvice.Act == null && hallAdvice.Header.Contains("剧诗界面"),
+        Check("大堂界面不采信条带", hallAdvice.Act == null && hallAdvice.Header.Contains("剧诗界面"),
             $"act={hallAdvice.Act?.ToString() ?? "-"} header={hallAdvice.Header}");
 
         // 进行中画面：条带只认出一个幕次 → 正常判定
@@ -153,6 +153,14 @@ internal static class SelfTest
         // 条带里出现多个幕次 → 判为列表，不采信
         var multi = TheaterLogic.Evaluate(new List<Matcher.Hit>(), "战斗", data, roster, "第1 第3 第5");
         Check("条带多幕次不采信", multi.Act == null, $"act={multi.Act?.ToString() ?? "-"}");
+
+        // 反过来：整帧出现大堂词（视频里 UP 常贴"助演阵容"）不能压掉幕内画面的幕次判定
+        var inRun = TheaterLogic.Evaluate(new List<Matcher.Hit>(), "助演阵容\n第3幕", data, roster, null);
+        Check("大堂词不压幕内幕次", inRun.Act == 3, $"act={inRun.Act?.ToString() ?? "-"} header={inRun.Header}");
+
+        // 条带明确带"幕"字时，即使是大堂界面也照信（高精度路径）
+        var strictBand = TheaterLogic.Evaluate(new List<Matcher.Hit>(), "助演阵容\n演出准备", data, roster, "第2幕");
+        Check("条带带幕字优先", strictBand.Act == 2, $"act={strictBand.Act?.ToString() ?? "-"}");
     }
 
     // ---- 4. 相似度数学 ----
