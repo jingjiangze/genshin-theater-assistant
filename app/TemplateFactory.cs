@@ -44,11 +44,12 @@ internal static class TemplateFactory
     {
         new() { Name = "test",   Pattern = @"TESTLABEL" },
         new() { Prefix = "act",  Pattern = @"第\s*([一二三四五六七八九十0-9]{1,3})\s*幕" },
-        new() { Name = "hall",   Pattern = @"演出准备|助演嘉宾|演出回顾|奖励一览" },
-        new() { Name = "choice", Pattern = @"选择角色|试用角色|选择一名|助演角色" },
+        new() { Name = "title",  Pattern = @"幻想真境剧诗|真境剧诗" },
+        new() { Name = "hall",   Pattern = @"演出准备|助演嘉宾|演出回顾|奖励一览|演出详情|助演阵容" },
+        new() { Name = "choice", Pattern = @"选择角色|试用角色|选择一名|助演角色|待命角色|可选角色|邀请助演|编入的角色" },
         new() { Name = "result", Pattern = @"演出结算|演出完成|演出结束|结算奖励|挑战结算" },
         new() { Name = "begin",  Pattern = @"开始挑战|开始演出|进入演出|开始剧诗" },
-        new() { Name = "diff",   Pattern = @"难度|普通模式|困难模式|极难模式|无畏模式" },
+        new() { Name = "diff",   Pattern = @"难度|普通模式|困难模式|极难模式|无畏模式|月谕|卓越" },
     };
 
     /// <summary>严格幕次正则（必须带“幕”字），只用于判断“整帧是不是幕次列表”。</summary>
@@ -124,19 +125,42 @@ internal static class TemplateFactory
         var best = new Dictionary<string, SpecRow>(StringComparer.Ordinal);
         if (boxes == null) return new List<SpecRow>();
 
-        // 幕次选择条会把 第一幕…第十幕 并排列出：整帧出现多个不同幕次时，"actN" 不能当状态锚点，
-        // 否则十个模板会同时命中。这种帧一律不派生 act 系列模板。
-        var actNumbers = new HashSet<int>();
+        // 幕次选择条会把 第一幕…第十幕 并排列出：这种"列表行"不是当前幕次，
+        // 不能拿来做 actN 锚点（否则十个模板同时命中）。判定方式：一排 y/h 相近、幕次不同的框。
+        // 另外要求 actN 来自画面下半部（幕内标签在大堂底部/战斗 HUD 底部），避免把 UP 贴字当成锚点。
+        var actBoxes = new List<(int Num, Rectangle Rect)>();
         foreach (var b in boxes)
         {
             if (b == null || string.IsNullOrWhiteSpace(b.Text)) continue;
             foreach (Match mm in ActNumRegex.Matches(b.Text))
             {
                 var num = ParseActNumber(mm.Groups[1].Value);
-                if (num.HasValue) actNumbers.Add(num.Value);
+                if (num.HasValue) actBoxes.Add((num.Value, b.Rect));
             }
         }
-        bool actAmbiguous = actNumbers.Count > 1;
+
+        bool InListRow(int i)
+        {
+            int peers = 0;
+            for (int j = 0; j < actBoxes.Count; j++)
+            {
+                if (i == j) continue;
+                if (actBoxes[j].Num == actBoxes[i].Num) continue;
+                if (Math.Abs(actBoxes[j].Rect.Y - actBoxes[i].Rect.Y) > 8) continue;
+                if (Math.Abs(actBoxes[j].Rect.Height - actBoxes[i].Rect.Height) > 8) continue;
+                peers++;
+            }
+            return peers >= 2;                      // 同一排至少三个不同幕次 → 是列表
+        }
+
+        var candidates = new HashSet<int>();
+        for (int i = 0; i < actBoxes.Count; i++)
+        {
+            if (InListRow(i)) continue;
+            if (actBoxes[i].Rect.Y < frameH * 0.5) continue;   // 只要下半部
+            candidates.Add(actBoxes[i].Num);
+        }
+        bool actAmbiguous = candidates.Count > 1;
 
         foreach (var box in boxes)
         {
@@ -156,7 +180,8 @@ internal static class TemplateFactory
                 {
                     var n = ParseActNumber(m.Groups.Count > 1 ? m.Groups[1].Value : "");
                     if (!n.HasValue) continue;
-                    if (actAmbiguous) continue;                 // 幕次列表帧：不派生 actN
+                    // 幕次列表行 / 上半部贴字 → 不当锚点；一帧里出现多个候选幕次也不派生
+                    if (actAmbiguous || !candidates.Contains(n.Value)) continue;
                     name = rule.Prefix + n.Value;
                 }
 

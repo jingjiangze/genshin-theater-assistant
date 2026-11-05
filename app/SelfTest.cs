@@ -103,8 +103,8 @@ internal static class SelfTest
         var boxes = new List<OcrBox>
         {
             new() { Text = "TESTLABEL", Rect = new Rectangle(100, 100, 200, 40), Score = 0.90 },
-            new() { Text = "第3幕", Rect = new Rectangle(100, 200, 120, 40), Score = 0.95 },
-            new() { Text = "第三幕", Rect = new Rectangle(500, 200, 120, 40), Score = 0.80 },   // 同名，低分应被淘汰
+            new() { Text = "第3幕", Rect = new Rectangle(100, 600, 120, 40), Score = 0.95 },
+            new() { Text = "第三幕", Rect = new Rectangle(500, 600, 120, 40), Score = 0.80 },   // 同名，低分应被淘汰
             new() { Text = "演出结算", Rect = new Rectangle(100, 300, 160, 40), Score = 0.88 },
             new() { Text = "无关文字", Rect = new Rectangle(100, 400, 160, 40), Score = 0.99 },
         };
@@ -115,23 +115,43 @@ internal static class SelfTest
         Check("Derive 命名", namesOk, string.Join(",", names));
 
         var act = specs.FirstOrDefault(s => s.Name == "act3");
-        bool actOk = act != null && act.X == 86 && act.Y == 186 && act.Text == "第3幕";  // pad = round(40*0.35)=14
+        bool actOk = act != null && act.X == 86 && act.Y == 586 && act.Text == "第3幕";  // pad = round(40*0.35)=14
         Check("Derive 幕次矩形", actOk, act == null ? "null" : $"{act.X},{act.Y} {act.W}x{act.H}");
 
         var test = specs.FirstOrDefault(s => s.Name == "test");
         bool dupOk = test != null;
         Check("Derive 去重/ASCII", dupOk, test == null ? "null" : test.Text);
 
-        // 幕次列表帧（第一幕/第二幕/第三幕 并排）不能派生 actN，否则十个模板同时命中
+        // 幕次列表行（第一幕/第二幕/第三幕 同一排并排）不能派生 actN，否则十个模板同时命中
         var listBoxes = new List<OcrBox>
         {
-            new() { Text = "第一幕", Rect = new Rectangle(100, 600, 90, 24), Score = 0.9 },
-            new() { Text = "第二幕", Rect = new Rectangle(200, 600, 90, 24), Score = 0.9 },
-            new() { Text = "第三幕", Rect = new Rectangle(300, 600, 90, 24), Score = 0.9 },
+            new() { Text = "第一幕", Rect = new Rectangle(100, 900, 90, 24), Score = 0.9 },
+            new() { Text = "第二幕", Rect = new Rectangle(200, 900, 90, 24), Score = 0.9 },
+            new() { Text = "第三幕", Rect = new Rectangle(300, 900, 90, 24), Score = 0.9 },
         };
-        var listSpecs = TemplateFactory.Derive(listBoxes, 1280, 720);
+        var listSpecs = TemplateFactory.Derive(listBoxes, 1280, 1080);
         Check("Derive 幕次列表不派生 actN", listSpecs.All(s => !s.Name.StartsWith("act", StringComparison.Ordinal)),
             listSpecs.Count == 0 ? "（空）" : string.Join(",", listSpecs.Select(s => s.Name)));
+
+        // 真实 1920x1080 局内画面：底部列表行 + 中央「第5幕」标签（y 不同）→ 只派生 act5
+        var mixed = listBoxes.Select(b => new OcrBox
+        {
+            Text = b.Text,
+            Rect = new Rectangle(b.Rect.X, b.Rect.Y, b.Rect.Width, b.Rect.Height),
+            Score = b.Score,
+        }).ToList();
+        mixed.Add(new OcrBox { Text = "第5幕", Rect = new Rectangle(900, 700, 120, 44), Score = 0.96 });
+        var mixedSpecs = TemplateFactory.Derive(mixed, 1920, 1080);
+        var actNames = mixedSpecs.Where(s => s.Name.StartsWith("act", StringComparison.Ordinal)).Select(s => s.Name).ToList();
+        Check("Derive 列表行外的局内幕次", actNames.SequenceEqual(new[] { "act5" }), string.Join(",", actNames));
+
+        // 上半部的幕次文字（UP 贴字/攻略面板）不当锚点
+        var topOnly = new List<OcrBox>
+        {
+            new() { Text = "第五幕", Rect = new Rectangle(100, 40, 120, 40), Score = 0.95 },
+        };
+        var topSpecs = TemplateFactory.Derive(topOnly, 1920, 1080);
+        Check("Derive 上半部幕次不派生", topSpecs.Count == 0, topSpecs.Count == 0 ? "（空）" : string.Join(",", topSpecs.Select(s => s.Name)));
     }
 
     // ---- 3b. 界面判定：大堂锚点优先于底部幕次列表 ----

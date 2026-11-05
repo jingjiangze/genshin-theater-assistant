@@ -169,6 +169,8 @@ internal static class BatchRunner
                                .ToList();
 
             // 实际安装用的规格：_specs.json 必须与装出来的模板同源，不能另取"同名第一条"
+            int scanStep = Math.Max(4, members.Max(m => m.W) / 320);   // 1080p → 6，2K → 8，720p → 4
+
             foreach (var name in names)
             {
                 // 源帧：同名规格里 OCR 置信度最高的那一帧
@@ -203,11 +205,12 @@ internal static class BatchRunner
                 tr.PresentMin = presentScores.Count == 0 ? 1.0 : Math.Round(presentScores.Min(), 4);
 
                 // (2) 缺席不误报：同分辨率下没有该标签的帧，整帧都不该命中
+                //     1080p/2K 全帧扫描很贵，所以按分辨率自适应步长，并限制缺席样本数（取文件名序前 N 个）
+                var absentFrames = members.Where(o => o.Specs.All(s => s.Name != name)).Take(6).ToList();
                 var absentScores = new List<double>();
-                foreach (var other in members)
+                foreach (var other in absentFrames)
                 {
-                    if (other.Specs.Any(s => s.Name == name)) continue;
-                    absentScores.Add(TemplateFactory.BestInFrame(other.Gray, tplGray));
+                    absentScores.Add(TemplateFactory.BestInFrame(other.Gray, tplGray, scanStep));
                 }
                 tr.AbsentCount = absentScores.Count;
                 tr.AbsentMax = absentScores.Count == 0 ? 0.0 : Math.Round(absentScores.Max(), 4);
@@ -348,16 +351,16 @@ internal static class BatchRunner
                     }
                 }
 
-                float y = 80 * k;
-                foreach (var label in labels)
+                // 标签按纵向等分铺开：让「第N幕」落在下半部（符合真实局内标签位置，也满足派生规则）
+                for (int i = 0; i < labels.Length; i++)
                 {
+                    float y = h * (0.15f + 0.18f * i);
                     var font = PickFont(40f * k);
                     using (font)
                     using (var brush = new SolidBrush(fg))
                     {
-                        g.DrawString(label, font, brush, 80 * k, y);
+                        g.DrawString(labels[i], font, brush, 80 * k, y);
                     }
-                    y += 90 * k;
                 }
             }
 
@@ -371,15 +374,15 @@ internal static class BatchRunner
         var dark2 = Color.FromArgb(18, 20, 30);
 
         Frame("a1-1280x720.png", 1280, 720, dark, gold, 1.0f,
-            new[] { "TESTLABEL", "第3幕", "开始挑战", "助演嘉宾" }, 11);
+            new[] { "TESTLABEL", "开始挑战", "助演嘉宾", "第3幕" }, 11);
         Frame("a2-1280x720.png", 1280, 720, dark, gold, 1.0f,
-            new[] { "TESTLABEL", "第3幕", "开始挑战", "助演嘉宾" }, 23);
+            new[] { "TESTLABEL", "开始挑战", "助演嘉宾", "第3幕" }, 23);
         Frame("b-1280x720.png", 1280, 720, dark2, Color.FromArgb(120, 200, 255), 1.0f,
             new[] { "演出结算" }, 37);
         Frame("c1-1920x1080.png", 1920, 1080, dark, gold, 1.5f,
-            new[] { "TESTLABEL", "第3幕", "开始挑战", "助演嘉宾" }, 51);
+            new[] { "TESTLABEL", "开始挑战", "助演嘉宾", "第3幕" }, 51);
         Frame("c2-1920x1080.png", 1920, 1080, dark, gold, 1.5f,
-            new[] { "TESTLABEL", "第3幕", "开始挑战", "助演嘉宾" }, 67);
+            new[] { "TESTLABEL", "开始挑战", "助演嘉宾", "第3幕" }, 67);
 
         foreach (var p in written) Cli.Say("合成: " + p);
         Cli.Say($"共 {written.Count} 帧 → {dir}");
