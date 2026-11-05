@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Text;
 using System.Text.Json;
 
@@ -22,6 +22,8 @@ internal static class ReplayRunner
     {
         public string Frame = "";
         public int Act;
+        public int StableAct;
+        public int RawAct;
         public string Kind = "";
         public string Header = "";
         public string NextAction = "";
@@ -52,6 +54,7 @@ internal static class ReplayRunner
         Cli.Say("OCR: " + ocr.Status + "｜语料 " + GuideIndex.Count + " 条｜帧 " + files.Count);
 
         var steps = new List<Step>();
+        var stab = new ActStabilizer();
         var sw = System.Diagnostics.Stopwatch.StartNew();
 
         foreach (var f in files)
@@ -67,16 +70,20 @@ internal static class ReplayRunner
 
                 bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
                 string band = actFromTemplate ? null
-                    : ocr.RecognizeRegionAsync(img, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3).GetAwaiter().GetResult();
+                    : ocr.RecognizeRegionAsync(img, new RectangleF(0.335f, 0.82f, 0.33f, 0.14f), 3).GetAwaiter().GetResult();
 
                 var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
-                var query = (advice.Act.HasValue ? $"第{advice.Act}幕 " : "") + (advice.Lines.FirstOrDefault() ?? "");
+                var rawAct = advice.Act;
+                var stableAct = stab.Push(rawAct);          // 与运行时同一套时序稳定
+                var query = (stableAct.HasValue ? $"第{stableAct}幕 " : "") + (advice.Lines.FirstOrDefault() ?? "");
                 var top = GuideIndex.Search(query, advice.Act, 1).FirstOrDefault();
 
                 steps.Add(new Step
                 {
                     Frame = Path.GetFileNameWithoutExtension(f),
-                    Act = advice.Act ?? 0,
+                    Act = stableAct ?? 0,
+                    RawAct = rawAct ?? 0,
+                    StableAct = stableAct ?? 0,
                     Kind = advice.Kind ?? "unknown",
                     Header = advice.Header,
                     NextAction = TheaterLogic.NextAction(advice.Kind ?? "unknown", advice.Act) ?? "",
@@ -95,15 +102,26 @@ internal static class ReplayRunner
         sw.Stop();
 
         // ---- 时序分析 ----
-        var acted = steps.Where(s => s.Act > 0).ToList();
-        var jumps = new List<string>();
-        int prevAct = 0;
-        foreach (var s in acted)
+        static List<string> Jumps(IEnumerable<Step> src, Func<Step, int> pick)
         {
-            if (prevAct > 0 && s.Act != prevAct && s.Act != prevAct + 1 && s.Act != prevAct - 1)
-                jumps.Add($"{prevAct} → {s.Act}（{s.Frame}）");
-            prevAct = s.Act;
+            var list = new List<string>();
+            int prev = 0;
+            foreach (var s in src)
+            {
+                var a = pick(s);
+                if (a <= 0) continue;
+                if (prev > 0 && a != prev && a != prev + 1 && a != prev - 1)
+                    list.Add($"{prev} → {a}（{s.Frame}）");
+                prev = a;
+            }
+            return list;
         }
+
+        var acted = steps.Where(s => s.Act > 0).ToList();
+        var jumps = Jumps(steps, s => s.Act);                    // 稳定后
+        var rawJumps = Jumps(steps, s => s.RawAct);               // 原始（未稳定）
+        var stableSeq = acted.Select(s => s.Act).Distinct().ToList();
+        var rawSeq = steps.Where(s => s.RawAct > 0).Select(s => s.RawAct).Distinct().ToList();
 
         var flips = new List<string>();
         for (int i = 2; i < steps.Count; i++)
@@ -126,7 +144,9 @@ internal static class ReplayRunner
             $"- 判出幕次：{acted.Count} 帧；幕次序列：{string.Join(" → ", acted.Select(s => s.Act).Distinct())}",
             $"- 状态分布：{string.Join("，", perKind)}",
             $"- 给出「现在做」：{withNext}/{steps.Count}；检索命中：{retrieved}/{steps.Count}",
-            $"- 幕次跳变（跨幕不连续）：{jumps.Count} 次{(jumps.Count > 0 ? "：" + string.Join("；", jumps) : "")}",
+            $"- 幕次序列（原始）：{string.Join(" → ", rawSeq)}；跳变 {rawJumps.Count} 次{(rawJumps.Count > 0 ? "：" + string.Join("；", rawJumps.Take(4)) : "")}",
+            $"- 幕次序列（稳定后）：{string.Join(" → ", stableSeq)}；跳变 {jumps.Count} 次{(jumps.Count > 0 ? "：" + string.Join("；", jumps.Take(4)) : "")}",
+            $"- 稳定器拦下的候选：{stab.Rejected} 次",
             $"- 状态抖动（AB A 形态）：{flips.Count} 次{(flips.Count > 0 ? "：" + string.Join("；", flips.Take(6)) : "")}",
             "",
             "| 帧 | 幕 | 状态 | 现在做 | 检索首条 | 会播报 | 文本框 | ms |",

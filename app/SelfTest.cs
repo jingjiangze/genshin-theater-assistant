@@ -242,6 +242,19 @@ internal static class SelfTest
               && TemplateEntry.ThresholdFor("hall") == 0.86 && TemplateEntry.ThresholdFor("team") == 0.86,
               $"act8={TemplateEntry.ThresholdFor("act8")} hall={TemplateEntry.ThresholdFor("hall")}");
 
+        // 幕次时序稳定器：正常推进立即采纳；倒退/跳级要连续确认；没观测就保持
+        var stab = new ActStabilizer { MinConfirm = 2 };
+        var seq = new List<int?>();
+        seq.Add(stab.Push(3));            // 首次 3 → 3
+        seq.Add(stab.Push(4));            // 正常推进 → 4
+        seq.Add(stab.Push(9));            // 跳级一次 → 仍 4
+        seq.Add(stab.Push(null));         // 没观测 → 仍 4
+        seq.Add(stab.Push(9));            // 第二次 9 → 采纳 9
+        seq.Add(stab.Push(7));            // 倒退一次 → 仍 9
+        bool okStab = seq[0] == 3 && seq[1] == 4 && seq[2] == 4 && seq[3] == 4 && seq[4] == 9 && seq[5] == 9;
+        Check("幕次时序稳定器", okStab && stab.Rejected == 2,
+            string.Join(",", seq.Select(x => x?.ToString() ?? "-")) + $" 拦下 {stab.Rejected}");
+
         // 语音归一化：播报要读的句子不能带"▶ 现在做："和分隔符号
         var speech1 = Speech.NormalizeForSpeech("▶ 现在做：用雷把怒气条推满，满条后 15 秒内把爆发全打出去");
         var speech2 = Speech.NormalizeForSpeech("耐力 2 点/人｜别在头两幕耗光");

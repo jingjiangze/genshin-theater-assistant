@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Text;
 using System.Text.Json;
 
@@ -63,7 +63,7 @@ internal static class OfflineRunner
             bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
             if (!actFromTemplate)
             {
-                var band = new RectangleF(0.28f, 0.82f, 0.46f, 0.14f);
+                var band = new RectangleF(0.335f, 0.82f, 0.33f, 0.14f);
                 var bandText = ocr2(img, band);
                 lines.Add("bandraw : " + (bandText ?? "<null>"));
                 advice = TheaterLogic.Evaluate(hits, text, theater, roster, bandText);

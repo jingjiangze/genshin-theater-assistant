@@ -185,7 +185,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.11.1 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.12.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -264,6 +264,7 @@ internal sealed class OverlayForm : Form
     private int _tickCount;
     private int _textAge;
     private string _cachedText = "";
+    private readonly ActStabilizer _actStab = new();
     private int? _currentAct;
     private TheaterData _theater;
 
@@ -407,7 +408,7 @@ internal sealed class OverlayForm : Form
             var hits = Matcher.Scan(bmp, _templates);
             bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
             string bandText = actFromTemplate ? null
-                : await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3);
+                : await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.335f, 0.82f, 0.33f, 0.14f), 3);
 
             _tickCount++;
             bool needFullText = _tickCount % 3 == 0 || string.IsNullOrWhiteSpace(bandText) || _cachedText.Length == 0;
@@ -420,6 +421,11 @@ internal sealed class OverlayForm : Form
             string text = _cachedText;
 
             var advice = TheaterLogic.Evaluate(hits, text, _theater, _roster, bandText);
+
+            // 时序稳定：单帧的倒退/跳级先不采信，连续确认后才改（避免小窗乱报）
+            var stableAct = _actStab.Push(advice.Act);
+            if (stableAct != advice.Act)
+                advice = advice with { Act = stableAct, Kind = stableAct.HasValue ? "act" : advice.Kind };
 
             // 自动攒素材：按「状态 + 幕次 + 分辨率 + 画面签名」去重存原始帧。
             // 用签名而不是只按 key 去重：同一幕的不同界面（选人/战斗/BUFF 结算）都要能攒下来；
