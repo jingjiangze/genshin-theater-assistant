@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace TheaterAssistant;
@@ -246,11 +246,11 @@ internal static class TheaterLogic
         foreach (var h in hits)
         {
             var m = Regex.Match(h.Name, @"^act(\d{1,2})$");
-            if (m.Success) { kind = "act"; act = int.Parse(m.Groups[1].Value); src = $"模板 {h.Score}"; break; }
-            if (h.Name == "choice") { kind = "choice"; src = $"模板 {h.Score}"; break; }
-            if (h.Name == "team") { kind = "team"; src = $"模板 {h.Score}"; break; }
-            if (h.Name is "diff") { kind = "difficulty"; src = $"模板 {h.Score}"; break; }
-            if (h.Name == "result") { kind = "result"; src = $"模板 {h.Score}"; break; }
+            if (m.Success) { kind = "act"; act = int.Parse(m.Groups[1].Value); src = $"模板 {h.Name}={h.Score}"; break; }
+            if (h.Name == "choice") { kind = "choice"; src = $"模板 {h.Name}={h.Score}"; break; }
+            if (h.Name == "team") { kind = "team"; src = $"模板 {h.Name}={h.Score}"; break; }
+            if (h.Name is "diff") { kind = "difficulty"; src = $"模板 {h.Name}={h.Score}"; break; }
+            if (h.Name == "result") { kind = "result"; src = $"模板 {h.Name}={h.Score}"; break; }
             // --batch 派生出来的界面锚点：都表示"在剧诗界面里，但不是某一幕的战斗画面"
             if (h.Name is "title" or "hall" or "begin" or "diff")
             {
