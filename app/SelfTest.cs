@@ -202,6 +202,11 @@ internal static class SelfTest
         Check("队伍配置判 team", teamScreen.Kind == "team" && teamScreen.Act == null,
             $"kind={teamScreen.Kind} act={teamScreen.Act?.ToString() ?? "-"}");
 
+        // 判定优先级：底部条带 > 整帧文字（整帧里可能混着攻略贴字里的"第1幕"）
+        var precedence = TheaterLogic.Evaluate(new List<Matcher.Hit>(),
+            "BUFF：1幕需2雷岩 第1幕", data, roster, "第4幕");
+        Check("条带优先于整帧文字", precedence.Act == 4, $"act={precedence.Act?.ToString() ?? "-"} src={precedence.Diagnostics}");
+
         // 模板命中 team 也走同一语义
         var teamHit = TheaterLogic.Evaluate(
             new List<Matcher.Hit> { new() { Name = "team", Score = 0.97, X = 0, Y = 0 } },

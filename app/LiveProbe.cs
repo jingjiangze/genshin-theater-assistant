@@ -106,14 +106,11 @@ internal static class LiveProbe
 
             var hits = Matcher.Scan(bmp, templates);
             var text = ocr.RecognizeAsync(bmp).GetAwaiter().GetResult() ?? "";
-            var advice = TheaterLogic.Evaluate(hits, text, theater, roster);
-            string band = null;
-            if (!advice.Act.HasValue)
-            {
-                band = ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3).GetAwaiter().GetResult();
-                if (!string.IsNullOrWhiteSpace(band))
-                    advice = TheaterLogic.Evaluate(hits, text + " " + band, theater, roster, band);
-            }
+            // 与正式运行同序：没有模板幕次命中就一定看底部条带（条带比整帧文字可靠）
+            bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
+            string band = actFromTemplate ? null
+                : ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3).GetAwaiter().GetResult();
+            var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
 
             var mean = MeanGray(bmp);
             lines.Add($"第 {i + 1} 帧 {bmp.Width}x{bmp.Height} 灰度均值 {mean:0.0}｜{(advice.Kind ?? "unknown")} act={advice.Act?.ToString() ?? "-"}｜" +

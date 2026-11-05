@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -326,13 +326,15 @@ internal sealed class OverlayForm : Form
 
             var hits = Matcher.Scan(bmp, _templates);
             string text = await _ocr.RecognizeAsync(bmp) ?? "";
-            var advice = TheaterLogic.Evaluate(hits, text, _theater, _roster);
-            if (!advice.Act.HasValue)
-            {
-                var bandText = await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3);
-                if (!string.IsNullOrWhiteSpace(bandText))
-                    advice = TheaterLogic.Evaluate(hits, text + " " + bandText, _theater, _roster, bandText);
-            }
+
+            // 底部条带（幕次标签所在位置）比整帧文字可靠：整帧里可能混进攻略贴字/增益说明里的"第N幕"。
+            // 所以只要没有模板直接命中幕次，就一定要看条带 —— 而不是"等文字判不出幕次才回头看"。
+            string bandText = null;
+            bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
+            if (!actFromTemplate)
+                bandText = await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.82f, 0.46f, 0.14f), 3);
+
+            var advice = TheaterLogic.Evaluate(hits, text, _theater, _roster, bandText);
 
             // 自动攒素材：按「状态 + 幕次 + 分辨率 + 画面签名」去重存原始帧。
             // 用签名而不是只按 key 去重：同一幕的不同界面（选人/战斗/BUFF 结算）都要能攒下来；

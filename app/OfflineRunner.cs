@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Text;
 using System.Text.Json;
 
@@ -58,18 +58,17 @@ internal static class OfflineRunner
             string ocr2(Bitmap b, RectangleF rel) => ocr.RecognizeRegionAsync(b, rel, 3).GetAwaiter().GetResult() ?? "";
 
             var advice = TheaterLogic.Evaluate(hits, text, theater, roster);
-            // 幕次标签是小字：整帧没认出时，单独放大识别底部中央条带
-            if (!advice.Act.HasValue)
+            // 底部条带（幕次标签所在位置）比整帧文字可靠：整帧里可能混着"第N幕"的说明文字。
+            // 只要没有模板直接命中幕次，就一定识别一次条带并参与判定（而不是文字判不出时才回头补）。
+            bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
+            if (!actFromTemplate)
             {
                 var band = new RectangleF(0.28f, 0.82f, 0.46f, 0.14f);
                 var bandText = ocr2(img, band);
                 lines.Add("bandraw : " + (bandText ?? "<null>"));
+                advice = TheaterLogic.Evaluate(hits, text, theater, roster, bandText);
                 if (!string.IsNullOrWhiteSpace(bandText))
-                {
-                    text = text + " " + bandText;
-                    advice = TheaterLogic.Evaluate(hits, text, theater, roster, bandText);
                     lines.Add($"band    : {bandText.Replace("\n", " ").Trim()}");
-                }
             }
 
             lines.Add($"image   : {Path.GetFileName(imagePath)} ({img.Width}x{img.Height})");
