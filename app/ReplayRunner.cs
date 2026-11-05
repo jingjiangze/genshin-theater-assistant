@@ -147,6 +147,9 @@ internal static class ReplayRunner
         var wrong = truthFrames.Where(s => s.Act != s.TruthAct).ToList();
         int missed = truthFrames.Count(s => s.Act == 0);
         double acc = truthFrames.Count == 0 ? 0 : 100.0 * (truthFrames.Count - wrong.Count) / truthFrames.Count;
+        // 原始识别另算：稳定器会拦下"倒退"，若拿剪辑过的视频当真值，会把稳定器判成错
+        var rawWrong = truthFrames.Where(s => s.RawAct != s.TruthAct).ToList();
+        double rawAcc = truthFrames.Count == 0 ? 0 : 100.0 * (truthFrames.Count - rawWrong.Count) / truthFrames.Count;
 
         var perKind = steps.GroupBy(s => s.Kind).OrderByDescending(g => g.Count())
             .Select(g => $"{g.Key}={g.Count()}").ToList();
@@ -160,7 +163,11 @@ internal static class ReplayRunner
             $"- 帧数：{steps.Count}（按文件名排序模拟时间顺序）",
             $"- 总耗时：{sw.ElapsedMilliseconds} ms（平均 {sw.ElapsedMilliseconds / Math.Max(1, steps.Count)} ms/帧）",
             $"- 本帧识别到幕次：{steps.Count(s => s.RawAct > 0)} 帧；沿用上一帧：{steps.Count(s => s.RawAct == 0 && s.Act > 0)} 帧",
-            $"- **对答案**：有真值 {truthFrames.Count} 帧，判对 {truthFrames.Count - wrong.Count}，准确率 **{acc:0.0}%**（其中漏判 {missed}）",
+            $"- **对答案·稳定后**：有真值 {truthFrames.Count} 帧，判对 {truthFrames.Count - wrong.Count}，准确率 **{acc:0.0}%**（漏判 {missed}）",
+            $"- **对答案·原始识别**：准确率 **{rawAcc:0.0}%**（判对 {truthFrames.Count - rawWrong.Count}）",
+            rawWrong.Count > 0
+              ? $"- 原始错例（前 8 条）：{string.Join("；", rawWrong.Take(8).Select(s => $"{s.Frame}: 原始={s.RawAct}/真值={s.TruthAct}/条带『{s.BandText}』"))}"
+              : "- 原始错例：无",
             wrong.Count > 0
               ? $"- 错例（前 8 条）：{string.Join("；", wrong.Take(8).Select(s => $"{s.Frame}: 我们={s.Act}/真值={s.TruthAct}/条带『{s.BandText}』"))}"
               : "- 错例：无",
