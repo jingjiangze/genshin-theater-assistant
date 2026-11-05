@@ -256,6 +256,15 @@ internal static class SelfTest
         // JSON 选项必须序列化"公共字段"（replay 的 Step 是字段；否则写出空对象，蒸馏全 0）
         Check("JSON 选项包含字段", TemplateFactory.JsonOpts.IncludeFields, "IncludeFields=" + TemplateFactory.JsonOpts.IncludeFields);
 
+        // 操作提取分类（纯函数）：连招 / 购买 / 配队 / 行动
+        Check("操作分类",
+            OpsExtract.Classify("钟E-菲Q-卡Qe-菲e-钟Q") == "combo"
+            && OpsExtract.Classify("买两个角色（优先岩挂件）") == "buy"
+            && OpsExtract.Classify("队伍：钟离+菲谢尔+卡齐娜+挂件") == "team"
+            && OpsExtract.Classify("优先打带标记的目标") == "action"
+            && OpsExtract.Classify("幻想真境剧诗") == null,
+            "combo/buy/team/action 分类");
+
         // 手法数据：首领幕必须有专属编排，且带出处
         Routine.Load(AppPaths.Data("rotations.json"));
         var r6 = Routine.LinesFor(6, 3);

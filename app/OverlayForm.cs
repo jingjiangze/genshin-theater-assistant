@@ -115,6 +115,11 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 从视频帧提取"操作用法"候选（连招/购买/配队/行动），需人工复核
+                case "--extract-ops":
+                    if (args.Length >= 2) return OpsExtract.Run(args[1], Opt(args, "--out"), Opt(args, "--bvid"), Opt(args, "--act"));
+                    break;
+
                 // 手法：--routine --act 6 / --routine
                 case "--routine":
                     {
@@ -213,7 +218,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.16.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.17.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
