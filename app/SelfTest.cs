@@ -304,6 +304,23 @@ internal static class SelfTest
                 if (got != c.Expect) { qlBad++; qlDetail.Add($"{c.Q}→{got}(期望 {c.Expect})"); }
             }
             Check("攻略检索 hit@1", qlBad == 0, $"{qlCases.Length} 例，失败 {qlBad}" + (qlBad > 0 ? "：" + string.Join("; ", qlDetail) : ""));
+            // 合并 extra 语料（--corpus-scan 产物）必须真的进索引：用临时文件验证，不动 data/
+            var tmpExtra = Path.Combine(Path.GetTempPath(), $"ta-extra-{Guid.NewGuid():N}.json");
+            try
+            {
+                File.WriteAllText(tmpExtra,
+                    "{\"entries\":[{\"id\":\"zz-merge-probe\",\"act\":7,\"tags\":[\"第7幕\"],\"title\":\"合并探针\",\"text\":\"第七幕合并探针 特殊词 熔岩游像 打法\",\"source\":\"curated\"}]}",
+                    System.Text.Encoding.UTF8);
+                int before = GuideIndex.Count;
+                GuideIndex.Append(tmpExtra);
+                var merged = GuideIndex.Search("合并探针 特殊词", 7, 1).FirstOrDefault();
+                Check("extra 语料可合并进索引",
+                    GuideIndex.Count == before + 1 && merged?.Entry.Id == "zz-merge-probe",
+                    $"{before} → {GuideIndex.Count}，首条 {merged?.Entry.Id ?? "<null>"}");
+            }
+            catch (Exception ex) { Check("extra 语料可合并进索引", false, ex.Message); }
+            finally { try { File.Delete(tmpExtra); } catch { } }
+
             Check("检索结果带出处", GuideIndex.Search("第3幕 翠翎恐蕈", 3, 1).All(h => !string.IsNullOrWhiteSpace(h.SourceLabel)), "source 非空");
         }
 

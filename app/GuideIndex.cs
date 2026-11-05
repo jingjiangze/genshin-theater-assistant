@@ -240,7 +240,7 @@ internal static class GuideIndex
     public static int RunCli(string query, int? act, int top)
     {
         Cli.Attach();
-        Load(AppPaths.Data("guide-corpus.json"));
+        LoadWithExtra(AppPaths.Data("guide-corpus.json"));
         if (!_loaded) { Cli.Say("语料没加载成功：data/guide-corpus.json"); return 2; }
         if (string.IsNullOrWhiteSpace(query) && !act.HasValue) { Cli.Say("用法：--advise \"问题\" [--act N] [--top 3]"); return 2; }
         if (string.IsNullOrWhiteSpace(query)) query = $"第{act}幕 打法";
