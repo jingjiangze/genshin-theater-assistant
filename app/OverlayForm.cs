@@ -115,6 +115,14 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 决策：--decide "战斗·普通\n雷晶·进阶\n感电·原态" --act 3 --team 3 --target 4
+                case "--decide":
+                    {
+                        var txt = args.Length >= 2 && !args[1].StartsWith("--", StringComparison.Ordinal) ? args[1] : null;
+                        return ChoiceDecider.RunCli(txt, (int)OptDouble(args, "--act", 0),
+                            (int)OptDouble(args, "--team", 0), (int)OptDouble(args, "--target", 4));
+                    }
+
                 // 视频模拟运行：按时间顺序逐帧跑完整链路，输出时序报告
                 case "--replay":
                     if (args.Length >= 2)
@@ -185,7 +193,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.12.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.13.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
@@ -265,6 +273,7 @@ internal sealed class OverlayForm : Form
     private int _textAge;
     private string _cachedText = "";
     private readonly ActStabilizer _actStab = new();
+    private int _teamSize;   // 已编入人数（能从 OCR 读到就更新）
     private int? _currentAct;
     private TheaterData _theater;
 
@@ -471,6 +480,16 @@ internal sealed class OverlayForm : Form
             {
                 _lastAnnounced = announceKey;
                 Speech.Announce(advice.Kind, advice.Act, advice.Lines.FirstOrDefault() ?? "");
+            }
+
+            // 决策优先：屏幕上出现可选项（买卡/三选一）时，直接给出"选第几张"，不用玩家自己判断
+            var optLines = (text ?? "").Split('\n').Select(s => s.Trim()).Where(s => s.Length > 0).ToList();
+            if (bandText != null) optLines.Add(bandText.Trim());
+            var options = ChoiceDecider.ParseOptions(optLines);
+            if (options.Count >= 2)
+            {
+                var dec = ChoiceDecider.Decide(options, advice.Act ?? 0, _teamSize, 4);
+                if (dec != null) _lines.Insert(0, "▶ " + dec.Sentence);
             }
 
             // 离线攻略检索：用"第N幕 + 当前判定"当查询，命中的中文攻略条目连出处一起显示

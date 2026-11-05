@@ -242,6 +242,22 @@ internal static class SelfTest
               && TemplateEntry.ThresholdFor("hall") == 0.86 && TemplateEntry.ThresholdFor("team") == 0.86,
               $"act8={TemplateEntry.ThresholdFor("act8")} hall={TemplateEntry.ThresholdFor("hall")}");
 
+        // 决策引擎：解析卡片 + 按幕次给出"选第几张"
+        var shopText = "战斗·普通\n战斗·普通\n雷晶·进阶\n感电·原态";
+        var shopOpts = ChoiceDecider.ParseOptions(shopText.Split('\n'));
+        var d3 = ChoiceDecider.Decide(shopOpts, 3, 3, 4);
+        Check("决策·卡片解析", shopOpts.Count == 4 && shopOpts.Count(o => o.Kind == ChoiceDecider.Kind.Battle) == 2,
+            $"{shopOpts.Count} 张，战斗卡 {shopOpts.Count(o => o.Kind == ChoiceDecider.Kind.Battle)} 张");
+        Check("决策·第3幕选雷强化",
+            d3 != null && d3.Pick.Element == "Electro" && d3.Pick.Raw.Contains("雷"),
+            d3?.Sentence ?? "null");
+        var dEvent = ChoiceDecider.Decide(ChoiceDecider.ParseOptions(new[] { "伙伴", "神秘收获", "辉彩祝福" }), 4, 2, 4);
+        Check("决策·三选一先补人", dEvent != null && dEvent.Sentence.Contains("伙伴"), dEvent?.Sentence ?? "null");
+        var dModel = ChoiceDecider.FromModel("建议选第 4 个", shopOpts);
+        Check("决策·收敛模型输出", dModel != null && dModel.Pick.Index == 4, dModel?.Sentence ?? "null");
+        var dBad = ChoiceDecider.FromModel("我觉得随便都行", shopOpts);
+        Check("决策·模型说不清就不采纳", dBad == null, dBad?.Sentence ?? "null");
+
         // 幕次时序稳定器：正常推进立即采纳；倒退/跳级要连续确认；没观测就保持
         var stab = new ActStabilizer { MinConfirm = 2 };
         var seq = new List<int?>();
