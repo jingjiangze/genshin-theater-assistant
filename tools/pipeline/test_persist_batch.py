@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 import persist_batch
+import build_external_eval
 
 
 class PersistBatchTests(unittest.TestCase):
@@ -67,6 +68,52 @@ class PersistBatchTests(unittest.TestCase):
             persist_batch.build_manifest(
                 self.root, "ingest", "104", "1", "sha", "video-ingest"
             )
+
+    def test_external_eval_uses_subtitle_and_chapter_not_visual_truth(self):
+        ingest = self.root / "ingest"
+        video = ingest / "BV1"
+        video.mkdir(parents=True)
+        (video / "subs.txt").write_text(
+            "[subtitle|00:00:10] 现在进入第3幕，准备挑战首领\\n", encoding="utf-8"
+        )
+        (video / "meta.json").write_text(
+            json.dumps({"chapters": [{"title": "第3幕", "start": 10.0}]}), encoding="utf-8"
+        )
+        replay_dir = self.root / "replay"
+        replay_dir.mkdir()
+        replay = replay_dir / "BV1-replay.json"
+        replay.write_text(json.dumps({
+            "steps": [{
+                "Frame": "BV1-10s-1920x1080", "Act": 3, "RawAct": 3,
+                "TruthAct": 9
+            }]
+        }), encoding="utf-8")
+        report = build_external_eval.evaluate(replay, ingest, tolerance=2.5, min_labels=1)
+        self.assertEqual(report["status"], "EVALUATED_INDEPENDENT")
+        self.assertEqual(report["label_count"], 1)
+        self.assertEqual(report["samples"][0]["truth_act"], 3)
+        self.assertTrue(report["samples"][0]["match"])
+        self.assertFalse(report["promotion_eligible"])
+
+    def test_external_eval_excludes_single_source_or_conflict(self):
+        ingest = self.root / "ingest"
+        video = ingest / "BV2"
+        video.mkdir(parents=True)
+        (video / "subs.txt").write_text(
+            "[subtitle|00:00:10] 现在进入第3幕\\n", encoding="utf-8"
+        )
+        (video / "meta.json").write_text(
+            json.dumps({"chapters": [{"title": "第4幕", "start": 10.0}]}), encoding="utf-8"
+        )
+        replay_dir = self.root / "replay"
+        replay_dir.mkdir()
+        replay = replay_dir / "BV2-replay.json"
+        replay.write_text(json.dumps({
+            "steps": [{"Frame": "BV2-10s-1920x1080", "Act": 3, "RawAct": 3}]
+        }), encoding="utf-8")
+        report = build_external_eval.evaluate(replay, ingest, tolerance=2.5, min_labels=1)
+        self.assertEqual(report["label_count"], 0)
+        self.assertIn("conflicting_external_labels", report["excluded"])
 
 
 if __name__ == "__main__":
