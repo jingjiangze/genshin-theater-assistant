@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "eval-strategy-holdout-v1",
+  "created_at": "2026-11-06T10:19:20.501763+00:00",
+  "holdout_samples": 22,
+  "min_holdout_samples": 20,
+  "baseline_rate": 0.5,
+  "evaluated": 0,
+  "promoted": 0,
+  "rejected": 0,
+  "details": [],
+  "gate": "NOOP_NO_QUALIFIED_CANDIDATE"
+}
