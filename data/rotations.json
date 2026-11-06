@@ -198,6 +198,21 @@
                            "recommended":  [
                                                "行秋"
                                            ]
+                       },
+                 "2":  {
+                           "title":  "第 2 幕 · 水雷起手",
+                           "steps":  [
+                                         {
+                                             "at":  "买卡",
+                                             "do":  "水雷堆到 3 级，优先带夜兰或芭芭拉",
+                                             "why":  "BV1bPxH6gEgw + 50 视频跨 UP 主共识"
+                                         }
+                                     ],
+                           "source":  "community50",
+                           "recommended":  [
+                                               "夜兰",
+                                               "芭芭拉"
+                                           ]
                        }
              },
     "communityRecommended":  {
