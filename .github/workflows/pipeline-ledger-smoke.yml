@@ -1,9 +1,6 @@
 name: pipeline-ledger-smoke
 
 on:
-  push:
-    branches:
-      - 'automation/**'
   workflow_dispatch:
 
 permissions:
