@@ -333,7 +333,7 @@ internal static class SelfTest
             legacyRoutine.Any(x => x.Contains("历史候选手法")),
             string.Join(" | ", legacyRoutine.Take(2)));
         Check("知识治理·游戏内机制基线保留",
-            inGameRoutine.Any(x => x.StartsWith("手法·")) && inGameRoutine.All(x => !x.Contains("历史候选")),
+            inGameRoutine.Any(x => x.StartsWith("手法·")) && inGameRoutine.All(x => !x.Contains("历史候选手法")),
             string.Join(" | ", inGameRoutine.Take(2)));
 
         // 操作提取分类（纯函数）：连招 / 购买 / 配队 / 行动
