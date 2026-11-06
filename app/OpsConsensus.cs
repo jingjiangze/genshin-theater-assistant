@@ -38,6 +38,11 @@ internal static class OpsConsensus
 
     // 游戏内说明/剧情文案（带句号、含世界观词）不是可执行动作；实测 42 视频里
     // "过去的魔女留下的挑战，需要许多伙伴组成的队伍共同攻克。"被 2 个视频重复当成共识。
+    // 本机真跑命中：界面文案变体会被 extract-ops 当成"购买/选择"候选
+    private static readonly Regex UiChromeRe = new(
+        @"^(可选|请选择|选择一个|可从\s*\d+\s*个|需在此|被选用)|转变为可出战角色|预览$|选项效果$",
+        RegexOptions.Compiled);
+
     private static readonly Regex ProseRe = new(@"(挑战|故事|演出|神秘房间|魔女|幻想与真实|永无休止|在故事|需要许多伙伴)[^\n]{0,40}。\s*$", RegexOptions.Compiled);
 
     internal static string Normalize(string text) =>
@@ -51,6 +56,7 @@ internal static class OpsConsensus
         if (Noise.Contains(t)) return true;
         if (NoiseRe.IsMatch(t)) return true;
         if (ProseRe.IsMatch(t)) return true;
+        if (UiChromeRe.IsMatch(t)) return true;
         return false;
     }
 

@@ -1,0 +1,1742 @@
+﻿{
+  "frames": [
+    "1-hall.png",
+    "2-difficulty.png",
+    "3-team-opening.png",
+    "4-team-standby.png",
+    "5-team-select.png",
+    "BV1eExm6dEmt-0s-1920x1080.png",
+    "BV1eExm6dEmt-1005s-1920x1080.png",
+    "BV1eExm6dEmt-1020s-1920x1080.png",
+    "BV1eExm6dEmt-1035s-1920x1080.png",
+    "BV1eExm6dEmt-1050s-1920x1080.png",
+    "BV1eExm6dEmt-1056s-1920x1080.png",
+    "BV1eExm6dEmt-105s-1920x1080.png",
+    "BV1eExm6dEmt-1065s-1920x1080.png",
+    "BV1eExm6dEmt-1080s-1920x1080.png",
+    "BV1eExm6dEmt-1095s-1920x1080.png",
+    "BV1eExm6dEmt-110s-1920x1080.png",
+    "BV1eExm6dEmt-1110s-1920x1080.png",
+    "BV1eExm6dEmt-1125s-1920x1080.png",
+    "BV1eExm6dEmt-1140s-1920x1080.png",
+    "BV1eExm6dEmt-1151s-1920x1080.png",
+    "BV1eExm6dEmt-1155s-1920x1080.png",
+    "BV1eExm6dEmt-1170s-1920x1080.png",
+    "BV1eExm6dEmt-1185s-1920x1080.png",
+    "BV1eExm6dEmt-1200s-1920x1080.png",
+    "BV1eExm6dEmt-120s-1920x1080.png",
+    "BV1eExm6dEmt-1215s-1920x1080.png",
+    "BV1eExm6dEmt-1230s-1920x1080.png",
+    "BV1eExm6dEmt-1245s-1920x1080.png",
+    "BV1eExm6dEmt-1246s-1920x1080.png",
+    "BV1eExm6dEmt-1260s-1920x1080.png",
+    "BV1eExm6dEmt-1275s-1920x1080.png",
+    "BV1eExm6dEmt-1290s-1920x1080.png",
+    "BV1eExm6dEmt-1305s-1920x1080.png",
+    "BV1eExm6dEmt-1320s-1920x1080.png",
+    "BV1eExm6dEmt-1335s-1920x1080.png",
+    "BV1eExm6dEmt-1340s-1920x1080.png",
+    "BV1eExm6dEmt-1350s-1920x1080.png",
+    "BV1eExm6dEmt-135s-1920x1080.png",
+    "BV1eExm6dEmt-1365s-1920x1080.png",
+    "BV1eExm6dEmt-1380s-1920x1080.png",
+    "BV1eExm6dEmt-1395s-1920x1080.png",
+    "BV1eExm6dEmt-1410s-1920x1080.png",
+    "BV1eExm6dEmt-1425s-1920x1080.png",
+    "BV1eExm6dEmt-1435s-1920x1080.png",
+    "BV1eExm6dEmt-1440s-1920x1080.png",
+    "BV1eExm6dEmt-1455s-1920x1080.png",
+    "BV1eExm6dEmt-1470s-1920x1080.png",
+    "BV1eExm6dEmt-1485s-1920x1080.png",
+    "BV1eExm6dEmt-150s-1920x1080.png",
+    "BV1eExm6dEmt-1530s-1920x1080.png",
+    "BV1eExm6dEmt-15s-1920x1080.png",
+    "BV1eExm6dEmt-1624s-1920x1080.png",
+    "BV1eExm6dEmt-165s-1920x1080.png",
+    "BV1eExm6dEmt-1719s-1920x1080.png",
+    "BV1eExm6dEmt-180s-1920x1080.png",
+    "BV1eExm6dEmt-1814s-1920x1080.png",
+    "BV1eExm6dEmt-1908s-1920x1080.png",
+    "BV1eExm6dEmt-195s-1920x1080.png",
+    "BV1eExm6dEmt-2003s-1920x1080.png",
+    "BV1eExm6dEmt-204s-1920x1080.png",
+    "BV1eExm6dEmt-2098s-1920x1080.png",
+    "BV1eExm6dEmt-210s-1920x1080.png",
+    "BV1eExm6dEmt-2192s-1920x1080.png",
+    "BV1eExm6dEmt-225s-1920x1080.png",
+    "BV1eExm6dEmt-240s-1920x1080.png",
+    "BV1eExm6dEmt-255s-1920x1080.png",
+    "BV1eExm6dEmt-270s-1920x1080.png",
+    "BV1eExm6dEmt-285s-1920x1080.png",
+    "BV1eExm6dEmt-299s-1920x1080.png",
+    "BV1eExm6dEmt-300s-1920x1080.png",
+    "BV1eExm6dEmt-30s-1920x1080.png",
+    "BV1eExm6dEmt-315s-1920x1080.png",
+    "BV1eExm6dEmt-330s-1920x1080.png",
+    "BV1eExm6dEmt-345s-1920x1080.png",
+    "BV1eExm6dEmt-360s-1920x1080.png",
+    "BV1eExm6dEmt-375s-1920x1080.png",
+    "BV1eExm6dEmt-390s-1920x1080.png",
+    "BV1eExm6dEmt-394s-1920x1080.png",
+    "BV1eExm6dEmt-405s-1920x1080.png",
+    "BV1eExm6dEmt-420s-1920x1080.png",
+    "BV1eExm6dEmt-435s-1920x1080.png",
+    "BV1eExm6dEmt-450s-1920x1080.png",
+    "BV1eExm6dEmt-45s-1920x1080.png",
+    "BV1eExm6dEmt-465s-1920x1080.png",
+    "BV1eExm6dEmt-480s-1920x1080.png",
+    "BV1eExm6dEmt-488s-1920x1080.png",
+    "BV1eExm6dEmt-495s-1920x1080.png",
+    "BV1eExm6dEmt-510s-1920x1080.png",
+    "BV1eExm6dEmt-525s-1920x1080.png",
+    "BV1eExm6dEmt-540s-1920x1080.png",
+    "BV1eExm6dEmt-555s-1920x1080.png",
+    "BV1eExm6dEmt-570s-1920x1080.png",
+    "BV1eExm6dEmt-583s-1920x1080.png",
+    "BV1eExm6dEmt-585s-1920x1080.png",
+    "BV1eExm6dEmt-600s-1920x1080.png",
+    "BV1eExm6dEmt-60s-1920x1080.png",
+    "BV1eExm6dEmt-615s-1920x1080.png",
+    "BV1eExm6dEmt-630s-1920x1080.png",
+    "BV1eExm6dEmt-645s-1920x1080.png",
+    "BV1eExm6dEmt-660s-1920x1080.png",
+    "BV1eExm6dEmt-675s-1920x1080.png",
+    "BV1eExm6dEmt-678s-1920x1080.png",
+    "BV1eExm6dEmt-690s-1920x1080.png",
+    "BV1eExm6dEmt-705s-1920x1080.png",
+    "BV1eExm6dEmt-720s-1920x1080.png",
+    "BV1eExm6dEmt-735s-1920x1080.png",
+    "BV1eExm6dEmt-750s-1920x1080.png",
+    "BV1eExm6dEmt-75s-1920x1080.png",
+    "BV1eExm6dEmt-765s-1920x1080.png",
+    "BV1eExm6dEmt-772s-1920x1080.png",
+    "BV1eExm6dEmt-780s-1920x1080.png",
+    "BV1eExm6dEmt-795s-1920x1080.png",
+    "BV1eExm6dEmt-810s-1920x1080.png",
+    "BV1eExm6dEmt-825s-1920x1080.png",
+    "BV1eExm6dEmt-840s-1920x1080.png",
+    "BV1eExm6dEmt-855s-1920x1080.png",
+    "BV1eExm6dEmt-867s-1920x1080.png",
+    "BV1eExm6dEmt-870s-1920x1080.png",
+    "BV1eExm6dEmt-885s-1920x1080.png",
+    "BV1eExm6dEmt-900s-1920x1080.png",
+    "BV1eExm6dEmt-90s-1920x1080.png",
+    "BV1eExm6dEmt-915s-1920x1080.png",
+    "BV1eExm6dEmt-930s-1920x1080.png",
+    "BV1eExm6dEmt-945s-1920x1080.png",
+    "BV1eExm6dEmt-960s-1920x1080.png",
+    "BV1eExm6dEmt-962s-1920x1080.png",
+    "BV1eExm6dEmt-975s-1920x1080.png",
+    "BV1eExm6dEmt-990s-1920x1080.png",
+    "f.png"
+  ],
+  "ocr": "OCR: PP-OCRv5 中文",
+  "installed": 5,
+  "verified": 5,
+  "candidates": 12,
+  "templates": [
+    {
+      "Bucket": "1920x1080",
+      "Name": "act2",
+      "Text": "\uD83C\uDFB6 第2幕\uD83C\uDFB6",
+      "W": 179,
+      "H": 61,
+      "X": 869,
+      "Y": 868,
+      "Source": "BV1eExm6dEmt-165s-1920x1080.png",
+      "PresentMin": 0.9892,
+      "AbsentMax": 0.8162,
+      "PosStablePct": 1,
+      "PresentCount": 2,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": true,
+      "Note": ""
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "act3",
+      "Text": "\uD83C\uDFB6 第3幕",
+      "W": 179,
+      "H": 61,
+      "X": 869,
+      "Y": 868,
+      "Source": "BV1eExm6dEmt-240s-1920x1080.png",
+      "PresentMin": 1,
+      "AbsentMax": 0.817,
+      "PosStablePct": 1,
+      "PresentCount": 1,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": true,
+      "Note": ""
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "act4",
+      "Text": "第4幕",
+      "W": 181,
+      "H": 61,
+      "X": 869,
+      "Y": 868,
+      "Source": "BV1eExm6dEmt-420s-1920x1080.png",
+      "PresentMin": 1,
+      "AbsentMax": 0.8175,
+      "PosStablePct": 1,
+      "PresentCount": 1,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": true,
+      "Note": ""
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "act7",
+      "Text": "\uD83C\uDFB6 第7幕\uD83C\uDFB6",
+      "W": 177,
+      "H": 61,
+      "X": 871,
+      "Y": 868,
+      "Source": "BV1eExm6dEmt-1215s-1920x1080.png",
+      "PresentMin": 0.9726,
+      "AbsentMax": 0.8213,
+      "PosStablePct": 1,
+      "PresentCount": 3,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": false,
+      "Note": "缺席帧出现误报"
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "act8",
+      "Text": "\uD83C\uDFB6 第8幕",
+      "W": 179,
+      "H": 61,
+      "X": 869,
+      "Y": 868,
+      "Source": "BV1eExm6dEmt-1530s-1920x1080.png",
+      "PresentMin": 1,
+      "AbsentMax": 0.8098,
+      "PosStablePct": 1,
+      "PresentCount": 1,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": true,
+      "Note": ""
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "act9",
+      "Text": "第9幕",
+      "W": 179,
+      "H": 61,
+      "X": 869,
+      "Y": 868,
+      "Source": "BV1eExm6dEmt-2003s-1920x1080.png",
+      "PresentMin": 1,
+      "AbsentMax": 0.8186,
+      "PosStablePct": 1,
+      "PresentCount": 1,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": true,
+      "Note": ""
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "begin",
+      "Text": "开始挑战",
+      "W": 146,
+      "H": 60,
+      "X": 1643,
+      "Y": 987,
+      "Source": "BV1eExm6dEmt-180s-1920x1080.png",
+      "PresentMin": 0.7959,
+      "AbsentMax": 0.8082,
+      "PosStablePct": 0,
+      "PresentCount": 23,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": false,
+      "Note": "在场一致性不足"
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "choice",
+      "Text": "伙伴·水元素",
+      "W": 273,
+      "H": 80,
+      "X": 839,
+      "Y": 777,
+      "Source": "BV1eExm6dEmt-285s-1920x1080.png",
+      "PresentMin": 0.5735,
+      "AbsentMax": 0.8056,
+      "PosStablePct": 0,
+      "PresentCount": 30,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": false,
+      "Note": "在场一致性不足"
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "diff",
+      "Text": "月谕模式",
+      "W": 154,
+      "H": 62,
+      "X": 113,
+      "Y": 397,
+      "Source": "2-difficulty.png",
+      "PresentMin": 0.6608,
+      "AbsentMax": 0.7255,
+      "PosStablePct": 0,
+      "PresentCount": 6,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": false,
+      "Note": "在场一致性不足"
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "hall",
+      "Text": "演出准备",
+      "W": 189,
+      "H": 88,
+      "X": 1516,
+      "Y": 714,
+      "Source": "1-hall.png",
+      "PresentMin": 0.6725,
+      "AbsentMax": 0.7336,
+      "PosStablePct": 0.0435,
+      "PresentCount": 24,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": false,
+      "Note": "在场一致性不足"
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "team",
+      "Text": "开幕角色",
+      "W": 144,
+      "H": 60,
+      "X": 124,
+      "Y": 131,
+      "Source": "3-team-opening.png",
+      "PresentMin": 0.6427,
+      "AbsentMax": 0.8085,
+      "PosStablePct": 0,
+      "PresentCount": 46,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": false,
+      "Note": "在场一致性不足"
+    },
+    {
+      "Bucket": "1920x1080",
+      "Name": "title",
+      "Text": "幻想真境剧诗",
+      "W": 225,
+      "H": 60,
+      "X": 847,
+      "Y": 234,
+      "Source": "BV1eExm6dEmt-90s-1920x1080.png",
+      "PresentMin": 0.6162,
+      "AbsentMax": 0.8152,
+      "PosStablePct": 0,
+      "PresentCount": 16,
+      "AbsentCount": 6,
+      "Verified": true,
+      "Installed": false,
+      "Note": "在场一致性不足"
+    }
+  ],
+  "frameDetail": [
+    {
+      "file": "1-hall.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 9,
+      "labels": [
+        "hall",
+        "title"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "2-difficulty.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 19,
+      "labels": [
+        "diff",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(难度面板)"
+    },
+    {
+      "file": "3-team-opening.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 27,
+      "labels": [
+        "team",
+        "title"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "4-team-standby.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 63,
+      "labels": [
+        "begin",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "5-team-select.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 51,
+      "labels": [
+        "begin",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-0s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 10,
+      "labels": [
+        "hall",
+        "title"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1005s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 12,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1020s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [
+        "diff",
+        "hall"
+      ],
+      "act": 10,
+      "actSource": "act=10, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1035s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 36,
+      "labels": [
+        "begin",
+        "choice",
+        "diff",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1050s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 43,
+      "labels": [
+        "begin",
+        "choice",
+        "diff",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1056s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-105s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 17,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1065s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1080s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 19,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1095s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 21,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-110s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1110s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1125s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 22,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1140s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1151s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 10,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1155s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [
+        "act7",
+        "choice",
+        "hall",
+        "title"
+      ],
+      "act": 7,
+      "actSource": "act=7, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1170s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [
+        "act7",
+        "hall",
+        "title"
+      ],
+      "act": 7,
+      "actSource": "act=7, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1185s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 15,
+      "labels": [
+        "hall"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1200s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 38,
+      "labels": [
+        "hall",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-120s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 1,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1215s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [
+        "act7",
+        "hall",
+        "title"
+      ],
+      "act": 7,
+      "actSource": "act=7, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1230s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [
+        "hall"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1245s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 38,
+      "labels": [
+        "hall",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1246s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 36,
+      "labels": [
+        "hall",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1260s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 8,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1275s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 39,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1290s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 40,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1305s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 42,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1320s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 44,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1335s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 22,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1340s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 24,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1350s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 24,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-135s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1365s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1380s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1395s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 3,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1410s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1425s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 2,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1435s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 2,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1440s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 1,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1455s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 42,
+      "labels": [
+        "begin",
+        "choice",
+        "diff",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1470s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 44,
+      "labels": [
+        "choice",
+        "diff",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1485s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-150s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 12,
+      "labels": [
+        "act2",
+        "hall",
+        "title"
+      ],
+      "act": 2,
+      "actSource": "act=2, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1530s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 21,
+      "labels": [
+        "act8",
+        "choice",
+        "hall",
+        "title"
+      ],
+      "act": 8,
+      "actSource": "act=8, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-15s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 51,
+      "labels": [
+        "begin",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1624s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 23,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-165s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 18,
+      "labels": [
+        "act2",
+        "choice",
+        "hall",
+        "title"
+      ],
+      "act": 2,
+      "actSource": "act=2, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-1719s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 25,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-180s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 37,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-1814s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 18,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-1908s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 24,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-195s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-2003s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [
+        "act9",
+        "choice",
+        "hall",
+        "title"
+      ],
+      "act": 9,
+      "actSource": "act=9, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-204s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 4,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-2098s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 39,
+      "labels": [
+        "begin",
+        "choice"
+      ],
+      "act": 9,
+      "actSource": "act=9, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-210s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 9,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-2192s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 34,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-225s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 9,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-240s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [
+        "act3",
+        "choice",
+        "hall",
+        "title"
+      ],
+      "act": 3,
+      "actSource": "act=3, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-255s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 19,
+      "labels": [
+        "choice",
+        "hall",
+        "title"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-270s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 39,
+      "labels": [
+        "hall",
+        "team",
+        "title"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-285s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 10,
+      "labels": [
+        "choice"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-299s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 34,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-300s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 35,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-30s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 52,
+      "labels": [
+        "begin",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-315s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 19,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-330s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 28,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-345s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 14,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-360s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 25,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-375s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 23,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-390s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-394s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-405s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [
+        "choice"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-420s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 19,
+      "labels": [
+        "act4",
+        "choice",
+        "hall",
+        "title"
+      ],
+      "act": 4,
+      "actSource": "act=4, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-435s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 10,
+      "labels": [
+        "hall",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-450s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 4,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-45s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-465s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 39,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-480s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 23,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-488s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-495s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 15,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-510s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 22,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-525s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 4,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-540s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 12,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-555s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 14,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-570s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 14,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-583s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-585s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-600s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 9,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-60s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 10,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-615s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 10,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-630s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 37,
+      "labels": [
+        "begin",
+        "choice"
+      ],
+      "act": 5,
+      "actSource": "act=5, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-645s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 39,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-660s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 42,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-675s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 5,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-678s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 22,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-690s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-705s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 24,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-720s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 26,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-735s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 5,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-750s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 10,
+      "labels": [
+        "hall",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-75s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 9,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-765s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 5,
+      "labels": [
+        "choice",
+        "hall"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-772s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [
+        "choice"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-780s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 12,
+      "labels": [
+        "hall"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-795s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 41,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-810s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 41,
+      "labels": [
+        "begin",
+        "choice",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-825s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 17,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-840s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 22,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-855s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 3,
+      "labels": [
+        "title"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-867s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 16,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-870s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 22,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-885s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 27,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-900s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 25,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-90s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 20,
+      "labels": [
+        "title"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR"
+    },
+    {
+      "file": "BV1eExm6dEmt-915s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 19,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-930s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 29,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-945s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 12,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-960s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 1,
+      "labels": [],
+      "act": null,
+      "actSource": "act=?, src=—"
+    },
+    {
+      "file": "BV1eExm6dEmt-962s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 11,
+      "labels": [
+        "hall",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-975s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 13,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "BV1eExm6dEmt-990s-1920x1080.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 13,
+      "labels": [
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    },
+    {
+      "file": "f.png",
+      "W": 1920,
+      "H": 1080,
+      "boxes": 51,
+      "labels": [
+        "begin",
+        "team"
+      ],
+      "act": null,
+      "actSource": "act=?, src=OCR(队伍配置面板)"
+    }
+  ]
+}

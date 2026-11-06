@@ -1,0 +1,51 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 01:28:56",
+  "bvid": "BV1eExm6dEmt",
+  "frames": 129,
+  "candidates": 6,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "可选角色预览",
+      "act": 0,
+      "source": "BV1eExm6dEmt@1005s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "请选择一名待命色转变为可出战色",
+      "act": 0,
+      "source": "BV1eExm6dEmt@405s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "可从2个神秘收获效果中选择1个",
+      "act": 0,
+      "source": "BV1eExm6dEmt@765s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选择一个神秘收获效果",
+      "act": 0,
+      "source": "BV1eExm6dEmt@772s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选择神秘收获事件时，可",
+      "act": 0,
+      "source": "BV1eExm6dEmt@772s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "以重置次选效果",
+      "act": 0,
+      "source": "BV1eExm6dEmt@772s",
+      "needsReview": true
+    }
+  ]
+}

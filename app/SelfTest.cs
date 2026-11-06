@@ -294,6 +294,14 @@ internal static class SelfTest
         Check("共识·转载/同作者多视频不增加独立作者数",
             creatorAgg.Count == 1 && creatorAgg[0].Videos == 4 && creatorAgg[0].IndependentCreators == 2,
             $"videos={creatorAgg.FirstOrDefault()?.Videos}, creators={creatorAgg.FirstOrDefault()?.IndependentCreators}");
+        Check("共识·界面文案变体过滤（本机真跑命中）",
+            OpsConsensus.IsNoise("可选角色预览")
+            && OpsConsensus.IsNoise("请选择一名待命角色转变为可出战角色")
+            && OpsConsensus.IsNoise("可从2个神秘收获效果中选择1个")
+            && OpsConsensus.IsNoise("选择一个神秘收获效果")
+            && !OpsConsensus.IsNoise("优先选最后两关主C与辅助"),
+            "4 条界面文案被判噪声，真实攻略保留");
+
         Check("共识·跨平台出处去重",
             OpsConsensus.SplitBv("bilibili:BV1aa@10s") == "BV1aa"
             && OpsConsensus.SplitBv("youtube:dQw4w9WgXcQ") == "dQw4w9WgXcQ"
