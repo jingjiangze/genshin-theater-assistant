@@ -87,6 +87,23 @@ def extract_act_roles(line: str) -> list[tuple[int, str]]:
     return out
 
 
+_KNOWN_ROLES: list[str] = []
+
+
+def load_known_roles() -> list[str]:
+    """已知角色名（来自 data/substitutes.json），用于字幕/评论通道的宽松识别。"""
+    global _KNOWN_ROLES
+    if _KNOWN_ROLES:
+        return _KNOWN_ROLES
+    path = Path(__file__).resolve().parents[2] / "data" / "substitutes.json"
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8-sig"))
+        _KNOWN_ROLES = sorted(doc.get("characters", {}).keys(), key=len, reverse=True)
+    except (OSError, ValueError):
+        _KNOWN_ROLES = []
+    return _KNOWN_ROLES
+
+
 def classify(line: str) -> str | None:
     t = (line or "").strip()
     if len(t) < 4 or t in NOISE_EXACT or NOISE_RE.match(t) or PROSE_RE.search(t):
@@ -354,10 +371,21 @@ def main() -> int:
                     "creator_id": rec.get("creator_id") or "", "creator_name": rec.get("uploader") or "",
                 })
 
-            # 4b) 逐幕配队：把简介里的「第N幕：A+B+C」抽成 (幕次, 角色) 结构化条目。
-            # 这些是 UP 主主动写的资料，比 OCR 更准；用统一文本「第N幕 推荐 X」便于跨视频计数。
+            # 4b) 逐幕配队：把「第N幕：A+B+C」抽成 (幕次, 角色) 结构化条目。
+            # 简介(description) 是 UP 主主动写的资料；字幕/评论/弹幕通道也参与，
+            # 但保留 channel 出处，便于证据治理按来源可靠性区分。
             for ts, tx, ch in texts:
-                for act, role in extract_act_roles(tx):
+                pairs = extract_act_roles(tx)
+                if not pairs and ch in ("subtitle", "comment", "danmaku"):
+                    # 宽松通道：行内同时出现「第N幕」与已收录角色名时，也作为低权重候选
+                    m = re.search(r"第\s*(\d{1,2})\s*幕", tx)
+                    if m:
+                        act = int(m.group(1))
+                        if 1 <= act <= 12:
+                            for role in load_known_roles():
+                                if role in tx:
+                                    pairs.append((act, role))
+                for act, role in pairs:
                     label = f"第{act}幕 推荐 {role}"
                     k = "act_team:" + norm_key(label)
                     if k in seen_ops:
