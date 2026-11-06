@@ -30,6 +30,15 @@ def read_json(path: Path) -> dict:
         return {}
 
 
+def extract_context(meta: dict) -> tuple[int | None, str | None]:
+    text = " ".join((str(meta.get("title") or ""), str(meta.get("description") or "")))
+    season_match = re.search(r"(?:第\s*(\d+)\s*(?:期|赛季)|season\s*#?\s*(\d+))", text, re.IGNORECASE)
+    season = int(next(x for x in season_match.groups() if x)) if season_match else None
+    version_match = re.search(r"(?<!\d)(\d+\.\d+)(?!\d)", text)
+    version = version_match.group(1) if version_match else None
+    return season, version
+
+
 def evidence_from_batches(batches_root: Path) -> list[dict]:
     found = []
     for manifest_path in sorted(batches_root.glob("ingest/*/manifest.json")):
@@ -42,6 +51,7 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
             video_id = ops_path.name.removesuffix("-ops.json")
             meta = read_json(files_root / video_id / "meta.json")
             platform = str(meta.get("platform") or "unknown")
+            season, version = extract_context(meta)
             raw_creator = meta.get("creator_id")
             meta_creator = str(raw_creator).strip() if raw_creator is not None else ""
             ops_doc = read_json(ops_path)
@@ -65,6 +75,8 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
                     "batch_id": batch_id,
                     "video_id": video_id,
                     "platform": platform,
+                    "season": season,
+                    "version": version,
                     "creator_id": creator_key,
                     "creator_name": str(op.get("creator_name") or meta.get("uploader") or ""),
                     "channel": channel,
@@ -84,7 +96,7 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
         if isinstance(item, dict) and item.get("candidate_id")
     }
     for item in evidence:
-        key = digest("|".join((item["kind"], str(item["act"]), normalize(item["text"]))))
+        key = digest("|".join((item["kind"], str(item["act"]), str(item.get("season") or ""), str(item.get("version") or ""), normalize(item["text"]))))
         record = records.get(key)
         if record is None:
             record = {
@@ -93,8 +105,8 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
                 "kind": item["kind"],
                 "text": item["text"],
                 "act": item["act"] or None,
-                "season": None,
-                "version_range": None,
+                "season": item.get("season"),
+                "version_range": ({"min": item["version"], "max": item["version"]} if item.get("version") else None),
                 "conditions": [],
                 "steps": [],
                 "evidence_ids": [],
