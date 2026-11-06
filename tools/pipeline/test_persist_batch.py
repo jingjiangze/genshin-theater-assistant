@@ -330,6 +330,22 @@ class ExtractContextTest(unittest.TestCase):
         self.assertEqual(version, "7.1")
         self.assertTrue(inferred)
 
+    def test_role_group_aggregates_independent_creators(self):
+        # 不同作者推荐不同角色但同属一个职能组时，也应算独立证据支持
+        def rec(role, creator, video):
+            return {"evidence_id": f"e-{video}", "kind": "act_team", "act": 7,
+                    "text": f"第7幕 推荐 {role}", "season": 29, "version": "7.1",
+                    "video_id": video, "creator_id": creator, "channel": "description",
+                    "source": f"bilibili:{video}", "source_refs": [], "observed_batches": ["b1"]}
+        e = [rec("行秋", "bilibili:A", "BV_a"),
+             rec("夜兰", "bilibili:B", "BV_b"),
+             rec("芭芭拉", "bilibili:C", "BV_c")]
+        reg = extract_knowledge.merge_candidates(e)
+        self.assertEqual(reg["candidate_count"], 3)
+        for r in reg["candidates"]:
+            self.assertEqual(r.get("role_group"), "HydroApplier")
+            self.assertEqual(r["status"], "PROVISIONAL")
+
     def test_missing_context_allows_cross_video_merge(self):
         # 关键回归：season/version 不再为 None，候选 key 才不会按 video_id 拆散
         e = [

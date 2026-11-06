@@ -66,6 +66,35 @@ def extract_context(meta: dict) -> tuple[int | None, str | None, bool]:
     return season, version, inferred
 
 
+def candidate_role(rec: dict) -> str | None:
+    import re
+    m = re.fullmatch(r"第\s*(\d{1,2})\s*幕\s*推荐\s*([\u4e00-\u9fff]{2,8})",
+                     str(rec.get("text") or "").strip())
+    return m.group(2) if m else None
+
+
+_ROLE_CACHE: dict[str, str] = {}
+
+
+def role_group(role: str) -> str | None:
+    """把角色名映射到职能组（来自 data/substitutes.json 的 substitutionRules）。"""
+    if not role:
+        return None
+    if role in _ROLE_CACHE:
+        return _ROLE_CACHE[role] or None
+    path = Path(__file__).resolve().parents[2] / "data" / "substitutes.json"
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8-sig"))
+        for rule in doc.get("substitutionRules", []):
+            if role in (rule.get("prefer") or []):
+                _ROLE_CACHE[role] = str(rule.get("role") or "")
+                return _ROLE_CACHE[role] or None
+    except (OSError, ValueError):
+        pass
+    _ROLE_CACHE[role] = ""
+    return None
+
+
 def evidence_key(item: dict) -> str:
     video_id = str(item.get("video_id") or "")
     platform = str(item.get("platform") or "")
@@ -217,17 +246,54 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
         if record.get("status") in {"VERIFIED", "CONFLICTED", "STALE", "REJECTED"}:
             continue
     # Recompute derived counts after deduplication, including records untouched by new evidence.
+    # 职能聚合：同一幕、同一职能组下，不同作者推荐不同角色（如行秋/夜兰/芭芭拉）
+    # 应算作对「该幕需要 HydroApplier 职能」的独立支持，而不是要求字面同一角色。
+    # 这里只生成 role_group 元数据，不改 claim 文本，不合并候选事实本身。
+    role_map: dict[tuple[int, str], set[str]] = {}
+    for rec in records.values():
+        role = candidate_role(rec) if rec.get("kind") == "act_team" else None
+        act = rec.get("act")
+        if not role or not isinstance(act, int):
+            continue
+        group = role_group(role)
+        if not group:
+            continue
+        rec["role_group"] = group
+        key = (act, group)
+        role_map.setdefault(key, set()).update(
+            x["creator_id"] for x in rec.get("evidence", []) if x.get("creator_id"))
+
     for record in records.values():
         creators = {x["creator_id"] for x in record["evidence"] if x.get("creator_id")}
         record["independent_creator_count"] = len(creators)
+        group = record.get("role_group")
+        act = record.get("act")
+        if group and isinstance(act, int):
+            record["group_creator_count"] = len(role_map.get((act, group), set()))
+            record["group_video_count"] = len({
+                x.get("video_id") for r in records.values()
+                if r.get("role_group") == group and r.get("act") == act
+                for x in r.get("evidence", []) if x.get("video_id")
+            })
+        else:
+            record["group_creator_count"] = 0
+            record["group_video_count"] = 0
         record["unique_video_count"] = len({x.get("video_id") for x in record["evidence"] if x.get("video_id")})
         if record.get("status") in {"VERIFIED", "CONFLICTED", "STALE", "REJECTED"}:
             continue
         has_version_context = record.get("season") is not None and record.get("version_range") is not None
-        if (has_version_context and len(creators) >= 2 and record["unique_video_count"] >= 3
-                and len(record["evidence_ids"]) >= 3):
+        literal_support = (len(creators) >= 2 and record["unique_video_count"] >= 3
+                           and len(record["evidence_ids"]) >= 3)
+        group_support = (int(record.get("group_creator_count") or 0) >= 2
+                         and int(record.get("group_video_count") or 0) >= 3
+                         and len(record["evidence_ids"]) >= 1)
+        if has_version_context and (literal_support or group_support):
             record["status"] = "PROVISIONAL"
-            record["status_reason"] = "season/version context, at least two stable creator IDs, three distinct videos and three unique evidence records; excluded from decisive runtime use"
+            record["status_reason"] = (
+                "season/version context + " +
+                ("independent creators for the same claim" if literal_support
+                 else f"independent creators for the same role group '{record.get('role_group')}'") +
+                "; excluded from decisive runtime use until strategy holdout passes")
         else:
             record["status"] = "CANDIDATE"
             record["status_reason"] = "insufficient versioned independent video/creator evidence"
