@@ -68,17 +68,19 @@ jobs:
           npm init -y >/dev/null 2>&1 || true
           npm i playwright-core@1.64.1 --no-audit --no-fund >/dev/null
           node node_modules/playwright-core/cli.js install chromium
-          node search.mjs "$QUERY" "$LIMIT" 6 2>search-progress.log > "$GITHUB_WORKSPACE/bili-search.json"
+          node search.mjs "$QUERY" "$LIMIT" 6 2>search-progress.log > bili-search.json
           cat search-progress.log
           python - <<'PY'
-          import json
+          import json, os
           d = json.load(open('bili-search.json', encoding='utf-8'))
           bvs = [x['bv'] for x in d.get('items', [])]
-          open('bili-bvs.txt','w',encoding='utf-8').write(','.join(bvs))
-          print(f"search.mjs 产出 {len(bvs)} 个 BV")
           assert bvs, "搜索没结果"
+          # 写到仓库根（下一个 step 从根读），用绝对路径避免 cd 影响
+          root = os.environ['GITHUB_WORKSPACE']
+          with open(os.path.join(root, 'bili-bvs.txt'), 'w', encoding='utf-8') as f:
+              f.write(','.join(bvs))
+          print(f"search.mjs 产出 {len(bvs)} 个 BV")
           PY
-          echo "BVS=$(cat tools/video-frames/bili-bvs.txt)" >/dev/null
 
       - name: 采集（字幕/章节/评论/弹幕 → 操作候选）
         shell: bash
@@ -93,8 +95,8 @@ jobs:
           MAXF="${{ github.event.inputs.max-frames || '30' }}"
           DL="${{ github.event.inputs.download || 'false' }}"
           ARGS=(--platform "$PLATFORM" --query "$QUERY" --limit "$LIMIT" --out frames/ingest --max-frames "$MAXF")
-          if [ "$PLATFORM" = "bilibili" ] && [ -f tools/video-frames/bili-bvs.txt ]; then
-            ARGS+=(--bvs "$(cat tools/video-frames/bili-bvs.txt)")
+          if [ "$PLATFORM" = "bilibili" ] && [ -f bili-bvs.txt ]; then
+            ARGS+=(--bvs "$(cat bili-bvs.txt)")
           fi
           if [ -n "$URLS" ]; then ARGS+=(--urls "$URLS"); fi
           if [ "$DL" = "true" ]; then ARGS+=(--download); fi
