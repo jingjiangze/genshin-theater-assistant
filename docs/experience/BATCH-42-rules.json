@@ -1,0 +1,399 @@
+﻿{
+  "generatedAt": "2026-11-06 11:12:43",
+  "reports": 42,
+  "frames": 463,
+  "truth": 4,
+  "accStable": 100,
+  "accRaw": 100,
+  "jumps": 1,
+  "flips": 33,
+  "avgMs": 3412,
+  "kinds": {
+    "difficulty": 77,
+    "act": 165,
+    "unknown": 93,
+    "team": 97,
+    "theater": 30,
+    "choice": 1
+  },
+  "perReport": [
+    {
+      "File": "BV12hYw6vEzC-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV15XYPzuExb-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV172Vd6xEKn-replay.json",
+      "Frames": 12,
+      "TruthFrames": 1,
+      "StableRight": 1,
+      "RawRight": 1,
+      "Jumps": 0,
+      "Flips": 2
+    },
+    {
+      "File": "BV18UTh6xEho-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV193xp6WErn-replay.json",
+      "Frames": 12,
+      "TruthFrames": 1,
+      "StableRight": 1,
+      "RawRight": 1,
+      "Jumps": 0,
+      "Flips": 2
+    },
+    {
+      "File": "BV19R9VBhEds-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1AK1VBdExF-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 3
+    },
+    {
+      "File": "BV1AgS6BkErD-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1BiPTz1Epi-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1CscnzSEJw-replay.json",
+      "Frames": 7,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1Ftw1zUESE-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1G86xBFEk5-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1GDSzBxEEf-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1Hc9LBjEmQ-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1LwRKBmE2n-replay.json",
+      "Frames": 12,
+      "TruthFrames": 1,
+      "StableRight": 1,
+      "RawRight": 1,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1PmxgzHEvn-replay.json",
+      "Frames": 5,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1QqVR6kEoY-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 2
+    },
+    {
+      "File": "BV1TyHJz6EDP-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1UNABz5Ei7-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1VdDLBZEgm-replay.json",
+      "Frames": 5,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1WQAizNExV-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1WstM6KE9k-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 1,
+      "Flips": 0
+    },
+    {
+      "File": "BV1XSAdzTE3S-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1XZ9iBoEyS-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1ZTiLB8ETt-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1ZVGM6UEGf-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 3
+    },
+    {
+      "File": "BV1aYAfz1Ex6-replay.json",
+      "Frames": 2,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1b4iLB2ESD-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1bKABzCENY-replay.json",
+      "Frames": 2,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1bPxH6gEgw-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1dKHnzsEeg-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 2
+    },
+    {
+      "File": "BV1dPPuzLERs-replay.json",
+      "Frames": 10,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1f9xMzBEDb-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1hXTv6uECJ-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1im15B2EhM-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1kUtu6BEin-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1n9aPzyEDX-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    },
+    {
+      "File": "BV1pA3s6qEWG-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 1
+    },
+    {
+      "File": "BV1s5ABzMEgj-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 2
+    },
+    {
+      "File": "BV1saaz6qEbH-replay.json",
+      "Frames": 12,
+      "TruthFrames": 1,
+      "StableRight": 1,
+      "RawRight": 1,
+      "Jumps": 0,
+      "Flips": 3
+    },
+    {
+      "File": "BV1uetT63EAF-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 2
+    },
+    {
+      "File": "BV1zmGM6xEvh-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 0,
+      "Flips": 0
+    }
+  ]
+}
