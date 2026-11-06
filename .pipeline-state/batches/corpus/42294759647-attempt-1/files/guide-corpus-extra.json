@@ -1,0 +1,84 @@
+﻿{
+  "note": "由 --corpus-scan 从视频帧 OCR 抽出，自动过滤界面文案；合并进检索语料前建议人工扫一眼。",
+  "generatedAt": "2026-11-06 21:15:28",
+  "bvid": "BV12b421H7oG,BV1Hi421Y7vy",
+  "entries": [
+    {
+      "id": "scan-BV12b421H7oG,BV1Hi421Y7vy-6s-1",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "• 需要选择18名参与挑战",
+      "text": "• 需要选择18名参与挑战",
+      "source": "BV12b421H7oG,BV1Hi421Y7vy@6s"
+    },
+    {
+      "id": "scan-BV12b421H7oG,BV1Hi421Y7vy-123s-2",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "而老的深境螺旋就是检测你队伍搭配…",
+      "text": "而老的深境螺旋就是检测你队伍搭配后的实力",
+      "source": "BV12b421H7oG,BV1Hi421Y7vy@123s"
+    },
+    {
+      "id": "scan-BV12b421H7oG,BV1Hi421Y7vy-15s-3",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "•需要选择18名角色参与挑战",
+      "text": "•需要选择18名角色参与挑战",
+      "source": "BV12b421H7oG,BV1Hi421Y7vy@15s"
+    },
+    {
+      "id": "scan-BV12b421H7oG,BV1Hi421Y7vy-177s-4",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "队伍搭配起来毫无美感",
+      "text": "队伍搭配起来毫无美感",
+      "source": "BV12b421H7oG,BV1Hi421Y7vy@177s"
+    },
+    {
+      "id": "scan-BV12b421H7oG,BV1Hi421Y7vy-231s-5",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "它玩的不再是队伍build构筑",
+      "text": "它玩的不再是队伍build构筑",
+      "source": "BV12b421H7oG,BV1Hi421Y7vy@231s"
+    },
+    {
+      "id": "scan-BV12b421H7oG,BV1Hi421Y7vy-392s-6",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "在我看来这些buff",
+      "text": "在我看来这些buff",
+      "source": "BV12b421H7oG,BV1Hi421Y7vy@392s"
+    },
+    {
+      "id": "scan-BV12b421H7oG,BV1Hi421Y7vy-392s-7",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "只是因为你没法湊出完整队伍给的数…",
+      "text": "只是因为你没法湊出完整队伍给的数值补足",
+      "source": "BV12b421H7oG,BV1Hi421Y7vy@392s"
+    }
+  ]
+}
