@@ -326,6 +326,20 @@ internal static class SelfTest
             && teams.ContainsKey(7) && teams[7].Contains("行秋") && teams[7].Contains("菲谢尔"),
             string.Join(" | ", teams.OrderBy(k => k.Key).Select(k => $"{k.Key}:{string.Join(",", k.Value)}")));
 
+        // 端到端：RunCompare 曾因 FirstOrDefault 元组默认值的 null Name 崩溃（CI 断言没覆盖到）
+        var cTmp = Path.Combine(Path.GetTempPath(), "ta-cmp-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var vd = Path.Combine(cTmp, "BVtest"); Directory.CreateDirectory(vd);
+            File.WriteAllText(Path.Combine(vd, "subs.txt"),
+                "[description|] 第7幕：行秋+菲谢尔+2挂件\n[description|] 第2幕：一斗+芭芭拉+挂件", Encoding.UTF8);
+            var cOut = Path.Combine(cTmp, "cmp.md");
+            Check("对比·端到端不崩", OpCompare.RunCompare(cTmp, cOut) == 0 && File.Exists(cOut) && File.ReadAllText(cOut).Contains("职能命中"),
+                cOut);
+        }
+        catch (Exception ex) { Check("对比·端到端不崩", false, ex.GetType().Name + ": " + ex.Message); }
+        finally { try { Directory.Delete(cTmp, true); } catch { } }
+
         // 本地日志解析（纯函数）：只认 avatarId/level，其余字段丢弃
         var log = "{\"avatarId\":10000060,\"level\":90} {\"avatarId\":10000046,\"level\":80} junk {\"avatarId\":10000060,\"level\":90}";
         var parsed = LogScan.ParseCharacters(log);

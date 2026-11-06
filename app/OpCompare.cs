@@ -257,8 +257,10 @@ internal static class OpCompare
                 var roleHits = new List<string>();
                 foreach (var p in pred.Where(p => !kv.Value.Contains(p, StringComparer.Ordinal)))
                 {
-                    var alt = SubstitutesFor(p).FirstOrDefault(a => kv.Value.Contains(a.Name, StringComparer.Ordinal));
-                    if (alt.Name.Length > 0) roleHits.Add($"{p}→{alt.Name}");
+                    // FirstOrDefault 对元组返回 default((string,string))，Name 为 null，不能直接 .Length
+                    var alt = SubstitutesFor(p).FirstOrDefault(a =>
+                        !string.IsNullOrEmpty(a.Name) && kv.Value.Contains(a.Name, StringComparer.Ordinal));
+                    if (!string.IsNullOrEmpty(alt.Name)) roleHits.Add($"{p}→{alt.Name}");
                 }
                 totalActs++; totalPred += pred.Count; totalHit += hits.Count; totalRoleHit += roleHits.Count;
                 if (hits.Count > 0) hitAny++;
@@ -288,7 +290,7 @@ internal static class OpCompare
                 var pred = PredictedFor(kv.Key);
                 foreach (var p in pred.Where(p => !kv.Value.Contains(p, StringComparer.Ordinal)))
                 {
-                    var alts = SubstitutesFor(p).Where(a => kv.Value.Contains(a.Name, StringComparer.Ordinal)).Take(2).ToList();
+                    var alts = SubstitutesFor(p).Where(a => !string.IsNullOrEmpty(a.Name) && kv.Value.Contains(a.Name, StringComparer.Ordinal)).Take(2).ToList();
                     if (alts.Count > 0)
                         report.AppendLine($"- {vid} 第{kv.Key}幕 推荐「{p}」未带，但该视频用的是同职能替代：**{string.Join("、", alts.Select(a => a.Name))}**");
                 }
