@@ -88,7 +88,7 @@ jobs:
           PLATFORM="${{ github.event.inputs.platform || 'bilibili' }}"
           QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
           URLS="${{ github.event.inputs.urls || '' }}"
-          LIMIT="${{ github.event.inputs.limit || '12' }}"
+          LIMIT="${{ github.event_name == 'push' && '2' || github.event.inputs.limit || '12' }}"
           ARGS=(--platform "$PLATFORM" --query "$QUERY" --limit "$LIMIT" --out frames/ingest)
           if [ "$PLATFORM" = "bilibili" ] && [ -f bili-bvs.txt ]; then
             ARGS+=(--bvs "$(cat bili-bvs.txt)")
