@@ -40,6 +40,10 @@ def eligible(candidate: dict) -> bool:
         and verification.get("holdout_passed") is True
         and verification.get("baseline_regression_passed") is True
         and verification.get("strategy_gate_passed") is True
+        and int(verification.get("holdout_samples") or 0) >= 20
+        and isinstance(verification.get("strategy_success_rate"), (int, float))
+        and isinstance(verification.get("baseline_strategy_success_rate"), (int, float))
+        and verification["strategy_success_rate"] >= verification["baseline_strategy_success_rate"]
     )
 
 
