@@ -146,7 +146,17 @@ def main() -> int:
     try:
         existing = read_json(registry)
         evidence = evidence_from_batches(args.batches.resolve())
-        result = merge_candidates(evidence, existing)
+        known = {
+            evidence_id
+            for candidate in existing.get("candidates", [])
+            if isinstance(candidate, dict)
+            for evidence_id in candidate.get("evidence_ids", [])
+        }
+        new_evidence = [item for item in evidence if item["evidence_id"] not in known]
+        if not new_evidence and registry.exists():
+            print(f"no new evidence; candidates={existing.get('candidate_count', 0)}")
+            return 0
+        result = merge_candidates(new_evidence, existing)
         serialized = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
         if registry.exists() and registry.read_text(encoding="utf-8") == serialized:
             print(f"no registry change; candidates={result['candidate_count']}")
