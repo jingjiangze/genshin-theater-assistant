@@ -1,0 +1,404 @@
+#!/usr/bin/env python3
+"""跨平台视频采集（基于成熟轮子，不重复造轮子）。
+
+  python tools/video-frames/ingest.py --platform bilibili --query "幻想真境剧诗 月谕 攻略" \
+      --limit 12 --out frames/ingest --max-frames 30
+  python tools/video-frames/ingest.py --platform youtube --query "Genshin Imaginarium Theater guide" \
+      --limit 8 --out frames/ingest --max-frames 30
+
+依赖（CI 里 pip 装）：yt-dlp、scenedetect、opencv-python-headless、imageio-ffmpeg。
+
+用到的上游能力（见 docs/VIDEO-TOOLING-AUDIT.md）：
+  · yt-dlp：BiliBili / BiliBiliSearch(bilisearch:) / youtube:search(ytsearch:)、
+            --write-info-json 等价物、字幕/自动字幕、章节、评论、弹幕；
+  · PySceneDetect：ContentDetector 按镜头切换给出场景表，取每个场景的代表帧，
+            替代等间隔抽帧（等间隔会大量落在同一界面上，实测真值率 0.1%）。
+
+输出（全部落 out 目录）：
+  <video_id>/meta.json              标题/描述/章节/时长/平台/来源 URL
+  <video_id>/scene-*.jpg            每个镜头的代表帧（最多 max-frames 张）
+  <video_id>/subs.txt               字幕/评论/简介的纯文本（带时间戳）
+  <video_id>-ops.json               操作候选，**格式与 --extract-ops 一致**，
+                                    可直接喂给 TheaterAssistant.exe --consensus
+  ingest-summary.json              本批统计
+
+安全边界：cookie 只从环境变量读，写入 out 下的临时 Netscape 文件，
+          finally 里删除；不打日志、不进命令行、不进 artifact。
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import sys
+import time
+from pathlib import Path
+
+# ---------------- 可选依赖（缺失时给明确报错，不静默降级） ----------------
+try:
+    import yt_dlp
+except ImportError:
+    sys.exit("缺少 yt-dlp：pip install yt-dlp")
+
+try:
+    from scenedetect import detect, ContentDetector
+except ImportError:
+    sys.exit("缺少 scenedetect：pip install scenedetect")
+
+try:
+    import cv2
+except ImportError:
+    sys.exit("缺少 opencv-python-headless：pip install opencv-python-headless")
+
+
+# ---------------- 操作候选分类（与 app/OpsExtract.cs 同口径） ----------------
+COMBO = re.compile(r"[\u4e00-\u9fff A-Za-z]{1,4}\s*[EQeq](?:\s*[-—>→]\s*[\u4e00-\u9fff A-Za-z]{0,4}\s*[EQeq]){1,8}")
+NOISE_EXACT = {
+    "可选角色", "已选开幕与待命角色", "待命角色", "队伍配置", "敌人选择",
+    "返回", "确认", "取消", "跳过", "继续", "神秘收获", "辉彩祝福", "伙伴",
+    "助演", "演出回顾", "关卡详情", "难度选择", "点赞", "投币", "收藏", "关注",
+}
+NOISE_RE = re.compile(
+    r"^(第\s*\d{1,2}\s*幕|Lv\.?\s*\d+|\d+[\.、]|[\d\W]{1,8}|"
+    r"<[^>]+>|\{[^}]+\}|https?://\S+|\[[^\]]{0,12}\])$"
+)
+PROSE_RE = re.compile(r"(挑战|故事|演出|神秘房间|魔女|幻想与真实|永无休止|在故事|需要许多伙伴)[^\n]{0,40}。\s*$")
+
+
+def classify(line: str) -> str | None:
+    t = (line or "").strip()
+    if len(t) < 4 or t in NOISE_EXACT or NOISE_RE.match(t) or PROSE_RE.search(t):
+        return None
+    if COMBO.search(t):
+        return "combo"
+    if re.search(r"(队伍|配队|助演|外援)[：:]", t):
+        return "team"
+    if re.search(r"(买|购入|选)[^\n。；]{2,30}", t):
+        return "buy"
+    if re.search(r"(先|优先|建议|需要|别|不要|第一时?间|开局)[^\n。；]{4,40}", t):
+        return "action"
+    return None
+
+
+def norm_key(text: str) -> str:
+    return re.sub(r"[\s\p{P}]", "", text, flags=re.UNICODE).lower()
+
+
+# ---------------- cookie：env → 临时 Netscape 文件 → 用完删 ----------------
+def cookie_file_from_env(out: Path) -> Path | None:
+    raw = os.environ.get("BILI_COOKIE", "").strip()
+    if not raw:
+        return None
+    p = out / ".yt-cookies.txt"
+    lines = ["# Netscape HTTP Cookie File", ""]
+    for kv in raw.split(";"):
+        kv = kv.strip()
+        if not kv or "=" not in kv:
+            continue
+        name, value = kv.split("=", 1)
+        name, value = name.strip(), value.strip()
+        if not name or not value:
+            continue
+        lines.append(f".bilibili.com\tTRUE\t/\tTRUE\t0\t{name}\t{value}")
+    p.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    try:
+        os.chmod(p, 0o600)
+    except OSError:
+        pass
+    return p
+
+
+# ---------------- 字幕 / VTT / SRT 文本提取 ----------------
+TS_RE = re.compile(r"^\s*(\d{1,2}):(\d{2}):(\d{2})[.,](\d{1,3})\s*-->\s*", re.M)
+
+
+def read_subtitle_text(path: Path) -> list[tuple[str, str]]:
+    """返回 [(时间码, 文本)]；纯文本去重。"""
+    try:
+        raw = path.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return []
+    out: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    # 按空行分块；SRT/VTT 都是「序号 / 时间 --> 时间 / 文本」
+    for block in re.split(r"\n\s*\n", raw):
+        lines = [l.strip() for l in block.splitlines() if l.strip()]
+        if not lines:
+            continue
+        ts = ""
+        start = 0
+        for i, l in enumerate(lines[:3]):
+            m = TS_RE.match(l)
+            if m:
+                ts = f"{int(m.group(1)):02d}:{m.group(2)}:{m.group(3)}"
+                start = i + 1
+                break
+        text = " ".join(lines[start:])
+        text = re.sub(r"<[^>]+>|\{[^}]+\}", "", text).strip()
+        if len(text) < 4:
+            continue
+        k = norm_key(text)
+        if not k or k in seen:
+            continue
+        seen.add(k)
+        out.append((ts, text))
+    return out
+
+
+def read_danmaku_text(path: Path) -> list[tuple[str, str]]:
+    """B站弹幕 XML：yt-dlp 会把它当 danmaku 字幕写出来。"""
+    try:
+        raw = path.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return []
+    out: list[tuple[str, str]] = []
+    for m in re.finditer(r'<d p="([^"]*)"[^>]*>([^<]+)</d>', raw):
+        text = m.group(2).strip()
+        if len(text) < 4:
+            continue
+        try:
+            t = float(m.group(1).split(",")[0])
+            ts = f"{int(t // 60):02d}:{int(t % 60):02d}"
+        except (ValueError, IndexError):
+            ts = ""
+        out.append((ts, text))
+    return out
+
+
+# ---------------- 场景代表帧 ----------------
+def extract_scene_frames(video: Path, frames_dir: Path, max_frames: int) -> int:
+    """按镜头切换取代表帧。失败返回 0（不抛，保证批次继续）。"""
+    try:
+        scenes = detect(str(video), ContentDetector(threshold=27.0))
+    except Exception as e:
+        print(f"  [warn] 场景检测失败: {e}", file=sys.stderr)
+        return 0
+    if not scenes:
+        return 0
+
+    # 场景太多时均匀抽样，保证覆盖全片而不是只取前 N 个镜头
+    if len(scenes) > max_frames:
+        idx = [round(i * (len(scenes) - 1) / (max_frames - 1)) for i in range(max_frames)]
+        scenes = [scenes[i] for i in sorted(set(idx))]
+
+    cap = cv2.VideoCapture(str(video))
+    if not cap.isOpened():
+        return 0
+    written = 0
+    for i, (start, end) in enumerate(scenes, 1):
+        mid = (start.get_seconds() + end.get_seconds()) / 2.0
+        cap.set(cv2.CAP_PROP_POS_MSEC, mid * 1000.0)
+        ok, frame = cap.read()
+        if not ok:
+            continue
+        p = frames_dir / f"scene-{i:03d}-{int(mid)}s.jpg"
+        if cv2.imwrite(str(p), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 88]):
+            written += 1
+    cap.release()
+    return written
+
+
+# ---------------- 主流程 ----------------
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--platform", choices=["bilibili", "youtube"], default="bilibili")
+    ap.add_argument("--query", default="幻想真境剧诗 月谕 攻略")
+    ap.add_argument("--urls", default="", help="逗号分隔的直连 URL（给了就跳过搜索）")
+    ap.add_argument("--limit", type=int, default=12)
+    ap.add_argument("--out", default="frames/ingest")
+    ap.add_argument("--max-frames", type=int, default=30, help="每个视频最多场景帧")
+    ap.add_argument("--download", action="store_true", help="下载最低可用流用于镜头检测（默认关，只取文本语料）")
+    ap.add_argument("--ffmpeg", default="", help="ffmpeg 可执行文件路径（DASH 合并用）")
+    args = ap.parse_args()
+
+    out = Path(args.out).resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    cookie_path = cookie_file_from_env(out) if args.platform == "bilibili" else None
+
+    prefix = "bilisearch" if args.platform == "bilibili" else "ytsearch"
+    if args.urls.strip():
+        targets = [u.strip() for u in args.urls.split(",") if u.strip()]
+    else:
+        targets = [f"{prefix}{args.limit}:{args.query}"]
+
+    ydl_base = {
+        "quiet": True,
+        "no_warnings": True,
+        "ignoreerrors": True,
+        "noplaylist": False,
+        "socket_timeout": 30,
+        "retries": 2,
+        "sleep_interval_requests": 0.5,
+        "extract_flat": "in_playlist",
+        "playlistend": args.limit,
+    }
+    if cookie_path:
+        ydl_base["cookiefile"] = str(cookie_path)
+    if args.ffmpeg:
+        ydl_base["ffmpeg_location"] = args.ffmpeg
+
+    summary = {
+        "platform": args.platform, "query": args.query, "requested": args.limit,
+        "videos": [], "generatedAt": time.strftime("%Y-%m-%d %H:%M:%S"),
+    }
+
+    try:
+        # 1) 搜索 / 展开列表（extract_flat，不下载）
+        entries: list[dict] = []
+        with yt_dlp.YoutubeDL(ydl_base) as ydl:
+            for t in targets:
+                info = ydl.extract_info(t, download=False)
+                if not info:
+                    continue
+                if info.get("_type") == "playlist" or "entries" in info:
+                    for e in info.get("entries") or []:
+                        if e:
+                            entries.append(e)
+                else:
+                    entries.append(info)
+        entries = entries[: args.limit]
+        print(f"[info] 找到 {len(entries)} 个条目", file=sys.stderr)
+
+        for e in entries:
+            vid = str(e.get("id") or "")
+            url = e.get("url") or e.get("webpage_url") or ""
+            if not vid:
+                continue
+            safe = re.sub(r"[^0-9A-Za-z_-]", "_", vid)[:60]
+            vdir = out / safe
+            vdir.mkdir(parents=True, exist_ok=True)
+            rec: dict = {"id": vid, "title": e.get("title") or "", "url": url, "platform": args.platform}
+
+            # 2) 单视频：元数据 + 字幕 + 自动字幕 + 章节 + 评论
+            opts = dict(ydl_base)
+            opts.update({
+                "extract_flat": False,
+                "skip_download": True,
+                "writeinfojson": True,
+                "writesubtitles": True,
+                "writeautomaticsub": True,
+                "subtitleslangs": ["zh-Hans", "zh-CN", "zh", "en", "danmaku"],
+                "getcomments": True,
+                "outtmpl": str(vdir / "video.%(ext)s"),
+                "sleep_interval": 1,
+            })
+            try:
+                with yt_dlp.YoutubeDL(opts) as ydl:
+                    info = ydl.extract_info(url, download=False) or {}
+            except Exception as ex:
+                print(f"[warn] {vid} 元数据失败: {type(ex).__name__}", file=sys.stderr)
+                info = {}
+
+            chapters = info.get("chapters") or []
+            rec.update({
+                "title": info.get("title") or rec["title"],
+                "duration": info.get("duration"),
+                "uploader": info.get("uploader"),
+                "description": (info.get("description") or "")[:4000],
+                "chapters": [{"title": c.get("title"), "start": c.get("start_time"), "end": c.get("end_time")} for c in chapters],
+                "subtitle_langs": sorted((info.get("subtitles") or {}).keys()),
+                "auto_caption_langs": sorted((info.get("automatic_captions") or {}).keys())[:10],
+            })
+            (vdir / "meta.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
+
+            # 3) 收集文本语料（字幕/弹幕/评论/简介/章节）
+            texts: list[tuple[str, str, str]] = []   # (timecode, text, channel)
+            for p in sorted(vdir.glob("*.srt")) + sorted(vdir.glob("*.vtt")):
+                for ts, tx in read_subtitle_text(p):
+                    texts.append((ts, tx, "subtitle"))
+            for p in sorted(vdir.glob("*.xml")):
+                for ts, tx in read_danmaku_text(p):
+                    texts.append((ts, tx, "danmaku"))
+            info_json = vdir / "video.info.json"
+            if info_json.exists():
+                try:
+                    ij = json.loads(info_json.read_text(encoding="utf-8", errors="ignore"))
+                    for c in (ij.get("comments") or [])[:500]:
+                        tx = (c.get("text") or "").strip()
+                        if len(tx) >= 4:
+                            texts.append(("", tx, "comment"))
+                except (OSError, ValueError):
+                    pass
+            if rec["description"]:
+                for line in rec["description"].splitlines():
+                    if len(line.strip()) >= 4:
+                        texts.append(("", line.strip(), "description"))
+            for c in chapters:
+                t = (c.get("title") or "").strip()
+                if len(t) >= 4:
+                    s = c.get("start")
+                    ts = f"{int(s // 60):02d}:{int(s % 60):02d}" if isinstance(s, (int, float)) else ""
+                    texts.append((ts, t, "chapter"))
+
+            subs_lines = [f"[{ch}|{ts}] {tx}" for ts, tx, ch in texts]
+            (vdir / "subs.txt").write_text("\n".join(subs_lines), encoding="utf-8")
+
+            # 4) 操作候选（格式与 --extract-ops 一致，可直接 --consensus）
+            ops: list[dict] = []
+            seen_ops: set[str] = set()
+            for ts, tx, ch in texts:
+                kind = classify(tx)
+                if not kind:
+                    continue
+                k = kind + ":" + norm_key(tx)
+                if k in seen_ops:
+                    continue
+                seen_ops.add(k)
+                ops.append({
+                    "kind": kind, "text": tx[:120], "act": 0,
+                    "source": f"{args.platform}:{vid}" + (f"@{ts}" if ts else ""),
+                    "channel": ch, "needsReview": True,
+                })
+            (out / f"{safe}-ops.json").write_text(
+                json.dumps({
+                    "note": f"{args.platform} 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），需人工复核",
+                    "generatedAt": time.strftime("%Y-%m-%d %H:%M:%S"),
+                    "bvid": vid, "frames": 0, "candidates": len(ops), "ops": ops,
+                }, ensure_ascii=False, indent=1), encoding="utf-8")
+
+            # 5) 镜头代表帧（可选；需要 ffmpeg 合并 DASH）
+            rec["scene_frames"] = 0
+            if args.download:
+                dl = dict(ydl_base)
+                dl.update({
+                    "extract_flat": False, "skip_download": False,
+                    "format": "worst[ext=mp4]/worst[acodec!=none][vcodec!=none]/worst",
+                    "outtmpl": str(vdir / "video.%(ext)s"),
+                    "writesubtitles": False, "writeautomaticsub": False, "getcomments": False,
+                })
+                try:
+                    with yt_dlp.YoutubeDL(dl) as ydl:
+                        dinfo = ydl.extract_info(url, download=True)
+                    vf = vdir / "video.mp4"
+                    if not vf.exists():
+                        cands = sorted(vdir.glob("video*.mp4"))
+                        vf = cands[0] if cands else vf
+                    if vf.exists():
+                        rec["scene_frames"] = extract_scene_frames(vf, vdir, args.max_frames)
+                        vf.unlink(missing_ok=True)     # 不把视频本体放进 artifact
+                except Exception as ex:
+                    print(f"[warn] {vid} 下载/抽帧失败: {type(ex).__name__}", file=sys.stderr)
+
+            rec["text_lines"] = len(texts)
+            rec["ops_candidates"] = len(ops)
+            summary["videos"].append(rec)
+            print(f"[ok] {vid}: 文本 {len(texts)} 行 / 候选 {len(ops)} 条 / 场景帧 {rec['scene_frames']}", file=sys.stderr)
+            time.sleep(1)   # 不在短时间内连续打接口
+
+        (out / "ingest-summary.json").write_text(
+            json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"[done] 共 {len(summary['videos'])} 个视频 → {out}", file=sys.stderr)
+        return 0 if summary["videos"] else 2
+
+    finally:
+        # cookie 临时文件绝不留在产物里
+        if cookie_path and cookie_path.exists():
+            try:
+                cookie_path.unlink()
+            except OSError:
+                pass
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

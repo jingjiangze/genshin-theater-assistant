@@ -1,0 +1,117 @@
+name: video-ingest
+# 基于成熟轮子的跨平台采集：yt-dlp（B站/YouTube 元数据+字幕+章节+评论）
+# + PySceneDetect（按镜头取代表帧）。审计见 docs/VIDEO-TOOLING-AUDIT.md。
+#
+# 手动：Actions → video-ingest → Run workflow
+#   platform=bilibili|youtube、query、limit、download=true 才会下载视频抽帧
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'bilibili 或 youtube'
+        required: false
+        default: 'bilibili'
+      query:
+        description: '搜索关键词'
+        required: false
+        default: '幻想真境剧诗 月谕 攻略'
+      urls:
+        description: '直连 URL（逗号分隔；填了跳过搜索）'
+        required: false
+        default: ''
+      limit:
+        description: '最多几个视频'
+        required: false
+        default: '12'
+      max-frames:
+        description: '每个视频最多场景帧'
+        required: false
+        default: '30'
+      download:
+        description: 'true=下载流并按镜头抽帧（更慢）'
+        required: false
+        default: 'false'
+  schedule:
+    - cron: '0 6 * * *'   # 每天 06:00 UTC，只做文本语料（不下载视频）
+
+permissions:
+  contents: read
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 装成熟轮子（不自己造）
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install yt-dlp scenedetect opencv-python-headless imageio-ffmpeg
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          yt-dlp --version
+          python -c "import scenedetect, cv2; print('scenedetect/OpenCV OK')"
+
+      - name: 采集（字幕/章节/评论/弹幕 → 操作候选）
+        shell: bash
+        env:
+          BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
+        run: |
+          set -euo pipefail
+          PLATFORM="${{ github.event.inputs.platform || 'bilibili' }}"
+          QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
+          URLS="${{ github.event.inputs.urls || '' }}"
+          LIMIT="${{ github.event.inputs.limit || '12' }}"
+          MAXF="${{ github.event.inputs.max-frames || '30' }}"
+          DL="${{ github.event.inputs.download || 'false' }}"
+          ARGS=(--platform "$PLATFORM" --query "$QUERY" --limit "$LIMIT" --out frames/ingest --max-frames "$MAXF")
+          if [ -n "$URLS" ]; then ARGS+=(--urls "$URLS"); fi
+          if [ "$DL" = "true" ]; then ARGS+=(--download); fi
+          # imageio-ffmpeg 自带二进制，避免 B站 DASH 合并时找不到 ffmpeg
+          FFBIN="$(python -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')"
+          ARGS+=(--ffmpeg "$FFBIN")
+          python tools/video-frames/ingest.py "${ARGS[@]}"
+          echo "### 采集结果" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f frames/ingest/ingest-summary.json ]; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          d = json.load(open('frames/ingest/ingest-summary.json', encoding='utf-8'))
+          print(f"平台 {d['platform']} / 视频 {len(d['videos'])} 个")
+          print("| 视频 | 文本行 | 操作候选 | 场景帧 | 字幕语言 |")
+          print("|---|---|---|---|---|")
+          for v in d['videos']:
+              print(f"| {v['id']} | {v.get('text_lines',0)} | {v.get('ops_candidates',0)} | {v.get('scene_frames',0)} | {','.join(v.get('subtitle_langs',[])[:4])} |")
+          PY
+          fi
+
+      - name: 与既有 C# 共识链对齐（验证 ops.json 能被读）
+        shell: bash
+        run: |
+          python - <<'PY'
+          import glob, json, os
+          files = glob.glob('frames/ingest/*-ops.json')
+          n = 0
+          for f in files:
+              d = json.load(open(f, encoding='utf-8'))
+              assert isinstance(d.get('ops'), list), f
+              for o in d['ops']:
+                  assert {'kind','text','source'} <= set(o), (f, o)
+              n += len(d['ops'])
+          print(f"ops.json 结构校验通过：{len(files)} 个文件 / {n} 条候选")
+          assert files, "没有产出任何 ops.json"
+          PY
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: video-ingest-${{ github.run_id }}
+          path: |
+            frames/ingest/*-ops.json
+            frames/ingest/ingest-summary.json
+            frames/ingest/*/meta.json
+            frames/ingest/*/subs.txt
+            frames/ingest/*/scene-*.jpg
+          retention-days: 30
