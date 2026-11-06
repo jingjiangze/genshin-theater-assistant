@@ -139,13 +139,14 @@ class PersistBatchTests(unittest.TestCase):
             "version": "7.1", "video_id": "BV-same", "platform": "bilibili",
             "channel": "subtitle", "creator_id": "bilibili:creator-A"
         }
-        first = dict(base, evidence_id="stable-evidence", batch_id="run-1", observed_batches=["run-1"])
-        repeated = dict(base, evidence_id="stable-evidence", batch_id="run-2", observed_batches=["run-2"])
+        first = dict(base, evidence_id="stable-evidence", batch_id="run-1", observed_batches=["run-1"], source="BV-same@10s")
+        repeated = dict(base, evidence_id="stable-evidence", batch_id="run-2", observed_batches=["run-2"], source="BV-same@15s")
         result = extract_knowledge.merge_candidates([first, repeated])
         candidate = result["candidates"][0]
         self.assertEqual(len(candidate["evidence_ids"]), 1)
         self.assertEqual(candidate["unique_video_count"], 1)
         self.assertEqual(candidate["evidence"][0]["observed_batches"], ["run-1", "run-2"])
+        self.assertEqual(candidate["evidence"][0]["source_refs"], ["BV-same@10s", "BV-same@15s"])
 
     def test_one_creator_many_videos_stays_candidate(self):
         evidence = [
