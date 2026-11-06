@@ -33,15 +33,15 @@ Current ledger statuses are intentionally conservative: ingest = `INGESTED`, rep
 
 | Phase | Scope | State |
 |---|---|---|
-| P0 | Durable batch ledger, hashes, source/run traceability, isolate corpus refresh from main | IMPLEMENTED on this branch; Actions validation pending |
-| P1 | Independent evaluation labels, fixed holdout set, regression gates, automatic quarantine | PENDING |
+| P0 | Durable batch ledger, hashes, source/run traceability, isolate corpus refresh from main | IMPLEMENTED; smoke write and latest Actions checks pending |
+| P1 | Independent evaluation labels, fixed holdout set, regression gates, automatic quarantine | IN PROGRESS: subtitle + chapter agreement evaluator implemented; calibration/holdout gates pending |
 | P2 | Knowledge extraction, provenance/creator independence, deduplication, contradiction and version states | PENDING |
 | P3 | Single-act constraints and multi-act planner with baseline comparisons | PENDING |
 | P4 | Retrieval experiments (BM25 baseline, then optional vector/RRF/reranker) | PENDING |
 | P5 | Automated parameter optimization, promotion and rollback | PENDING |
 | P6 | Reassess model fine-tuning only after enough independent labels and measured benefit | DEFERRED |
 
-## Automatic promotion contract
+## Independent evaluation v1\n\n`tools/pipeline/build_external_eval.py` aligns replay frame timestamps with independently collected subtitle timestamps and video chapter metadata. A frame is counted only when both channels agree on the same act within the configured time window. It ignores `ReplayRunner.TruthAct`, which is derived from OCR on the prediction frame. Conflicts and single-channel labels are excluded. The report records coverage, accuracy, evidence snippets, and excluded-sample reasons. Fewer than 10 independently labeled frames remains `INSUFFICIENT_INDEPENDENT_LABELS`. This is a first independent signal, not yet a calibrated gold set: subtitle/chapter agreement can still be wrong or sparse.\n\n## Automatic promotion contract
 
 A batch being persisted, parsed, or successfully collected is not enough to promote it. Promotion must be based on:
 1. independently sourced labels (not the same OCR output used as model input);
