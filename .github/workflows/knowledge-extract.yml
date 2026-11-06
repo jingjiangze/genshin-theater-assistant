@@ -1,9 +1,6 @@
 name: knowledge-extract
 
 on:
-  push:
-    branches:
-      - 'automation/**'
   workflow_dispatch:
   schedule:
     - cron: '30 7 * * *'
