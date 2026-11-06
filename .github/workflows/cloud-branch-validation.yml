@@ -43,6 +43,7 @@ jobs:
             .github/workflows/corpus-refresh.yml
             .github/workflows/adapt-videos.yml
             .github/workflows/knowledge-extract.yml
+            .github/workflows/auto-release.yml
             .github/workflows/pipeline-ledger-smoke.yml
             .github/workflows/release.yml
             tools/video-frames/ingest.py
