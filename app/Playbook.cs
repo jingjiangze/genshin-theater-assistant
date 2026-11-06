@@ -88,8 +88,9 @@ internal static class Playbook
         {
             if (act.HasValue && _acts.TryGetValue(act.Value, out var e) && !string.IsNullOrWhiteSpace(e.NextAction))
                 return e.NextAction;
-            if (!act.HasValue) return null;
-            return DefaultNext.Replace("{act}", act.Value.ToString());
+            // 没有该幕资料就返回 null（调用方会说"暂无该幕资料"），
+            // 不用代码兜一句通用话术——那等于代码又在决定"每一幕干什么"。
+            return null;
         }
         return _kinds.TryGetValue(kind, out var line) ? line : null;
     }
