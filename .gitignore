@@ -51,3 +51,6 @@ no_text_videos.txt
 pipeline-export/
 dist/
 _lead-verify/
+
+# 本地 LLM 配置（可能含端点与凭据环境变量名，勿提交）
+data/llm.json

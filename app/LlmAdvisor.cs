@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -33,6 +33,8 @@ internal sealed class LlmAdvisor : IDisposable
         public string ApiKeyEnv = "";
         /// <summary>public-cacheable = 第三方可能缓存/复用该请求结果，发送内容必须无个人标识。</summary>
         public string Privacy = "";
+        /// <summary>端点级超时（秒）。0 = 用全局 timeoutSeconds。实测 Pollinations 首字节要 11s+。</summary>
+        public int TimeoutSeconds;
         public DateTime CoolUntil = DateTime.MinValue;
         public int Failures;
         public string LastError = "";
@@ -61,7 +63,7 @@ internal sealed class LlmAdvisor : IDisposable
     private LlmAdvisor(Config cfg)
     {
         _cfg = cfg;
-        _http = new HttpClient { Timeout = TimeSpan.FromSeconds(Math.Max(3, cfg.TimeoutSeconds)) };
+        _http = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
     }
 
     // ---------------- 配置解析（纯函数，可断言） ----------------
@@ -95,6 +97,7 @@ internal sealed class LlmAdvisor : IDisposable
                         Model = model,
                         ApiKeyEnv = StrOf(e, "apiKeyEnv"),
                         Privacy = StrOf(e, "privacy"),
+                        TimeoutSeconds = IntOf(e, "timeoutSeconds", 0),
                     });
                 }
             }
@@ -225,7 +228,9 @@ internal sealed class LlmAdvisor : IDisposable
                 if (key.Length > 0)
                     req.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", key);
 
-                using var resp = await _http.SendAsync(req).ConfigureAwait(false);
+                var timeoutSec = ep.TimeoutSeconds > 0 ? ep.TimeoutSeconds : Math.Max(3, _cfg.TimeoutSeconds);
+                using var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(timeoutSec));
+                using var resp = await _http.SendAsync(req, cts.Token).ConfigureAwait(false);
                 if (!resp.IsSuccessStatusCode)
                 {
                     var cool = CoolFromResponse(resp, _cfg.CooldownSeconds);

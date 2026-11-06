@@ -74,3 +74,48 @@
 | `--llm-probe --dry` 离线校验 | **PASS**（CI 可跑，不联网） |
 | `--llm-probe` 真实联网调用 | **PENDING**：需要在本机或允许出网的 runner 上显式 `enabled=true` 后执行；CI 默认不调外部模型（避免不可复现与隐私风险） |
 | Pollinations 实际返回质量 | **PENDING**：需真实调用后评估是否值得开启 |
+
+## 7. 真实联网实测（2026-11-06，本机）
+
+不依赖"文档说能用"，直接打一次真实请求：
+
+```
+POST https://text.pollinations.ai/openai
+{"model":"openai","messages":[{"role":"user","content":"第3幕首领翠翎恐蕈，用雷推怒气条，下一步做什么？"}]}
+
+→ HTTP 200，用时 11253 ms
+→ {"id":"pllns_...","choices":[{"message":{"role":"assistant","content":"继续雷攻击，配合风/水触反应。","reasoning":"..."}}]}
+```
+
+**结论（如实）**：
+
+| 项 | 实测 |
+|---|---|
+| 免 key 可用 | ✅ HTTP 200，标准 OpenAI 兼容结构 |
+| **延迟** | **约 11.2 秒**（远高于原 8s 全局超时 → 已改为端点级 `timeoutSeconds=25`，否则会被误判失败） |
+| 返回内容 | 「继续雷攻击，配合风/水触反应。」——**方向偏了**：本关机制是雷推怒气条、满条后 15 秒力竭，模型却建议"配合风/水"，且未提力竭窗口 |
+| 内容质量 | **一般**：能用但不够准，属于"改写器"而非"决策器" |
+| 附带字段 | 响应含 `reasoning`（GPT-OSS 推理模型），`content` 解析正常 |
+
+因此本项目的立场不变：**规则引擎先算、模型只做改写补充、失败即回退**。模型的输出**不会**写进知识库或决策链，
+`data/knowledge/` 仍只由有证据门禁的管线写入。
+
+### 已知限制
+
+- 30 秒/IP 一次：幕次连续变化时大部分调用会被限流（`Health` 会显示"限流等待 Ns"），这是设计内的行为。
+- 11 秒延迟：悬浮窗是 fire-and-forget，不阻塞识别；但也不适合"每一幕都问"。
+- 质量一般 + 隐私（结果可能被缓存）：**建议只在需要解释/兜底时开**，不要当主决策。
+
+## 8. 如何启用（用户操作）
+
+```powershell
+# 1) 复制示例配置
+Copy-Item data\llm.example.json data\llm.json
+# 2) 把 enabled 改成 true（只用免 key 端点就保留 pollinations-classic，删掉另外两个也行）
+# 3) 离线校验配置（不联网）
+.\TheaterAssistant.exe --llm-probe --dry
+# 4) 真实探针（会联网，等 10~25 秒）
+.\TheaterAssistant.exe --llm-probe
+```
+
+`data/llm.json` 已加入 `.gitignore`，不会误提交；需要 key 的端点只从环境变量读（`OPENROUTER_API_KEY` / `GROQ_API_KEY`）。
