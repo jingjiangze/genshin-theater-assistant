@@ -220,13 +220,23 @@ def main() -> int:
     try:
         existing = read_json(registry)
         evidence = evidence_from_batches(args.batches.resolve())
-        known = {
-            evidence_id
-            for candidate in existing.get("candidates", [])
-            if isinstance(candidate, dict)
-            for evidence_id in candidate.get("evidence_ids", [])
-        }
-        new_evidence = [item for item in evidence if item["evidence_id"] not in known]
+        known_batches = {}
+        for candidate in existing.get("candidates", []):
+            if not isinstance(candidate, dict):
+                continue
+            for stored in candidate.get("evidence", []):
+                evidence_id = stored.get("evidence_id")
+                if not evidence_id:
+                    continue
+                batches = set(stored.get("observed_batches", []))
+                if stored.get("batch_id"):
+                    batches.add(stored["batch_id"])
+                known_batches[evidence_id] = batches
+        new_evidence = [
+            item for item in evidence
+            if item["evidence_id"] not in known_batches
+            or item.get("batch_id") not in known_batches[item["evidence_id"]]
+        ]
         if not new_evidence and registry.exists():
             print(f"no new evidence; candidates={existing.get('candidate_count', 0)}")
             return 0
