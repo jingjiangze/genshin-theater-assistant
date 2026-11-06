@@ -4,15 +4,10 @@ on:
   push:
     branches:
       - 'automation/**'
-  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
-
-concurrency:
-  group: cloud-validation-${{ github.ref }}
-  cancel-in-progress: false
 
 jobs:
   repository-contract:
