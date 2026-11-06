@@ -99,7 +99,7 @@ class PersistBatchTests(unittest.TestCase):
     def test_extraction_never_downgrades_terminal_status(self):
         existing = {
             "candidates": [{
-                "candidate_id": "fixed", "kind": "action", "text": "先击败钓客", "act": 6,
+                "candidate_id": extract_knowledge.digest("|".join(("action", "6", extract_knowledge.normalize("先击败钓客")))), "kind": "action", "text": "先击败钓客", "act": 6,
                 "evidence_ids": ["old"], "evidence": [], "status": "VERIFIED",
                 "independent_creator_count": 2
             }]
