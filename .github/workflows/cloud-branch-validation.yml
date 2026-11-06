@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: cloud-validation-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   repository-contract:
     name: 云端仓库契约检查
