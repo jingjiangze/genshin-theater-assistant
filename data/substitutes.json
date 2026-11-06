@@ -1,0 +1,50 @@
+{
+  "note": "角色职能与可替代组。用于回答『没有 X 时带谁』。只含公开静态元数据（元素/职能），不含账号数据。",
+  "sources": {
+    "inGame": "游戏内角色机制（用户本机截图与游戏内文案核对）",
+    "community": "50 视频跨 UP 主逐幕配队共识（docs/experience/MERGED-50-OPS-CONSENSUS.md）",
+    "curated": "本项目整理，需随版本复核"
+  },
+  "roles": {
+    "HydroApplier": { "label": "后台挂水", "need": "持续挂水打反应/破火盾" },
+    "ElectroApplier": { "label": "后台挂雷", "need": "第3幕推怒气、感电" },
+    "GeoBreak": { "label": "岩/钝击破盾", "need": "第8幕砸锅、破岩盾" },
+    "Healer": { "label": "治疗", "need": "第10幕被标记要奶满" },
+    "Shielder": { "label": "护盾", "need": "生存/抗打断" },
+    "Buffer": { "label": "增伤辅助", "need": "爆发窗口抬伤害" },
+    "MainDps": { "label": "主 C", "need": "站场输出" }
+  },
+  "characters": {
+    "行秋": { "element": "Hydro", "roles": ["HydroApplier", "Shielder"], "tier": "S", "note": "4 个 UP 主在第7幕共识带" },
+    "夜兰": { "element": "Hydro", "roles": ["HydroApplier", "MainDps"], "tier": "S", "note": "第2/6幕共识" },
+    "芭芭拉": { "element": "Hydro", "roles": ["Healer", "HydroApplier"], "tier": "A", "note": "第2幕共识；奶满解标记" },
+    "爱诺": { "element": "Hydro", "roles": ["HydroApplier", "MainDps"], "tier": "A", "note": "第3幕共识；本期开幕角色" },
+    "莫娜": { "element": "Hydro", "roles": ["HydroApplier", "Buffer"], "tier": "A", "note": "" },
+    "心海": { "element": "Hydro", "roles": ["Healer", "HydroApplier"], "tier": "S", "note": "" },
+    "那维莱特": { "element": "Hydro", "roles": ["MainDps"], "tier": "S", "note": "第9幕共识；需站场" },
+    "赛诺": { "element": "Electro", "roles": ["MainDps", "ElectroApplier"], "tier": "A", "note": "第3幕共识；长轴站场" },
+    "菲谢尔": { "element": "Electro", "roles": ["ElectroApplier"], "tier": "S", "note": "皇女=菲谢尔（游戏内别称）；后台挂雷" },
+    "皇女": { "element": "Electro", "roles": ["ElectroApplier"], "tier": "S", "note": "菲谢尔的别称", "aliasOf": "菲谢尔" },
+    "八重神子": { "element": "Electro", "roles": ["ElectroApplier"], "tier": "A", "note": "" },
+    "雷电将军": { "element": "Electro", "roles": ["MainDps", "ElectroApplier"], "tier": "S", "note": "" },
+    "五郎": { "element": "Geo", "roles": ["GeoBreak", "Buffer"], "tier": "A", "note": "岩队专辅" },
+    "卡齐娜": { "element": "Geo", "roles": ["GeoBreak"], "tier": "A", "note": "第10幕共识；本期开幕" },
+    "钟离": { "element": "Geo", "roles": ["Shielder", "GeoBreak"], "tier": "S", "note": "通用护盾+岩破盾" },
+    "诺艾尔": { "element": "Geo", "roles": ["Shielder", "GeoBreak", "Healer"], "tier": "A", "note": "第5幕共识" },
+    "一斗": { "element": "Geo", "roles": ["MainDps"], "tier": "S", "note": "荒泷一斗的简称", "aliasOf": "荒泷一斗" },
+    "荒泷一斗": { "element": "Geo", "roles": ["MainDps"], "tier": "S", "note": "第1/2幕共识" },
+    "班尼特": { "element": "Pyro", "roles": ["Buffer", "Healer"], "tier": "S", "note": "第6幕共识；非本期元素但可入队" },
+    "香菱": { "element": "Pyro", "roles": ["Buffer"], "tier": "A", "note": "后台火" }
+  },
+  "substitutionRules": [
+    { "role": "HydroApplier", "prefer": ["行秋", "夜兰", "心海", "莫娜", "芭芭拉", "爱诺"], "why": "同为后台持续挂水；有治疗需求优先心海/芭芭拉" },
+    { "role": "ElectroApplier", "prefer": ["菲谢尔", "八重神子", "雷电将军", "赛诺"], "why": "同为雷后台/长轴；第3幕要雷推怒气" },
+    { "role": "GeoBreak", "prefer": ["钟离", "卡齐娜", "五郎", "诺艾尔"], "why": "同为岩/钝击破盾；第8幕砸锅" },
+    { "role": "Healer", "prefer": ["心海", "芭芭拉", "班尼特", "诺艾尔"], "why": "第10幕被标记需奶满" },
+    { "role": "Shielder", "prefer": ["钟离", "诺艾尔", "行秋"], "why": "抗打断/生存" },
+    { "role": "Buffer", "prefer": ["班尼特", "五郎", "莫娜", "香菱"], "why": "爆发窗口抬伤" },
+    { "role": "MainDps", "prefer": ["那维莱特", "荒泷一斗", "赛诺", "雷电将军", "爱诺", "夜兰"], "why": "站场主 C；优先本期可用元素" }
+  ],
+  "seasonElements": ["Hydro", "Electro", "Geo"],
+  "caveat": "可替代性基于职能相似度，不等于同强度：需结合你的角色池、等级与耐力。带 aliasOf 的是同一角色的不同叫法，不能当两个角色重复编入。"
+}

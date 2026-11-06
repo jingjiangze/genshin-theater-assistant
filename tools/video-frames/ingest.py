@@ -1,25 +1,20 @@
 #!/usr/bin/env python3
-"""跨平台视频采集（基于成熟轮子，不重复造轮子）。
+"""跨平台视频**文本语料**采集（基于成熟轮子 yt-dlp，不下载视频本体）。
 
-  python tools/video-frames/ingest.py --platform bilibili --query "幻想真境剧诗 月谕 攻略" \
-      --limit 12 --out frames/ingest --max-frames 30
-  python tools/video-frames/ingest.py --platform youtube --query "Genshin Imaginarium Theater guide" \
-      --limit 8 --out frames/ingest --max-frames 30
+  python tools/video-frames/ingest.py --platform bilibili --bvs BV1xx,BV1yy --limit 12 --out frames/ingest
+  python tools/video-frames/ingest.py --platform youtube --query "Genshin Imaginarium Theater guide" --limit 8
 
-依赖（CI 里 pip 装）：yt-dlp、scenedetect、opencv-python-headless、imageio-ffmpeg。
+用户明确：仅需要视频帧做模拟运行与对比，**不需要下载**。
+画面帧由已验证的 hd.mjs（浏览器内 canvas、铺满全片）产出；本脚本只出文本元数据/字幕/章节/评论/弹幕。
+PySceneDetect 从"必须依赖"降级为可选（B站流下载被 HTTP 567 限流，见 docs/VIDEO-TOOLING-AUDIT.md）。
 
-用到的上游能力（见 docs/VIDEO-TOOLING-AUDIT.md）：
-  · yt-dlp：BiliBili / BiliBiliSearch(bilisearch:) / youtube:search(ytsearch:)、
-            --write-info-json 等价物、字幕/自动字幕、章节、评论、弹幕；
-  · PySceneDetect：ContentDetector 按镜头切换给出场景表，取每个场景的代表帧，
-            替代等间隔抽帧（等间隔会大量落在同一界面上，实测真值率 0.1%）。
+依赖（CI 里 pip 装）：仅 yt-dlp。
 
 输出（全部落 out 目录）：
   <video_id>/meta.json              标题/描述/章节/时长/平台/来源 URL
-  <video_id>/scene-*.jpg            每个镜头的代表帧（最多 max-frames 张）
-  <video_id>/subs.txt               字幕/评论/简介的纯文本（带时间戳）
+  <video_id>/subs.txt               字幕/评论/简介的纯文本（带通道标记）
   <video_id>-ops.json               操作候选，**格式与 --extract-ops 一致**，
-                                    可直接喂给 TheaterAssistant.exe --consensus
+                                    可直接喂给 TheaterAssistant.exe --consensus / --compare-ops
   ingest-summary.json              本批统计
 
 安全边界：cookie 只从环境变量读，写入 out 下的临时 Netscape 文件，
@@ -35,21 +30,10 @@ import sys
 import time
 from pathlib import Path
 
-# ---------------- 可选依赖（缺失时给明确报错，不静默降级） ----------------
 try:
     import yt_dlp
 except ImportError:
     sys.exit("缺少 yt-dlp：pip install yt-dlp")
-
-try:
-    from scenedetect import detect, ContentDetector
-except ImportError:
-    sys.exit("缺少 scenedetect：pip install scenedetect")
-
-try:
-    import cv2
-except ImportError:
-    sys.exit("缺少 opencv-python-headless：pip install opencv-python-headless")
 
 
 # ---------------- 操作候选分类（与 app/OpsExtract.cs 同口径） ----------------
@@ -211,39 +195,6 @@ def read_danmaku_text(path: Path) -> list[tuple[str, str]]:
     return out
 
 
-# ---------------- 场景代表帧 ----------------
-def extract_scene_frames(video: Path, frames_dir: Path, max_frames: int) -> int:
-    """按镜头切换取代表帧。失败返回 0（不抛，保证批次继续）。"""
-    try:
-        scenes = detect(str(video), ContentDetector(threshold=27.0))
-    except Exception as e:
-        print(f"  [warn] 场景检测失败: {e}", file=sys.stderr)
-        return 0
-    if not scenes:
-        return 0
-
-    # 场景太多时均匀抽样，保证覆盖全片而不是只取前 N 个镜头
-    if len(scenes) > max_frames:
-        idx = [round(i * (len(scenes) - 1) / (max_frames - 1)) for i in range(max_frames)]
-        scenes = [scenes[i] for i in sorted(set(idx))]
-
-    cap = cv2.VideoCapture(str(video))
-    if not cap.isOpened():
-        return 0
-    written = 0
-    for i, (start, end) in enumerate(scenes, 1):
-        mid = (start.get_seconds() + end.get_seconds()) / 2.0
-        cap.set(cv2.CAP_PROP_POS_MSEC, mid * 1000.0)
-        ok, frame = cap.read()
-        if not ok:
-            continue
-        p = frames_dir / f"scene-{i:03d}-{int(mid)}s.jpg"
-        if cv2.imwrite(str(p), frame, [int(cv2.IMWRITE_JPEG_QUALITY), 88]):
-            written += 1
-    cap.release()
-    return written
-
-
 # ---------------- 主流程 ----------------
 def main() -> int:
     ap = argparse.ArgumentParser()
@@ -253,9 +204,7 @@ def main() -> int:
     ap.add_argument("--bvs", default="", help="B站 BV 号列表（来自 search.mjs；避开 bilisearch 的 412 风控）")
     ap.add_argument("--limit", type=int, default=12)
     ap.add_argument("--out", default="frames/ingest")
-    ap.add_argument("--max-frames", type=int, default=30, help="每个视频最多场景帧")
-    ap.add_argument("--download", action="store_true", help="下载最低可用流用于镜头检测（默认关，只取文本语料）")
-    ap.add_argument("--ffmpeg", default="", help="ffmpeg 可执行文件路径（DASH 合并用）")
+    # 不提供下载：本项目只需帧与文本元数据，画面帧由 hd.mjs 产出
     args = ap.parse_args()
 
     out = Path(args.out).resolve()
@@ -289,8 +238,6 @@ def main() -> int:
     }
     if cookie_path:
         ydl_base["cookiefile"] = str(cookie_path)
-    if args.ffmpeg:
-        ydl_base["ffmpeg_location"] = args.ffmpeg
 
     summary = {
         "platform": args.platform, "query": args.query, "requested": args.limit,
@@ -427,37 +374,13 @@ def main() -> int:
                     "bvid": vid, "frames": 0, "candidates": len(ops), "ops": ops,
                 }, ensure_ascii=False, indent=1), encoding="utf-8")
 
-            # 5) 镜头代表帧（可选；需要 ffmpeg 合并 DASH）
+            # 5) 不下载视频本体：用户明确「仅需要视频帧来做模拟运行与对比，不需要下载」。
+            # 画面帧由已验证的 hd.mjs（浏览器内 canvas，铺满全片）产出；本脚本只出文本元数据。
             rec["scene_frames"] = 0
-            if args.download:
-                dl = dict(ydl_base)
-                dl.update({
-                    "extract_flat": False, "skip_download": False,
-                    # B站是 DASH 分离流，没有 "worst[ext=mp4]" 这种单一 mp4 格式
-                    # （CI run 42171823718 实测 `Requested format is not available`）；
-                    # 用 worstvideo+worstaudio 让 ffmpeg 合并，容器统一 mp4。
-                    "format": "worstvideo+worstaudio/worst[vcodec!=none]/worst",
-                    "merge_output_format": "mp4",
-                    "outtmpl": str(vdir / "video.%(ext)s"),
-                    "writesubtitles": False, "writeautomaticsub": False, "getcomments": False,
-                })
-                try:
-                    with yt_dlp.YoutubeDL(dl) as ydl:
-                        dinfo = ydl.extract_info(url, download=True)
-                    vf = vdir / "video.mp4"
-                    if not vf.exists():
-                        cands = sorted(vdir.glob("video*.mp4"))
-                        vf = cands[0] if cands else vf
-                    if vf.exists():
-                        rec["scene_frames"] = extract_scene_frames(vf, vdir, args.max_frames)
-                        vf.unlink(missing_ok=True)     # 不把视频本体放进 artifact
-                except Exception as ex:
-                    print(f"[warn] {vid} 下载/抽帧失败: {type(ex).__name__}", file=sys.stderr)
-
             rec["text_lines"] = len(texts)
             rec["ops_candidates"] = len(ops)
             summary["videos"].append(rec)
-            print(f"[ok] {vid}: 文本 {len(texts)} 行 / 候选 {len(ops)} 条 / 场景帧 {rec['scene_frames']}", file=sys.stderr)
+            print(f"[ok] {vid}: 文本 {len(texts)} 行 / 候选 {len(ops)} 条（未下载视频）", file=sys.stderr)
             time.sleep(1)   # 不在短时间内连续打接口
 
         (out / "ingest-summary.json").write_text(

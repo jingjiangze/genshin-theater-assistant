@@ -312,6 +312,20 @@ internal static class SelfTest
         Check("手法·社区共识已入库", rAll.Any(l => l.Contains("主 C 与辅助留给")) && rAll.Any(l => l.Contains("从左到右")),
             $"通用 {rAll.Count} 步，含跨视频共识");
 
+        // 角色可替代性：别称归一 + 同职能替代 + 视频原操作解析
+        OpCompare.Load(AppPaths.Data("substitutes.json"));
+        Check("替代·别称归一", OpCompare.Loaded && OpCompare.Canonical("皇女") == "菲谢尔" && OpCompare.Canonical("一斗") == "荒泷一斗",
+            "皇女→菲谢尔，一斗→荒泷一斗");
+        var subs = OpCompare.SubstitutesFor("行秋");
+        Check("替代·同职能排序", subs.Count >= 3 && subs.Any(s => s.Name == "夜兰") && subs.Any(s => s.Name == "心海"),
+            string.Join("、", subs.Take(5).Select(s => s.Name)));
+        var teams = OpCompare.ParseActualTeams(
+            "[description|] 第1幕：一斗+爱诺+五郎+挂件\n[description|] 需要选出角色：5幕诺艾尔、7幕行秋+皇女\n[description|] 第2幕：一斗+夜兰+2挂件");
+        Check("对比·原操作解析",
+            teams.ContainsKey(1) && teams[1].Contains("荒泷一斗") && teams[1].Contains("爱诺")
+            && teams.ContainsKey(7) && teams[7].Contains("行秋") && teams[7].Contains("菲谢尔"),
+            string.Join(" | ", teams.OrderBy(k => k.Key).Select(k => $"{k.Key}:{string.Join(",", k.Value)}")));
+
         // 本地日志解析（纯函数）：只认 avatarId/level，其余字段丢弃
         var log = "{\"avatarId\":10000060,\"level\":90} {\"avatarId\":10000046,\"level\":80} junk {\"avatarId\":10000060,\"level\":90}";
         var parsed = LogScan.ParseCharacters(log);

@@ -115,6 +115,17 @@ internal static class Program
                     if (args.Length >= 2) return RosterScan.Run(args[1], Opt(args, "--out"));
                     break;
 
+                // 角色可替代性 / 模拟运行对比视频原操作
+                case "--substitutes":
+                    {
+                        var nm = args.Length >= 2 && !args[1].StartsWith("--", StringComparison.Ordinal) ? args[1] : null;
+                        int? sa = null; if (int.TryParse(Opt(args, "--act"), out var sn2)) sa = sn2;
+                        return OpCompare.RunSubstitutes(nm, sa);
+                    }
+                case "--compare-ops":
+                    if (args.Length >= 2) return OpCompare.RunCompare(args[1], Opt(args, "--out"));
+                    break;
+
                 // 跨视频操作共识：--consensus frames\ --out OPS-CONSENSUS.md
                 case "--consensus":
                     {

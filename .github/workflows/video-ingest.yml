@@ -24,14 +24,6 @@ on:
         description: '最多几个视频'
         required: false
         default: '12'
-      max-frames:
-        description: '每个视频最多场景帧'
-        required: false
-        default: '30'
-      download:
-        description: 'true=下载流并按镜头抽帧（更慢）'
-        required: false
-        default: 'false'
   schedule:
     - cron: '0 6 * * *'   # 每天 06:00 UTC，只做文本语料（不下载视频）
 
@@ -50,10 +42,9 @@ jobs:
       - name: 装成熟轮子（不自己造）
         run: |
           python -m pip install --upgrade pip
-          python -m pip install yt-dlp scenedetect opencv-python-headless imageio-ffmpeg
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          # 只取文本元数据/字幕/章节/评论，不下载视频本体（用户明确不需要）
+          python -m pip install yt-dlp
           yt-dlp --version
-          python -c "import scenedetect, cv2; print('scenedetect/OpenCV OK')"
 
       - name: B站搜索（Playwright DOM，避开 412 风控）
         if: ${{ (github.event.inputs.platform || 'bilibili') == 'bilibili' }}
@@ -92,17 +83,11 @@ jobs:
           QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
           URLS="${{ github.event.inputs.urls || '' }}"
           LIMIT="${{ github.event.inputs.limit || '12' }}"
-          MAXF="${{ github.event.inputs.max-frames || '30' }}"
-          DL="${{ github.event.inputs.download || 'false' }}"
-          ARGS=(--platform "$PLATFORM" --query "$QUERY" --limit "$LIMIT" --out frames/ingest --max-frames "$MAXF")
+          ARGS=(--platform "$PLATFORM" --query "$QUERY" --limit "$LIMIT" --out frames/ingest)
           if [ "$PLATFORM" = "bilibili" ] && [ -f bili-bvs.txt ]; then
             ARGS+=(--bvs "$(cat bili-bvs.txt)")
           fi
           if [ -n "$URLS" ]; then ARGS+=(--urls "$URLS"); fi
-          if [ "$DL" = "true" ]; then ARGS+=(--download); fi
-          # imageio-ffmpeg 自带二进制，避免 B站 DASH 合并时找不到 ffmpeg
-          FFBIN="$(python -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')"
-          ARGS+=(--ffmpeg "$FFBIN")
           python tools/video-frames/ingest.py "${ARGS[@]}"
           echo "### 采集结果" >> "$GITHUB_STEP_SUMMARY"
           if [ -f frames/ingest/ingest-summary.json ]; then
