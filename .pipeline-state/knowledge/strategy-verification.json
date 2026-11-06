@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "evaluation_id": "eval-strategy-holdout-v1",
-  "created_at": "2026-11-06T10:56:23.470956+00:00",
+  "created_at": "2026-11-06T12:59:04.850526+00:00",
   "holdout_samples": 22,
   "min_holdout_samples": 20,
   "baseline_rate": 0.5,
