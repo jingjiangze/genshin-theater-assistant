@@ -70,15 +70,15 @@ class PersistBatchTests(unittest.TestCase):
                 self.root, "ingest", "104", "1", "sha", "video-ingest"
             )
 
-    def test_independent_eval_status_requires_external_label_report(self):
+    def test_external_eval_status_requires_external_label_report(self):
         self.write("external-eval.json", json.dumps({
-            "independently_evaluated_videos": 1,
+            "externally_evaluated_videos": 1,
             "promotion_eligible": False
         }))
         manifest, _ = persist_batch.build_manifest(
             self.root, "evaluation", "105", "1", "sha", "video-eval"
         )
-        self.assertEqual(manifest["status"], "EVALUATED_INDEPENDENT")
+        self.assertEqual(manifest["status"], "EVALUATED_EXTERNAL")
         self.assertFalse(manifest["promotion"]["eligible"])
 
     def test_knowledge_context_is_versioned_and_seasons_do_not_merge(self):
@@ -160,7 +160,7 @@ class PersistBatchTests(unittest.TestCase):
             }]
         }), encoding="utf-8")
         report = build_external_eval.evaluate(replay, ingest, tolerance=2.5, min_labels=1)
-        self.assertEqual(report["status"], "EVALUATED_INDEPENDENT")
+        self.assertEqual(report["status"], "EVALUATED_EXTERNAL")
         self.assertEqual(report["label_count"], 1)
         self.assertEqual(report["samples"][0]["truth_act"], 3)
         self.assertTrue(report["samples"][0]["match"])
