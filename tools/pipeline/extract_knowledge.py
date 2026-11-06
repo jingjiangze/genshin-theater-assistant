@@ -286,10 +286,19 @@ def main() -> int:
             for candidate in existing.get("candidates", [])
             if isinstance(candidate, dict)
         )
-        if not new_evidence and not needs_migration and registry.exists():
+        # 算法版本：抽取/合并逻辑变化时必须用**全部历史证据**重算，不能只合并增量，
+        # 否则旧 registry 永远保留旧结论（实测改了 season/version 继承后仍报 no new evidence）。
+        import hashlib
+        extractor_hash = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16]
+        algorithm_changed = existing.get("extractor_hash") != extractor_hash
+        if algorithm_changed:
+            print(f"extractor changed -> full recompute ({existing.get('extractor_hash')} -> {extractor_hash})")
+            new_evidence = evidence
+        if not new_evidence and not needs_migration and registry.exists() and not algorithm_changed:
             print(f"no new evidence; candidates={existing.get('candidate_count', 0)}")
             return 0
-        result = merge_candidates(new_evidence, existing)
+        result = merge_candidates(new_evidence, existing if not algorithm_changed else None)
+        result["extractor_hash"] = extractor_hash
         serialized = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
         if registry.exists() and read_text(registry) == serialized:
             print(f"no registry change; candidates={result['candidate_count']}")

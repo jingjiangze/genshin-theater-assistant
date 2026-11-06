@@ -83,11 +83,12 @@ class PersistBatchTests(unittest.TestCase):
         self.assertFalse(manifest["promotion"]["eligible"])
 
     def test_knowledge_context_is_versioned_and_seasons_do_not_merge(self):
-        season, version = extract_knowledge.extract_context({
+        season, version, inferred = extract_knowledge.extract_context({
             "title": "第29期 幻想真境剧诗 7.1全程攻略"
         })
         self.assertEqual(season, 29)
         self.assertEqual(version, "7.1")
+        self.assertFalse(inferred)
         evidence = [
             {"evidence_id": "s29", "kind": "action", "text": "先击败钓客", "act": 6,
              "season": 29, "version": "7.1", "video_id": "BV29a", "creator_id": "bilibili:A"},
