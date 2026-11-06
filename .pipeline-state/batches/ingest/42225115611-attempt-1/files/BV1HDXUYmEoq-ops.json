@@ -1,0 +1,229 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-06 13:26:28",
+ "bvid": "BV1HDXUYmEoq",
+ "frames": 0,
+ "candidates": 22,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "BUFF：开场先刷2挂件，然后感电BUFF选左。最后冻结BUFF选右。",
+   "act": 0,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "buy",
+   "text": "需要选出角色：8幕克洛琳德+行秋、9幕皇女+雷主",
+   "act": 0,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "枫丹轮子机关&gt;风役人(先打雷锤)&gt;霜役人(先打水胖)&gt;枫丹紫球",
+   "act": 0,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 皇女",
+   "act": 9,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 雷主",
+   "act": 9,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 优菈",
+   "act": 1,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 莱依拉",
+   "act": 1,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 欧洛伦",
+   "act": 2,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 优菈",
+   "act": 3,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 雷神",
+   "act": 3,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 芭芭拉",
+   "act": 5,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 神里绫人",
+   "act": 6,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 雷神",
+   "act": 6,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 欧洛伦",
+   "act": 7,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 芭芭拉",
+   "act": 7,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 克洛琳德",
+   "act": 8,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 行秋",
+   "act": 8,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 莱依拉",
+   "act": 8,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 神里绫人",
+   "act": 9,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 克洛琳德",
+   "act": 10,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 行秋",
+   "act": 10,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 皇女",
+   "act": 10,
+   "source": "bilibili:BV1HDXUYmEoq",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}

@@ -1,0 +1,179 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-06 13:27:02",
+ "bvid": "BV1B16XYWEBv",
+ "frames": 0,
+ "candidates": 17,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "BUFF：开场先刷2挂件，然后融化BUFF选左，最后火岩BUFF选右",
+   "act": 0,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 迪卢克",
+   "act": 1,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 凯亚",
+   "act": 1,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 迪卢克",
+   "act": 2,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 凯亚",
+   "act": 2,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 娜维娅",
+   "act": 3,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 诺艾尔",
+   "act": 3,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第4幕 推荐 弓箭打遗迹",
+   "act": 4,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 甘雨",
+   "act": 5,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 甘雨",
+   "act": 6,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 香菱",
+   "act": 6,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 娜维娅",
+   "act": 7,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 仆人",
+   "act": 8,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 香菱",
+   "act": 9,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 班尼特",
+   "act": 9,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 仆人",
+   "act": 10,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 班尼特",
+   "act": 10,
+   "source": "bilibili:BV1B16XYWEBv",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-06 13:27:32",
+ "bvid": "BV1kMtn6vEUG",
+ "frames": 0,
+ "candidates": 1,
+ "ops": [
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 结语",
+   "act": 10,
+   "source": "bilibili:BV1kMtn6vEUG",
+   "channel": "chapter",
+   "status": "CANDIDATE",
+   "creator_id": "452240436",
+   "creator_name": "我叫呆唯WAW"
+  }
+ ]
+}

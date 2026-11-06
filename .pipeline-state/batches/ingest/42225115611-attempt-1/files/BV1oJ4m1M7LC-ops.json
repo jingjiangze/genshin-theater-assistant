@@ -1,0 +1,19 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-06 13:26:15",
+ "bvid": "BV1oJ4m1M7LC",
+ "frames": 0,
+ "candidates": 1,
+ "ops": [
+  {
+   "kind": "combo",
+   "text": "第二首 Nightcore-Best of My Love",
+   "act": 0,
+   "source": "bilibili:BV1oJ4m1M7LC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "9838546",
+   "creator_name": "泪眼执笔墨成花"
+  }
+ ]
+}
