@@ -1,0 +1,30 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:23:55",
+  "bvid": "BV1WstM6KE9k",
+  "frames": 12,
+  "candidates": 3,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "感电祝福已升级，请选择一个分支",
+      "act": 0,
+      "source": "BV1WstM6KE9k@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "第三幕我们继续点感电然后留一次买角色的钱",
+      "act": 0,
+      "source": "BV1WstM6KE9k@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "手上有水C的选火法师",
+      "act": 0,
+      "source": "BV1WstM6KE9k@s",
+      "needsReview": true
+    }
+  ]
+}

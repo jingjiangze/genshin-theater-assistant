@@ -1,0 +1,51 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:28:02",
+  "bvid": "BV1ZY326xEhh",
+  "frames": 12,
+  "candidates": 6,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "开局刷1或2级感电+1挂件，没有就重开",
+      "act": 0,
+      "source": "BV1ZY326xEhh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "神秘事件只选稳赚的",
+      "act": 0,
+      "source": "BV1ZY326xEhh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "人少选挂件，人多选感电/冻结",
+      "act": 0,
+      "source": "BV1ZY326xEhh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "水系挂件，人多选感电/冻结",
+      "act": 0,
+      "source": "BV1ZY326xEhh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "有C就选，没有就挂件",
+      "act": 0,
+      "source": "BV1ZY326xEhh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "人少选挂件，人多选感电/超导",
+      "act": 0,
+      "source": "BV1ZY326xEhh@s",
+      "needsReview": true
+    }
+  ]
+}

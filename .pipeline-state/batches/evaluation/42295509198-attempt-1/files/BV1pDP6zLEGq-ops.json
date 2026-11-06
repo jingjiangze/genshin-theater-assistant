@@ -1,0 +1,86 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:24:53",
+  "bvid": "BV1pDP6zLEGq",
+  "frames": 12,
+  "candidates": 11,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "出战选取&借角色",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "buff参考：雷风2右4右，超导2右4左，冰风2左4左，选强的",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "冰风祝福已升级，请选择一个分支",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "bilib出战优先级左高右低，默认0命（有特邀必选）",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "出战选取&借角色难点解析(必看)1 23456 78 9 圣牌1+210",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "秒选：单手无脑操作，只需要奶妈/盾，通杀所有关卡(6命）",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "平替：基本不需要操作，部分关卡需要工具人队友(6+1)",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "候补：也非常好用，但需要队友和一点操作（6+1)",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局高抗，通过火或雷让进度圈归零来进机制（不用火雷它自己也会掉，",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "%，通过聚怪杀掉小曼陀草破机制，需要杀8只以上，有时间限制，杀不",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "总共只需要自己准备2个强力中友传1企就行",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "needsReview": true
+    }
+  ]
+}

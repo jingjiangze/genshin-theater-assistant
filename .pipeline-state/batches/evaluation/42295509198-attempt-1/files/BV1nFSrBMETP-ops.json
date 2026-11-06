@@ -1,0 +1,16 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:30:49",
+  "bvid": "BV1nFSrBMETP",
+  "frames": 11,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "第三幕选火风",
+      "act": 0,
+      "source": "BV1nFSrBMETP@s",
+      "needsReview": true
+    }
+  ]
+}

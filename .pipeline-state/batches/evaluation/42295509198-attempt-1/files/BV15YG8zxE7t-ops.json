@@ -1,0 +1,16 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:26:52",
+  "bvid": "BV15YG8zxE7t",
+  "frames": 11,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "开局先破盾，怪物有冰附着时，岩元素破盾效率会变高",
+      "act": 0,
+      "source": "BV15YG8zxE7t@s",
+      "needsReview": true
+    }
+  ]
+}

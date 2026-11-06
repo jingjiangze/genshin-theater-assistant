@@ -1,0 +1,65 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:27:12",
+  "bvid": "BV1o142117Z1",
+  "frames": 11,
+  "candidates": 8,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "在梯度表中任选9个即可",
+      "act": 0,
+      "source": "BV1o142117Z1@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "优先选择TO角色",
+      "act": 0,
+      "source": "BV1o142117Z1@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "T1角色 (按需选择)",
+      "act": 0,
+      "source": "BV1o142117Z1@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "则是需要触发雷元素的相关反应",
+      "act": 0,
+      "source": "BV1o142117Z1@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "在梯度表中任选9个",
+      "act": 0,
+      "source": "BV1o142117Z1@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "除开幕角色外，还可以选择多个待命角色",
+      "act": 0,
+      "source": "BV1o142117Z1@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选择伙伴事件，成为可出战角色",
+      "act": 0,
+      "source": "BV1o142117Z1@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "旅行者可以从以下三类角色中，选出待命角色:",
+      "act": 0,
+      "source": "BV1o142117Z1@s",
+      "needsReview": true
+    }
+  ]
+}

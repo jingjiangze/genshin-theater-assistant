@@ -1,0 +1,16 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:24:40",
+  "bvid": "BV1M1TB6rEND",
+  "frames": 12,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "4级超导可以选出赛诺+甘雨+2挂件",
+      "act": 0,
+      "source": "BV1M1TB6rEND@s",
+      "needsReview": true
+    }
+  ]
+}

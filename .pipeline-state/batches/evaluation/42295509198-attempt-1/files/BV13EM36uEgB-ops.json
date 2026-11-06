@@ -1,0 +1,23 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:25:42",
+  "bvid": "BV13EM36uEgB",
+  "frames": 11,
+  "candidates": 2,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "从随机的3名待命角色中，选择1名转变为可出战色",
+      "act": 0,
+      "source": "BV13EM36uEgB@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "从随机的3名冰元素待命色中，选择1名转变为可出战色",
+      "act": 0,
+      "source": "BV13EM36uEgB@s",
+      "needsReview": true
+    }
+  ]
+}

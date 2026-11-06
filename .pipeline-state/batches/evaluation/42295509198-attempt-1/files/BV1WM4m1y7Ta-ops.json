@@ -1,0 +1,16 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:27:01",
+  "bvid": "BV1WM4m1y7Ta",
+  "frames": 11,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "接下来需要一点操作",
+      "act": 0,
+      "source": "BV1WM4m1y7Ta@s",
+      "needsReview": true
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+﻿{
+  "frames": 4,
+  "jumps": [],
+  "flips": [],
+  "steps": [
+    {
+      "Frame": "BV1VD421V724-0s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 2,
+      "Ms": 3954
+    },
+    {
+      "Frame": "BV1VD421V724-20s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "沖会有戴因出现\r 兄妹贝面情",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 3,
+      "Ms": 4008
+    },
+    {
+      "Frame": "BV1VD421V724-40s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "安固诺方之述演K",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 6,
+      "Ms": 3884
+    },
+    {
+      "Frame": "BV1VD421V724-60s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "坚溃物白定以方客推荐屋性功",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 8,
+      "Ms": 4067
+    }
+  ]
+}

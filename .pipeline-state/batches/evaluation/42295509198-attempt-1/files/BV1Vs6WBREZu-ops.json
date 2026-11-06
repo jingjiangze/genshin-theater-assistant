@@ -1,0 +1,16 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 22:25:32",
+  "bvid": "BV1Vs6WBREZu",
+  "frames": 12,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "这边第10幕需要在前面找到岩系或大剑",
+      "act": 10,
+      "source": "BV1Vs6WBREZu@s",
+      "needsReview": true
+    }
+  ]
+}
