@@ -148,6 +148,27 @@ class PersistBatchTests(unittest.TestCase):
         self.assertEqual(candidate["evidence"][0]["observed_batches"], ["run-1", "run-2"])
         self.assertEqual(candidate["evidence"][0]["source_refs"], ["BV-same@10s", "BV-same@15s"])
 
+    def test_registry_migration_collapses_old_duplicate_batches_and_keeps_source_refs(self):
+        evidence = {
+            "platform": "bilibili", "video_id": "BV-migrate", "channel": "subtitle",
+            "kind": "action", "text": "先击败钓客", "creator_id": "bilibili:creator-A",
+        }
+        existing = {"candidates": [{
+            "candidate_id": "legacy", "kind": "action", "text": "先击败钓客", "act": 6,
+            "season": 29, "version_range": {"min": "7.1", "max": "7.1"},
+            "status": "CANDIDATE", "evidence_ids": ["old-1", "old-2"],
+            "evidence": [
+                dict(evidence, evidence_id="old-1", batch_id="run-1", source="BV-migrate@10s"),
+                dict(evidence, evidence_id="old-2", batch_id="run-2", source="BV-migrate@15s"),
+            ]
+        }]}
+        result = extract_knowledge.merge_candidates([], existing)
+        candidate = result["candidates"][0]
+        self.assertEqual(len(candidate["evidence_ids"]), 1)
+        self.assertEqual(candidate["unique_video_count"], 1)
+        self.assertEqual(candidate["evidence"][0]["observed_batches"], ["run-1", "run-2"])
+        self.assertEqual(candidate["evidence"][0]["source_refs"], ["BV-migrate@10s", "BV-migrate@15s"])
+
     def test_one_creator_many_videos_stays_candidate(self):
         evidence = [
             {"evidence_id": f"e{i}", "kind": "action", "text": "先击败钓客", "act": 6,
