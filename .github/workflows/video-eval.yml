@@ -156,7 +156,7 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|"
           foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
 
-      - name: 独立评测（字幕与章节双来源一致才计入）
+      - name: 外部文本评测（字幕与章节双通道一致才计入）
         shell: pwsh
         run: |
           python tools/pipeline/build_external_eval.py --replay-dir frames --ingest-dir frames/ingest --out frames/external-eval.json --min-labels 10
