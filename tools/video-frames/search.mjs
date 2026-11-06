@@ -11,6 +11,10 @@ const rawCookie = process.env.BILI_COOKIE || '';
 const keyword = process.argv[2] || '幻想真境剧诗 全程';
 const want = parseInt(process.argv[3] || '8', 10);
 const maxPages = parseInt(process.argv[4] || '6', 10);
+// 第 5 个参数：额外关键词，用 | 分隔。按播放量排序时前页常被同一 UP 主占满，
+// 换关键词才能拿到真正独立的作者（实测单一关键词前 8 全是 mid=431073645）。
+const extraKeywords = (process.argv[5] || '').split('|').map(s => s.trim()).filter(Boolean);
+const queries = [keyword, ...extraKeywords];
 
 const cookies = rawCookie.split(';').map(s => s.trim()).filter(Boolean).map(kv => {
   const i = kv.indexOf('=');
@@ -24,21 +28,65 @@ const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, l
 if (cookies.length) await ctx.addCookies(cookies);
 const page = await ctx.newPage();
 
-const all = [];
+// 搜索页 DOM 与内嵌状态常拿不到 UP 主 mid；拦截官方搜索接口响应建立 bvid->mid 映射。
+// 这是公开搜索页自身发出的请求，不新增任何私有接口调用。
+const apiAuthors = new Map();
+page.on('response', async (resp) => {
+  const u = resp.url();
+  if (!/api\.bilibili\.com\/x\/web-interface\/(wbi\/)?search\/type/.test(u)) return;
+  try {
+    const j = await resp.json();
+    const rows = j?.data?.result || [];
+    for (const r of rows) {
+      const bv = r.bvid || r.bv;
+      const mid = r.mid ?? r.author?.mid ?? r.owner?.mid;
+      if (bv && mid !== undefined) apiAuthors.set(String(bv), {
+        id: String(mid), name: String(r.author || r.uname || ''),
+      });
+    }
+  } catch {}
+});
+
+const all = [];              // 已知作者（author_id 或 author 名）的条目
+const fallback = [];         // 作者未知、只能按 BV 去重的条目
 const seen = new Set();
+const seenAuthors = new Set();
 let emptyPages = 0;
 
-for (let p = 1; p <= maxPages && all.length < want; p++) {
-  const url = `https://search.bilibili.com/video?keyword=${encodeURIComponent(keyword)}&order=click&page=${p}`;
+for (const q of queries) {
+  if (all.length >= want) break;
+  for (let p = 1; p <= maxPages && all.length < want; p++) {
+  const url = `https://search.bilibili.com/video?keyword=${encodeURIComponent(q)}&order=click&page=${p}`;
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForTimeout(3500);
   } catch (e) {
-    console.error(`page ${p} goto 失败: ${e.message}`);
+    console.error(`[${q}] page ${p} goto 失败: ${e.message}`);
     break;
   }
 
-  const items = await page.evaluate(() => {
+  const items = await page.evaluate((authorRows) => {
+    const apiAuthors = new Map(authorRows);
+    // 先从页面内嵌状态里建立 BV -> mid 映射（B站搜索页是 SPA，DOM 里的作者名常为空）。
+    const byAuthor = new Map();
+    const collect = (obj, depth) => {
+      if (!obj || typeof obj !== 'object' || depth > 8) return;
+      if (Array.isArray(obj)) { for (const x of obj) collect(x, depth + 1); return; }
+      const bv = obj.bvid || obj.bv_id || obj.bv;
+      const mid = obj.mid ?? obj.owner?.mid ?? obj.author?.mid ?? obj.upper?.mid;
+      const name = obj.author || obj.owner?.name || obj.upper?.name || obj.uname;
+      if (typeof bv === 'string' && /^BV[0-9A-Za-z]+$/.test(bv) && mid !== undefined)
+        byAuthor.set(bv, { id: String(mid), name: String(name || '') });
+      for (const v of Object.values(obj)) collect(v, depth + 1);
+    };
+    for (const key of ['__INITIAL_STATE__', '__NEXT_DATA__', '__NUXT__']) {
+      if (window[key]) collect(window[key], 0);
+    }
+    // 兜底：有些版本把数据放在 script[type=application/json] 里
+    document.querySelectorAll('script[type="application/json"]').forEach(s => {
+      try { collect(JSON.parse(s.textContent || 'null'), 0); } catch {}
+    });
+
     const out = [];
     document.querySelectorAll('a[href*="/video/BV"]').forEach(a => {
       const m = /\/video\/(BV[0-9A-Za-z]+)/.exec(a.getAttribute('href') || '');
@@ -49,21 +97,67 @@ for (let p = 1; p <= maxPages && all.length < want; p++) {
         const titEl = box?.querySelector('.bili-video-card__info--tit, h3');
         title = (titEl?.getAttribute('title') || titEl?.innerText || box?.innerText || '').trim().split('\n')[0];
       }
-      out.push({ bv: m[1], title: title.slice(0, 90) });
+      const domNameEl = box?.querySelector('.bili-video-card__info--author, .bili-video-card__info--by, [class*="author"]');
+      const domName = (domNameEl?.innerText || domNameEl?.getAttribute('title') || '').trim().slice(0, 60);
+      const state = byAuthor.get(m[1]) || apiAuthors.get(m[1]);
+      out.push({
+        bv: m[1], title: title.slice(0, 90),
+        author: (state?.name || domName || ''),
+        author_id: state?.id || '',
+      });
     });
     return out;
-  });
+  }, [...apiAuthors.entries()]);
 
   let added = 0;
   for (const it of items) {
     if (seen.has(it.bv)) continue;
+    // 独立作者优先：只有拿到稳定作者键（mid / 作者名）才计入达标；
+    // 作者未知的条目先放 fallback，绝不因为「BV 不同」就冒充独立作者。
+    const authorKey = it.author_id || it.author || '';
+    if (!authorKey) {
+      // 记录来源关键词，最终按关键词轮转取，避免全被第一个查询的前几条占满
+      if (!seen.has(it.bv)) { seen.add(it.bv); fallback.push({ ...it, query: q }); added++; }
+      continue;
+    }
+    if (seenAuthors.has(authorKey) || seen.has(it.bv)) continue;
     seen.add(it.bv);
+    seenAuthors.add(authorKey);
     all.push(it);
     added++;
+    if (all.length >= want) break;
   }
-  console.error(`page ${p}: 抓到 ${items.length} 条，新增 ${added}，累计 ${all.length}/${want}`);
+  console.error(`[${q}] page ${p}: 抓到 ${items.length} 条，新增 ${added}，已知作者条目 ${all.length}/${want}，独立作者 ${seenAuthors.size}，待补 ${fallback.length}`);
   if (added === 0) { emptyPages++; if (emptyPages >= 2) break; } else emptyPages = 0;
+  }
 }
 
-console.log(JSON.stringify({ keyword, pages: maxPages, count: all.length, items: all.slice(0, want) }, null, 2));
+// 已知作者不足时按「关键词轮转」从未知作者条目补足：
+// 同一关键词按播放量排序常被一个 UP 主占满，轮转能采到不同作者（真实 mid 由 yt-dlp 阶段写）。
+const chosen = all.slice(0, want);
+const byQuery = new Map();
+for (const it of fallback) {
+  const k = it.query || keyword;
+  if (!byQuery.has(k)) byQuery.set(k, []);
+  byQuery.get(k).push(it);
+}
+const queues = [...byQuery.values()];
+let round = 0;
+while (chosen.length < want && queues.some(q => q.length > 0)) {
+  for (const q of queues) {
+    if (chosen.length >= want) break;
+    const it = q.shift();
+    if (!it || chosen.some(x => x.bv === it.bv)) continue;
+    chosen.push({ ...it, creator_unknown: true });
+  }
+  round++;
+  if (round > want * 4) break;
+}
+console.log(JSON.stringify({
+  keyword, queries, pages: maxPages,
+  count: chosen.length,
+  independent_creators: seenAuthors.size,
+  creator_unknown_count: chosen.filter(x => x.creator_unknown).length,
+  items: chosen,
+}, null, 2));
 await browser.close();

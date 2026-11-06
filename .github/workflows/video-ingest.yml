@@ -66,14 +66,16 @@ jobs:
         run: |
           set -euo pipefail
           QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
-          # 并行分支曾把 push 触发压到 2 个视频做烟测，导致账本只有 1 个作者、
-          # 证据治理永远无法产出 PROVISIONAL；现放开到 8（手动/定时仍用 12，保留资源预算上限）
+          # 单一关键词按播放量排序会被同一 UP 主占满（实测 8/8 全是 mid=431073645）。
+          # 多关键词轮转采样，让证据治理能拿到真正独立的作者。
+          MORE="幻想真境剧诗 满花 攻略|剧诗 低配 通关 月谕|幻想真境剧诗 7.1 打法"
+          # 并行分支曾把 push 触发压到 2 个视频做烟测；现放开到 8（手动/定时仍用 12）
           LIMIT="${{ github.event_name == 'push' && '8' || github.event.inputs.limit || '12' }}"
           cd tools/video-frames
           npm init -y >/dev/null 2>&1 || true
           npm i playwright-core@1.64.1 --no-audit --no-fund >/dev/null
           node node_modules/playwright-core/cli.js install chromium
-          node search.mjs "$QUERY" "$LIMIT" 6 2>search-progress.log > bili-search.json
+          node search.mjs "$QUERY" "$LIMIT" 3 "$MORE" 2>search-progress.log > bili-search.json
           cat search-progress.log
           python - <<'PY'
           import json, os
