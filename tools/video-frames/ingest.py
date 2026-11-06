@@ -81,8 +81,16 @@ def classify(line: str) -> str | None:
     return None
 
 
+# 注意：Python 的 re 不支持 \p{P}（.NET/PCRE 才有），CI 实测 `re.error: bad escape \p`。
+# 这里用显式标点集合，与 C# 端 Regex.Replace(..., @"[\s\p{P}]") 的口径保持一致。
+PUNCT_RE = re.compile(
+    r"[\s!-/:-@\[-`{-~"
+    u"\u3000-\u303f\uff00-\uffef\u2000-\u206f\u00a1-\u00bf]"
+)
+
+
 def norm_key(text: str) -> str:
-    return re.sub(r"[\s\p{P}]", "", text, flags=re.UNICODE).lower()
+    return PUNCT_RE.sub("", text).lower()
 
 
 # ---------------- cookie：env → 临时 Netscape 文件 → 用完删 ----------------
