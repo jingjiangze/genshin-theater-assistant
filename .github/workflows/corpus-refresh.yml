@@ -11,7 +11,7 @@
 #   keyword : 搜索关键词（默认 幻想真境剧诗 全程）
 #   videos  : 最多取多少个视频（默认 2）
 #   spread  : 每个视频抽几帧（默认 12）
-#   commit  : 是否提交语料（默认 true）
+#   commit  : 是否持久化候选批次到长期账本（默认 true）
 
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ on:
         required: false
         default: ''
       commit:
-        description: '提交语料回 main（true/false）'
+        description: '持久化候选语料到 automation-data（true/false；不写 main）'
         required: false
         default: 'true'
   schedule:
@@ -41,6 +41,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: theater-pipeline-state
+  cancel-in-progress: false
 
 jobs:
   refresh:
@@ -118,8 +122,13 @@ jobs:
         shell: pwsh
         run: |
           chcp 65001 > $null
+          Remove-Item data/guide-corpus-extra.json -Force -ErrorAction SilentlyContinue
           $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--corpus-scan `"$PWD\frames`" --out `"$PWD\data\guide-corpus-extra.json`" --bvid `"$env:BVS`"" -Wait -PassThru
-          if ($p.ExitCode -ne 0) { Write-Host "::warning::corpus-scan 退出码 $($p.ExitCode)（可能没抽到可用文字）" }
+          if ($p.ExitCode -ne 0) { throw "corpus-scan 失败（exit=$($p.ExitCode)），拒绝沿用旧文件" }
+          if (-not (Test-Path data/guide-corpus-extra.json)) { throw "corpus-scan 未生成新语料文件" }
+          $fresh = Get-Content data/guide-corpus-extra.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          if ($null -eq $fresh.entries) { throw "新视频语料缺少 entries 数组" }
+
 
       - name: 生成角色 ID→名字表（公开静态元数据）
         shell: pwsh
@@ -129,7 +138,11 @@ jobs:
       - name: 抓 BWIKI 语料
         shell: pwsh
         run: |
+          Remove-Item data/guide-corpus-wiki.json -Force -ErrorAction SilentlyContinue
           node tools/fetch-wiki-corpus.mjs --out data/guide-corpus-wiki.json --pages "翠翎恐蕈,深黯魇语之主,蕴光月守宫"
+          if (-not (Test-Path data/guide-corpus-wiki.json)) { throw "BWIKI 未生成新语料文件" }
+          $fresh = Get-Content data/guide-corpus-wiki.json -Raw -Encoding UTF8 | ConvertFrom-Json
+          if ($null -eq $fresh.entries) { throw "BWIKI 新语料缺少 entries 数组" }
 
       - name: 回归（自检 + 检索抽查）
         shell: pwsh
@@ -163,13 +176,16 @@ jobs:
             data/guide-corpus-wiki.json
           retention-days: 30
 
-      - name: 提交语料（可选）
-        if: ${{ github.event.inputs.commit != 'false' }}
+      - name: 连接长期数据账本
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.commit != 'false' }}
+        uses: actions/checkout@v4
+        with:
+          ref: automation-data
+          path: .pipeline-state
+          fetch-depth: 0
+
+      - name: 持久化候选语料（不直接发布到 main）
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.commit != 'false' }}
         shell: pwsh
         run: |
-          git config user.name "corpus-bot"
-          git config user.email "corpus-bot@users.noreply.github.com"
-          git add data/guide-corpus-extra.json data/guide-corpus-wiki.json
-          if (git diff --cached --quiet) { Write-Host "语料无变化"; exit 0 }
-          git commit -m "chore(corpus): 定时刷新视频+wiki 语料（CI ${{ github.run_id }}）"
-          git push
+          python tools/pipeline/persist_batch.py --kind corpus --input-dir data --state-dir .pipeline-state
