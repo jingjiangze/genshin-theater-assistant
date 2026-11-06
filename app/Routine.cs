@@ -63,8 +63,8 @@ internal static class Routine
                     Title = p.Value.TryGetProperty("title", out var t) ? t.GetString() ?? "" : "",
                     Source = p.Value.TryGetProperty("source", out var s) ? s.GetString() ?? "" : "",
                 };
-                r.Status = p.Value.TryGetProperty("status", out var st)
-                    ? st.GetString() ?? "CANDIDATE"
+                r.Status = p.Value.TryGetProperty("status", out var statusElement)
+                    ? statusElement.GetString() ?? "CANDIDATE"
                     : r.Source.Contains("inGame", StringComparison.OrdinalIgnoreCase)
                         ? "BASELINE" : "LEGACY_UNVERIFIED";
                 if (p.Value.TryGetProperty("steps", out var steps) && steps.ValueKind == JsonValueKind.Array)
