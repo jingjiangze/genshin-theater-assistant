@@ -5,14 +5,14 @@ using System.Text.RegularExpressions;
 namespace TheaterAssistant;
 
 /// <summary>
-/// 跨视频操作共识：把 N 个 --extract-ops 产物聚合成"多个 UP 主都这么说"的操作，
+/// 跨视频操作候选：把 N 个 --extract-ops 产物聚合成"多个视频重复出现"的候选操作，
 /// 用来产出赛季思路（而不是把单个视频的主观缩写当知识）。
 ///
 ///   TheaterAssistant.exe --consensus frames\ --out docs\experience\OPS-CONSENSUS.md
 ///
 /// 规则：
 ///   · 按文本归一化分组，统计**不同 BV 号**的个数（同一视频重复帧只算 1）；
-///   · ≥2 个视频 → 共识区（高可信）；只有 1 个 → 单例区（combo/action 保留供人工看）；
+///   · ≥2 个视频 → 重复候选区（不等同独立作者证据）；只有 1 个 → 低证据候选区；
 ///   · UI 文案（"可选角色"/"已选开幕与待命角色" 等）一律过滤。
 /// </summary>
 internal static class OpsConsensus
@@ -127,12 +127,12 @@ internal static class OpsConsensus
         Directory.CreateDirectory(Path.GetDirectoryName(outPath) ?? ".");
 
         var md = new StringBuilder();
-        md.AppendLine("# 跨视频操作共识（自动汇总）");
+        md.AppendLine("# 跨视频操作候选（自动汇总）");
         md.AppendLine();
-        md.AppendLine($"> 来自 {files.Count} 个视频的 {all.Count} 条操作候选；按**不同 BV 号**计数，同一视频重复帧只算 1。");
+        md.AppendLine($"> 来自 {files.Count} 个视频的 {all.Count} 条操作候选；按**不同视频 ID**计数，同一视频重复帧只算 1。转载/同作者多视频不增加独立来源权重。");
         md.AppendLine($"> 共识条目（≥2 个视频）：**{consensus.Count}** 条；单例手法/行动：{singles.Count} 条。");
         md.AppendLine();
-        md.AppendLine("## 共识操作（多个 UP 主都这么写，可信度最高）");
+        md.AppendLine("## 跨视频重复候选（仅表示重复出现，不等同已验证知识）");
         md.AppendLine();
         md.AppendLine("| 视频数 | 类别 | 操作 | 出处 |");
         md.AppendLine("|---|---|---|---|");
@@ -141,7 +141,7 @@ internal static class OpsConsensus
         if (consensus.Count == 0) md.AppendLine("| - | - | 无 | - |");
 
         md.AppendLine();
-        md.AppendLine("## 单例手法 / 行动（需人工复核，不直接进生产数据）");
+        md.AppendLine("## 低证据候选（自动隔离，不进入正式决策）");
         md.AppendLine();
         foreach (var r in singles.Take(30)) md.AppendLine($"- [{r.Kind}] {Esc(r.Text)} ← {Esc(r.Sources.FirstOrDefault() ?? "")}");
         if (singles.Count == 0) md.AppendLine("无");
@@ -151,7 +151,7 @@ internal static class OpsConsensus
         md.AppendLine();
         md.AppendLine("- 过滤 UI 文案：`可选角色`、`已选开幕与待命角色`、`请选择一名待命角色…`、`队伍配置` 等；");
         md.AppendLine("- 只有 1 个视频支持、且不是 combo/action 的条目不列出（噪声大）；");
-        md.AppendLine("- 本文件是**候选证据**，要进 `data/rotations.json` 仍需人工确认。");
+        md.AppendLine("- 本文件仅生成候选；只有通过自动来源独立性、版本适用性和固定回归门禁后，才允许自动晋级。");
 
         try
         {
