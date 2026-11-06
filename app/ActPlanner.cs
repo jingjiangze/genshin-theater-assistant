@@ -51,11 +51,12 @@ internal static class ActPlanner
             lines.Add($"| {act.Act} | {act.Encounter} | {act.LocalScore} | -{act.ReusePenalty} | {string.Join("、", act.RecommendedCharacters)} | {act.Reason} |");
         if (plan.Acts.Count == 0) lines.Add("| - | 无可规划遭遇 | - | - | - | 请检查赛季数据与难度 |");
 
-        foreach (var line in lines.Take(12)) Cli.Say(line);
+        foreach (var line in lines) Cli.Say(line);
         if (!string.IsNullOrWhiteSpace(outPath))
         {
             var path = Path.GetFullPath(outPath);
-            Directory.CreateDirectory(Path.GetDirectoryName(path) ?? ".");
+            var directory = Path.GetDirectoryName(path);
+            if (!string.IsNullOrWhiteSpace(directory)) Directory.CreateDirectory(directory);
             File.WriteAllText(path, string.Join(Environment.NewLine, lines), System.Text.Encoding.UTF8);
             Cli.Say("规划报告: " + path);
         }
