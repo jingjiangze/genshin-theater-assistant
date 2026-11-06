@@ -96,7 +96,11 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
         if isinstance(item, dict) and item.get("candidate_id")
     }
     for item in evidence:
-        key = digest("|".join((item["kind"], str(item["act"]), str(item.get("season") or ""), str(item.get("version") or ""), normalize(item["text"]))))
+        context_scope = "" if item.get("season") is not None else str(item.get("video_id") or item.get("batch_id") or item["evidence_id"])
+        key = digest("|".join((
+            item["kind"], str(item["act"]), str(item.get("season") or ""),
+            str(item.get("version") or ""), context_scope, normalize(item["text"])
+        )))
         record = records.get(key)
         if record is None:
             record = {
@@ -126,9 +130,10 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
             continue
         creators = {x["creator_id"] for x in record["evidence"] if x.get("creator_id")}
         record["independent_creator_count"] = len(creators)
-        if len(creators) >= 2 and len(record["evidence_ids"]) >= 3:
+        has_version_context = record.get("season") is not None and record.get("version_range") is not None
+        if has_version_context and len(creators) >= 2 and len(record["evidence_ids"]) >= 3:
             record["status"] = "PROVISIONAL"
-            record["status_reason"] = "at least two stable creator IDs and three evidence records; excluded from decisive runtime use"
+            record["status_reason"] = "season/version context, at least two stable creator IDs and three evidence records; excluded from decisive runtime use"
         else:
             record["status"] = "CANDIDATE"
     return {
