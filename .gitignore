@@ -40,3 +40,14 @@ _verify/
 
 _verify*/
 _lead-verify*/
+
+# --- 凭据硬化（防误提交，2026-11-06）---
+.yt-cookies.txt
+*.cookies
+cookies.txt
+.env
+.env.*
+no_text_videos.txt
+pipeline-export/
+dist/
+_lead-verify/

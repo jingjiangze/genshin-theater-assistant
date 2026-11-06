@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -91,14 +91,17 @@ internal static class QuantRunner
                 var text = string.Join("\n", lines);
 
                 bool actFromTemplate = hits.Any(h => Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
-                string band = actFromTemplate ? null
-                    : ocr.RecognizeRegionAsync(img, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
+                // 对照用途：条带**总是**读，这样模板与条带两条通道能同时存在做交叉验证。
+                // 运行时语义不变：只有模板未命中时才把条带结果交给判定（与线上逻辑一致）。
+                var bandAlways = ocr.RecognizeRegionAsync(img, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3)
+                    .GetAwaiter().GetResult();
+                string band = actFromTemplate ? null : bandAlways;
 
                 // ---------- 事实侧（这一帧客观发生了什么）----------
                 int actFact = 0;
-                if (!string.IsNullOrEmpty(band))
+                if (!string.IsNullOrEmpty(bandAlways))
                 {
-                    var nums = Regex.Matches(band, @"第\s*([0-9]{1,2})\s*幕")
+                    var nums = Regex.Matches(bandAlways, @"第\s*([0-9]{1,2})\s*幕")
                         .Select(m => int.TryParse(m.Groups[1].Value, out var v) ? v : -1)
                         .Where(v => v > 0).Distinct().ToList();
                     if (nums.Count == 1) actFact = nums[0];   // 多个幕次=列表行，不当事实
