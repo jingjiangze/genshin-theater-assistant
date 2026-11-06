@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "batch_id": "42230030270-attempt-1",
+  "kind": "evaluation",
+  "status": "INSUFFICIENT_EXTERNAL_LABELS",
+  "workflow": "video-eval",
+  "run_id": "42230030270",
+  "run_attempt": "1",
+  "source_commit": "52cb81362c2569fa872b66d5441bb87347c717bc",
+  "created_at": "2026-11-06T14:14:31.056337+00:00",
+  "file_count": 10,
+  "total_bytes": 90892,
+  "files": [
+    {
+      "path": "BV1G86xBFEk5-ops.json",
+      "size_bytes": 8957,
+      "sha256": "4730d112bc71aed4e3eeddb729295db471af27c3edd7f0f966e9babca8a9d862"
+    },
+    {
+      "path": "BV1G86xBFEk5-replay.json",
+      "size_bytes": 23380,
+      "sha256": "b084635ce6f2f5c072e163d844d418f6f6d7d041d1da8c773583255f9d35ed6a"
+    },
+    {
+      "path": "BV1G86xBFEk5-replay.md",
+      "size_bytes": 10851,
+      "sha256": "3942ad4d2a406afecf9c3e222e8ce4165f8b8cb47407ef73db06d5223a15fdaa"
+    },
+    {
+      "path": "BV1saaz6qEbH-ops.json",
+      "size_bytes": 7629,
+      "sha256": "a7177108cf83c7fd55dffdb94b3d11f1ac9629b09bd97c7627de2a22d3811922"
+    },
+    {
+      "path": "BV1saaz6qEbH-replay.json",
+      "size_bytes": 22780,
+      "sha256": "6897236027194cbc2a2ac1c5b0c48226974b3745ae00bf198b3c4b6308e7cf7e"
+    },
+    {
+      "path": "BV1saaz6qEbH-replay.md",
+      "size_bytes": 10694,
+      "sha256": "6330c68d0be0611148dd027e0c692b11d8c205b55bf81a992620442f010ee47e"
+    },
+    {
+      "path": "experience/OPS-CONSENSUS.md",
+      "size_bytes": 2681,
+      "sha256": "6614b67a1e1c8de22d9a864984c53984f831c196feaa722aaf32e8246e4b1f2f"
+    },
+    {
+      "path": "experience/rules.json",
+      "size_bytes": 635,
+      "sha256": "355157e3e518fecceee0198de12b775c4e3755057f43d3167161591f68b9d6ec"
+    },
+    {
+      "path": "experience/SUMMARY.md",
+      "size_bytes": 1373,
+      "sha256": "efe5eaf46dc4869de7b8f68321968bb605f5db36f54900e28b1419bf563b6557"
+    },
+    {
+      "path": "external-eval.json",
+      "size_bytes": 1912,
+      "sha256": "24c5ec0b27f0c6cfe17a5d94eb3ba78a9973ff1dc97f50a9634f7385b40b46c6"
+    }
+  ],
+  "promotion": {
+    "eligible": false,
+    "reason": "durable ingestion is not semantic validation or independent ground truth"
+  }
+}
