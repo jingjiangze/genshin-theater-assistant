@@ -79,6 +79,18 @@ def build_manifest(root: Path, kind: str, run_id: str, attempt: str,
         "corpus": "CANDIDATE",
         "adaptation": "CANDIDATE",
     }[kind]
+    if kind == "evaluation":
+        external = next((path for path in files if path.name == "external-eval.json"), None)
+        if external is not None:
+            try:
+                result = json.loads(external.read_text(encoding="utf-8"))
+                status = (
+                    "EVALUATED_INDEPENDENT"
+                    if int(result.get("independently_evaluated_videos", 0)) > 0
+                    else "INSUFFICIENT_INDEPENDENT_LABELS"
+                )
+            except (OSError, ValueError, TypeError):
+                status = "EVALUATION_INVALID"
     manifest = {
         "schema_version": 1,
         "batch_id": batch_id,
