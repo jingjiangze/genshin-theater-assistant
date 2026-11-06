@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://genshin-theater-assistant.local/schema/evidence.schema.json",
+  "title": "Evidence（不可变原始证据）",
+  "type": "object",
+  "required": ["id", "type", "source", "collected_at", "batch_id"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^evidence-[A-Za-z0-9_-]+$" },
+    "type": { "enum": ["subtitle", "description", "comment", "danmaku", "frame_ocr", "game_ui", "wiki", "manual"] },
+    "source": {
+      "type": "object",
+      "required": ["platform", "video_id"],
+      "properties": {
+        "platform": { "enum": ["bilibili", "youtube", "bwiki", "local", "manual"] },
+        "video_id": { "type": "string", "minLength": 1 },
+        "creator_id": { "type": ["string", "null"], "description": "独立作者 ID；未知必须显式 null，不许填空字符串" },
+        "creator_name": { "type": ["string", "null"] },
+        "url": { "type": ["string", "null"] },
+        "timestamp": { "type": ["string", "null"], "description": "视频内时间点如 00:03:20 或帧文件名" },
+        "published_at": { "type": ["string", "null"] },
+        "game_version": { "type": ["string", "null"] },
+        "season": { "type": ["integer", "null"] }
+      }
+    },
+    "batch_id": { "type": "string", "minLength": 1 },
+    "collected_at": { "type": "string", "format": "date-time" },
+    "content_hash": { "type": ["string", "null"], "description": "内容 SHA256，用于精确去重" },
+    "simhash": { "type": ["string", "null"], "description": "SimHash 十六进制，用于近似转载检测" },
+    "text": { "type": ["string", "null"] },
+    "frame_ref": { "type": ["string", "null"], "description": "帧相对路径，不把大文件塞进 Git" },
+    "collector": { "type": "string", "description": "采集器名与版本，如 ingest.py:1" },
+    "raw_ref": { "type": ["string", "null"], "description": "原始数据归档引用（artifact/外存），只追加" }
+  },
+  "additionalProperties": false
+}

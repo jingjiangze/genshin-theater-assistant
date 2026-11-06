@@ -14,6 +14,8 @@ import subprocess
 import sys
 import time
 from datetime import datetime, timezone
+
+from jsonio import read_json
 from pathlib import Path
 from typing import Iterable
 
@@ -83,7 +85,7 @@ def build_manifest(root: Path, kind: str, run_id: str, attempt: str,
         external = next((path for path in files if path.name == "external-eval.json"), None)
         if external is not None:
             try:
-                result = json.loads(external.read_text(encoding="utf-8"))
+                result = read_json(external)
                 status = (
                     "EVALUATED_EXTERNAL"
                     if int(result.get("externally_evaluated_videos", 0)) > 0

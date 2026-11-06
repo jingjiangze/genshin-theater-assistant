@@ -15,10 +15,12 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
+from jsonio import read_json as jsonio_read_json
+
 
 def read_json(path: Path) -> dict:
     try:
-        value = json.loads(path.read_text(encoding="utf-8"))
+        value = jsonio_read_json(path)
         return value if isinstance(value, dict) else {}
     except (OSError, ValueError):
         return {}

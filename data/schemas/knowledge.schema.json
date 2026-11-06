@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://genshin-theater-assistant.local/schema/knowledge.schema.json",
+  "title": "Knowledge（正式知识，版本化、可回滚）",
+  "type": "object",
+  "required": ["id", "kind", "claim", "version", "status", "evidence_ids", "confidence", "created_at"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^kn-[A-Za-z0-9_-]+$" },
+    "kind": { "enum": ["mechanic", "strategy", "preference"] },
+    "claim": { "type": "string", "minLength": 4 },
+    "season": { "type": ["integer", "null"] },
+    "act": { "type": ["integer", "null"] },
+    "game_version": { "type": ["string", "null"] },
+    "version_range": {
+      "type": "object",
+      "properties": {
+        "game_from": { "type": ["string", "null"] },
+        "game_to": { "type": ["string", "null"] },
+        "theater_from": { "type": ["integer", "null"] },
+        "theater_to": { "type": ["integer", "null"] }
+      }
+    },
+    "conditions": { "type": "object", "additionalProperties": true },
+    "steps": { "type": "array", "items": { "type": "string" } },
+    "evidence_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "supersedes": { "type": "array", "items": { "type": "string" }, "description": "被本条替换的旧知识 id，旧版本不删除" },
+    "contradicts": { "type": "array", "items": { "type": "string" } },
+    "confidence": {
+      "type": "object",
+      "required": ["level", "video_count", "creator_count", "independent_evidence_count", "contradiction_count"],
+      "properties": {
+        "level": { "enum": ["provisional", "verified", "conflicted", "stale"] },
+        "video_count": { "type": "integer", "minimum": 0 },
+        "creator_count": { "type": "integer", "minimum": 0, "description": "独立作者数；未知作者不能算作多个" },
+        "independent_evidence_count": { "type": "integer", "minimum": 0 },
+        "contradiction_count": { "type": "integer", "minimum": 0 },
+        "evidence_completeness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "version_applicable": { "type": "boolean" },
+        "score": { "type": "number", "description": "可重算的综合分，不作为唯一真相" }
+      }
+    },
+    "version": { "type": "integer", "minimum": 1 },
+    "status": { "enum": ["VERIFIED", "PROVISIONAL", "CONFLICTED", "STALE", "REJECTED"] },
+    "evaluation_refs": { "type": "array", "items": { "type": "string" }, "description": "通过的评测报告 ID" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

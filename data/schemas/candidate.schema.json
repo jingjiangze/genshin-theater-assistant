@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://genshin-theater-assistant.local/schema/candidate.schema.json",
+  "title": "CandidateKnowledge（从证据抽出的候选知识，未验证）",
+  "type": "object",
+  "required": ["id", "kind", "claim", "evidence_ids", "batch_id", "status", "created_at"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^cand-[A-Za-z0-9_-]+$" },
+    "kind": { "enum": ["mechanic", "strategy", "preference", "unknown"] },
+    "claim": { "type": "string", "minLength": 4 },
+    "season": { "type": ["integer", "null"] },
+    "act": { "type": ["integer", "null"], "minimum": 0, "maximum": 12 },
+    "game_version": { "type": ["string", "null"] },
+    "conditions": {
+      "type": "object",
+      "properties": {
+        "required_elements": { "type": "array", "items": { "type": "string" } },
+        "required_roles": { "type": "array", "items": { "type": "string" } },
+        "boss": { "type": ["string", "null"] },
+        "difficulty": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "evidence_ids": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "必须至少引用 1 条 Evidence" },
+    "extraction": {
+      "type": "object",
+      "properties": {
+        "method": { "enum": ["rule", "llm", "manual", "migration"] },
+        "version": { "type": "string" },
+        "confidence_hint": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "status": { "enum": ["CANDIDATE", "PROVISIONAL", "VERIFIED", "CONFLICTED", "STALE", "REJECTED"] },
+    "contradicts": { "type": "array", "items": { "type": "string" } },
+    "batch_id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "notes": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

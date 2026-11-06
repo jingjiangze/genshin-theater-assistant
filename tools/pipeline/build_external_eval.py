@@ -12,6 +12,8 @@ import re
 from collections import Counter
 from pathlib import Path
 
+from jsonio import read_json, read_text
+
 ACT_RE = re.compile(r"第\s*(\d{1,2})\s*幕")
 TIME_RE = re.compile(r"-(\d+(?:\.\d+)?)s-")
 
@@ -32,7 +34,7 @@ def collect_events(video_dir: Path) -> list[dict]:
     events = []
     subs = video_dir / "subs.txt"
     if subs.exists():
-        for line in subs.read_text(encoding="utf-8", errors="replace").splitlines():
+        for line in read_text(subs).splitlines():
             m = re.match(r"^\[([^|\]]+)\|([^\]]*)\]\s*(.*)$", line)
             if not m or m.group(1).strip().lower() != "subtitle":
                 continue
@@ -44,7 +46,7 @@ def collect_events(video_dir: Path) -> list[dict]:
     meta = video_dir / "meta.json"
     if meta.exists():
         try:
-            obj = json.loads(meta.read_text(encoding="utf-8"))
+            obj = read_json(meta)
             for chapter in obj.get("chapters", []):
                 start = chapter.get("start")
                 labels = acts(chapter.get("title", ""))
@@ -58,7 +60,7 @@ def collect_events(video_dir: Path) -> list[dict]:
 
 def evaluate(replay_path: Path, ingest_root: Path, tolerance: float = 2.5,
              min_labels: int = 10) -> dict:
-    replay = json.loads(replay_path.read_text(encoding="utf-8"))
+    replay = read_json(replay_path)
     video_id = replay_path.name.removesuffix("-replay.json")
     events = collect_events(ingest_root / video_id)
     steps = replay.get("steps", [])

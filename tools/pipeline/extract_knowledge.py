@@ -13,6 +13,8 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
+from jsonio import read_json as jsonio_read_json, read_text
+
 
 def digest(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
@@ -24,7 +26,7 @@ def normalize(value: str) -> str:
 
 def read_json(path: Path) -> dict:
     try:
-        value = json.loads(path.read_text(encoding="utf-8"))
+        value = jsonio_read_json(path)
         return value if isinstance(value, dict) else {}
     except (OSError, ValueError):
         return {}
@@ -263,7 +265,7 @@ def main() -> int:
             return 0
         result = merge_candidates(new_evidence, existing)
         serialized = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
-        if registry.exists() and registry.read_text(encoding="utf-8") == serialized:
+        if registry.exists() and read_text(registry) == serialized:
             print(f"no registry change; candidates={result['candidate_count']}")
             return 0
         registry.parent.mkdir(parents=True, exist_ok=True)

@@ -303,3 +303,13 @@ class PersistBatchTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class JsonIoBomTest(unittest.TestCase):
+    def test_bom_tolerant_json(self):
+        from jsonio import read_json, read_text
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "bom.json"
+            p.write_text('{"a": 1}', encoding="utf-8-sig")
+            self.assertEqual(read_json(p), {"a": 1})
+            self.assertEqual(read_text(p), '{"a": 1}')
