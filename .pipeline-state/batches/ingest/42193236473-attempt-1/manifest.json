@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "batch_id": "42193236473-attempt-1",
+  "kind": "ingest",
+  "status": "INGESTED",
+  "workflow": "video-ingest",
+  "run_id": "42193236473",
+  "run_attempt": "1",
+  "source_commit": "5277b3599eae712aef4780b17f136af6ff1a0817",
+  "created_at": "2026-11-06T09:16:13.816598+00:00",
+  "file_count": 25,
+  "total_bytes": 62482,
+  "files": [
+    {
+      "path": "BV1BAxszmEL9/meta.json",
+      "size_bytes": 1166,
+      "sha256": "40dc446546f6a14bdb07f80db00039ae90ef2d8052462d4aba11b10c1db5e926"
+    },
+    {
+      "path": "BV1BAxszmEL9/subs.txt",
+      "size_bytes": 165,
+      "sha256": "384e1c4f29ff1c1e266a87bfc35959ff71ee728d2d34bb20500ccb78474c346e"
+    },
+    {
+      "path": "BV1BAxszmEL9-ops.json",
+      "size_bytes": 232,
+      "sha256": "e4b7c1cb26969700d05160b537bb3b0e43e678a34091f26fa2f63ed3c0457734"
+    },
+    {
+      "path": "BV1FoKnz4Ejo/meta.json",
+      "size_bytes": 364,
+      "sha256": "5835d81da9302718c2ab2ff26732881aaf98b77d8b35503e3318141ca5cb9d00"
+    },
+    {
+      "path": "BV1FoKnz4Ejo/subs.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "BV1FoKnz4Ejo-ops.json",
+      "size_bytes": 232,
+      "sha256": "76510b5e8ee4c49c64401da485e0f3ee8c7d59b7b4e53d2cbe4277ddcdb0c858"
+    },
+    {
+      "path": "BV1G86xBFEk5/meta.json",
+      "size_bytes": 1978,
+      "sha256": "1d47670fa31db3221ad065d95db9f181049772149e6561fa00cf7cfce5952495"
+    },
+    {
+      "path": "BV1G86xBFEk5/subs.txt",
+      "size_bytes": 1918,
+      "sha256": "d7566f4c6ce51100d6ab2711a3994f2abd7262d25a5cfd83b7dbfb7681fb3169"
+    },
+    {
+      "path": "BV1G86xBFEk5-ops.json",
+      "size_bytes": 5435,
+      "sha256": "4a10f88c5d1f0f4c8b51d8a8b7505ad01b7aca07bb57da26e968597ad058dd2d"
+    },
+    {
+      "path": "BV1bwgSzhEgU/meta.json",
+      "size_bytes": 1958,
+      "sha256": "aa6a1054759d0a2fb131a98e901dc34ede3c2dd0e331e4fe75019653eac5b3e6"
+    },
+    {
+      "path": "BV1bwgSzhEgU/subs.txt",
+      "size_bytes": 1778,
+      "sha256": "c7ac4484eb6b3caea7e04d887ca8230334e1f1b8a27d229e5bfe6d3e88e1248d"
+    },
+    {
+      "path": "BV1bwgSzhEgU-ops.json",
+      "size_bytes": 5721,
+      "sha256": "10cdd8ba1572719519353b92d05a4c8b9f4db1ee82cd22e3ec6eac102f217878"
+    },
+    {
+      "path": "BV1qzajzkE9G/meta.json",
+      "size_bytes": 2047,
+      "sha256": "46578a0f47be6369685c0b9a8732f54dd07bfde3f2521ec9a153f5874c5be68f"
+    },
+    {
+      "path": "BV1qzajzkE9G/subs.txt",
+      "size_bytes": 1950,
+      "sha256": "88bb1ade930d64c62bd8fc0928c2aed68e72f1f10ba9afad8b3d868255dab287"
+    },
+    {
+      "path": "BV1qzajzkE9G-ops.json",
+      "size_bytes": 6481,
+      "sha256": "9144ececc018627004829f5eaa3822287d77a533fee29b23dc9b8fb079bf0ccc"
+    },
+    {
+      "path": "BV1rkiLBiEQg/meta.json",
+      "size_bytes": 1155,
+      "sha256": "7bbfbdfdc258a329e3f3eac789878e43b7707a6690993c6e72457f0415e8ddd0"
+    },
+    {
+      "path": "BV1rkiLBiEQg/subs.txt",
+      "size_bytes": 76,
+      "sha256": "c99f010fa51a4ad599115633178f7f51719d06e520487f1e2113d2401e482f59"
+    },
+    {
+      "path": "BV1rkiLBiEQg-ops.json",
+      "size_bytes": 232,
+      "sha256": "bcaf0199aaf8eef2a11757510c9c475d406d5894d306eb6cd16a26daf4bc4b3c"
+    },
+    {
+      "path": "BV1saaz6iEE6/meta.json",
+      "size_bytes": 1639,
+      "sha256": "ce59032394972ada9c4105589fb8f02d84cd701bc689d5310e88b85747cab9ab"
+    },
+    {
+      "path": "BV1saaz6iEE6/subs.txt",
+      "size_bytes": 1382,
+      "sha256": "5c3ae31fc17b98e18d57856e26274048d689a0af461c41cdc0f8ed78db9554a4"
+    },
+    {
+      "path": "BV1saaz6iEE6-ops.json",
+      "size_bytes": 4424,
+      "sha256": "271fa46bda7c48a85fd21d683364942eb493c53617852e4a9b1b2ddb87e63246"
+    },
+    {
+      "path": "BV1saaz6qEbH/meta.json",
+      "size_bytes": 2124,
+      "sha256": "1598ab53f2723e6c4cec7dbedeab875dc3cb1f41c2a1116698960a17245f3f83"
+    },
+    {
+      "path": "BV1saaz6qEbH/subs.txt",
+      "size_bytes": 1963,
+      "sha256": "082ba2194e543463a50306f36c4c7d0fe4e36a8ad73b7b104542babfccc169e1"
+    },
+    {
+      "path": "BV1saaz6qEbH-ops.json",
+      "size_bytes": 4227,
+      "sha256": "ecce2b8fc850e3950af6cceb80065653ad856dfecbeb9450e8bac4646ef38681"
+    },
+    {
+      "path": "ingest-summary.json",
+      "size_bytes": 13835,
+      "sha256": "78a23247c069e84217ff8a4907f16c030a290a2e9bb2ebfda1ac1fc7c195ed33"
+    }
+  ],
+  "promotion": {
+    "eligible": false,
+    "reason": "durable ingestion is not semantic validation or independent ground truth"
+  }
+}

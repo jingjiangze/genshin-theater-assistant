@@ -1,0 +1,259 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-06 09:15:02",
+ "bvid": "BV1qzajzkE9G",
+ "frames": 0,
+ "candidates": 25,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "BUFF：蒸发BUFF2左4右，绽放BUFF选左，1幕需2级蒸发，3幕需1级绽放，5幕需3级蒸发",
+   "act": 0,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "buy",
+   "text": "需要选出角色：6幕火神、7幕香菱+班尼特、8幕芭芭拉、10幕安柏",
+   "act": 0,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "需要留的后台角色：3幕水、5幕水、6幕水草、7幕水、8幕奶、10幕草水",
+   "act": 0,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 香菱",
+   "act": 7,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 班尼特",
+   "act": 7,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 芭芭拉",
+   "act": 8,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 安柏",
+   "act": 10,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 水草",
+   "act": 6,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 草水",
+   "act": 10,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 胡桃",
+   "act": 1,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 行秋",
+   "act": 1,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 胡桃",
+   "act": 2,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 行秋",
+   "act": 2,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 妮露",
+   "act": 3,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 白术",
+   "act": 3,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 柯莱",
+   "act": 3,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 妮露",
+   "act": 5,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 白术",
+   "act": 5,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 柯莱",
+   "act": 5,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 火神",
+   "act": 6,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 托马",
+   "act": 7,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 香菱",
+   "act": 9,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 班尼特",
+   "act": 9,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 芭芭拉",
+   "act": 9,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 火神",
+   "act": 10,
+   "source": "bilibili:BV1qzajzkE9G",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}
