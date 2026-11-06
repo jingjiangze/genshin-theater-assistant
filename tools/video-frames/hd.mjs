@@ -1,4 +1,4 @@
-﻿// 用已登录 cookie 抓 B站视频的**高清原生帧**（1080p/更高），供 `--batch` 派生模板。
+// 用已登录 cookie 抓 B站视频的**高清原生帧**（1080p/更高），供 `--batch` 派生模板。
 // 用法（cookie 只走环境变量，不落盘、不进仓库）：
 //   $env:BILI_COOKIE = 'SESSDATA=...; bili_jct=...; ...'
 //   node hd.mjs BV193xp6WErn 20 60 200 out=./hd
@@ -171,10 +171,14 @@ if (everyArg || rangeArg) {
     if (Number.isFinite(a)) from = a;
     if (Number.isFinite(b)) to = b;
   }
+  // 关键：每帧要**铺满全片**。若按 every 秒抽会超过 cap，不能截断到前 N 帧
+  // （实测：every=2 max=60 只覆盖前 120s，全是队伍配置页，真值帧 0.1%）；
+  // 而是自动放大步长，让 cap 个时间点均匀落在 [from,to] 上。
+  const requestedStep = every > 0 ? every : Math.max(1, (to - from) / cap);
+  const step = Math.max(requestedStep, (to - from) / Math.max(1, cap - 1));
   stamps = [];
-  const step = every > 0 ? every : Math.max(1, (to - from) / cap);
   for (let t2 = from; t2 <= to && stamps.length < cap; t2 += step) stamps.push(Math.round(t2 * 10) / 10);
-  console.log(`按秒抽帧：${step}s/帧，区间 ${from}-${Math.round(to)}s，共 ${stamps.length} 帧`);
+  console.log(`按秒抽帧：请求 ${requestedStep}s/帧 → 实际 ${Math.round(step * 10) / 10}s/帧（铺满全片），区间 ${from}-${Math.round(to)}s，共 ${stamps.length} 帧`);
 }
 if (spread > 0 && !everyArg && !rangeArg) {
   // 均匀铺开：跳过片头片尾各 5%，避免抓到黑屏/片尾
