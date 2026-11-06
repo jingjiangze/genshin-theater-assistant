@@ -6,6 +6,7 @@ from pathlib import Path
 import persist_batch
 import build_external_eval
 import extract_knowledge
+import release_knowledge
 
 
 class PersistBatchTests(unittest.TestCase):
@@ -139,6 +140,56 @@ class PersistBatchTests(unittest.TestCase):
         self.assertEqual(candidate["status"], "CANDIDATE")
         self.assertEqual(candidate["independent_creator_count"], 1)
         self.assertEqual(result["verified_count"], 0)
+
+    def test_release_requires_verified_strategy_and_holdout_gates(self):
+        registry = self.root / "registry.json"
+        releases = self.root / "releases"
+        active = self.root / "active.json"
+        registry.write_text(json.dumps({"candidates": [{
+            "candidate_id": "candidate-1", "status": "PROVISIONAL"
+        }]}), encoding="utf-8")
+        active.write_text(json.dumps({"release_id": "rel-stable"}), encoding="utf-8")
+        result = release_knowledge.release_or_rollback(registry, releases, active)
+        self.assertEqual(result["action"], "NOOP")
+        self.assertEqual(json.loads(active.read_text())["release_id"], "rel-stable")
+
+    def test_release_promotes_only_verified_candidate(self):
+        registry = self.root / "registry.json"
+        releases = self.root / "releases"
+        active = self.root / "active.json"
+        candidate = {
+            "candidate_id": "candidate-verified", "status": "VERIFIED",
+            "season": 29, "version_range": {"min": "7.1", "max": "7.1"},
+            "evidence_ids": ["a", "b", "c"], "independent_creator_count": 2,
+            "verification": {
+                "evaluation_id": "eval-29-7.1", "holdout_passed": True,
+                "baseline_regression_passed": True, "strategy_gate_passed": True
+            }
+        }
+        registry.write_text(json.dumps({"candidates": [candidate]}), encoding="utf-8")
+        active.write_text(json.dumps({"release_id": "rel-stable"}), encoding="utf-8")
+        result = release_knowledge.release_or_rollback(registry, releases, active)
+        pointer = json.loads(active.read_text(encoding="utf-8"))
+        self.assertEqual(result["action"], "PROMOTE")
+        self.assertEqual(pointer["previous_release"], "rel-stable")
+        self.assertTrue((releases / pointer["release_id"] / "knowledge.json").exists())
+
+    def test_failed_post_release_health_rolls_back_atomically(self):
+        registry = self.root / "registry.json"
+        releases = self.root / "releases"
+        active = self.root / "active.json"
+        health = self.root / "health.json"
+        active.write_text(json.dumps({
+            "release_id": "rel-new", "previous_release": "rel-old", "status": "ACTIVE"
+        }), encoding="utf-8")
+        health.write_text(json.dumps({
+            "release_id": "rel-new", "passed": False, "reason": "strategy regression"
+        }), encoding="utf-8")
+        result = release_knowledge.release_or_rollback(registry, releases, active, health)
+        pointer = json.loads(active.read_text(encoding="utf-8"))
+        self.assertEqual(result["action"], "ROLLBACK")
+        self.assertEqual(pointer["release_id"], "rel-old")
+        self.assertEqual(pointer["status"], "ROLLED_BACK")
 
     def test_external_eval_uses_subtitle_and_chapter_not_visual_truth(self):
         ingest = self.root / "ingest"
