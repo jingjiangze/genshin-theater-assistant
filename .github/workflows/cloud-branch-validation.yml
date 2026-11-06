@@ -1,0 +1,122 @@
+name: cloud-branch-validation
+
+on:
+  push:
+    branches:
+      - 'automation/**'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloud-validation-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  repository-contract:
+    name: 云端仓库契约检查
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: 检查本次执行上下文
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "event=${GITHUB_EVENT_NAME}"
+          echo "ref=${GITHUB_REF}"
+          echo "sha=${GITHUB_SHA}"
+          test -n "${GITHUB_SHA}"
+          git rev-parse --verify HEAD
+
+      - name: 检查现有云端工作流和数据入口
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            .github/workflows/ci.yml
+            .github/workflows/video-ingest.yml
+            .github/workflows/video-eval.yml
+            .github/workflows/corpus-refresh.yml
+            .github/workflows/adapt-videos.yml
+            .github/workflows/release.yml
+            tools/video-frames/ingest.py
+            tools/video-frames/search.mjs
+            tools/video-frames/hd.mjs
+          )
+          for path in "${required[@]}"; do
+            test -s "$path" || { echo "::error::missing or empty: $path"; exit 1; }
+            echo "PASS $path"
+          done
+
+      - name: 检查可解析 JSON 数据集
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          candidates = [
+              Path("data/guide-corpus.json"),
+              Path("data/guide-corpus-extra.json"),
+              Path("data/guide-corpus-wiki.json"),
+              Path("data/rotations.json"),
+              Path("data/season29.json"),
+              Path("data/characters.json"),
+          ]
+          checked = 0
+          for path in candidates:
+              if not path.exists():
+                  continue
+              with path.open(encoding="utf-8-sig") as f:
+                  value = json.load(f)
+              if not isinstance(value, (dict, list)):
+                  raise SystemExit(f"invalid top-level JSON type: {path}")
+              print(f"PASS {path}")
+              checked += 1
+          if checked < 3:
+              raise SystemExit(f"too few data files validated: {checked}")
+          print(f"validated_json_files={checked}")
+          PY
+
+      - name: 输出可追溯批次清单
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p cloud-validation
+          python - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          sha = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+          files = subprocess.check_output(["git", "ls-files"], text=True).splitlines()
+          manifest = {
+              "schema_version": 1,
+              "event": os.environ.get("GITHUB_EVENT_NAME"),
+              "ref": os.environ.get("GITHUB_REF"),
+              "sha": sha,
+              "workflow_run_id": os.environ.get("GITHUB_RUN_ID"),
+              "workflow_run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT"),
+              "tracked_file_count": len(files),
+              "required_workflows": [
+                  ".github/workflows/ci.yml",
+                  ".github/workflows/video-ingest.yml",
+                  ".github/workflows/video-eval.yml",
+                  ".github/workflows/corpus-refresh.yml"
+              ]
+          }
+          Path("cloud-validation/manifest.json").write_text(
+              json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8"
+          )
+          print(json.dumps(manifest, ensure_ascii=False, indent=2))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloud-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: cloud-validation/manifest.json
+          retention-days: 7
