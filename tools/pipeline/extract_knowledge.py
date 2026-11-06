@@ -93,6 +93,7 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
                     "creator_name": str(op.get("creator_name") or meta.get("uploader") or ""),
                     "channel": channel,
                     "source": source,
+                    "source_refs": [source],
                     "kind": kind,
                     "text": text,
                     "act": act,
@@ -119,9 +120,17 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
                 batches.add(old_item["batch_id"])
             if key in unique:
                 unique[key]["observed_batches"] = sorted(set(unique[key].get("observed_batches", [])) | batches)
+                refs = set(unique[key].get("source_refs", [])) | set(old_item.get("source_refs", []))
+                if old_item.get("source"):
+                    refs.add(old_item["source"])
+                unique[key]["source_refs"] = sorted(refs)
             else:
                 old_item["evidence_id"] = key
                 old_item["observed_batches"] = sorted(batches)
+                refs = set(old_item.get("source_refs", []))
+                if old_item.get("source"):
+                    refs.add(old_item["source"])
+                old_item["source_refs"] = sorted(refs)
                 unique[key] = old_item
         record["evidence"] = list(unique.values())
         record["evidence_ids"] = list(unique.keys())
@@ -163,6 +172,11 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
             if item.get("batch_id"):
                 batches.add(item["batch_id"])
             existing_evidence["observed_batches"] = sorted(batches)
+            refs = set(existing_evidence.get("source_refs", []))
+            refs.update(item.get("source_refs", []))
+            if item.get("source"):
+                refs.add(item["source"])
+            existing_evidence["source_refs"] = sorted(refs)
         # Extraction is append-only: never downgrade a terminal knowledge decision.
         if record.get("status") in {"VERIFIED", "CONFLICTED", "STALE", "REJECTED"}:
             continue
