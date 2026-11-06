@@ -6,6 +6,7 @@ on:
       - automation/cloud-auto-evolution
     paths:
       - .github/workflows/knowledge-extract.yml
+      - tools/pipeline/extract_knowledge.py
   workflow_dispatch:
   schedule:
     - cron: '30 7 * * *'
