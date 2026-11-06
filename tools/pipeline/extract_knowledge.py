@@ -109,6 +109,9 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
         if item["evidence_id"] not in record["evidence_ids"]:
             record["evidence_ids"].append(item["evidence_id"])
             record["evidence"].append(item)
+        # Extraction is append-only: never downgrade a terminal knowledge decision.
+        if record.get("status") in {"VERIFIED", "CONFLICTED", "STALE", "REJECTED"}:
+            continue
         creators = {x["creator_id"] for x in record["evidence"] if x.get("creator_id")}
         record["independent_creator_count"] = len(creators)
         if len(creators) >= 2 and len(record["evidence_ids"]) >= 3:
