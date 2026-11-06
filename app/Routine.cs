@@ -28,6 +28,8 @@ internal static class Routine
         public string Title = "";
         public List<Step> Steps = new();
         public string Source = "";
+        /// <summary>跨视频共识推荐角色（≥2 个 UP 主都这么带）。</summary>
+        public List<string> Recommended = new();
     }
 
     private static readonly Dictionary<int, ActRoutine> _acts = new();
@@ -68,6 +70,10 @@ internal static class Routine
                             Do = st.TryGetProperty("do", out var d) ? d.GetString() ?? "" : "",
                             Why = st.TryGetProperty("why", out var w) ? w.GetString() ?? "" : "",
                         });
+                if (p.Value.TryGetProperty("recommended", out var recs) && recs.ValueKind == JsonValueKind.Array)
+                    foreach (var rc in recs.EnumerateArray())
+                        if (rc.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(rc.GetString()))
+                            r.Recommended.Add(rc.GetString());
                 _acts[act] = r;
             }
             _loaded = _acts.Count > 0;
@@ -85,6 +91,11 @@ internal static class Routine
         if (r == null || r.Steps.Count == 0) return new List<string>();
 
         var outLines = new List<string>();
+
+        // 跨视频共识的角色推荐优先显示（这是"选谁"的直接答案，比手法更常被问到）
+        if (r.Recommended.Count > 0)
+            outLines.Add($"选人·第 {act} 幕优先带：{string.Join("、", r.Recommended.Take(3))}（{r.Recommended.Count} 个 UP 主共识）");
+
         foreach (var s in r.Steps.Take(max))
         {
             var at = string.IsNullOrEmpty(s.At) ? "" : s.At + " ";

@@ -302,8 +302,12 @@ internal static class SelfTest
         Routine.Load(AppPaths.Data("rotations.json"));
         var r6 = Routine.LinesFor(6, 3);
         var r3 = Routine.LinesFor(3, 3);
-        Check("手法·首领幕有编排", Routine.Loaded && r6.Count >= 2 && r3.Count >= 2 && r6[0].Contains("钓客"),
-            $"载入 {Routine.Count} 幕，第6幕 {r6.Count} 步：{(r6.Count > 0 ? r6[0] : "-")}");
+        Check("手法·首领幕有编排", Routine.Loaded && r6.Count >= 2 && r3.Count >= 2 && r6.Any(l => l.Contains("钓客")),
+            $"载入 {Routine.Count} 幕，第6幕 {r6.Count} 行：{(r6.Count > 0 ? r6[0] : "-")}");
+        Check("选人·跨 UP 主推荐已入库",
+            r6.Any(l => l.Contains("选人·第 6 幕") && (l.Contains("夜兰") || l.Contains("班尼特")))
+            && Routine.LinesFor(7, 3).Any(l => l.Contains("行秋")),
+            "第6/7幕有共识角色");
         var rAll = Routine.LinesFor(0, 10);
         Check("手法·社区共识已入库", rAll.Any(l => l.Contains("主 C 与辅助留给")) && rAll.Any(l => l.Contains("从左到右")),
             $"通用 {rAll.Count} 步，含跨视频共识");
