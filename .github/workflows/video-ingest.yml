@@ -7,6 +7,11 @@ name: video-ingest
 #   platform=bilibili|youtube、query、limit
 
 on:
+  push:
+    branches:
+      - automation/cloud-auto-evolution
+    paths:
+      - .github/workflows/video-ingest.yml
   workflow_dispatch:
     inputs:
       platform:
@@ -55,7 +60,7 @@ jobs:
         run: |
           set -euo pipefail
           QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
-          LIMIT="${{ github.event.inputs.limit || '12' }}"
+          LIMIT="${{ github.event_name == 'push' && '2' || github.event.inputs.limit || '12' }}"
           cd tools/video-frames
           npm init -y >/dev/null 2>&1 || true
           npm i playwright-core@1.64.1 --no-audit --no-fund >/dev/null
