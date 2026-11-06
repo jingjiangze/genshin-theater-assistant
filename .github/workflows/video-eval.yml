@@ -146,13 +146,13 @@ jobs:
               $tline = Select-String -Path $md -Pattern '有代理标签 (\d+) 帧' | Select-Object -First 1
               if ($tline) { $truth = [int]$tline.Matches[0].Groups[1].Value }
             }
-            $accText = if ($truth -eq 0) { "n/a（无真值帧）" } else { "$acc%" }
+            $accText = if ($truth -eq 0) { "n/a（无代理标签帧）" } else { "$acc%（代理自洽）" }
             $summary += "| $bv | $accText | exit=$($p.ExitCode) |"
-            # 只有"有真值帧"的视频才卡准确率门禁：菜单/结算远景看不到幕次标签，属于正常情况
-            if ($minAcc -gt 0 -and $truth -gt 0 -and $acc -lt $minAcc) { throw "$bv 准确率 $acc%（真值帧 $truth）低于下限 $minAcc%" }
+            # 该指标来自同帧底部条带 OCR，只作自洽性告警，不是独立真值，也不阻断独立评测。
+            if ($minAcc -gt 0 -and $truth -gt 0 -and $acc -lt $minAcc) { Write-Host "::warning::$bv 视觉代理自洽率 $acc%（代理标签帧 $truth）低于诊断阈值 $minAcc%" }
           }
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 视觉条带代理自洽性（非独立准确率）"
-          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 视频 | 幕次准确率 | 退出码 |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 视频 | 视觉代理自洽率 | 退出码 |"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|"
           foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
 
