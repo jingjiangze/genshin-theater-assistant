@@ -28,6 +28,40 @@ internal static class ActPlanner
         public Dictionary<string, int> Usage = new(StringComparer.OrdinalIgnoreCase);
     }
 
+    public static int RunCli(string difficulty, string rosterPath, string outPath)
+    {
+        Cli.Attach();
+        difficulty = string.IsNullOrWhiteSpace(difficulty) ? "Visionary" : difficulty;
+        rosterPath = string.IsNullOrWhiteSpace(rosterPath)
+            ? Path.Combine(AppPaths.Dir, "roster.json") : Path.GetFullPath(rosterPath);
+        var data = TheaterData.Load(AppPaths.Data("season29.json"));
+        var roster = RosterData.TryLoad(rosterPath);
+        var plan = Build(data, roster, difficulty);
+        var lines = new List<string>
+        {
+            $"# 第 {data.Season} 期跨幕规划（{difficulty}）",
+            "",
+            $"> 总分 {plan.TotalScore}；角色池 {(plan.RosterLoaded ? "已加载" : "未加载")}。",
+            $"> {plan.Note}",
+            "",
+            "| 幕 | 遭遇方案 | 单幕分 | 复用惩罚 | 推荐角色 | 依据 |",
+            "|---:|---|---:|---:|---|---|",
+        };
+        foreach (var act in plan.Acts)
+            lines.Add($"| {act.Act} | {act.Encounter} | {act.LocalScore} | -{act.ReusePenalty} | {string.Join("、", act.RecommendedCharacters)} | {act.Reason} |");
+        if (plan.Acts.Count == 0) lines.Add("| - | 无可规划遭遇 | - | - | - | 请检查赛季数据与难度 |");
+
+        foreach (var line in lines.Take(12)) Cli.Say(line);
+        if (!string.IsNullOrWhiteSpace(outPath))
+        {
+            var path = Path.GetFullPath(outPath);
+            Directory.CreateDirectory(Path.GetDirectoryName(path) ?? ".");
+            File.WriteAllText(path, string.Join(Environment.NewLine, lines), System.Text.Encoding.UTF8);
+            Cli.Say("规划报告: " + path);
+        }
+        return plan.Acts.Count > 0 ? 0 : 2;
+    }
+
     public static TheaterPlan Build(
         TheaterData data,
         RosterData roster,
