@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "batch_id": "42177886390-attempt-1",
+  "kind": "ingest",
+  "status": "INGESTED",
+  "workflow": "pipeline-ledger-smoke",
+  "run_id": "42177886390",
+  "run_attempt": "1",
+  "source_commit": "3a9256e1f92f677b126db3638360915581b61196",
+  "created_at": "2026-11-06T07:03:48.063162+00:00",
+  "file_count": 1,
+  "total_bytes": 92,
+  "files": [
+    {
+      "path": "ingest-summary.json",
+      "size_bytes": 92,
+      "sha256": "18531e130c6b66080aa0a626c30ed45c754316fc195e7ace7bf9880a690d2e33"
+    }
+  ],
+  "promotion": {
+    "eligible": false,
+    "reason": "durable ingestion is not semantic validation or independent ground truth"
+  }
+}
