@@ -163,7 +163,9 @@ class PersistBatchTests(unittest.TestCase):
             "evidence_ids": ["a", "b", "c"], "independent_creator_count": 2,
             "verification": {
                 "evaluation_id": "eval-29-7.1", "holdout_passed": True,
-                "baseline_regression_passed": True, "strategy_gate_passed": True
+                "baseline_regression_passed": True, "strategy_gate_passed": True,
+                "holdout_samples": 30, "strategy_success_rate": 0.90,
+                "baseline_strategy_success_rate": 0.85
             }
         }
         registry.write_text(json.dumps({"candidates": [candidate]}), encoding="utf-8")
