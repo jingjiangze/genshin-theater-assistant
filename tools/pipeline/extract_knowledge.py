@@ -39,6 +39,17 @@ def extract_context(meta: dict) -> tuple[int | None, str | None]:
     return season, version
 
 
+def evidence_key(item: dict) -> str:
+    video_id = str(item.get("video_id") or "")
+    platform = str(item.get("platform") or "")
+    channel = str(item.get("channel") or "")
+    kind = str(item.get("kind") or "")
+    text = normalize(str(item.get("text") or ""))
+    if not video_id or not platform or not channel or not kind or not text:
+        return str(item.get("evidence_id") or "")
+    # One video/channel/claim is one evidence record across repeated batches and frames.
+    return digest("|".join((platform, video_id, channel, kind, text)))
+
 def evidence_from_batches(batches_root: Path) -> list[dict]:
     found = []
     for manifest_path in sorted(batches_root.glob("ingest/*/manifest.json")):
@@ -69,10 +80,11 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
                 creator_key = f"{platform}:{creator}" if creator else ""
                 source = str(op.get("source") or f"{platform}:{video_id}")
                 channel = str(op.get("channel") or "unknown")
-                evidence_id = digest("|".join((batch_id, video_id, source, channel, kind, normalize(text))))
+                evidence_id = digest("|".join((platform, video_id, channel, kind, normalize(text))))
                 found.append({
                     "evidence_id": evidence_id,
                     "batch_id": batch_id,
+                    "observed_batches": [batch_id],
                     "video_id": video_id,
                     "platform": platform,
                     "season": season,
@@ -95,6 +107,25 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
         for item in existing.get("candidates", [])
         if isinstance(item, dict) and item.get("candidate_id")
     }
+    # Migrate older registries by collapsing repeated ingests of the same video/channel claim.
+    for record in records.values():
+        unique = {}
+        for old_item in record.get("evidence", []):
+            key = evidence_key(old_item)
+            if not key:
+                continue
+            batches = set(old_item.get("observed_batches", []))
+            if old_item.get("batch_id"):
+                batches.add(old_item["batch_id"])
+            if key in unique:
+                unique[key]["observed_batches"] = sorted(set(unique[key].get("observed_batches", [])) | batches)
+            else:
+                old_item["evidence_id"] = key
+                old_item["observed_batches"] = sorted(batches)
+                unique[key] = old_item
+        record["evidence"] = list(unique.values())
+        record["evidence_ids"] = list(unique.keys())
+
     for item in evidence:
         context_scope = "" if item.get("season") is not None else str(item.get("video_id") or item.get("batch_id") or item["evidence_id"])
         key = digest("|".join((
@@ -122,18 +153,27 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
                 "status_reason": "version/condition and independent strategy evaluation are not yet available",
             }
             records[key] = record
-        if item["evidence_id"] not in record["evidence_ids"]:
+        existing_evidence = next((x for x in record["evidence"] if x.get("evidence_id") == item["evidence_id"]), None)
+        if existing_evidence is None:
             record["evidence_ids"].append(item["evidence_id"])
             record["evidence"].append(item)
+        else:
+            batches = set(existing_evidence.get("observed_batches", []))
+            batches.update(item.get("observed_batches", []))
+            if item.get("batch_id"):
+                batches.add(item["batch_id"])
+            existing_evidence["observed_batches"] = sorted(batches)
         # Extraction is append-only: never downgrade a terminal knowledge decision.
         if record.get("status") in {"VERIFIED", "CONFLICTED", "STALE", "REJECTED"}:
             continue
         creators = {x["creator_id"] for x in record["evidence"] if x.get("creator_id")}
         record["independent_creator_count"] = len(creators)
+        record["unique_video_count"] = len({x.get("video_id") for x in record["evidence"] if x.get("video_id")})
         has_version_context = record.get("season") is not None and record.get("version_range") is not None
-        if has_version_context and len(creators) >= 2 and len(record["evidence_ids"]) >= 3:
+        if (has_version_context and len(creators) >= 2 and record["unique_video_count"] >= 3
+                and len(record["evidence_ids"]) >= 3):
             record["status"] = "PROVISIONAL"
-            record["status_reason"] = "season/version context, at least two stable creator IDs and three evidence records; excluded from decisive runtime use"
+            record["status_reason"] = "season/version context, at least two stable creator IDs, three distinct videos and three unique evidence records; excluded from decisive runtime use"
         else:
             record["status"] = "CANDIDATE"
     return {
