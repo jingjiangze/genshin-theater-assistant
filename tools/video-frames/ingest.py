@@ -433,7 +433,11 @@ def main() -> int:
                 dl = dict(ydl_base)
                 dl.update({
                     "extract_flat": False, "skip_download": False,
-                    "format": "worst[ext=mp4]/worst[acodec!=none][vcodec!=none]/worst",
+                    # B站是 DASH 分离流，没有 "worst[ext=mp4]" 这种单一 mp4 格式
+                    # （CI run 42171823718 实测 `Requested format is not available`）；
+                    # 用 worstvideo+worstaudio 让 ffmpeg 合并，容器统一 mp4。
+                    "format": "worstvideo+worstaudio/worst[vcodec!=none]/worst",
+                    "merge_output_format": "mp4",
                     "outtmpl": str(vdir / "video.%(ext)s"),
                     "writesubtitles": False, "writeautomaticsub": False, "getcomments": False,
                 })
