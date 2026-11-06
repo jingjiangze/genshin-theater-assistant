@@ -65,8 +65,8 @@ internal static class Routine
                 };
                 r.Status = p.Value.TryGetProperty("status", out var st)
                     ? st.GetString() ?? "CANDIDATE"
-                    : r.Source.Contains("community", StringComparison.OrdinalIgnoreCase)
-                        ? "LEGACY_UNVERIFIED" : "BASELINE";
+                    : r.Source.Contains("inGame", StringComparison.OrdinalIgnoreCase)
+                        ? "BASELINE" : "LEGACY_UNVERIFIED";
                 if (p.Value.TryGetProperty("steps", out var steps) && steps.ValueKind == JsonValueKind.Array)
                     foreach (var st in steps.EnumerateArray())
                         r.Steps.Add(new Step
