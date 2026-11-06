@@ -185,6 +185,10 @@ internal static class Program
                     if (args.Length >= 2) return QuantRunner.Run(args[1], Opt(args, "--out"), Opt(args, "--json"));
                     break;
 
+                // 大模型端点探针：--llm-probe [--dry]（dry=只校验配置不联网）
+                case "--llm-probe":
+                    return LlmAdvisor.RunProbe(AppPaths.Data("llm.json"), args.Any(a => a == "--dry"));
+
                 // 资源包 / 更新（MAA 式：程序与资源都能更新）
                 case "--check-update":
                     return Updater.CheckUpdate();

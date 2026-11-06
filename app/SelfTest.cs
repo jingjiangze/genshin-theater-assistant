@@ -370,6 +370,36 @@ internal static class SelfTest
         Check("量化·角色名匹配", knownChars.Count > 50 && matchedChars.Contains("行秋"),
             $"角色表 {knownChars.Count}，命中 {string.Join("/", matchedChars.Take(4))}");
 
+        // 大模型顾问：脱敏 / 配置解析 / 响应解析 / 限流与冷却（全部纯函数）
+        var dirty = "当前：第3幕 SESSDATA=abc123; bili_jct=deadbeef UID 123456789012345 邮箱 a@b.com 看 https://x.y/z";
+        var clean = LlmAdvisor.Sanitize(dirty);
+        Check("LLM·发送前脱敏",
+            !clean.Contains("SESSDATA=") && !clean.Contains("bili_jct=") && !clean.Contains("123456789012345")
+            && !clean.Contains("@b.com") && !clean.Contains("https://") && clean.Contains("第3幕"),
+            clean.Length > 60 ? clean[..60] + "…" : clean);
+        var cfg = LlmAdvisor.ParseConfig("{\"enabled\":true,\"minIntervalSeconds\":30,\"endpoints\":[" +
+            "{\"name\":\"a\",\"url\":\"https://text.pollinations.ai/openai\",\"model\":\"openai\",\"apiKeyEnv\":\"\"}," +
+            "{\"name\":\"b\",\"url\":\"https://openrouter.ai/api/v1/chat/completions\",\"model\":\"m:free\",\"apiKeyEnv\":\"OPENROUTER_API_KEY\"}]}");
+        Check("LLM·多端点配置解析", cfg.Enabled && cfg.Endpoints.Count == 2
+            && cfg.Endpoints[0].ApiKeyEnv == "" && cfg.Endpoints[1].ApiKeyEnv == "OPENROUTER_API_KEY",
+            $"{cfg.Endpoints.Count} 端点，间隔 {cfg.MinIntervalSeconds}s");
+        var legacy = LlmAdvisor.ParseConfig("{\"enabled\":true,\"endpoint\":\"https://api.deepseek.com/v1/chat/completions\",\"model\":\"deepseek-chat\",\"apiKeyEnv\":\"DEEPSEEK_API_KEY\"}");
+        Check("LLM·旧配置兼容", legacy.Enabled && legacy.Endpoints.Count == 1 && legacy.Endpoints[0].Name == "legacy",
+            legacy.Endpoints.Count > 0 ? legacy.Endpoints[0].Model : "-");
+        Check("LLM·响应解析",
+            LlmAdvisor.ExtractContent("{\"choices\":[{\"message\":{\"content\":\"用雷推怒气\"}}]}") == "用雷推怒气"
+            && LlmAdvisor.ExtractContent("{\"error\":\"x\"}") == null
+            && LlmAdvisor.ExtractContent("not json") == null,
+            "正常/缺字段/非JSON 三态");
+        var ep = new LlmAdvisor.Endpoint { Name = "t" };
+        var nowT = new DateTime(2026, 11, 6, 12, 0, 0, DateTimeKind.Utc);
+        Check("LLM·限流与冷却判定",
+            LlmAdvisor.SkipReason(ep, 0, 20, DateTime.MinValue, 30, nowT) == null
+            && LlmAdvisor.SkipReason(ep, 0, 20, nowT.AddSeconds(-5), 30, nowT) != null
+            && LlmAdvisor.SkipReason(ep, 20, 20, DateTime.MinValue, 30, nowT) != null
+            && LlmAdvisor.SkipReason(new LlmAdvisor.Endpoint { CoolUntil = nowT.AddMinutes(1) }, 0, 20, DateTime.MinValue, 30, nowT) != null,
+            "可调用/最小间隔/配额/冷却 四态");
+
         // 角色可替代性：别称归一 + 同职能替代 + 视频原操作解析
         OpCompare.Load(AppPaths.Data("substitutes.json"));
         Check("替代·别称归一", OpCompare.Loaded && OpCompare.Canonical("皇女") == "菲谢尔" && OpCompare.Canonical("一斗") == "荒泷一斗",
