@@ -458,8 +458,17 @@ def main() -> int:
 
         (out / "ingest-summary.json").write_text(
             json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
-        print(f"[done] 共 {len(summary['videos'])} 个视频 → {out}", file=sys.stderr)
-        return 0 if summary["videos"] else 2
+        total_text = sum(v.get("text_lines", 0) for v in summary["videos"])
+        print(f"[done] 共 {len(summary['videos'])} 个视频 / {total_text} 行文本 → {out}", file=sys.stderr)
+        # 零语料不能算成功（CI run 42171238930：YouTube 被反爬拦，6 个视频全 0 行却 exit 0）
+        if not summary["videos"]:
+            return 2
+        if total_text == 0:
+            print("[warn] 全部视频都没拿到文本语料：多半是平台要求登录 cookie（YouTube 反爬）"
+                  "或缺少 yt-dlp-ejs；不绕过登录墙，请改用 --urls 提供可匿名访问的视频，"
+                  "或自行提供该平台的 cookie。", file=sys.stderr)
+            return 3
+        return 0
 
     finally:
         # cookie 临时文件绝不留在产物里
