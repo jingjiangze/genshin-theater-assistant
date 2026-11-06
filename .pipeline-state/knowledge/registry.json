@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-06T12:59:03.484014+00:00",
-  "candidate_count": 267,
+  "updated_at": "2026-11-06T13:27:49.264038+00:00",
+  "candidate_count": 268,
   "verified_count": 0,
   "candidates": [
     {
@@ -26,7 +26,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -132,7 +133,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -238,7 +240,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -288,7 +291,8 @@
           "evidence_id": "7cbad9f89a9a6c21e44b544887e24f705ca93d89ac3078b6d4762789420edd24",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -338,7 +342,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -486,7 +491,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -537,7 +543,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -588,7 +595,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -638,7 +646,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -796,7 +805,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -919,7 +929,8 @@
           "evidence_id": "a7e9257ff42c86dd0a733278dc084bf765d6c24918c585a1685b15acf47187b2",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -1020,7 +1031,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -1168,7 +1180,8 @@
           "evidence_id": "2594afa0942b87bb2261a28b2289a8a7d7b3fc9790f65687b78cbb540f4b3edd",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -1318,7 +1331,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -1367,7 +1381,8 @@
           "evidence_id": "3e8ab67c4d3057ffa46805edd17b0f475e3b7f502d90477216e0c2812b5083c2",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -1424,7 +1439,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1507,7 +1523,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1536,7 +1553,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1776,7 +1794,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -1975,7 +1994,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -1998,7 +2018,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -2104,7 +2125,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -2161,7 +2183,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -2212,7 +2235,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -2235,7 +2259,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -2285,7 +2310,8 @@
           "evidence_id": "60578aacbd6f9043ae0427695523c4a80c59d3a73d0c4858ca97be399d627986",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -2302,6 +2328,55 @@
           "kind": "team",
           "text": "队伍：白术+奶妈",
           "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "2a8cec62b80d475cc6774296685d79faab7df7bebbf12768ac1a104d9c6c09ad",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 结语",
+      "act": 10,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "019554606295fc78fa7569ff60f0db6bc859980f695b047b9f0843664b02be2a"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "019554606295fc78fa7569ff60f0db6bc859980f695b047b9f0843664b02be2a",
+          "batch_id": "42225115611-attempt-1",
+          "observed_batches": [
+            "42225115611-attempt-1"
+          ],
+          "video_id": "BV1kMtn6vEUG",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:452240436",
+          "creator_name": "我叫呆唯WAW",
+          "channel": "chapter",
+          "source": "bilibili:BV1kMtn6vEUG",
+          "source_refs": [
+            "bilibili:BV1kMtn6vEUG"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 结语",
+          "act": 10
         }
       ],
       "independent_creator_count": 1,
@@ -2334,7 +2409,8 @@
           "evidence_id": "9f013e65b880c596a6a0f2d467654765a60533ccf6d5c12a431be809ebeb737c",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -2440,7 +2516,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -2512,7 +2589,8 @@
           "evidence_id": "ebc2cced52e623d8fbb22d4df6087131a7cbf917171dfb54f60454fcee5b2be2",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -2667,7 +2745,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -3038,7 +3117,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -3088,7 +3168,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -3187,7 +3268,8 @@
           "evidence_id": "32e6f0c9b69b2e0875e8400022abaf00c881035948f64d4625b240f677988d99",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -3237,7 +3319,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -3343,7 +3426,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -3443,7 +3527,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -3542,7 +3627,8 @@
           "evidence_id": "cec9c574859c5e8f4569ad9c49b2360cd7aac3d1378d5cb969087143d8ef69fb",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -3648,7 +3734,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -3699,7 +3786,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -3750,7 +3838,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -3799,7 +3888,8 @@
           "evidence_id": "26cae526b119976786beef124da98c19f123fec8be89b944b105a89af160bfa3",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -3850,7 +3940,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -3873,7 +3964,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -3972,7 +4064,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -4028,7 +4121,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -4128,7 +4222,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -4178,7 +4273,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -4228,7 +4324,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -4284,7 +4381,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -4382,7 +4480,8 @@
           "evidence_id": "783925d87972d887adbb432a9e8acbaa7690cb1208cf27763b5d0a63a3071121",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -4481,7 +4580,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -4532,7 +4632,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -4679,7 +4780,8 @@
           "evidence_id": "e3ff95d3bd5c3915fedc59e3f9c747e58f27425cf4052def959a6198f057c2bd",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -4728,7 +4830,8 @@
           "evidence_id": "a4aefb56a17e6ef111b521c8f1c24ece77f3e61270ce5c75208f40206f79d2f4",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -4833,7 +4936,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -4883,7 +4987,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -4932,7 +5037,8 @@
           "evidence_id": "d4e7b216276ce7d95a38e5124c7d2ad3afe5fa9efa8b9981acfe9ee0cf7020fa",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -5080,7 +5186,8 @@
           "evidence_id": "eacb676cbfc525375719e7fe3c33a6daaa33460a8c8d3fe08c0e00793954ca37",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -5130,7 +5237,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -5180,7 +5288,8 @@
           "evidence_id": "61c6f444c57bf868ec3cc4c635785d55b9b784eff0f67edea83b7e9b6d0dd666",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -5238,7 +5347,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -5267,7 +5377,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -5389,7 +5500,8 @@
           "evidence_id": "514dac831006383950d0373fda0d3524be7c5a778afca9380c9c0a911bb22b18",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -5596,7 +5708,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -5648,7 +5761,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -5671,7 +5785,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -5771,7 +5886,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -6147,7 +6263,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -6597,7 +6714,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -6745,7 +6863,8 @@
           "evidence_id": "aae6343a7a9b530fdecadf848706eed1acc37a7c45ea19b81c29de0465d8a64b",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -6845,7 +6964,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -6943,7 +7063,8 @@
           "evidence_id": "6a8829fbbc91ae5bcb217c1caf941e1fa08e334cb6699b5dbb5d7146caee9cfe",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -6992,7 +7113,8 @@
           "evidence_id": "9bd238b23f9ea2bdc86407604b6d2bfcab94733a724d433989ae27a281f15eaf",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -7041,7 +7163,8 @@
           "evidence_id": "50095e8f718ddfc04764319fbf1a7953a322c9285baabeba93b648677ae458c9",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -7091,7 +7214,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -7140,7 +7264,8 @@
           "evidence_id": "aecbe4b05452ebf4f7c548228a713a4211c665617ef637159faa0b63f5b2fff8",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -7337,7 +7462,8 @@
           "evidence_id": "f60972a07a1ac6de40aa2017d50f4304d9aa8db41ed180f6c64f478c7156ee6f",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -7387,7 +7513,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -7439,7 +7566,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -7462,7 +7590,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -7512,7 +7641,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -7563,7 +7693,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -7586,7 +7717,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -7635,7 +7767,8 @@
           "evidence_id": "029c9cb9928e7d8adb038ac0cc3b48b2bf34989582744ae9e69f840029376ae5",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -7735,7 +7868,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -7785,7 +7919,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -7834,7 +7969,8 @@
           "evidence_id": "519195914844e6cb3e24128ed47179f8d21c3c3247c62ed361a126be42e11141",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -8040,7 +8176,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -8140,7 +8277,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -8240,7 +8378,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -8291,7 +8430,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -8314,7 +8454,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -8365,7 +8506,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -8414,7 +8556,8 @@
           "evidence_id": "ad70f0bdc7ff35ef80c7cae67705cd42711c964185a64443c45a020e6c6262c7",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -8712,7 +8855,8 @@
           "evidence_id": "5d02dfb53541a5589b08706421a7ed8eaa709c1931b2e7b2f5b35c852df01eba",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -8818,7 +8962,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -9016,7 +9161,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -9066,7 +9212,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -9118,7 +9265,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -9141,7 +9289,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -9191,7 +9340,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -9439,7 +9589,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -9488,7 +9639,8 @@
           "evidence_id": "075ce6281fda4eac441d0df3386010f9d580a5fa3d34801762dd601af67b6b59",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -9537,7 +9689,8 @@
           "evidence_id": "8dacfb412fbd33e879454111e3c736f2553cc2f09864ac36f3514e2ab221c119",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -9643,7 +9796,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -9700,7 +9854,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -9873,7 +10028,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -9972,7 +10128,8 @@
           "evidence_id": "f02e589a3fa5979b822cb405ee8ed8c5f065a08dc3f93a974282fa53dd8cb106",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -10129,7 +10286,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -10201,7 +10359,8 @@
           "evidence_id": "348d69d7cf57f01c385a4536cdf8f26786faebb75a291aaab40635e7a1a049c1",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -10250,7 +10409,8 @@
           "evidence_id": "328d3531a6d721bb0eb726a3bd0b8f2f53560ba20717e616fe03d8cf700948bf",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -10300,7 +10460,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -10497,7 +10658,8 @@
           "evidence_id": "b24c0aecb821f4cc0cd859635b081367052ae363901704d65b9bf085121b133f",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -10546,7 +10708,8 @@
           "evidence_id": "4f4f158e8319475db75bc9209a49abe45d7464f9c6f2e80454fa827416858fae",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -10597,7 +10760,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -10620,7 +10784,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -10677,7 +10842,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -10756,7 +10922,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -10806,7 +10973,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -10906,7 +11074,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1oJ4m1M7LC",
           "platform": "bilibili",
@@ -10956,7 +11125,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -11013,7 +11183,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -11087,7 +11258,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -11144,7 +11316,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -11367,7 +11540,8 @@
           "evidence_id": "bf27f0cc75d0626079f6d07156a8401d093163c29578b9d816b9ae90351fe810",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -11467,7 +11641,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -11516,7 +11691,8 @@
           "evidence_id": "f30989a2ef862c55a9b788c52290194f5cbcd5f61f9a8c10399f03c4bb7284a1",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -11663,7 +11839,8 @@
           "evidence_id": "dcc7c25b18dee278a65f316b607b55d46a57255be97b3fc0b680c32d16ecf6af",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -11713,7 +11890,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -11764,7 +11942,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -11821,7 +12000,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -11893,7 +12073,8 @@
           "evidence_id": "b17d2e3376740421a80a6356a82182c6b9988d7e86339f3373a095c09cbec2b9",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -11992,7 +12173,8 @@
           "evidence_id": "010c367e08bb970ba51e8a07383346fc636395f6c5961dc6595e71d39bfc2a92",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -12049,7 +12231,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -12122,7 +12305,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -12171,7 +12355,8 @@
           "evidence_id": "5871b1ca5c327fb743d197c344cb29eed3624c4d8bb0e3250c4019e85d80954e",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -12343,7 +12528,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -12393,7 +12579,8 @@
           "evidence_id": "d8b5cdb438f50cc1f289dd4820cf2d1c3bf2b10b585c32c8622b54132390844a",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -12444,7 +12631,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -12544,7 +12732,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -12567,7 +12756,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -12616,7 +12806,8 @@
           "evidence_id": "5bcbef97684fa94dfa0d2276c7ce244176e2dc6bf16e202da3c7c7235943a1a3",
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
-            "42205716184-attempt-1"
+            "42205716184-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1yYaEzsEjv",
           "platform": "bilibili",
@@ -12666,7 +12857,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -12722,7 +12914,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -12821,7 +13014,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -12870,7 +13064,8 @@
           "evidence_id": "0402acf860e28bdf3eba7555af542824bf6f58b84b7dddf92316294f6eac328a",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -12970,7 +13165,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -13068,7 +13264,8 @@
           "evidence_id": "0487c4ec54386885bcc479ac1b901fc54b0161ca36273290fa9c36e8826501bd",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -13124,7 +13321,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -13181,7 +13379,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -13254,7 +13453,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -13355,7 +13555,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -13378,7 +13579,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -13525,7 +13727,8 @@
           "evidence_id": "61dcd0d8a812e98bd092c86e83a66e9aafea1a2f8c796ab7d245f92766263c08",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -13576,7 +13779,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -13726,7 +13930,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
@@ -13749,7 +13954,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1pT6fYyENv",
           "platform": "bilibili",
@@ -13821,7 +14027,8 @@
           "evidence_id": "fa7cc625d44beb0f06e2f3c632b525b05cdca8c939d841d4d912a0d2dfdea5fe",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -13878,7 +14085,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -13934,7 +14142,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -13984,7 +14193,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1HDXUYmEoq",
           "platform": "bilibili",
@@ -14083,7 +14293,8 @@
           "batch_id": "42193236473-attempt-1",
           "observed_batches": [
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1qzajzkE9G",
           "platform": "bilibili",
@@ -14182,7 +14393,8 @@
           "evidence_id": "10021a90b8bab944e38e704d20f07212b01d1a4806f671eefc1d1d12f55ab5ad",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -14239,7 +14451,8 @@
             "42193236473-attempt-1",
             "42203849799-attempt-1",
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -14312,7 +14525,8 @@
           "batch_id": "42205716184-attempt-1",
           "observed_batches": [
             "42205716184-attempt-1",
-            "42221398383-attempt-1"
+            "42221398383-attempt-1",
+            "42225115611-attempt-1"
           ],
           "video_id": "BV1B16XYWEBv",
           "platform": "bilibili",
