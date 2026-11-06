@@ -29,7 +29,11 @@ on:
     - cron: '0 6 * * *'   # 每天 06:00 UTC，只做文本语料（不下载视频）
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: theater-pipeline-state
+  cancel-in-progress: false
 
 jobs:
   ingest:
@@ -130,3 +134,21 @@ jobs:
             frames/ingest/*/meta.json
             frames/ingest/*/subs.txt
           retention-days: 30
+
+      - name: 持久化不可变采集批次（独立 automation-data 分支）
+        if: success()
+        uses: actions/checkout@v4
+        with:
+          ref: automation-data
+          path: .pipeline-state
+          fetch-depth: 0
+
+      - name: 写入长期数据账本
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/pipeline/persist_batch.py \
+            --kind ingest \
+            --input-dir frames/ingest \
+            --state-dir .pipeline-state
