@@ -1,9 +1,10 @@
 name: video-ingest
-# 基于成熟轮子的跨平台采集：yt-dlp（B站/YouTube 元数据+字幕+章节+评论）
-# + PySceneDetect（按镜头取代表帧）。审计见 docs/VIDEO-TOOLING-AUDIT.md。
+# 基于成熟轮子 yt-dlp 的跨平台**文本语料**采集（B站/YouTube 元数据+字幕+章节+评论）。
+# 不下载视频本体：画面帧由 hd.mjs 产出（浏览器内 canvas、铺满全片）。
+# 审计见 docs/VIDEO-TOOLING-AUDIT.md。
 #
 # 手动：Actions → video-ingest → Run workflow
-#   platform=bilibili|youtube、query、limit、download=true 才会下载视频抽帧
+#   platform=bilibili|youtube、query、limit
 
 on:
   workflow_dispatch:
@@ -128,5 +129,4 @@ jobs:
             frames/ingest/ingest-summary.json
             frames/ingest/*/meta.json
             frames/ingest/*/subs.txt
-            frames/ingest/*/scene-*.jpg
           retention-days: 30
