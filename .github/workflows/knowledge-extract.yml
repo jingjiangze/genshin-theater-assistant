@@ -58,7 +58,8 @@ jobs:
           python tools/pipeline/verify_candidates.py \
             --registry .pipeline-state/.pipeline-state/knowledge/registry.json \
             --holdout data/evaluations/golden/strategy-holdout-v1.json \
-            --report .pipeline-state/.pipeline-state/knowledge/strategy-verification.json
+            --report .pipeline-state/.pipeline-state/knowledge/strategy-verification.json \
+            --ledger-repo .pipeline-state
           echo "### 策略晋级" >> "$GITHUB_STEP_SUMMARY"
           python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json

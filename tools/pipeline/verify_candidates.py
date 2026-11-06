@@ -23,6 +23,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -151,6 +153,8 @@ def main() -> int:
     ap.add_argument("--registry", type=Path, required=True)
     ap.add_argument("--holdout", type=Path, required=True)
     ap.add_argument("--report", type=Path, required=True)
+    ap.add_argument("--ledger-repo", type=Path, default=None,
+                    help="账本 git 工作副本；给了就把 verification 结果提交到 automation-data")
     args = ap.parse_args()
 
     registry = read_json(args.registry)
@@ -159,6 +163,34 @@ def main() -> int:
     if updated != registry or report["promoted"] > 0:
         write_json(args.registry, updated)
     write_json(args.report, report)
+
+    if args.ledger_repo:
+        repo = args.ledger_repo.resolve()
+        rels = []
+        for p in (args.registry, args.report):
+            try:
+                rels.append(str(p.resolve().relative_to(repo)))
+            except ValueError:
+                pass
+        if rels:
+            subprocess.run(["git", "-C", str(repo), "config", "user.name", "theater-automation[bot]"], check=True)
+            subprocess.run(["git", "-C", str(repo), "config", "user.email",
+                            "theater-automation[bot]@users.noreply.github.com"], check=True)
+            subprocess.run(["git", "-C", str(repo), "add", *rels], check=True)
+            diff = subprocess.run(["git", "-C", str(repo), "diff", "--cached", "--quiet"])
+            if diff.returncode != 0:
+                subprocess.run(["git", "-C", str(repo), "commit", "-m",
+                                "knowledge: record automatic strategy verification"], check=True)
+                for attempt in range(1, 5):
+                    try:
+                        subprocess.run(["git", "-C", str(repo), "push", "origin", "HEAD:automation-data"],
+                                       check=True, capture_output=True)
+                        break
+                    except subprocess.CalledProcessError:
+                        if attempt == 4:
+                            raise
+                        subprocess.run(["git", "-C", str(repo), "fetch", "origin", "automation-data"], check=True)
+                        subprocess.run(["git", "-C", str(repo), "rebase", "origin/automation-data"], check=True)
     print(json.dumps({k: report[k] for k in
                       ("evaluation_id", "holdout_samples", "evaluated", "promoted", "rejected", "gate")},
                      ensure_ascii=False))
