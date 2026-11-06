@@ -112,7 +112,7 @@ def git(repo: Path, *args: str) -> str:
 
 
 def persist(state_dir: Path, manifest: dict, payload: list[tuple[Path, str, bytes]]) -> str:
-    batch_root = state_dir / "batches" / manifest["kind"] / manifest["batch_id"]
+    batch_root = state_dir / ".pipeline-state" / "batches" / manifest["kind"] / manifest["batch_id"]
     batch_root.mkdir(parents=True, exist_ok=False)
     for _, rel, data in payload:
         dest = batch_root / "files" / rel
@@ -121,16 +121,19 @@ def persist(state_dir: Path, manifest: dict, payload: list[tuple[Path, str, byte
     (batch_root / "manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
-    (state_dir / "README.md").write_text(
-        "# Automation data ledger\n\n"
-        "Append-only batch snapshots. Each batch is isolated by workflow run and attempt.\n"
-        "Raw collection, candidate corpus, and evaluation reports are not promoted to live\n"
-        "decision knowledge by this ledger. See each manifest for file hashes and status.\n",
-        encoding="utf-8",
-    )
+    state_readme = state_dir / ".pipeline-state" / "README.md"
+    state_readme.parent.mkdir(parents=True, exist_ok=True)
+    if not state_readme.exists():
+        state_readme.write_text(
+            "# Automation data ledger\n\n"
+            "Append-only batch snapshots. Each batch is isolated by workflow run and attempt.\n"
+            "Raw collection, candidate corpus, and evaluation reports are not promoted to live\n"
+            "decision knowledge by this ledger. See each manifest for file hashes and status.\n",
+            encoding="utf-8",
+        )
     git(state_dir, "config", "user.name", "theater-automation[bot]")
     git(state_dir, "config", "user.email", "theater-automation[bot]@users.noreply.github.com")
-    git(state_dir, "add", "README.md", str(batch_root.relative_to(state_dir)))
+    git(state_dir, "add", ".pipeline-state/README.md", str(batch_root.relative_to(state_dir)))
     git(state_dir, "commit", "-m", f"data: persist {manifest['kind']} batch {manifest['batch_id']}")
     # Rebase boundedly if another workflow advanced the ledger branch.
     for attempt in range(1, 5):
