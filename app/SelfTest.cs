@@ -256,6 +256,31 @@ internal static class SelfTest
         // JSON 选项必须序列化"公共字段"（replay 的 Step 是字段；否则写出空对象，蒸馏全 0）
         Check("JSON 选项包含字段", TemplateFactory.JsonOpts.IncludeFields, "IncludeFields=" + TemplateFactory.JsonOpts.IncludeFields);
 
+        // 蒸馏口径：目录里 ops.json 不能混进 replay 统计（实测曾把 42 份虚报成 84 份）
+        var dTmp = Path.Combine(Path.GetTempPath(), "ta-distill-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            Directory.CreateDirectory(dTmp);
+            File.WriteAllText(Path.Combine(dTmp, "a-replay.json"), "{\"frames\":2,\"steps\":[]}");
+            File.WriteAllText(Path.Combine(dTmp, "a-ops.json"), "{\"ops\":[]}");
+            File.WriteAllText(Path.Combine(dTmp, "rules.json"), "{}");
+            Check("蒸馏只收 replay 报告", Distiller.Expand(new[] { dTmp }).Count() == 1,
+                string.Join(",", Distiller.Expand(new[] { dTmp }).Select(Path.GetFileName)));
+        }
+        finally { try { Directory.Delete(dTmp, true); } catch { } }
+
+        // 跨视频共识：同一文本 2 个不同视频 → 共识；UI 文案过滤；同一视频 2 帧只算 1
+        var agg = OpsConsensus.Aggregate(new[]
+        {
+            ("买一个角色", "buy", "BV1aa@10s"), ("买一个角色", "buy", "BV1aa@20s"),
+            ("买一个角色", "buy", "BV1bb@30s"), ("可选角色", "buy", "BV1cc@40s"),
+            ("钟E-菲Q-卡Qe", "combo", "BV1dd@50s"),
+        });
+        Check("跨视频共识聚合",
+            agg.Count == 2 && agg[0].Videos == 2 && agg[0].Text == "买一个角色" && agg.All(r => r.Text != "可选角色"),
+            string.Join(" | ", agg.Select(r => $"{r.Text}:{r.Videos}")));
+        Check("共识·UI 文案过滤", OpsConsensus.IsNoise("可选角色") && !OpsConsensus.IsNoise("买一个角色"), "可选角色=噪声, 买一个角色=保留");
+
         // 操作提取分类（纯函数）：连招 / 购买 / 配队 / 行动
         Check("操作分类",
             OpsExtract.Classify("钟E-菲Q-卡Qe-菲e-钟Q") == "combo"

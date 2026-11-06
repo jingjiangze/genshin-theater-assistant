@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -63,7 +63,7 @@ internal static class OpsExtract
                 foreach (var b in boxes)
                 {
                     var line = (b.Text ?? "").Trim();
-                    if (line.Length < 4) continue;
+                    if (line.Length < 4 || OpsConsensus.IsNoise(line)) continue;
                     var kind = KindOf(line);
                     if (kind == null) continue;
                     var key = kind + ":" + Regex.Replace(line, @"[\s\p{P}]", "");

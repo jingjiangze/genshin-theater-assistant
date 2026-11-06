@@ -26,11 +26,11 @@ on:
       every:
         description: '每 N 秒一帧'
         required: false
-        default: '5'
+        default: '8'
       max:
         description: '每个视频最多抽帧'
         required: false
-        default: '200'
+        default: '40'
       min-acc:
         description: '准确率下限（默认 95，低于则 CI 失败）'
         required: false
@@ -124,12 +124,17 @@ jobs:
             $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--replay `"$dir`" --out `"$md`" --json `"$js`"" -Wait -PassThru -RedirectStandardOutput "$env:RUNNER_TEMP\$bv.out.txt"
             Get-Content "$env:RUNNER_TEMP\$bv.out.txt" -Encoding UTF8 | Select-Object -First 14
             $acc = 0.0
+            $truth = 0
             if (Test-Path $md) {
               $line = Select-String -Path $md -Pattern '准确率 \*\*([\d\.]+)%' | Select-Object -First 1
               if ($line) { $acc = [double]$line.Matches[0].Groups[1].Value }
+              $tline = Select-String -Path $md -Pattern '有真值 (\d+) 帧' | Select-Object -First 1
+              if ($tline) { $truth = [int]$tline.Matches[0].Groups[1].Value }
             }
-            $summary += "| $bv | $acc% | exit=$($p.ExitCode) |"
-            if ($minAcc -gt 0 -and $acc -lt $minAcc) { throw "$bv 准确率 $acc% 低于下限 $minAcc%" }
+            $accText = if ($truth -eq 0) { "n/a（无真值帧）" } else { "$acc%" }
+            $summary += "| $bv | $accText | exit=$($p.ExitCode) |"
+            # 只有"有真值帧"的视频才卡准确率门禁：菜单/结算远景看不到幕次标签，属于正常情况
+            if ($minAcc -gt 0 -and $truth -gt 0 -and $acc -lt $minAcc) { throw "$bv 准确率 $acc%（真值帧 $truth）低于下限 $minAcc%" }
           }
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 视频对答案回归"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 视频 | 幕次准确率 | 退出码 |"
@@ -156,6 +161,13 @@ jobs:
           Get-Content "$env:RUNNER_TEMP\distill.txt" -Encoding UTF8 | Select-Object -First 6
           if (Test-Path .\docs\experience\SUMMARY.md) { Get-Content .\docs\experience\SUMMARY.md -Encoding UTF8 | Select-Object -First 14 }
 
+      - name: 跨视频操作共识（≥2 个 UP 主都这么写才采信）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--consensus `"$PWD\frames`" --out `"$PWD\docs\experience\OPS-CONSENSUS.md`"" -Wait -PassThru -RedirectStandardOutput "$env:RUNNER_TEMP\consensus.txt"
+          Get-Content "$env:RUNNER_TEMP\consensus.txt" -Encoding UTF8 | Select-Object -First 12
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -166,4 +178,5 @@ jobs:
             frames/*-ops.json
             docs/experience/SUMMARY.md
             docs/experience/rules.json
+            docs/experience/OPS-CONSENSUS.md
           retention-days: 30

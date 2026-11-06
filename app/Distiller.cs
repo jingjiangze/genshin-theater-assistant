@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 
 namespace TheaterAssistant;
@@ -72,7 +72,11 @@ internal static class Distiller
         var reports = new List<Report>();
         foreach (var f in files)
         {
-            try { reports.Add(Parse(File.ReadAllText(f), Path.GetFileName(f))); }
+            try
+            {
+                var rep = Parse(File.ReadAllText(f), Path.GetFileName(f));
+                if (rep.Frames > 0) reports.Add(rep);
+            }
             catch (Exception ex) { Cli.Say("解析失败 " + f + ": " + ex.Message); }
         }
 
@@ -93,7 +97,7 @@ internal static class Distiller
         var md = new StringBuilder();
         md.AppendLine("# 经验汇总（自动蒸馏）");
         md.AppendLine();
-        md.AppendLine($"> 由 `--distill` 从 {reports.Count} 份 replay 报告生成；数字是实测，不是估计。");
+        md.AppendLine($"> 由 `--distill` 从 {reports.Count} 份 **replay** 报告生成（已排除 `*-ops.json` 候选文件）；数字是实测，不是估计。");
         md.AppendLine();
         md.AppendLine("| 指标 | 数值 |");
         md.AppendLine("|---|---|");
@@ -150,15 +154,15 @@ internal static class Distiller
         return 0;
     }
 
-    private static IEnumerable<string> Expand(IEnumerable<string> inputs)
+    internal static IEnumerable<string> Expand(IEnumerable<string> inputs)
     {
         foreach (var i in inputs ?? Array.Empty<string>())
         {
             if (string.IsNullOrWhiteSpace(i)) continue;
             if (Directory.Exists(i))
-                foreach (var f in Directory.GetFiles(i, "*.json", SearchOption.AllDirectories).OrderBy(x => x, StringComparer.Ordinal))
-                    if (!f.EndsWith("rules.json", StringComparison.OrdinalIgnoreCase)) yield return f;
-            else if (File.Exists(i)) yield return i;
+                foreach (var f in Directory.GetFiles(i, "*-replay.json", SearchOption.AllDirectories).OrderBy(x => x, StringComparer.Ordinal))
+                    yield return f;
+            else if (File.Exists(i) && i.EndsWith("-replay.json", StringComparison.OrdinalIgnoreCase)) yield return i;
         }
     }
 
