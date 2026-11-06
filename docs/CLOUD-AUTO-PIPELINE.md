@@ -37,7 +37,7 @@ Current ledger statuses are intentionally conservative: ingest = `INGESTED`, rep
 | P1 | Independent evaluation labels, fixed holdout set, regression gates, automatic quarantine | IN PROGRESS: subtitle + chapter agreement evaluator implemented; calibration/holdout gates pending |
 | P2 | Knowledge extraction, provenance/creator independence, deduplication, contradiction and version states | IN PROGRESS: creator IDs, candidate registry and scheduled extractor implemented; conflict/version lifecycle and strategy-backed VERIFIED gate pending |
 | P3 | Single-act constraints and multi-act planner with baseline comparisons | IN PROGRESS: Beam Search planner and --plan-theater CLI implemented; endurance-aware assignment and replay comparison pending |
-| P4 | Retrieval experiments (BM25 baseline, then optional vector/RRF/reranker) | PENDING |
+| P4 | Retrieval experiments (BM25 baseline, then optional vector/RRF/reranker) | IN PROGRESS: BM25 17/17 hit@1 and hit@3 baseline enforced in cloud validation; alternative retrievers deferred until larger holdout |
 | P5 | Automated parameter optimization, promotion and rollback | PENDING |
 | P6 | Reassess model fine-tuning only after enough independent labels and measured benefit | DEFERRED |
 
