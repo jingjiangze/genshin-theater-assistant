@@ -300,6 +300,32 @@ internal static class SelfTest
             && OpsConsensus.SplitBv("BV1aa@20s") == "BV1aa",
             "bilibili:/youtube: 前缀都能归一到视频 id");
 
+        var plannerDir = Path.Combine(Path.GetTempPath(), "theater-planner-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(plannerDir);
+        try
+        {
+            var seasonPath = Path.Combine(plannerDir, "season.json");
+            var rosterPath = Path.Combine(plannerDir, "good.json");
+            File.WriteAllText(seasonPath, """
+            {"season":1,"elements":["Hydro"],"acts":{"Hard":{
+              "1":{"level":80,"boss":false,"encounters":[{"name":"Act1 Yelan","rec":"Hydro","chars":"Yelan"}]},
+              "2":{"level":80,"boss":false,"encounters":[
+                {"name":"Act2 Yelan","rec":"Hydro","chars":"Yelan"},
+                {"name":"Act2 Xingqiu","rec":"Hydro","chars":"Xingqiu"}]}
+            }}}
+            """);
+            File.WriteAllText(rosterPath, """
+            {"characters":[{"key":"Yelan","level":90},{"key":"Xingqiu","level":90}]}
+            """);
+            var plan = ActPlanner.Build(TheaterData.Load(seasonPath), RosterData.TryLoad(rosterPath), "Hard");
+            var chosen = plan.Acts.SelectMany(a => a.RecommendedCharacters).ToList();
+            Check("多幕规划·跨幕角色复用软约束",
+                plan.Acts.Count == 2 && plan.Acts[0].Encounter == "Act1 Yelan"
+                && plan.Acts[1].Encounter == "Act2 Xingqiu" && chosen.Distinct(StringComparer.OrdinalIgnoreCase).Count() == 2,
+                string.Join(" | ", plan.Acts.Select(a => $"{a.Act}:{a.Encounter}")));
+        }
+        finally { try { Directory.Delete(plannerDir, true); } catch { } }
+
         // 操作提取分类（纯函数）：连招 / 购买 / 配队 / 行动
         Check("操作分类",
             OpsExtract.Classify("钟E-菲Q-卡Qe-菲e-钟Q") == "combo"
