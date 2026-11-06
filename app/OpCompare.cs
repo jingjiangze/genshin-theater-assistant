@@ -243,7 +243,7 @@ internal static class OpCompare
         report.AppendLine("| 视频 | 幕 | 视频实际带的角色 | 我们的推荐 | 命中 | 命中率 |");
         report.AppendLine("|---|---|---|---|---|---|");
 
-        int totalActs = 0, hitAny = 0, totalPred = 0, totalHit = 0;
+        int totalActs = 0, hitAny = 0, totalPred = 0, totalHit = 0, totalRoleHit = 0, roleHitAny = 0;
         foreach (var f in subsFiles)
         {
             var text = File.ReadAllText(f);
@@ -253,17 +253,29 @@ internal static class OpCompare
             {
                 var pred = PredictedFor(kv.Key);
                 var hits = pred.Where(p => kv.Value.Contains(p, StringComparer.Ordinal)).ToList();
-                totalActs++; totalPred += pred.Count; totalHit += hits.Count;
+                // 职能命中：推荐没带，但带了同职能替代（例如推荐夜兰、实际带行秋）
+                var roleHits = new List<string>();
+                foreach (var p in pred.Where(p => !kv.Value.Contains(p, StringComparer.Ordinal)))
+                {
+                    var alt = SubstitutesFor(p).FirstOrDefault(a => kv.Value.Contains(a.Name, StringComparer.Ordinal));
+                    if (alt.Name.Length > 0) roleHits.Add($"{p}→{alt.Name}");
+                }
+                totalActs++; totalPred += pred.Count; totalHit += hits.Count; totalRoleHit += roleHits.Count;
                 if (hits.Count > 0) hitAny++;
-                report.AppendLine($"| {vid} | {kv.Key} | {string.Join("、", kv.Value)} | {(pred.Count == 0 ? "-" : string.Join("、", pred))} | {(hits.Count == 0 ? "-" : string.Join("、", hits))} | {(pred.Count == 0 ? "n/a" : (100.0 * hits.Count / pred.Count).ToString("0") + "%")} |");
+                if (hits.Count + roleHits.Count > 0) roleHitAny++;
+                var cell = string.Join("、", hits.Concat(roleHits));
+                report.AppendLine($"| {vid} | {kv.Key} | {string.Join("、", kv.Value)} | {(pred.Count == 0 ? "-" : string.Join("、", pred))} | {(cell.Length == 0 ? "-" : cell)} | {(pred.Count == 0 ? "n/a" : (100.0 * hits.Count / pred.Count).ToString("0") + "%")} |");
             }
         }
         double anyRate = totalActs == 0 ? 0 : 100.0 * hitAny / totalActs;
         double exactRate = totalPred == 0 ? 0 : 100.0 * totalHit / totalPred;
+        double roleRate = totalPred == 0 ? 0 : 100.0 * (totalHit + totalRoleHit) / totalPred;
+        double roleAnyRate = totalActs == 0 ? 0 : 100.0 * roleHitAny / totalActs;
         report.AppendLine();
         report.AppendLine($"- 视频 {subsFiles.Count} 个，有原操作记录的幕次 {totalActs} 个");
-        report.AppendLine($"- **至少命中 1 个**：{hitAny}/{totalActs} = **{anyRate:0.0}%**");
-        report.AppendLine($"- **逐项命中**：{totalHit}/{totalPred} = **{exactRate:0.0}%**");
+        report.AppendLine($"- **精确命中（同一个角色）**：至少 1 个 {hitAny}/{totalActs} = **{anyRate:0.0}%**；逐项 {totalHit}/{totalPred} = **{exactRate:0.0}%**");
+        report.AppendLine($"- **职能命中（含同职能替代）**：至少 1 个 {roleHitAny}/{totalActs} = **{roleAnyRate:0.0}%**；逐项 {totalHit + totalRoleHit}/{totalPred} = **{roleRate:0.0}%**");
+        report.AppendLine("- 说明：共识推荐是统计倾向，UP 主会按自己账号换同职能角色；**职能命中率**才是这套推荐是否有用的指标。");
         report.AppendLine();
         report.AppendLine("## 未命中时的可替代建议");
         report.AppendLine();
