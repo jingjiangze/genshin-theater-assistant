@@ -5,7 +5,7 @@ namespace TheaterAssistant;
 
 /// <summary>
 /// 把一批 --replay 产物"蒸馏"成可复用的经验：
-///   · 数字面：真值帧数、准确率（原始/稳定）、跳变、状态分布、每帧耗时、检索命中率；
+///   · 数字面：视觉代理标签帧数、自洽率（原始/稳定）、跳变、状态分布、每帧耗时、检索命中率；
 ///   · 规则面：写出 docs/experience/SUMMARY.md 与 rules.json，供人和程序共同引用。
 ///
 /// 目的：每跑一批真实视频，就把结论沉淀一次；后续判断可以直接引用"经验"而不是重新试错。
@@ -112,7 +112,7 @@ internal static class Distiller
         md.AppendLine();
         md.AppendLine("## 逐视频");
         md.AppendLine();
-        md.AppendLine("| 报告 | 帧 | 真值帧 | 准确率(稳/原) | 跳变 | 抖动 |");
+        md.AppendLine("| 报告 | 帧 | 代理标签帧 | 自洽率(稳/原) | 跳变 | 抖动 |");
         md.AppendLine("|---|---|---|---|---|---|");
         foreach (var r in reports)
         {
@@ -148,7 +148,7 @@ internal static class Distiller
             perReport = reports.Select(r => new { r.File, r.Frames, r.TruthFrames, r.StableRight, r.RawRight, r.Jumps, r.Flips }),
         }, TemplateFactory.JsonOpts), Encoding.UTF8);
 
-        Cli.Say($"蒸馏 {reports.Count} 份报告 → 帧 {frames}，真值帧 {truth}，准确率 {accStable:0.0}%（稳定）/ {accRaw:0.0}%（原始），跳变 {jumps}，抖动 {flips}");
+        Cli.Say($"蒸馏 {reports.Count} 份报告 → 帧 {frames}，代理标签帧 {truth}，自洽率 {accStable:0.0}%（稳定）/ {accRaw:0.0}%（原始），跳变 {jumps}，抖动 {flips}");
         Cli.Say("已写: " + mdPath);
         Cli.Say("已写: " + jsonPath);
         return 0;
