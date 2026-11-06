@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "batch_id": "42182875598-attempt-1",
+  "kind": "evaluation",
+  "status": "INSUFFICIENT_EXTERNAL_LABELS",
+  "workflow": "video-eval",
+  "run_id": "42182875598",
+  "run_attempt": "1",
+  "source_commit": "dcf3f971f610f9a9c43a0e224ca58a3cea2c1dd7",
+  "created_at": "2026-11-06T07:48:51.925920+00:00",
+  "file_count": 7,
+  "total_bytes": 16747,
+  "files": [
+    {
+      "path": "BV1saaz6qEbH-ops.json",
+      "size_bytes": 3963,
+      "sha256": "f485eb96bfa5b04dacde3d87e00719cc75cd3d2ef758072b0f7b9693d1613746"
+    },
+    {
+      "path": "BV1saaz6qEbH-replay.json",
+      "size_bytes": 4589,
+      "sha256": "bae3527b44ae0a832e834ab33e649f63b136b2b24fd576f4959b700026338960"
+    },
+    {
+      "path": "BV1saaz6qEbH-replay.md",
+      "size_bytes": 3074,
+      "sha256": "32de758b73f7a44f55696675aa8413d526e9cd80347f4f26c5dbd9ac5ea9b62d"
+    },
+    {
+      "path": "experience/OPS-CONSENSUS.md",
+      "size_bytes": 2310,
+      "sha256": "e2eb22f0e8a50ce2c43be5b3d3ddee5446959a7480c8f4b3bee221fbdc9bb697"
+    },
+    {
+      "path": "experience/rules.json",
+      "size_bytes": 424,
+      "sha256": "205b1e250886dd11ad7f6b6071095185e2cb2ea043773f1c63bcebab1a97f9b8"
+    },
+    {
+      "path": "experience/SUMMARY.md",
+      "size_bytes": 1338,
+      "sha256": "35582055516910a4ac62f5057bf3ed89536e11d2f1ea06f81c20942bbd72da03"
+    },
+    {
+      "path": "external-eval.json",
+      "size_bytes": 1049,
+      "sha256": "2c22de27f824df1daf3fa7b8ad4e85ce1488828797ff5c369ff5c35b9c9f53d7"
+    }
+  ],
+  "promotion": {
+    "eligible": false,
+    "reason": "durable ingestion is not semantic validation or independent ground truth"
+  }
+}
