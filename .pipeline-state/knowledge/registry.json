@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-06T07:13:51.953636+00:00",
+  "updated_at": "2026-11-06T07:18:15.074364+00:00",
   "candidate_count": 37,
   "verified_count": 0,
   "candidates": [
@@ -18,13 +18,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "9274cfd819df81fa25ef526de6514a68919e7ff92ec3e225f30ff441572d23a0",
-        "55589c81f8851a08d2205a85665a40ea450f4a49937e88f2dea86958e1344428",
-        "879124ab3716b274ca84bed6af76d2b762ffeefc7262e76fdece9afc0b6c1572"
+        "2b3dd9d91e9b3c5fe155ba70871f759f432b1fd12122d1153d38ab023e45e864"
       ],
       "evidence": [
         {
-          "evidence_id": "9274cfd819df81fa25ef526de6514a68919e7ff92ec3e225f30ff441572d23a0",
+          "evidence_id": "2b3dd9d91e9b3c5fe155ba70871f759f432b1fd12122d1153d38ab023e45e864",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -36,44 +34,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "action",
           "text": "需要留的后台角色：5幕风、6幕弓箭手",
-          "act": 0
-        },
-        {
-          "evidence_id": "55589c81f8851a08d2205a85665a40ea450f4a49937e88f2dea86958e1344428",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "action",
-          "text": "需要留的后台角色：5幕风、6幕弓箭手",
-          "act": 0
-        },
-        {
-          "evidence_id": "879124ab3716b274ca84bed6af76d2b762ffeefc7262e76fdece9afc0b6c1572",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "action",
-          "text": "需要留的后台角色：5幕风、6幕弓箭手",
-          "act": 0
+          "act": 0,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "0737eab8f124625227457d6e85ac5cf1f715f98c7a3b500b8f602dab77675650",
@@ -86,13 +60,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "907dcb9a31befa405d9d8b45972e81d387f55715f2c6289c89febf7e5b141974",
-        "207a82fe9cf6682be85a92e901696954cbbfa32bca5654b90b20a037d83d5633",
-        "1b20856d0a4b727ac65c5f405c26702f3cee3dce1fa8846fe702eddb9c1dc4d8"
+        "8a9d039c0934e98f8dcf6d755fe97ff7d5538f351d78678f068b1df1cf09e5b1"
       ],
       "evidence": [
         {
-          "evidence_id": "907dcb9a31befa405d9d8b45972e81d387f55715f2c6289c89febf7e5b141974",
+          "evidence_id": "8a9d039c0934e98f8dcf6d755fe97ff7d5538f351d78678f068b1df1cf09e5b1",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -104,44 +76,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第5幕 推荐 芭芭拉",
-          "act": 5
-        },
-        {
-          "evidence_id": "207a82fe9cf6682be85a92e901696954cbbfa32bca5654b90b20a037d83d5633",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第5幕 推荐 芭芭拉",
-          "act": 5
-        },
-        {
-          "evidence_id": "1b20856d0a4b727ac65c5f405c26702f3cee3dce1fa8846fe702eddb9c1dc4d8",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第5幕 推荐 芭芭拉",
-          "act": 5
+          "act": 5,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "0cbd23d8c9c89b7a489de4a610fd3b86408742068fc62bdfe037fee8ccc28d23",
@@ -154,13 +102,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "35f50a7e33592a795b75a77cee4950cf43e3d7b7d4651da04090a8407af23043",
-        "1327ce427cc5cab491564f76a60cd0e1cf6fae3a29ae385850936acc4dd8587f",
-        "1e659a5ac16a399f93619db0432d83d1cee12eefd16d289f2204772cbf00cda1"
+        "87d25b4a127385d8b4be6b1863e1c9aa92189f727441e5d9671f01e63a9ae37d"
       ],
       "evidence": [
         {
-          "evidence_id": "35f50a7e33592a795b75a77cee4950cf43e3d7b7d4651da04090a8407af23043",
+          "evidence_id": "87d25b4a127385d8b4be6b1863e1c9aa92189f727441e5d9671f01e63a9ae37d",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -172,44 +118,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "buy",
           "text": "需要选出角色：4幕聚怪或副C、6幕卡齐娜、7幕行秋+香菱、8幕班尼特、9幕自己主C组合",
-          "act": 0
-        },
-        {
-          "evidence_id": "1327ce427cc5cab491564f76a60cd0e1cf6fae3a29ae385850936acc4dd8587f",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "buy",
-          "text": "需要选出角色：4幕聚怪或副C、6幕卡齐娜、7幕行秋+香菱、8幕班尼特、9幕自己主C组合",
-          "act": 0
-        },
-        {
-          "evidence_id": "1e659a5ac16a399f93619db0432d83d1cee12eefd16d289f2204772cbf00cda1",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "buy",
-          "text": "需要选出角色：4幕聚怪或副C、6幕卡齐娜、7幕行秋+香菱、8幕班尼特、9幕自己主C组合",
-          "act": 0
+          "act": 0,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "0d517900a5ce624c0aaec8de4dfa229c0765c164420ac4f54b155df6ce886451",
@@ -222,13 +144,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "0fc04d61a087e2ceabd7cf83be138039f5df5b0c42c876e88b9e8218c69d1665",
-        "86ed53bcc560e3524288cb62be870ae6dbad324fe8a562ba51df6bb0fdaceaa4",
-        "2440984a1b8fa7f80701ad7793600c19120dca2e6165354366a58b23436fce2a"
+        "436f6f7c84db51335046ea0a47c37b1d7c0906daa63f86e68ff164856d2b40f4"
       ],
       "evidence": [
         {
-          "evidence_id": "0fc04d61a087e2ceabd7cf83be138039f5df5b0c42c876e88b9e8218c69d1665",
+          "evidence_id": "436f6f7c84db51335046ea0a47c37b1d7c0906daa63f86e68ff164856d2b40f4",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -240,44 +160,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第6幕 推荐 卡齐娜",
-          "act": 6
-        },
-        {
-          "evidence_id": "86ed53bcc560e3524288cb62be870ae6dbad324fe8a562ba51df6bb0fdaceaa4",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第6幕 推荐 卡齐娜",
-          "act": 6
-        },
-        {
-          "evidence_id": "2440984a1b8fa7f80701ad7793600c19120dca2e6165354366a58b23436fce2a",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第6幕 推荐 卡齐娜",
-          "act": 6
+          "act": 6,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "1facd76b3e22191a82d56ca8b7c8211f3033372bd1a0fe575014e4800205d037",
@@ -290,13 +186,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "3eb90753d262b9c14765c4eacd8bd8c64b24ebb1a3abe8510dfb7766b682b576",
-        "9aea1f2378d9a96317d287bb87172b716be5531691687c64765b706b32431634",
-        "7629e6c0b0d22c85193250ac7e9e7e19e53a09da1f3bc544b959a76b67a5efd6"
+        "dd58edf36e1d4aede14ef89b983b84cd9bf1fdf7e8f29b2a4f30c4d25965e48e"
       ],
       "evidence": [
         {
-          "evidence_id": "3eb90753d262b9c14765c4eacd8bd8c64b24ebb1a3abe8510dfb7766b682b576",
+          "evidence_id": "dd58edf36e1d4aede14ef89b983b84cd9bf1fdf7e8f29b2a4f30c4d25965e48e",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -308,44 +202,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第7幕 推荐 行秋",
-          "act": 7
-        },
-        {
-          "evidence_id": "9aea1f2378d9a96317d287bb87172b716be5531691687c64765b706b32431634",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第7幕 推荐 行秋",
-          "act": 7
-        },
-        {
-          "evidence_id": "7629e6c0b0d22c85193250ac7e9e7e19e53a09da1f3bc544b959a76b67a5efd6",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第7幕 推荐 行秋",
-          "act": 7
+          "act": 7,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "20283e02c50a864bfa0bcb9ba478dac786054719ef4648a6ffa61b7bacf5677e",
@@ -361,13 +231,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "e7ba413fbeed38b08e4b1518c927eaadb31ffd000ae32813d6073dbe53d865b5",
-        "0af9f80e0559c2fc72353be91aa958fe22bb500d46dabe3a2733a5cf5317ad70",
-        "e156d8bbc040d8dd0176b2f1def06dff556feddc90f2c766e216fe05fbca662b"
+        "c9cb712d42a8e1596e10afefd15f946c2cbe73445e88a6643d56c5eff688ab60"
       ],
       "evidence": [
         {
-          "evidence_id": "e7ba413fbeed38b08e4b1518c927eaadb31ffd000ae32813d6073dbe53d865b5",
+          "evidence_id": "c9cb712d42a8e1596e10afefd15f946c2cbe73445e88a6643d56c5eff688ab60",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -379,44 +247,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第5幕 推荐 那维莱特",
-          "act": 5
-        },
-        {
-          "evidence_id": "0af9f80e0559c2fc72353be91aa958fe22bb500d46dabe3a2733a5cf5317ad70",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第5幕 推荐 那维莱特",
-          "act": 5
-        },
-        {
-          "evidence_id": "e156d8bbc040d8dd0176b2f1def06dff556feddc90f2c766e216fe05fbca662b",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第5幕 推荐 那维莱特",
-          "act": 5
+          "act": 5,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "20445a16a8017e27c8caefb283d948dbada02cd399497e00a64d9b6b6bb9f0d2",
@@ -429,13 +273,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "e26850c1f5cd6ecaba53b5a267b79ff1576caa089ad65a99e3cc1c9e5683adb7",
-        "82b5b60c5db8f98758c671e29afb64cec9fdca01e3d211c1e1c28b04b5adc717",
-        "d08ad4159a4e5acb726f62b605617e5602ceb2bbafe6ef1810cfa230388e99d5"
+        "1d0e76e91fd2307c380b6638ef451d646d10a6b13c1e544e8476857233be866d"
       ],
       "evidence": [
         {
-          "evidence_id": "e26850c1f5cd6ecaba53b5a267b79ff1576caa089ad65a99e3cc1c9e5683adb7",
+          "evidence_id": "1d0e76e91fd2307c380b6638ef451d646d10a6b13c1e544e8476857233be866d",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -447,44 +289,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第6幕 推荐 夜兰",
-          "act": 6
-        },
-        {
-          "evidence_id": "82b5b60c5db8f98758c671e29afb64cec9fdca01e3d211c1e1c28b04b5adc717",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第6幕 推荐 夜兰",
-          "act": 6
-        },
-        {
-          "evidence_id": "d08ad4159a4e5acb726f62b605617e5602ceb2bbafe6ef1810cfa230388e99d5",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第6幕 推荐 夜兰",
-          "act": 6
+          "act": 6,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "4d0bce7d0d82621ba77f00678949b37fd8b0220cabd8d92ac9f362d3859aafd0",
@@ -497,13 +315,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "7069980f0796cf6f272b56819b9d5a08e1d27b94a0f2f4731a0d1b6f6c0bc97c",
-        "de8d32a10a0ffc18153bb83069ecf2d92c0231a97bc986f384da145ecffbcb04",
-        "dedeabf63b0a132934e6263340777c9397dfc3a8ebdaf1586a3cac1a4a8ac820"
+        "25139c8622c4398fadc53b3f8eca5c1c92e8b1c3b079c8955ca30b2bdca340ec"
       ],
       "evidence": [
         {
-          "evidence_id": "7069980f0796cf6f272b56819b9d5a08e1d27b94a0f2f4731a0d1b6f6c0bc97c",
+          "evidence_id": "25139c8622c4398fadc53b3f8eca5c1c92e8b1c3b079c8955ca30b2bdca340ec",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -515,44 +331,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第3幕 推荐 宵宫",
-          "act": 3
-        },
-        {
-          "evidence_id": "de8d32a10a0ffc18153bb83069ecf2d92c0231a97bc986f384da145ecffbcb04",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第3幕 推荐 宵宫",
-          "act": 3
-        },
-        {
-          "evidence_id": "dedeabf63b0a132934e6263340777c9397dfc3a8ebdaf1586a3cac1a4a8ac820",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第3幕 推荐 宵宫",
-          "act": 3
+          "act": 3,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "5653f76460c1862fa9dbd4b8843734eb449eeec18736cb4bd98c71b44ba86632",
@@ -565,13 +357,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "76762636558f4bbd02cfa893f764918f14b4d45dd5d331e20883b2c3208c9ee7",
-        "7c03e2881942cc26c456717abe432b9742ba340629ba3f6a4d96d6859f0dbf71",
-        "562134b2c38b5cca841095a271b5cbe307f261266eda7bf7cb824d97f2a70466"
+        "afa1c0689ebd9fb42f2419d4af170cddd6c6fec33d85a853a76d6937529750dd"
       ],
       "evidence": [
         {
-          "evidence_id": "76762636558f4bbd02cfa893f764918f14b4d45dd5d331e20883b2c3208c9ee7",
+          "evidence_id": "afa1c0689ebd9fb42f2419d4af170cddd6c6fec33d85a853a76d6937529750dd",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -583,44 +373,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第8幕 推荐 行秋",
-          "act": 8
-        },
-        {
-          "evidence_id": "7c03e2881942cc26c456717abe432b9742ba340629ba3f6a4d96d6859f0dbf71",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第8幕 推荐 行秋",
-          "act": 8
-        },
-        {
-          "evidence_id": "562134b2c38b5cca841095a271b5cbe307f261266eda7bf7cb824d97f2a70466",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第8幕 推荐 行秋",
-          "act": 8
+          "act": 8,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "58cace139b07feba9e57b83d9b5a4b321d4c97fca7f50b8fbb928245c122c95e",
@@ -636,13 +402,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "e6e74e7ccbe929c366da2289e64bdcb5759ce37fd00b56046bbb5dd2d3c805b6",
-        "5a29ca20470931095403de28789644b45f7c3a181d717c1b742340d4285dc825",
-        "3d8baa7d905c2d7b7e3fc0f038fe56404b325f55dcda3a07c19dbc3008f7f07f"
+        "21f0ca3ff3bad4d70cd5d96e27e0e8fd3d3dbe01d1a5ca02446485ec163d5f2b"
       ],
       "evidence": [
         {
-          "evidence_id": "e6e74e7ccbe929c366da2289e64bdcb5759ce37fd00b56046bbb5dd2d3c805b6",
+          "evidence_id": "21f0ca3ff3bad4d70cd5d96e27e0e8fd3d3dbe01d1a5ca02446485ec163d5f2b",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -654,44 +418,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第1幕 推荐 芭芭拉",
-          "act": 1
-        },
-        {
-          "evidence_id": "5a29ca20470931095403de28789644b45f7c3a181d717c1b742340d4285dc825",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第1幕 推荐 芭芭拉",
-          "act": 1
-        },
-        {
-          "evidence_id": "3d8baa7d905c2d7b7e3fc0f038fe56404b325f55dcda3a07c19dbc3008f7f07f",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第1幕 推荐 芭芭拉",
-          "act": 1
+          "act": 1,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "58cd14e43ce08b3b2fc11e7b7bb21376f0b06dd542697c1cda9bae86361fe3fa",
@@ -704,13 +444,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "2a5cc4830330620cea7138400e40faafaaaadfcf2e696d6271ab95cd5f1def2e",
-        "7e3e38791545de355f86569754c45a10ed457b8f5b5d3a27e89b6649dbbf9977",
-        "a092905b0e10221492119f168fb8762e1177bde49391cd61a4f9b0242e0c4a10"
+        "32c8b62ca1c9901d0eda990b9e69cf1567d5e19f29ca5967efbd2c3358f8643c"
       ],
       "evidence": [
         {
-          "evidence_id": "2a5cc4830330620cea7138400e40faafaaaadfcf2e696d6271ab95cd5f1def2e",
+          "evidence_id": "32c8b62ca1c9901d0eda990b9e69cf1567d5e19f29ca5967efbd2c3358f8643c",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -722,44 +460,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第8幕 推荐 香菱",
-          "act": 8
-        },
-        {
-          "evidence_id": "7e3e38791545de355f86569754c45a10ed457b8f5b5d3a27e89b6649dbbf9977",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第8幕 推荐 香菱",
-          "act": 8
-        },
-        {
-          "evidence_id": "a092905b0e10221492119f168fb8762e1177bde49391cd61a4f9b0242e0c4a10",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第8幕 推荐 香菱",
-          "act": 8
+          "act": 8,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "591884dfb21b0282ab69e9310633ca61be4e1346a659ae15ef92d5ff0c2d4485",
@@ -775,13 +489,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "3922c8c0eb8377be778ad1f2664c5008595764fa2406a040bd1fd3d23afcc2b7",
-        "90e079babfbd4902b6d4de3dc8f85556e393edd0b54d5235daf40bbcc2fa8f55",
-        "dc21ee5e57098a1244305a1c0fdca93c87652fe79c3f23ab310370025343d1a8"
+        "d9b8fcb134518859e886d684b5aa18533e2dd4c93ff25c4eb37303c69f23e12e"
       ],
       "evidence": [
         {
-          "evidence_id": "3922c8c0eb8377be778ad1f2664c5008595764fa2406a040bd1fd3d23afcc2b7",
+          "evidence_id": "d9b8fcb134518859e886d684b5aa18533e2dd4c93ff25c4eb37303c69f23e12e",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -793,44 +505,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第3幕 推荐 那维莱特",
-          "act": 3
-        },
-        {
-          "evidence_id": "90e079babfbd4902b6d4de3dc8f85556e393edd0b54d5235daf40bbcc2fa8f55",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第3幕 推荐 那维莱特",
-          "act": 3
-        },
-        {
-          "evidence_id": "dc21ee5e57098a1244305a1c0fdca93c87652fe79c3f23ab310370025343d1a8",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第3幕 推荐 那维莱特",
-          "act": 3
+          "act": 3,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "60028bc9009f2f2f6531ea932e3e89672877112e7825ec3c58d43ce43ad724e5",
@@ -843,13 +531,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "a164d6cbba4f210ffdd19b83bdac2541e482f932abc98765e09d2721c2664552",
-        "8221089336b835be8993440497a74e6ba04f1428c41e3799740dc275ccb5945a",
-        "58a1f4b52241f8a347547c345fcc2fd6d5161fc24f9927e39da4287253c7d1ca"
+        "92108aea973fe9b8f50d5125f0ca27c7ebb0719623ba2089267f9a8d1a426b50"
       ],
       "evidence": [
         {
-          "evidence_id": "a164d6cbba4f210ffdd19b83bdac2541e482f932abc98765e09d2721c2664552",
+          "evidence_id": "92108aea973fe9b8f50d5125f0ca27c7ebb0719623ba2089267f9a8d1a426b50",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -861,44 +547,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第7幕 推荐 香菱",
-          "act": 7
-        },
-        {
-          "evidence_id": "8221089336b835be8993440497a74e6ba04f1428c41e3799740dc275ccb5945a",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第7幕 推荐 香菱",
-          "act": 7
-        },
-        {
-          "evidence_id": "58a1f4b52241f8a347547c345fcc2fd6d5161fc24f9927e39da4287253c7d1ca",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第7幕 推荐 香菱",
-          "act": 7
+          "act": 7,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "60f46a16a4cc4e8d7a93c87607efd8c6e9e0285db5fb8e9045ca34bdd31f6adf",
@@ -911,13 +573,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "a4e5352a9039c2b9a64861a1fda5186ff14c7f1ac1454a751dd8936e3a0f8b60",
-        "6c381a384f3d832396591c2b24c5c0ac8c1781438b4f3c0badf86fe50404b40c",
-        "f4d7cc379c89380447d1bd192d4b941efe24e8f23609bc6deb1da0045d97a871"
+        "2e72c8ade2e791358b0843ce9242dc216dafe37d86253904ab04b745018c3066"
       ],
       "evidence": [
         {
-          "evidence_id": "a4e5352a9039c2b9a64861a1fda5186ff14c7f1ac1454a751dd8936e3a0f8b60",
+          "evidence_id": "2e72c8ade2e791358b0843ce9242dc216dafe37d86253904ab04b745018c3066",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -929,44 +589,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第2幕 推荐 嘉明",
-          "act": 2
-        },
-        {
-          "evidence_id": "6c381a384f3d832396591c2b24c5c0ac8c1781438b4f3c0badf86fe50404b40c",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第2幕 推荐 嘉明",
-          "act": 2
-        },
-        {
-          "evidence_id": "f4d7cc379c89380447d1bd192d4b941efe24e8f23609bc6deb1da0045d97a871",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第2幕 推荐 嘉明",
-          "act": 2
+          "act": 2,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "6b5e4b7035291403b9375319886bd40499b999ef2e47f866adb62258f2bc02b0",
@@ -982,13 +618,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "345c41df4a4383ce4a5df8dea9f7afa5fdf11171307a4a92ebcefcd958556f81",
-        "e35ce2d104ea9d2e0e90e46f58bf8b3591a8d44111a149e1e67662238b6dc308",
-        "b7d9d58564ca76b775e98eb5bfb51a7ccd5412156deff30908a4c790c6e148f8"
+        "5334edc3d7f3edd5c89a30f7e91cd6cd72098e7e324bd9a17f58f59f1f12554d"
       ],
       "evidence": [
         {
-          "evidence_id": "345c41df4a4383ce4a5df8dea9f7afa5fdf11171307a4a92ebcefcd958556f81",
+          "evidence_id": "5334edc3d7f3edd5c89a30f7e91cd6cd72098e7e324bd9a17f58f59f1f12554d",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1000,44 +634,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "buy",
           "text": "需要选出角色：6幕自备较弱主c+辅助、7幕行秋、8幕自备较强主c+辅助",
-          "act": 0
-        },
-        {
-          "evidence_id": "e35ce2d104ea9d2e0e90e46f58bf8b3591a8d44111a149e1e67662238b6dc308",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "buy",
-          "text": "需要选出角色：6幕自备较弱主c+辅助、7幕行秋、8幕自备较强主c+辅助",
-          "act": 0
-        },
-        {
-          "evidence_id": "b7d9d58564ca76b775e98eb5bfb51a7ccd5412156deff30908a4c790c6e148f8",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "buy",
-          "text": "需要选出角色：6幕自备较弱主c+辅助、7幕行秋、8幕自备较强主c+辅助",
-          "act": 0
+          "act": 0,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "7239c14075a469e7d0f6dad13d08d273f28db58e6c8750046da569dcde46e65e",
@@ -1050,13 +660,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "adbdb3a7967fbac5268f6182345dcd8416740e5df9c6a5a85571191224aaba2e",
-        "92a7abb029230fef7146362de363251a51cc51e5e0ac3a515ea5d2a963a0b6bf",
-        "796c917b858c38cab439d7811cf6165b624f41f9f00a39a67a58775e5bf6022e"
+        "fd4e75d1ff0c442ded2a5ca56ea925268654839353d11e407e757610e24f821d"
       ],
       "evidence": [
         {
-          "evidence_id": "adbdb3a7967fbac5268f6182345dcd8416740e5df9c6a5a85571191224aaba2e",
+          "evidence_id": "fd4e75d1ff0c442ded2a5ca56ea925268654839353d11e407e757610e24f821d",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1068,44 +676,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第6幕 推荐 宵宫",
-          "act": 6
-        },
-        {
-          "evidence_id": "92a7abb029230fef7146362de363251a51cc51e5e0ac3a515ea5d2a963a0b6bf",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第6幕 推荐 宵宫",
-          "act": 6
-        },
-        {
-          "evidence_id": "796c917b858c38cab439d7811cf6165b624f41f9f00a39a67a58775e5bf6022e",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第6幕 推荐 宵宫",
-          "act": 6
+          "act": 6,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "742dbd7250440f9fd0a52c5839c87317d0b9adc229f27935882677ef91b4d0bc",
@@ -1121,13 +705,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "031b10c939adb502eb0b9283136e19fbf03fca4bcc3143886fea8ce7ca445c04",
-        "3086ad0f83485a6ff14fbe21115940ac13fd7eb2e0f752f69b2d502c1fdf5204",
-        "99a1a19ebb755afccdbb0726d0372407bdae9f31ae008e5ca3793742814ba262"
+        "ad3a7c1483ff453714667d4fda101049b2b365dbc45f1322cdc02996fdcb2c15"
       ],
       "evidence": [
         {
-          "evidence_id": "031b10c939adb502eb0b9283136e19fbf03fca4bcc3143886fea8ce7ca445c04",
+          "evidence_id": "ad3a7c1483ff453714667d4fda101049b2b365dbc45f1322cdc02996fdcb2c15",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1139,44 +721,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第2幕 推荐 流浪者",
-          "act": 2
-        },
-        {
-          "evidence_id": "3086ad0f83485a6ff14fbe21115940ac13fd7eb2e0f752f69b2d502c1fdf5204",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第2幕 推荐 流浪者",
-          "act": 2
-        },
-        {
-          "evidence_id": "99a1a19ebb755afccdbb0726d0372407bdae9f31ae008e5ca3793742814ba262",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第2幕 推荐 流浪者",
-          "act": 2
+          "act": 2,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "780aaba068ad788a80598eb319c6c238fa8c3b04aefc11722896d3bbd40f2256",
@@ -1189,13 +747,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "ed59ee15be2484b7871ca11094fedc4e20f9e2c2d72072dfb6a71d78896b67de",
-        "41d47b45b1f52e46654d80db81fafdff96a0466c4a1d55716d6e9d21202ba57a",
-        "d65a3a241c0f8f5614dd755d76d675c4cabd7b0632043caece87ace1de40eb32"
+        "839246b80ec1155eb94ae2fcb872301a382ac6e01e77206e4aa92e6f2dbd64d1"
       ],
       "evidence": [
         {
-          "evidence_id": "ed59ee15be2484b7871ca11094fedc4e20f9e2c2d72072dfb6a71d78896b67de",
+          "evidence_id": "839246b80ec1155eb94ae2fcb872301a382ac6e01e77206e4aa92e6f2dbd64d1",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1207,44 +763,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第8幕 推荐 班尼特",
-          "act": 8
-        },
-        {
-          "evidence_id": "41d47b45b1f52e46654d80db81fafdff96a0466c4a1d55716d6e9d21202ba57a",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第8幕 推荐 班尼特",
-          "act": 8
-        },
-        {
-          "evidence_id": "d65a3a241c0f8f5614dd755d76d675c4cabd7b0632043caece87ace1de40eb32",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第8幕 推荐 班尼特",
-          "act": 8
+          "act": 8,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "79a75a5034b96cf936a7b0c56dbf5d9585061de916bfa677b24f78f82c6634a5",
@@ -1257,13 +789,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "7d78a5d9a59f9e137cefbb40ff8568712bb0ee36755e211aac5a505f700f1fa5",
-        "6dbf9b70c5f5afdbc62768e471350c6be027eaf141bd019c88ea18ea39357398",
-        "df7593b555a9bab425e923a3187c4ace05c03e7206145472b201fc2254edde72"
+        "5a7dc7cda03de4052f98f59c47532f9feb9a327f08eec2fb3ca6effeb5b5539f"
       ],
       "evidence": [
         {
-          "evidence_id": "7d78a5d9a59f9e137cefbb40ff8568712bb0ee36755e211aac5a505f700f1fa5",
+          "evidence_id": "5a7dc7cda03de4052f98f59c47532f9feb9a327f08eec2fb3ca6effeb5b5539f",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1275,44 +805,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第3幕 推荐 夜兰",
-          "act": 3
-        },
-        {
-          "evidence_id": "6dbf9b70c5f5afdbc62768e471350c6be027eaf141bd019c88ea18ea39357398",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第3幕 推荐 夜兰",
-          "act": 3
-        },
-        {
-          "evidence_id": "df7593b555a9bab425e923a3187c4ace05c03e7206145472b201fc2254edde72",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第3幕 推荐 夜兰",
-          "act": 3
+          "act": 3,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "7e3786dc317b7538eaa89da84c8c42135027d2ac195a8371d7f30aa2ff578035",
@@ -1328,13 +834,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "0065ac30e933455c1994a40570142baa35a1845a8adfb05512ba7d3d22289e60",
-        "72b66a01030c99274d4f544f3b974ad54c25739281951446d965c1a1e0c8ea13",
-        "7391a9482eac72a5293e4f43af06fb715f5b436ccf2424b393dc7a3368f3aa42"
+        "4264101b0724f73988413d8c403e3eb84d729c2f564ad98b7ec38378f60479a6"
       ],
       "evidence": [
         {
-          "evidence_id": "0065ac30e933455c1994a40570142baa35a1845a8adfb05512ba7d3d22289e60",
+          "evidence_id": "4264101b0724f73988413d8c403e3eb84d729c2f564ad98b7ec38378f60479a6",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1346,44 +850,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第6幕 推荐 弓箭手",
-          "act": 6
-        },
-        {
-          "evidence_id": "72b66a01030c99274d4f544f3b974ad54c25739281951446d965c1a1e0c8ea13",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第6幕 推荐 弓箭手",
-          "act": 6
-        },
-        {
-          "evidence_id": "7391a9482eac72a5293e4f43af06fb715f5b436ccf2424b393dc7a3368f3aa42",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第6幕 推荐 弓箭手",
-          "act": 6
+          "act": 6,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "7fcce05a41fc8c275dd9e36acc9089b2d93a682a039370602414e9a33023a81b",
@@ -1399,13 +879,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "5c8a1931df238e2b0c2d6be620aec24110b4f36d8891ef0025d71846ba919510",
-        "7af039142f9b63209d913fa18e48cf89b836382c29c8238f0be70989b7e60344",
-        "473b6c7d76d00ab50ec86e28adbd638c6da818913b25dafb31ba607af83b4f94"
+        "5ff57f4c96d5a4da92a31751bc330311cdc55a8223258dd19af5f5f38e94b64b"
       ],
       "evidence": [
         {
-          "evidence_id": "5c8a1931df238e2b0c2d6be620aec24110b4f36d8891ef0025d71846ba919510",
+          "evidence_id": "5ff57f4c96d5a4da92a31751bc330311cdc55a8223258dd19af5f5f38e94b64b",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1417,44 +895,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第2幕 推荐 芭芭拉",
-          "act": 2
-        },
-        {
-          "evidence_id": "7af039142f9b63209d913fa18e48cf89b836382c29c8238f0be70989b7e60344",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第2幕 推荐 芭芭拉",
-          "act": 2
-        },
-        {
-          "evidence_id": "473b6c7d76d00ab50ec86e28adbd638c6da818913b25dafb31ba607af83b4f94",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第2幕 推荐 芭芭拉",
-          "act": 2
+          "act": 2,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "8ee808d1a5b2d38d1c06d482b904f7e09086bf2cb48f9d254e6465fd1860ba34",
@@ -1470,13 +924,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "403a5c6bf3681ed735fbe552fcd95dd83dce4a665d6188c139f2284e50fabd03",
-        "5265255d8303aebc7ff98e410a0c431c8bcb7dd1d8e420aa3967d9f34ec1f838",
-        "af980a625187c94e57a3517b52c9f39431468c165c0f5851bf2fd4a468821fcf"
+        "0f3f3bf47273d6c9153e69b0d9f45056b6a67c09c2f18c258c5bdcb7bc44229c"
       ],
       "evidence": [
         {
-          "evidence_id": "403a5c6bf3681ed735fbe552fcd95dd83dce4a665d6188c139f2284e50fabd03",
+          "evidence_id": "0f3f3bf47273d6c9153e69b0d9f45056b6a67c09c2f18c258c5bdcb7bc44229c",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1488,44 +940,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第3幕 推荐 布伦妮",
-          "act": 3
-        },
-        {
-          "evidence_id": "5265255d8303aebc7ff98e410a0c431c8bcb7dd1d8e420aa3967d9f34ec1f838",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第3幕 推荐 布伦妮",
-          "act": 3
-        },
-        {
-          "evidence_id": "af980a625187c94e57a3517b52c9f39431468c165c0f5851bf2fd4a468821fcf",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第3幕 推荐 布伦妮",
-          "act": 3
+          "act": 3,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "94568f1474c2f6e6f3b50d47675ec1a19cef6b3cbc624788a6ba652b0343374e",
@@ -1541,13 +969,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "c53e9805e93864c84a0ec9dc9ebede50c032db3586d1918b9d6d61bff6fc309e",
-        "3666067aa2a83b3d5bcdf42c21f2957175af5487514bd383bea9d26d0423ce89",
-        "9fc3236d176c86460b6394ed3444e940476037b8ed8e4616ef3c7417c7d6005a"
+        "aac688fe4531de7c512998e97760f2c7ffeacfb5ce340034e99ae5d4ffc5200d"
       ],
       "evidence": [
         {
-          "evidence_id": "c53e9805e93864c84a0ec9dc9ebede50c032db3586d1918b9d6d61bff6fc309e",
+          "evidence_id": "aac688fe4531de7c512998e97760f2c7ffeacfb5ce340034e99ae5d4ffc5200d",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1559,44 +985,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第2幕 推荐 布伦妮",
-          "act": 2
-        },
-        {
-          "evidence_id": "3666067aa2a83b3d5bcdf42c21f2957175af5487514bd383bea9d26d0423ce89",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第2幕 推荐 布伦妮",
-          "act": 2
-        },
-        {
-          "evidence_id": "9fc3236d176c86460b6394ed3444e940476037b8ed8e4616ef3c7417c7d6005a",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第2幕 推荐 布伦妮",
-          "act": 2
+          "act": 2,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "954e3aaed76976c2bbb876a7fd59eb0f076c81f8bd14bf86dea4550220080a80",
@@ -1609,13 +1011,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "e8a4909e6264b994f852043e3991aa685396ec7742bcfdffa35de6d192196beb",
-        "25363e22119a00aabe6c0e0a0feb14d152d9438f668f1f6c07d7cb237240cdcd",
-        "ec339b13313e5c492e3cfe1ea31ab37c1d8a8acd4592130f7659b5d0868de790"
+        "07758e487c0ebb4ec6e7ca663d682e7ebd65f0be466b00b304185e03b437066f"
       ],
       "evidence": [
         {
-          "evidence_id": "e8a4909e6264b994f852043e3991aa685396ec7742bcfdffa35de6d192196beb",
+          "evidence_id": "07758e487c0ebb4ec6e7ca663d682e7ebd65f0be466b00b304185e03b437066f",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1627,44 +1027,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第5幕 推荐 嘉明",
-          "act": 5
-        },
-        {
-          "evidence_id": "25363e22119a00aabe6c0e0a0feb14d152d9438f668f1f6c07d7cb237240cdcd",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第5幕 推荐 嘉明",
-          "act": 5
-        },
-        {
-          "evidence_id": "ec339b13313e5c492e3cfe1ea31ab37c1d8a8acd4592130f7659b5d0868de790",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第5幕 推荐 嘉明",
-          "act": 5
+          "act": 5,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "997065b5d63223958c95287bc91655846004c355d6a3edf835efb4185ad00536",
@@ -1677,13 +1053,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "9089f71b0d0880459bfb151c8c9b8b932fc5bf6474f4c332a785abddab08c6cd",
-        "58824a046d7b482301e594cbeab1217a1701605c11774a4a0bb1d9bbe0d51758",
-        "1fb6051fec5521438206fd24504d75c51cb740468ecaa05df3de2b9e502a2f85"
+        "0096450e33f2d195d20646981c53473663d22024aee38b4d7faae20fba6871ea"
       ],
       "evidence": [
         {
-          "evidence_id": "9089f71b0d0880459bfb151c8c9b8b932fc5bf6474f4c332a785abddab08c6cd",
+          "evidence_id": "0096450e33f2d195d20646981c53473663d22024aee38b4d7faae20fba6871ea",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1695,44 +1069,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第8幕 推荐 卡齐娜",
-          "act": 8
-        },
-        {
-          "evidence_id": "58824a046d7b482301e594cbeab1217a1701605c11774a4a0bb1d9bbe0d51758",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第8幕 推荐 卡齐娜",
-          "act": 8
-        },
-        {
-          "evidence_id": "1fb6051fec5521438206fd24504d75c51cb740468ecaa05df3de2b9e502a2f85",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第8幕 推荐 卡齐娜",
-          "act": 8
+          "act": 8,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "a5ec8d0a5ecc7186de04cf36b107222db391db6bdc0cf4a63db16b7d98faab4f",
@@ -1745,13 +1095,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "4feb5471d564e9ddfc1b654f7eedfcbf49898c66c4537d8bb1a34727dc03be85",
-        "38422cd8ec00429711e062706ad639dcac84b810d0b819b301a0e37ba53e6ba8",
-        "778698f84ad59198f273eb77cd41823ca3cc114be3bbd291e5d1e1923fd99912"
+        "72ba713d07230680a5848c2a4fe27160a22dc701937cb4ac41c08c3c51c125a3"
       ],
       "evidence": [
         {
-          "evidence_id": "4feb5471d564e9ddfc1b654f7eedfcbf49898c66c4537d8bb1a34727dc03be85",
+          "evidence_id": "72ba713d07230680a5848c2a4fe27160a22dc701937cb4ac41c08c3c51c125a3",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1763,44 +1111,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "action",
           "text": "需要留的后台角色：1幕火、5幕岩、10幕破盾岩",
-          "act": 0
-        },
-        {
-          "evidence_id": "38422cd8ec00429711e062706ad639dcac84b810d0b819b301a0e37ba53e6ba8",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "action",
-          "text": "需要留的后台角色：1幕火、5幕岩、10幕破盾岩",
-          "act": 0
-        },
-        {
-          "evidence_id": "778698f84ad59198f273eb77cd41823ca3cc114be3bbd291e5d1e1923fd99912",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "action",
-          "text": "需要留的后台角色：1幕火、5幕岩、10幕破盾岩",
-          "act": 0
+          "act": 0,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "a8ffbae088da359d0dff753edeeacd57e2879177c47526edf8c393ba0ca49aa6",
@@ -1813,13 +1137,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "24bc947c181f06ef8f65007c365d0a62561fc3ab9736e6d8d33b13adeac867fb",
-        "feefa40cb02f530dc0ec0928f055995a25e5f92f6020b32e5649673c017ee399",
-        "3090f4574a2de8b1bb4ef0e2c2c80d2d684c4708be04c066085b8ea37930f7a5"
+        "df778c3ac8789a840f3eecf2233e45548f24a3f00b49859e96653245af86743d"
       ],
       "evidence": [
         {
-          "evidence_id": "24bc947c181f06ef8f65007c365d0a62561fc3ab9736e6d8d33b13adeac867fb",
+          "evidence_id": "df778c3ac8789a840f3eecf2233e45548f24a3f00b49859e96653245af86743d",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1831,44 +1153,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第3幕 推荐 云堇",
-          "act": 3
-        },
-        {
-          "evidence_id": "feefa40cb02f530dc0ec0928f055995a25e5f92f6020b32e5649673c017ee399",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第3幕 推荐 云堇",
-          "act": 3
-        },
-        {
-          "evidence_id": "3090f4574a2de8b1bb4ef0e2c2c80d2d684c4708be04c066085b8ea37930f7a5",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第3幕 推荐 云堇",
-          "act": 3
+          "act": 3,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "add5979f0d1e545867faaae334aebc742b1c9ed1cafdeb75e0d850934bc11dc4",
@@ -1884,13 +1182,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "fcc7da59a5fe1b025f1721971a737810a73d38644f50a4395f0513a66bf2a0a6",
-        "ff4f205cd57a7dee13c0083096a82b853adda40d08e84bf24fd52a66cf2e3624",
-        "8d2aed0b93b8103ac6152c6cccd039e1a5a043fbea5fdaabf6f78ce2e7b82b7d"
+        "20eefda1ca8d5da74a02b9892fc024e2275903441e8bde365b77c0d3a0e03acf"
       ],
       "evidence": [
         {
-          "evidence_id": "fcc7da59a5fe1b025f1721971a737810a73d38644f50a4395f0513a66bf2a0a6",
+          "evidence_id": "20eefda1ca8d5da74a02b9892fc024e2275903441e8bde365b77c0d3a0e03acf",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1902,44 +1198,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第5幕 推荐 茜特菈莉",
-          "act": 5
-        },
-        {
-          "evidence_id": "ff4f205cd57a7dee13c0083096a82b853adda40d08e84bf24fd52a66cf2e3624",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第5幕 推荐 茜特菈莉",
-          "act": 5
-        },
-        {
-          "evidence_id": "8d2aed0b93b8103ac6152c6cccd039e1a5a043fbea5fdaabf6f78ce2e7b82b7d",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第5幕 推荐 茜特菈莉",
-          "act": 5
+          "act": 5,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "c3fad71aaaaf9f25627c63033c408c22b8a2cc5f47cde2b5bee3c6f3692a7659",
@@ -1955,13 +1227,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "362c390380cbaed48fb2e4b70946665355df907b337ce3695cfb32c5908fea59",
-        "23cf168b01e1db80d97c8012cc3d78b03dfec92b641201e73e119c271b6f0fd9",
-        "3151a9f305687de87fadb073ceb78a2a5778c3153196964dad55f6bd89801a57"
+        "0f8f386895ee902bd77a8126053391ae6eebd7dd11c46e506ba3e5f9a38f51ba"
       ],
       "evidence": [
         {
-          "evidence_id": "362c390380cbaed48fb2e4b70946665355df907b337ce3695cfb32c5908fea59",
+          "evidence_id": "0f8f386895ee902bd77a8126053391ae6eebd7dd11c46e506ba3e5f9a38f51ba",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1973,44 +1243,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第1幕 推荐 凯亚",
-          "act": 1
-        },
-        {
-          "evidence_id": "23cf168b01e1db80d97c8012cc3d78b03dfec92b641201e73e119c271b6f0fd9",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第1幕 推荐 凯亚",
-          "act": 1
-        },
-        {
-          "evidence_id": "3151a9f305687de87fadb073ceb78a2a5778c3153196964dad55f6bd89801a57",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第1幕 推荐 凯亚",
-          "act": 1
+          "act": 1,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "c57e0c4dad80509acc61068a24eb8e6a0b519f5c3d466a1d72424e437d8476ab",
@@ -2026,13 +1272,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "0229e84b6c018201a985bb7c738250f75e30c974eb074fc74dc3744758f7dc8f",
-        "0e6ecaa5298538936fe194f75336e41ccf1cd29c67f9b9c7a96c7c507b5efe5f",
-        "a69d88be19e59798530adf2df88373ba4583cae3c2f66cd74a61fd14e763b966"
+        "3bfbe863632d5e889f7a524c1eefc9196c4fe5e734b1b7ac85a8bdd2fa28563a"
       ],
       "evidence": [
         {
-          "evidence_id": "0229e84b6c018201a985bb7c738250f75e30c974eb074fc74dc3744758f7dc8f",
+          "evidence_id": "3bfbe863632d5e889f7a524c1eefc9196c4fe5e734b1b7ac85a8bdd2fa28563a",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -2044,44 +1288,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第1幕 推荐 流浪者",
-          "act": 1
-        },
-        {
-          "evidence_id": "0e6ecaa5298538936fe194f75336e41ccf1cd29c67f9b9c7a96c7c507b5efe5f",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第1幕 推荐 流浪者",
-          "act": 1
-        },
-        {
-          "evidence_id": "a69d88be19e59798530adf2df88373ba4583cae3c2f66cd74a61fd14e763b966",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第1幕 推荐 流浪者",
-          "act": 1
+          "act": 1,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "d1d7b20caa85f22b601e5082255513149678c46422ddc35e665a2dc8a8a75e2d",
@@ -2097,13 +1317,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "32cff48c5b0aebe568eb7aa1d45720d8c815fd1324b2107284a5f5b6e60b0f12",
-        "185a50e9aca001e15996b86b8378ed8ec4cee4036aeaceef785bf8bccf9c13a0",
-        "d868f45836e18bfc953202f68181977bb9baa595d314f70b98e781bf45bf7d99"
+        "2dbf06ccfcf86b2cacd4f7f9c11d42fd8894e41d7fde0ee01468942bffaa7502"
       ],
       "evidence": [
         {
-          "evidence_id": "32cff48c5b0aebe568eb7aa1d45720d8c815fd1324b2107284a5f5b6e60b0f12",
+          "evidence_id": "2dbf06ccfcf86b2cacd4f7f9c11d42fd8894e41d7fde0ee01468942bffaa7502",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -2115,44 +1333,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第7幕 推荐 行秋",
-          "act": 7
-        },
-        {
-          "evidence_id": "185a50e9aca001e15996b86b8378ed8ec4cee4036aeaceef785bf8bccf9c13a0",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第7幕 推荐 行秋",
-          "act": 7
-        },
-        {
-          "evidence_id": "d868f45836e18bfc953202f68181977bb9baa595d314f70b98e781bf45bf7d99",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第7幕 推荐 行秋",
-          "act": 7
+          "act": 7,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "d212e529aabe81b93b3f59691992a0598b20e7958452936847e2db6aeab8bdc9",
@@ -2165,13 +1359,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "6faaab760ced0ae23211671d7a271d7e46acf4ab15aad1bade8fd39298762302",
-        "b34081e54c4df92d08635a24666b4ba46dde170cc95142153a8ff44de482ce82",
-        "db60effbc02e0f1e6bcaa6b40a79a888e927ea8f8837b4fe564ca75a06bd699e"
+        "bca604328444209a7e420db7a3f679fd099f9c71d790d76bf543816b5d3e5003"
       ],
       "evidence": [
         {
-          "evidence_id": "6faaab760ced0ae23211671d7a271d7e46acf4ab15aad1bade8fd39298762302",
+          "evidence_id": "bca604328444209a7e420db7a3f679fd099f9c71d790d76bf543816b5d3e5003",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -2183,44 +1375,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第1幕 推荐 千织",
-          "act": 1
-        },
-        {
-          "evidence_id": "b34081e54c4df92d08635a24666b4ba46dde170cc95142153a8ff44de482ce82",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第1幕 推荐 千织",
-          "act": 1
-        },
-        {
-          "evidence_id": "db60effbc02e0f1e6bcaa6b40a79a888e927ea8f8837b4fe564ca75a06bd699e",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第1幕 推荐 千织",
-          "act": 1
+          "act": 1,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "d60ca554f2f03c949668465a87963eef176828f008c472ee638f016201493a70",
@@ -2233,13 +1401,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "1265119bee71df43d39315221d559a8223cbe72664d3d250f2acbbab4017f55a",
-        "db50983f594005e0e39ad3b8d617c85a3f9312274e8502927178b3520c21b55e",
-        "451c3db52d3bf835502f7a1032fa19b921b1c105c4465b69036c277bdb22bd35"
+        "e927d12b0cde6b7d352cab425dcf3f6d623e50f3b75e28b7cadcb721422d6f2e"
       ],
       "evidence": [
         {
-          "evidence_id": "1265119bee71df43d39315221d559a8223cbe72664d3d250f2acbbab4017f55a",
+          "evidence_id": "e927d12b0cde6b7d352cab425dcf3f6d623e50f3b75e28b7cadcb721422d6f2e",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -2251,44 +1417,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第6幕 推荐 千织",
-          "act": 6
-        },
-        {
-          "evidence_id": "db50983f594005e0e39ad3b8d617c85a3f9312274e8502927178b3520c21b55e",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第6幕 推荐 千织",
-          "act": 6
-        },
-        {
-          "evidence_id": "451c3db52d3bf835502f7a1032fa19b921b1c105c4465b69036c277bdb22bd35",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第6幕 推荐 千织",
-          "act": 6
+          "act": 6,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "d70ee09388ebcf905193affb8cc27ba8db9ddbad4a7cb0a71cbade83e26ff004",
@@ -2301,13 +1443,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "6900bcef38ced2d838feb4cab7e9d50998887764d93f314f5137b29d84231e27",
-        "ba8f0ed819f229a986e2537ff8709d3f5635bfb1046d038c9db3a00da679c06a",
-        "eba6d190d4e12b82542620b49cb65d867b30e3f3e4ddce1edb3544a6022cdaa9"
+        "3d3b3fca37494fd1b69d60227d4c165e4999d61eaf20a2ff8396802367acb3aa"
       ],
       "evidence": [
         {
-          "evidence_id": "6900bcef38ced2d838feb4cab7e9d50998887764d93f314f5137b29d84231e27",
+          "evidence_id": "3d3b3fca37494fd1b69d60227d4c165e4999d61eaf20a2ff8396802367acb3aa",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -2319,44 +1459,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第2幕 推荐 芭芭拉",
-          "act": 2
-        },
-        {
-          "evidence_id": "ba8f0ed819f229a986e2537ff8709d3f5635bfb1046d038c9db3a00da679c06a",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第2幕 推荐 芭芭拉",
-          "act": 2
-        },
-        {
-          "evidence_id": "eba6d190d4e12b82542620b49cb65d867b30e3f3e4ddce1edb3544a6022cdaa9",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第2幕 推荐 芭芭拉",
-          "act": 2
+          "act": 2,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "e5f71a0f91350017f71a5994c320676c41b975df92525f58bfe76d528172562d",
@@ -2372,13 +1488,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "df8740644ad2b96403f802eaa3d80da8e77c8771d51714e706195ca9b0c2d074",
-        "21f60177182ff6f7b2da4b6359cd6031af9c0cf6aafbeb145455c36f1864fa01",
-        "1ca97529a9da5b7ff1eacf070978a6d5b46a828d7a6cef2e7af88faa805662a2"
+        "ee2070db15582e847a98408514434cba7f09b94e5a5412828184a3a47a3db414"
       ],
       "evidence": [
         {
-          "evidence_id": "df8740644ad2b96403f802eaa3d80da8e77c8771d51714e706195ca9b0c2d074",
+          "evidence_id": "ee2070db15582e847a98408514434cba7f09b94e5a5412828184a3a47a3db414",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -2390,44 +1504,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第2幕 推荐 凯亚",
-          "act": 2
-        },
-        {
-          "evidence_id": "21f60177182ff6f7b2da4b6359cd6031af9c0cf6aafbeb145455c36f1864fa01",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第2幕 推荐 凯亚",
-          "act": 2
-        },
-        {
-          "evidence_id": "1ca97529a9da5b7ff1eacf070978a6d5b46a828d7a6cef2e7af88faa805662a2",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第2幕 推荐 凯亚",
-          "act": 2
+          "act": 2,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "e9847b3ce7daf6ff7b8361deacccfaedbd91becea2f061c1fe830ac2912defec",
@@ -2443,13 +1533,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "a8c2fdf7c5102429c5165fca1920e50c0c1486d53041d238664488035e413262",
-        "0a4a822a952efd31fe2b6533f06ab2de0f404b2919479ccdd01921a51343e2bb",
-        "0666c14d647fc83c328e439e78ae4499353fa64478ef82972484e3f452a4a5a3"
+        "0bb29a7d426aac524e9076357d5a679e7edc19a00e1275f2141ee93dc5dc674a"
       ],
       "evidence": [
         {
-          "evidence_id": "a8c2fdf7c5102429c5165fca1920e50c0c1486d53041d238664488035e413262",
+          "evidence_id": "0bb29a7d426aac524e9076357d5a679e7edc19a00e1275f2141ee93dc5dc674a",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -2461,44 +1549,20 @@
           "source": "bilibili:BV1saaz6qEbH",
           "kind": "act_team",
           "text": "第3幕 推荐 茜特菈莉",
-          "act": 3
-        },
-        {
-          "evidence_id": "0a4a822a952efd31fe2b6533f06ab2de0f404b2919479ccdd01921a51343e2bb",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第3幕 推荐 茜特菈莉",
-          "act": 3
-        },
-        {
-          "evidence_id": "0666c14d647fc83c328e439e78ae4499353fa64478ef82972484e3f452a4a5a3",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1saaz6qEbH",
-          "platform": "bilibili",
-          "season": null,
-          "version": "7.1",
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1saaz6qEbH",
-          "kind": "act_team",
-          "text": "第3幕 推荐 茜特菈莉",
-          "act": 3
+          "act": 3,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     },
     {
       "candidate_id": "ee91322060faf221eab01c3adbb352e0377c4c3bcbb2709d41b87d0f0c9d0845",
@@ -2511,13 +1575,11 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "8f4bf735d9c454a0dbefb00c363f4426536ec603c58b3dd06ec1706fab860d05",
-        "ba908166881388f8e7667c7f592050bdca5be0a558fd457f97db841ba5af19b0",
-        "83c56b1dfb3ddedc96f3ea2c607296a396cd69dc16c2205ad8d035bf6de8603c"
+        "669e4f6ab4652661bee047cba70f3e5b2a111ccb8400f653534e2e819d1e8d17"
       ],
       "evidence": [
         {
-          "evidence_id": "8f4bf735d9c454a0dbefb00c363f4426536ec603c58b3dd06ec1706fab860d05",
+          "evidence_id": "669e4f6ab4652661bee047cba70f3e5b2a111ccb8400f653534e2e819d1e8d17",
           "batch_id": "42179280602-attempt-1",
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -2529,44 +1591,20 @@
           "source": "bilibili:BV1G86xBFEk5",
           "kind": "act_team",
           "text": "第1幕 推荐 云堇",
-          "act": 1
-        },
-        {
-          "evidence_id": "ba908166881388f8e7667c7f592050bdca5be0a558fd457f97db841ba5af19b0",
-          "batch_id": "42179298346-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第1幕 推荐 云堇",
-          "act": 1
-        },
-        {
-          "evidence_id": "83c56b1dfb3ddedc96f3ea2c607296a396cd69dc16c2205ad8d035bf6de8603c",
-          "batch_id": "42179312058-attempt-1",
-          "video_id": "BV1G86xBFEk5",
-          "platform": "bilibili",
-          "season": null,
-          "version": null,
-          "creator_id": "bilibili:431073645",
-          "creator_name": "你的影月月",
-          "channel": "description",
-          "source": "bilibili:BV1G86xBFEk5",
-          "kind": "act_team",
-          "text": "第1幕 推荐 云堇",
-          "act": 1
+          "act": 1,
+          "observed_batches": [
+            "42179280602-attempt-1",
+            "42179298346-attempt-1",
+            "42179312058-attempt-1"
+          ]
         }
       ],
       "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available"
+      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "unique_video_count": 1
     }
   ],
   "promotion_policy": {
