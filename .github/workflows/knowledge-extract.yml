@@ -1,6 +1,11 @@
 name: knowledge-extract
 
 on:
+  push:
+    branches:
+      - automation/cloud-auto-evolution
+    paths:
+      - .github/workflows/knowledge-extract.yml
   workflow_dispatch:
   schedule:
     - cron: '30 7 * * *'
