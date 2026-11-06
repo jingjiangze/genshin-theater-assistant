@@ -56,7 +56,7 @@
 
 | 工作流 | 频率 | 做什么 |
 |---|---|---|
-| `ci` | 每次 push | 自检 64 项 + 渲染 7 项 + 真机模拟 8 项 |
+| `ci` | 每次 push | 自检 65 项 + 渲染 7 项 + 真机模拟 8 项 |
 | `video-eval` | **每天** 05:00 UTC | 抽真实攻略视频帧 → 逐帧模拟运行 → 用视频自带「第N幕」对答案算准确率（低于 95% 会红） |
 | `corpus-refresh` | 每周一/周四 | 搜新视频 OCR 抽攻略语料 + 抓 BWIKI + 蒸馏经验 + 刷新角色 ID 表 |
 | `adapt-videos` | 每周一/周五 | 抽帧 → 批量适配模板（`actN`/`hall`/`diff` 等） |
@@ -76,6 +76,18 @@ CI 对 42 个 B站攻略视频做了「抽帧 → 逐帧模拟运行 → 对答�
 
 社区共识已并入 [`data/rotations.json`](data/rotations.json)：主 C 与辅助留给 8/10 幕和圣牌关、
 敌人选择按从左到右、资源不足选 BUFF 别硬买。
+
+## 跨平台语料（yt-dlp，v0.19.0）
+
+按「优先用成熟轮子」接入 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 与
+[PySceneDetect](https://github.com/Breakthrough/PySceneDetect)（审计见
+[`docs/VIDEO-TOOLING-AUDIT.md`](docs/VIDEO-TOOLING-AUDIT.md)）：
+
+- B站搜索仍用 `search.mjs`（yt-dlp 的 `bilisearch:` 实测被 HTTP 412 风控拦），yt-dlp 接直连 BV 取
+  **简介 / 字幕 / 章节 / 评论 / 弹幕**；YouTube 走 `ytsearch:`。
+- 同一视频：OCR 只给 2–4 条碎片，UP 简介给 **17–25 条逐幕配队与 BUFF 路线**。
+- 50 视频合并 → 429 候选 → **18 条跨 UP 主共识**，其中 `第7幕 推荐 行秋` 有 4 个视频支持。
+- 产物格式与 `--extract-ops` 一致，可直接喂 `--consensus`；仅取公开内容，cookie 用完即删。
 
 ## 文档索引
 
