@@ -316,6 +316,17 @@ class JsonIoBomTest(unittest.TestCase):
             self.assertEqual(read_text(p), '{"a": 1}')
 
 
+class ChineseChapterActTest(unittest.TestCase):
+    def test_chinese_numerals_and_parallel_acts(self):
+        self.assertEqual(build_external_eval.acts("第四、五幕"), {4, 5})
+        self.assertEqual(build_external_eval.acts("第10幕，圣牌Ⅰ，圣牌Ⅱ"), {10})
+        self.assertEqual(build_external_eval.acts("第十一幕"), {11})
+        self.assertEqual(build_external_eval.acts("前期准备"), set())
+
+    def test_mixed_arabic_and_chinese(self):
+        self.assertEqual(build_external_eval.acts("第 3 幕 / 第六幕"), {3, 6})
+
+
 class ExtractContextTest(unittest.TestCase):
     def test_explicit_context_is_not_inferred(self):
         season, version, inferred = extract_knowledge.extract_context(

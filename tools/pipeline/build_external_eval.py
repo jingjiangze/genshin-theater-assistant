@@ -16,10 +16,19 @@ from jsonio import read_json, read_text
 
 ACT_RE = re.compile(r"第\s*(\d{1,2})\s*幕")
 TIME_RE = re.compile(r"-(\d+(?:\.\d+)?)s-")
+CN_NUM = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8,
+          "九": 9, "十": 10, "十一": 11, "十二": 12}
+# 章节标题常写「第四、五幕」「第10幕，圣牌Ⅰ，圣牌Ⅱ」；中文数字与并列幕次要能识别。
+CN_ACT_RE = re.compile(r"第\s*([一二三四五六七八九十]{1,3})\s*(?:、\s*([一二三四五六七八九十]{1,3})\s*)?幕")
 
 
 def acts(text: str) -> set[int]:
-    return {int(m.group(1)) for m in ACT_RE.finditer(text or "") if 1 <= int(m.group(1)) <= 12}
+    out = {int(m.group(1)) for m in ACT_RE.finditer(text or "") if 1 <= int(m.group(1)) <= 12}
+    for m in CN_ACT_RE.finditer(text or ""):
+        for g in (m.group(1), m.group(2)):
+            if g and g in CN_NUM:
+                out.add(CN_NUM[g])
+    return {x for x in out if 1 <= x <= 12}
 
 
 def clock_seconds(value: str) -> float | None:
