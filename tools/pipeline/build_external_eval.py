@@ -103,12 +103,13 @@ def evaluate(replay_path: Path, ingest_root: Path, tolerance: float = 2.5,
     count = len(samples)
     correct = sum(1 for x in samples if x["match"])
     raw_correct = sum(1 for x in samples if x["raw_match"])
-    status = "EVALUATED_INDEPENDENT" if count >= min_labels else "INSUFFICIENT_INDEPENDENT_LABELS"
+    status = "EVALUATED_EXTERNAL" if count >= min_labels else "INSUFFICIENT_EXTERNAL_LABELS"
     return {
         "schema_version": 1, "video_id": video_id, "status": status,
         "label_method": "subtitle_chapter_agreement",
         "prediction_input": "video_frame_ocr_and_templates",
         "label_sources": ["subtitle", "chapter"],
+        "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
         "label_count": count, "frame_count": len(steps),
         "coverage": (count / len(steps)) if steps else 0.0,
         "accuracy": (correct / count) if count else None,
@@ -139,7 +140,7 @@ def main() -> int:
         "schema_version": 1, "label_method": "subtitle_chapter_agreement",
         "reports": reports,
         "total_labels": sum(x["label_count"] for x in reports),
-        "independently_evaluated_videos": sum(x["status"] == "EVALUATED_INDEPENDENT" for x in reports),
+        "externally_evaluated_videos": sum(x["status"] == "EVALUATED_EXTERNAL" for x in reports),
         "promotion_eligible": False,
     }
     args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
