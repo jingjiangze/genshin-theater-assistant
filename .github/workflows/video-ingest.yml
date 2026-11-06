@@ -9,9 +9,11 @@ name: video-ingest
 on:
   push:
     branches:
-      - automation/cloud-auto-evolution
+      - main
     paths:
       - .github/workflows/video-ingest.yml
+      - tools/video-frames/ingest.py
+      - tools/video-frames/search.mjs
   workflow_dispatch:
     inputs:
       platform:
@@ -64,7 +66,9 @@ jobs:
         run: |
           set -euo pipefail
           QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
-          LIMIT="${{ github.event_name == 'push' && '2' || github.event.inputs.limit || '12' }}"
+          # 并行分支曾把 push 触发压到 2 个视频做烟测，导致账本只有 1 个作者、
+          # 证据治理永远无法产出 PROVISIONAL；现放开到 8（手动/定时仍用 12，保留资源预算上限）
+          LIMIT="${{ github.event_name == 'push' && '8' || github.event.inputs.limit || '12' }}"
           cd tools/video-frames
           npm init -y >/dev/null 2>&1 || true
           npm i playwright-core@1.64.1 --no-audit --no-fund >/dev/null
@@ -92,7 +96,7 @@ jobs:
           PLATFORM="${{ github.event.inputs.platform || 'bilibili' }}"
           QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
           URLS="${{ github.event.inputs.urls || '' }}"
-          LIMIT="${{ github.event_name == 'push' && '2' || github.event.inputs.limit || '12' }}"
+          LIMIT="${{ github.event_name == 'push' && '8' || github.event.inputs.limit || '12' }}"
           ARGS=(--platform "$PLATFORM" --query "$QUERY" --limit "$LIMIT" --out frames/ingest)
           if [ "$PLATFORM" = "bilibili" ] && [ -f bili-bvs.txt ]; then
             ARGS+=(--bvs "$(cat bili-bvs.txt)")
