@@ -49,6 +49,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -56,6 +59,8 @@ jobs:
       - name: 依赖
         shell: pwsh
         run: |
+          python -m pip install --upgrade pip
+          python -m pip install yt-dlp
           cd tools\video-frames
           if (-not (Test-Path package.json)) { npm init -y | Out-Null }
           # 固定版本 + 用 playwright-core 自带 CLI：npx playwright 会去装 playwright@latest，
@@ -93,6 +98,16 @@ jobs:
           }
           "BVS=$bvs" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding UTF8
           Write-Host "待评测：$bvs"
+
+      - name: 获取独立文本标签来源（字幕 + 章节，不使用 OCR）
+        continue-on-error: true
+        shell: pwsh
+        env:
+          BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
+        run: |
+          New-Item -ItemType Directory -Force frames/ingest | Out-Null
+          $csv = ($env:BVS -split '\s+' | Where-Object { $_ }) -join ','
+          python tools/video-frames/ingest.py --platform bilibili --bvs "$csv" --limit 12 --out frames/ingest
 
       - name: 抽帧
         shell: pwsh
@@ -141,6 +156,12 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|"
           foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
 
+      - name: 独立评测（字幕与章节双来源一致才计入）
+        shell: pwsh
+        run: |
+          python tools/pipeline/build_external_eval.py --replay-dir frames --ingest-dir frames/ingest --out frames/external-eval.json --min-labels 10
+          Get-Content frames/external-eval.json -Encoding UTF8 | Select-Object -First 60
+
       - name: 提取操作用法候选（连招/购买/配队/行动）
         shell: pwsh
         run: |
@@ -176,6 +197,7 @@ jobs:
             frames/*-replay.md
             frames/*-replay.json
             frames/*-ops.json
+            frames/external-eval.json
             docs/experience/SUMMARY.md
             docs/experience/rules.json
             docs/experience/OPS-CONSENSUS.md
@@ -189,6 +211,7 @@ jobs:
           Copy-Item frames/*-replay.md pipeline-export/ -ErrorAction SilentlyContinue
           Copy-Item frames/*-replay.json pipeline-export/ -ErrorAction SilentlyContinue
           Copy-Item frames/*-ops.json pipeline-export/ -ErrorAction SilentlyContinue
+          if (Test-Path frames/external-eval.json) { Copy-Item frames/external-eval.json pipeline-export/ }
           foreach ($f in @('SUMMARY.md','rules.json','OPS-CONSENSUS.md')) {
             if (Test-Path "docs/experience/$f") {
               Copy-Item "docs/experience/$f" "pipeline-export/experience/$f"
