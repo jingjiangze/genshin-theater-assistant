@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace TheaterAssistant;
 
@@ -107,16 +107,15 @@ internal static class ChoiceDecider
     }
 
     /// <summary>本幕"该干什么"的机制事实（与 TheaterLogic.BossAdvice / 语料一致）。</summary>
+    /// <summary>
+    /// 本幕需要的元素来自 data/act-playbook.json（内容源），代码不再按幕硬编码。
+    /// 没有该幕资料时返回 ("","")，调用方**不加元素分**——不猜。
+    /// </summary>
     internal static (string Need, string Why) NeedOf(int act)
     {
-        return act switch
-        {
-            3 => ("Electro", "第3幕首领·翠翎恐蕈：雷推怒气条，满条后 15 秒力竭窗口"),
-            6 => ("Electro", "第6幕首领·深黯魇语之主：护盾只吃元素/反应，优先雷或水"),
-            8 => ("Geo", "第8幕首领·丘丘萨满：16 秒内用岩/钝击打碎锅"),
-            10 => ("Hydro", "第10幕·蕴光月守宫：被标记要奶满或无敌帧，水/治疗优先"),
-            _ => ("", "非首领关：优先补人数与通用强化，把主力耐力留给 3/6/8/10 幕"),
-        };
+        var (element, why) = Playbook.Need(act);
+        if (!string.IsNullOrEmpty(element)) return (element, why);
+        return ("", why);
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace TheaterAssistant;
@@ -239,15 +239,9 @@ internal static class TheaterLogic
     private static readonly Regex DifficultyRegex = new(@"难度选择|参演要求|角色元素类型限制|卓越模式|月谕模式", RegexOptions.Compiled);
     private static readonly Regex TeamRegex = new(@"队伍配置|开幕角色|待命角色|可选角色|特邀角色|邀请助演|编入的角色", RegexOptions.Compiled);
 
-    private static readonly Dictionary<int, string> BossAdvice = new()
-    {
-        [3] = "首领·翠翎恐蕈｜1:45（星章 1:10）｜雷推怒气条（火 -34%）；满条后约 15 秒力竭 + 全抗 -25%，输出全压这个窗口",
-        [6] = "首领·深黯魇语之主｜1:50（星章 1:15）｜45% 血量的护盾只吃元素/反应伤害；杀 4 个钓客各削 25%，破盾后瘫痪 10 秒 + 全抗 -70%",
-        [8] = "首领·强化丘丘萨满｜1:50（星章 1:15）｜别只灭火：16 秒内用岩/钝击打碎锅（30U）；破锅 = 真伤 + 瘫痪 10 秒；失败会狂暴",
-        [10] = "首领·蕴光月守宫｜1:45（星章 1:10）｜被标记时伤害 -50%、暴击 -100%，无敌帧躲开或把输出奶满解除；解除给暴击 +15%、增伤 +50%"
-    };
-
-    private const string EventAdvice = "三选一：缺人拿「伙伴」→ 输出缺口拿「辉彩祝福」→ 都不缺才拿「神秘收获」";
+    // 幕内知识（首领机制/三选一建议）不再硬编码：全部来自 data/act-playbook.json（见 Playbook.cs）。
+    // 代码只负责识别"第几幕/什么界面"，内容由语料训练与大模型补充。
+    internal static string EventAdvice => Playbook.Next("choice", null) ?? Playbook.Missing;
 
     public static Advice Evaluate(List<Matcher.Hit> hits, string text, TheaterData data, RosterData roster, string bandText = null)
     {
@@ -352,7 +346,8 @@ internal static class TheaterLogic
         {
             string header = $"第 {act} 幕 · 来源 {src}";
             var a = data.Get("Visionary", act.Value);
-            if (BossAdvice.TryGetValue(act.Value, out var bossLine)) lines.Add(bossLine);
+            var bossLine = Playbook.Boss(act);
+            if (!string.IsNullOrEmpty(bossLine)) lines.Add(bossLine);
             else lines.Add("普通关｜先保通关再争星章；主力耐力留给 3/6/8/10 幕");
 
             if (a != null && a.Encounters.Count > 0)
@@ -423,24 +418,15 @@ internal static class TheaterLogic
     /// 一行"现在做"：把当前状态压成一句祈使句，让用户不用读整段文字也能动。
     /// 纯函数（CI 可断言），不依赖识别细节。
     /// </summary>
+    /// <summary>
+    /// 「现在做」不再由代码决定内容：查 data/act-playbook.json。
+    /// 查不到就返回"暂无该幕资料"，把内容缺口暴露出来（由语料/大模型补），而不是编一句话。
+    /// </summary>
     internal static string NextAction(string kind, int? act)
     {
-        switch (kind)
-        {
-            case "act":
-                if (!act.HasValue) return "现在做：跟着屏幕上的提示推进，先别交主力耐力";
-                if (act.Value == 3) return "现在做：用雷把怒气条推满，满条后 15 秒内把爆发全打出去";
-                if (act.Value == 6) return "现在做：先杀掉 4 个钓客削 25% 盾，破盾瘫痪那 10 秒再爆发";
-                if (act.Value == 8) return "现在做：16 秒内用岩/钝击把锅打碎，别只顾灭火";
-                if (act.Value == 10) return "现在做：被标记就立刻奶满或无敌帧躲开，解除后才是输出窗口";
-                return $"现在做：清怪推进第 {act.Value} 幕，耐力留给 3/6/8/10 幕";
-            case "choice": return "现在做：缺人拿「伙伴」，输出不够拿「辉彩祝福」，都不缺才选「神秘收获」";
-            case "team": return "现在做：待命角色凑到 28 人再开月谕，额外编入名额别空着";
-            case "difficulty": return "现在做：角色池不够 22 人就先打卓越，够 28 人再上月谕";
-            case "result": return "现在做：要重来就走回溯，回到上一个首领关结束时的状态";
-            case "theater": return "现在做：点「演出准备」进本，先确认开幕角色用了试用";
-            default: return null;
-        }
+        var line = Playbook.Next(kind, act);
+        if (!string.IsNullOrEmpty(line)) return line;
+        return kind == "act" ? Playbook.Missing : null;
     }
 
     private static string hitName(string s) => s.Length > 60 ? s[..60] + "…" : s;

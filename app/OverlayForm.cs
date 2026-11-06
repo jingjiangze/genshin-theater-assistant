@@ -185,6 +185,10 @@ internal static class Program
                     if (args.Length >= 2) return QuantRunner.Run(args[1], Opt(args, "--out"), Opt(args, "--json"));
                     break;
 
+                // 幕内知识清单（确认内容来自数据而非代码）
+                case "--playbook":
+                    return Playbook.RunCli(Opt(args, "--out"));
+
                 // 大模型端点探针：--llm-probe [--dry]（dry=只校验配置不联网）
                 case "--llm-probe":
                     return LlmAdvisor.RunProbe(AppPaths.Data("llm.json"), args.Any(a => a == "--dry"));
@@ -366,6 +370,7 @@ internal sealed class OverlayForm : Form
         GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
         Speech.LoadAndConfigure(AppPaths.Data("speech.json"));
         Routine.Load(AppPaths.Data("rotations.json"));
+        Playbook.Load(AppPaths.Data("act-playbook.json"));
         LoadTemplatesFor(0, 0);
 
         _timer.Tick += OnTick;
@@ -496,6 +501,23 @@ internal sealed class OverlayForm : Form
             var stableAct = _actStab.Push(advice.Act);
             if (stableAct != advice.Act)
                 advice = advice with { Act = stableAct, Kind = stableAct.HasValue ? "act" : advice.Kind };
+
+            // 弃权：连续多帧都没认出幕次 → 明确说"暂不判断"，不再沿用旧幕次给过时指令。
+            // 实测约 25~30% 帧属于沿用（AUDIT §36），长期沿用比弃权更容易误导。
+            if (_actStab.ShouldAbstain)
+            {
+                advice = advice with
+                {
+                    Header = $"暂不判断（连续 {_actStab.ConsecutiveMisses} 帧未认出幕次）",
+                    Lines = new List<string>
+                    {
+                        $"▶ 暂不判断：已连续 {_actStab.ConsecutiveMisses} 帧没认出幕次，别按旧指示硬打",
+                        "看一眼屏幕底部当前幕次，或避开结算/贴图遮挡再让本窗读一次",
+                    },
+                    Kind = "abstain",
+                    Act = null,
+                };
+            }
 
             // 自动攒素材：按「状态 + 幕次 + 分辨率 + 画面签名」去重存原始帧。
             // 用签名而不是只按 key 去重：同一幕的不同界面（选人/战斗/BUFF 结算）都要能攒下来；

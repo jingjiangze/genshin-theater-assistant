@@ -62,6 +62,7 @@ internal static class QuantRunner
         var roster = RosterData.TryLoad(Path.Combine(AppPaths.Dir, "roster.json"));
         GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
         Routine.Load(AppPaths.Data("rotations.json"));
+        Playbook.Load(AppPaths.Data("act-playbook.json"));
         var knownChars = LoadKnownCharacters();
 
         using var ocr = new OcrService();

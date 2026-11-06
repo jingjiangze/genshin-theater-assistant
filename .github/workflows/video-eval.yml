@@ -25,19 +25,19 @@ on:
       keyword:
         description: '搜索关键词（bvids 为空时使用）'
         required: false
-        default: '幻想真境剧诗 月谕 攻略 全程'
+        default: '幻想真境剧诗 纯净流 全程'
       videos:
-        description: '搜索取前 N 个'
+        description: '搜索取前 N 个（默认 50，覆盖当前版本）'
         required: false
-        default: '2'
+        default: '50'
       every:
         description: '每 N 秒一帧'
         required: false
-        default: '8'
+        default: '20'
       max:
         description: '每个视频最多抽帧'
         required: false
-        default: '40'
+        default: '12'
       min-acc:
         description: '视觉条带代理自洽率告警阈值（仅诊断，不作为独立评测门禁）'
         required: false
@@ -99,10 +99,13 @@ jobs:
         run: |
           $bvs = "${{ github.event.inputs.bvids }}"
           if (-not $bvs) {
-            $kw = "${{ github.event.inputs.keyword }}"; if (-not $kw) { $kw = '幻想真境剧诗 月谕 攻略 全程' }
-            $n  = "${{ github.event_name == 'push' && '1' || github.event.inputs.videos || '2' }}"; if (-not $n) { $n = '2' }
+            $kw = "${{ github.event.inputs.keyword }}"; if (-not $kw) { $kw = '幻想真境剧诗 纯净流 全程' }
+            # 纯净流 = 无解说、无剪辑的完整录制；再叠加同义关键词扩大独立作者覆盖
+            $more = '剧诗 无解说 全程|幻想真境剧诗 无剪辑 全程|剧诗 满花 纯净流|幻想真境剧诗 全程 攻略'
+            # 视频数量：默认 50（此前 push=1 / 默认=2 是并行分支烟测遗留，导致覆盖严重不足）
+            $n  = "${{ github.event.inputs.videos || '50' }}"; if (-not $n) { $n = '50' }
             cd tools\video-frames
-            $json = node search.mjs "$kw" $n
+            $json = node search.mjs "$kw" $n 8 "$more"
             $j = ($json -join "`n") | ConvertFrom-Json
             if (-not $j.items -or $j.items.Count -eq 0) { throw "搜索没结果（关键词：$kw）" }
             $bvs = ($j.items | Select-Object -ExpandProperty bv) -join ' '
@@ -118,7 +121,8 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force frames/ingest | Out-Null
           $csv = ($env:BVS -split '\s+' | Where-Object { $_ }) -join ','
-          python tools/video-frames/ingest.py --platform bilibili --bvs "$csv" --limit 12 --out frames/ingest
+          $cnt = @($csv -split ',' | Where-Object { $_ }).Count; if ($cnt -lt 1) { $cnt = 50 }
+          python tools/video-frames/ingest.py --platform bilibili --bvs "$csv" --limit $cnt --out frames/ingest
 
       - name: 抽帧
         shell: pwsh
@@ -126,8 +130,9 @@ jobs:
           BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
         run: |
           if (-not $env:BILI_COOKIE) { throw "缺少 secret BILI_COOKIE" }
-          $every = "${{ github.event_name == 'push' && '8' || github.event.inputs.every || '5' }}"; if (-not $every) { $every = '5' }
-          $max   = "${{ github.event_name == 'push' && '20' || github.event.inputs.max || '200' }}"; if (-not $max) { $max = '200' }
+          # 50 个视频要控制单视频帧数：默认每 20 秒 1 帧、最多 12 帧（≈600 帧/批）
+          $every = "${{ github.event.inputs.every || '20' }}"; if (-not $every) { $every = '20' }
+          $max   = "${{ github.event.inputs.max || '12' }}"; if (-not $max) { $max = '12' }
           New-Item -ItemType Directory -Force frames | Out-Null
           cd tools\video-frames
           foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {

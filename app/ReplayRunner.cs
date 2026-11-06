@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Text;
 using System.Text.Json;
 
@@ -50,6 +50,7 @@ internal static class ReplayRunner
         var theater = TheaterData.Load(AppPaths.Data("season29.json"));
         var roster = RosterData.TryLoad(Path.Combine(AppPaths.Dir, "roster.json"));
         GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
+        Playbook.Load(AppPaths.Data("act-playbook.json"));
 
         using var ocr = new OcrService();
         ocr.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -117,13 +117,23 @@ internal sealed class LlmAdvisor : IDisposable
         return cfg;
     }
 
+    /// <summary>实际使用的配置文件路径（诊断用）。</summary>
+    public static string LastConfigPath { get; private set; } = "";
+
     public static LlmAdvisor TryLoad(string configPath)
     {
         try
         {
-            if (!File.Exists(configPath)) return null;
-            var cfg = ParseConfig(File.ReadAllText(configPath));
+            // 默认开启：本机 data/llm.json 优先（可覆盖或关闭），缺失时回退到仓库内 data/llm.example.json。
+            // 两者都不存在才视为"不联网"。
+            var path = File.Exists(configPath) ? configPath
+                : File.Exists(Path.Combine(AppPaths.Dir, "data", "llm.example.json"))
+                    ? Path.Combine(AppPaths.Dir, "data", "llm.example.json")
+                    : null;
+            if (path == null) return null;
+            var cfg = ParseConfig(File.ReadAllText(path));
             if (!cfg.Enabled || cfg.Endpoints.Count == 0) return null;
+            LastConfigPath = path;
             return new LlmAdvisor(cfg);
         }
         catch { return null; }
@@ -286,8 +296,14 @@ internal sealed class LlmAdvisor : IDisposable
     public static int RunProbe(string configPath, bool dry)
     {
         Cli.Attach();
-        if (!File.Exists(configPath)) { Cli.Say("没有配置：" + configPath + "（默认关闭，属正常）"); return 4; }
-        var cfg = ParseConfig(File.ReadAllText(configPath));
+        // 与 TryLoad 同一套回退：本机 data/llm.json 优先，其次仓库内 data/llm.example.json（默认开启）
+        var path = File.Exists(configPath) ? configPath
+            : File.Exists(Path.Combine(AppPaths.Dir, "data", "llm.example.json"))
+                ? Path.Combine(AppPaths.Dir, "data", "llm.example.json")
+                : null;
+        if (path == null) { Cli.Say("没有任何 llm 配置（data/llm.json 与 data/llm.example.json 都不存在）"); return 4; }
+        Cli.Say("配置文件: " + path);
+        var cfg = ParseConfig(File.ReadAllText(path));
         Cli.Say($"enabled={cfg.Enabled} 端点={cfg.Endpoints.Count} 超时={cfg.TimeoutSeconds}s 最小间隔={cfg.MinIntervalSeconds}s 单次会话上限={cfg.MaxPerSession}");
         foreach (var ep in cfg.Endpoints)
         {

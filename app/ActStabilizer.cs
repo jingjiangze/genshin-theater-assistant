@@ -1,4 +1,4 @@
-﻿namespace TheaterAssistant;
+namespace TheaterAssistant;
 
 /// <summary>
 /// 幕次时序稳定器：把"逐帧识别出来的幕次"变成"可信的当前幕次"。
@@ -24,6 +24,17 @@ internal sealed class ActStabilizer
     /// <summary>被拦下的候选次数（诊断用）。</summary>
     public int Rejected { get; private set; }
 
+    /// <summary>连续"没观测到幕次"的帧数（弃权判定用）。</summary>
+    public int ConsecutiveMisses { get; private set; }
+
+    /// <summary>
+    /// 连续未识别帧数达到该阈值时，调用方应**弃权**（明确说"暂不判断"），
+    /// 而不是继续沿用旧幕次给指示。实测约 25~30% 帧属于沿用，长期沿用会给出过时指令。
+    /// </summary>
+    public int AbstainAfterMisses { get; set; } = 3;
+
+    public bool ShouldAbstain => ConsecutiveMisses >= Math.Max(1, AbstainAfterMisses);
+
     public int? Committed => _committed;
 
     public int? Push(int? observed)
@@ -32,9 +43,11 @@ internal sealed class ActStabilizer
         {
             // 没观测到幕次：保持已确认结果，但**不清零**候选计数 ——
             // 条带 OCR 经常漏一帧，若清零，`9, 漏, 9` 就永远确认不了（CI 断言抓到过）。
+            ConsecutiveMisses++;
             return _committed;
         }
 
+        ConsecutiveMisses = 0;
         var act = observed.Value;
 
         if (_committed == act)

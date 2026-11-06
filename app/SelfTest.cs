@@ -327,6 +327,7 @@ internal static class SelfTest
         finally { try { Directory.Delete(plannerDir, true); } catch { } }
 
         Routine.Load(AppPaths.Data("rotations.json"));
+        Playbook.Load(AppPaths.Data("act-playbook.json"));
         var legacyRoutine = Routine.LinesFor(0, 10);
         var inGameRoutine = Routine.LinesFor(3, 10);
         Check("知识治理·旧视频/社区经验降级为历史候选",
@@ -347,6 +348,7 @@ internal static class SelfTest
 
         // 手法数据：首领幕必须有专属编排，且带出处
         Routine.Load(AppPaths.Data("rotations.json"));
+        Playbook.Load(AppPaths.Data("act-playbook.json"));
         var r6 = Routine.LinesFor(6, 3);
         var r3 = Routine.LinesFor(3, 3);
         Check("手法·首领幕有编排", Routine.Loaded && r6.Count >= 2 && r3.Count >= 2 && r6.Any(l => l.Contains("钓客")),
@@ -358,6 +360,17 @@ internal static class SelfTest
         var rAll = Routine.LinesFor(0, 10);
         Check("手法·社区共识已入库", rAll.Any(l => l.Contains("主 C 与辅助留给")) && rAll.Any(l => l.Contains("从左到右")),
             $"通用 {rAll.Count} 步，含跨视频共识");
+
+        // 幕内知识全部来自 data/act-playbook.json：代码不再按幕硬编码
+        Check("知识·playbook 载入", Playbook.Loaded && Playbook.ActCount >= 8,
+            $"载入 {Playbook.ActCount} 幕");
+        Check("知识·首领提示来自数据", (Playbook.Boss(3) ?? "").Contains("翠翎恐蕈") && Playbook.Boss(4) == null,
+            $"第3幕={(Playbook.Boss(3)?.Length ?? 0)} 字，第4幕={(Playbook.Boss(4) == null ? "无(正确)" : "有")}");
+        Check("知识·缺失幕明确说暂无", TheaterLogic.NextAction("act", 4) == Playbook.Missing
+            && (TheaterLogic.NextAction("act", 3) ?? "").Contains("怒气"),
+            $"第4幕=>{TheaterLogic.NextAction("act", 4)}");
+        Check("知识·缺失幕不猜元素", ChoiceDecider.NeedOf(4).Need == "" && ChoiceDecider.NeedOf(3).Need == "Electro",
+            $"第4幕=空(不猜) 第3幕={ChoiceDecider.NeedOf(3).Need}");
 
         // 帧驱动量化：事实侧判定（界面类型 / 角色名匹配）
         Check("量化·界面类型判定",

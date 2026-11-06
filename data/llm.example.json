@@ -1,38 +1,38 @@
-﻿{
-    "enabled":  false,
-    "_note":  "复制为 data/llm.json 再把 enabled 改 true 才联网。规则引擎永远先算，模型失败即回退规则文本。",
-    "_privacy":  "只发幕次/首领/机制短句/池子统计；发送前自动脱敏（凭据样式、UID、邮箱、链接、长随机串）。绝不发截图或账号。",
-    "_order":  "endpoints 按顺序降级：失败自动换下一个。apiKeyEnv 为空表示该端点无需 key。",
-    "minIntervalSeconds":  30,
-    "maxPerSession":  20,
-    "cooldownSeconds":  300,
-    "endpoints":  [
-                      {
-                          "name":  "pollinations-classic",
-                          "url":  "https://text.pollinations.ai/openai",
-                          "model":  "openai",
-                          "apiKeyEnv":  "",
-                          "privacy":  "public-cacheable",
-                          "note":  "无需注册/无需 key；免费但每 IP 文字请求 \u003e=30 秒一次；超限 402 + Retry-After；best effort 无 uptime 保证；文档明确相同 URL 结果会缓存给任何人，故内容已脱敏",
-                          "timeoutSeconds":  25
-                      },
-                      {
-                          "name":  "openrouter-free",
-                          "url":  "https://openrouter.ai/api/v1/chat/completions",
-                          "model":  "meta-llama/llama-3.3-8b-instruct:free",
-                          "apiKeyEnv":  "OPENROUTER_API_KEY",
-                          "privacy":  "standard",
-                          "note":  "需注册免费 key；402/429 时按 Retry-After 冷却"
-                      },
-                      {
-                          "name":  "groq-free",
-                          "url":  "https://api.groq.com/openai/v1/chat/completions",
-                          "model":  "llama-3.3-70b-versatile",
-                          "apiKeyEnv":  "GROQ_API_KEY",
-                          "privacy":  "standard",
-                          "note":  "需注册免费 key；作为第三兜底"
-                      }
-                  ],
-    "timeoutSeconds":  8,
-    "_measured":  "2026-11-06 实测 pollinations-classic: HTTP 200，首字节约 11.2s，v1 兼容返回；端点级超时已设 25s，否则会被 8s 全局超时判死"
+{
+  "enabled": true,
+  "_note": "【默认开启】本文件即默认配置，无需复制。要关闭请在 data/llm.json 写 enabled=false（该文件已被 .gitignore 忽略）。",
+  "_privacy": "只发幕次/首领/机制短句/池子统计；发送前自动脱敏（凭据样式、UID、邮箱、链接、长随机串）。绝不发截图或账号。",
+  "_order": "endpoints 按顺序降级：失败自动换下一个。apiKeyEnv 为空表示该端点无需 key。",
+  "minIntervalSeconds": 30,
+  "maxPerSession": 20,
+  "cooldownSeconds": 300,
+  "endpoints": [
+    {
+      "name": "pollinations-classic",
+      "url": "https://text.pollinations.ai/openai",
+      "model": "openai",
+      "apiKeyEnv": "",
+      "privacy": "public-cacheable",
+      "note": "无需注册/无需 key；免费但每 IP 文字请求 >=30 秒一次；超限 402 + Retry-After；best effort 无 uptime 保证；文档明确相同 URL 结果会缓存给任何人，故内容已脱敏",
+      "timeoutSeconds": 25
+    },
+    {
+      "name": "openrouter-free",
+      "url": "https://openrouter.ai/api/v1/chat/completions",
+      "model": "meta-llama/llama-3.3-8b-instruct:free",
+      "apiKeyEnv": "OPENROUTER_API_KEY",
+      "privacy": "standard",
+      "note": "需注册免费 key；402/429 时按 Retry-After 冷却"
+    },
+    {
+      "name": "groq-free",
+      "url": "https://api.groq.com/openai/v1/chat/completions",
+      "model": "llama-3.3-70b-versatile",
+      "apiKeyEnv": "GROQ_API_KEY",
+      "privacy": "standard",
+      "note": "需注册免费 key；作为第三兜底"
+    }
+  ],
+  "timeoutSeconds": 8,
+  "_measured": "2026-11-06 实测 pollinations-classic: HTTP 200，首字节约 11.2s，v1 兼容返回；端点级超时已设 25s，否则会被 8s 全局超时判死"
 }
