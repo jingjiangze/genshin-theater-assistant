@@ -69,6 +69,17 @@ class PersistBatchTests(unittest.TestCase):
                 self.root, "ingest", "104", "1", "sha", "video-ingest"
             )
 
+    def test_independent_eval_status_requires_external_label_report(self):
+        self.write("external-eval.json", json.dumps({
+            "independently_evaluated_videos": 1,
+            "promotion_eligible": False
+        }))
+        manifest, _ = persist_batch.build_manifest(
+            self.root, "evaluation", "105", "1", "sha", "video-eval"
+        )
+        self.assertEqual(manifest["status"], "EVALUATED_INDEPENDENT")
+        self.assertFalse(manifest["promotion"]["eligible"])
+
     def test_external_eval_uses_subtitle_and_chapter_not_visual_truth(self):
         ingest = self.root / "ingest"
         video = ingest / "BV1"
