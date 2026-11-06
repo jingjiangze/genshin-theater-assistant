@@ -160,6 +160,44 @@
                                          }
                                      ],
                            "source":  "curated+community"
+                       },
+                 "5":  {
+                           "title":  "第 5 幕 · 一阶水岩或岩雷",
+                           "steps":  [
+                                         {
+                                             "at":  "买卡",
+                                             "do":  "一阶水岩（或岩雷），给第 8 幕成型方向铺路",
+                                             "why":  "BV1bPxH6gEgw"
+                                         }
+                                     ],
+                           "source":  "community50",
+                           "recommended":  [
+                                               "行秋"
+                                           ]
+                       },
+                 "7":  {
+                           "title":  "第 7 幕 · 给第 8 幕留资源",
+                           "steps":  [
+                                         {
+                                             "at":  "选人",
+                                             "do":  "优先带行秋（4 个 UP 主共识）",
+                                             "why":  "50 视频跨平台共识"
+                                         },
+                                         {
+                                             "at":  "资源",
+                                             "do":  "买一个角色，给第 8 幕留强力主 C 与岩破盾",
+                                             "why":  "BV1bPxH6gEgw 逐幕节奏"
+                                         },
+                                         {
+                                             "at":  "耐力",
+                                             "do":  "别在这幕耗光主力耐力",
+                                             "why":  "8/10 幕是首领关"
+                                         }
+                                     ],
+                           "source":  "community50",
+                           "recommended":  [
+                                               "行秋"
+                                           ]
                        }
              },
     "communityRecommended":  {
