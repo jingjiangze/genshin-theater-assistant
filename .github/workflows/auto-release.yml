@@ -1,6 +1,11 @@
 name: auto-release
 
 on:
+  push:
+    branches:
+      - automation/cloud-auto-evolution
+    paths:
+      - .github/workflows/auto-release.yml
   workflow_dispatch:
   schedule:
     - cron: '30 8 * * *'
