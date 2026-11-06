@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -178,6 +178,11 @@ internal static class Program
                     if (args.Length >= 2)
                         return ReplayRunner.Run(args[1], Opt(args, "--out"), Opt(args, "--json"),
                             (int)OptDouble(args, "--min-stable", 2));
+                    break;
+
+                // 帧驱动量化对照：软件指示 vs 该帧客观事实（人物/决策/战斗）
+                case "--quant":
+                    if (args.Length >= 2) return QuantRunner.Run(args[1], Opt(args, "--out"), Opt(args, "--json"));
                     break;
 
                 // 资源包 / 更新（MAA 式：程序与资源都能更新）

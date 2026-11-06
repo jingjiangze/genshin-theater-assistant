@@ -359,6 +359,17 @@ internal static class SelfTest
         Check("手法·社区共识已入库", rAll.Any(l => l.Contains("主 C 与辅助留给")) && rAll.Any(l => l.Contains("从左到右")),
             $"通用 {rAll.Count} 步，含跨视频共识");
 
+        // 帧驱动量化：事实侧判定（界面类型 / 角色名匹配）
+        Check("量化·界面类型判定",
+            QuantRunner.FactKind("难度选择 参演要求 卓越模式", 0, 0) == "difficulty"
+            && QuantRunner.FactKind("队伍配置 已额外编入4/4名待命角色", 0, 4) == "team"
+            && QuantRunner.FactKind("战斗·普通 雷晶·进阶", 2, 0) == "shop",
+            "difficulty/team/shop 分流");
+        var knownChars = QuantRunner.LoadKnownCharacters();
+        var matchedChars = QuantRunner.MatchCharacters("第7幕：行秋+菲谢尔+2挂件", knownChars);
+        Check("量化·角色名匹配", knownChars.Count > 50 && matchedChars.Contains("行秋"),
+            $"角色表 {knownChars.Count}，命中 {string.Join("/", matchedChars.Take(4))}");
+
         // 角色可替代性：别称归一 + 同职能替代 + 视频原操作解析
         OpCompare.Load(AppPaths.Data("substitutes.json"));
         Check("替代·别称归一", OpCompare.Loaded && OpCompare.Canonical("皇女") == "菲谢尔" && OpCompare.Canonical("一斗") == "荒泷一斗",

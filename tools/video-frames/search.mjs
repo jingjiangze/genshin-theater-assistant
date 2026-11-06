@@ -17,6 +17,11 @@ const extraKeywords = (process.argv[5] || '').split('|').map(s => s.trim()).filt
 const queries = [keyword, ...extraKeywords];
 // 第 6 个参数：排除表文件路径（账本里累积的「无文本证据」BV，Tab 分隔第一列）
 const excludePath = process.argv[6] || '';
+// 第 7 个参数：排序方式轮换（逗号分隔）。B站默认 order=click 按播放量，
+// 头部会长期被同一个大 UP 主占据；轮换 pubdate/dm/stow 才能触达长尾作者。
+const orderArg = process.argv[7] || 'click';
+const orders = orderArg.split(',').map(s => s.trim()).filter(Boolean);
+if (orders.length === 0) orders.push('click');
 const excludedBv = new Set();
 if (excludePath && fs.existsSync(excludePath)) {
   // Node fs 不认 'utf-8-sig'（Python 编码名），用 utf8 读取后手动去 BOM
@@ -64,10 +69,11 @@ const seen = new Set();
 const seenAuthors = new Set();
 let emptyPages = 0;
 
-for (const q of queries) {
+for (const [qi, q] of queries.entries()) {
   if (all.length >= want) break;
+  const order = orders[qi % orders.length];
   for (let p = 1; p <= maxPages && all.length < want; p++) {
-  const url = `https://search.bilibili.com/video?keyword=${encodeURIComponent(q)}&order=click&page=${p}`;
+  const url = `https://search.bilibili.com/video?keyword=${encodeURIComponent(q)}&order=${encodeURIComponent(order)}&page=${p}`;
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForTimeout(3500);
