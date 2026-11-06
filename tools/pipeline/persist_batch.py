@@ -20,7 +20,7 @@ from typing import Iterable
 ALLOWLIST = {
     "ingest": ("ingest-summary.json", "*-ops.json", "*/meta.json", "*/subs.txt"),
     "evaluation": (
-        "*-replay.md", "*-replay.json", "*-ops.json",
+        "*-replay.md", "*-replay.json", "external-eval.json", "*-ops.json",
         "experience/SUMMARY.md", "experience/rules.json",
         "experience/OPS-CONSENSUS.md",
     ),
