@@ -123,7 +123,8 @@ internal static class QuantRunner
                 var dec = options.Count >= 2
                     ? ChoiceDecider.Decide(options, simAct, tSize, tTarget > 0 ? tTarget : 4)
                     : null;
-                var recAct = simDetected > 0 ? simDetected : simAct;
+                // 只有本帧真正识别到幕次才算"有上下文"；沿用旧幕次属于盲推荐，不计入人物指标
+                var recAct = simDetected;
                 var recommended = Routine.LinesFor(recAct > 0 ? recAct : (int?)null, 1)
                     .SelectMany(l => Regex.Matches(l, @"[\u4e00-\u9fff]{2,6}").Select(m => m.Value))
                     .Where(w => knownChars.Contains(w)).Distinct().ToList();

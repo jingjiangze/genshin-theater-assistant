@@ -504,6 +504,18 @@ internal sealed class OverlayForm : Form
 
             // 弃权：连续多帧都没认出幕次 → 明确说"暂不判断"，不再沿用旧幕次给过时指令。
             // 实测约 25~30% 帧属于沿用（AUDIT §36），长期沿用比弃权更容易误导。
+            // 沿用提示：本帧没识别到幕次、仍在用上一帧的结论 —— 必须让玩家知道这是"旧信息"
+            if (!_actStab.ShouldAbstain && _actStab.ConsecutiveMisses > 0 && _actStab.Committed.HasValue)
+            {
+                advice = advice with
+                {
+                    Lines = advice.Lines.Concat(new[]
+                    {
+                        $"⚠ 幕次沿用上一帧（本帧未识别 {_actStab.ConsecutiveMisses} 次），落地前请核对屏幕"
+                    }).ToList()
+                };
+            }
+
             if (_actStab.ShouldAbstain)
             {
                 advice = advice with
