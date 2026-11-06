@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-06T07:18:15.074364+00:00",
+  "updated_at": "2026-11-06T07:21:01.483339+00:00",
   "candidate_count": 37,
   "verified_count": 0,
   "candidates": [
@@ -39,6 +39,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -46,7 +49,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -81,6 +84,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -88,7 +94,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -123,6 +129,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -130,7 +139,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -165,6 +174,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -172,7 +184,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -207,6 +219,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -214,7 +229,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -252,6 +267,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -259,7 +277,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -294,6 +312,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -301,7 +322,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -336,6 +357,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -343,7 +367,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -378,6 +402,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -385,7 +412,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -423,6 +450,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -430,7 +460,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -465,6 +495,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -472,7 +505,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -510,6 +543,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -517,7 +553,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -552,6 +588,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -559,7 +598,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -594,6 +633,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -601,7 +643,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -639,6 +681,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -646,7 +691,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -681,6 +726,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -688,7 +736,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -726,6 +774,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -733,7 +784,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -768,6 +819,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -775,7 +829,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -810,6 +864,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -817,7 +874,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -855,6 +912,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -862,7 +922,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -900,6 +960,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -907,7 +970,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -945,6 +1008,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -952,7 +1018,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -990,6 +1056,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -997,7 +1066,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1032,6 +1101,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -1039,7 +1111,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1074,6 +1146,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -1081,7 +1156,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1116,6 +1191,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -1123,7 +1201,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1158,6 +1236,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -1165,7 +1246,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1203,6 +1284,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -1210,7 +1294,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1248,6 +1332,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -1255,7 +1342,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1293,6 +1380,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -1300,7 +1390,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1338,6 +1428,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -1345,7 +1438,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1380,6 +1473,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -1387,7 +1483,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1422,6 +1518,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -1429,7 +1528,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1464,6 +1563,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -1471,7 +1573,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1509,6 +1611,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -1516,7 +1621,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1554,6 +1659,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1saaz6qEbH"
           ]
         }
       ],
@@ -1561,7 +1669,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     },
     {
@@ -1596,6 +1704,9 @@
             "42179280602-attempt-1",
             "42179298346-attempt-1",
             "42179312058-attempt-1"
+          ],
+          "source_refs": [
+            "bilibili:BV1G86xBFEk5"
           ]
         }
       ],
@@ -1603,7 +1714,7 @@
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "version/condition and independent strategy evaluation are not yet available",
+      "status_reason": "insufficient versioned independent video/creator evidence",
       "unique_video_count": 1
     }
   ],
