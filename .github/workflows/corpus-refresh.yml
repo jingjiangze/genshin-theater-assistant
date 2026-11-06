@@ -42,10 +42,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: theater-pipeline-state
-  cancel-in-progress: false
-
 jobs:
   refresh:
     runs-on: windows-latest
