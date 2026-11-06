@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -156,7 +156,7 @@ internal static class QuantRunner
         md.AppendLine("# 视频帧 · 模拟对照量化报告");
         md.AppendLine();
         md.AppendLine($"> 帧数 {rows.Count}｜总耗时 {sw.ElapsedMilliseconds} ms（平均 {sw.ElapsedMilliseconds / Math.Max(1, rows.Count)} ms/帧）");
-        md.AppendLine("> 口径：从同一帧独立提取"客观事实"，与软件指示逐帧对照。");
+        md.AppendLine("> 口径：从同一帧独立提取「客观事实」，与软件指示逐帧对照。");
         md.AppendLine();
         md.AppendLine("## 三类量化指标");
         md.AppendLine();
