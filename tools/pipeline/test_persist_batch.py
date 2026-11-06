@@ -165,7 +165,8 @@ class PersistBatchTests(unittest.TestCase):
                 "evaluation_id": "eval-29-7.1", "holdout_passed": True,
                 "baseline_regression_passed": True, "strategy_gate_passed": True,
                 "holdout_samples": 30, "strategy_success_rate": 0.90,
-                "baseline_strategy_success_rate": 0.85
+                "baseline_strategy_success_rate": 0.85,
+                "counter_evidence_resolved": True
             }
         }
         registry.write_text(json.dumps({"candidates": [candidate]}), encoding="utf-8")
@@ -175,6 +176,26 @@ class PersistBatchTests(unittest.TestCase):
         self.assertEqual(result["action"], "PROMOTE")
         self.assertEqual(pointer["previous_release"], "rel-stable")
         self.assertTrue((releases / pointer["release_id"] / "knowledge.json").exists())
+
+    def test_release_rejects_insufficient_holdout_samples(self):
+        registry = self.root / "registry.json"
+        releases = self.root / "releases"
+        active = self.root / "active.json"
+        candidate = {
+            "candidate_id": "candidate-small-holdout", "status": "VERIFIED",
+            "season": 29, "version_range": {"min": "7.1", "max": "7.1"},
+            "evidence_ids": ["a", "b", "c"], "independent_creator_count": 2,
+            "verification": {
+                "evaluation_id": "eval-small", "holdout_passed": True,
+                "baseline_regression_passed": True, "strategy_gate_passed": True,
+                "holdout_samples": 5, "strategy_success_rate": 0.95,
+                "baseline_strategy_success_rate": 0.90, "counter_evidence_resolved": True
+            }
+        }
+        registry.write_text(json.dumps({"candidates": [candidate]}), encoding="utf-8")
+        result = release_knowledge.release_or_rollback(registry, releases, active)
+        self.assertEqual(result["action"], "NOOP")
+        self.assertFalse(active.exists())
 
     def test_failed_post_release_health_rolls_back_atomically(self):
         registry = self.root / "registry.json"
