@@ -32,13 +32,38 @@ def read_json(path: Path) -> dict:
         return {}
 
 
-def extract_context(meta: dict) -> tuple[int | None, str | None]:
+def extract_context(meta: dict) -> tuple[int | None, str | None, bool]:
+    """返回 (season, version, inferred)。
+
+    UP 主标题常不写「第29期 / 7.1」，此时若直接留空，候选 key 会退化成按 video_id
+    拆分，导致同一结论在不同作者/视频下永远各自成一条、independent_creator_count 恒为 1
+    （实测 217 条候选全 CANDIDATE）。这里从仓库当前赛季数据取一个**可核验的显式默认值**，
+    并用 inferred=True 标注，避免把推断伪装成证据。
+    """
     text = " ".join((str(meta.get("title") or ""), str(meta.get("description") or "")))
     season_match = re.search(r"(?:第\s*(\d+)\s*(?:期|赛季)|season\s*#?\s*(\d+))", text, re.IGNORECASE)
     season = int(next(x for x in season_match.groups() if x)) if season_match else None
     version_match = re.search(r"(?<!\d)(\d+\.\d+)(?!\d)", text)
     version = version_match.group(1) if version_match else None
-    return season, version
+    inferred = False
+    if season is None or version is None:
+        # data/season29.json 是本项目当前赛季数据文件（非模型推断）；文件存在即取其中声明值
+        season_file = Path(__file__).resolve().parents[2] / "data" / "season29.json"
+        default_season, default_version = 29, "7.1"
+        if season_file.exists():
+            try:
+                doc = json.loads(season_file.read_text(encoding="utf-8-sig"))
+                default_season = int(doc.get("season") or doc.get("id") or default_season)
+                default_version = str(doc.get("game_version") or doc.get("version") or default_version)
+            except (OSError, ValueError, TypeError):
+                pass
+        if season is None:
+            season = default_season
+            inferred = True
+        if version is None:
+            version = default_version
+            inferred = True
+    return season, version, inferred
 
 
 def evidence_key(item: dict) -> str:
@@ -64,7 +89,7 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
             video_id = ops_path.name.removesuffix("-ops.json")
             meta = read_json(files_root / video_id / "meta.json")
             platform = str(meta.get("platform") or "unknown")
-            season, version = extract_context(meta)
+            season, version, context_inferred = extract_context(meta)
             raw_creator = meta.get("creator_id")
             meta_creator = str(raw_creator).strip() if raw_creator is not None else ""
             ops_doc = read_json(ops_path)
@@ -91,6 +116,7 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
                     "platform": platform,
                     "season": season,
                     "version": version,
+                    "context_inferred": context_inferred,
                     "creator_id": creator_key,
                     "creator_name": str(op.get("creator_name") or meta.get("uploader") or ""),
                     "channel": channel,

@@ -313,3 +313,38 @@ class JsonIoBomTest(unittest.TestCase):
             p.write_text('{"a": 1}', encoding="utf-8-sig")
             self.assertEqual(read_json(p), {"a": 1})
             self.assertEqual(read_text(p), '{"a": 1}')
+
+
+class ExtractContextTest(unittest.TestCase):
+    def test_explicit_context_is_not_inferred(self):
+        season, version, inferred = extract_knowledge.extract_context(
+            {"title": "【原神】第 29 期 幻想真境剧诗 7.1 攻略", "description": ""})
+        self.assertEqual((season, version), (29, "7.1"))
+        self.assertFalse(inferred)
+
+    def test_missing_context_uses_repo_season_and_marks_inferred(self):
+        season, version, inferred = extract_knowledge.extract_context(
+            {"title": "幻想真境剧诗 满花流程", "description": "无版本信息"})
+        self.assertEqual(season, 29)
+        self.assertEqual(version, "7.1")
+        self.assertTrue(inferred)
+
+    def test_missing_context_allows_cross_video_merge(self):
+        # 关键回归：season/version 不再为 None，候选 key 才不会按 video_id 拆散
+        e = [
+            {"evidence_id": "e1", "kind": "act_team", "act": 7, "text": "第7幕 推荐 行秋",
+             "season": 29, "version": "7.1", "video_id": "BV_a", "creator_id": "bilibili:1",
+             "channel": "description", "source": "bilibili:BV_a", "source_refs": [], "observed_batches": ["b1"]},
+            {"evidence_id": "e2", "kind": "act_team", "act": 7, "text": "第7幕 推荐 行秋",
+             "season": 29, "version": "7.1", "video_id": "BV_b", "creator_id": "bilibili:2",
+             "channel": "description", "source": "bilibili:BV_b", "source_refs": [], "observed_batches": ["b1"]},
+            {"evidence_id": "e3", "kind": "act_team", "act": 7, "text": "第7幕 推荐 行秋",
+             "season": 29, "version": "7.1", "video_id": "BV_c", "creator_id": "bilibili:3",
+             "channel": "description", "source": "bilibili:BV_c", "source_refs": [], "observed_batches": ["b1"]},
+        ]
+        reg = extract_knowledge.merge_candidates(e)
+        self.assertEqual(reg["candidate_count"], 1)
+        rec = reg["candidates"][0]
+        self.assertEqual(rec["independent_creator_count"], 3)
+        self.assertEqual(rec["unique_video_count"], 3)
+        self.assertEqual(rec["status"], "PROVISIONAL")
