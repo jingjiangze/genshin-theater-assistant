@@ -80,6 +80,14 @@ jobs:
           print(f"validated_json_files={checked}")
           PY
 
+      - name: BM25 检索基线回归
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tools/audit-retrieval.mjs | tee retrieval-baseline.txt
+          grep -Fq 'hit@1 = 17/17' retrieval-baseline.txt
+          grep -Fq 'hit@3 = 17/17' retrieval-baseline.txt
+
       - name: 流水线持久化安全单元测试
         shell: bash
         run: |
