@@ -34,6 +34,10 @@ internal static class OpsConsensus
 
     private static readonly Regex NoiseRe = new(@"^(可选角色|已选开幕与待命角色|待命角色|请选择|选择\d*名|第\s*\d{1,2}\s*幕|Lv\.?\s*\d+|\d+[\.、]|[\d\W]{1,8})$", RegexOptions.Compiled);
 
+    // 游戏内说明/剧情文案（带句号、含世界观词）不是可执行动作；实测 42 视频里
+    // "过去的魔女留下的挑战，需要许多伙伴组成的队伍共同攻克。"被 2 个视频重复当成共识。
+    private static readonly Regex ProseRe = new(@"(挑战|故事|演出|神秘房间|魔女|幻想与真实|永无休止|在故事|需要许多伙伴)[^\n]{0,40}。\s*$", RegexOptions.Compiled);
+
     internal static string Normalize(string text) =>
         Regex.Replace(text ?? "", @"[\s\p{P}]", "").ToLowerInvariant();
 
@@ -44,6 +48,7 @@ internal static class OpsConsensus
         if (t.Length < 4) return true;
         if (Noise.Contains(t)) return true;
         if (NoiseRe.IsMatch(t)) return true;
+        if (ProseRe.IsMatch(t)) return true;
         return false;
     }
 

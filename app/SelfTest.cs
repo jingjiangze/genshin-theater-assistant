@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Text;
@@ -279,7 +279,10 @@ internal static class SelfTest
         Check("跨视频共识聚合",
             agg.Count == 2 && agg[0].Videos == 2 && agg[0].Text == "买一个角色" && agg.All(r => r.Text != "可选角色"),
             string.Join(" | ", agg.Select(r => $"{r.Text}:{r.Videos}")));
-        Check("共识·UI 文案过滤", OpsConsensus.IsNoise("可选角色") && !OpsConsensus.IsNoise("买一个角色"), "可选角色=噪声, 买一个角色=保留");
+        Check("共识·UI 文案过滤",
+            OpsConsensus.IsNoise("可选角色") && !OpsConsensus.IsNoise("买一个角色")
+            && OpsConsensus.IsNoise("过去的魔女留下的挑战，需要许多伙伴组成的队伍共同攻克。"),
+            "可选角色=噪声, 剧情文案=噪声, 买一个角色=保留");
 
         // 操作提取分类（纯函数）：连招 / 购买 / 配队 / 行动
         Check("操作分类",
@@ -296,6 +299,9 @@ internal static class SelfTest
         var r3 = Routine.LinesFor(3, 3);
         Check("手法·首领幕有编排", Routine.Loaded && r6.Count >= 2 && r3.Count >= 2 && r6[0].Contains("钓客"),
             $"载入 {Routine.Count} 幕，第6幕 {r6.Count} 步：{(r6.Count > 0 ? r6[0] : "-")}");
+        var rAll = Routine.LinesFor(0, 10);
+        Check("手法·社区共识已入库", rAll.Any(l => l.Contains("主 C 与辅助留给")) && rAll.Any(l => l.Contains("从左到右")),
+            $"通用 {rAll.Count} 步，含跨视频共识");
 
         // 本地日志解析（纯函数）：只认 avatarId/level，其余字段丢弃
         var log = "{\"avatarId\":10000060,\"level\":90} {\"avatarId\":10000046,\"level\":80} junk {\"avatarId\":10000060,\"level\":90}";
