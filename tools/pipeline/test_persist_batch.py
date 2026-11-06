@@ -96,6 +96,22 @@ class PersistBatchTests(unittest.TestCase):
         self.assertEqual(candidate["independent_creator_count"], 2)
         self.assertEqual(result["verified_count"], 0)
 
+    def test_extraction_never_downgrades_terminal_status(self):
+        existing = {
+            "candidates": [{
+                "candidate_id": "fixed", "kind": "action", "text": "先击败钓客", "act": 6,
+                "evidence_ids": ["old"], "evidence": [], "status": "VERIFIED",
+                "independent_creator_count": 2
+            }]
+        }
+        evidence = [{
+            "evidence_id": "new", "kind": "action", "text": "先击败钓客", "act": 6,
+            "creator_id": "bilibili:creator-C", "source": "BV-new"
+        }]
+        result = extract_knowledge.merge_candidates(evidence, existing)
+        self.assertEqual(result["candidates"][0]["status"], "VERIFIED")
+        self.assertEqual(len(result["candidates"][0]["evidence_ids"]), 2)
+
     def test_one_creator_many_videos_stays_candidate(self):
         evidence = [
             {"evidence_id": f"e{i}", "kind": "action", "text": "先击败钓客", "act": 6,
