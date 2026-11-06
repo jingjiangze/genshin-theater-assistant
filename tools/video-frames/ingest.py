@@ -65,6 +65,43 @@ NOISE_RE = re.compile(
 )
 PROSE_RE = re.compile(r"(挑战|故事|演出|神秘房间|魔女|幻想与真实|永无休止|在故事|需要许多伙伴)[^\n]{0,40}。\s*$")
 
+# UP 主简介里最有价值的是「逐幕配队」：`第1幕：一斗+爱诺+五郎+挂件`、
+# `需要选出角色：5幕诺艾尔、7幕行秋+皇女、9幕那维莱特`。
+# 这些长文本按"精确文本"去重永远形不成共识，必须抽成 (幕次, 角色) 结构化对。
+ACT_LINE_RE = re.compile(r"^\s*(?:第)?\s*(\d{1,2})\s*幕[：:\s]*(.+)$")
+ACT_SEG_RE = re.compile(r"(?:^|[、，,；;])\s*(?:第)?\s*(\d{1,2})\s*幕\s*([^、，,；;]{2,40})")
+CHAR_SPLIT_RE = re.compile(r"[+＋、，,/\s]+")
+BAD_CHAR_RE = re.compile(r"(挂件|主C|主c|辅助|后台|破盾|奶|盾|角色|尽量|剩下|需要|自备|偏强|偏弱|高频|组合|自带)")
+
+
+def extract_act_roles(line: str) -> list[tuple[int, str]]:
+    """从一行简介抽 [(幕次, 角色名)]；只保留像角色名的 2-6 字中文词。"""
+    t = (line or "").strip()
+    if not t:
+        return []
+    out: list[tuple[int, str]] = []
+    pairs: list[tuple[str, str]] = []
+    m = ACT_LINE_RE.match(t)
+    if m:
+        pairs.append((m.group(1), m.group(2)))
+    else:
+        pairs.extend((a, b) for a, b in ACT_SEG_RE.findall(t))
+    for num, body in pairs:
+        try:
+            act = int(num)
+        except ValueError:
+            continue
+        if not (1 <= act <= 12):
+            continue
+        for tok in CHAR_SPLIT_RE.split(body):
+            tok = tok.strip()
+            if not (2 <= len(tok) <= 8) or not re.fullmatch(r"[\u4e00-\u9fff]{2,8}", tok):
+                continue
+            if BAD_CHAR_RE.search(tok):
+                continue
+            out.append((act, tok))
+    return out
+
 
 def classify(line: str) -> str | None:
     t = (line or "").strip()
@@ -367,6 +404,22 @@ def main() -> int:
                     "source": f"{args.platform}:{vid}" + (f"@{ts}" if ts else ""),
                     "channel": ch, "needsReview": True,
                 })
+
+            # 4b) 逐幕配队：把简介里的「第N幕：A+B+C」抽成 (幕次, 角色) 结构化条目。
+            # 这些是 UP 主主动写的资料，比 OCR 更准；用统一文本「第N幕 推荐 X」便于跨视频计数。
+            for ts, tx, ch in texts:
+                for act, role in extract_act_roles(tx):
+                    label = f"第{act}幕 推荐 {role}"
+                    k = "act_team:" + norm_key(label)
+                    if k in seen_ops:
+                        continue
+                    seen_ops.add(k)
+                    ops.append({
+                        "kind": "act_team", "text": label, "act": act,
+                        "source": f"{args.platform}:{vid}" + (f"@{ts}" if ts else ""),
+                        "channel": ch, "needsReview": True,
+                    })
+            rec["act_team_pairs"] = sum(1 for o in ops if o["kind"] == "act_team")
             (out / f"{safe}-ops.json").write_text(
                 json.dumps({
                     "note": f"{args.platform} 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），需人工复核",

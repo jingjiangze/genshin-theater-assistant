@@ -283,6 +283,11 @@ internal static class SelfTest
             OpsConsensus.IsNoise("可选角色") && !OpsConsensus.IsNoise("买一个角色")
             && OpsConsensus.IsNoise("过去的魔女留下的挑战，需要许多伙伴组成的队伍共同攻克。"),
             "可选角色=噪声, 剧情文案=噪声, 买一个角色=保留");
+        Check("共识·跨平台出处去重",
+            OpsConsensus.SplitBv("bilibili:BV1aa@10s") == "BV1aa"
+            && OpsConsensus.SplitBv("youtube:dQw4w9WgXcQ") == "dQw4w9WgXcQ"
+            && OpsConsensus.SplitBv("BV1aa@20s") == "BV1aa",
+            "bilibili:/youtube: 前缀都能归一到视频 id");
 
         // 操作提取分类（纯函数）：连招 / 购买 / 配队 / 行动
         Check("操作分类",

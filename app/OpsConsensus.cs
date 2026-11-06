@@ -57,7 +57,13 @@ internal static class OpsConsensus
         if (string.IsNullOrEmpty(source)) return "";
         var i = source.IndexOf('@');
         var head = i > 0 ? source[..i] : source;
-        return head.StartsWith("BV", StringComparison.Ordinal) ? head : "";
+        // yt-dlp 链路用 "bilibili:BVxxxx" / "youtube:xxxx" 标出处；去掉平台前缀后仍按视频去重
+        var c = head.IndexOf(':');
+        if (c > 0) head = head[(c + 1)..];
+        if (head.StartsWith("BV", StringComparison.Ordinal)) return head;
+        // YouTube 等平台的 id 也当作一个独立视频（只要不是纯时间码/数字）
+        if (head.Length >= 6 && Regex.IsMatch(head, @"[A-Za-z]")) return head;
+        return "";
     }
 
     /// <summary>纯函数：聚合 (文本,类别,出处) 三元组 → 按不同视频数降序。</summary>
