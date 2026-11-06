@@ -1,0 +1,79 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 18:04:17",
+  "bvid": "BV18Jcwz3E1c",
+  "frames": 12,
+  "candidates": 10,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "准备&础战角色选择 借角色难点规划",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局先打右边那个风役人",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "准备&出战角色选择借角色难点规划",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "出战角色(优先级左高右低，默认0命)",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "必选：火神/仆人/杜林/班尼特/香菱（4命）/火主/可莉/胡桃/托马",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "准备&出战角色选择借角色难点规划1",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "准备&出战角色选择借角色",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "非常多动，需要高输出且走位灵活",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@376s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "祝福参考：优先1蒸发1结晶",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "可选角色预览",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "needsReview": true
+    }
+  ]
+}

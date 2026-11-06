@@ -1,0 +1,233 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 18:08:18",
+  "bvid": "BV1zmGM6xEvh",
+  "frames": 12,
+  "candidates": 32,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主C+辅助，8幕夏洛蒂（冰对空)9幕自备较强主C+辅助）",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：3幕雷、5幕冰水6幕冰水8幕雷",
+      "act": 3,
+      "source": "BV1zmGM6xEvh@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "第8幕:菲林斯+爱诺+夏洛蒂(冰对空)+雷后台 先驱秘源统辖阵列",
+      "act": 8,
+      "source": "BV1zmGM6xEvh@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛蒂（冰对空），9幕自备较强主c+辅助",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@1030s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买到4级感电",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@1030s",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：菲林斯+艾诺+夏洛蒂+雷",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@1030s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛蒂（冰对控），9幕自备较强主c+辅助",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2感电2挂件（最好有1雷)",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹龙兽",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：夜兰+欧洛伦+2挂件",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：缺啥找啥",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：看情况选",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：自备较强主c+辅助",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主ct辅助，8幕夏洛蒂（冰对空），9幕自备较强主c+辅助",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：把钱花光",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：较强主C",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：缺角色买角色缺buff买buff",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：菲林斯+爱诺+雷+挂件",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：确保有4挂件",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买buff：2冻结",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买角色：强力外援>5幕行秋",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹机兵",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "剩余3次重置次数，是否消耗重置次数刷新待选事件？",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2冻结buff",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：海乱鬼",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：丝柯克+莱依拉+行秋+水冰",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找角色",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主ct辅助，8幕夏洛带（冰对空），9幕自备较强主c+辅助",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2超导",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：枫丹机关",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛带（冰对空），9幕自备较强主c+辅助",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：菲林斯+爱诺+夏洛蒂+雷",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "needsReview": true
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 18:04:28",
+  "bvid": "BV1poto6BE7b",
+  "frames": 12,
+  "candidates": 2,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "感电祝福已升级，请选择一个分支",
+      "act": 0,
+      "source": "BV1poto6BE7b@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选择一个神秘收获效果",
+      "act": 0,
+      "source": "BV1poto6BE7b@s",
+      "needsReview": true
+    }
+  ]
+}

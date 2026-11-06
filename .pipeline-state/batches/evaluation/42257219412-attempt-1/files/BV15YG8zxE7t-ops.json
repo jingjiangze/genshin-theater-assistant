@@ -1,0 +1,23 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 18:02:57",
+  "bvid": "BV15YG8zxE7t",
+  "frames": 11,
+  "candidates": 2,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "开局先破盾，怪物有冰附着时，岩元素破盾效率会变高",
+      "act": 0,
+      "source": "BV15YG8zxE7t@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "完成战斗事件或选择伙伴事件即可使待命角色转变为可出战角色",
+      "act": 0,
+      "source": "BV15YG8zxE7t@s",
+      "needsReview": true
+    }
+  ]
+}

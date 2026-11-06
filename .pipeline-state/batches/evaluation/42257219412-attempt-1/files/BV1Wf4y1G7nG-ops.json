@@ -1,0 +1,37 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 18:05:34",
+  "bvid": "BV1Wf4y1G7nG",
+  "frames": 12,
+  "candidates": 4,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "出比该诗歌集更加出名的书籍，其中有一本书就他们并不需要经验去检验它们，他们被休误称为必然真理。",
+      "act": 0,
+      "source": "BV1Wf4y1G7nG@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "这的经验先天地显得与对我为他的对象一存在的可能级的做为我",
+      "act": 0,
+      "source": "BV1Wf4y1G7nG@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "好说明，他的意识竭力要把握虚构的表演，要通过预先的图式预见",
+      "act": 0,
+      "source": "BV1Wf4y1G7nG@s",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "上：我观察着别的顾客并且我",
+      "act": 0,
+      "source": "BV1Wf4y1G7nG@s",
+      "needsReview": true
+    }
+  ]
+}

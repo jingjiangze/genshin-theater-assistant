@@ -1,0 +1,30 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 18:03:19",
+  "bvid": "BV1o142117Z1",
+  "frames": 11,
+  "candidates": 3,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "在梯度表中任选9个即可",
+      "act": 0,
+      "source": "BV1o142117Z1@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "优先选择TO角色",
+      "act": 0,
+      "source": "BV1o142117Z1@0s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "T1角色 (按需选择)",
+      "act": 0,
+      "source": "BV1o142117Z1@0s",
+      "needsReview": true
+    }
+  ]
+}

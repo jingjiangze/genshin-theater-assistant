@@ -1,0 +1,37 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 18:06:26",
+  "bvid": "BV1vyXfYaEg6",
+  "frames": 12,
+  "candidates": 4,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "我们开始选队友哈",
+      "act": 0,
+      "source": "BV1vyXfYaEg6@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "不要选法师和使徒",
+      "act": 0,
+      "source": "BV1vyXfYaEg6@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "超导祝福已升级，请选择一个分支",
+      "act": 0,
+      "source": "BV1vyXfYaEg6@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "我们就选这个提伤害的",
+      "act": 0,
+      "source": "BV1vyXfYaEg6@s",
+      "needsReview": true
+    }
+  ]
+}

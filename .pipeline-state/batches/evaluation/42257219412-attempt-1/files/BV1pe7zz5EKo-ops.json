@@ -1,0 +1,30 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-06 18:05:44",
+  "bvid": "BV1pe7zz5EKo",
+  "frames": 11,
+  "candidates": 3,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "选凯亚，克洛琳德等中期以后再选",
+      "act": 0,
+      "source": "BV1pe7zz5EKo@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "从随机的2名待命角色中，选择1名转变为可出战角色",
+      "act": 0,
+      "source": "BV1pe7zz5EKo@s",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "可选待命角色",
+      "act": 0,
+      "source": "BV1pe7zz5EKo@s",
+      "needsReview": true
+    }
+  ]
+}

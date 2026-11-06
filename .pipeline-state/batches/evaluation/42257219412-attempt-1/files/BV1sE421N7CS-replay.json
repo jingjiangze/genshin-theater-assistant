@@ -1,0 +1,71 @@
+﻿{
+  "frames": 4,
+  "jumps": [],
+  "flips": [],
+  "steps": [
+    {
+      "Frame": "BV1sE421N7CS-0s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 1,
+      "Ms": 2693
+    },
+    {
+      "Frame": "BV1sE421N7CS-20s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 9,
+      "Ms": 2725
+    },
+    {
+      "Frame": "BV1sE421N7CS-40s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 16,
+      "Ms": 2852
+    },
+    {
+      "Frame": "BV1sE421N7CS-60s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 2,
+      "Ms": 2698
+    }
+  ]
+}
