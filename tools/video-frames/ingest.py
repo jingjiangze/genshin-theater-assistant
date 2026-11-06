@@ -349,7 +349,7 @@ def main() -> int:
                 ops.append({
                     "kind": kind, "text": tx[:120], "act": 0,
                     "source": f"{args.platform}:{vid}" + (f"@{ts}" if ts else ""),
-                    "channel": ch, "needsReview": True,
+                    "channel": ch, "status": "CANDIDATE",
                 })
 
             # 4b) 逐幕配队：把简介里的「第N幕：A+B+C」抽成 (幕次, 角色) 结构化条目。
@@ -369,7 +369,7 @@ def main() -> int:
             rec["act_team_pairs"] = sum(1 for o in ops if o["kind"] == "act_team")
             (out / f"{safe}-ops.json").write_text(
                 json.dumps({
-                    "note": f"{args.platform} 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），需人工复核",
+                    "note": f"{args.platform} 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
                     "generatedAt": time.strftime("%Y-%m-%d %H:%M:%S"),
                     "bvid": vid, "frames": 0, "candidates": len(ops), "ops": ops,
                 }, ensure_ascii=False, indent=1), encoding="utf-8")
