@@ -165,6 +165,14 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
         existing_evidence = next((x for x in record["evidence"] if x.get("evidence_id") == item["evidence_id"]), None)
         if existing_evidence is None:
             record["evidence_ids"].append(item["evidence_id"])
+            batches = set(item.get("observed_batches", []))
+            if item.get("batch_id"):
+                batches.add(item["batch_id"])
+            item["observed_batches"] = sorted(batches)
+            refs = set(item.get("source_refs", []))
+            if item.get("source"):
+                refs.add(item["source"])
+            item["source_refs"] = sorted(refs)
             record["evidence"].append(item)
         else:
             batches = set(existing_evidence.get("observed_batches", []))
