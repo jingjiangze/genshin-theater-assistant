@@ -51,6 +51,14 @@ jobs:
         with:
           python-version: '3.12'
 
+      # 账本必须在「搜索」之前就位：搜索要读取历史 no_text_videos.txt 排除表
+      - name: Checkout durable batch ledger
+        uses: actions/checkout@v4
+        with:
+          ref: automation-data
+          path: .pipeline-state
+          fetch-depth: 0
+
       - name: 装成熟轮子（不自己造）
         run: |
           python -m pip install --upgrade pip
@@ -68,14 +76,23 @@ jobs:
           QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
           # 单一关键词按播放量排序会被同一 UP 主占满（实测 8/8 全是 mid=431073645）。
           # 多关键词轮转采样，让证据治理能拿到真正独立的作者。
-          MORE="幻想真境剧诗 满花 攻略|剧诗 低配 通关 月谕|幻想真境剧诗 7.1 打法"
+          # 优先找「文字攻略型」UP 主：纯视频讲解只有章节标题，产不出文本证据
+          MORE="幻想真境剧诗 逐幕 配队 角色推荐|剧诗 文字攻略 阵容 满花|幻想真境剧诗 7.1 角色需求|剧诗 幕次 队伍 攻略"
           # 并行分支曾把 push 触发压到 2 个视频做烟测；现放开到 8（手动/定时仍用 12）
           LIMIT="${{ github.event_name == 'push' && '8' || github.event.inputs.limit || '12' }}"
           cd tools/video-frames
           npm init -y >/dev/null 2>&1 || true
           npm i playwright-core@1.64.1 --no-audit --no-fund >/dev/null
           node node_modules/playwright-core/cli.js install chromium
-          node search.mjs "$QUERY" "$LIMIT" 3 "$MORE" 2>search-progress.log > bili-search.json
+          # 从账本累积「无文本证据」的 BV，避免下轮重复采纯视频讲解
+          EXCLUDE="$GITHUB_WORKSPACE/no_text_videos.txt"
+          if [ -d "$GITHUB_WORKSPACE/.pipeline-state/.pipeline-state/batches/ingest" ]; then
+            find "$GITHUB_WORKSPACE/.pipeline-state/.pipeline-state/batches/ingest" \
+              -name no_text_videos.txt -type f -exec cat {} + 2>/dev/null \
+              | sort -u > "$EXCLUDE" || true
+          fi
+          if [ ! -s "$EXCLUDE" ]; then EXCLUDE=""; fi
+          node search.mjs "$QUERY" "$LIMIT" 3 "$MORE" "$EXCLUDE" 2>search-progress.log > bili-search.json
           cat search-progress.log
           python - <<'PY'
           import json, os
@@ -144,15 +161,8 @@ jobs:
             frames/ingest/ingest-summary.json
             frames/ingest/*/meta.json
             frames/ingest/*/subs.txt
+            frames/ingest/no_text_videos.txt
           retention-days: 30
-
-      - name: 持久化不可变采集批次（独立 automation-data 分支）
-        if: success()
-        uses: actions/checkout@v4
-        with:
-          ref: automation-data
-          path: .pipeline-state
-          fetch-depth: 0
 
       - name: 写入长期数据账本
         if: success()

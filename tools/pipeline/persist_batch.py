@@ -20,7 +20,8 @@ from pathlib import Path
 from typing import Iterable
 
 ALLOWLIST = {
-    "ingest": ("ingest-summary.json", "*-ops.json", "*/meta.json", "*/subs.txt"),
+    "ingest": ("ingest-summary.json", "*-ops.json", "*/meta.json", "*/subs.txt",
+               "no_text_videos.txt"),
     "evaluation": (
         "*-replay.md", "*-replay.json", "external-eval.json", "*-ops.json",
         "experience/SUMMARY.md", "experience/rules.json",

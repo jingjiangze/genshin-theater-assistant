@@ -410,8 +410,18 @@ def main() -> int:
             rec["scene_frames"] = 0
             rec["text_lines"] = len(texts)
             rec["ops_candidates"] = len(ops)
+            # 来源形态标注：纯视频讲解（无简介/字幕/评论）不能提供文本证据，
+            # 别让它每轮都被重采，也别把 0 候选误当"采集成功"。
+            rec["text_evidence"] = (
+                "NO_TEXT_EVIDENCE" if not texts else
+                ("CHAPTER_ONLY" if all(ch == "chapter" for _, _, ch in texts) else "AVAILABLE")
+            )
+            if rec["text_evidence"] in ("NO_TEXT_EVIDENCE", "CHAPTER_ONLY"):
+                with (out / "no_text_videos.txt").open("a", encoding="utf-8") as f:
+                    f.write(f"{vid}\t{rec['text_evidence']}\t{rec.get('creator_id') or ''}\n")
             summary["videos"].append(rec)
-            print(f"[ok] {vid}: 文本 {len(texts)} 行 / 候选 {len(ops)} 条（未下载视频）", file=sys.stderr)
+            print(f"[ok] {vid}: 文本 {len(texts)} 行 / 候选 {len(ops)} 条"
+                  f" / {rec['text_evidence']}（未下载视频）", file=sys.stderr)
             time.sleep(1)   # 不在短时间内连续打接口
 
         (out / "ingest-summary.json").write_text(

@@ -15,6 +15,17 @@ const maxPages = parseInt(process.argv[4] || '6', 10);
 // 换关键词才能拿到真正独立的作者（实测单一关键词前 8 全是 mid=431073645）。
 const extraKeywords = (process.argv[5] || '').split('|').map(s => s.trim()).filter(Boolean);
 const queries = [keyword, ...extraKeywords];
+// 第 6 个参数：排除表文件路径（账本里累积的「无文本证据」BV，Tab 分隔第一列）
+const excludePath = process.argv[6] || '';
+const excludedBv = new Set();
+if (excludePath && fs.existsSync(excludePath)) {
+  // Node fs 不认 'utf-8-sig'（Python 编码名），用 utf8 读取后手动去 BOM
+  const raw = fs.readFileSync(excludePath, 'utf8').replace(/^\uFEFF/, '');
+  for (const line of raw.split(/\r?\n/)) {
+    const bv = line.trim().split('\t')[0];
+    if (/^BV[0-9A-Za-z]+$/.test(bv)) excludedBv.add(bv);
+  }
+}
 
 const cookies = rawCookie.split(';').map(s => s.trim()).filter(Boolean).map(kv => {
   const i = kv.indexOf('=');
@@ -111,7 +122,7 @@ for (const q of queries) {
 
   let added = 0;
   for (const it of items) {
-    if (seen.has(it.bv)) continue;
+    if (seen.has(it.bv) || excludedBv.has(it.bv)) continue;
     // 独立作者优先：只有拿到稳定作者键（mid / 作者名）才计入达标；
     // 作者未知的条目先放 fallback，绝不因为「BV 不同」就冒充独立作者。
     const authorKey = it.author_id || it.author || '';
