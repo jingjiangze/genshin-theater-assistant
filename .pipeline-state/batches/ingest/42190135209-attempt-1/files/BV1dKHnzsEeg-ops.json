@@ -1,0 +1,259 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-06 08:49:30",
+ "bvid": "BV1dKHnzsEeg",
+ "frames": 0,
+ "candidates": 25,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "BUFF：水岩BUFF选左，感电BUFF2左4右，3幕需1级感电，5幕需3级水岩或感电，8幕需3级感电",
+   "act": 0,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "buy",
+   "text": "需要选出角色：5幕诺艾尔、7幕行秋+皇女、9幕那维莱特、10幕卡齐娜",
+   "act": 0,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "需要留的后台角色：5幕水岩、8幕岩、9幕雷、10幕水雷",
+   "act": 0,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 行秋",
+   "act": 7,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 皇女",
+   "act": 7,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 那维莱特",
+   "act": 9,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 卡齐娜",
+   "act": 10,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 水雷",
+   "act": 10,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 一斗",
+   "act": 1,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 爱诺",
+   "act": 1,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 五郎",
+   "act": 1,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 一斗",
+   "act": 2,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 夜兰",
+   "act": 2,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 瓦雷莎",
+   "act": 3,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 爱诺",
+   "act": 3,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 伊安珊",
+   "act": 3,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 诺艾尔",
+   "act": 5,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 五郎",
+   "act": 5,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 瓦雷莎",
+   "act": 6,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 夜兰",
+   "act": 6,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 伊安珊",
+   "act": 6,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 诺艾尔",
+   "act": 8,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 皇女",
+   "act": 8,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 行秋",
+   "act": 8,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 那维莱特",
+   "act": 10,
+   "source": "bilibili:BV1dKHnzsEeg",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}

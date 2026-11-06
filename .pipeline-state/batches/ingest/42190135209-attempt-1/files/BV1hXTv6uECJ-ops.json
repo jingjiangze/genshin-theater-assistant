@@ -1,0 +1,189 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-06 08:49:17",
+ "bvid": "BV1hXTv6uECJ",
+ "frames": 0,
+ "candidates": 18,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "角色需求：2个高练度主C(其中1个去好友那借)+对应辅助、1个较弱主c+对应辅助、1个高练度菲谢尔，剩下的尽量选后台挂元素的角色",
+   "act": 0,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "buy",
+   "text": "需要选出角色：4幕自备嘲讽角色，5幕菲谢尔，7幕自备较弱主c+辅助，8幕自备较强主c+辅助",
+   "act": 0,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "需要留的后台角色：8幕高频火、10幕弓箭手",
+   "act": 0,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 菲谢尔",
+   "act": 5,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 弓箭手",
+   "act": 10,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 甘雨",
+   "act": 1,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 北斗",
+   "act": 1,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 班尼特",
+   "act": 1,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 赛诺",
+   "act": 2,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 迪奥娜",
+   "act": 2,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 赛诺",
+   "act": 3,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 甘雨",
+   "act": 3,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 北斗",
+   "act": 3,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 阿蕾奇诺",
+   "act": 5,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 阿蕾奇诺",
+   "act": 6,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 班尼特",
+   "act": 6,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 迪奥娜",
+   "act": 6,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 菲谢尔",
+   "act": 6,
+   "source": "bilibili:BV1hXTv6uECJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}

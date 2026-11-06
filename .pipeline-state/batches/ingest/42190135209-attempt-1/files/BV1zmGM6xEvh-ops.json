@@ -1,0 +1,209 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-06 08:49:50",
+ "bvid": "BV1zmGM6xEvh",
+ "frames": 0,
+ "candidates": 20,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "BUFF：感电BUFF2左4左、冻结BUFF2右4左、超导BUFF2右4左、1幕需要2感电、5幕需要2级冻结、7幕需要2超导、8幕需要4感电",
+   "act": 0,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "buy",
+   "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛蒂(冰对空)，9幕自备较强主c+辅助",
+   "act": 0,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "需要留的后台角色：3幕雷、5幕冰水、6幕冰水、8幕雷",
+   "act": 0,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "先驱秘源统辖阵列",
+   "act": 0,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 冰水",
+   "act": 5,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 冰水",
+   "act": 6,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 欧洛伦",
+   "act": 1,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 夜兰",
+   "act": 1,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 欧洛伦",
+   "act": 2,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 夜兰",
+   "act": 2,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 菲林斯",
+   "act": 3,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 爱诺",
+   "act": 3,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 丝柯克",
+   "act": 5,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 莱依拉",
+   "act": 5,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 行秋",
+   "act": 5,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 丝柯克",
+   "act": 6,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 莱依拉",
+   "act": 6,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 行秋",
+   "act": 6,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 菲林斯",
+   "act": 8,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 爱诺",
+   "act": 8,
+   "source": "bilibili:BV1zmGM6xEvh",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}
