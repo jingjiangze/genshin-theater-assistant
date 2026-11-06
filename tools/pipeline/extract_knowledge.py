@@ -188,9 +188,13 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
         # Extraction is append-only: never downgrade a terminal knowledge decision.
         if record.get("status") in {"VERIFIED", "CONFLICTED", "STALE", "REJECTED"}:
             continue
+    # Recompute derived counts after deduplication, including records untouched by new evidence.
+    for record in records.values():
         creators = {x["creator_id"] for x in record["evidence"] if x.get("creator_id")}
         record["independent_creator_count"] = len(creators)
         record["unique_video_count"] = len({x.get("video_id") for x in record["evidence"] if x.get("video_id")})
+        if record.get("status") in {"VERIFIED", "CONFLICTED", "STALE", "REJECTED"}:
+            continue
         has_version_context = record.get("season") is not None and record.get("version_range") is not None
         if (has_version_context and len(creators) >= 2 and record["unique_video_count"] >= 3
                 and len(record["evidence_ids"]) >= 3):
@@ -198,6 +202,7 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
             record["status_reason"] = "season/version context, at least two stable creator IDs, three distinct videos and three unique evidence records; excluded from decisive runtime use"
         else:
             record["status"] = "CANDIDATE"
+            record["status_reason"] = "insufficient versioned independent video/creator evidence"
     return {
         "schema_version": 1,
         "updated_at": datetime.now(timezone.utc).isoformat(),
@@ -245,7 +250,15 @@ def main() -> int:
             if item["evidence_id"] not in known_batches
             or item.get("batch_id") not in known_batches[item["evidence_id"]]
         ]
-        if not new_evidence and registry.exists():
+        needs_migration = any(
+            set(candidate.get("evidence_ids", [])) != {
+                evidence_key(item) for item in candidate.get("evidence", [])
+            }
+            or any(not item.get("source_refs") for item in candidate.get("evidence", []))
+            for candidate in existing.get("candidates", [])
+            if isinstance(candidate, dict)
+        )
+        if not new_evidence and not needs_migration and registry.exists():
             print(f"no new evidence; candidates={existing.get('candidate_count', 0)}")
             return 0
         result = merge_candidates(new_evidence, existing)
