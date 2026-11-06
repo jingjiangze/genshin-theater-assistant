@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-06T07:21:01.483339+00:00",
-  "candidate_count": 37,
+  "updated_at": "2026-11-06T08:50:18.722532+00:00",
+  "candidate_count": 153,
   "verified_count": 0,
   "candidates": [
     {
@@ -38,11 +38,141 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "054f750ae04d8bdfe713afbd7e574cb1a9445745dafe2419c466fef952204016",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 基尼奇",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "1aebbabf64fda46e693bbb9c0cfc4e35c440311f19deb9e60dd971bfdb45e9f9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "1aebbabf64fda46e693bbb9c0cfc4e35c440311f19deb9e60dd971bfdb45e9f9",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 基尼奇",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "05dc244c43af19f7942ffe409a8a07db047535953cdb55327684b1d307c88d3f",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 迪奥娜",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "dcc7c25b18dee278a65f316b607b55d46a57255be97b3fc0b680c32d16ecf6af"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "dcc7c25b18dee278a65f316b607b55d46a57255be97b3fc0b680c32d16ecf6af",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 迪奥娜",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "06fac9775941ccd295510ca6896a5c9d4e14f2b68c7f86bfa9dc02d73b6d3f9f",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "先驱秘源统辖阵列",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "72d200d4c3f6a225c65d23fca6dcf763383284c3a4c68ab79bc0fcc6f29ca409"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "72d200d4c3f6a225c65d23fca6dcf763383284c3a4c68ab79bc0fcc6f29ca409",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "action",
+          "text": "先驱秘源统辖阵列",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -83,11 +213,144 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "08b0fb8d0835121237c07e1ed57a959a443145d493d91b66281143da1a737d97",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 哥伦比娅",
+      "act": 2,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e5c8074ee77a56d2c56c68ee8b8d69f15be28e2b305f1324665481fc232fcdf1"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e5c8074ee77a56d2c56c68ee8b8d69f15be28e2b305f1324665481fc232fcdf1",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 哥伦比娅",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "09a2a8d7b76aa83bbbb27db428ea039069954859264ddec2b3ea8080c6b2e08f",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 迪希雅",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "baaca4c22f8f1d0e45f58d72cac954775098435154e9d179c2265bc5b0640b81"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "baaca4c22f8f1d0e45f58d72cac954775098435154e9d179c2265bc5b0640b81",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 迪希雅",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "0bf13db22976af81ef01a8d79835732a888854178e86e321a8e7a1458fd44c6d",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 莱依拉",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "39383a542225deed7f6f2f79079f07f3c990ede46e6a4fa7e99247c7e69e972a"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "39383a542225deed7f6f2f79079f07f3c990ede46e6a4fa7e99247c7e69e972a",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 莱依拉",
+          "act": 5
         }
       ],
       "independent_creator_count": 1,
@@ -128,11 +391,55 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "0cc964e739623b393b7096fb91efb9d71a2efa94f8bcb87a8ea8d18b2e18fecc",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 菲谢尔",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d8b5cdb438f50cc1f289dd4820cf2d1c3bf2b10b585c32c8622b54132390844a"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d8b5cdb438f50cc1f289dd4820cf2d1c3bf2b10b585c32c8622b54132390844a",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 菲谢尔",
+          "act": 6
         }
       ],
       "independent_creator_count": 1,
@@ -173,11 +480,233 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "1193fa97e6f628c826a29ac64b09fd1071de1a1bec1a4f2b26335b194660a3b4",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主c+辅助，8幕自备较强主c+辅助",
+      "act": null,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "0c47269017088945edb5bb45a3303b91589dd7d82b3f91714dac975edef87208"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "0c47269017088945edb5bb45a3303b91589dd7d82b3f91714dac975edef87208",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "buy",
+          "text": "需要选出角色：6幕自备较弱主c+辅助，8幕自备较强主c+辅助",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "16deb37f15dd807e43a740f1a11f40e2c0825c1517b8c9242fe5d7772ce343c9",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 烟绯",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "49f4d3d4e5b709240d22f1a6f314d2ce840698ba2315d20fe6a95307ad437a32"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "49f4d3d4e5b709240d22f1a6f314d2ce840698ba2315d20fe6a95307ad437a32",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 烟绯",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "1b09da63a687c7f279ec3b15bd5dea6351e31e245931d457e1e60736eb242b1b",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "根据剩余角色元素选择对应深渊法师",
+      "act": null,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "921ac9f7c18e17cd1c204f0a918316a7ce56c2cf7299c5b14648c9770335abe9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "921ac9f7c18e17cd1c204f0a918316a7ce56c2cf7299c5b14648c9770335abe9",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "buy",
+          "text": "根据剩余角色元素选择对应深渊法师",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "1c7954dc667c404318e004a35e234f211d04ce94d94cbabb0918846e2a0853a8",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 丝柯克",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "348b0ac7c53499339451dc57910e6d1db4cc34b65d397e187d5c22bc20d73b83"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "348b0ac7c53499339451dc57910e6d1db4cc34b65d397e187d5c22bc20d73b83",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 丝柯克",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "1d9a9733fda1a0f69be7a37b45b41c078611453345a17e9a161d0916bf735658",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 五郎",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "5fce774cc93e3e48b831784d6ff002d52bb03b89e3fbd423b8890d1d71906d3e"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "5fce774cc93e3e48b831784d6ff002d52bb03b89e3fbd423b8890d1d71906d3e",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 五郎",
+          "act": 1
         }
       ],
       "independent_creator_count": 1,
@@ -218,7 +747,8 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
@@ -266,7 +796,8 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
@@ -311,11 +842,626 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "2164a5985f2bf96947d0d47e3d104dec0db71cd8ab285d1d4289cdfd57f98256",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 莱欧斯利",
+      "act": 2,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "bbc07688ae4e2615bffcf51bad17a331337c1f16a8a49394f4899e25fca72b80"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "bbc07688ae4e2615bffcf51bad17a331337c1f16a8a49394f4899e25fca72b80",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 莱欧斯利",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "24e8ac95619c6c2157996bf076292b3513df977f07722a1f5895655ee13c5e3b",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 娜维娅",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "04c3743ae8522272fd124407a5cda22c380d2f488f80d89b4e72364d0af51977"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "04c3743ae8522272fd124407a5cda22c380d2f488f80d89b4e72364d0af51977",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 娜维娅",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "26bd0b1cc9dd47f2d51b0a64cb71a0cffdc479ca2bd109cb2305204eb3cb9672",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 伊安珊",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "4118f0d48b3aea7824b47b46ebebead6ca1200aba6d9a73e09d285d4add99d46"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "4118f0d48b3aea7824b47b46ebebead6ca1200aba6d9a73e09d285d4add99d46",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 伊安珊",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "2837962a2e7242caaa5035b1bb9a79b76e76c0255b5cf7915f582a6ac4b02e05",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 赛诺",
+      "act": 3,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "321ebfe2f5ccba59ea069fad697a944420fd9310db896416268548f05fd983cb"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "321ebfe2f5ccba59ea069fad697a944420fd9310db896416268548f05fd983cb",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 赛诺",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "284b3aeb4dd3f376d40006ce4ac4c0eeeff27e965b4dd737398feb0dac7a9e4d",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "需要选出角色：5幕诺艾尔、7幕行秋+皇女、9幕那维莱特、10幕卡齐娜",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cb273607fbfcdaa52f7370fe9d437303beab656913da01bd59f1fa0c7c692869"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cb273607fbfcdaa52f7370fe9d437303beab656913da01bd59f1fa0c7c692869",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "buy",
+          "text": "需要选出角色：5幕诺艾尔、7幕行秋+皇女、9幕那维莱特、10幕卡齐娜",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "28c9be983b620f13c7335c82be4f1bd0f1f58ff15620e341799aa68ea2c1f51e",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 迪希雅",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "443bbebe33347812febedec15fbbf846b07aa347b17171b56020043386d4c586"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "443bbebe33347812febedec15fbbf846b07aa347b17171b56020043386d4c586",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 迪希雅",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "2b46e81af4d6dc66c3268a2c86411a6a04b7c67932182c9a8a664e60523a232b",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 行秋",
+      "act": 8,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e10b15ef331e41cad0c8268f3a4ef08651060a7b38b088a5f6073a70db7083c1"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e10b15ef331e41cad0c8268f3a4ef08651060a7b38b088a5f6073a70db7083c1",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 行秋",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "2be49a1275660bbaa86020c717d9e4ada824400cd4e80b5bcda64599a9bf0fe6",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 卡维",
+      "act": 2,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "5896ec051c7b2923ecf564182c74bd8d0a7b117bc65f8bf39580a42d0dce9079"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "5896ec051c7b2923ecf564182c74bd8d0a7b117bc65f8bf39580a42d0dce9079",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 卡维",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "2c6ed12107da211e5ed075216a89be2763a8112ba406fef7452a69494ff87153",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 行秋",
+      "act": 1,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "ab61bcd186eb6898368fa56987de4acccc5c294414b62efb9ed06ee5c5e6cb3c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "ab61bcd186eb6898368fa56987de4acccc5c294414b62efb9ed06ee5c5e6cb3c",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 行秋",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "2eb37d11fc92d6424e41b308ffa430e0129c2322b0fa0be424c9d249a46ec61c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 菈乌玛",
+      "act": 3,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3dff04cccd7210e4e794212cbcaf2b78ef9b817e3ce99af215fd7568f3ccf857"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3dff04cccd7210e4e794212cbcaf2b78ef9b817e3ce99af215fd7568f3ccf857",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 菈乌玛",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "300e461f1302ae160ab2ea593ec01e234184c3237d29d017efefc7a00763f0a3",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 班尼特",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "a7e9257ff42c86dd0a733278dc084bf765d6c24918c585a1685b15acf47187b2"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "a7e9257ff42c86dd0a733278dc084bf765d6c24918c585a1685b15acf47187b2",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 班尼特",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "3578334c52f8d18955a6a455a8ad91b492d8420a5c78d1748b3a6e7e4e16e4a0",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 甘雨",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "0487c4ec54386885bcc479ac1b901fc54b0161ca36273290fa9c36e8826501bd"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "0487c4ec54386885bcc479ac1b901fc54b0161ca36273290fa9c36e8826501bd",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 甘雨",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "3dd8023fe7827da852eeb49eecb3d7a10af14f5a55629f233a0631faeb3195d1",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 莫娜",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "34ad391f1f116772e31118f81ccb3c4961c364b6b88604602a84e30f14c3cc3c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "34ad391f1f116772e31118f81ccb3c4961c364b6b88604602a84e30f14c3cc3c",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 莫娜",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "481cb1dbc76cee4126381e3d27fcebb13805ea5c553f91b2788539c999f77281",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 水冰",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "33c5a6a7fda1da7b8721ee628fe461b423efdd5b28003d9de1720fb7c33ca6bf"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "33c5a6a7fda1da7b8721ee628fe461b423efdd5b28003d9de1720fb7c33ca6bf",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 水冰",
+          "act": 6
         }
       ],
       "independent_creator_count": 1,
@@ -356,11 +1502,55 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "51cdfa06f23f474d124f7521eadca4e261b76edaf8e5e42ff970c12b851b20fc",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 爱诺",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f7ef9784060be8a1924a776830fb7be6f9ba7f272a5494bcca76a9ed01605840"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f7ef9784060be8a1924a776830fb7be6f9ba7f272a5494bcca76a9ed01605840",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 爱诺",
+          "act": 1
         }
       ],
       "independent_creator_count": 1,
@@ -401,7 +1591,8 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
@@ -449,7 +1640,8 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
@@ -494,7 +1686,8 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
@@ -542,11 +1735,141 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "5b19fd16281141439e16c8f5f7c108b6dcda710c7da816e04080a82b0a48567e",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "需要选出角色：6幕奶、8幕偏强主C、9幕偏弱主C、10幕盾",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f8b52d643ec026d0fac7849fea5b5cdbd403a9b5a134cb4156d67c2083f4e5b0"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f8b52d643ec026d0fac7849fea5b5cdbd403a9b5a134cb4156d67c2083f4e5b0",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "buy",
+          "text": "需要选出角色：6幕奶、8幕偏强主C、9幕偏弱主C、10幕盾",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "5eaede431e7e836b7ade03cf66a4f22671f83e1ab392f370608545fd9ee1be1a",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 夜兰",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f5eba722fc860e6bb6c38323f131e7da4d1edbf39435ca861158faaca58c5617"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f5eba722fc860e6bb6c38323f131e7da4d1edbf39435ca861158faaca58c5617",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 夜兰",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "60005f007d14d5279b12becd92ab81f077739acb64318d2b6c6cef719b2f52e4",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 基尼奇",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f836dd55f37d3ad6aed28d46bbccd2fd11bc43b0f2c2a7a5e854fea381733cb7"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f836dd55f37d3ad6aed28d46bbccd2fd11bc43b0f2c2a7a5e854fea381733cb7",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 基尼奇",
+          "act": 6
         }
       ],
       "independent_creator_count": 1,
@@ -587,11 +1910,55 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "60ddb14df335a9d9d63d35e510e93f0089e8cfb6ba6799ac6768bc3019634644",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "角色需求：2个高练度主C(其中1个去好友那借)+对应辅助、1个较弱主c+对应辅助、1个高练度菲谢尔，剩下的尽量选后台挂元素的角色",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "61c6f444c57bf868ec3cc4c635785d55b9b784eff0f67edea83b7e9b6d0dd666"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "61c6f444c57bf868ec3cc4c635785d55b9b784eff0f67edea83b7e9b6d0dd666",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "buy",
+          "text": "角色需求：2个高练度主C(其中1个去好友那借)+对应辅助、1个较弱主c+对应辅助、1个高练度菲谢尔，剩下的尽量选后台挂元素的角色",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -632,11 +1999,319 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "63e4e4a28c9effaa08db4032623ace2cb3d16b8f43d13b81259718bf10165095",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 那维莱特",
+      "act": 10,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "940badc5e1a29b5bb0ac4404939b38179867e7b810cf9ed93b14064a9dd5b8ee"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "940badc5e1a29b5bb0ac4404939b38179867e7b810cf9ed93b14064a9dd5b8ee",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 那维莱特",
+          "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "64f7cfbf32dc05c153c3609e2f8018ea5150644b3405dcb59c04d4145bd76f04",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 娜维娅",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "253bfb2a247dd38fcc3ad84d92938e5e9d3bb649bc05d5e9d77c631a2252cff7"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "253bfb2a247dd38fcc3ad84d92938e5e9d3bb649bc05d5e9d77c631a2252cff7",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 娜维娅",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "6874ac8c72746b90fecae5d390a1d1bff9ab8e39e6467a191d98f6ae8c8d34b3",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "水雷多选火、草多选水",
+      "act": null,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "aac2ec2450f1cf1691abe1efc31d38514aaa85a1db4842e0cf3e63bba30f36e5"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "aac2ec2450f1cf1691abe1efc31d38514aaa85a1db4842e0cf3e63bba30f36e5",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "buy",
+          "text": "水雷多选火、草多选水",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "69204aa79d0497db1373b7990e637f567f3fd2f13021dc0a7368a9e8caa7a6da",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 罗莎莉亚",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "eeacf9f6f037efb59d9495d3c301e1e626cf4bb6ccc659d7218b9df3a7f90443"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "eeacf9f6f037efb59d9495d3c301e1e626cf4bb6ccc659d7218b9df3a7f90443",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 罗莎莉亚",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "6939bc141863f4a817b39e85ab9c3f22f7ee19c47d722252ef220a41f86bbd96",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 行秋",
+      "act": 3,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e07ba8288c8e203c15b395a238cf004506e4e6685d2304427178db062da5b495"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e07ba8288c8e203c15b395a238cf004506e4e6685d2304427178db062da5b495",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 行秋",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "697907dcd3ee0f91bdf4428352862001c1c3a46abab72190f9fa56531441d6bd",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛蒂(冰对空)，9幕自备较强主c+辅助",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3293f768313051539196ce2af6e7b128f670c6e6881e3117e9a9b2516d17718b"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3293f768313051539196ce2af6e7b128f670c6e6881e3117e9a9b2516d17718b",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "buy",
+          "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛蒂(冰对空)，9幕自备较强主c+辅助",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "6aca01b09b0cc45a03ad105917e8ae51ea5cb0606b1f2694fc382284cbf66103",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 爱诺",
+      "act": 8,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "55302b103ef517e25d111db916c82d7c897eee82589abef1728da718efdf34a0"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "55302b103ef517e25d111db916c82d7c897eee82589abef1728da718efdf34a0",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 爱诺",
+          "act": 8
         }
       ],
       "independent_creator_count": 1,
@@ -680,11 +2355,187 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "6cc0354fbc7eec01a47ed0d211b3570f2b2ef2c1468ed689b29972658a279964",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 行秋",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "671e3a876dce6b5aac6c3395813dc4f314cae0be861812691a6ac202710e0b53"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "671e3a876dce6b5aac6c3395813dc4f314cae0be861812691a6ac202710e0b53",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 行秋",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "6d10b8d4a14ed1c2b2441f86b133a664d1becb5abe42c13d449bf705121048d3",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 赛诺",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "0402acf860e28bdf3eba7555af542824bf6f58b84b7dddf92316294f6eac328a"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "0402acf860e28bdf3eba7555af542824bf6f58b84b7dddf92316294f6eac328a",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 赛诺",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "6f010798a5e6100074960e0af2c104ad3af394afaac6619b28796b1fa70b6de6",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 水或草",
+      "act": 9,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "727ae9f35be5453eb473f8b27ef766603d23216e5faf503bd9e7fcfb8fa0d0f3"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "727ae9f35be5453eb473f8b27ef766603d23216e5faf503bd9e7fcfb8fa0d0f3",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 水或草",
+          "act": 9
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "7079c827e06625116e5152555a6f3c1677771e46d7f0b2338157cab7c630404c",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "BUFF：感电BUFF2左4左、冻结BUFF2右4左、超导BUFF2右4左、1幕需要2感电、5幕需要2级冻结、7幕需要2超导、8幕需要4感电",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "344ed8455c5239e9621133ddc57d570fb19921bdba8ecabe01c8e23bb978bb8c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "344ed8455c5239e9621133ddc57d570fb19921bdba8ecabe01c8e23bb978bb8c",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "action",
+          "text": "BUFF：感电BUFF2左4左、冻结BUFF2右4左、超导BUFF2右4左、1幕需要2感电、5幕需要2级冻结、7幕需要2超导、8幕需要4感电",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -725,11 +2576,55 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "73569a4e1032872c54c5de7f55bee2889227282d680b97045fed555d31fdbbbb",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 莱欧斯利",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3c029c51938b7ff7808f4cb8c6393119be2e0ff714fa1960a6bdb6494cd0bea0"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3c029c51938b7ff7808f4cb8c6393119be2e0ff714fa1960a6bdb6494cd0bea0",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 莱欧斯利",
+          "act": 5
         }
       ],
       "independent_creator_count": 1,
@@ -773,11 +2668,227 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "74356bec4dbd43376caeaa8946490859d3cef6dca67df4a9596f81a89b0daec6",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 伊安珊",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "29a613ae73fbe54a397024431386e9c9d403e8c2a923c023037ef422c912b5f4"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "29a613ae73fbe54a397024431386e9c9d403e8c2a923c023037ef422c912b5f4",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 伊安珊",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "74b835750a3a793edc86c9943aa1880ddeacf5e6e6b139730202db906600b10a",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 行秋",
+      "act": 7,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "9d442017fab4f26147aa2393fefe39fac41f9e2f3f4ff6c7c72bdb6c74c16ba4"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "9d442017fab4f26147aa2393fefe39fac41f9e2f3f4ff6c7c72bdb6c74c16ba4",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 行秋",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "74bb5556ae4a34a0d288e0e53b33f36dff5112b5b8bf1c0993c3107cfd7b30f4",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 那维莱特",
+      "act": 9,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8d1b2c6c5bf5bb0fdee3b26b8a88025f810f120897a33455abe57d82adde1a00"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8d1b2c6c5bf5bb0fdee3b26b8a88025f810f120897a33455abe57d82adde1a00",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 那维莱特",
+          "act": 9
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "77e6dbfae29d6444719b1b4efc85e380f2caa0bba5116f853c0a35094b591417",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 神里绫人",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "fbdeb546dadac0055121da352ab711c9b7026c923db8743e888f4f59267d61d7"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "fbdeb546dadac0055121da352ab711c9b7026c923db8743e888f4f59267d61d7",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 神里绫人",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "77e7be80b09e24827a928c9a3d506b563b737a1fc161423544b2be4b381301aa",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 欧洛伦",
+      "act": 2,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e65505bc96e2b9bb30acbb86fa6e7ac3dedc1c565fe48ce0f5c42d5e043924f6"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e65505bc96e2b9bb30acbb86fa6e7ac3dedc1c565fe48ce0f5c42d5e043924f6",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 欧洛伦",
+          "act": 2
         }
       ],
       "independent_creator_count": 1,
@@ -818,7 +2929,8 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
@@ -863,11 +2975,55 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "7bf1539ede8b626569dc3118ca953a5f5ef2e969e5ad628aff1ebc43d8a3ffad",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 夜兰",
+      "act": 2,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cc2218220669dddeeac2ab43bef7bc429bea7f10a348d2db40cb129fa782c7e9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cc2218220669dddeeac2ab43bef7bc429bea7f10a348d2db40cb129fa782c7e9",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 夜兰",
+          "act": 2
         }
       ],
       "independent_creator_count": 1,
@@ -911,11 +3067,98 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "7f191522750b5b2154a76904326e490e9cb6dad71e5808cbbdf05324ac058129",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 皇女",
+      "act": 8,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "449939ef3e410ed30cddd4d3c8822f2d7d8c418cdec526247a988080c76cbcc4"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "449939ef3e410ed30cddd4d3c8822f2d7d8c418cdec526247a988080c76cbcc4",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 皇女",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "7fc4a49a160ca527de536ad5190cbb8b6e52d6551b8f0f5e10b7e53cffa1ca44",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "需要选出角色：6幕香菱+班尼特、7幕自备强力主C+辅助、9幕纳西妲+行秋",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "983f94f2fec51c7ac8d292d4a9cb7b64e93c751f0fa3442a9a3282c4d8c68955"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "983f94f2fec51c7ac8d292d4a9cb7b64e93c751f0fa3442a9a3282c4d8c68955",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "buy",
+          "text": "需要选出角色：6幕香菱+班尼特、7幕自备强力主C+辅助、9幕纳西妲+行秋",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -959,11 +3202,273 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "84772f05c9c281c72983fcd009ace5f92702138003d0f5c7da5ab20848f38a94",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 班尼特",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3d99321b118cb93e83466ebdfff5138af40a370977eaa59f57166dd565f5f866"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3d99321b118cb93e83466ebdfff5138af40a370977eaa59f57166dd565f5f866",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 班尼特",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "865be74ae57961d6b5215ec98817636f6399205171015e2a3da27366abc57c9d",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 行秋",
+      "act": 7,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "48a8e2f0ab7ca33720880ba5a94a1c072247e6b14d3cd48ec3f477d1cf9591a4"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "48a8e2f0ab7ca33720880ba5a94a1c072247e6b14d3cd48ec3f477d1cf9591a4",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 行秋",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8925f52f049bb5979e510468cdd43338601c046310d7cfcd2a6f1ce3a9c68300",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 瓦雷莎",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c4117f6ea81c54a80d5098ef83cda21924de177aae307f5e641718c5a8371b91"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c4117f6ea81c54a80d5098ef83cda21924de177aae307f5e641718c5a8371b91",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 瓦雷莎",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8932d301ae12ebd45be926bd45dd054fc6388ef8293025e146b704d0ce8fad33",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 菈乌玛",
+      "act": 5,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2e650da745b7a286ec6c983a353cece8bb7070ff06319df58fcfd741dbccabf6"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2e650da745b7a286ec6c983a353cece8bb7070ff06319df58fcfd741dbccabf6",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 菈乌玛",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8abd15bbf4819282a4c7f76b2f7e0dcd22f51f58032b175ffc6abd8c4157cb0f",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 香菱",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "46dd730a986c4a28f564f2959c4dc4f8b7dd070b438c03fd010fd8e2514cf1c8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "46dd730a986c4a28f564f2959c4dc4f8b7dd070b438c03fd010fd8e2514cf1c8",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 香菱",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8b9758cf58ea4800bf06b20e218d349059a7d5190273dc55bace5741c2e87958",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 爱诺",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "adc280e85b714a33f9929cde7f213d81072ab871fbadfb7162a839bf1ded341c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "adc280e85b714a33f9929cde7f213d81072ab871fbadfb7162a839bf1ded341c",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 爱诺",
+          "act": 3
         }
       ],
       "independent_creator_count": 1,
@@ -1007,11 +3512,184 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "90192f04965e7ddad257f96b7f7c54d1124b3cdd8a9bc84b464ef6b9b29992fa",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第4幕 推荐 烟绯",
+      "act": 4,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "74fa7dd1b09b8be2a38987b4ef8a895998c6c55e20e3700032bf60e2ad308b78"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "74fa7dd1b09b8be2a38987b4ef8a895998c6c55e20e3700032bf60e2ad308b78",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第4幕 推荐 烟绯",
+          "act": 4
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "936b560b8f258fd93a0a3ff2d8fd308c621188a14990caf7a3997bd4f5d02c93",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 北斗",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "aecbe4b05452ebf4f7c548228a713a4211c665617ef637159faa0b63f5b2fff8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "aecbe4b05452ebf4f7c548228a713a4211c665617ef637159faa0b63f5b2fff8",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 北斗",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "937230a5b151e04fcc6c89ee6ad5d21d690ae89e2b4fedd346ff9a92a886a3dd",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 行秋",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "266203cb137cd5cac61dc954eaba48e804c0d29ed3ed142030c671ddc9d43263"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "266203cb137cd5cac61dc954eaba48e804c0d29ed3ed142030c671ddc9d43263",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 行秋",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "93d6b54549bb972fda2808243cb53736025fe4fde72a2b08f742a9a153de2ad9",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 神里绫人",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "02c358409d2fc8e5f6042f15fc92e38ff985bff29d6ab80abda7091e17a5d508"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "02c358409d2fc8e5f6042f15fc92e38ff985bff29d6ab80abda7091e17a5d508",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 神里绫人",
+          "act": 1
         }
       ],
       "independent_creator_count": 1,
@@ -1055,11 +3733,55 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "951c9d49099363e451260e6b1b4e94a233c3dbe7e4d69832b5bd5c8d4f03fcd0",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 冰水",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "7e35398743d4348a72c83399094e8be793a1c26cdb2ebfeaf5370bd78f50c690"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "7e35398743d4348a72c83399094e8be793a1c26cdb2ebfeaf5370bd78f50c690",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 冰水",
+          "act": 6
         }
       ],
       "independent_creator_count": 1,
@@ -1100,7 +3822,8 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
@@ -1145,11 +3868,187 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a21a0f44c80946d8ea1d61506f8594dfa5eaa81533f8583f0dfcc9c221b6ef3a",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 班尼特",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "fa7cc625d44beb0f06e2f3c632b525b05cdca8c939d841d4d912a0d2dfdea5fe"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "fa7cc625d44beb0f06e2f3c632b525b05cdca8c939d841d4d912a0d2dfdea5fe",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 班尼特",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a283623f88724a0c7754aa0287e2fec0b25c8e56a026342671852e157e6a1661",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 欧洛伦",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "24d5d87c6b0694ea4804f10949618a887667990b1be87c7e9f4b0176233f6be5"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "24d5d87c6b0694ea4804f10949618a887667990b1be87c7e9f4b0176233f6be5",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 欧洛伦",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a3b96be44c5961b6314cfb4ce22f7f06c9a0fb56c500febc37ff87959ce5ed9b",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 莫娜",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "1ae70f5a73bf2d91f2e2bbb14a7f04d9e155056839186f301d137f2efa75b29a"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "1ae70f5a73bf2d91f2e2bbb14a7f04d9e155056839186f301d137f2efa75b29a",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 莫娜",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a55fa1ddd86405a5d8ddb38d77a3d96c0f202f5934229af5fb01c5a1a155e99b",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 久岐忍",
+      "act": 2,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d86bb8ab123366f2f95c4ca897acda70d8ed812f5d25208d611145ec894a67a3"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d86bb8ab123366f2f95c4ca897acda70d8ed812f5d25208d611145ec894a67a3",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 久岐忍",
+          "act": 2
         }
       ],
       "independent_creator_count": 1,
@@ -1190,11 +4089,141 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a6bd5fc6144d2d2fb8682b8ff365336a04524c1cced28c3db6ac27ea2e571df1",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 一斗",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "6072614d0b00e32147920e2ace6fe560b0b68329a4e9a8626a8d93c52bd71910"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "6072614d0b00e32147920e2ace6fe560b0b68329a4e9a8626a8d93c52bd71910",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 一斗",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a6ca938b3396d8e3a3655e87ed2d2cbb52537ff222225d93ac8c813347434554",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 塔利雅",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2551cf4b889c7d3d8357ad9d104ec9701db71e13444fc507fef53e3b983240ce"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2551cf4b889c7d3d8357ad9d104ec9701db71e13444fc507fef53e3b983240ce",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 塔利雅",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a8c71791ae3e957ad0f1b782a70b21c052ea818f8cc5daf0ad8934452e697d2c",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "需要留的后台角色：5幕岩、6幕水冰、7幕冰岩",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "4644901f9d9d2c2d5541eb9080ec9312cdff02f52fa1eb3f669329a4ad5646f8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "4644901f9d9d2c2d5541eb9080ec9312cdff02f52fa1eb3f669329a4ad5646f8",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "action",
+          "text": "需要留的后台角色：5幕岩、6幕水冰、7幕冰岩",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -1235,11 +4264,141 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "aa9bf8d5d607abd345779f48ab1314d3a0581d71750a430d9a2f93a4483524f8",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 行秋",
+      "act": 9,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "4c4ed95252468b951046891df2983d437cad4a5f2644d7574ef034b348ff2eda"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "4c4ed95252468b951046891df2983d437cad4a5f2644d7574ef034b348ff2eda",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 行秋",
+          "act": 9
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "ac3620d1c81f07ca37eb7341e4afe1bfb057090bc4f448a602bd36e39c84ac42",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 爱诺",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "44f33254086c8a8c5b7ef458b68e2234337a353b29bb4b9e070a8f0b6f1af580"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "44f33254086c8a8c5b7ef458b68e2234337a353b29bb4b9e070a8f0b6f1af580",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 爱诺",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "ad55b6a4b3756c7c2761f4d129eb96e40fab02dfcf4c56b13b022af690544ebd",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "角色需求：2个高练度主C(其中1个去好友那借)+对应辅助、高练香菱、班尼特、行秋、纳西妲(或草主)剩下的尽量选后台挂元素的角色",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "1073467e0468dc4e870fea054915c830043b46fe45419b958c229e6dc3bf00cd"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "1073467e0468dc4e870fea054915c830043b46fe45419b958c229e6dc3bf00cd",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "buy",
+          "text": "角色需求：2个高练度主C(其中1个去好友那借)+对应辅助、高练香菱、班尼特、行秋、纳西妲(或草主)剩下的尽量选后台挂元素的角色",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -1283,11 +4442,531 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "b009aa7dfe96587fa3c8d02d53deee0f738e8ee942c129a2b8838f0094c14c5d",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 迪奥娜",
+      "act": 2,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "010c367e08bb970ba51e8a07383346fc636395f6c5961dc6595e71d39bfc2a92"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "010c367e08bb970ba51e8a07383346fc636395f6c5961dc6595e71d39bfc2a92",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 迪奥娜",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "b0820d0cacd5d7cb55a96eb6a69fb8120a09e841b18ee82d9e9479c18d91be27",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 诺艾尔",
+      "act": 8,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e5fadecd38e82a06eb284a376669411f178bc3d1755bbb89993f72703bedf605"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e5fadecd38e82a06eb284a376669411f178bc3d1755bbb89993f72703bedf605",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 诺艾尔",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "b95669f68bd5b494ede1fb9a27d1e2006df946fd3dcc2e490ca70420dca85298",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 绮良良",
+      "act": 2,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8b444c76543fda9a8c19806fcc4f7d2753f762f9b2f7470f476ac1fada6b7cad"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8b444c76543fda9a8c19806fcc4f7d2753f762f9b2f7470f476ac1fada6b7cad",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 绮良良",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "bacbd17ae7aa1aedca641c06aec44aa161172d83e7a6617b83efba94271c1b45",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 皇女",
+      "act": 7,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "304e3dc6aa981746aa32c2186e9733b764cfde538f83fadf96ac0e10df849298"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "304e3dc6aa981746aa32c2186e9733b764cfde538f83fadf96ac0e10df849298",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 皇女",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "bad7b832862e9ceb07c9d55506340ff5ab74b86a0ca6ab80a440778d6e10a04b",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 赛诺",
+      "act": 9,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "549c4895f1c4e2328f2ac17fc6f38f0a53d5cb74988b63275f612a4755ed168e"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "549c4895f1c4e2328f2ac17fc6f38f0a53d5cb74988b63275f612a4755ed168e",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 赛诺",
+          "act": 9
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "bb6c0a5f53dda690f87b78a31821cdc0050b5c4e3a18563801ff05bb56fe5626",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 诺艾尔",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c6cec99b6ce90e6741d2da377b61559a668216aeff036f472fda74246fb936b1"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c6cec99b6ce90e6741d2da377b61559a668216aeff036f472fda74246fb936b1",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 诺艾尔",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "bbca021800326cd59b3f70984acebf42bee2dfba42f9939874e614bee750ab5b",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 北斗",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "eacb676cbfc525375719e7fe3c33a6daaa33460a8c8d3fe08c0e00793954ca37"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "eacb676cbfc525375719e7fe3c33a6daaa33460a8c8d3fe08c0e00793954ca37",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 北斗",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "bc6b8960309ac945ad73a0635dc36745c5cd35b0e17225a1868d4c08701e4de8",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 弓箭手",
+      "act": 10,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "10021a90b8bab944e38e704d20f07212b01d1a4806f671eefc1d1d12f55ab5ad"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "10021a90b8bab944e38e704d20f07212b01d1a4806f671eefc1d1d12f55ab5ad",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 弓箭手",
+          "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "be7a6ba8b65da1f688213db149c00678ce05a32bdd90daa1d4d50c54a12ebf47",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 冰水",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2abf1879513cb357d6a66455d9a4cc097d3f01b7384346fe3eee57a09623d2a1"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2abf1879513cb357d6a66455d9a4cc097d3f01b7384346fe3eee57a09623d2a1",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 冰水",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "c0bcd6f6c4d62b55d2682b7cdd448adc5fbdbe25e758f627088ef4e216cd42ed",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 夜兰",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3db8c0575966afd91fec1591b81efd337377bb1cf39fd115790bdbdbd1e0ebcb"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3db8c0575966afd91fec1591b81efd337377bb1cf39fd115790bdbdbd1e0ebcb",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 夜兰",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "c11e2c33dcdfc25ab59a48cd0a54cc66b0181fa870b8159d24aa50c13f711327",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 行秋",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "23f8b265a042c8a35171f2d530e251175b5347979318735113c97239878f9041"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "23f8b265a042c8a35171f2d530e251175b5347979318735113c97239878f9041",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 行秋",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "c2f74260b0b0d83c89e8730b57ebe1907fcf41f6ad3ddcd292a8656a975ba3a3",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 菲林斯",
+      "act": 3,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "183a23c04c4f71a465ea89102ef788f3b7441b85775850791af5e32c8d8c7986"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "183a23c04c4f71a465ea89102ef788f3b7441b85775850791af5e32c8d8c7986",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 菲林斯",
+          "act": 3
         }
       ],
       "independent_creator_count": 1,
@@ -1331,7 +5010,8 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
@@ -1379,11 +5059,141 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "ca9e740bf3e737667b0e644d055f74cf2e952162baa145b4e433ded6a219273c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 一斗",
+      "act": 2,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "28d9eb4733ada626fcdd57c2abb3bc4de71fc3731ee7d269193dfd69ef86d99d"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "28d9eb4733ada626fcdd57c2abb3bc4de71fc3731ee7d269193dfd69ef86d99d",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 一斗",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "cd040da6d3237a0e0f75cd49c7d7498612679b56bef38e5827e4fde3ff1337cd",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 卡齐娜",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b8ebec95ccc8e342a13a25d42edb7c9a4b5e60c72c326eb553552078ce8783f2"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b8ebec95ccc8e342a13a25d42edb7c9a4b5e60c72c326eb553552078ce8783f2",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 卡齐娜",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "cd299bc9c45fa993ac95ea860459213606cf5aba4569d1e12673f609e1a68ba1",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 阿蕾奇诺",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f30989a2ef862c55a9b788c52290194f5cbcd5f61f9a8c10399f03c4bb7284a1"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f30989a2ef862c55a9b788c52290194f5cbcd5f61f9a8c10399f03c4bb7284a1",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 阿蕾奇诺",
+          "act": 5
         }
       ],
       "independent_creator_count": 1,
@@ -1427,7 +5237,8 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
@@ -1472,11 +5283,184 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d2c7047485ddf872ffc17c31e8931d9e4ebaae39fbc2740d08c06f7ae428b0e8",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 水雷",
+      "act": 10,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "92df2c8b2b8be633acf1c24c13f61c84f5a98adaf74438bcde8999a5491964b6"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "92df2c8b2b8be633acf1c24c13f61c84f5a98adaf74438bcde8999a5491964b6",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 水雷",
+          "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d2e44c4a5da464b5ba3decdd46c51ad231834b321d9da4cf73d7a73287a2019f",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 冰岩",
+      "act": 7,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "dfa68ffaa93b7073ef846641fd8f20969202fe4ee0a5db116ade79dbaf859cf0"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "dfa68ffaa93b7073ef846641fd8f20969202fe4ee0a5db116ade79dbaf859cf0",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 冰岩",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d571459328e92a3b11d809ff904c90ad9c506f02746a4e1c14f4c1b08bf6d72a",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "需要选出角色：4幕自备嘲讽角色，5幕菲谢尔，7幕自备较弱主c+辅助，8幕自备较强主c+辅助",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2594afa0942b87bb2261a28b2289a8a7d7b3fc9790f65687b78cbb540f4b3edd"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2594afa0942b87bb2261a28b2289a8a7d7b3fc9790f65687b78cbb540f4b3edd",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "buy",
+          "text": "需要选出角色：4幕自备嘲讽角色，5幕菲谢尔，7幕自备较弱主c+辅助，8幕自备较强主c+辅助",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d5ea72713bad0fc9fbbfd42c932a270b1207e108b07d5890c1275e4be593f737",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 纳西妲",
+      "act": 9,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "7fec0eb122e3ba3d38de0207320be239f94aebb3ae4b85b0c820ee0ffbca3953"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "7fec0eb122e3ba3d38de0207320be239f94aebb3ae4b85b0c820ee0ffbca3953",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 纳西妲",
+          "act": 9
         }
       ],
       "independent_creator_count": 1,
@@ -1517,11 +5501,55 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d6cdc977c7d260e47df4506ed4261c4be0414937f0e9fe86f4c5fa15029f80ab",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 五郎",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8377b4a2b9efffad814611149e03e07c177919f763aa445c2b7ce3eafd58ddda"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8377b4a2b9efffad814611149e03e07c177919f763aa445c2b7ce3eafd58ddda",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 五郎",
+          "act": 5
         }
       ],
       "independent_creator_count": 1,
@@ -1562,11 +5590,313 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d8cd510ae516c07d8c831a5af068551350b2f5cdeb008c8987743e1a37cfbd6e",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 赛诺",
+      "act": 2,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b17d2e3376740421a80a6356a82182c6b9988d7e86339f3373a095c09cbec2b9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b17d2e3376740421a80a6356a82182c6b9988d7e86339f3373a095c09cbec2b9",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 赛诺",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "da3850d720ba2d250432d47bce36723d396af31befa9e040e486a3a8b118a9ee",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 卡齐娜",
+      "act": 2,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "01f3fa9aaf0ed1f2955ac08141fdbead2986dcf8d8b3d033a4cb3e4f824b3af9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "01f3fa9aaf0ed1f2955ac08141fdbead2986dcf8d8b3d033a4cb3e4f824b3af9",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 卡齐娜",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "db234dbe9016420a6e154f85983658c1fbd0e814fffa28d94f2ed6354d09b48a",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 绮良良",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c640af3d72396642f405d389d2b94c098c0fdfcb3a158df36b4c1cd7ce6ab7fb"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c640af3d72396642f405d389d2b94c098c0fdfcb3a158df36b4c1cd7ce6ab7fb",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 绮良良",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "dbf903135f3c950fa9df0157fdc18bb72b4f42454b52acdf7c1027fc6935614a",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 丝柯克",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b8f0ef743b5f928947140333376ccde3eeb287b2fa38162fcc2847656c336555"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b8f0ef743b5f928947140333376ccde3eeb287b2fa38162fcc2847656c336555",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 丝柯克",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "dd5de37a7d5fc1f4c9cc97eddc649fdc9e9bce1f8b90d91779bc6831135e7215",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 卡齐娜",
+      "act": 10,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "216b8b7076282de7bf555a6a720e06f42a0ee3ec4b31bbfc9db654eb26751ab9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "216b8b7076282de7bf555a6a720e06f42a0ee3ec4b31bbfc9db654eb26751ab9",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 卡齐娜",
+          "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "e0ee2c98ef81a60688d0a74d2aad7f2ed8ca80cc414eab1a6075bd33f19c7c98",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "需要留的后台角色：3幕雷、5幕冰水、6幕冰水、8幕雷",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "587ea97e8f511dfc950bd7fd53a5c4c3ab56bbae3ee678ea668b1972c9416367"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "587ea97e8f511dfc950bd7fd53a5c4c3ab56bbae3ee678ea668b1972c9416367",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "action",
+          "text": "需要留的后台角色：3幕雷、5幕冰水、6幕冰水、8幕雷",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "e4c55c24d08d2a038b2424314583dd9c674d4195c04b3e788f7ef2a064526826",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 瓦雷莎",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "162df38ce840dfcdad316a2b0f17d02b3064e2c777b9e473628b4c18a87626a9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "162df38ce840dfcdad316a2b0f17d02b3064e2c777b9e473628b4c18a87626a9",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 瓦雷莎",
+          "act": 6
         }
       ],
       "independent_creator_count": 1,
@@ -1610,11 +5940,187 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "e5fc3701e1ece0f41914bed451522549bfab94ae3295144331af0901cedd25da",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "需要留的后台角色：8幕高频火、10幕弓箭手",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "6a8829fbbc91ae5bcb217c1caf941e1fa08e334cb6699b5dbb5d7146caee9cfe"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "6a8829fbbc91ae5bcb217c1caf941e1fa08e334cb6699b5dbb5d7146caee9cfe",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "action",
+          "text": "需要留的后台角色：8幕高频火、10幕弓箭手",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "e6263d5150fd13555872283fb3e492278dc4fcbd7e1d4a3185faf897352b462b",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "需要留的后台角色：1幕火、2幕火",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "5fcb14e9895d73a9590d2cf59d4bd0a42260063b5ada82e326ee8ea4bb8f7e11"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "5fcb14e9895d73a9590d2cf59d4bd0a42260063b5ada82e326ee8ea4bb8f7e11",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "action",
+          "text": "需要留的后台角色：1幕火、2幕火",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "e78c4879776f9b9cb892a857af533e04aa5d2704cb992293f058e00cff3f3d7e",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 夜兰",
+      "act": 2,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f8ec691c46054c7d4d3eb07ef46155a7dc7e180f4fd890dbf6d939ad973720f2"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f8ec691c46054c7d4d3eb07ef46155a7dc7e180f4fd890dbf6d939ad973720f2",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 夜兰",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "e917a994a4bde81f02a2936a1a213e6e6900a5fd374be9593b58d1bfc32854d2",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "需要留的后台角色：月谕2草、9幕水或草",
+      "act": null,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "30aced27daadc925b4a9cedf879e63ccfd64bda1fedfcd32411215ddc28c69d0"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "30aced27daadc925b4a9cedf879e63ccfd64bda1fedfcd32411215ddc28c69d0",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "action",
+          "text": "需要留的后台角色：月谕2草、9幕水或草",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -1658,11 +6164,233 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1saaz6qEbH"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "eb327c36de187b3cc9416cd131331f1617b0d2db9914a7ba45e52fb8d44c1dd3",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 阿蕾奇诺",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "5871b1ca5c327fb743d197c344cb29eed3624c4d8bb0e3250c4019e85d80954e"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "5871b1ca5c327fb743d197c344cb29eed3624c4d8bb0e3250c4019e85d80954e",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 阿蕾奇诺",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "eb72383f5555d69af1c321fcb6c6c5b288e937510660aa3df34e53d2823e9870",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 久岐忍",
+      "act": 5,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "40e14d10d2406071cdba0a3472496a25a55a1ccf9e624ba20da91dabb44a54ba"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "40e14d10d2406071cdba0a3472496a25a55a1ccf9e624ba20da91dabb44a54ba",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 久岐忍",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "ec0ba30aef7334d458ca183f0d92632e1a8f4ecdea739af8773294eb49ed7c29",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 卡维",
+      "act": 1,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "fce2e31bb8f53e3ad4e768bd115f49947f89b1bd94ba13028234c35ac9f4821b"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "fce2e31bb8f53e3ad4e768bd115f49947f89b1bd94ba13028234c35ac9f4821b",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 卡维",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "eca68b234c918ad53e4833bb09f0571979d15ac0a2b1eb8a448f306a31ad979f",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "需要留的后台角色：5幕水岩、8幕岩、9幕雷、10幕水雷",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8d7b5a4c83c5f8cd625ebecca8c68dd2c23fa2e8c88d6ba937f6d603086fe066"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8d7b5a4c83c5f8cd625ebecca8c68dd2c23fa2e8c88d6ba937f6d603086fe066",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "action",
+          "text": "需要留的后台角色：5幕水岩、8幕岩、9幕雷、10幕水雷",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "ed4bf1ab7578946ca6c600c8339becc01889eab59da875757579f7e319c379c0",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "角色需求：3个高练度主C(其中1个去好友那借)+对应辅助、1治疗角色、1护盾角色、1挂水角色、剩下的尽量选后台挂元素的角色",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b2a245e135748edf786fccf67a4c204546f76bf152dd47ae15991ee49a8d10be"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b2a245e135748edf786fccf67a4c204546f76bf152dd47ae15991ee49a8d10be",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "buy",
+          "text": "角色需求：3个高练度主C(其中1个去好友那借)+对应辅助、1治疗角色、1护盾角色、1挂水角色、剩下的尽量选后台挂元素的角色",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -1703,11 +6431,359 @@
           "observed_batches": [
             "42179280602-attempt-1",
             "42179298346-attempt-1",
-            "42179312058-attempt-1"
+            "42179312058-attempt-1",
+            "42190135209-attempt-1"
           ],
           "source_refs": [
             "bilibili:BV1G86xBFEk5"
           ]
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "f02bb102d4b7debe9339cd9910f8ee5391408ec12ef9cd6bf81c6e7ddb8d87cb",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 菲林斯",
+      "act": 8,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3239f8c6e37dbcfd0fc739f58cdbfb519377342b88f2cb79061d7c6fe655564b"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3239f8c6e37dbcfd0fc739f58cdbfb519377342b88f2cb79061d7c6fe655564b",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 菲林斯",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "f5a3cdf0137c1133789606fab9575caf57920996a45917a2a54bbd6d97b874dd",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 哥伦比娅",
+      "act": 5,
+      "season": null,
+      "version_range": {
+        "min": "7.0",
+        "max": "7.0"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cebb6cc6490dccf517990bf827cebe889c028184405d4e6db1636b52325e5633"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cebb6cc6490dccf517990bf827cebe889c028184405d4e6db1636b52325e5633",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1kUtu6BEin",
+          "platform": "bilibili",
+          "season": null,
+          "version": "7.0",
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1kUtu6BEin",
+          "source_refs": [
+            "bilibili:BV1kUtu6BEin"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 哥伦比娅",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "f64a401ac769dffb5d5c37b3bfce1705004ae7cc2f060379070fc2692a98942c",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "BUFF：水岩BUFF选左，感电BUFF2左4右，3幕需1级感电，5幕需3级水岩或感电，8幕需3级感电",
+      "act": null,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "1d68da9dd9cb6a0134658645d631636d760d4640660a59e9e005ef148f2082f3"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "1d68da9dd9cb6a0134658645d631636d760d4640660a59e9e005ef148f2082f3",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1dKHnzsEeg",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1dKHnzsEeg",
+          "source_refs": [
+            "bilibili:BV1dKHnzsEeg"
+          ],
+          "kind": "buy",
+          "text": "BUFF：水岩BUFF选左，感电BUFF2左4右，3幕需1级感电，5幕需3级水岩或感电，8幕需3级感电",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "f9b13a453c6b13777f2e5d204f1c3d49e10e78cce11b7edb37212a6c17d8a42a",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第4幕 推荐 塔利雅",
+      "act": 4,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e19bd120b243b31dae3075920a79e960a211dd216b171646d415d8275519348c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e19bd120b243b31dae3075920a79e960a211dd216b171646d415d8275519348c",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1LwRKBmE2n",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1LwRKBmE2n",
+          "source_refs": [
+            "bilibili:BV1LwRKBmE2n"
+          ],
+          "kind": "act_team",
+          "text": "第4幕 推荐 塔利雅",
+          "act": 4
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "fb1f4df36567913ed08397da3f44b3f916f2c55302943b2f224d0860f4b522e2",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 莱依拉",
+      "act": 6,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "0f8e00f8aac18ac952ba0889774021a7e095b18363cb557c417cfc8e0c9b0c81"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "0f8e00f8aac18ac952ba0889774021a7e095b18363cb557c417cfc8e0c9b0c81",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1zmGM6xEvh",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1zmGM6xEvh",
+          "source_refs": [
+            "bilibili:BV1zmGM6xEvh"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 莱依拉",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "fcc25365c28efc1183431270c4fb6372c22a9448aa99bb602e265aa8e93f3daa",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 甘雨",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "aae6343a7a9b530fdecadf848706eed1acc37a7c45ea19b81c29de0465d8a64b"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "aae6343a7a9b530fdecadf848706eed1acc37a7c45ea19b81c29de0465d8a64b",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 甘雨",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "fe3292b13c7c75346795a50b855e3cd768b2a7c48036f5b9ce6c9f566d4c7808",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 罗莎莉亚",
+      "act": 1,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "5e122849a5f9b7f041ae43a669e8ecc75deeb4e0c59ca0e08103b370eeca9598"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "5e122849a5f9b7f041ae43a669e8ecc75deeb4e0c59ca0e08103b370eeca9598",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1Hc9LBjEmQ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1Hc9LBjEmQ",
+          "source_refs": [
+            "bilibili:BV1Hc9LBjEmQ"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 罗莎莉亚",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "ff8b0c3e18c910125563aa75b2bbd5c00900f5ebf8ca6e1b817a44ca54be6a7b",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 菲谢尔",
+      "act": 5,
+      "season": null,
+      "version_range": null,
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "61dcd0d8a812e98bd092c86e83a66e9aafea1a2f8c796ab7d245f92766263c08"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "61dcd0d8a812e98bd092c86e83a66e9aafea1a2f8c796ab7d245f92766263c08",
+          "batch_id": "42190135209-attempt-1",
+          "observed_batches": [
+            "42190135209-attempt-1"
+          ],
+          "video_id": "BV1hXTv6uECJ",
+          "platform": "bilibili",
+          "season": null,
+          "version": null,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1hXTv6uECJ",
+          "source_refs": [
+            "bilibili:BV1hXTv6uECJ"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 菲谢尔",
+          "act": 5
         }
       ],
       "independent_creator_count": 1,
