@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-06T07:00:48.094859+00:00",
+  "candidate_count": 0,
+  "verified_count": 0,
+  "candidates": [],
+  "promotion_policy": {
+    "verified_requires_independent_strategy_eval": true,
+    "this_extractor_can_promote_to_verified": false
+  }
+}
