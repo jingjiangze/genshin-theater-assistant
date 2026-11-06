@@ -3,10 +3,12 @@ name: knowledge-extract
 on:
   push:
     branches:
-      - automation/cloud-auto-evolution
+      - main
     paths:
       - .github/workflows/knowledge-extract.yml
       - tools/pipeline/extract_knowledge.py
+      - tools/pipeline/verify_candidates.py
+      - data/evaluations/golden/**
   workflow_dispatch:
   schedule:
     - cron: '30 7 * * *'
@@ -47,3 +49,20 @@ jobs:
             --ledger-repo .pipeline-state \
             --batches .pipeline-state/.pipeline-state/batches \
             --registry .pipeline-state/.pipeline-state/knowledge/registry.json
+
+      - name: Automatic strategy verification on fixed holdout
+        shell: bash
+        run: |
+          set -euo pipefail
+          # 固定人工标注集在仓库里，抽取器不读取；只有这里用它做独立策略门禁。
+          python tools/pipeline/verify_candidates.py \
+            --registry .pipeline-state/.pipeline-state/knowledge/registry.json \
+            --holdout data/evaluations/golden/strategy-holdout-v1.json \
+            --report .pipeline-state/.pipeline-state/knowledge/strategy-verification.json
+          echo "### 策略晋级" >> "$GITHUB_STEP_SUMMARY"
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          p='.pipeline-state/.pipeline-state/knowledge/strategy-verification.json'
+          d=json.load(open(p,encoding='utf-8'))
+          print(f"holdout={d['holdout_samples']} evaluated={d['evaluated']} promoted={d['promoted']} gate={d['gate']}")
+          PY
