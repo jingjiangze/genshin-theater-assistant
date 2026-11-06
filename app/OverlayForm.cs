@@ -182,7 +182,9 @@ internal static class Program
 
                 // 帧驱动量化对照：软件指示 vs 该帧客观事实（人物/决策/战斗）
                 case "--quant":
-                    if (args.Length >= 2) return QuantRunner.Run(args[1], Opt(args, "--out"), Opt(args, "--json"));
+                    if (args.Length >= 2)
+                        return QuantRunner.Run(args[1], Opt(args, "--out"), Opt(args, "--json"),
+                            (int)OptDouble(args, "--max", 0));
                     break;
 
                 // 幕内知识清单（确认内容来自数据而非代码）

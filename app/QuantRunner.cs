@@ -46,7 +46,7 @@ internal static class QuantRunner
         public long Ms;
     }
 
-    public static int Run(string frameDir, string outMd, string outJson)
+    public static int Run(string frameDir, string outMd, string outJson, int maxFrames = 0)
     {
         Cli.Attach();
         frameDir = Path.GetFullPath(frameDir);
@@ -57,6 +57,13 @@ internal static class QuantRunner
                      || f.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase))
             .OrderBy(f => f, StringComparer.Ordinal).ToList();
         if (files.Count == 0) { Cli.Say("没有帧"); return 2; }
+        if (maxFrames > 0 && files.Count > maxFrames)
+        {
+            // 量化要整帧 OCR + 条带 OCR：实测 1080p 约 10 s/帧，CI 里必须限量
+            Cli.Say($"帧数 {files.Count} > 上限 {maxFrames}，按等间隔抽 {maxFrames} 帧量化（覆盖全片）");
+            var step = files.Count / (double)maxFrames;
+            files = Enumerable.Range(0, maxFrames).Select(i => files[(int)(i * step)]).ToList();
+        }
 
         var theater = TheaterData.Load(AppPaths.Data("season29.json"));
         var roster = RosterData.TryLoad(Path.Combine(AppPaths.Dir, "roster.json"));

@@ -130,9 +130,9 @@ jobs:
           BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
         run: |
           if (-not $env:BILI_COOKIE) { throw "缺少 secret BILI_COOKIE" }
-          # 50 个视频要控制单视频帧数：默认每 20 秒 1 帧、最多 12 帧（≈600 帧/批）
-          $every = "${{ github.event.inputs.every || '20' }}"; if (-not $every) { $every = '20' }
-          $max   = "${{ github.event.inputs.max || '12' }}"; if (-not $max) { $max = '12' }
+          # 50 个视频要控制单视频帧数：默认每 30 秒 1 帧、最多 8 帧（≈400 帧/批，全链约 2.5 小时）
+          $every = "${{ github.event.inputs.every || '30' }}"; if (-not $every) { $every = '30' }
+          $max   = "${{ github.event.inputs.max || '8' }}"; if (-not $max) { $max = '8' }
           New-Item -ItemType Directory -Force frames | Out-Null
           cd tools\video-frames
           foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
@@ -216,7 +216,7 @@ jobs:
             if (-not (Test-Path $dir)) { continue }
             $md = "frames/$bv-quant.md"
             $js = "frames/$bv-quant.json"
-            $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--quant `"$dir`" --out `"$md`" --json `"$js`"" -Wait -PassThru -RedirectStandardOutput "$env:RUNNER_TEMP\$bv-quant.txt"
+            $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--quant `"$dir`" --out `"$md`" --json `"$js`" --max 40" -Wait -PassThru -RedirectStandardOutput "$env:RUNNER_TEMP\$bv-quant.txt"
             Get-Content "$env:RUNNER_TEMP\$bv-quant.txt" -Encoding UTF8 | Select-Object -First 6
             if (Test-Path $js) {
               $q = Get-Content $js -Raw -Encoding UTF8 | ConvertFrom-Json
