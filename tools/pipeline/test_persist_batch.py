@@ -117,17 +117,35 @@ class PersistBatchTests(unittest.TestCase):
         existing = {
             "candidates": [{
                 "candidate_id": extract_knowledge.digest("|".join(("action", "6", "29", "7.1", "", extract_knowledge.normalize("先击败钓客")))), "kind": "action", "text": "先击败钓客", "act": 6,
-                "evidence_ids": ["old"], "evidence": [], "status": "VERIFIED", "season": 29,
+                "evidence_ids": ["old"], "evidence": [{
+                    "evidence_id": "old", "batch_id": "oldbatch", "observed_batches": ["oldbatch"],
+                    "platform": "bilibili", "video_id": "BV-old", "channel": "subtitle",
+                    "kind": "action", "text": "先击败钓客", "creator_id": "bilibili:creator-A"
+                }], "status": "VERIFIED", "season": 29,
                 "version_range": {"min": "7.1", "max": "7.1"}, "independent_creator_count": 2
             }]
         }
         evidence = [{
             "evidence_id": "new", "kind": "action", "text": "先击败钓客", "act": 6,
-            "season": 29, "version": "7.1", "video_id": "BV-new", "creator_id": "bilibili:creator-C", "source": "BV-new"
+            "season": 29, "version": "7.1", "video_id": "BV-new", "platform": "bilibili", "channel": "subtitle", "creator_id": "bilibili:creator-C", "source": "BV-new"
         }]
         result = extract_knowledge.merge_candidates(evidence, existing)
         self.assertEqual(result["candidates"][0]["status"], "VERIFIED")
         self.assertEqual(len(result["candidates"][0]["evidence_ids"]), 2)
+
+    def test_repeated_ingest_of_same_video_does_not_inflate_evidence_count(self):
+        base = {
+            "kind": "action", "text": "先击败钓客", "act": 6, "season": 29,
+            "version": "7.1", "video_id": "BV-same", "platform": "bilibili",
+            "channel": "subtitle", "creator_id": "bilibili:creator-A"
+        }
+        first = dict(base, evidence_id="stable-evidence", batch_id="run-1", observed_batches=["run-1"])
+        repeated = dict(base, evidence_id="stable-evidence", batch_id="run-2", observed_batches=["run-2"])
+        result = extract_knowledge.merge_candidates([first, repeated])
+        candidate = result["candidates"][0]
+        self.assertEqual(len(candidate["evidence_ids"]), 1)
+        self.assertEqual(candidate["unique_video_count"], 1)
+        self.assertEqual(candidate["evidence"][0]["observed_batches"], ["run-1", "run-2"])
 
     def test_one_creator_many_videos_stays_candidate(self):
         evidence = [
