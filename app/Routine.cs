@@ -28,7 +28,8 @@ internal static class Routine
         public string Title = "";
         public List<Step> Steps = new();
         public string Source = "";
-        /// <summary>跨视频共识推荐角色（≥2 个 UP 主都这么带）。</summary>
+        public string Status = "BASELINE";
+        /// <summary>历史来源中的推荐角色；除非显式 VERIFIED，否则只作候选提示。</summary>
         public List<string> Recommended = new();
     }
 
@@ -62,6 +63,10 @@ internal static class Routine
                     Title = p.Value.TryGetProperty("title", out var t) ? t.GetString() ?? "" : "",
                     Source = p.Value.TryGetProperty("source", out var s) ? s.GetString() ?? "" : "",
                 };
+                r.Status = p.Value.TryGetProperty("status", out var st)
+                    ? st.GetString() ?? "CANDIDATE"
+                    : r.Source.Contains("community", StringComparison.OrdinalIgnoreCase)
+                        ? "LEGACY_UNVERIFIED" : "BASELINE";
                 if (p.Value.TryGetProperty("steps", out var steps) && steps.ValueKind == JsonValueKind.Array)
                     foreach (var st in steps.EnumerateArray())
                         r.Steps.Add(new Step
@@ -92,14 +97,18 @@ internal static class Routine
 
         var outLines = new List<string>();
 
-        // 跨视频共识的角色推荐优先显示（这是"选谁"的直接答案，比手法更常被问到）
+        // 旧版社区条目按视频数计数，未验证作者独立性；只显示为历史候选。
         if (r.Recommended.Count > 0)
-            outLines.Add($"选人·第 {act} 幕优先带：{string.Join("、", r.Recommended.Take(3))}（{r.Recommended.Count} 个 UP 主共识）");
+        {
+            var label = r.Status == "VERIFIED" ? "已验证推荐" : "历史候选（未独立验证）";
+            outLines.Add($"选人·第 {act} 幕参考：{string.Join("、", r.Recommended.Take(3))}（{label}）");
+        }
 
         foreach (var s in r.Steps.Take(max))
         {
             var at = string.IsNullOrEmpty(s.At) ? "" : s.At + " ";
-            var line = $"手法·{at}{s.Do}";
+            var prefix = r.Status == "LEGACY_UNVERIFIED" ? "历史候选手法·" : "手法·";
+            var line = $"{prefix}{at}{s.Do}";
             if (!string.IsNullOrEmpty(s.Why)) line += $"（{s.Why}）";
             outLines.Add(line);
         }
