@@ -5,6 +5,7 @@ from pathlib import Path
 
 import persist_batch
 import build_external_eval
+import extract_knowledge
 
 
 class PersistBatchTests(unittest.TestCase):
@@ -79,6 +80,33 @@ class PersistBatchTests(unittest.TestCase):
         )
         self.assertEqual(manifest["status"], "EVALUATED_INDEPENDENT")
         self.assertFalse(manifest["promotion"]["eligible"])
+
+    def test_knowledge_requires_two_creators_and_three_evidence_for_provisional(self):
+        evidence = [
+            {"evidence_id": "e1", "kind": "action", "text": "先击败钓客", "act": 6,
+             "creator_id": "bilibili:creator-A", "source": "BV1"},
+            {"evidence_id": "e2", "kind": "action", "text": "先击败钓客", "act": 6,
+             "creator_id": "bilibili:creator-A", "source": "BV2"},
+            {"evidence_id": "e3", "kind": "action", "text": "先击败钓客", "act": 6,
+             "creator_id": "bilibili:creator-B", "source": "BV3"},
+        ]
+        result = extract_knowledge.merge_candidates(evidence)
+        candidate = result["candidates"][0]
+        self.assertEqual(candidate["status"], "PROVISIONAL")
+        self.assertEqual(candidate["independent_creator_count"], 2)
+        self.assertEqual(result["verified_count"], 0)
+
+    def test_one_creator_many_videos_stays_candidate(self):
+        evidence = [
+            {"evidence_id": f"e{i}", "kind": "action", "text": "先击败钓客", "act": 6,
+             "creator_id": "bilibili:creator-A", "source": f"BV{i}"}
+            for i in range(1, 5)
+        ]
+        result = extract_knowledge.merge_candidates(evidence)
+        candidate = result["candidates"][0]
+        self.assertEqual(candidate["status"], "CANDIDATE")
+        self.assertEqual(candidate["independent_creator_count"], 1)
+        self.assertEqual(result["verified_count"], 0)
 
     def test_external_eval_uses_subtitle_and_chapter_not_visual_truth(self):
         ingest = self.root / "ingest"
