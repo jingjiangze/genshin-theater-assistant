@@ -55,6 +55,12 @@ jobs:
             echo "PASS $path"
           done
 
+      - name: 校验全部 GitHub Actions YAML 语法
+        shell: bash
+        run: |
+          set -euo pipefail
+          ruby -e 'require "yaml"; Dir.glob(".github/workflows/*.{yml,yaml}").sort.each { |p| YAML.load_file(p, aliases: true); puts "PASS #{p}" }'
+
       - name: 检查可解析 JSON 数据集
         shell: bash
         run: |
