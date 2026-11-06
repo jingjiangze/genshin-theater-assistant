@@ -126,10 +126,10 @@ internal sealed class LlmAdvisor : IDisposable
         {
             // 默认开启：本机 data/llm.json 优先（可覆盖或关闭），缺失时回退到仓库内 data/llm.example.json。
             // 两者都不存在才视为"不联网"。
+            // 必须走 AppPaths.Data：单文件 exe 的 data/ 在解包目录里，只有 Resolve 会两处都找
             var path = File.Exists(configPath) ? configPath
-                : File.Exists(Path.Combine(AppPaths.Dir, "data", "llm.example.json"))
-                    ? Path.Combine(AppPaths.Dir, "data", "llm.example.json")
-                    : null;
+                : File.Exists(AppPaths.Data("llm.example.json")) ? AppPaths.Data("llm.example.json")
+                : null;
             if (path == null) return null;
             var cfg = ParseConfig(File.ReadAllText(path));
             if (!cfg.Enabled || cfg.Endpoints.Count == 0) return null;
@@ -298,9 +298,8 @@ internal sealed class LlmAdvisor : IDisposable
         Cli.Attach();
         // 与 TryLoad 同一套回退：本机 data/llm.json 优先，其次仓库内 data/llm.example.json（默认开启）
         var path = File.Exists(configPath) ? configPath
-            : File.Exists(Path.Combine(AppPaths.Dir, "data", "llm.example.json"))
-                ? Path.Combine(AppPaths.Dir, "data", "llm.example.json")
-                : null;
+            : File.Exists(AppPaths.Data("llm.example.json")) ? AppPaths.Data("llm.example.json")
+            : null;
         if (path == null) { Cli.Say("没有任何 llm 配置（data/llm.json 与 data/llm.example.json 都不存在）"); return 4; }
         Cli.Say("配置文件: " + path);
         var cfg = ParseConfig(File.ReadAllText(path));
