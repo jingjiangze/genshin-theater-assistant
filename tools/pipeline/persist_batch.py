@@ -85,9 +85,9 @@ def build_manifest(root: Path, kind: str, run_id: str, attempt: str,
             try:
                 result = json.loads(external.read_text(encoding="utf-8"))
                 status = (
-                    "EVALUATED_INDEPENDENT"
-                    if int(result.get("independently_evaluated_videos", 0)) > 0
-                    else "INSUFFICIENT_INDEPENDENT_LABELS"
+                    "EVALUATED_EXTERNAL"
+                    if int(result.get("externally_evaluated_videos", 0)) > 0
+                    else "INSUFFICIENT_EXTERNAL_LABELS"
                 )
             except (OSError, ValueError, TypeError):
                 status = "EVALUATION_INVALID"
