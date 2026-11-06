@@ -3,9 +3,11 @@ name: auto-release
 on:
   push:
     branches:
-      - automation/cloud-auto-evolution
+      - main
     paths:
       - .github/workflows/auto-release.yml
+      - tools/pipeline/release_knowledge.py
+      - tools/pipeline/verify_candidates.py
   workflow_dispatch:
   schedule:
     - cron: '30 8 * * *'
@@ -47,4 +49,11 @@ jobs:
             --registry .pipeline-state/.pipeline-state/knowledge/registry.json \
             --releases-dir .pipeline-state/.pipeline-state/knowledge/releases \
             --active-pointer .pipeline-state/.pipeline-state/knowledge/active.json \
-            --health-report .pipeline-state/.pipeline-state/knowledge/post-release-health.json
+            --health-report .pipeline-state/.pipeline-state/knowledge/post-release-health.json \
+            | tee release-decision.json
+          echo "### 自动知识发布" >> "$GITHUB_STEP_SUMMARY"
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          d=json.load(open('release-decision.json',encoding='utf-8'))
+          print(f"action={d.get('action')} reason={d.get('reason','')} release={d.get('release_id','')} candidates={d.get('candidate_count','')}")
+          PY
