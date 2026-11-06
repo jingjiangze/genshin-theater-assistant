@@ -243,7 +243,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.21.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.21.1 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
