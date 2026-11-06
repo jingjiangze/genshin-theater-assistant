@@ -212,7 +212,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--platform", choices=["bilibili", "youtube"], default="bilibili")
     ap.add_argument("--query", default="幻想真境剧诗 月谕 攻略")
-    ap.add_argument("--urls", default="", help="逗号分隔的直连 URL（给了就跳过搜索）")
+    ap.add_argument("--urls", default="", help="逗号分隔的直连 URL / BV 号（给了就跳过搜索）")
+    ap.add_argument("--bvs", default="", help="B站 BV 号列表（来自 search.mjs；避开 bilisearch 的 412 风控）")
     ap.add_argument("--limit", type=int, default=12)
     ap.add_argument("--out", default="frames/ingest")
     ap.add_argument("--max-frames", type=int, default=30, help="每个视频最多场景帧")
@@ -224,11 +225,19 @@ def main() -> int:
     out.mkdir(parents=True, exist_ok=True)
     cookie_path = cookie_file_from_env(out) if args.platform == "bilibili" else None
 
-    prefix = "bilisearch" if args.platform == "bilibili" else "ytsearch"
-    if args.urls.strip():
+    # 实测（CI run 42169328064）：B站对 yt-dlp 的 `bilisearch:` 搜索返回 HTTP 412
+    # Precondition Failed（风控），而本仓库的 Playwright DOM 搜索 search.mjs 已跑通 42+50 个视频。
+    # 所以 B站搜索**不改由 yt-dlp 做**：搜索交给 search.mjs，yt-dlp 只接直连 BV/URL。
+    # YouTube 的 ytsearch: 无此问题，仍可用。
+    if args.bvs.strip():
+        targets = [f"https://www.bilibili.com/video/{b.strip()}"
+                   for b in args.bvs.split(",") if b.strip()]
+    elif args.urls.strip():
         targets = [u.strip() for u in args.urls.split(",") if u.strip()]
+    elif args.platform == "bilibili":
+        sys.exit("B站必须提供 --bvs（由 search.mjs 产出）；yt-dlp 的 bilisearch: 会被 412 风控拦，见 docs/VIDEO-TOOLING-AUDIT.md")
     else:
-        targets = [f"{prefix}{args.limit}:{args.query}"]
+        targets = [f"ytsearch{args.limit}:{args.query}"]
 
     ydl_base = {
         "quiet": True,
