@@ -55,7 +55,7 @@ Current ledger statuses are intentionally conservative: ingest = `INGESTED`, rep
 
 ## Verified-only release and rollback v1
 
-`tools/pipeline/release_knowledge.py` and `.github/workflows/auto-release.yml` implement an automatic, append-only release path. A candidate must already be `VERIFIED`, have explicit season/version, at least three evidence IDs and two stable creator IDs, and carry a strategy evaluation ID, at least 20 holdout samples, a passing holdout, a passing baseline-regression gate, and a measured strategy success rate no worse than the baseline. The release snapshot is immutable; `active.json` is switched atomically. A matching failed post-release health report restores the previous release pointer. The current extractor never creates `VERIFIED`, so the release workflow safely no-ops until a future strategy-evaluation stage can supply those measurements.
+`tools/pipeline/release_knowledge.py` and `.github/workflows/auto-release.yml` implement an automatic, append-only release path. A candidate must already be `VERIFIED`, have explicit season/version, at least three evidence IDs and two stable creator IDs, and carry a strategy evaluation ID, at least 20 holdout samples, a passing holdout, a passing baseline-regression gate, at least 20 holdout samples, resolved counter-evidence, and a measured strategy success rate no worse than the baseline. The release snapshot is immutable; `active.json` is switched atomically. A matching failed post-release health report restores the previous release pointer. The current extractor never creates `VERIFIED`, so the release workflow safely no-ops until a future strategy-evaluation stage can supply those measurements.
 
 ## Automatic promotion contract
 
