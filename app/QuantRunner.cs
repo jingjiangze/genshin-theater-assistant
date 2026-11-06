@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -28,12 +28,15 @@ internal static class QuantRunner
     private sealed class FrameResult
     {
         public string Frame = "";
-        public int ActFact;              // 条带里恰好一个「第N幕」
+        public int ActFact;              // 条带里恰好一个「第N幕」（与判定同源，仅自洽性）
+        public int ActTemplate;          // 模板 actN 命中（另一条独立通道）
         public string KindFact = "";     // team / difficulty / shop / battle / unknown
         public int OptionsFact;          // 可解析选项数
         public int TeamSize, TeamTarget;
         public List<string> CharsFact = new();
-        public int SimAct;
+        public int SimActDetected;       // 本帧真正检测到的幕次（0=没检测到）
+        public int SimAct;               // 经时序稳定后的幕次（可能沿用上一帧）
+        public bool Carried;             // SimAct 是否为沿用
         public string SimKind = "";
         public string SimLine = "";
         public int DecisionIndex;        // 0 = 未给决策
@@ -104,24 +107,30 @@ internal static class QuantRunner
                 var (tSize, tTarget) = ChoiceDecider.ParseTeamSize(text);
                 var kindFact = FactKind(text, options.Count, tSize);
                 var charsFact = MatchCharacters(text, knownChars);
+                int actTemplate = hits.Where(h => Regex.IsMatch(h.Name, @"^act(\d{1,2})$"))
+                    .Select(h => int.TryParse(Regex.Match(h.Name, @"^act(\d{1,2})$").Groups[1].Value, out var v) ? v : 0)
+                    .Where(v => v > 0).DefaultIfEmpty(0).Max();
 
                 // ---------- 软件侧（我们给玩家什么指示）----------
                 var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
+                int simDetected = advice.Act ?? 0;      // 本帧真正检测到的
                 var stable = stab.Push(advice.Act);
-                int simAct = stable ?? 0;
+                int simAct = stable ?? 0;               // 时序稳定后（可能沿用）
                 var dec = options.Count >= 2
                     ? ChoiceDecider.Decide(options, simAct, tSize, tTarget > 0 ? tTarget : 4)
                     : null;
-                var recommended = Routine.LinesFor(simAct > 0 ? simAct : (int?)null, 1)
+                var recAct = simDetected > 0 ? simDetected : simAct;
+                var recommended = Routine.LinesFor(recAct > 0 ? recAct : (int?)null, 1)
                     .SelectMany(l => Regex.Matches(l, @"[\u4e00-\u9fff]{2,6}").Select(m => m.Value))
                     .Where(w => knownChars.Contains(w)).Distinct().ToList();
 
                 rows.Add(new FrameResult
                 {
                     Frame = Path.GetFileNameWithoutExtension(f),
-                    ActFact = actFact, KindFact = kindFact, OptionsFact = options.Count,
+                    ActFact = actFact, ActTemplate = actTemplate, KindFact = kindFact, OptionsFact = options.Count,
                     TeamSize = tSize, TeamTarget = tTarget, CharsFact = charsFact,
-                    SimAct = simAct, SimKind = advice.Kind ?? "", SimLine = advice.Lines.FirstOrDefault() ?? "",
+                    SimActDetected = simDetected, SimAct = simAct, Carried = simDetected == 0 && simAct > 0,
+                    SimKind = advice.Kind ?? "", SimLine = advice.Lines.FirstOrDefault() ?? "",
                     DecisionIndex = dec?.Pick?.Index ?? 0,
                     DecisionCount = options.Count,
                     Recommended = recommended,
@@ -137,18 +146,24 @@ internal static class QuantRunner
         sw.Stop();
 
         // ---------- 量化 ----------
+        // 战斗 A：双通道交叉（模板命中 vs 条带 OCR）——两条独立识别通道是否一致
+        var crossFrames = rows.Where(r => r.ActTemplate > 0 && r.ActFact > 0).ToList();
+        int crossHit = crossFrames.Count(r => r.ActTemplate == r.ActFact);
+        // 战斗 B：本帧检测到的幕次 vs 条带事实（同源，仅自洽性）
         var combatFrames = rows.Where(r => r.ActFact > 0).ToList();
-        int combatHit = combatFrames.Count(r => r.SimAct == r.ActFact);
+        int combatHit = combatFrames.Count(r => r.SimActDetected == r.ActFact);
 
         var withOptions = rows.Where(r => r.OptionsFact >= 2).ToList();
-        // 编号有效性：给的"第K张"必须落在实际选项范围内
         int decValid = withOptions.Count(r => r.DecisionIndex >= 1 && r.DecisionIndex <= r.OptionsFact);
         int decMissing = withOptions.Count(r => r.DecisionIndex == 0);
         var noOptions = rows.Where(r => r.OptionsFact < 2).ToList();
         int correctAbstain = noOptions.Count(r => r.DecisionIndex == 0);
 
-        var charFrames = rows.Where(r => r.ActFact > 0 && r.CharsFact.Count > 0 && r.Recommended.Count > 0).ToList();
+        // 人物：分母改为「该帧识别到编队角色的帧」，不再要求同时有幕次
+        var charFrames = rows.Where(r => r.CharsFact.Count > 0 && r.Recommended.Count > 0).ToList();
         int charHit = charFrames.Count(r => r.Recommended.Any(x => r.CharsFact.Contains(x)));
+        int carriedFrames = rows.Count(r => r.Carried);
+        int detectedFrames = rows.Count(r => r.SimActDetected > 0);
 
         double Pct(int a, int b) => b == 0 ? 0 : 100.0 * a / b;
 
@@ -156,18 +171,25 @@ internal static class QuantRunner
         md.AppendLine("# 视频帧 · 模拟对照量化报告");
         md.AppendLine();
         md.AppendLine($"> 帧数 {rows.Count}｜总耗时 {sw.ElapsedMilliseconds} ms（平均 {sw.ElapsedMilliseconds / Math.Max(1, rows.Count)} ms/帧）");
-        md.AppendLine("> 口径：从同一帧独立提取「客观事实」，与软件指示逐帧对照。");
+        md.AppendLine("> 口径：从同一帧提取界面事实，与软件指示逐帧对照。分母为 0 表示该批帧没有可判定的样本（不是 0 分）。");
         md.AppendLine();
         md.AppendLine("## 三类量化指标");
         md.AppendLine();
         md.AppendLine("| 维度 | 指标 | 命中 | 分母 | 比例 | 说明 |");
         md.AppendLine("|---|---|---|---|---|---|");
-        md.AppendLine($"| 战斗 | 幕次一致（自洽性，非独立准确率） | {combatHit} | {combatFrames.Count} | **{Pct(combatHit, combatFrames.Count):0.0}%** | 条带与判定同源 |");
+        md.AppendLine($"| 战斗 | 双通道交叉一致（模板 vs 条带） | {crossHit} | {crossFrames.Count} | **{Pct(crossHit, crossFrames.Count):0.0}%** | 两条独立识别通道 |");
+        md.AppendLine($"| 战斗 | 本帧检测幕次 = 条带事实 | {combatHit} | {combatFrames.Count} | {Pct(combatHit, combatFrames.Count):0.0}% | 同源，仅自洽性 |");
         md.AppendLine($"| 决策 | 编号有效（第K张 ∈ 1..N） | {decValid} | {withOptions.Count} | **{Pct(decValid, withOptions.Count):0.0}%** | 有 ≥2 选项的帧 |");
         md.AppendLine($"| 决策 | 该弃权时弃权 | {correctAbstain} | {noOptions.Count} | **{Pct(correctAbstain, noOptions.Count):0.0}%** | 选项 <2 的帧 |");
         md.AppendLine($"| 决策 | 有选项却未给决策 | {decMissing} | {withOptions.Count} | {Pct(decMissing, withOptions.Count):0.0}% | 越低越好 |");
-        md.AppendLine($"| 人物 | 推荐角色出现在该帧编队 | {charHit} | {charFrames.Count} | **{Pct(charHit, charFrames.Count):0.0}%** | 低≠错，可能是别的可行解 |");
-        md.AppendLine($"| 总体 | 每帧都有可执行指示 | {rows.Count(r => r.HasInstruction)} | {rows.Count} | **{Pct(rows.Count(r => r.HasInstruction), rows.Count):0.0}%** | 空指示=弃权 |");
+        md.AppendLine($"| 人物 | 推荐角色出现在该帧编队 | {charHit} | {charFrames.Count} | **{Pct(charHit, charFrames.Count):0.0}%** | 有编队文本的帧 |");
+        md.AppendLine($"| 总体 | 每帧都有可执行指示 | {rows.Count(r => r.HasInstruction)} | {rows.Count} | {Pct(rows.Count(r => r.HasInstruction), rows.Count):0.0}% | 弃权也算指示 |");
+        md.AppendLine();
+        md.AppendLine("## 幕次识别状态（诚实口径）");
+        md.AppendLine();
+        md.AppendLine($"- 本帧真正检测到幕次：**{detectedFrames}/{rows.Count}**");
+        md.AppendLine($"- 沿用上一帧（未检测）：**{carriedFrames}/{rows.Count}** ← 这部分时长里指示依赖历史，需注意");
+        md.AppendLine($"- 模板通道命中：{rows.Count(r => r.ActTemplate > 0)}｜条带通道命中：{combatFrames.Count}");
         md.AppendLine();
         md.AppendLine("## 界面类型分布（客观侧）");
         md.AppendLine();
@@ -178,12 +200,13 @@ internal static class QuantRunner
         md.AppendLine();
         md.AppendLine("## 逐帧对照（前 40 帧）");
         md.AppendLine();
-        md.AppendLine("| 帧 | 事实:幕/界面/选项/人数 | 软件:幕/决策/指示 | 对照 |");
+        md.AppendLine("| 帧 | 事实:条带幕/模板幕/界面/选项/人数 | 软件:幕(沿用?)/决策/指示 | 对照 |");
         md.AppendLine("|---|---|---|---|");
         foreach (var r in rows.Take(40))
         {
-            var fact = $"{(r.ActFact > 0 ? r.ActFact.ToString() : "-")}/{r.KindFact}/{r.OptionsFact}/{(r.TeamSize > 0 ? r.TeamSize + (r.TeamTarget > 0 ? "/" + r.TeamTarget : "") : "-")}";
-            var sim = $"{(r.SimAct > 0 ? r.SimAct.ToString() : "-")}/{(r.DecisionIndex > 0 ? "第" + r.DecisionIndex + "张" : "无")}/{Cut(r.SimLine, 30)}";
+            var fact = $"{(r.ActFact > 0 ? r.ActFact.ToString() : "-")}/{(r.ActTemplate > 0 ? r.ActTemplate.ToString() : "-")}/{r.KindFact}/{r.OptionsFact}/{(r.TeamSize > 0 ? r.TeamSize + (r.TeamTarget > 0 ? "/" + r.TeamTarget : "") : "-")}";
+            var simActText = r.SimAct > 0 ? r.SimAct + (r.Carried ? "(沿用)" : "") : "-";
+            var sim = $"{simActText}/{(r.DecisionIndex > 0 ? "第" + r.DecisionIndex + "张" : "无")}/{Cut(r.SimLine, 30)}";
             var verdict = Verdict(r);
             md.AppendLine($"| {r.Frame} | {fact} | {sim} | {verdict} |");
         }
@@ -197,7 +220,9 @@ internal static class QuantRunner
             {
                 frames = rows.Count,
                 avgMs = sw.ElapsedMilliseconds / Math.Max(1, rows.Count),
+                combatCross = new { hit = crossHit, total = crossFrames.Count, pct = Pct(crossHit, crossFrames.Count) },
                 combat = new { hit = combatHit, total = combatFrames.Count, pct = Pct(combatHit, combatFrames.Count) },
+                detectedFrames, carriedFrames,
                 decision = new { valid = decValid, total = withOptions.Count, pct = Pct(decValid, withOptions.Count), missing = decMissing },
                 abstain = new { correct = correctAbstain, total = noOptions.Count, pct = Pct(correctAbstain, noOptions.Count) },
                 character = new { hit = charHit, total = charFrames.Count, pct = Pct(charHit, charFrames.Count) },
@@ -208,7 +233,7 @@ internal static class QuantRunner
         }
         catch (Exception ex) { Cli.Say("写报告失败: " + ex.Message); return 1; }
 
-        Cli.Say($"战斗·幕次一致 {combatHit}/{combatFrames.Count}（{Pct(combatHit, combatFrames.Count):0.0}%）");
+        Cli.Say($"战斗·双通道交叉一致 {crossHit}/{crossFrames.Count}（{Pct(crossHit, crossFrames.Count):0.0}%）｜本帧检测={detectedFrames} 沿用={carriedFrames}");
         Cli.Say($"决策·编号有效 {decValid}/{withOptions.Count}（{Pct(decValid, withOptions.Count):0.0}%）｜该弃权时弃权 {correctAbstain}/{noOptions.Count}");
         Cli.Say($"人物·推荐出现在编队 {charHit}/{charFrames.Count}（{Pct(charHit, charFrames.Count):0.0}%）");
         Cli.Say("已写: " + outMd);
@@ -220,7 +245,9 @@ internal static class QuantRunner
     {
         if (r.KindFact == "error") return "错误";
         var parts = new List<string>();
-        if (r.ActFact > 0) parts.Add(r.SimAct == r.ActFact ? "幕次✓" : $"幕次✗({r.SimAct}≠{r.ActFact})");
+        if (r.ActFact > 0) parts.Add(r.SimActDetected == r.ActFact ? "幕次✓" : $"幕次✗(检测{r.SimActDetected}≠{r.ActFact})");
+        if (r.ActTemplate > 0 && r.ActFact > 0 && r.ActTemplate != r.ActFact)
+            parts.Add($"通道冲突(模板{r.ActTemplate}≠条带{r.ActFact})");
         if (r.OptionsFact >= 2)
             parts.Add(r.DecisionIndex >= 1 && r.DecisionIndex <= r.OptionsFact ? "编号✓" : "编号✗");
         if (r.KindFact == "team" && r.TeamSize > 0)

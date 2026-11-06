@@ -1,4 +1,4 @@
-﻿name: video-eval
+name: video-eval
 
 # 用真实视频做"对答案"回归：
 #   抽帧 → --replay 逐帧跑完整链路 → 用视频自带的「第N幕」当标准答案算准确率 → 上传报告
@@ -200,6 +200,29 @@ jobs:
           $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--consensus `"$PWD\frames`" --out `"$PWD\docs\experience\OPS-CONSENSUS.md`"" -Wait -PassThru -RedirectStandardOutput "$env:RUNNER_TEMP\consensus.txt"
           Get-Content "$env:RUNNER_TEMP\consensus.txt" -Encoding UTF8 | Select-Object -First 12
 
+      - name: 帧驱动量化（人物/决策/战斗 与实际界面状态对照）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          # 逐视频跑量化：用真实帧同时得到「软件指示」与「该帧界面事实」，两两对照
+          $summary = @()
+          foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
+            $dir = "frames/$bv"
+            if (-not (Test-Path $dir)) { continue }
+            $md = "frames/$bv-quant.md"
+            $js = "frames/$bv-quant.json"
+            $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList "--quant `"$dir`" --out `"$md`" --json `"$js`"" -Wait -PassThru -RedirectStandardOutput "$env:RUNNER_TEMP\$bv-quant.txt"
+            Get-Content "$env:RUNNER_TEMP\$bv-quant.txt" -Encoding UTF8 | Select-Object -First 6
+            if (Test-Path $js) {
+              $q = Get-Content $js -Raw -Encoding UTF8 | ConvertFrom-Json
+              $summary += "| $bv | $($q.frames) | $($q.combatCross.hit)/$($q.combatCross.total) | $($q.decision.valid)/$($q.decision.total) | $($q.abstain.correct)/$($q.abstain.total) | $($q.character.hit)/$($q.character.total) | $($q.detectedFrames)/$($q.carriedFrames) |"
+            }
+          }
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 帧驱动量化（分子/分母）"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 视频 | 帧 | 双通道一致 | 编号有效 | 该弃权即弃权 | 人物命中 | 检测/沿用 |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|---|---|---|---|"
+          foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -208,6 +231,8 @@ jobs:
             frames/*-replay.md
             frames/*-replay.json
             frames/*-ops.json
+            frames/*-quant.md
+            frames/*-quant.json
             frames/external-eval.json
             docs/experience/SUMMARY.md
             docs/experience/rules.json
