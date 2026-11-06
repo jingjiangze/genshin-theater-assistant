@@ -11,8 +11,8 @@ namespace TheaterAssistant;
 ///   TheaterAssistant.exe --consensus frames\ --out docs\experience\OPS-CONSENSUS.md
 ///
 /// 规则：
-///   · 按文本归一化分组，统计**不同 BV 号**的个数（同一视频重复帧只算 1）；
-///   · ≥2 个视频 → 重复候选区（不等同独立作者证据）；只有 1 个 → 低证据候选区；
+///   · 按文本归一化分组，同时统计不同视频 ID 与稳定 creator_id；
+///   · 只有 ≥2 个独立 creator_id 才进入作者共识候选区；缺少 ID 的视频不计独立来源；
 ///   · UI 文案（"可选角色"/"已选开幕与待命角色" 等）一律过滤。
 /// </summary>
 internal static class OpsConsensus
@@ -123,7 +123,7 @@ internal static class OpsConsensus
                 if (!File.Exists(metaPath)) continue;
                 using var meta = JsonDocument.Parse(File.ReadAllText(metaPath));
                 if (meta.RootElement.TryGetProperty("creator_id", out var id))
-                    creatorFromMeta = id.GetString() ?? "";
+                    creatorFromMeta = JsonText(id);
                 if (creatorFromMeta.Length > 0) break;
             }
             catch { }
@@ -133,7 +133,7 @@ internal static class OpsConsensus
             if (!doc.RootElement.TryGetProperty("ops", out var ops) || ops.ValueKind != JsonValueKind.Array) yield break;
             foreach (var o in ops.EnumerateArray())
             {
-                var creator = o.TryGetProperty("creator_id", out var id) ? id.GetString() ?? "" : creatorFromMeta;
+                var creator = o.TryGetProperty("creator_id", out var id) ? JsonText(id) : creatorFromMeta;
                 yield return new Evidence {
                     Text = o.TryGetProperty("text", out var t) ? t.GetString() ?? "" : "",
                     Kind = o.TryGetProperty("kind", out var k) ? k.GetString() ?? "" : "",
@@ -146,6 +146,13 @@ internal static class OpsConsensus
 
     internal static IEnumerable<(string text, string kind, string source)> ReadFile(string path) =>
         ReadFileEvidence(path).Select(x => (x.Text, x.Kind, x.Source));
+
+    private static string JsonText(JsonElement value) => value.ValueKind switch
+    {
+        JsonValueKind.String => value.GetString() ?? "",
+        JsonValueKind.Number => value.GetRawText(),
+        _ => "",
+    };
 
     public static int Run(IEnumerable<string> inputs, string outPath)
     {
