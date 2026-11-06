@@ -1,9 +1,59 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-06T10:40:47.123470+00:00",
-  "candidate_count": 194,
+  "updated_at": "2026-11-06T10:56:22.146017+00:00",
+  "candidate_count": 267,
   "verified_count": 0,
   "candidates": [
+    {
+      "candidate_id": "0000e784b7edca8471331d5ffa84c81a6bc80622bfb0c9f5423c1c7f2fd14948",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 行秋",
+      "act": 10,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b6e663dfbc474f6e231aee00b185255a32fd444016ff2360394350449fea7c60"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b6e663dfbc474f6e231aee00b185255a32fd444016ff2360394350449fea7c60",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 行秋",
+          "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "HydroApplier",
+      "group_creator_count": 1,
+      "group_video_count": 1,
+      "unique_video_count": 1
+    },
     {
       "candidate_id": "00399e117d0b9248c9bbf5adc1972b05c19f736a4c4af6a7e492a30f015e58f5",
       "knowledge_type": "strategy",
@@ -79,7 +129,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -183,7 +234,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -209,7 +261,105 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "Healer",
       "group_creator_count": 1,
-      "group_video_count": 1,
+      "group_video_count": 2,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "0566127bc1546e02f9987f2fd10ac814e78c9803729d6ee36d0600b6fcd54d2b",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "买角色（3挂件，草水）",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "7cbad9f89a9a6c21e44b544887e24f705ca93d89ac3078b6d4762789420edd24"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "7cbad9f89a9a6c21e44b544887e24f705ca93d89ac3078b6d4762789420edd24",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "买角色（3挂件，草水）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "0767ff49ca1ef1c0fe5e625d240608c445c80ea226276c5ee4dc8045272e0a98",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 优菈",
+      "act": 3,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "687638e112914e805b58569191699c2c4296772e7a9c00de9a26fd8787fcbc16"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "687638e112914e805b58569191699c2c4296772e7a9c00de9a26fd8787fcbc16",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 优菈",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
       "unique_video_count": 1
     },
     {
@@ -311,6 +461,56 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "0abd994ae0527001be20a23a10c41fb42a040930bcf1defa4f55183255a7cc84",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 香菱",
+      "act": 5,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8e1d0074775ffeabd04d0e0f6f5c10638a7106f177676222fef632f99027660c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8e1d0074775ffeabd04d0e0f6f5c10638a7106f177676222fef632f99027660c",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 香菱",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "Buffer",
+      "group_creator_count": 1,
+      "group_video_count": 1,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "0bd5f144c94cbfca83d3004584bc99c432fad3f57e15b136cce4223f418b6583",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -359,6 +559,105 @@
       "role_group": "HydroApplier",
       "group_creator_count": 1,
       "group_video_count": 6,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "0d90253e21d47e7bcf67a615437a1ed910f3b14ba5e502a457c873d1633929fd",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 雷神",
+      "act": 6,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d87cea18864e40c4c0155213d332dd93583ca03f10da3f00b2ee7b60e621cd0e"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d87cea18864e40c4c0155213d332dd93583ca03f10da3f00b2ee7b60e621cd0e",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 雷神",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "0e15a0319be85c58243d675f1bfa1efce966e43042e3784a29bcfd5d434abade",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 行秋",
+      "act": 8,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "6f55b604dced097306a20592f43d54f39f04601bf467b80806888a3e728485d1"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "6f55b604dced097306a20592f43d54f39f04601bf467b80806888a3e728485d1",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 行秋",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "HydroApplier",
+      "group_creator_count": 1,
+      "group_video_count": 5,
       "unique_video_count": 1
     },
     {
@@ -488,7 +787,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -989,6 +1289,104 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "196ce440ce5b88c432d17bbaef16f19e3bde670defbd40f19f90865bfffc1d08",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "需要选出角色：8幕克洛琳德+行秋、9幕皇女+雷主",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "29158241e074d99f589db963cc6b6918cd5a0cd835f780139cc34dd07de3239a"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "29158241e074d99f589db963cc6b6918cd5a0cd835f780139cc34dd07de3239a",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "buy",
+          "text": "需要选出角色：8幕克洛琳德+行秋、9幕皇女+雷主",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "1a3423d1d3e05800a7a50dbc6b8531e483005073738087e77c1ce7ef35322588",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "选关：大灵&gt;龙兽&gt;小宝&gt;",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3e8ab67c4d3057ffa46805edd17b0f475e3b7f502d90477216e0c2812b5083c2"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3e8ab67c4d3057ffa46805edd17b0f475e3b7f502d90477216e0c2812b5083c2",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "选关：大灵&gt;龙兽&gt;小宝&gt;",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "1a790274ad6d2d2ed84e872a7dbcd4abadfc461c7a4433b5f04f9736d9d8eb20",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -1015,7 +1413,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1096,7 +1495,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1123,7 +1523,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1216,7 +1617,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 6,
+      "group_video_count": 7,
       "unique_video_count": 5
     },
     {
@@ -1338,8 +1739,57 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 3,
+      "group_video_count": 4,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "1e6bb1585f773661f5d8afcf662977323a7dfe0575edf624e31bde30a6498925",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 优菈",
+      "act": 1,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "5f0b141b9417a2033e348bf802fe3567a4fef51bad6e0d07124ec312d09fb993"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "5f0b141b9417a2033e348bf802fe3567a4fef51bad6e0d07124ec312d09fb993",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 优菈",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
     },
     {
       "candidate_id": "1ff3bfa3db467a78226775cb34a99926bca4cf3fbe8ed703238f94c5410a76d1",
@@ -1490,6 +1940,78 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "229057e17bed5a3ea3c0fe3afb36ef93efa31692ad6459d1af42879e7a8a020c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第4幕 推荐 弓箭打遗迹",
+      "act": 4,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f3dd919c903f39783c9a3b9119ace8016d562dba353ba7c2533afde7e2013bdf",
+        "29762781774cb574b933af9167a300553b05918850bc167c7b08ef378e7edc87"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f3dd919c903f39783c9a3b9119ace8016d562dba353ba7c2533afde7e2013bdf",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第4幕 推荐 弓箭打遗迹",
+          "act": 4
+        },
+        {
+          "evidence_id": "29762781774cb574b933af9167a300553b05918850bc167c7b08ef378e7edc87",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第4幕 推荐 弓箭打遗迹",
+          "act": 4
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
+    },
+    {
       "candidate_id": "238d6ed6f8bec132761884f8e81c9106980c978fbce0f6aab1ff026d495f775f",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -1565,7 +2087,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1620,7 +2143,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -1636,6 +2160,177 @@
           ],
           "kind": "buy",
           "text": "需要选出角色：4幕聚怪或副C、6幕卡齐娜、7幕行秋+香菱、8幕班尼特、9幕自己主C组合",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "26e5d73a4804d654a1f5969843c158ca193a69a28381ba7f8b592da547c28c8c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 香菱",
+      "act": 6,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b56d3ebcb0680f79a23ffad1eb598546c6d990cb9ee71f23605e95d187f7d769",
+        "36a29d325dfa5ec5250436d574191fb4f525d3bd4583b5a36e4e4c3c471934dc"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b56d3ebcb0680f79a23ffad1eb598546c6d990cb9ee71f23605e95d187f7d769",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 香菱",
+          "act": 6
+        },
+        {
+          "evidence_id": "36a29d325dfa5ec5250436d574191fb4f525d3bd4583b5a36e4e4c3c471934dc",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 香菱",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "Buffer",
+      "group_creator_count": 1,
+      "group_video_count": 3,
+      "unique_video_count": 2
+    },
+    {
+      "candidate_id": "2a11598f24f1861604470cb1ad3f597923add5a436d6fe7c8c4fa51643730926",
+      "knowledge_type": "strategy",
+      "kind": "team",
+      "text": "队伍：白术+奶妈",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "60578aacbd6f9043ae0427695523c4a80c59d3a73d0c4858ca97be399d627986"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "60578aacbd6f9043ae0427695523c4a80c59d3a73d0c4858ca97be399d627986",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "team",
+          "text": "队伍：白术+奶妈",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "2ad8a83889acf1435bcc226c11d03db31fc0dfdc15aee0f88dc702e05ef83ef5",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "不选：丘丘人，法师，龙武士",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "9f013e65b880c596a6a0f2d467654765a60533ccf6d5c12a431be809ebeb737c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "9f013e65b880c596a6a0f2d467654765a60533ccf6d5c12a431be809ebeb737c",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "不选：丘丘人，法师，龙武士",
           "act": 0
         }
       ],
@@ -1724,7 +2419,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -1774,6 +2470,55 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "2d5f3d22c7035d8376273b029146e11497e51c5f51e3a10958f1e447aa08bc8d",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "选关：机兵/土豆",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "ebc2cced52e623d8fbb22d4df6087131a7cbf917171dfb54f60454fcee5b2be2"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "ebc2cced52e623d8fbb22d4df6087131a7cbf917171dfb54f60454fcee5b2be2",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "选关：机兵/土豆",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
     },
     {
       "candidate_id": "2e8bd85db5b08507f1266d68f734146f9a6e7a55dee0e9d0414d8826d24b9bfb",
@@ -1900,7 +2645,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -2300,6 +3046,55 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "3672b386a1f2d3e7969aa1268729ec4314c17b4a60de26bb632326a09c9a9c98",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 莱依拉",
+      "act": 1,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e348f48adcd6320961db587d4c83dfe3f82d15f43b187b1f47d27d8deffc2b99"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e348f48adcd6320961db587d4c83dfe3f82d15f43b187b1f47d27d8deffc2b99",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 莱依拉",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "36fac6951b4894acbabab96adfcc5e50d821a73e7be7c5f732cec6a570f1b9f3",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -2350,6 +3145,55 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "3790fcaf6693664cb016bb7cddd6478fa984d05e6a425ccdaf03ff06f55eba91",
+      "knowledge_type": "strategy",
+      "kind": "team",
+      "text": "队伍：主c+破盾+后台",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "32e6f0c9b69b2e0875e8400022abaf00c881035948f64d4625b240f677988d99"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "32e6f0c9b69b2e0875e8400022abaf00c881035948f64d4625b240f677988d99",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "team",
+          "text": "队伍：主c+破盾+后台",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "38a5ced6ae6be8f5f8ab0baf5e68a175cf73150eb53bedee7acffe5d1edf3371",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -2397,7 +3241,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_video_count": 5,
       "unique_video_count": 1
     },
     {
@@ -2475,7 +3319,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -2601,7 +3446,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "Healer",
       "group_creator_count": 1,
-      "group_video_count": 2,
+      "group_video_count": 3,
       "unique_video_count": 1
     },
     {
@@ -2642,6 +3487,55 @@
           "kind": "act_team",
           "text": "第6幕 推荐 水冰",
           "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "3d4dfc7a0818d91674452d69012cbaf07a9fb072bcdd4c593c4ec62e485dfd56",
+      "knowledge_type": "strategy",
+      "kind": "team",
+      "text": "队伍：尼露+白术+科莱+挂件",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cec9c574859c5e8f4569ad9c49b2360cd7aac3d1378d5cb969087143d8ef69fb"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cec9c574859c5e8f4569ad9c49b2360cd7aac3d1378d5cb969087143d8ef69fb",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "team",
+          "text": "队伍：尼露+白术+科莱+挂件",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -2729,7 +3623,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -2754,6 +3649,56 @@
       "counter_evidence": [],
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
+      "group_creator_count": 1,
+      "group_video_count": 4,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "40d0642102308103404d296a1ae3b12e500b4f59dbfc183bb5a9f8928a6e489e",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 班尼特",
+      "act": 7,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b55933cda280a23eee4421c145aa8fbee79b276c78999e7e9716145d9d0057dc"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b55933cda280a23eee4421c145aa8fbee79b276c78999e7e9716145d9d0057dc",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 班尼特",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "Healer",
       "group_creator_count": 1,
       "group_video_count": 3,
       "unique_video_count": 1
@@ -2807,6 +3752,127 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "48da6d7adf52adf300cb6eca0244dd673fa05a40ec9013cd4cd13d2ac87e89d6",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "买祝福4水火",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "26cae526b119976786beef124da98c19f123fec8be89b944b105a89af160bfa3"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "26cae526b119976786beef124da98c19f123fec8be89b944b105a89af160bfa3",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "买祝福4水火",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "4945dd2f73c588d844f1cb9202613472972bbd230b11e64e3c0398a181ac642e",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 娜维娅",
+      "act": 3,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e6123f18f8e53f1b0bd69fa26a36295e2ad5666a667b3522a4591d0830b798e6",
+        "516ac8b80d924637ceaa305674bc03d7e583fea099f590ea1d78e6a036a4f292"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e6123f18f8e53f1b0bd69fa26a36295e2ad5666a667b3522a4591d0830b798e6",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 娜维娅",
+          "act": 3
+        },
+        {
+          "evidence_id": "516ac8b80d924637ceaa305674bc03d7e583fea099f590ea1d78e6a036a4f292",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 娜维娅",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "4c814a9fa4815ece3bc6d8fc7aea8eac7e6f95f4655ea2b49a751435f3d72306",
@@ -2933,7 +3999,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -3062,6 +4129,55 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "51770acbc06c736bbf1f4814d42f3effff8c9cf66b5d0a474b4a218b87bcd18e",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 神里绫人",
+      "act": 6,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "4994c5fbc58fa80a90b7c388849ba8562b0d5dcebd0b2a062959b138e6e36d5a"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "4994c5fbc58fa80a90b7c388849ba8562b0d5dcebd0b2a062959b138e6e36d5a",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 神里绫人",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "51ef950f7834898755449e1a5949e3afbe455411cdf064640ad8251525a2173c",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -3137,7 +4253,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -3203,6 +4320,55 @@
           "kind": "act_team",
           "text": "第3幕 推荐 菈乌玛",
           "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "5472fd014755de65b0cf7070e90086937e69151dd968ff07358f3d39645561ab",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "买祝福，4蒸发",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "783925d87972d887adbb432a9e8acbaa7690cb1208cf27763b5d0a63a3071121"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "783925d87972d887adbb432a9e8acbaa7690cb1208cf27763b5d0a63a3071121",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "买祝福，4蒸发",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -3315,6 +4481,55 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "55511da81e73e2a0af13f999a58bba15986aa1dd408fcf95ee91bf0f483dd153",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 皇女",
+      "act": 9,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "4a7b487e7a853a8d4ac1c0f92bb34c7634d481c859f1dea46a13afd5159b913d"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "4a7b487e7a853a8d4ac1c0f92bb34c7634d481c859f1dea46a13afd5159b913d",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 皇女",
+          "act": 9
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "56e222442ee471948c8c4bcd99abdee5190918b842917bc5ec0d99955103bcc4",
       "knowledge_type": "strategy",
       "kind": "action",
@@ -3413,6 +4628,104 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "5850e137a1fb28cb58b2d7845bccbcca760b6559a83ce55eed87be2ed6be6eaf",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "买齐祝福4水火",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e3ff95d3bd5c3915fedc59e3f9c747e58f27425cf4052def959a6198f057c2bd"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e3ff95d3bd5c3915fedc59e3f9c747e58f27425cf4052def959a6198f057c2bd",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "买齐祝福4水火",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "588118332cfebbfc3ccdf83b80d5f189aa75e5092b8b1ad0dcb5ea5e08708c6a",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "买角色，破盾，主c，后台",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "a4aefb56a17e6ef111b521c8f1c24ece77f3e61270ce5c75208f40206f79d2f4"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "a4aefb56a17e6ef111b521c8f1c24ece77f3e61270ce5c75208f40206f79d2f4",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "买角色，破盾，主c，后台",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "591c2d4ed1d4388460040c9ae6d7d40c0c0c112a09a10002bd44acf939a356ed",
       "knowledge_type": "strategy",
       "kind": "action",
@@ -3487,7 +4800,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -3553,6 +4867,55 @@
           ],
           "kind": "buy",
           "text": "BUFF：蒸发BUFF2左4右，绽放BUFF选左，1幕需2级蒸发，3幕需1级绽放，5幕需3级蒸发",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "5a536152391b3b76d30837de9fc1821f1fe2fc165d48d44ad363c6536911d3dc",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "开局：尽可能买水草祝福",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d4e7b216276ce7d95a38e5124c7d2ad3afe5fa9efa8b9981acfe9ee0cf7020fa"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d4e7b216276ce7d95a38e5124c7d2ad3afe5fa9efa8b9981acfe9ee0cf7020fa",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "开局：尽可能买水草祝福",
           "act": 0
         }
       ],
@@ -3841,7 +5204,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -3868,7 +5232,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -3970,6 +5335,55 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "5e71334310e27a3bc56a8210e4cc64420f4d4b2ee9641ac3cfcd11927120214b",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "开局：找大哥，找奶妈",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "514dac831006383950d0373fda0d3524be7c5a778afca9380c9c0a911bb22b18"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "514dac831006383950d0373fda0d3524be7c5a778afca9380c9c0a911bb22b18",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "action",
+          "text": "开局：找大哥，找奶妈",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "5ffe4bd287bcf26249e4a81314702e806c3cffdd36e0c059868fc456943da000",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -4017,7 +5431,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 6,
+      "group_video_count": 7,
       "unique_video_count": 1
     },
     {
@@ -4146,7 +5560,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -4174,6 +5589,78 @@
       "group_creator_count": 1,
       "group_video_count": 2,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "637697d72deb41defbf7c0f9751d2f3dd76dccdbce02b2c192a0ebe1ae70b6b8",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 甘雨",
+      "act": 6,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "df1a001f5a181c635b79bd587a4771a31c19b620510395175400cb676f84a987",
+        "1358fb4f737765254c686636a583882f6adeed344b204c73970637379e1a84cb"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "df1a001f5a181c635b79bd587a4771a31c19b620510395175400cb676f84a987",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 甘雨",
+          "act": 6
+        },
+        {
+          "evidence_id": "1358fb4f737765254c686636a583882f6adeed344b204c73970637379e1a84cb",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 甘雨",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "66923d1fc4758c7e1c3949a28ca3c2bcc1fef33aae8fd9694546d439eb71c8a9",
@@ -4223,6 +5710,55 @@
       "role_group": "HydroApplier",
       "group_creator_count": 1,
       "group_video_count": 2,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "66faaf39a1a85efc39a9e9450afd72e465054375243f89c4a10862c1af91be5f",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 雷神",
+      "act": 3,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "fe2fcc46a4abd5a893addacd4bf1cfd35002927fbca1f65a10ec5eac7f7e3abb"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "fe2fcc46a4abd5a893addacd4bf1cfd35002927fbca1f65a10ec5eac7f7e3abb",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 雷神",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
       "unique_video_count": 1
     },
     {
@@ -4571,7 +6107,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -4843,7 +6380,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_video_count": 5,
       "unique_video_count": 1
     },
     {
@@ -5019,7 +6556,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -5246,6 +6784,55 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "77a03f0a5f122debb9305b25328d03951fcbf974107358d3f598bad2ea9cf5a2",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 仆人",
+      "act": 7,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "99f9e4fc85fee61f3ada7d8e2a654690575335bc5af7055f36b04134b5e18a18"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "99f9e4fc85fee61f3ada7d8e2a654690575335bc5af7055f36b04134b5e18a18",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 仆人",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "79a9fe97d7c162046efbbb3ce62bc9b24c3d1770d17a1af6c51c564209a5d722",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -5332,6 +6919,153 @@
           "kind": "action",
           "text": "需要留的后台角色：8幕高频火、10幕弓箭手",
           "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "7c6ae0e801a5af0dc015e23136e7fa146c42a1453c0bcd9f688b538a3e0f5f61",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "选关：普通土豆&gt;红烧土豆&gt;岩紫薯球&gt;草紫薯球&gt;其他",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "9bd238b23f9ea2bdc86407604b6d2bfcab94733a724d433989ae27a281f15eaf"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "9bd238b23f9ea2bdc86407604b6d2bfcab94733a724d433989ae27a281f15eaf",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "选关：普通土豆&gt;红烧土豆&gt;岩紫薯球&gt;草紫薯球&gt;其他",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "7db6cd78387364ab42868bb85a626ee30fdca10426447eef4bb92ba8397a6f24",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "不选：其他",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "50095e8f718ddfc04764319fbf1a7953a322c9285baabeba93b648677ae458c9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "50095e8f718ddfc04764319fbf1a7953a322c9285baabeba93b648677ae458c9",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "不选：其他",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "7e7d056030f3fa5856e29e650adb589003fdc9da076175f323b7b806ec0666ce",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 欧洛伦",
+      "act": 7,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2915e456ade323244417ce39e70ad454dbdfa58e92de0e8e12895d7a5fb104dc"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2915e456ade323244417ce39e70ad454dbdfa58e92de0e8e12895d7a5fb104dc",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 欧洛伦",
+          "act": 7
         }
       ],
       "independent_creator_count": 1,
@@ -5541,6 +7275,177 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "840856b61d19436c89fc29225c313f39cb5a6b43ab9069d7f1c345a4084d3766",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "开局：找关键角色，买祝福",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f60972a07a1ac6de40aa2017d50f4304d9aa8db41ed180f6c64f478c7156ee6f"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f60972a07a1ac6de40aa2017d50f4304d9aa8db41ed180f6c64f478c7156ee6f",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "开局：找关键角色，买祝福",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8473199380043298d351d948c7453582452cfffec8d360db020faf785331d364",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 芭芭拉",
+      "act": 7,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cfbb69aecc94747ca62276055289545858fd129229ed2ea9837c00ed4f75a026"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cfbb69aecc94747ca62276055289545858fd129229ed2ea9837c00ed4f75a026",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 芭芭拉",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "HydroApplier",
+      "group_creator_count": 1,
+      "group_video_count": 7,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "84d6eb9b603aef26c232684d9714eb645e5db6849931d979174a1496ffd9e00b",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "BUFF：开场先刷2挂件，然后融化BUFF选左，最后火岩BUFF选右",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "723013cc1ed5dc88634700805667d2a00a52596aa2a1ec6b93e5f110a84c7859",
+        "ebf7b187f50f1db37ac928f48860d6c6e8367c7d05766646c110796db8822729"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "723013cc1ed5dc88634700805667d2a00a52596aa2a1ec6b93e5f110a84c7859",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "buy",
+          "text": "BUFF：开场先刷2挂件，然后融化BUFF选左，最后火岩BUFF选右",
+          "act": 0
+        },
+        {
+          "evidence_id": "ebf7b187f50f1db37ac928f48860d6c6e8367c7d05766646c110796db8822729",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "buy",
+          "text": "BUFF：开场先刷2挂件，然后融化BUFF选左，最后火岩BUFF选右",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
+    },
+    {
       "candidate_id": "8536ac4857852e9dbfab7191add663ba35330694eb9776324bb4227346d63ea4",
       "knowledge_type": "strategy",
       "kind": "action",
@@ -5578,6 +7483,127 @@
           ],
           "kind": "action",
           "text": "需要留的后台角色：3幕水、5幕水、6幕水草、7幕水、8幕奶、10幕草水",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "855de622bb57598160a23e88ae2b905c41af3ab8eee53adfcdddb7fe94e8ae36",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 凯亚",
+      "act": 1,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "0f2fb8419f598b78f5d177b9fc2703c4e401b8f4e98f97ee3aee16ffce4f21f2",
+        "c368b2861a2ef841cd28074a4f6dfdf2a20fcff850d847d7e186f36b67861675"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "0f2fb8419f598b78f5d177b9fc2703c4e401b8f4e98f97ee3aee16ffce4f21f2",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 凯亚",
+          "act": 1
+        },
+        {
+          "evidence_id": "c368b2861a2ef841cd28074a4f6dfdf2a20fcff850d847d7e186f36b67861675",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 凯亚",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
+    },
+    {
+      "candidate_id": "85b9cb4aca077dd5866f9e240ee0ce4db5e4718175fbe9461c08ea1c996ca3f0",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "开局：买2水火，2挂件",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "029c9cb9928e7d8adb038ac0cc3b48b2bf34989582744ae9e69f840029376ae5"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "029c9cb9928e7d8adb038ac0cc3b48b2bf34989582744ae9e69f840029376ae5",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "开局：买2水火，2挂件",
           "act": 0
         }
       ],
@@ -5629,6 +7655,153 @@
           "kind": "act_team",
           "text": "第8幕 推荐 丝柯克",
           "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8751c632fbc438f57eb2b6397a8d68438bb248d38a3a78e1aeae13a1cbdcd751",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 欧洛伦",
+      "act": 2,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "330e39ca4295a0a7a40e13549c2cc654c089b903dc03249b2be8612ee4fc1136"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "330e39ca4295a0a7a40e13549c2cc654c089b903dc03249b2be8612ee4fc1136",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 欧洛伦",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "87cbe629d1ce7bfd45a3aed54072cd578d776e4a93ee441feba21401ee7da66a",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 娜维娅",
+      "act": 7,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "36b3d6e38cca0a20030684619ae6f68a54b107eef96103e9ab2f7dc95d6a4fdd"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "36b3d6e38cca0a20030684619ae6f68a54b107eef96103e9ab2f7dc95d6a4fdd",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 娜维娅",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "88840ae252201bd287f513ddeda1ca0c3814e82996fbfbc34b763a8715907a85",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "其次买3水草",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "519195914844e6cb3e24128ed47179f8d21c3c3247c62ed361a126be42e11141"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "519195914844e6cb3e24128ed47179f8d21c3c3247c62ed361a126be42e11141",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "其次买3水草",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -5816,7 +7989,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -5892,6 +8066,56 @@
       "role_group": "GeoBreak",
       "group_creator_count": 1,
       "group_video_count": 1,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8d302147e4b7b35f9994f57002bf8b85f5d51959f6cbf75b1bbd72fad8845d4f",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 班尼特",
+      "act": 8,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c0c7f1d8e0c4f2f14d61110933dc901c85ab5ae0e010e75976ec49c2e30505d3"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c0c7f1d8e0c4f2f14d61110933dc901c85ab5ae0e010e75976ec49c2e30505d3",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 班尼特",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "Healer",
+      "group_creator_count": 1,
+      "group_video_count": 2,
       "unique_video_count": 1
     },
     {
@@ -5982,6 +8206,177 @@
           "kind": "act_team",
           "text": "第10幕 推荐 安柏",
           "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8f08efc02141192bc551a541fd18e06c7ab64d1709f8c12744a054335ffb4916",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 诺艾尔",
+      "act": 3,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "0e988657d25526315c3531ecd7f82eab10a8b4cde390d9a390fdf6dba3c42d44",
+        "faae7fa0f6c05840b7b75a407b2ad6e288706ec3d18e9ee1fdb4edd688b6ece2"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "0e988657d25526315c3531ecd7f82eab10a8b4cde390d9a390fdf6dba3c42d44",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 诺艾尔",
+          "act": 3
+        },
+        {
+          "evidence_id": "faae7fa0f6c05840b7b75a407b2ad6e288706ec3d18e9ee1fdb4edd688b6ece2",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 诺艾尔",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "GeoBreak",
+      "group_creator_count": 1,
+      "group_video_count": 2,
+      "unique_video_count": 2
+    },
+    {
+      "candidate_id": "91dc85efebc9e7e4bde0b008894e99628876f285eb62830a8ec8dd604e16caed",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "BUFF：开场先刷2挂件，然后感电BUFF选左。最后冻结BUFF选右。",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d7b09ac06acea85f6645272d3dc1675e99363a14a82eff154bb7fb4a2da5cb4e"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d7b09ac06acea85f6645272d3dc1675e99363a14a82eff154bb7fb4a2da5cb4e",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "action",
+          "text": "BUFF：开场先刷2挂件，然后感电BUFF选左。最后冻结BUFF选右。",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "92d1a90cb7d306ab2e3bec6f426bd73427fb26305ab539b3105a1cc2d4393ef8",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "选关：丘丘王=土豆&gt;流血狗",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "ad70f0bdc7ff35ef80c7cae67705cd42711c964185a64443c45a020e6c6262c7"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "ad70f0bdc7ff35ef80c7cae67705cd42711c964185a64443c45a020e6c6262c7",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "选关：丘丘王=土豆&gt;流血狗",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -6090,7 +8485,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "Healer",
       "group_creator_count": 1,
-      "group_video_count": 2,
+      "group_video_count": 3,
       "unique_video_count": 1
     },
     {
@@ -6243,6 +8638,55 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "9aefa3ecdf03742782441e83f5f67fd7d8d80b0ef94ec7345a8dee0f8bda0135",
+      "knowledge_type": "strategy",
+      "kind": "team",
+      "text": "队伍：胡桃+行秋+托马+挂件（留水草）",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "5d02dfb53541a5589b08706421a7ed8eaa709c1931b2e7b2f5b35c852df01eba"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "5d02dfb53541a5589b08706421a7ed8eaa709c1931b2e7b2f5b35c852df01eba",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "team",
+          "text": "队伍：胡桃+行秋+托马+挂件（留水草）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "9c1dea4e29f3ce08a7a62286aa5a1d67fba7d87decb85597e1e7cccada8c5718",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -6318,7 +8762,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -6545,6 +8990,177 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "a1705825b57fa7cf3541f77329f5866ced0dea9e1a4a7ea95f0b24ce4a16076c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 班尼特",
+      "act": 10,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8b8b6e317fd0cef25615df1c206a54348f441eff37e70213684cfd1a18619262"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8b8b6e317fd0cef25615df1c206a54348f441eff37e70213684cfd1a18619262",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 班尼特",
+          "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "Healer",
+      "group_creator_count": 1,
+      "group_video_count": 1,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a2877ae8cc0f95b0360b66e8c689aeb74e220cfeaa993236cfbe2020ee5ec28c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 仆人",
+      "act": 8,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "bf876705ab54096f52dfc5931d10a29cc7b060a15d76140d0ffdc7e65282f6e0",
+        "7583286398893c14529a61e2488548b3480d5b194376b709a017c616cd2b1da8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "bf876705ab54096f52dfc5931d10a29cc7b060a15d76140d0ffdc7e65282f6e0",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 仆人",
+          "act": 8
+        },
+        {
+          "evidence_id": "7583286398893c14529a61e2488548b3480d5b194376b709a017c616cd2b1da8",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 仆人",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
+    },
+    {
+      "candidate_id": "a361a289997085e233daf8ea23e3c1b6375ba21be8f454cbb3d91a9f3a6e692b",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "枫丹轮子机关&gt;风役人(先打雷锤)&gt;霜役人(先打水胖)&gt;枫丹紫球",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cd9b0cd6d93805dd4afd20a0730815a0aad493f91b2f504db8623285e55f8653"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cd9b0cd6d93805dd4afd20a0730815a0aad493f91b2f504db8623285e55f8653",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "action",
+          "text": "枫丹轮子机关&gt;风役人(先打雷锤)&gt;霜役人(先打水胖)&gt;枫丹紫球",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "a666f90b7addb4cfac0e91926b62fc442e27f0346d3a7cff20421fe63b0f5751",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -6739,7 +9355,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "Buffer",
       "group_creator_count": 1,
-      "group_video_count": 1,
+      "group_video_count": 3,
       "unique_video_count": 1
     },
     {
@@ -6781,6 +9397,104 @@
           "kind": "act_team",
           "text": "第1幕 推荐 胡桃",
           "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a8427b2bf6e739fc6a29331fe4ed483446ade2f27512f770c9ff85f2fc0f0c17",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "不选：次数盾",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "075ce6281fda4eac441d0df3386010f9d580a5fa3d34801762dd601af67b6b59"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "075ce6281fda4eac441d0df3386010f9d580a5fa3d34801762dd601af67b6b59",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "不选：次数盾",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a98373a06605efb216d011fecca81824e69323c4a66bfcf0c3952462d3e78aa2",
+      "knowledge_type": "strategy",
+      "kind": "team",
+      "text": "队伍：胡桃+行秋+挂件（保留水草）",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8dacfb412fbd33e879454111e3c736f2553cc2f09864ac36f3514e2ab221c119"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8dacfb412fbd33e879454111e3c736f2553cc2f09864ac36f3514e2ab221c119",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "team",
+          "text": "队伍：胡桃+行秋+挂件（保留水草）",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -6868,7 +9582,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -6923,7 +9638,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -7022,7 +9738,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "Healer",
       "group_creator_count": 1,
-      "group_video_count": 2,
+      "group_video_count": 3,
       "unique_video_count": 1
     },
     {
@@ -7063,6 +9779,55 @@
           "kind": "buy",
           "text": "BUFF：水岩BUFF选左，感电BUFF2左4右，3幕需1级感电，5幕需3级水岩或感电，8幕需3级感电",
           "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "af1382ce1dedfe42163604e8c7b4c65a537daabe6490b675d6f668cf7a594ae5",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 仆人",
+      "act": 10,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "babb898903d2d8b8087861df0969af710a315f9fc4466d4338f6a025ab649167"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "babb898903d2d8b8087861df0969af710a315f9fc4466d4338f6a025ab649167",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 仆人",
+          "act": 10
         }
       ],
       "independent_creator_count": 1,
@@ -7122,6 +9887,55 @@
       "role_group": "ElectroApplier",
       "group_creator_count": 1,
       "group_video_count": 2,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "b03e4e5c75884d8e40751eaefabf297278971f18c125c89fefb15361ef8d7c75",
+      "knowledge_type": "strategy",
+      "kind": "team",
+      "text": "队伍：托马+3挂件",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f02e589a3fa5979b822cb405ee8ed8c5f065a08dc3f93a974282fa53dd8cb106"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f02e589a3fa5979b822cb405ee8ed8c5f065a08dc3f93a974282fa53dd8cb106",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "team",
+          "text": "队伍：托马+3挂件",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
       "unique_video_count": 1
     },
     {
@@ -7251,7 +10065,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -7301,6 +10116,154 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "b1a34e2953eb98705a20de838669bac650073635491eb346d916f03b636b838c",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "选关：小宝&gt;流血狗&gt;碎片",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "348d69d7cf57f01c385a4536cdf8f26786faebb75a291aaab40635e7a1a049c1"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "348d69d7cf57f01c385a4536cdf8f26786faebb75a291aaab40635e7a1a049c1",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "选关：小宝&gt;流血狗&gt;碎片",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "b3f84da1c43fd5ba3cb4f8e9a91e89aedcf8c7f9ef2a7ffa556eb4cb95afbc2b",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "买齐角色，破盾，主c，后台",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "328d3531a6d721bb0eb726a3bd0b8f2f53560ba20717e616fe03d8cf700948bf"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "328d3531a6d721bb0eb726a3bd0b8f2f53560ba20717e616fe03d8cf700948bf",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "买齐角色，破盾，主c，后台",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "b5c24cd464a6ebfb24db0d0d9445e013dae11134226cab88ebe1307dc718cd5f",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 芭芭拉",
+      "act": 5,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "6ddb9b7ad2ed87ed56411f4012cc6c4b86d2c1284d851d710e6ebfcd2776b2d4"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "6ddb9b7ad2ed87ed56411f4012cc6c4b86d2c1284d851d710e6ebfcd2776b2d4",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 芭芭拉",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "HydroApplier",
+      "group_creator_count": 1,
+      "group_video_count": 4,
+      "unique_video_count": 1
     },
     {
       "candidate_id": "b75bb0c5374e95c5c6260e863e49fbc508b31aa9321791a78a38c3468a069bc9",
@@ -7450,6 +10413,176 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "b93f583b706db2a3fc6d4570b3a9ca5d0ac407141439276aacdb8395b554ecac",
+      "knowledge_type": "strategy",
+      "kind": "team",
+      "text": "队伍：尼禄+科莱+水草挂件",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b24c0aecb821f4cc0cd859635b081367052ae363901704d65b9bf085121b133f"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b24c0aecb821f4cc0cd859635b081367052ae363901704d65b9bf085121b133f",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "team",
+          "text": "队伍：尼禄+科莱+水草挂件",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "bb54c8f7c8d0a5511c6b845a1a85e5dd045a36f6e0e2bcb4256fa70a7f21611a",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "选关：圣骸兽&gt;枫丹机械&gt;龙蜥&gt;龙兽",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "4f4f158e8319475db75bc9209a49abe45d7464f9c6f2e80454fa827416858fae"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "4f4f158e8319475db75bc9209a49abe45d7464f9c6f2e80454fa827416858fae",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "buy",
+          "text": "选关：圣骸兽&gt;枫丹机械&gt;龙蜥&gt;龙兽",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "bb5f6e8f49bed34c0284da094a9201b888d2e079bb26a6da8f1a6ab26ccc0d10",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 甘雨",
+      "act": 5,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b192457e589e7e0e08d789217288a5b438da6fa2902301183bfae47475160c3b",
+        "fade3492b2ec66ef0467c36c217023e56b846fd29eabd5c6679f9c8cdc390e28"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b192457e589e7e0e08d789217288a5b438da6fa2902301183bfae47475160c3b",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 甘雨",
+          "act": 5
+        },
+        {
+          "evidence_id": "fade3492b2ec66ef0467c36c217023e56b846fd29eabd5c6679f9c8cdc390e28",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 甘雨",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
+    },
+    {
       "candidate_id": "bc95e83eb730b4e5965a10949c07c7b1a5f582511a5711e3a56bf28bf934224a",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -7476,7 +10609,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -7553,7 +10687,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -7570,6 +10705,55 @@
           "kind": "act_team",
           "text": "第6幕 推荐 弓箭手",
           "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "c05accf4b25d23ee7e64f68ac1193ec7659c7e215642a6f4ef7e6c27cce7f7ae",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 神里绫人",
+      "act": 9,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "470317ee677b39ac3e4bfd99f63264cfd5176e02339c32669013b0465d25a777"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "470317ee677b39ac3e4bfd99f63264cfd5176e02339c32669013b0465d25a777",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 神里绫人",
+          "act": 9
         }
       ],
       "independent_creator_count": 1,
@@ -7632,6 +10816,104 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "c3d71544f78a1c3992d4d4cb5edc9f719d2aa0009df9deca35f028493dfb152d",
+      "knowledge_type": "strategy",
+      "kind": "combo",
+      "text": "第二首 Nightcore-Best of My Love",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "dc34321d90efbcd2c8187de5e0dc7fb0ffcfda657de1e9a6de1d260384730fca"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "dc34321d90efbcd2c8187de5e0dc7fb0ffcfda657de1e9a6de1d260384730fca",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1oJ4m1M7LC",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:9838546",
+          "creator_name": "泪眼执笔墨成花",
+          "channel": "description",
+          "source": "bilibili:BV1oJ4m1M7LC",
+          "source_refs": [
+            "bilibili:BV1oJ4m1M7LC"
+          ],
+          "kind": "combo",
+          "text": "第二首 Nightcore-Best of My Love",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "c4b62bee854a209f9ea495c087c2b59a2df04dd20eee4e754168cb9992daddc7",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 皇女",
+      "act": 10,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b946c2072c477f7b24d2a6459383910e92df16b5c026f2f3f00a16421944150f"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b946c2072c477f7b24d2a6459383910e92df16b5c026f2f3f00a16421944150f",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 皇女",
+          "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "c4bb76287a03563ed664e53ec159037da632850a87bb3e44dcb053b40a5836cb",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -7658,7 +10940,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -7787,7 +11070,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -7987,6 +11271,55 @@
       "role_group": "GeoBreak",
       "group_creator_count": 1,
       "group_video_count": 1,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "cb305768f458dc43a8297fdb294f2da8c0d0e1775a31429364873a46fe6ad0da",
+      "knowledge_type": "strategy",
+      "kind": "team",
+      "text": "队伍：上大哥！",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "bf27f0cc75d0626079f6d07156a8401d093163c29578b9d816b9ae90351fe810"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "bf27f0cc75d0626079f6d07156a8401d093163c29578b9d816b9ae90351fe810",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "team",
+          "text": "队伍：上大哥！",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
       "unique_video_count": 1
     },
     {
@@ -8413,7 +11746,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -8639,7 +11973,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -8689,6 +12024,55 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "d8a55e7393d0b458914a029c9ef01a64ab21cf3b80b6b02a96a9bdd26ca3b4c9",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 雷主",
+      "act": 9,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "7a1b90520491b91040e288939866ed62d3f1de9e64a97ec75754037336fc0a15"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "7a1b90520491b91040e288939866ed62d3f1de9e64a97ec75754037336fc0a15",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 雷主",
+          "act": 9
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
     },
     {
       "candidate_id": "d8cb130b86eecd2164fb8c551de868d5a883ac8d65939d1d3158648c86df307c",
@@ -8909,7 +12293,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "Buffer",
       "group_creator_count": 1,
-      "group_video_count": 1,
+      "group_video_count": 2,
       "unique_video_count": 1
     },
     {
@@ -9062,6 +12446,176 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "df819a909d11a73271be5fb43cd2b9480b4b169c35d99593f765715ec7952734",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 迪卢克",
+      "act": 1,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2e174f287f257f6ee8a6dbd39bb1a61e45f4911d3ecf647433986f1068dd7c34",
+        "20ac00260818096818d1fbfedb2cb426bb65af61371bd525143cd1acc36667c8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2e174f287f257f6ee8a6dbd39bb1a61e45f4911d3ecf647433986f1068dd7c34",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 迪卢克",
+          "act": 1
+        },
+        {
+          "evidence_id": "20ac00260818096818d1fbfedb2cb426bb65af61371bd525143cd1acc36667c8",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 迪卢克",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
+    },
+    {
+      "candidate_id": "e273abbb71ddefb5c0c95c62c065ae10e30fb358a7fb049bcc209477c9ad2b59",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "开局：把钱花光",
+      "act": null,
+      "season": 29,
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "5bcbef97684fa94dfa0d2276c7ce244176e2dc6bf16e202da3c7c7235943a1a3"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "5bcbef97684fa94dfa0d2276c7ce244176e2dc6bf16e202da3c7c7235943a1a3",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1yYaEzsEjv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:520175970",
+          "creator_name": "是核善有爱的百渊呀",
+          "channel": "description",
+          "source": "bilibili:BV1yYaEzsEjv",
+          "source_refs": [
+            "bilibili:BV1yYaEzsEjv"
+          ],
+          "kind": "action",
+          "text": "开局：把钱花光",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "e372b3a190e9e40bf46d58eb69fa31c142a9a00cc53619d2ca50edcb35b29b4d",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 克洛琳德",
+      "act": 8,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "4abf17f49f936ac7ba9ca113b04564578ca0b4f218fa3cd101de3c3c82d5b38b"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "4abf17f49f936ac7ba9ca113b04564578ca0b4f218fa3cd101de3c3c82d5b38b",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 克洛琳德",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "e45b6de7fe9845e230a5d24d12a73c6b5a686659e6636b73c419bc33a070c90a",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -9087,7 +12641,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -9153,6 +12708,55 @@
           "kind": "act_team",
           "text": "第3幕 推荐 伊安珊",
           "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "e5d55814499472bf572f84c617bd5a4fe4aa1c126a6b14fca1bd69d4ef460148",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 莱依拉",
+      "act": 8,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c6ed7204eddd816365ee6d85acc7316c985cb4c1979840d328a72da8c8f71604"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c6ed7204eddd816365ee6d85acc7316c985cb4c1979840d328a72da8c8f71604",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 莱依拉",
+          "act": 8
         }
       ],
       "independent_creator_count": 1,
@@ -9437,7 +13041,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -9492,7 +13097,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -9544,6 +13150,56 @@
       "unique_video_count": 2
     },
     {
+      "candidate_id": "f05c397fd1e50487ab0cfdd6a913f9fc8d2c4b1e63b4e2d0bf32c7f70201958b",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 班尼特",
+      "act": 9,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "7f324efec93efa6ed51b9021a48dd6cb34f0a22048a6e78ec5c6ddbb39623a68"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "7f324efec93efa6ed51b9021a48dd6cb34f0a22048a6e78ec5c6ddbb39623a68",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 班尼特",
+          "act": 9
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "Healer",
+      "group_creator_count": 1,
+      "group_video_count": 3,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "f102311734f522fbd65b10ab28632b752c5d194097779ccd0b220e411e57159e",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -9591,6 +13247,78 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "f106bcd9718c2cd6e883aedbc62c1e7681609019f40b1de0ddb44ef568c81753",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 迪卢克",
+      "act": 2,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "48c546a5e9d4bae53d6dadb8bb8ebc54385a4f94f9c45092dbdbcf036134d62e",
+        "0f0c85bd31b3ceefbbd46b4a2c0fb99ac5bce9417e27ab6561f12b8995a7409d"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "48c546a5e9d4bae53d6dadb8bb8ebc54385a4f94f9c45092dbdbcf036134d62e",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 迪卢克",
+          "act": 2
+        },
+        {
+          "evidence_id": "0f0c85bd31b3ceefbbd46b4a2c0fb99ac5bce9417e27ab6561f12b8995a7409d",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 迪卢克",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "f138a8d1e3f32e77bd7bda21eba49cb78f1fe6c5296477b7782f4b09bd169e5d",
@@ -9788,7 +13516,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "Healer",
       "group_creator_count": 1,
-      "group_video_count": 2,
+      "group_video_count": 3,
       "unique_video_count": 1
     },
     {
@@ -9890,6 +13618,78 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "f60d6e7e0fed3f9f2a09ac0f4056fb43b855f15211eb0496f71b35a8661fac28",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 凯亚",
+      "act": 2,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "7231270e03b9823f8533d18d1471a7ae7b4eb49e85ffbd89d266e0b931e23d4b",
+        "6aa9f9dff3082153de4a9c046eebd6304d946bfe5fdb7e2b0ff6ca714b79c549"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "7231270e03b9823f8533d18d1471a7ae7b4eb49e85ffbd89d266e0b931e23d4b",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 凯亚",
+          "act": 2
+        },
+        {
+          "evidence_id": "6aa9f9dff3082153de4a9c046eebd6304d946bfe5fdb7e2b0ff6ca714b79c549",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1pT6fYyENv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1pT6fYyENv",
+          "source_refs": [
+            "bilibili:BV1pT6fYyENv"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 凯亚",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
+    },
+    {
       "candidate_id": "f9fc67d6d68887b1a8e7a4a17ee9742846fb57c55123bccd0c3760cd3cae389b",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -9988,7 +13788,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -10042,7 +13843,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -10059,6 +13861,55 @@
           "kind": "act_team",
           "text": "第2幕 推荐 嘉明",
           "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "fd1888d40454523b47deecb5a9bf2e570b92e49558ef4639127f7b1d29579b05",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 克洛琳德",
+      "act": 10,
+      "season": 29,
+      "version_range": {
+        "min": "5.4",
+        "max": "5.4"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3a68feede97cacbcd18b677352a36fbd94e5cd285a16671b041eb9160fd9c35e"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3a68feede97cacbcd18b677352a36fbd94e5cd285a16671b041eb9160fd9c35e",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1HDXUYmEoq",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.4",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1HDXUYmEoq",
+          "source_refs": [
+            "bilibili:BV1HDXUYmEoq"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 克洛琳德",
+          "act": 10
         }
       ],
       "independent_creator_count": 1,
@@ -10295,7 +14146,8 @@
             "42179312058-attempt-1",
             "42190135209-attempt-1",
             "42193236473-attempt-1",
-            "42203849799-attempt-1"
+            "42203849799-attempt-1",
+            "42205716184-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -10343,8 +14195,58 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_video_count": 5,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "ff7aaf79787b738b2a12feb799bcd52671667cd5b124bb4c49af495aa422aea4",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 香菱",
+      "act": 9,
+      "season": 29,
+      "version_range": {
+        "min": "5.3",
+        "max": "5.3"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f83987775fe1f6b917788d9256d9a2c84d7d4d7018854cf0a046db98cde5a47e"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f83987775fe1f6b917788d9256d9a2c84d7d4d7018854cf0a046db98cde5a47e",
+          "batch_id": "42205716184-attempt-1",
+          "observed_batches": [
+            "42205716184-attempt-1"
+          ],
+          "video_id": "BV1B16XYWEBv",
+          "platform": "bilibili",
+          "season": 29,
+          "version": "5.3",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1B16XYWEBv",
+          "source_refs": [
+            "bilibili:BV1B16XYWEBv"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 香菱",
+          "act": 9
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "Buffer",
+      "group_creator_count": 1,
+      "group_video_count": 2,
+      "unique_video_count": 1
     }
   ],
   "promotion_policy": {
