@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "batch_id": "42179312058-attempt-1",
+  "kind": "ingest",
+  "status": "INGESTED",
+  "workflow": "video-ingest",
+  "run_id": "42179312058",
+  "run_attempt": "1",
+  "source_commit": "94e7d785982dd297f8fd92ae7a0303c2107857c1",
+  "created_at": "2026-11-06T07:13:40.933090+00:00",
+  "file_count": 7,
+  "total_bytes": 22160,
+  "files": [
+    {
+      "path": "BV1G86xBFEk5/meta.json",
+      "size_bytes": 1978,
+      "sha256": "1d47670fa31db3221ad065d95db9f181049772149e6561fa00cf7cfce5952495"
+    },
+    {
+      "path": "BV1G86xBFEk5/subs.txt",
+      "size_bytes": 1918,
+      "sha256": "d7566f4c6ce51100d6ab2711a3994f2abd7262d25a5cfd83b7dbfb7681fb3169"
+    },
+    {
+      "path": "BV1G86xBFEk5-ops.json",
+      "size_bytes": 5435,
+      "sha256": "4a1ee074ced861041b7b39012a8f1fb0f7e121d519eb57bd822e2c8e8160a9ed"
+    },
+    {
+      "path": "BV1saaz6qEbH/meta.json",
+      "size_bytes": 2124,
+      "sha256": "1598ab53f2723e6c4cec7dbedeab875dc3cb1f41c2a1116698960a17245f3f83"
+    },
+    {
+      "path": "BV1saaz6qEbH/subs.txt",
+      "size_bytes": 1963,
+      "sha256": "082ba2194e543463a50306f36c4c7d0fe4e36a8ad73b7b104542babfccc169e1"
+    },
+    {
+      "path": "BV1saaz6qEbH-ops.json",
+      "size_bytes": 4227,
+      "sha256": "ff4c4080e1cb733a2a229589e4d0c06a392df062294050e6bcbcca9cb9ced8c0"
+    },
+    {
+      "path": "ingest-summary.json",
+      "size_bytes": 4515,
+      "sha256": "4c1b4348e480ed911b72890bc18962e90cf1599cb7c798f0496936bd82d92f2e"
+    }
+  ],
+  "promotion": {
+    "eligible": false,
+    "reason": "durable ingestion is not semantic validation or independent ground truth"
+  }
+}
