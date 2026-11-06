@@ -83,6 +83,12 @@ jobs:
           print(f"validated_json_files={checked}")
           PY
 
+      - name: 流水线持久化安全单元测试
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tools/pipeline -p 'test_*.py' -v
+
       - name: 输出可追溯批次清单
         shell: bash
         run: |
