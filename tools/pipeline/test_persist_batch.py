@@ -89,9 +89,9 @@ class PersistBatchTests(unittest.TestCase):
         self.assertEqual(version, "7.1")
         evidence = [
             {"evidence_id": "s29", "kind": "action", "text": "先击败钓客", "act": 6,
-             "season": 29, "version": "7.1", "creator_id": "bilibili:A"},
+             "season": 29, "version": "7.1", "video_id": "BV29a", "creator_id": "bilibili:A"},
             {"evidence_id": "s30", "kind": "action", "text": "先击败钓客", "act": 6,
-             "season": 30, "version": "7.2", "creator_id": "bilibili:A"},
+             "season": 30, "version": "7.2", "video_id": "BV30a", "creator_id": "bilibili:A"},
         ]
         result = extract_knowledge.merge_candidates(evidence)
         self.assertEqual(len(result["candidates"]), 2)
@@ -100,11 +100,11 @@ class PersistBatchTests(unittest.TestCase):
     def test_knowledge_requires_two_creators_and_three_evidence_for_provisional(self):
         evidence = [
             {"evidence_id": "e1", "kind": "action", "text": "先击败钓客", "act": 6,
-             "creator_id": "bilibili:creator-A", "source": "BV1"},
+             "season": 29, "version": "7.1", "video_id": "BV1", "creator_id": "bilibili:creator-A", "source": "BV1"},
             {"evidence_id": "e2", "kind": "action", "text": "先击败钓客", "act": 6,
-             "creator_id": "bilibili:creator-A", "source": "BV2"},
+             "season": 29, "version": "7.1", "video_id": "BV2", "creator_id": "bilibili:creator-A", "source": "BV2"},
             {"evidence_id": "e3", "kind": "action", "text": "先击败钓客", "act": 6,
-             "creator_id": "bilibili:creator-B", "source": "BV3"},
+             "season": 29, "version": "7.1", "video_id": "BV3", "creator_id": "bilibili:creator-B", "source": "BV3"},
         ]
         result = extract_knowledge.merge_candidates(evidence)
         candidate = result["candidates"][0]
@@ -115,14 +115,14 @@ class PersistBatchTests(unittest.TestCase):
     def test_extraction_never_downgrades_terminal_status(self):
         existing = {
             "candidates": [{
-                "candidate_id": extract_knowledge.digest("|".join(("action", "6", "", "", extract_knowledge.normalize("先击败钓客")))), "kind": "action", "text": "先击败钓客", "act": 6,
-                "evidence_ids": ["old"], "evidence": [], "status": "VERIFIED",
-                "independent_creator_count": 2
+                "candidate_id": extract_knowledge.digest("|".join(("action", "6", "29", "7.1", "", extract_knowledge.normalize("先击败钓客")))), "kind": "action", "text": "先击败钓客", "act": 6,
+                "evidence_ids": ["old"], "evidence": [], "status": "VERIFIED", "season": 29,
+                "version_range": {"min": "7.1", "max": "7.1"}, "independent_creator_count": 2
             }]
         }
         evidence = [{
             "evidence_id": "new", "kind": "action", "text": "先击败钓客", "act": 6,
-            "creator_id": "bilibili:creator-C", "source": "BV-new"
+            "season": 29, "version": "7.1", "video_id": "BV-new", "creator_id": "bilibili:creator-C", "source": "BV-new"
         }]
         result = extract_knowledge.merge_candidates(evidence, existing)
         self.assertEqual(result["candidates"][0]["status"], "VERIFIED")
@@ -131,7 +131,7 @@ class PersistBatchTests(unittest.TestCase):
     def test_one_creator_many_videos_stays_candidate(self):
         evidence = [
             {"evidence_id": f"e{i}", "kind": "action", "text": "先击败钓客", "act": 6,
-             "creator_id": "bilibili:creator-A", "source": f"BV{i}"}
+             "season": 29, "version": "7.1", "video_id": f"BV{i}", "creator_id": "bilibili:creator-A", "source": f"BV{i}"}
             for i in range(1, 5)
         ]
         result = extract_knowledge.merge_candidates(evidence)
