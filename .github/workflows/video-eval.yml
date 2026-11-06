@@ -32,7 +32,7 @@ on:
         required: false
         default: '40'
       min-acc:
-        description: '准确率下限（默认 95，低于则 CI 失败）'
+        description: '视觉条带代理自洽率告警阈值（仅诊断，不作为独立评测门禁）'
         required: false
         default: '95'
   schedule:
@@ -141,9 +141,9 @@ jobs:
             $acc = 0.0
             $truth = 0
             if (Test-Path $md) {
-              $line = Select-String -Path $md -Pattern '准确率 \*\*([\d\.]+)%' | Select-Object -First 1
+              $line = Select-String -Path $md -Pattern '自洽率 \*\*([\d\.]+)%' | Select-Object -First 1
               if ($line) { $acc = [double]$line.Matches[0].Groups[1].Value }
-              $tline = Select-String -Path $md -Pattern '有真值 (\d+) 帧' | Select-Object -First 1
+              $tline = Select-String -Path $md -Pattern '有代理标签 (\d+) 帧' | Select-Object -First 1
               if ($tline) { $truth = [int]$tline.Matches[0].Groups[1].Value }
             }
             $accText = if ($truth -eq 0) { "n/a（无真值帧）" } else { "$acc%" }
@@ -151,7 +151,7 @@ jobs:
             # 只有"有真值帧"的视频才卡准确率门禁：菜单/结算远景看不到幕次标签，属于正常情况
             if ($minAcc -gt 0 -and $truth -gt 0 -and $acc -lt $minAcc) { throw "$bv 准确率 $acc%（真值帧 $truth）低于下限 $minAcc%" }
           }
-          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 视频对答案回归"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 视觉条带代理自洽性（非独立准确率）"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 视频 | 幕次准确率 | 退出码 |"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|"
           foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
