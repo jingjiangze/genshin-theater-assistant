@@ -81,6 +81,22 @@ class PersistBatchTests(unittest.TestCase):
         self.assertEqual(manifest["status"], "EVALUATED_INDEPENDENT")
         self.assertFalse(manifest["promotion"]["eligible"])
 
+    def test_knowledge_context_is_versioned_and_seasons_do_not_merge(self):
+        season, version = extract_knowledge.extract_context({
+            "title": "第29期 幻想真境剧诗 7.1全程攻略"
+        })
+        self.assertEqual(season, 29)
+        self.assertEqual(version, "7.1")
+        evidence = [
+            {"evidence_id": "s29", "kind": "action", "text": "先击败钓客", "act": 6,
+             "season": 29, "version": "7.1", "creator_id": "bilibili:A"},
+            {"evidence_id": "s30", "kind": "action", "text": "先击败钓客", "act": 6,
+             "season": 30, "version": "7.2", "creator_id": "bilibili:A"},
+        ]
+        result = extract_knowledge.merge_candidates(evidence)
+        self.assertEqual(len(result["candidates"]), 2)
+        self.assertEqual({x["season"] for x in result["candidates"]}, {29, 30})
+
     def test_knowledge_requires_two_creators_and_three_evidence_for_provisional(self):
         evidence = [
             {"evidence_id": "e1", "kind": "action", "text": "先击败钓客", "act": 6,
@@ -99,7 +115,7 @@ class PersistBatchTests(unittest.TestCase):
     def test_extraction_never_downgrades_terminal_status(self):
         existing = {
             "candidates": [{
-                "candidate_id": extract_knowledge.digest("|".join(("action", "6", extract_knowledge.normalize("先击败钓客")))), "kind": "action", "text": "先击败钓客", "act": 6,
+                "candidate_id": extract_knowledge.digest("|".join(("action", "6", "", "", extract_knowledge.normalize("先击败钓客")))), "kind": "action", "text": "先击败钓客", "act": 6,
                 "evidence_ids": ["old"], "evidence": [], "status": "VERIFIED",
                 "independent_creator_count": 2
             }]
