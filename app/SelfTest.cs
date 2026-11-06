@@ -283,6 +283,17 @@ internal static class SelfTest
             OpsConsensus.IsNoise("可选角色") && !OpsConsensus.IsNoise("买一个角色")
             && OpsConsensus.IsNoise("过去的魔女留下的挑战，需要许多伙伴组成的队伍共同攻克。"),
             "可选角色=噪声, 剧情文案=噪声, 买一个角色=保留");
+
+        var creatorAgg = OpsConsensus.AggregateEvidence(new[]
+        {
+            new OpsConsensus.Evidence { Text = "买一个角色", Kind = "buy", Source = "BV1aa", CreatorId = "creator-A" },
+            new OpsConsensus.Evidence { Text = "买一个角色", Kind = "buy", Source = "BV1bb", CreatorId = "creator-A" },
+            new OpsConsensus.Evidence { Text = "买一个角色", Kind = "buy", Source = "BV1cc", CreatorId = "creator-B" },
+            new OpsConsensus.Evidence { Text = "买一个角色", Kind = "buy", Source = "BV1dd", CreatorId = "" },
+        });
+        Check("共识·转载/同作者多视频不增加独立作者数",
+            creatorAgg.Count == 1 && creatorAgg[0].Videos == 4 && creatorAgg[0].IndependentCreators == 2,
+            $"videos={creatorAgg.FirstOrDefault()?.Videos}, creators={creatorAgg.FirstOrDefault()?.IndependentCreators}");
         Check("共识·跨平台出处去重",
             OpsConsensus.SplitBv("bilibili:BV1aa@10s") == "BV1aa"
             && OpsConsensus.SplitBv("youtube:dQw4w9WgXcQ") == "dQw4w9WgXcQ"
