@@ -132,15 +132,20 @@ def main() -> int:
     ap.add_argument("--health-report", type=Path)
     args = ap.parse_args()
     repo = args.ledger_repo.resolve()
-    paths = [args.registry.resolve(), args.releases_dir.resolve(),
-             args.active_pointer.resolve()]
+    registry = args.registry.resolve()
+    releases_dir = args.releases_dir.resolve()
+    active_pointer = args.active_pointer.resolve()
     health = args.health_report.resolve() if args.health_report else None
-    before = {p: p.read_bytes() if p.exists() else None for p in paths}
-    if health:
-        before[health] = health.read_bytes() if health.exists() else None
+    before = {
+        registry: registry.read_bytes() if registry.exists() else None,
+        active_pointer: active_pointer.read_bytes() if active_pointer.exists() else None,
+    }
+    release_files_before = set(releases_dir.rglob("knowledge.json")) if releases_dir.exists() else set()
     try:
-        result = release_or_rollback(paths[0], paths[1], paths[2], health)
+        result = release_or_rollback(registry, releases_dir, active_pointer, health)
         changed = [p for p in before if (p.read_bytes() if p.exists() else None) != before[p]]
+        if releases_dir.exists():
+            changed.extend(p for p in releases_dir.rglob("knowledge.json") if p not in release_files_before)
         print(json.dumps(result, ensure_ascii=False))
         if not changed:
             return 0
