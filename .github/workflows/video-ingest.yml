@@ -7,6 +7,11 @@ name: video-ingest
 #   platform=bilibili|youtube、query、limit
 
 on:
+  push:
+    branches:
+      - automation/cloud-auto-evolution
+    paths:
+      - .github/workflows/video-ingest.yml
   workflow_dispatch:
     inputs:
       platform:
@@ -29,7 +34,11 @@ on:
     - cron: '0 6 * * *'   # 每天 06:00 UTC，只做文本语料（不下载视频）
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: video-ingest-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ingest:
@@ -55,7 +64,7 @@ jobs:
         run: |
           set -euo pipefail
           QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
-          LIMIT="${{ github.event.inputs.limit || '12' }}"
+          LIMIT="${{ github.event_name == 'push' && '2' || github.event.inputs.limit || '12' }}"
           cd tools/video-frames
           npm init -y >/dev/null 2>&1 || true
           npm i playwright-core@1.64.1 --no-audit --no-fund >/dev/null
@@ -83,7 +92,7 @@ jobs:
           PLATFORM="${{ github.event.inputs.platform || 'bilibili' }}"
           QUERY="${{ github.event.inputs.query || '幻想真境剧诗 月谕 攻略' }}"
           URLS="${{ github.event.inputs.urls || '' }}"
-          LIMIT="${{ github.event.inputs.limit || '12' }}"
+          LIMIT="${{ github.event_name == 'push' && '2' || github.event.inputs.limit || '12' }}"
           ARGS=(--platform "$PLATFORM" --query "$QUERY" --limit "$LIMIT" --out frames/ingest)
           if [ "$PLATFORM" = "bilibili" ] && [ -f bili-bvs.txt ]; then
             ARGS+=(--bvs "$(cat bili-bvs.txt)")
@@ -130,3 +139,21 @@ jobs:
             frames/ingest/*/meta.json
             frames/ingest/*/subs.txt
           retention-days: 30
+
+      - name: 持久化不可变采集批次（独立 automation-data 分支）
+        if: success()
+        uses: actions/checkout@v4
+        with:
+          ref: automation-data
+          path: .pipeline-state
+          fetch-depth: 0
+
+      - name: 写入长期数据账本
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/pipeline/persist_batch.py \
+            --kind ingest \
+            --input-dir frames/ingest \
+            --state-dir .pipeline-state

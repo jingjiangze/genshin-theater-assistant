@@ -283,11 +283,58 @@ internal static class SelfTest
             OpsConsensus.IsNoise("可选角色") && !OpsConsensus.IsNoise("买一个角色")
             && OpsConsensus.IsNoise("过去的魔女留下的挑战，需要许多伙伴组成的队伍共同攻克。"),
             "可选角色=噪声, 剧情文案=噪声, 买一个角色=保留");
+
+        var creatorAgg = OpsConsensus.AggregateEvidence(new[]
+        {
+            new OpsConsensus.Evidence { Text = "买一个角色", Kind = "buy", Source = "BV1aa", CreatorId = "creator-A" },
+            new OpsConsensus.Evidence { Text = "买一个角色", Kind = "buy", Source = "BV1bb", CreatorId = "creator-A" },
+            new OpsConsensus.Evidence { Text = "买一个角色", Kind = "buy", Source = "BV1cc", CreatorId = "creator-B" },
+            new OpsConsensus.Evidence { Text = "买一个角色", Kind = "buy", Source = "BV1dd", CreatorId = "" },
+        });
+        Check("共识·转载/同作者多视频不增加独立作者数",
+            creatorAgg.Count == 1 && creatorAgg[0].Videos == 4 && creatorAgg[0].IndependentCreators == 2,
+            $"videos={creatorAgg.FirstOrDefault()?.Videos}, creators={creatorAgg.FirstOrDefault()?.IndependentCreators}");
         Check("共识·跨平台出处去重",
             OpsConsensus.SplitBv("bilibili:BV1aa@10s") == "BV1aa"
             && OpsConsensus.SplitBv("youtube:dQw4w9WgXcQ") == "dQw4w9WgXcQ"
             && OpsConsensus.SplitBv("BV1aa@20s") == "BV1aa",
             "bilibili:/youtube: 前缀都能归一到视频 id");
+
+        var plannerDir = Path.Combine(Path.GetTempPath(), "theater-planner-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(plannerDir);
+        try
+        {
+            var seasonPath = Path.Combine(plannerDir, "season.json");
+            var rosterPath = Path.Combine(plannerDir, "good.json");
+            File.WriteAllText(seasonPath, """
+            {"season":1,"elements":["Hydro"],"acts":{"Hard":{
+              "1":{"level":80,"boss":false,"encounters":[{"name":"Act1 Yelan","rec":"Hydro","chars":"Yelan"}]},
+              "2":{"level":80,"boss":false,"encounters":[
+                {"name":"Act2 Yelan","rec":"Hydro","chars":"Yelan"},
+                {"name":"Act2 Xingqiu","rec":"Hydro","chars":"Xingqiu"}]}
+            }}}
+            """);
+            File.WriteAllText(rosterPath, """
+            {"characters":[{"key":"Yelan","level":90},{"key":"Xingqiu","level":90}]}
+            """);
+            var plan = ActPlanner.Build(TheaterData.Load(seasonPath), RosterData.TryLoad(rosterPath), "Hard");
+            var chosen = plan.Acts.SelectMany(a => a.RecommendedCharacters).ToList();
+            Check("多幕规划·跨幕角色复用软约束",
+                plan.Acts.Count == 2 && plan.Acts[0].Encounter == "Act1 Yelan"
+                && plan.Acts[1].Encounter == "Act2 Xingqiu" && chosen.Distinct(StringComparer.OrdinalIgnoreCase).Count() == 2,
+                string.Join(" | ", plan.Acts.Select(a => $"{a.Act}:{a.Encounter}")));
+        }
+        finally { try { Directory.Delete(plannerDir, true); } catch { } }
+
+        Routine.Load(AppPaths.Data("rotations.json"));
+        var legacyRoutine = Routine.LinesFor(0, 10);
+        var inGameRoutine = Routine.LinesFor(3, 10);
+        Check("知识治理·旧视频/社区经验降级为历史候选",
+            legacyRoutine.Any(x => x.Contains("历史候选手法")),
+            string.Join(" | ", legacyRoutine.Take(2)));
+        Check("知识治理·游戏内机制基线保留",
+            inGameRoutine.Any(x => x.StartsWith("手法·")) && inGameRoutine.All(x => !x.Contains("历史候选手法")),
+            string.Join(" | ", inGameRoutine.Take(2)));
 
         // 操作提取分类（纯函数）：连招 / 购买 / 配队 / 行动
         Check("操作分类",

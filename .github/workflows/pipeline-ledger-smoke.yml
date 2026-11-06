@@ -1,0 +1,73 @@
+name: pipeline-ledger-smoke
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  durable-ledger-write:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Create isolated synthetic batch fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/ledger-smoke"
+          cat > "$RUNNER_TEMP/ledger-smoke/ingest-summary.json" <<'JSON'
+          {
+            "platform": "synthetic-smoke",
+            "videos": [],
+            "generatedAt": "not-production-data"
+          }
+          JSON
+
+      - name: Checkout durable data branch
+        uses: actions/checkout@v4
+        with:
+          ref: automation-data
+          path: .pipeline-state
+          fetch-depth: 0
+
+      - name: Persist batch to automation-data
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/pipeline/persist_batch.py \
+            --kind ingest \
+            --input-dir "$RUNNER_TEMP/ledger-smoke" \
+            --state-dir .pipeline-state \
+            --workflow pipeline-ledger-smoke
+
+      - name: Verify persisted manifest and payload hash
+        shell: bash
+        env:
+          BATCH_ID: ${{ github.run_id }}-attempt-${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root = Path(".pipeline-state/.pipeline-state/batches/ingest") / os.environ["BATCH_ID"]
+          manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+          assert manifest["status"] == "INGESTED"
+          assert manifest["promotion"]["eligible"] is False
+          item = manifest["files"][0]
+          payload = (root / "files" / item["path"]).read_bytes()
+          assert hashlib.sha256(payload).hexdigest() == item["sha256"]
+          assert b"not-production-data" in payload
+          print(f"PASS durable batch={manifest['batch_id']} files={manifest['file_count']}")
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-ledger-smoke-${{ github.run_id }}
+          path: .pipeline-state/.pipeline-state/batches/ingest/${{ github.run_id }}-attempt-${{ github.run_attempt }}/manifest.json
+          retention-days: 7

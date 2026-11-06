@@ -9,6 +9,13 @@
 #   keyword / videos / every / max / min-acc
 
 on:
+  push:
+    branches:
+      - automation/cloud-auto-evolution
+    paths:
+      - .github/workflows/video-eval.yml
+      - app/**
+      - tools/pipeline/**
   workflow_dispatch:
     inputs:
       bvids:
@@ -32,14 +39,18 @@ on:
         required: false
         default: '40'
       min-acc:
-        description: '准确率下限（默认 95，低于则 CI 失败）'
+        description: '视觉条带代理自洽率告警阈值（仅诊断，不作为独立评测门禁）'
         required: false
         default: '95'
   schedule:
     - cron: '0 5 * * *'   # 每天 05:00 UTC（对答案回归）
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: video-eval-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   eval:
@@ -49,6 +60,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -56,6 +70,8 @@ jobs:
       - name: 依赖
         shell: pwsh
         run: |
+          python -m pip install --upgrade pip
+          python -m pip install yt-dlp
           cd tools\video-frames
           if (-not (Test-Path package.json)) { npm init -y | Out-Null }
           # 固定版本 + 用 playwright-core 自带 CLI：npx playwright 会去装 playwright@latest，
@@ -84,7 +100,7 @@ jobs:
           $bvs = "${{ github.event.inputs.bvids }}"
           if (-not $bvs) {
             $kw = "${{ github.event.inputs.keyword }}"; if (-not $kw) { $kw = '幻想真境剧诗 月谕 攻略 全程' }
-            $n  = "${{ github.event.inputs.videos }}"; if (-not $n) { $n = '2' }
+            $n  = "${{ github.event_name == 'push' && '1' || github.event.inputs.videos || '2' }}"; if (-not $n) { $n = '2' }
             cd tools\video-frames
             $json = node search.mjs "$kw" $n
             $j = ($json -join "`n") | ConvertFrom-Json
@@ -94,14 +110,24 @@ jobs:
           "BVS=$bvs" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding UTF8
           Write-Host "待评测：$bvs"
 
+      - name: 获取独立文本标签来源（字幕 + 章节，不使用 OCR）
+        continue-on-error: true
+        shell: pwsh
+        env:
+          BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
+        run: |
+          New-Item -ItemType Directory -Force frames/ingest | Out-Null
+          $csv = ($env:BVS -split '\s+' | Where-Object { $_ }) -join ','
+          python tools/video-frames/ingest.py --platform bilibili --bvs "$csv" --limit 12 --out frames/ingest
+
       - name: 抽帧
         shell: pwsh
         env:
           BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
         run: |
           if (-not $env:BILI_COOKIE) { throw "缺少 secret BILI_COOKIE" }
-          $every = "${{ github.event.inputs.every }}"; if (-not $every) { $every = '5' }
-          $max   = "${{ github.event.inputs.max }}";   if (-not $max)   { $max   = '200' }
+          $every = "${{ github.event_name == 'push' && '8' || github.event.inputs.every || '5' }}"; if (-not $every) { $every = '5' }
+          $max   = "${{ github.event_name == 'push' && '20' || github.event.inputs.max || '200' }}"; if (-not $max) { $max = '200' }
           New-Item -ItemType Directory -Force frames | Out-Null
           cd tools\video-frames
           foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
@@ -109,11 +135,11 @@ jobs:
             node hd.mjs $bv "every=$every" "max=$max" "out=../../frames/$bv"
           }
 
-      - name: 逐视频评测（对答案）
+      - name: 逐视频视觉代理回归（非独立真值）
         shell: pwsh
         run: |
           chcp 65001 > $null
-          $minAcc = [double]"${{ github.event.inputs.min-acc }}"
+          $minAcc = [double]"${{ github.event.inputs['min-acc'] }}"
           if (-not $minAcc) { $minAcc = 0 }
           $summary = @()
           foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
@@ -126,20 +152,26 @@ jobs:
             $acc = 0.0
             $truth = 0
             if (Test-Path $md) {
-              $line = Select-String -Path $md -Pattern '准确率 \*\*([\d\.]+)%' | Select-Object -First 1
+              $line = Select-String -Path $md -Pattern '自洽率 \*\*([\d\.]+)%' | Select-Object -First 1
               if ($line) { $acc = [double]$line.Matches[0].Groups[1].Value }
-              $tline = Select-String -Path $md -Pattern '有真值 (\d+) 帧' | Select-Object -First 1
+              $tline = Select-String -Path $md -Pattern '有代理标签 (\d+) 帧' | Select-Object -First 1
               if ($tline) { $truth = [int]$tline.Matches[0].Groups[1].Value }
             }
-            $accText = if ($truth -eq 0) { "n/a（无真值帧）" } else { "$acc%" }
+            $accText = if ($truth -eq 0) { "n/a（无代理标签帧）" } else { "$acc%（代理自洽）" }
             $summary += "| $bv | $accText | exit=$($p.ExitCode) |"
-            # 只有"有真值帧"的视频才卡准确率门禁：菜单/结算远景看不到幕次标签，属于正常情况
-            if ($minAcc -gt 0 -and $truth -gt 0 -and $acc -lt $minAcc) { throw "$bv 准确率 $acc%（真值帧 $truth）低于下限 $minAcc%" }
+            # 该指标来自同帧底部条带 OCR，只作自洽性告警，不是独立真值，也不阻断外部文本评测。
+            if ($minAcc -gt 0 -and $truth -gt 0 -and $acc -lt $minAcc) { Write-Host "::warning::$bv 视觉代理自洽率 $acc%（代理标签帧 $truth）低于诊断阈值 $minAcc%" }
           }
-          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 视频对答案回归"
-          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 视频 | 幕次准确率 | 退出码 |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 视觉条带代理自洽性（非独立准确率）"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 视频 | 视觉代理自洽率 | 退出码 |"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|"
           foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
+
+      - name: 外部文本评测（字幕与章节双通道一致才计入）
+        shell: pwsh
+        run: |
+          python tools/pipeline/build_external_eval.py --replay-dir frames --ingest-dir frames/ingest --out frames/external-eval.json --min-labels 10
+          Get-Content frames/external-eval.json -Encoding UTF8 | Select-Object -First 60
 
       - name: 提取操作用法候选（连招/购买/配队/行动）
         shell: pwsh
@@ -176,7 +208,37 @@ jobs:
             frames/*-replay.md
             frames/*-replay.json
             frames/*-ops.json
+            frames/external-eval.json
             docs/experience/SUMMARY.md
             docs/experience/rules.json
             docs/experience/OPS-CONSENSUS.md
           retention-days: 30
+
+      - name: 准备允许持久化的评测报告
+        if: success()
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force pipeline-export/experience | Out-Null
+          Copy-Item frames/*-replay.md pipeline-export/ -ErrorAction SilentlyContinue
+          Copy-Item frames/*-replay.json pipeline-export/ -ErrorAction SilentlyContinue
+          Copy-Item frames/*-ops.json pipeline-export/ -ErrorAction SilentlyContinue
+          if (Test-Path frames/external-eval.json) { Copy-Item frames/external-eval.json pipeline-export/ }
+          foreach ($f in @('SUMMARY.md','rules.json','OPS-CONSENSUS.md')) {
+            if (Test-Path "docs/experience/$f") {
+              Copy-Item "docs/experience/$f" "pipeline-export/experience/$f"
+            }
+          }
+
+      - name: 连接长期数据账本
+        if: success()
+        uses: actions/checkout@v4
+        with:
+          ref: automation-data
+          path: .pipeline-state
+          fetch-depth: 0
+
+      - name: 持久化评测批次（明确标记为未独立验证）
+        if: success()
+        shell: pwsh
+        run: |
+          python tools/pipeline/persist_batch.py --kind evaluation --input-dir pipeline-export --state-dir .pipeline-state

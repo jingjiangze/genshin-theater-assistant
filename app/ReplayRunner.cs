@@ -24,7 +24,7 @@ internal static class ReplayRunner
         public int Act;
         public int StableAct;
         public int RawAct;
-        public int TruthAct;   // 视频自带幕次标签（严格含'幕'）→ 当标准答案
+        public int TruthAct;   // 同帧底部条带 OCR 代理标签；与输入图像耦合，非独立真值
         public string BandText = "";
         public string Kind = "";
         public string Header = "";
@@ -75,7 +75,7 @@ internal static class ReplayRunner
                     : ocr.RecognizeRegionAsync(img, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
 
                 var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
-                // 标准答案：底部条带里**严格**读到「第N幕」才算（视频本身的操作/标签，不是我们的推断）
+                // 视觉代理标签：从同一输入帧的底部条带 OCR 提取，只用于自洽性诊断，不是独立真值
                 int truthAct = 0;
                 if (!string.IsNullOrEmpty(band))
                 {
@@ -144,7 +144,7 @@ internal static class ReplayRunner
                 flips.Add($"{steps[i - 2].Kind}/{steps[i - 1].Kind} @ {steps[i].Frame}");
         }
 
-        // ---- 对答案：只在"视频给出了真值"的帧上算准确率 ----
+        // ---- 视觉条带代理自洽性：标签与预测来自同一帧，不得当作独立准确率 ----
         var truthFrames = steps.Where(s => s.TruthAct > 0).ToList();
         var wrong = truthFrames.Where(s => s.Act != s.TruthAct).ToList();
         int missed = truthFrames.Count(s => s.Act == 0);
@@ -162,11 +162,12 @@ internal static class ReplayRunner
         {
             "# 视频模拟运行报告",
             "",
+            "- 标签来源：同一输入帧底部条带 OCR；与预测输入耦合，不用于知识晋级。",
             $"- 帧数：{steps.Count}（按文件名排序模拟时间顺序）",
             $"- 总耗时：{sw.ElapsedMilliseconds} ms（平均 {sw.ElapsedMilliseconds / Math.Max(1, steps.Count)} ms/帧）",
             $"- 本帧识别到幕次：{steps.Count(s => s.RawAct > 0)} 帧；沿用上一帧：{steps.Count(s => s.RawAct == 0 && s.Act > 0)} 帧",
-            $"- **对答案·稳定后**：有真值 {truthFrames.Count} 帧，判对 {truthFrames.Count - wrong.Count}，准确率 **{acc:0.0}%**（漏判 {missed}）",
-            $"- **对答案·原始识别**：准确率 **{rawAcc:0.0}%**（判对 {truthFrames.Count - rawWrong.Count}）",
+            $"- **视觉条带代理·稳定后**：有代理标签 {truthFrames.Count} 帧，自洽率 **{acc:0.0}%**（漏判 {missed}）",
+            $"- **视觉条带代理·原始识别**：自洽率 **{rawAcc:0.0}%**（一致 {truthFrames.Count - rawWrong.Count}）",
             rawWrong.Count > 0
               ? $"- 原始错例（前 8 条）：{string.Join("；", rawWrong.Take(8).Select(s => $"{s.Frame}: 原始={s.RawAct}/真值={s.TruthAct}/条带『{s.BandText}』"))}"
               : "- 原始错例：无",

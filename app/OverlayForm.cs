@@ -146,6 +146,13 @@ internal static class Program
                         return Routine.RunCli(ra);
                     }
 
+                // 多幕规划：--plan-theater --difficulty Lunar --roster roster.json --out plan.md
+                case "--plan-theater":
+                    return ActPlanner.RunCli(
+                        Opt(args, "--difficulty") ?? "Visionary",
+                        Opt(args, "--roster"),
+                        Opt(args, "--out"));
+
                 // 本地日志读角色数据（只读日志、只取角色字段）
                 case "--log-scan":
                     return LogScan.Run(args.Length >= 2 && !args[1].StartsWith("--", StringComparison.Ordinal) ? args[1] : null,

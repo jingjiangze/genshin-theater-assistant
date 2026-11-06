@@ -1,0 +1,50 @@
+name: auto-release
+
+on:
+  push:
+    branches:
+      - automation/cloud-auto-evolution
+    paths:
+      - .github/workflows/auto-release.yml
+  workflow_dispatch:
+  schedule:
+    - cron: '30 8 * * *'
+  workflow_run:
+    workflows: ["knowledge-extract"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: knowledge-ledger-writes
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Checkout immutable knowledge ledger
+        uses: actions/checkout@v4
+        with:
+          ref: automation-data
+          path: .pipeline-state
+          fetch-depth: 0
+
+      - name: Verify release gates and atomically promote or roll back
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/pipeline/release_knowledge.py \
+            --ledger-repo .pipeline-state \
+            --registry .pipeline-state/.pipeline-state/knowledge/registry.json \
+            --releases-dir .pipeline-state/.pipeline-state/knowledge/releases \
+            --active-pointer .pipeline-state/.pipeline-state/knowledge/active.json \
+            --health-report .pipeline-state/.pipeline-state/knowledge/post-release-health.json

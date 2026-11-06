@@ -5,11 +5,11 @@ namespace TheaterAssistant;
 
 /// <summary>
 /// 把一批 --replay 产物"蒸馏"成可复用的经验：
-///   · 数字面：真值帧数、准确率（原始/稳定）、跳变、状态分布、每帧耗时、检索命中率；
+///   · 数字面：视觉代理标签帧数、自洽率（原始/稳定）、跳变、状态分布、每帧耗时、检索命中率；
 ///   · 规则面：写出 docs/experience/SUMMARY.md 与 rules.json，供人和程序共同引用。
 ///
 /// 目的：每跑一批真实视频，就把结论沉淀一次；后续判断可以直接引用"经验"而不是重新试错。
-/// 注意：这只是**统计与规则沉淀**，不会自动改阈值——改阈值仍要人审（避免用噪声自我强化）。
+/// 注意：这只是**统计与规则沉淀**；条带 OCR 标签与预测输入耦合，只能用于自洽性诊断，不能作为独立准确率或知识晋级依据。
 /// </summary>
 internal static class Distiller
 {
@@ -97,14 +97,14 @@ internal static class Distiller
         var md = new StringBuilder();
         md.AppendLine("# 经验汇总（自动蒸馏）");
         md.AppendLine();
-        md.AppendLine($"> 由 `--distill` 从 {reports.Count} 份 **replay** 报告生成（已排除 `*-ops.json` 候选文件）；数字是实测，不是估计。");
+        md.AppendLine($"> 由 `--distill` 从 {reports.Count} 份 **replay** 报告生成（已排除 `*-ops.json` 候选文件）；条带 OCR 代理标签与预测输入耦合，不能视为独立真值。");
         md.AppendLine();
         md.AppendLine("| 指标 | 数值 |");
         md.AppendLine("|---|---|");
         md.AppendLine($"| 视频/报告数 | {reports.Count} |");
         md.AppendLine($"| 帧数合计 | {frames} |");
-        md.AppendLine($"| 有真值帧 | {truth}（覆盖率 {(frames == 0 ? 0 : 100.0 * truth / frames):0.0}%） |");
-        md.AppendLine($"| 幕次准确率（平稳后 / 原始） | **{accStable:0.0}% / {accRaw:0.0}%** |");
+        md.AppendLine($"| 有视觉代理标签帧 | {truth}（覆盖率 {(frames == 0 ? 0 : 100.0 * truth / frames):0.0}%） |");
+        md.AppendLine($"| 视觉条带代理自洽率（稳定后 / 原始） | **{accStable:0.0}% / {accRaw:0.0}%** |");
         md.AppendLine($"| 跨幕跳变 | {jumps} 次 |");
         md.AppendLine($"| 状态抖动 | {flips} 次 |");
         md.AppendLine($"| 平均每帧耗时 | {(frames == 0 ? 0 : ms / frames)} ms |");
@@ -112,7 +112,7 @@ internal static class Distiller
         md.AppendLine();
         md.AppendLine("## 逐视频");
         md.AppendLine();
-        md.AppendLine("| 报告 | 帧 | 真值帧 | 准确率(稳/原) | 跳变 | 抖动 |");
+        md.AppendLine("| 报告 | 帧 | 代理标签帧 | 自洽率(稳/原) | 跳变 | 抖动 |");
         md.AppendLine("|---|---|---|---|---|---|");
         foreach (var r in reports)
         {
@@ -148,7 +148,7 @@ internal static class Distiller
             perReport = reports.Select(r => new { r.File, r.Frames, r.TruthFrames, r.StableRight, r.RawRight, r.Jumps, r.Flips }),
         }, TemplateFactory.JsonOpts), Encoding.UTF8);
 
-        Cli.Say($"蒸馏 {reports.Count} 份报告 → 帧 {frames}，真值帧 {truth}，准确率 {accStable:0.0}%（稳定）/ {accRaw:0.0}%（原始），跳变 {jumps}，抖动 {flips}");
+        Cli.Say($"蒸馏 {reports.Count} 份报告 → 帧 {frames}，代理标签帧 {truth}，自洽率 {accStable:0.0}%（稳定）/ {accRaw:0.0}%（原始），跳变 {jumps}，抖动 {flips}");
         Cli.Say("已写: " + mdPath);
         Cli.Say("已写: " + jsonPath);
         return 0;
