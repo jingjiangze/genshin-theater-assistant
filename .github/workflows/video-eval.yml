@@ -39,7 +39,11 @@ on:
     - cron: '0 5 * * *'   # 每天 05:00 UTC（对答案回归）
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: theater-pipeline-state
+  cancel-in-progress: false
 
 jobs:
   eval:
@@ -180,3 +184,31 @@ jobs:
             docs/experience/rules.json
             docs/experience/OPS-CONSENSUS.md
           retention-days: 30
+
+      - name: 准备允许持久化的评测报告
+        if: success()
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force pipeline-export/experience | Out-Null
+          Copy-Item frames/*-replay.md pipeline-export/ -ErrorAction SilentlyContinue
+          Copy-Item frames/*-replay.json pipeline-export/ -ErrorAction SilentlyContinue
+          Copy-Item frames/*-ops.json pipeline-export/ -ErrorAction SilentlyContinue
+          foreach ($f in @('SUMMARY.md','rules.json','OPS-CONSENSUS.md')) {
+            if (Test-Path "docs/experience/$f") {
+              Copy-Item "docs/experience/$f" "pipeline-export/experience/$f"
+            }
+          }
+
+      - name: 连接长期数据账本
+        if: success()
+        uses: actions/checkout@v4
+        with:
+          ref: automation-data
+          path: .pipeline-state
+          fetch-depth: 0
+
+      - name: 持久化评测批次（明确标记为未独立验证）
+        if: success()
+        shell: pwsh
+        run: |
+          python tools/pipeline/persist_batch.py --kind evaluation --input-dir pipeline-export --state-dir .pipeline-state
