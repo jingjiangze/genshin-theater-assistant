@@ -36,6 +36,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: video-ingest-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ingest:
     runs-on: ubuntu-latest
