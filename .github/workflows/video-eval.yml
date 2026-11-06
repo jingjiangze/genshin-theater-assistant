@@ -124,11 +124,11 @@ jobs:
             node hd.mjs $bv "every=$every" "max=$max" "out=../../frames/$bv"
           }
 
-      - name: 逐视频评测（对答案）
+      - name: 逐视频视觉代理回归（非独立真值）
         shell: pwsh
         run: |
           chcp 65001 > $null
-          $minAcc = [double]"${{ github.event.inputs.min-acc }}"
+          $minAcc = [double]"${{ github.event.inputs['min-acc'] }}"
           if (-not $minAcc) { $minAcc = 0 }
           $summary = @()
           foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
@@ -148,7 +148,7 @@ jobs:
             }
             $accText = if ($truth -eq 0) { "n/a（无代理标签帧）" } else { "$acc%（代理自洽）" }
             $summary += "| $bv | $accText | exit=$($p.ExitCode) |"
-            # 该指标来自同帧底部条带 OCR，只作自洽性告警，不是独立真值，也不阻断独立评测。
+            # 该指标来自同帧底部条带 OCR，只作自洽性告警，不是独立真值，也不阻断外部文本评测。
             if ($minAcc -gt 0 -and $truth -gt 0 -and $acc -lt $minAcc) { Write-Host "::warning::$bv 视觉代理自洽率 $acc%（代理标签帧 $truth）低于诊断阈值 $minAcc%" }
           }
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 视觉条带代理自洽性（非独立准确率）"
