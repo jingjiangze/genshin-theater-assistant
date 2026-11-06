@@ -43,7 +43,10 @@ def eligible(candidate: dict) -> bool:
         and int(verification.get("holdout_samples") or 0) >= 20
         and isinstance(verification.get("strategy_success_rate"), (int, float))
         and isinstance(verification.get("baseline_strategy_success_rate"), (int, float))
+        and 0.0 <= verification["strategy_success_rate"] <= 1.0
+        and 0.0 <= verification["baseline_strategy_success_rate"] <= 1.0
         and verification["strategy_success_rate"] >= verification["baseline_strategy_success_rate"]
+        and verification.get("counter_evidence_resolved") is True
     )
 
 
