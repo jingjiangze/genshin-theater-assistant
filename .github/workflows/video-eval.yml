@@ -9,6 +9,11 @@
 #   keyword / videos / every / max / min-acc
 
 on:
+  push:
+    branches:
+      - automation/cloud-auto-evolution
+    paths:
+      - .github/workflows/video-eval.yml
   workflow_dispatch:
     inputs:
       bvids:
@@ -40,6 +45,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: video-eval-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   eval:
@@ -89,7 +98,7 @@ jobs:
           $bvs = "${{ github.event.inputs.bvids }}"
           if (-not $bvs) {
             $kw = "${{ github.event.inputs.keyword }}"; if (-not $kw) { $kw = '幻想真境剧诗 月谕 攻略 全程' }
-            $n  = "${{ github.event.inputs.videos }}"; if (-not $n) { $n = '2' }
+            $n  = "${{ github.event_name == 'push' && '1' || github.event.inputs.videos || '2' }}"; if (-not $n) { $n = '2' }
             cd tools\video-frames
             $json = node search.mjs "$kw" $n
             $j = ($json -join "`n") | ConvertFrom-Json
@@ -115,8 +124,8 @@ jobs:
           BILI_COOKIE: ${{ secrets.BILI_COOKIE }}
         run: |
           if (-not $env:BILI_COOKIE) { throw "缺少 secret BILI_COOKIE" }
-          $every = "${{ github.event.inputs.every }}"; if (-not $every) { $every = '5' }
-          $max   = "${{ github.event.inputs.max }}";   if (-not $max)   { $max   = '200' }
+          $every = "${{ github.event_name == 'push' && '8' || github.event.inputs.every || '5' }}"; if (-not $every) { $every = '5' }
+          $max   = "${{ github.event_name == 'push' && '20' || github.event.inputs.max || '200' }}"; if (-not $max) { $max = '200' }
           New-Item -ItemType Directory -Force frames | Out-Null
           cd tools\video-frames
           foreach ($bv in "$env:BVS".Split(' ', [System.StringSplitOptions]::RemoveEmptyEntries)) {
