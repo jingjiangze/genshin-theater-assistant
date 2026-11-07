@@ -92,7 +92,7 @@ internal static class Playbook
                 var status = Str(c, "status");
                 if (status is { Length: > 0 } && status != "VERIFIED") continue;
                 var text = Str(c, "text");
-                var m = Regex.Match(text, @"第s*(d{1,2})s*幕s*推荐s*([一-鿿]{2,8})");
+                var m = Regex.Match(text, @"第\s*(\d{1,2})\s*幕\s*推荐\s*([\u4e00-\u9fff]{2,8})");
                 if (!m.Success) continue;
                 if (!int.TryParse(m.Groups[1].Value, out var act) || act < 1 || act > 12) continue;
                 var creators = c.TryGetProperty("independent_creator_count", out var ic) && ic.ValueKind == JsonValueKind.Number
