@@ -169,14 +169,27 @@ internal static class QuantData
             if (File.Exists(charactersPath))
             {
                 using var doc = JsonDocument.Parse(File.ReadAllText(charactersPath));
-                if (doc.RootElement.TryGetProperty("elements", out var els) && els.ValueKind == JsonValueKind.Object)
+                var root = doc.RootElement;
+
+                // characters 是 {英文名: "元素"}；zhNames 是 {英文名: 中文名}
+                // 必须做英文→中文的反转，否则用中文名（行秋/菲谢尔）查不到元素，
+                // 覆盖永远为 0、评分恒等于基线（断言「评分单调性」抓到过）。
+                var enToElement = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                if (root.TryGetProperty("characters", out var chars) && chars.ValueKind == JsonValueKind.Object)
+                    foreach (var e in chars.EnumerateObject())
+                        if (e.Value.ValueKind == JsonValueKind.String && e.Value.GetString() is { Length: > 0 } el)
+                        {
+                            enToElement[e.Name] = el;
+                            _elementOf[e.Name] = el;
+                        }
+                if (root.TryGetProperty("elements", out var els) && els.ValueKind == JsonValueKind.Object)
                     foreach (var e in els.EnumerateObject())
                         if (e.Value.ValueKind == JsonValueKind.String && e.Value.GetString() is { Length: > 0 } s)
                             _elementOf[e.Name] = s;
-                if (doc.RootElement.TryGetProperty("zhNames", out var zh) && zh.ValueKind == JsonValueKind.Object)
+                if (root.TryGetProperty("zhNames", out var zh) && zh.ValueKind == JsonValueKind.Object)
                     foreach (var e in zh.EnumerateObject())
                         if (e.Value.ValueKind == JsonValueKind.String && e.Value.GetString() is { Length: > 0 } cn)
-                            _elementOf.TryAdd(cn, "");   // 中文名可查，元素可能为空
+                            _elementOf[cn] = enToElement.TryGetValue(e.Name, out var el2) ? el2 : "";
             }
             if (File.Exists(substitutesPath))
             {

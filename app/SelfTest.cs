@@ -407,6 +407,11 @@ internal static class SelfTest
             }
             return tp;
         }
+        // 中文名 → 元素必须能查到：characters.json 是 {英文名:"元素"} + {英文名:中文名}，要做反转
+        Check("量化·中文名可解析元素",
+            QuantData.ElementOf("菲谢尔") == "Electro" && QuantData.ElementOf("行秋") == "Hydro",
+            $"菲谢尔={QuantData.ElementOf("菲谢尔")} 行秋={QuantData.ElementOf("行秋")}");
+
         var sNone = QuantScorer.Score(enemy3, MakeTeam(new[] { "钟离" }), 3);       // 无 Electro
         var sSome = QuantScorer.Score(enemy3, MakeTeam(new[] { "菲谢尔" }), 3);     // 1 个 Electro
         var sFull = QuantScorer.Score(enemy3, MakeTeam(new[] { "菲谢尔", "雷电将军" }), 3); // 2 个 Electro
