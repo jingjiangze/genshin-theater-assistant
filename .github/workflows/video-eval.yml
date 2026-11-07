@@ -26,6 +26,10 @@ on:
         description: '搜索关键词（bvids 为空时使用）'
         required: false
         default: '幻想真境剧诗 纯净流 全程'
+      period:
+        description: '目标赛季周期 YYYY-MM（只用于纯净源排序，不做过滤）'
+        required: false
+        default: '2026-11'
       videos:
         description: '搜索取前 N 个（默认 50，覆盖当前版本）'
         required: false
@@ -105,6 +109,8 @@ jobs:
             # 视频数量：默认 50（此前 push=1 / 默认=2 是并行分支烟测遗留，导致覆盖严重不足）
             $n  = "${{ github.event.inputs.videos || '50' }}"; if (-not $n) { $n = '50' }
             cd tools\video-frames
+            # 目标赛季周期：排序时同周期优先（每个赛季手动上调一次即可）
+            $env:TARGET_PERIOD = "${{ github.event.inputs.period || '2026-11' }}"
             $json = node search.mjs "$kw" $n 8 "$more"
             $j = ($json -join "`n") | ConvertFrom-Json
             if (-not $j.items -or $j.items.Count -eq 0) { throw "搜索没结果（关键词：$kw）" }
