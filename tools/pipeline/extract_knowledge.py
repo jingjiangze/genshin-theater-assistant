@@ -108,7 +108,12 @@ def evidence_key(item: dict) -> str:
 
 def evidence_from_batches(batches_root: Path) -> list[dict]:
     found = []
-    for manifest_path in sorted(batches_root.glob("ingest/*/manifest.json")):
+    # 同时读 ingest 与 evaluation 两类批次：
+    # 50 视频实测跨作者共识 29 条（如「第2幕 推荐 芭芭拉」3 个作者），
+    # 原先只 glob ingest/*，eval 批次的证据完全进不来 -> 永远凑不齐独立作者。
+    manifests = sorted(batches_root.glob("ingest/*/manifest.json")) \
+        + sorted(batches_root.glob("evaluation/*/manifest.json"))
+    for manifest_path in manifests:
         manifest = read_json(manifest_path)
         if manifest.get("status") != "INGESTED":
             continue

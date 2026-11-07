@@ -24,6 +24,7 @@ ALLOWLIST = {
                "no_text_videos.txt"),
     "evaluation": (
         "*-replay.md", "*-replay.json", "external-eval.json", "*-ops.json",
+        "*/meta.json",
         "experience/SUMMARY.md", "experience/rules.json",
         "experience/OPS-CONSENSUS.md",
     ),

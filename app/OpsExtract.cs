@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -30,6 +30,31 @@ internal static class OpsExtract
         return null;
     }
 
+    /// <summary>从帧目录旁的 ingest/<bvid>/meta.json 读稳定作者标识（取不到就空，不猜）。</summary>
+    private static (string Id, string Name) ReadCreator(string frameDir, string bvid)
+    {
+        if (string.IsNullOrWhiteSpace(bvid)) return ("", "");
+        foreach (var p in new[]
+        {
+            Path.Combine(frameDir, "ingest", bvid, "meta.json"),
+            Path.Combine(frameDir, bvid, "meta.json"),
+            Path.Combine(Path.GetDirectoryName(frameDir) ?? ".", "ingest", bvid, "meta.json"),
+        })
+        {
+            try
+            {
+                if (!File.Exists(p)) continue;
+                using var doc = System.Text.Json.JsonDocument.Parse(File.ReadAllText(p));
+                var r = doc.RootElement;
+                var id = r.TryGetProperty("creator_id", out var i) ? (i.GetString() ?? "") : "";
+                var nm = r.TryGetProperty("uploader", out var u) ? (u.GetString() ?? "") : "";
+                return (id, nm);
+            }
+            catch { }
+        }
+        return ("", "");
+    }
+
     public static int Run(string frameDir, string outPath, string bvid, string actHint)
     {
         Cli.Attach();
@@ -45,6 +70,9 @@ internal static class OpsExtract
         using var ocr = new OcrService();
         ocr.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();
         Cli.Say("OCR: " + ocr.Status);
+
+        // 把作者写进候选：否则 ops.json 无法参与「>=2 独立作者」共识
+        var (creatorId, creatorName) = ReadCreator(frameDir, bvid);
 
         var seen = new HashSet<string>(StringComparer.Ordinal);
         var rows = new List<object>();
@@ -76,6 +104,8 @@ internal static class OpsExtract
                         act = int.TryParse(Regex.Match(line, @"第?\s*(\d{1,2})\s*幕").Groups[1].Value, out var a) ? a
                               : (int.TryParse(actHint, out var ah) ? ah : 0),
                         source = string.IsNullOrEmpty(bvid) ? "scan" : $"{bvid}@{stamp}s",
+                        creator_id = creatorId,
+                        creator_name = creatorName,
                         needsReview = true,
                     });
                 }

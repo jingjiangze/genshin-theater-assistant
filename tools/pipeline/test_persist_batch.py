@@ -357,6 +357,24 @@ class ExtractContextTest(unittest.TestCase):
             self.assertEqual(r.get("role_group"), "HydroApplier")
             self.assertEqual(r["status"], "PROVISIONAL")
 
+    def test_evaluation_batch_evidence_is_read_with_creator(self):
+        # 50 视频实测：跨作者共识 29 条全在 evaluation 批次里，
+        # 原先只 glob ingest/* 导致知识管线永远收不到独立作者证据。
+        root = Path(self.tmp.name)
+        batch = root / "evaluation" / "r1-attempt-1"
+        files = batch / "files"
+        (files / "BVx").mkdir(parents=True)
+        import json
+        (batch / "manifest.json").write_text(json.dumps({
+            "batch_id": "r1-attempt-1", "kind": "evaluation", "status": "INGESTED",
+        }), encoding="utf-8")
+        (files / "BVx" / "meta.json").write_text(json.dumps({"platform": "bilibili", "creator_id": "bilibili:42", "season": 29, "version": "7.1"}), encoding="utf-8")
+        (files / "BVx-ops.json").write_text(json.dumps({"ops": [{"kind": "act_team", "text": "第2幕 推荐 芭芭拉", "act": 2, "channel": "description"}]}), encoding="utf-8")
+        got = extract_knowledge.evidence_from_batches(root)
+        self.assertEqual(len(got), 1)
+        self.assertEqual(got[0]["creator_id"], "bilibili:42")
+        self.assertEqual(got[0]["act"], 2)
+
     def test_missing_context_allows_cross_video_merge(self):
         # 关键回归：season/version 不再为 None，候选 key 才不会按 video_id 拆散
         e = [

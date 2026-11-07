@@ -253,6 +253,15 @@ jobs:
           Copy-Item frames/*-replay.json pipeline-export/ -ErrorAction SilentlyContinue
           Copy-Item frames/*-ops.json pipeline-export/ -ErrorAction SilentlyContinue
           if (Test-Path frames/external-eval.json) { Copy-Item frames/external-eval.json pipeline-export/ }
+          # 作者归属必须一起持久化：否则知识管线拿不到 creator_id，
+          # 「>=2 独立作者」的跨作者共识（50 视频实测 29 条）永远进不了候选区
+          Get-ChildItem frames/ingest -Directory -ErrorAction SilentlyContinue | ForEach-Object {
+            $meta = Join-Path $_.FullName 'meta.json'
+            if (Test-Path $meta) {
+              New-Item -ItemType Directory -Force "pipeline-export/$($_.Name)" | Out-Null
+              Copy-Item $meta "pipeline-export/$($_.Name)/meta.json"
+            }
+          }
           foreach ($f in @('SUMMARY.md','rules.json','OPS-CONSENSUS.md')) {
             if (Test-Path "docs/experience/$f") {
               Copy-Item "docs/experience/$f" "pipeline-export/experience/$f"
