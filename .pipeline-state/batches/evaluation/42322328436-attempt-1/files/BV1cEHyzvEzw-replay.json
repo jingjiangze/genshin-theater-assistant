@@ -1,0 +1,90 @@
+﻿{
+  "frames": 5,
+  "jumps": [],
+  "flips": [
+    "theater/unknown @ BV1cEHyzvEzw-30s-896x1920",
+    "unknown/theater @ BV1cEHyzvEzw-60s-896x1920"
+  ],
+  "steps": [
+    {
+      "Frame": "BV1cEHyzvEzw-0s-896x1920",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "火元系用巴优势",
+      "Kind": "theater",
+      "Header": "剧诗界面 · 来源 OCR",
+      "NextAction": "现在做：点「演出准备」进本，先确认开幕角色用了试用",
+      "Source": "act=?, src=OCR",
+      "TopHit": "界面文案对照（做识别时用）(35.07)",
+      "WouldSpeak": "点「演出准备」进本，先确认开幕角色用了试用",
+      "Boxes": 20,
+      "Ms": 1335
+    },
+    {
+      "Frame": "BV1cEHyzvEzw-120s-896x1920",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "氘燃体，永久挂火，70%",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 34,
+      "Ms": 1637
+    },
+    {
+      "Frame": "BV1cEHyzvEzw-30s-896x1920",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "湖南回复",
+      "Kind": "theater",
+      "Header": "剧诗界面 · 来源 OCR",
+      "NextAction": "现在做：点「演出准备」进本，先确认开幕角色用了试用",
+      "Source": "act=?, src=OCR",
+      "TopHit": "界面文案对照（做识别时用）(35.07)",
+      "WouldSpeak": "点「演出准备」进本，先确认开幕角色用了试用",
+      "Boxes": 36,
+      "Ms": 1558
+    },
+    {
+      "Frame": "BV1cEHyzvEzw-60s-896x1920",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "楼主：很有道理，个\r 头\r 一个要用火烤",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 33,
+      "Ms": 1694
+    },
+    {
+      "Frame": "BV1cEHyzvEzw-90s-896x1920",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "安工\r 复名字不存在：回复阿咪头",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 33,
+      "Ms": 1597
+    }
+  ]
+}

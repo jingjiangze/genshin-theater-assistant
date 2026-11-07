@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 01:58:22",
+  "bvid": "BV1pi421e7Gk",
+  "frames": 8,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "•需要选择18名角色参与挑战",
+      "act": 0,
+      "source": "BV1pi421e7Gk@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

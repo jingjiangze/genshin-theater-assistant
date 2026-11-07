@@ -1,0 +1,189 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 02:00:59",
+  "bvid": "BV1Hc9LBjEmQ",
+  "frames": 7,
+  "candidates": 20,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕奶、8幕自备主c+水系破盾、10幕盾",
+      "act": 6,
+      "source": "BV1Hc9LBjEmQ@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：5幕岩、6幕冰水、7幕冰岩",
+      "act": 5,
+      "source": "BV1Hc9LBjEmQ@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买4水冰祝福",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要的辅助：6幕奶、8幕自备主c+水系破盾、10幕盾",
+      "act": 6,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "缺角色买角色",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要的后台：5幕岩、6幕冰水、7幕冰岩",
+      "act": 5,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：根据主c情况选",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买4冰祝福",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2冰岩2挂件",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要的辅助：6幕奶、8幕白备主c+水系破盾、10幕盾",
+      "act": 6,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹龙兽",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：莱欧斯利+卡齐娜+2挂件",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "强化冰晶祝福，可选择以下两种分支：",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2水冰，买角色",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：莫娜+娜维娅+罗莎莉亚+挂件",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "combo",
+      "text": "莫娜e-罗莎e-莫纳重击*3",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：缺祝福买祝福",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：野伏众",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：岩丘丘王",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：莱欧斯利+行秋+岩后台",
+      "act": 0,
+      "source": "BV1Hc9LBjEmQ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

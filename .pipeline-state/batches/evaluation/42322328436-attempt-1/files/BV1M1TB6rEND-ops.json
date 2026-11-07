@@ -1,0 +1,27 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 01:57:59",
+  "bvid": "BV1M1TB6rEND",
+  "frames": 8,
+  "candidates": 2,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "4级超导2级超载后面就一直选融化了",
+      "act": 0,
+      "source": "BV1M1TB6rEND@s",
+      "creator_id": "362965193",
+      "creator_name": "凝渡_Du",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "然后选出甘雨+迪奥娜+北斗+挂件",
+      "act": 0,
+      "source": "BV1M1TB6rEND@s",
+      "creator_id": "362965193",
+      "creator_name": "凝渡_Du",
+      "needsReview": true
+    }
+  ]
+}

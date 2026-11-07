@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 01:57:52",
+  "bvid": "BV1jJ4m1G7Ex",
+  "frames": 7,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "而且你上场人数至少自己需要出战三种特定元素的",
+      "act": 0,
+      "source": "BV1jJ4m1G7Ex@s",
+      "creator_id": "321594763",
+      "creator_name": "黑椒糖唯酢",
+      "needsReview": true
+    }
+  ]
+}

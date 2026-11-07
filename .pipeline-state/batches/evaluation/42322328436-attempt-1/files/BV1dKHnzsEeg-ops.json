@@ -1,0 +1,36 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 02:01:21",
+  "bvid": "BV1dKHnzsEeg",
+  "frames": 7,
+  "candidates": 3,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "BUFF：水岩BUFF选左，感电BUFF2左4右，3幕需1级感电，5幕需3级水岩或感电，8幕需3级感电",
+      "act": 3,
+      "source": "BV1dKHnzsEeg@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕诺艾尔、7幕行秋+皇女、9幕那维莱特、10幕卡齐娜",
+      "act": 5,
+      "source": "BV1dKHnzsEeg@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：5幕水岩、8幕岩、9幕雷、10幕水雷",
+      "act": 5,
+      "source": "BV1dKHnzsEeg@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

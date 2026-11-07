@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 02:01:06",
+  "bvid": "BV1cEHyzvEzw",
+  "frames": 5,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "袋，全跟着攻略文字，要我选啥元素角...",
+      "act": 0,
+      "source": "BV1cEHyzvEzw@90s",
+      "creator_id": "3546625460931059",
+      "creator_name": "嘻嘻嘻啦啦啦诶嘿",
+      "needsReview": true
+    }
+  ]
+}

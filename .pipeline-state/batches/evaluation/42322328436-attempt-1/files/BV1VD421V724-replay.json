@@ -1,0 +1,57 @@
+﻿{
+  "frames": 3,
+  "jumps": [],
+  "flips": [
+    "unknown/theater @ BV1VD421V724-60s-1920x1080"
+  ],
+  "steps": [
+    {
+      "Frame": "BV1VD421V724-0s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 2,
+      "Ms": 3578
+    },
+    {
+      "Frame": "BV1VD421V724-30s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "式和【深墙螺施】\r 交替更新",
+      "Kind": "theater",
+      "Header": "剧诗界面 · 来源 OCR",
+      "NextAction": "现在做：点「演出准备」进本，先确认开幕角色用了试用",
+      "Source": "act=?, src=OCR",
+      "TopHit": "界面文案对照（做识别时用）(35.07)",
+      "WouldSpeak": "点「演出准备」进本，先确认开幕角色用了试用",
+      "Boxes": 9,
+      "Ms": 3694
+    },
+    {
+      "Frame": "BV1VD421V724-60s-1920x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "坚溃物白定以方客推荐屋性功",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 8,
+      "Ms": 3716
+    }
+  ]
+}
