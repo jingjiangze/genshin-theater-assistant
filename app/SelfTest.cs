@@ -446,6 +446,11 @@ internal static class SelfTest
         Check("配队·主需求被覆盖（有覆盖证明）", coverOk,
             host3 == null ? "-" : $"需求 {string.Join(",", host3.Need.Keys)}｜覆盖 {string.Join(",", lunarTeam3.Cover.Select(k => k.Key + "×" + k.Value))}");
 
+        // 无元素需求的幕：通用队分数固定 0，不得为负（否则看起来像"不合格"）
+        var noNeed = TeamSolver.Solve(QuantData.Enemy(1, "Lunar"), 1);
+        Check("配队·无需求幕不给负分", noNeed.Team.Count == 4 && noNeed.Score == 0,
+            $"第1幕 {string.Join("/", noNeed.Team)} score={noNeed.Score:0.00} 有元素需求={noNeed.HasElementNeed}");
+
         // 队员必须本季带得动：元素必须在本季开放元素里（防止火/冰角色混进 Hydro/Electro/Geo 赛季）
         var badMembers = new List<string>();
         foreach (var d in QuantData.Difficulties)

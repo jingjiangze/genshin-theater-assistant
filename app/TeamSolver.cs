@@ -155,14 +155,16 @@ internal static class TeamSolver
 
         var needEls = plan.Need.Keys.ToList();
         var why = enemy?.MechanicEffect ?? "";
-        bool needHeal = why.Contains("奶") || why.Contains("治疗") || why.Contains("力竭") || why.Contains("标记");
+        // 注意：力竭是「输出窗口」不是治疗需求，误加会让所有首领幕都硬要 Healer
+        bool needHeal = why.Contains("奶") || why.Contains("治疗") || why.Contains("标记");
         bool needBreak = why.Contains("破锅") || why.Contains("钝击") || why.Contains("破盾") || why.Contains("护盾");
 
         if (_pool.Count < TeamSize) { plan.Gaps.Add("池子不足 4 人"); return plan; }
         if (!plan.HasElementNeed)
         {
             plan.Team = GenericTeam(needHeal, needBreak);
-            plan.Score = 0;
+            plan.Score = 0;          // 无需求 → 分数无意义，固定 0（不施加"浪费元素"惩罚）
+            plan.ScoreMax = 0;
             plan.Reasons.Add("本幕无元素需求 → 通用队（治疗+主C+兜底）");
             FillCover(plan);
             return plan;
