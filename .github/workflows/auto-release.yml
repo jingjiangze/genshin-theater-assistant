@@ -57,3 +57,35 @@ jobs:
           d=json.load(open('release-decision.json',encoding='utf-8'))
           print(f"action={d.get('action')} reason={d.get('reason','')} release={d.get('release_id','')} candidates={d.get('candidate_count','')}")
           PY
+
+      # 把当前生效的 release 发布到主仓，客户端才能读到「云端已验证知识」
+      - name: Publish active knowledge release to main repo
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTIVE=".pipeline-state/.pipeline-state/knowledge/active.json"
+          [ -f "$ACTIVE" ] || { echo "no active release; skip"; exit 0; }
+          RID=$(python -c "import json;print(json.load(open('$ACTIVE',encoding='utf-8-sig')).get('release_id',''))")
+          [ -n "$RID" ] || { echo "no release_id; skip"; exit 0; }
+          SRC=".pipeline-state/.pipeline-state/knowledge/releases/$RID/knowledge.json"
+          [ -f "$SRC" ] || { echo "release file missing: $SRC"; exit 0; }
+          mkdir -p data
+          cp "$SRC" data/knowledge-release.json
+          python - "$RID" <<'PY'
+          import json, sys, datetime
+          path = "data/knowledge-release.json"
+          doc = json.load(open(path, encoding="utf-8-sig"))
+          doc["published_to_main"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+          doc["source"] = "automation-data/knowledge/releases/" + sys.argv[1]
+          json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+          print("publish items =", len(doc.get("candidates") or []))
+          PY
+          git config user.name "theater-automation[bot]"
+          git config user.email "theater-automation[bot]@users.noreply.github.com"
+          git add data/knowledge-release.json
+          git diff --cached --quiet && { echo "no change"; exit 0; }
+          git commit -m "data: publish verified knowledge release $RID"
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then break; fi
+            sleep 5; git pull --rebase origin main || true
+          done

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace TheaterAssistant;
 
@@ -26,6 +27,8 @@ internal static class Playbook
 
     private static readonly Dictionary<int, ActEntry> _acts = new();
     private static readonly Dictionary<string, string> _kinds = new(StringComparer.Ordinal);
+    /// <summary>云端已验证知识：act → "推荐角色 · 作者数 · 周期"。来源 data/knowledge-release.json。</summary>
+    private static readonly Dictionary<int, string> _verified = new();
     private static bool _loaded;
 
     public static bool Loaded => _loaded;
@@ -69,8 +72,45 @@ internal static class Playbook
                     _acts[act] = e;
                 }
             _loaded = _acts.Count > 0;
+            LoadVerified(Path.Combine(Path.GetDirectoryName(path) ?? ".", "knowledge-release.json"));
         }
         catch { _loaded = false; }
+    }
+
+    /// <summary>读云端发布的知识（每幕一条「第N幕 推荐 X」），只认 status=VERIFIED 的条目。</summary>
+    private static void LoadVerified(string releasePath)
+    {
+        _verified.Clear();
+        try
+        {
+            if (!File.Exists(releasePath)) return;
+            using var doc = JsonDocument.Parse(File.ReadAllText(releasePath));
+            if (!doc.RootElement.TryGetProperty("candidates", out var arr) || arr.ValueKind != JsonValueKind.Array) return;
+            foreach (var c in arr.EnumerateArray())
+            {
+                if (c.ValueKind != JsonValueKind.Object) continue;
+                var status = Str(c, "status");
+                if (status is { Length: > 0 } && status != "VERIFIED") continue;
+                var text = Str(c, "text");
+                var m = Regex.Match(text, @"第s*(d{1,2})s*幕s*推荐s*([一-鿿]{2,8})");
+                if (!m.Success) continue;
+                if (!int.TryParse(m.Groups[1].Value, out var act) || act < 1 || act > 12) continue;
+                var creators = c.TryGetProperty("independent_creator_count", out var ic) && ic.ValueKind == JsonValueKind.Number
+                    ? ic.GetInt32() : 0;
+                var period = Str(c, "period");
+                _verified[act] = $"{m.Groups[2].Value}（{creators} 位作者共识{(period.Length > 0 ? " · " + period : "")}）";
+            }
+        }
+        catch { }
+    }
+
+    public static int VerifiedCount => _verified.Count;
+
+    /// <summary>云端已验证的该幕推荐；没有返回 null。</summary>
+    public static string VerifiedFor(int? act)
+    {
+        if (!act.HasValue || !_verified.TryGetValue(act.Value, out var v)) return null;
+        return $"云端已验证：第{act}幕 推荐 {v}";
     }
 
     /// <summary>首领机制提示；没有返回 null（不是空串，调用方能区分"没有"与"空内容"）。</summary>

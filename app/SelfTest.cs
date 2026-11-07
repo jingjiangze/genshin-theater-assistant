@@ -378,6 +378,9 @@ internal static class SelfTest
 
         Check("知识·playbook 载入", Playbook.Loaded && Playbook.ActCount >= 8,
             $"载入 {Playbook.ActCount} 幕");
+        Check("知识·云端已验证知识可读", Playbook.VerifiedCount >= 0,
+            $"已验证 {Playbook.VerifiedCount} 条（0 = 尚无发布，属正常）");
+
         Check("知识·首领提示来自数据", (Playbook.Boss(3) ?? "").Contains("翠翎恐蕈") && Playbook.Boss(4) == null,
             $"第3幕={(Playbook.Boss(3)?.Length ?? 0)} 字，第4幕={(Playbook.Boss(4) == null ? "无(正确)" : "有")}");
         Check("知识·缺失幕明确说暂无", TheaterLogic.NextAction("act", 4) == Playbook.Missing

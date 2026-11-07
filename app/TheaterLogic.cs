@@ -442,6 +442,10 @@ internal static class TheaterLogic
         // 一句话结论永远放第一行：用户要的是"现在做什么"，不是读完一段分析
         var next = NextAction(kind, act);
         if (!string.IsNullOrEmpty(next)) lines.Insert(0, "▶ " + next);
+        // 云端发布链验证过的该幕推荐（2+ 独立作者 + 固定 holdout 通过）优先展示，
+        // 与本地 playbook 并列：数据来自 automation-data 的 VERIFIED release。
+        var verified = Playbook.VerifiedFor(act);
+        if (!string.IsNullOrEmpty(verified)) lines.Insert(0, "★ " + verified);
         var elig = roster.Eligibility(data);
         if (elig.HasValue)
         {
