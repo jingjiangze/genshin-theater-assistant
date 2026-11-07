@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 14:16:14",
+  "bvid": "BV1ThRyBGECJ",
+  "frames": 8,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "选择圣牌",
+      "act": 0,
+      "source": "BV1ThRyBGECJ@s",
+      "creator_id": "1773208203",
+      "creator_name": "不是脑袋尖尖的阿诺",
+      "needsReview": true
+    }
+  ]
+}

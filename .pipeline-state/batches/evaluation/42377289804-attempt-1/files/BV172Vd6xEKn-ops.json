@@ -1,0 +1,27 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 14:20:08",
+  "bvid": "BV172Vd6xEKn",
+  "frames": 8,
+  "candidates": 2,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕罗莎莉亚+卡齐娜",
+      "act": 5,
+      "source": "BV172Vd6xEKn@0s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：3幕冰后台、7幕高频火或高频冰、10幕破岩盾、月谕牌需盾奶",
+      "act": 3,
+      "source": "BV172Vd6xEKn@0s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    }
+  ]
+}

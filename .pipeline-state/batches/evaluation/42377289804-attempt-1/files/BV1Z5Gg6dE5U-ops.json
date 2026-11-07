@@ -1,0 +1,36 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 14:19:00",
+  "bvid": "BV1Z5Gg6dE5U",
+  "frames": 8,
+  "candidates": 3,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "历经百战的先驱秘源统辖阵列",
+      "act": 0,
+      "source": "BV1Z5Gg6dE5U@s",
+      "creator_id": "3706925199919121",
+      "creator_name": "溜小溜吖",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "先驱秘源統辖阵列",
+      "act": 0,
+      "source": "BV1Z5Gg6dE5U@s",
+      "creator_id": "3706925199919121",
+      "creator_name": "溜小溜吖",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "√开局展开护盾并召唤4个飞",
+      "act": 0,
+      "source": "BV1Z5Gg6dE5U@s",
+      "creator_id": "3706925199919121",
+      "creator_name": "溜小溜吖",
+      "needsReview": true
+    }
+  ]
+}

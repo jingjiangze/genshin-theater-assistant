@@ -1,0 +1,63 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 14:18:38",
+  "bvid": "BV18Jcwz3E1c",
+  "frames": 8,
+  "candidates": 6,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "准备&础战角色选择 借角色难点规划",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@0s",
+      "creator_id": "3546904602348393",
+      "creator_name": "甜醋只有干货",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "准备&出战角色选择借角色难点规划1",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "creator_id": "3546904602348393",
+      "creator_name": "甜醋只有干货",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "准备&出战角色选择借角色难点规划",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "creator_id": "3546904602348393",
+      "creator_name": "甜醋只有干货",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "出战角色(优先级左高右低，默认0命)",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "creator_id": "3546904602348393",
+      "creator_name": "甜醋只有干货",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "必选：兹白/娜维娅/希诺宁/钟离/卡齐娜/叶洛亚/一斗/阿贝多/凝光",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "creator_id": "3546904602348393",
+      "creator_name": "甜醋只有干货",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "非常多动，需要高输出且走位灵活",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@s",
+      "creator_id": "3546904602348393",
+      "creator_name": "甜醋只有干货",
+      "needsReview": true
+    }
+  ]
+}
