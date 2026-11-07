@@ -1,0 +1,23 @@
+﻿{
+  "frames": 1,
+  "jumps": [],
+  "flips": [],
+  "steps": [
+    {
+      "Frame": "BV1SNxW67Ed1-0s-1728x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(10.38)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 11,
+      "Ms": 2368
+    }
+  ]
+}
