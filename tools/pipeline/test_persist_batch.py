@@ -83,7 +83,7 @@ class PersistBatchTests(unittest.TestCase):
         self.assertFalse(manifest["promotion"]["eligible"])
 
     def test_knowledge_context_is_versioned_and_seasons_do_not_merge(self):
-        season, version, inferred = extract_knowledge.extract_context({
+        season, version, inferred, period = extract_knowledge.extract_context({
             "title": "第29期 幻想真境剧诗 7.1全程攻略"
         })
         self.assertEqual(season, 29)
@@ -329,13 +329,13 @@ class ChineseChapterActTest(unittest.TestCase):
 
 class ExtractContextTest(unittest.TestCase):
     def test_explicit_context_is_not_inferred(self):
-        season, version, inferred = extract_knowledge.extract_context(
+        season, version, inferred, period = extract_knowledge.extract_context(
             {"title": "【原神】第 29 期 幻想真境剧诗 7.1 攻略", "description": ""})
         self.assertEqual((season, version), (29, "7.1"))
         self.assertFalse(inferred)
 
     def test_missing_context_uses_repo_season_and_marks_inferred(self):
-        season, version, inferred = extract_knowledge.extract_context(
+        season, version, inferred, period = extract_knowledge.extract_context(
             {"title": "幻想真境剧诗 满花流程", "description": "无版本信息"})
         self.assertEqual(season, 29)
         self.assertEqual(version, "7.1")
@@ -356,6 +356,27 @@ class ExtractContextTest(unittest.TestCase):
         for r in reg["candidates"]:
             self.assertEqual(r.get("role_group"), "HydroApplier")
             self.assertEqual(r["status"], "PROVISIONAL")
+
+    def test_period_prevents_cross_season_merge(self):
+        # 标题里的 (2026年10月)/(2026年02月) 是不同赛季：必须各成一条候选，
+        # 否则不同赛季的策略会被合并、独立作者数虚增（实测踩过）。
+        feb, ver_feb, inf_feb, per_feb = extract_knowledge.extract_context(
+            {"title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年02月)火水岩/低配满花"})
+        oct_, ver_oct, inf_oct, per_oct = extract_knowledge.extract_context(
+            {"title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年10月)水冰风/平民低配满花"})
+        self.assertEqual(per_feb, "2026-02")
+        self.assertEqual(per_oct, "2026-10")
+        self.assertNotEqual(per_feb, per_oct)
+        def ev(period, vid, creator):
+            return {"evidence_id": "e" + vid, "kind": "act_team", "act": 2,
+                    "text": "第2幕 推荐 凯亚", "season": 29, "version": "7.1",
+                    "period": period, "video_id": vid, "creator_id": creator,
+                    "channel": "description", "source": "bilibili:" + vid,
+                    "source_refs": [], "observed_batches": ["b1"]}
+        reg = extract_knowledge.merge_candidates([ev("2026-02", "A", "c1"), ev("2026-10", "B", "c2")])
+        self.assertEqual(reg["candidate_count"], 2, "不同赛季不能合并成一条候选")
+        for c in reg["candidates"]:
+            self.assertEqual(c["status"], "CANDIDATE", "单作者不得晋级")
 
     def test_evaluation_batch_evidence_is_read_with_creator(self):
         # 50 视频实测：跨作者共识 29 条全在 evaluation 批次里，

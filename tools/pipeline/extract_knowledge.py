@@ -32,7 +32,7 @@ def read_json(path: Path) -> dict:
         return {}
 
 
-def extract_context(meta: dict) -> tuple[int | None, str | None, bool]:
+def extract_context(meta: dict) -> tuple[int | None, str | None, bool, str]:
     """返回 (season, version, inferred)。
 
     UP 主标题常不写「第29期 / 7.1」，此时若直接留空，候选 key 会退化成按 video_id
@@ -63,7 +63,13 @@ def extract_context(meta: dict) -> tuple[int | None, str | None, bool]:
         if version is None:
             version = default_version
             inferred = True
-    return season, version, inferred
+    # 赛季周期：标题里通常写「(2026年02月)」「2026年10月」——这是区分不同赛季的硬信息。
+    # 缺了它就会把 2026-02 火水岩 与 2026-10 水冰风 的证据合并成同一条知识（实测踩过）。
+    period_match = re.search(r"(20\d{2})\s*年\s*(\d{1,2})\s*月", text)
+    period = ""
+    if period_match:
+        period = f"{period_match.group(1)}-{int(period_match.group(2)):02d}"
+    return season, version, inferred, period
 
 
 def candidate_role(rec: dict) -> str | None:
@@ -123,7 +129,7 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
             video_id = ops_path.name.removesuffix("-ops.json")
             meta = read_json(files_root / video_id / "meta.json")
             platform = str(meta.get("platform") or "unknown")
-            season, version, context_inferred = extract_context(meta)
+            season, version, context_inferred, period = extract_context(meta)
             raw_creator = meta.get("creator_id")
             meta_creator = str(raw_creator).strip() if raw_creator is not None else ""
             ops_doc = read_json(ops_path)
@@ -153,6 +159,7 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
                     "observed_batches": [batch_id],
                     "video_id": video_id,
                     "platform": platform,
+                    "period": period,
                     "season": season,
                     "version": version,
                     "context_inferred": context_inferred,
@@ -204,9 +211,12 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
 
     for item in evidence:
         context_scope = "" if item.get("season") is not None else str(item.get("video_id") or item.get("batch_id") or item["evidence_id"])
+        # period（YYYY-MM）必须进候选键：否则 2026-02 与 2026-10 两个赛季的策略会被合并，
+        # 独立作者数被虚增（实测「第2幕 推荐 芭芭拉」就是跨赛季凑出来的 3 作者）。
         key = digest("|".join((
             item["kind"], str(item["act"]), str(item.get("season") or ""),
-            str(item.get("version") or ""), context_scope, normalize(item["text"])
+            str(item.get("version") or ""), str(item.get("period") or ""),
+            context_scope, normalize(item["text"])
         )))
         record = records.get(key)
         if record is None:
@@ -217,6 +227,7 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
                 "text": item["text"],
                 "act": item["act"] or None,
                 "season": item.get("season"),
+                "period": item.get("period") or "",
                 "version_range": ({"min": item["version"], "max": item["version"]} if item.get("version") else None),
                 "conditions": [],
                 "steps": [],
@@ -292,6 +303,10 @@ def merge_candidates(evidence: list[dict], existing: dict | None = None) -> dict
         if record.get("status") in {"VERIFIED", "CONFLICTED", "STALE", "REJECTED"}:
             continue
         has_version_context = record.get("season") is not None and record.get("version_range") is not None
+        # 必须有真实赛季周期（标题里的「2026年10月」这类）才能晋级；
+        # 只有 season/version 默认回填、没有 period 的，属于"上下文靠推断"，不许进 PROVISIONAL。
+        has_period = bool(str(record.get("period") or "").strip())
+        has_version_context = has_version_context and has_period
         literal_support = (len(creators) >= 2 and record["unique_video_count"] >= 3
                            and len(record["evidence_ids"]) >= 3)
         group_support = (int(record.get("group_creator_count") or 0) >= 2

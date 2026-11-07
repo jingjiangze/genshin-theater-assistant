@@ -149,20 +149,47 @@ for (const [qi, q] of queries.entries()) {
   }
 }
 
+// 「相关纯净源」打分：优先无解说/无剪辑的完整实录，且赛季要对得上。
+// 分数只用于排序，不删除任何来源——排序依据会写进输出，可审计。
+function relevanceScore(title) {
+  const t = title || '';
+  let s = 0;
+  const has = (re) => re.test(t);
+  // 纯净源特征
+  if (has(/纯净|无解说|无剪辑|原声|全程/)) s += 4;
+  if (has(/实况|解说|吐槽|整活|切片|混剪|合集/)) s -= 3;
+  // 与目标强相关（本玩法/难度）
+  if (has(/幻想真境剧诗|剧诗/)) s += 2;
+  if (has(/月谕|卓越/)) s += 2;
+  // 可执行性：满花/满星/低配是攻略型内容
+  if (has(/满花|满星|低配|平民|试用/)) s += 2;
+  // 赛季相关性：当前赛季周期（可从环境变量覆盖）优先
+  const period = process.env.TARGET_PERIOD || '2026-11';
+  const [yy, mm] = period.split('-');
+  if (new RegExp(`${yy}\s*年\s*0?${Number(mm)}\s*月`).test(t)) s += 5;
+  else if (new RegExp(`${yy}\s*年`).test(t)) s += 1;
+  // 明显是往年赛季的降权（仍保留，供跨赛季对比，但不优先）
+  if (has(/202[0-5]s*年/)) s -= 2;
+  return s;
+}
+
 // 已知作者不足时按「关键词轮转」从未知作者条目补足：
 // 同一关键词按播放量排序常被一个 UP 主占满，轮转能采到不同作者（真实 mid 由 yt-dlp 阶段写）。
+for (const it of all) it.relevance = relevanceScore(it.title);
+all.sort((x, y) => (y.relevance || 0) - (x.relevance || 0));
 const chosen = all.slice(0, want);
 const byQuery = new Map();
 for (const it of fallback) {
   const k = it.query || keyword;
   if (!byQuery.has(k)) byQuery.set(k, []);
-  byQuery.get(k).push(it);
+  byQuery.get(k).push({ ...it, relevance: relevanceScore(it.title) });
 }
 const queues = [...byQuery.values()];
 let round = 0;
 while (chosen.length < want && queues.some(q => q.length > 0)) {
   for (const q of queues) {
     if (chosen.length >= want) break;
+    q.sort((x, y) => (y.relevance || 0) - (x.relevance || 0));
     const it = q.shift();
     if (!it || chosen.some(x => x.bv === it.bv)) continue;
     chosen.push({ ...it, creator_unknown: true });
@@ -173,6 +200,8 @@ while (chosen.length < want && queues.some(q => q.length > 0)) {
 console.log(JSON.stringify({
   keyword, queries, pages: maxPages,
   count: chosen.length,
+  relevance_scored: true,
+  target_period: process.env.TARGET_PERIOD || '2026-11',
   independent_creators: seenAuthors.size,
   creator_unknown_count: chosen.filter(x => x.creator_unknown).length,
   items: chosen,
