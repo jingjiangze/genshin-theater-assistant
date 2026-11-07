@@ -1,0 +1,19 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-07 02:12:16",
+ "bvid": "BV1emx3zgEBJ",
+ "frames": 0,
+ "candidates": 1,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "所有buff选左边，有帮助的话麻烦一键三连~",
+   "act": 0,
+   "source": "bilibili:BV1emx3zgEBJ",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "39477930",
+   "creator_name": "酸菜肉肉泡面子"
+  }
+ ]
+}
