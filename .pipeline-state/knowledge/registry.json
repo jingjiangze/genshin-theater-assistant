@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-07T02:09:19.267427+00:00",
-  "candidate_count": 278,
+  "updated_at": "2026-11-07T02:13:33.050272+00:00",
+  "candidate_count": 315,
   "verified_count": 0,
   "candidates": [
     {
@@ -164,7 +164,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "GeoBreak",
       "group_creator_count": 1,
-      "group_video_count": 1,
+      "group_video_count": 2,
       "unique_video_count": 1
     },
     {
@@ -428,13 +428,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 5,
+      "group_creator_count": 2,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -689,13 +689,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 5,
+      "group_creator_count": 2,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -1118,7 +1118,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_video_count": 8,
       "unique_video_count": 2
     },
     {
@@ -1277,13 +1277,64 @@
         }
       ],
       "independent_creator_count": 1,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 9,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "0e00d736e3a897f0e59cb477957a6352519d1ebd08afe298bc4eccdc01e8a971",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 卡其娜",
+      "act": 1,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "6e7bcaf733437ac46cffb936a421d31569f09ebad44bea445741c7c29cdbc796"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "6e7bcaf733437ac46cffb936a421d31569f09ebad44bea445741c7c29cdbc796",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 卡其娜",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "insufficient versioned independent video/creator evidence",
-      "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 6,
+      "group_creator_count": 0,
+      "group_video_count": 0,
       "unique_video_count": 1
     },
     {
@@ -1546,6 +1597,58 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "16e778aea2f1401e2e71327a83a93327ba90f5e9242095b984525be2edba2b00",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第4幕 推荐 夜兰",
+      "act": 4,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d554ddf996435ef23a24f985a241fa1efb3d2c0edc976febbb353399480d0151"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d554ddf996435ef23a24f985a241fa1efb3d2c0edc976febbb353399480d0151",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第4幕 推荐 夜兰",
+          "act": 4
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "HydroApplier",
+      "group_creator_count": 1,
+      "group_video_count": 1,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "16e800c721a475abfe2272a04784b8699f90a753c1d20ce209d3dfa2a66d93cd",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -1756,7 +1859,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -1867,7 +1970,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -1973,6 +2076,58 @@
       "role_group": "MainDps",
       "group_creator_count": 1,
       "group_video_count": 1,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "217bfdb4377145a781cabf9b06d9135db90a0083eba6b1c93a569cf1660429f5",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 爱诺",
+      "act": 5,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3caf41835c0b1e6aa650d97e179e1efa431158f8ed709f6ff602ac68237cedca"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3caf41835c0b1e6aa650d97e179e1efa431158f8ed709f6ff602ac68237cedca",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 爱诺",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "HydroApplier",
+      "group_creator_count": 1,
+      "group_video_count": 5,
       "unique_video_count": 1
     },
     {
@@ -2105,7 +2260,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_video_count": 5,
       "unique_video_count": 1
     },
     {
@@ -2151,13 +2306,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 6,
+      "group_creator_count": 2,
+      "group_video_count": 9,
       "unique_video_count": 1
     },
     {
@@ -2203,13 +2358,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 5,
+      "group_creator_count": 2,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -2376,6 +2531,82 @@
       "group_creator_count": 1,
       "group_video_count": 1,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "258ec76f551e56295855b0dda94995e52ba9f41c36167b8bd50958e32e1a53bb",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 钟离",
+      "act": 1,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8040c87280375ee8f7f8670c80ad42c6d147d0156b84958e51f1178d9c2b052b",
+        "f87c862f3bc5d0d256565677afdd3243d35b07ec06f0d1502b60f8b196922479"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8040c87280375ee8f7f8670c80ad42c6d147d0156b84958e51f1178d9c2b052b",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 钟离",
+          "act": 1
+        },
+        {
+          "evidence_id": "f87c862f3bc5d0d256565677afdd3243d35b07ec06f0d1502b60f8b196922479",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 钟离",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "GeoBreak",
+      "group_creator_count": 1,
+      "group_video_count": 4,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "279089f0c2aaaebb7bec3f66ccb2a6fed29df644602f47d6396b4b88f706e024",
@@ -2931,6 +3162,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "2c5f9702e3c2a9aee0de90dcd2fbd7b95e80ca9802c5bd8065fa38bd9add738b",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 菲利斯",
+      "act": 5,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "af8254997885a295da89c28838038dae422d04a9877777884731c3a700866e1f"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "af8254997885a295da89c28838038dae422d04a9877777884731c3a700866e1f",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 菲利斯",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "2d45f28a2be240fcb1b7f7852b384474f4e582a1841233aca81aca8f1067b3d4",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -2973,13 +3255,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_creator_count": 2,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -3425,13 +3707,65 @@
         }
       ],
       "independent_creator_count": 1,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 6,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "32105d4a14109df50ef043351ac4953639c33c8938b79cbe2607f02004c12569",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第4幕 推荐 菲谢尔",
+      "act": 4,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "503c5511104ebff27f8f2403832f4caec95f5e531651f722921f4320e62e92fe"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "503c5511104ebff27f8f2403832f4caec95f5e531651f722921f4320e62e92fe",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第4幕 推荐 菲谢尔",
+          "act": 4
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "insufficient versioned independent video/creator evidence",
-      "role_group": "HydroApplier",
+      "role_group": "ElectroApplier",
       "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_video_count": 1,
       "unique_video_count": 1
     },
     {
@@ -3898,7 +4232,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "GeoBreak",
       "group_creator_count": 1,
-      "group_video_count": 2,
+      "group_video_count": 4,
       "unique_video_count": 1
     },
     {
@@ -4295,6 +4629,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "3f561e66a45abff31119f3c963241ea59bde135de7a1e7f330fa53efa5a7b7c6",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 强力外援",
+      "act": 6,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "db0c9dd5749aa4fc779d675490c4ed8a51309b565c3d71977ce5d470584b18b8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "db0c9dd5749aa4fc779d675490c4ed8a51309b565c3d71977ce5d470584b18b8",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 强力外援",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "40b38ec0b7c2ab5d6e2fb8fe971f767dfd12f2cda6b2c46a00c4f91eceb367e4",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -4466,6 +4851,57 @@
           "kind": "act_team",
           "text": "第10幕 推荐 仆人",
           "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "41d4b290278f37c379190bc278944206b94d248872767258d090dd4add993246",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "所有buff选左边，有帮助的话麻烦一键三连~",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f5eb9b67febb27a6956fb994e30ab365c458d00f3d871b2864f3d531d7740690"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f5eb9b67febb27a6956fb994e30ab365c458d00f3d871b2864f3d531d7740690",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1emx3zgEBJ",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:39477930",
+          "creator_name": "酸菜肉肉泡面子",
+          "channel": "description",
+          "source": "bilibili:BV1emx3zgEBJ",
+          "source_refs": [
+            "bilibili:BV1emx3zgEBJ"
+          ],
+          "kind": "buy",
+          "text": "所有buff选左边，有帮助的话麻烦一键三连~",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -4739,6 +5175,108 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "4511546b25c25acb2cb3d4f7a0731b32dd205624ed00333cb74b1eb3d7ea725e",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第4幕 推荐 嘲讽",
+      "act": 4,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8ea047d269356c72643878f075a520b4abe106d743877db6b2cdb07e891ffa9d"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8ea047d269356c72643878f075a520b4abe106d743877db6b2cdb07e891ffa9d",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第4幕 推荐 嘲讽",
+          "act": 4
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "451a0a70fe2c18035ab4b583a659f14d97e025e20b02eb2cde0dcad7c9ca926b",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "需要选出角色：6幕好友高练主C",
+      "act": null,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "33e91d3cf4dd51cb5df3f71ec0f3f1a801261ade08c413973040dcd990c58714"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "33e91d3cf4dd51cb5df3f71ec0f3f1a801261ade08c413973040dcd990c58714",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "buy",
+          "text": "需要选出角色：6幕好友高练主C",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "456e69e19f32bc2f202b6cecfa7bd1ee92c776f5c63b81d518a00eec79d7bd54",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -4815,7 +5353,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "GeoBreak",
       "group_creator_count": 1,
-      "group_video_count": 2,
+      "group_video_count": 3,
       "unique_video_count": 2
     },
     {
@@ -5354,6 +5892,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "5215aec0c021c76355f96c2d571d7461b545a4bf3e55b1302e27a6b61d2a8b09",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 皇女",
+      "act": 3,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "fcbceeba9334e55e6db3e8bbd879257a4bbc3ade4f3ffbc0302fbb5b6622f110"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "fcbceeba9334e55e6db3e8bbd879257a4bbc3ade4f3ffbc0302fbb5b6622f110",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 皇女",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "549b443f9808168b6613bb1bad2fce7e91a7341e10eaa2102e12b7363142999a",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -5718,7 +6307,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_video_count": 5,
       "unique_video_count": 1
     },
     {
@@ -5765,13 +6354,65 @@
         }
       ],
       "independent_creator_count": 1,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 6,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "57f93c65734f72c2529359609019140ec2922f486f9dccf97f7497a8a27e7757",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 钟离",
+      "act": 2,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "6d5cbcc878b29c42ca654b1a934c82ab11daa0df8b27cc587a810fca6da80d31"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "6d5cbcc878b29c42ca654b1a934c82ab11daa0df8b27cc587a810fca6da80d31",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 钟离",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "insufficient versioned independent video/creator evidence",
-      "role_group": "HydroApplier",
+      "role_group": "GeoBreak",
       "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_video_count": 2,
       "unique_video_count": 1
     },
     {
@@ -5960,13 +6601,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 6,
+      "group_creator_count": 2,
+      "group_video_count": 9,
       "unique_video_count": 2
     },
     {
@@ -6377,13 +7018,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 5,
+      "group_creator_count": 2,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -6623,7 +7264,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -6846,6 +7487,58 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "68ced9c2c1be6ec24751edff58a338a59722f249c1804705d4c021d94ab15e1d",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 菲谢尔",
+      "act": 7,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2357b7c756363bd59779459ad13937a07d38600be4226cd0881efd2ae9c9db5c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2357b7c756363bd59779459ad13937a07d38600be4226cd0881efd2ae9c9db5c",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 菲谢尔",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "ElectroApplier",
+      "group_creator_count": 1,
+      "group_video_count": 1,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "6992e1e6acdf3104faabc8415f4a13e8bf30192a3d18252a8b4eaccf6e7d5c89",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -6973,14 +7666,66 @@
         }
       ],
       "independent_creator_count": 1,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 8,
+      "unique_video_count": 2
+    },
+    {
+      "candidate_id": "6ffa9b7f6f1580b800503fa327f62c1b5b15f85e15d98f774b1910a80d9d55ab",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 夜兰",
+      "act": 7,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "63ddb63f6877e5d2f21e974e3a86ae840e9e3198766b6ce863b55eeea39934bc"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "63ddb63f6877e5d2f21e974e3a86ae840e9e3198766b6ce863b55eeea39934bc",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 夜兰",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 7,
-      "unique_video_count": 2
+      "group_video_count": 8,
+      "unique_video_count": 1
     },
     {
       "candidate_id": "71fad6b4e09c0e2611193d43cce8da87792f94eb409d341306cd7d3db2c4ac9e",
@@ -7337,13 +8082,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_creator_count": 2,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -7517,6 +8262,81 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "7c3a4436b455ff5d1161c55fb13253c93500a1f224c41e232e9fa99110fea1da",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 强力外援",
+      "act": 8,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e49ae9414c2602acd0029c50a7d8cb664a30b85fcebf7ce6c24cb6bdbf6e0b15",
+        "c75237a61dc77c937cf56bcf5c5746ae0e75d1cddc56b2fdea6c64e2b5f12ef2"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e49ae9414c2602acd0029c50a7d8cb664a30b85fcebf7ce6c24cb6bdbf6e0b15",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 强力外援",
+          "act": 8
+        },
+        {
+          "evidence_id": "c75237a61dc77c937cf56bcf5c5746ae0e75d1cddc56b2fdea6c64e2b5f12ef2",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 强力外援",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
+    },
+    {
       "candidate_id": "7d1d2328a54d223d73210e649ce2048ffccc42a6cf108b05f3cdc1983ca5e686",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -7612,13 +8432,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_creator_count": 2,
+      "group_video_count": 6,
       "unique_video_count": 1
     },
     {
@@ -7775,13 +8595,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 6,
+      "group_creator_count": 2,
+      "group_video_count": 9,
       "unique_video_count": 1
     },
     {
@@ -7889,6 +8709,58 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "821bbdd9cf106695b979e782e5ec25167676529f5075cc41d165e109fcc755e1",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 卡齐娜",
+      "act": 7,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d48ff09140a2e86bf55cc7fe5403756d3225077d1e0360a1586a864899cd8e0d"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d48ff09140a2e86bf55cc7fe5403756d3225077d1e0360a1586a864899cd8e0d",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 卡齐娜",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "GeoBreak",
+      "group_creator_count": 1,
+      "group_video_count": 1,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "83a721072c34ad0e7c09c33c4df7615dda1270da402ffd09ce6881b15291dfcb",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -7992,13 +8864,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_creator_count": 2,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -8101,7 +8973,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_video_count": 5,
       "unique_video_count": 1
     },
     {
@@ -8146,6 +9018,57 @@
           "kind": "act_team",
           "text": "第8幕 推荐 克洛琳德",
           "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8a753ece33e41591d747a58e6b6394753e4b74f9019b8ccd8715773e6ab86723",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "需要留的后台角色：6幕雷+岩、8幕破岩盾",
+      "act": null,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "36f9efcc7c9208929b21ac69a0ed4c66984ac3b40dd999fd93c6f3ec69096d56"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "36f9efcc7c9208929b21ac69a0ed4c66984ac3b40dd999fd93c6f3ec69096d56",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "action",
+          "text": "需要留的后台角色：6幕雷+岩、8幕破岩盾",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -8653,6 +9576,57 @@
           "kind": "act_team",
           "text": "第2幕 推荐 一斗",
           "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8efa5cc6c6b4f6db4e1a359e8f77ca5db2ed425adab380ab20dd5c263fcc1f6e",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 稍微带点伤害",
+      "act": 5,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "67f194362a6c973f25a04505ea7effb6fae7f881c1207b469afaeca8a97ad336"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "67f194362a6c973f25a04505ea7effb6fae7f881c1207b469afaeca8a97ad336",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 稍微带点伤害",
+          "act": 5
         }
       ],
       "independent_creator_count": 1,
@@ -9318,13 +10292,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_creator_count": 2,
+      "group_video_count": 6,
       "unique_video_count": 1
     },
     {
@@ -9641,6 +10615,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "a066643132ebe654e76d086bf02cc4c9c31e6190582b9129166566334f69b454",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "需要留的后台角色：3幕雷，4幕嘲讽，5幕盾奶",
+      "act": null,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "83fa852c8cbe404d0a767e2e3ea5fa771fd8e8e5e8f7bfcc556dd338141123d0"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "83fa852c8cbe404d0a767e2e3ea5fa771fd8e8e5e8f7bfcc556dd338141123d0",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "action",
+          "text": "需要留的后台角色：3幕雷，4幕嘲讽，5幕盾奶",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "a26c33eb3442f4dd9e19d08d964645079b57796ceea0ea438d79ca0c359c502a",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -9927,6 +10952,106 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "a75fed69d918cc511b233c76135db64f83f767bd60f76be97b0f029e0b29193d",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 爱诺",
+      "act": 3,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c60ad05149eb75a8899870c6a0e38bf713889f529ce82991498c8a138dd41f60",
+        "ad0ca8b1c7718b0f644fc0efc25340d095916533e1a30cd39a42d76b112e30bd",
+        "683cd06a09dcaf577abdc45d915d80e50614f84b2baa24c2f7cc2101d1ed84b7"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c60ad05149eb75a8899870c6a0e38bf713889f529ce82991498c8a138dd41f60",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 爱诺",
+          "act": 3
+        },
+        {
+          "evidence_id": "ad0ca8b1c7718b0f644fc0efc25340d095916533e1a30cd39a42d76b112e30bd",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 爱诺",
+          "act": 3
+        },
+        {
+          "evidence_id": "683cd06a09dcaf577abdc45d915d80e50614f84b2baa24c2f7cc2101d1ed84b7",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 爱诺",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 2,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 8,
+      "unique_video_count": 3
     },
     {
       "candidate_id": "a9209c377ccc7c43225763caac9a207ae8f3215fa5ea51c49603c5356c5664e8",
@@ -10349,6 +11474,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "acabd899b8ec8d70bdf06fee619b0ef7b333829cbc66b8df813853e33934d034",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "第10幕 高练阵容，建议带奶妈，参考阵容：那维莱特",
+      "act": null,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "6755ea73a396378c1b038b109beab1c107002b565ac5d8ba7ff78c2c70347874"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "6755ea73a396378c1b038b109beab1c107002b565ac5d8ba7ff78c2c70347874",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "action",
+          "text": "第10幕 高练阵容，建议带奶妈，参考阵容：那维莱特",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "ad82a2826a586cbed762adcc680c58bb2ffee639b5c2c7a0b0835844c8af512b",
       "knowledge_type": "strategy",
       "kind": "team",
@@ -10389,6 +11565,57 @@
           "kind": "team",
           "text": "队伍：白术+奶妈",
           "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "af2cc110276ca2acf5c4fbe8cde018d4ffa9fbf84c65efa8fcc4d1d5659f6fa3",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 叶洛亚",
+      "act": 8,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "7d6fd742c80f200ee1c61238adb81318c1ae070b388a7749a1ff6d9c38353ae5"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "7d6fd742c80f200ee1c61238adb81318c1ae070b388a7749a1ff6d9c38353ae5",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 叶洛亚",
+          "act": 8
         }
       ],
       "independent_creator_count": 1,
@@ -10530,6 +11757,81 @@
       "group_creator_count": 1,
       "group_video_count": 3,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "b1156efada8aa38d75a6dce12d9134494d177d197d0308178aed53eeb06215de",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 菲林斯",
+      "act": 6,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "0508a0aed900d972b87afdee15da70da859a9869485e4766498a48f886f5bd27",
+        "c049c580e5ffa5c6471a60237efde0add3d7d0ab9438b99bde3bf789a2e1f4ae"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "0508a0aed900d972b87afdee15da70da859a9869485e4766498a48f886f5bd27",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 菲林斯",
+          "act": 6
+        },
+        {
+          "evidence_id": "c049c580e5ffa5c6471a60237efde0add3d7d0ab9438b99bde3bf789a2e1f4ae",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 菲林斯",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 2,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "b13d9507fa8e332fe4171f3c56fc83e637f8ea47a91f9a129207d763bfa193ef",
@@ -10747,6 +12049,105 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "b53790bbee270eaf6cb47bfe61c069e00c530a27c1dcdf69481f15b033a5148c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 菲林斯",
+      "act": 3,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "78b370375c49780cebdbeb2dabcbb473ef3f085022e87f9f751829c5222cbdb3",
+        "b9124f24cc710c45a8a9c388e1ca4d45ceae9460b3e065c8210c72b1e83c92d7",
+        "6bfd153a7cc32dd287a5429a2b4e96a47e114419e8bd36422569f92e84df85b8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "78b370375c49780cebdbeb2dabcbb473ef3f085022e87f9f751829c5222cbdb3",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 菲林斯",
+          "act": 3
+        },
+        {
+          "evidence_id": "b9124f24cc710c45a8a9c388e1ca4d45ceae9460b3e065c8210c72b1e83c92d7",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 菲林斯",
+          "act": 3
+        },
+        {
+          "evidence_id": "6bfd153a7cc32dd287a5429a2b4e96a47e114419e8bd36422569f92e84df85b8",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 菲林斯",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 2,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 3
+    },
+    {
       "candidate_id": "b649452385a8debad49b746a9b517990f11b95327cf07a8e1d8102c7b01df059",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -10903,6 +12304,82 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "b7badcd0e4d55998c80796fcf959164ff06a548f9be83efdfaaa58fae4d59361",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 卡齐娜",
+      "act": 1,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "dad27160267987997b1b8c891713138581a772367522a0003cd06dd793c2c87d",
+        "e32144730c59fff0d294d584464f6ae82484eccd17661a499b9504b567887e4c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "dad27160267987997b1b8c891713138581a772367522a0003cd06dd793c2c87d",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 卡齐娜",
+          "act": 1
+        },
+        {
+          "evidence_id": "e32144730c59fff0d294d584464f6ae82484eccd17661a499b9504b567887e4c",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 卡齐娜",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "GeoBreak",
+      "group_creator_count": 1,
+      "group_video_count": 4,
+      "unique_video_count": 2
+    },
+    {
       "candidate_id": "b831d131be2cfbfdd5d049ff86faee91d735ab2f0a0d463b537d3ef1e42f1865",
       "knowledge_type": "strategy",
       "kind": "buy",
@@ -11054,7 +12531,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "GeoBreak",
       "group_creator_count": 1,
-      "group_video_count": 2,
+      "group_video_count": 4,
       "unique_video_count": 1
     },
     {
@@ -11639,6 +13116,58 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "c2397ac2d7dbd6e450a5cb67099413ba57d03a73f84eb424e58e541a1dfe693a",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 卡齐娜",
+      "act": 3,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "7bc1006a5e531ffe5900f57dd6a26fb963650f5be3dd3995d0a9efb5c3193d62"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "7bc1006a5e531ffe5900f57dd6a26fb963650f5be3dd3995d0a9efb5c3193d62",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 卡齐娜",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "GeoBreak",
+      "group_creator_count": 1,
+      "group_video_count": 3,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "c36466ae6cf1919dc7ad2f035114acce5eb6a656cfafcd54cb4ab726f399f349",
       "knowledge_type": "strategy",
       "kind": "team",
@@ -11845,13 +13374,65 @@
         }
       ],
       "independent_creator_count": 1,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 8,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "c48997bd3782db2534bbea416e38db24b997311fce49e07d7b8830bb4abc34a5",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 钟离",
+      "act": 7,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "dc89c2da6fb917c969da5a0713917a1473ad196bed786e7d50e9e9e90f64a2f4"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "dc89c2da6fb917c969da5a0713917a1473ad196bed786e7d50e9e9e90f64a2f4",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 钟离",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "insufficient versioned independent video/creator evidence",
-      "role_group": "HydroApplier",
+      "role_group": "GeoBreak",
       "group_creator_count": 1,
-      "group_video_count": 5,
+      "group_video_count": 1,
       "unique_video_count": 1
     },
     {
@@ -12040,6 +13621,82 @@
       "group_creator_count": 1,
       "group_video_count": 1,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "c7b723cbfa9cabbeaf1221239cf25101cf89680e3d12b669c22cf575c92ba217",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 菲谢尔",
+      "act": 1,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c18e12f4d08481c4dccf580ff7fe863e45b22604c6a15e2c6e1dc4b7513e28fb",
+        "747bf144d72cb5912a8536ff68df0bbbecc63de9ea44df125e631a1c04f9e710"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c18e12f4d08481c4dccf580ff7fe863e45b22604c6a15e2c6e1dc4b7513e28fb",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 菲谢尔",
+          "act": 1
+        },
+        {
+          "evidence_id": "747bf144d72cb5912a8536ff68df0bbbecc63de9ea44df125e631a1c04f9e710",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 菲谢尔",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "role_group": "ElectroApplier",
+      "group_creator_count": 1,
+      "group_video_count": 2,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "c8138d0383414d1b3715cf48774a9305f68f66d180e83e4b6b8ad2b54a7eb1d3",
@@ -12291,6 +13948,57 @@
           "kind": "buy",
           "text": "不选：丘丘人，法师，龙武士",
           "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "cafc8af808b8bd93a93d05f29308e4af03290502861e1f6e309f178c42d5e280",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 皇女",
+      "act": 1,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2af989a671f7614c2c8a038147bcd4dc23910d50ca275e016669dec2121b3b53"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2af989a671f7614c2c8a038147bcd4dc23910d50ca275e016669dec2121b3b53",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 皇女",
+          "act": 1
         }
       ],
       "independent_creator_count": 1,
@@ -12570,6 +14278,58 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "ce93dfcdf90c62c6329a2932c9bf2b0ddfb9773d0eee5bad4726bd7277c62065",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 夜兰",
+      "act": 1,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d2ddc814c3143b7b0cc9eab9887b45779847a0e5c3f8f2915982ff2bcd8d9040"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d2ddc814c3143b7b0cc9eab9887b45779847a0e5c3f8f2915982ff2bcd8d9040",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 夜兰",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 8,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "d03c147eaacd7704e3ba631d677a5098a6f24155ce0d2fb8fb05ecf0eadd606b",
       "knowledge_type": "strategy",
       "kind": "action",
@@ -12610,6 +14370,57 @@
           "kind": "action",
           "text": "开局：找大哥，找奶妈",
           "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d12c9fce9c1355c53ac093eb0601fa08e8ff23ef91aafdbb34146654ae49776d",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 补伤害的",
+      "act": 2,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "84de8d2ce58f3902913a91c811a7c355154497b764cda82a955c0ecda57f1a42"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "84de8d2ce58f3902913a91c811a7c355154497b764cda82a955c0ecda57f1a42",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 补伤害的",
+          "act": 2
         }
       ],
       "independent_creator_count": 1,
@@ -12671,6 +14482,106 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d22fd513fccea9c97250408ad76e46754f2a433aed6008359cedbba6cd10db9c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 夜兰",
+      "act": 2,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cc57cb0698aed75bae42a36defdb911997c6bf1587f3fa1a13c57ca3574b4118",
+        "1c1c06cfa91bb4930542fc811bafaa2e78ea947d37df8fa6fdc7044560b090c2",
+        "6e92475e5070323aaf0c32707b577540d7e3e6470bc007a137e7891da4e88a75"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cc57cb0698aed75bae42a36defdb911997c6bf1587f3fa1a13c57ca3574b4118",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 夜兰",
+          "act": 2
+        },
+        {
+          "evidence_id": "1c1c06cfa91bb4930542fc811bafaa2e78ea947d37df8fa6fdc7044560b090c2",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 夜兰",
+          "act": 2
+        },
+        {
+          "evidence_id": "6e92475e5070323aaf0c32707b577540d7e3e6470bc007a137e7891da4e88a75",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 夜兰",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 2,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 9,
+      "unique_video_count": 3
     },
     {
       "candidate_id": "d266c47f312f5c574d05262b08d76ce0a656bb86a07ef5759f38f0e1aa08238b",
@@ -13194,6 +15105,57 @@
           "kind": "buy",
           "text": "买角色，破盾，主c，后台",
           "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d8eb662f5841f11ca13a47aa245c7de7cec7a89b867399d7bf6ab21defd8424f",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 莉奈娅",
+      "act": 8,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b381cafae82757e1e4b7485bb7d3cf3eb51309af8bca0b7fcac790cbd3b90f4f"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b381cafae82757e1e4b7485bb7d3cf3eb51309af8bca0b7fcac790cbd3b90f4f",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 莉奈娅",
+          "act": 8
         }
       ],
       "independent_creator_count": 1,
@@ -13777,6 +15739,57 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "e2503e90bd31fa2622359eb459f3f1178e9fd49816dc3ce985cfe3124399fcab",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 高练阵容",
+      "act": 10,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d5828be40738f70fda5ae6447581d01a44066347ec5fc6035f8aa37e63e41c89"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d5828be40738f70fda5ae6447581d01a44066347ec5fc6035f8aa37e63e41c89",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 高练阵容",
+          "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
     },
     {
       "candidate_id": "e3047a50ab013066ae386e86130fa4c973848b2fd839e5ea3d4190c3bded6990",
@@ -14366,6 +16379,57 @@
       "unique_video_count": 2
     },
     {
+      "candidate_id": "edd77d5cfaa2d913c9dae645313016e0e84f0b52af06eb99f15935d94bbab673",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第8幕 推荐 芙芙",
+      "act": 8,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "67748047263e4282ac74066259a4fa8b6e9e1b885e4785883c09af819d84bbf5"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "67748047263e4282ac74066259a4fa8b6e9e1b885e4785883c09af819d84bbf5",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第8幕 推荐 芙芙",
+          "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "ee0a7adbcc8910078eeb0628914190e196e87c99eaf39f2023992deed973884e",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -14408,13 +16472,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_creator_count": 2,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -14466,7 +16530,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 4,
+      "group_video_count": 5,
       "unique_video_count": 1
     },
     {
@@ -14521,6 +16585,82 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "f04d529b1ce04a1b6bad0ef215bacb38e3f5c4ec9470c7e7aac27e54141c9344",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 爱诺",
+      "act": 6,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "f1e5d5387828534e8cc95541ec8da970af2d18dd09226d49bcec6c9e51d13edf",
+        "9586ceb6535b7417430d68d2f71166f165d2e5b129097560971f7f82d909ac29"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "f1e5d5387828534e8cc95541ec8da970af2d18dd09226d49bcec6c9e51d13edf",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 爱诺",
+          "act": 6
+        },
+        {
+          "evidence_id": "9586ceb6535b7417430d68d2f71166f165d2e5b129097560971f7f82d909ac29",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 爱诺",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 2,
+      "status": "PROVISIONAL",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 6,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "f085699f657ca46b3d51dcb571d68008401af7390dfe36ebcf83ff2f2125cece",
@@ -14774,13 +16914,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_creator_count": 2,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -14884,7 +17024,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
@@ -14927,6 +17067,57 @@
           "kind": "act_team",
           "text": "第10幕 推荐 结语",
           "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "f8fc7253850cbe092e85508a684610ac71c1b0c6e880825758f1e6d84b91f81c",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "需要选出角色：5幕自备较弱主C+辅助，8幕好友高练主C，9幕自备较强主C+辅助，月谕2治疗角色",
+      "act": null,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "117bcf0aedc90631c314dbce3a503a69d7acf557668740376f31232b25f4448f"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "117bcf0aedc90631c314dbce3a503a69d7acf557668740376f31232b25f4448f",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "buy",
+          "text": "需要选出角色：5幕自备较弱主C+辅助，8幕好友高练主C，9幕自备较强主C+辅助，月谕2治疗角色",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -15084,13 +17275,13 @@
         }
       ],
       "independent_creator_count": 1,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
-      "status_reason": "insufficient versioned independent video/creator evidence",
+      "status_reason": "season/version context + independent creators for the same role group 'HydroApplier'; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
-      "group_creator_count": 1,
-      "group_video_count": 6,
+      "group_creator_count": 2,
+      "group_video_count": 9,
       "unique_video_count": 1
     },
     {
@@ -15352,7 +17543,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "role_group": "HydroApplier",
       "group_creator_count": 1,
-      "group_video_count": 7,
+      "group_video_count": 8,
       "unique_video_count": 1
     },
     {
