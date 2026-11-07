@@ -112,6 +112,10 @@ def evidence_key(item: dict) -> str:
     # One video/channel/claim is one evidence record across repeated batches and frames.
     return digest("|".join((platform, video_id, channel, kind, text)))
 
+# 可用于抽证据的批次状态：INGESTED（采集成功）与评测批次（标签不足但证据可用）
+USABLE_BATCH_STATUSES = {"INGESTED", "INSUFFICIENT_EXTERNAL_LABELS"}
+
+
 def evidence_from_batches(batches_root: Path) -> list[dict]:
     found = []
     # 同时读 ingest 与 evaluation 两类批次：
@@ -121,7 +125,10 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
         + sorted(batches_root.glob("evaluation/*/manifest.json"))
     for manifest_path in manifests:
         manifest = read_json(manifest_path)
-        if manifest.get("status") != "INGESTED":
+        # evaluation 批次的 status 反映的是「外部标签是否充分」，不是「证据能不能用」：
+        # INSUFFICIENT_EXTERNAL_LABELS 的批次里 ops + meta(作者/赛季) 依然有效，
+        # 之前一律跳过，导致 50 视频的跨作者证据整批进不来（实测卡了很久）。
+        if manifest.get("status") not in USABLE_BATCH_STATUSES:
             continue
         batch_id = manifest.get("batch_id") or manifest_path.parent.name
         files_root = manifest_path.parent / "files"

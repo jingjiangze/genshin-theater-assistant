@@ -357,6 +357,32 @@ class ExtractContextTest(unittest.TestCase):
             self.assertEqual(r.get("role_group"), "HydroApplier")
             self.assertEqual(r["status"], "PROVISIONAL")
 
+    def test_evaluation_batch_with_insufficient_labels_is_still_usable(self):
+        # 50 视频评测批次的 status 是 INSUFFICIENT_EXTERNAL_LABELS，
+        # 但它带着 45 个 meta.json + ops，证据必须能用（否则跨作者永远凑不齐）。
+        import tempfile
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        batch = root / "evaluation" / "r2-attempt-1"
+        files = batch / "files"
+        (files / "BVy").mkdir(parents=True)
+        (batch / "manifest.json").write_text(json.dumps({
+            "batch_id": "r2-attempt-1", "kind": "evaluation",
+            "status": "INSUFFICIENT_EXTERNAL_LABELS",
+        }), encoding="utf-8")
+        (files / "BVy" / "meta.json").write_text(json.dumps({
+            "platform": "bilibili", "creator_id": "431073645",
+            "title": "幻想真境剧诗 月谕难度(2026年11月)水冰风",
+        }), encoding="utf-8")
+        (files / "BVy-ops.json").write_text(json.dumps({"ops": [
+            {"kind": "act_team", "text": "第2幕 推荐 芭芭拉", "act": 2, "channel": "description"},
+        ]}), encoding="utf-8")
+        got = extract_knowledge.evidence_from_batches(root)
+        self.assertEqual(len(got), 1)
+        self.assertEqual(got[0]["period"], "2026-11")
+        self.assertEqual(got[0]["creator_id"], "bilibili:431073645")
+
     def test_period_prevents_cross_season_merge(self):
         # 标题里的 (2026年10月)/(2026年02月) 是不同赛季：必须各成一条候选，
         # 否则不同赛季的策略会被合并、独立作者数虚增（实测踩过）。
