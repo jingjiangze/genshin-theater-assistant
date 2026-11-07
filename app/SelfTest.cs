@@ -494,7 +494,7 @@ internal static class SelfTest
         // 触发词必须只有一份来源：此前 QuantScorer 多算了"力竭"、分配器没有，两边判定不一致
         Check("策略·职能触发词单一来源",
             !DecisionPolicy.NeedsHealer("满条后力竭") && DecisionPolicy.NeedsHealer("被标记要奶满")
-            && DecisionPolicy.NeedsBreaker("16 秒内打碎锅") && !DecisionPolicy.NeedsBreaker("清怪推进"),
+            && DecisionPolicy.NeedsBreaker("16 秒内用岩/钝击把锅打碎") && !DecisionPolicy.NeedsBreaker("清怪推进"),
             $"healer 触发 {DecisionPolicy.HealerTriggerCount} 个；力竭不算治疗需求");
         Check("策略·角色别名归一",
             DecisionPolicy.Canonical("心海") == "珊瑚宫心海" && DecisionPolicy.Canonical("行秋") == "行秋",
