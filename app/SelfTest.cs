@@ -510,11 +510,11 @@ internal static class SelfTest
             $"Lunar={QuantData.MaxAct("Lunar")}幕 Easy={QuantData.MaxAct("Easy")}幕");
 
         // 玩家池适配：给一个小池子，分配只能从这个池子里挑（不再输出"通用最优"）
-        var rosterPath = Path.Combine(AppPaths.Dir, "__selftest_roster.json");
+        var selftestRosterPath = Path.Combine(AppPaths.Dir, "__selftest_roster.json");
         try
         {
-            File.WriteAllText(rosterPath, "{\"characters\":[\"行秋\",\"芭芭拉\",\"五郎\",\"丽莎\"]}", new System.Text.UTF8Encoding(false));
-            var pr = GlobalAllocator.Solve(0, rosterPath);
+            File.WriteAllText(selftestRosterPath, "{\"characters\":[\"行秋\",\"芭芭拉\",\"五郎\",\"丽莎\"]}", new System.Text.UTF8Encoding(false));
+            var pr = GlobalAllocator.Solve(0, selftestRosterPath);
             var picked = pr.Assigns.SelectMany(a => a.Team).Where(nm => !nm.StartsWith("（")).ToList();
             var allowed = new HashSet<string>(new[] { "行秋", "芭芭拉", "五郎", "丽莎" }, StringComparer.Ordinal);
             var outside = picked.Where(nm => !allowed.Contains(nm)).Distinct().ToList();
@@ -522,7 +522,7 @@ internal static class SelfTest
                 picked.Count > 0 && outside.Count == 0,
                 picked.Count == 0 ? "未分配" : $"用到 {picked.Distinct().Count()} 人｜越池 {(outside.Count == 0 ? "无" : string.Join("/", outside))}｜{TeamSolver.LastPoolNote}");
         }
-        finally { try { File.Delete(rosterPath); } catch { } }
+        finally { try { File.Delete(selftestRosterPath); } catch { } }
 
         // buff/三选一随机 → 按策略直接交 ◇模型 通道（不做概率建模）
         var buffWithModel = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
