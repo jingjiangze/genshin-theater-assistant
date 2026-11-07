@@ -492,10 +492,10 @@ internal static class SelfTest
         var lunarNeeds = mainForce.Where(a => a.Difficulty == "Lunar").ToList();
         Check("全局分配·最高难度有需求幕全覆盖",
             lunarNeeds.Count > 0 && lunarNeeds.All(a => a.Score >= a.ScoreMax - 1e-9),
-            lunarNeeds.Count == 0 ? "无 Luna 需求幕" : $"{lunarNeeds.Count} 幕，最低覆盖 {lunarNeeds.Min(a => a.ScoreMax <= 0 ? 1 : a.Score / a.ScoreMax):0.00}");
+            lunarNeeds.Count == 0 ? "无 Luna 需求幕" : string.Join("｜", lunarNeeds.OrderBy(a => a.Act).Select(a => $"第{a.Act}幕 {a.Score:0.00}/{a.ScoreMax:0.00}" + (a.Gaps.Count > 0 ? "(缺" + string.Join("+", a.Gaps) + ")" : ""))));
         var act10 = alloc.Assigns.FirstOrDefault(a => a.Difficulty == "Lunar" && a.Act == 10 && a.UsedMainForce);
         Check("全局分配·治疗硬约束（第10幕）",
-            act10 == null || act10.Team.Any(nm => TeamSolver.Units.Any(u => u.Name == nm && u.Role == "Healer")),
+            act10 == null || act10.Team.Any(nm => TeamSolver.HasRole(nm, "Healer")),
             act10 == null ? "第10幕未分配" : $"{string.Join("/", act10.Team)}");
         Check("全局分配·无需求幕不占主力",
             alloc.Assigns.Any(a => !a.UsedMainForce), alloc.Notes.FirstOrDefault() ?? "");

@@ -150,10 +150,10 @@ internal static class GlobalAllocator
             var why = e.MechanicEffect ?? "";
             bool heal = why.Contains("奶") || why.Contains("治疗") || why.Contains("标记");
             bool brk = why.Contains("破锅") || why.Contains("钝击") || why.Contains("破盾") || why.Contains("护盾");
-            if (heal && !asg.Team.Any(nm => RoleOf(units, nm) == "Healer"))
+            if (heal && !asg.Team.Any(nm => HasRole(units, nm, "Healer")))
             {
                 // 换一个未用的 Healer 进来（同元素优先），把最不重要的元素位挤掉
-                var healer = units.Where(u => !used.Contains(u.Name) && string.Equals(u.Role, "Healer", StringComparison.Ordinal))
+                var healer = units.Where(u => !used.Contains(u.Name) && TeamSolver.RoleHas(u.Role, "Healer"))
                                   .OrderByDescending(u => u.Element == asg.Elements.FirstOrDefault())
                                   .FirstOrDefault();
                 if (healer.Name != null)
@@ -166,9 +166,9 @@ internal static class GlobalAllocator
                 }
                 else asg.Gaps.Add("缺治疗(池内已用完)");
             }
-            if (brk && !asg.Team.Any(nm => RoleOf(units, nm) == "GeoBreak"))
+            if (brk && !asg.Team.Any(nm => HasRole(units, nm, "GeoBreak")))
             {
-                var geo = units.Where(u => !used.Contains(u.Name) && string.Equals(u.Role, "GeoBreak", StringComparison.Ordinal))
+                var geo = units.Where(u => !used.Contains(u.Name) && TeamSolver.RoleHas(u.Role, "GeoBreak"))
                                .FirstOrDefault();
                 if (geo.Name != null && asg.Team.Count < 4)
                 {
@@ -197,14 +197,17 @@ internal static class GlobalAllocator
     private static double Score((string Name, string Element, string Role) u, Slot s)
     {
         double v = 1.0;
-        if (s.NeedHeal && u.Role == "Healer") v += 0.8;
-        if (s.NeedBreak && u.Role == "GeoBreak") v += 0.8;
-        if (u.Role is "MainDps" or "Buffer") v += 0.15;
+        if (s.NeedHeal && TeamSolver.RoleHas(u.Role, "Healer")) v += 0.8;
+        if (s.NeedBreak && TeamSolver.RoleHas(u.Role, "GeoBreak")) v += 0.8;
+        if ((TeamSolver.RoleHas(u.Role, "MainDps") || TeamSolver.RoleHas(u.Role, "Buffer"))) v += 0.15;
         return v;
     }
 
     private static string RoleOf(IReadOnlyList<(string Name, string Element, string Role)> units, string name) =>
         units.FirstOrDefault(u => u.Name == name).Role ?? "";
+
+    private static bool HasRole(IReadOnlyList<(string Name, string Element, string Role)> units, string name, string role) =>
+        TeamSolver.RoleHas(units.FirstOrDefault(u => u.Name == name).Role ?? "", role);
 
     // ---------------- CLI ----------------
 

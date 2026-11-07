@@ -125,7 +125,7 @@ internal static class TeamSolver
                 if (el.Length > 0 && _seasonElements.Count > 0
                     && !_seasonElements.Contains(el, StringComparer.OrdinalIgnoreCase))
                     continue;   // 元素已知且本季不带 → 不进池
-                _pool.Add(new Unit { Name = kv.Key, Element = el, Role = kv.Value, Trial = true });
+                _pool.Add(new Unit { Name = kv.Key, Element = el, Role = string.Join("|", kv.Value), Trial = true });
             }
 
             _pool = _pool.OrderBy(u => u.Name, StringComparer.Ordinal).ToList();
@@ -232,10 +232,10 @@ internal static class TeamSolver
         }
         foreach (var kv in need)
             if (cover.TryGetValue(kv.Key, out var cnt) && cnt > 0) score += kv.Value;
-        if (needHeal && (RoleOf(_pool[a].Name) == "Healer" || RoleOf(_pool[b].Name) == "Healer"
-                      || RoleOf(_pool[c].Name) == "Healer" || RoleOf(_pool[d].Name) == "Healer")) score += 0.15;
-        if (needBreak && (RoleOf(_pool[a].Name) == "GeoBreak" || RoleOf(_pool[b].Name) == "GeoBreak"
-                       || RoleOf(_pool[c].Name) == "GeoBreak" || RoleOf(_pool[d].Name) == "GeoBreak")) score += 0.15;
+        if (needHeal && (RoleHas(_pool[a].Role, "Healer") || RoleHas(_pool[b].Role, "Healer")
+                      || RoleHas(_pool[c].Role, "Healer") || RoleHas(_pool[d].Role, "Healer"))) score += 0.15;
+        if (needBreak && (RoleHas(_pool[a].Role, "GeoBreak") || RoleHas(_pool[b].Role, "GeoBreak")
+                       || RoleHas(_pool[c].Role, "GeoBreak") || RoleHas(_pool[d].Role, "GeoBreak"))) score += 0.15;
         score -= 0.04 * waste;    // 非需求元素占位的轻惩罚，避免"凑元素"
         return score;
     }
@@ -246,8 +246,8 @@ internal static class TeamSolver
         void Take(string role)
         {
             if (team.Count >= TeamSize) return;
-            var u = _pool.FirstOrDefault(x => x.Role == role && !team.Contains(x.Name))
-                 ?? _pool.FirstOrDefault(x => x.Role == role);
+            var u = _pool.FirstOrDefault(x => RoleHas(x.Role, role) && !team.Contains(x.Name))
+                 ?? _pool.FirstOrDefault(x => RoleHas(x.Role, role));
             if (u != null && !team.Contains(u.Name)) team.Add(u.Name);
         }
         if (needHeal) Take("Healer");
@@ -264,6 +264,14 @@ internal static class TeamSolver
     }
 
     private static string RoleOf(string name) => _pool.FirstOrDefault(u => u.Name == name)?.Role ?? "";
+
+    /// <summary>角色是否具备某职能（支持 "HydroApplier|Healer" 这种多职能）。</summary>
+    internal static bool RoleHas(string roles, string role) =>
+        !string.IsNullOrEmpty(roles) && roles.Split('|').Contains(role, StringComparer.Ordinal);
+
+    /// <summary>某角色是否具备某职能（供外部断言/编排使用）。</summary>
+    public static bool HasRole(string name, string role) =>
+        RoleHas(_pool.FirstOrDefault(u => u.Name == name)?.Role ?? "", role);
 
     private static void FillCover(Plan p)
     {
