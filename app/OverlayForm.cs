@@ -187,6 +187,14 @@ internal static class Program
                             (int)OptDouble(args, "--max", 0));
                     break;
 
+                // 赛季注册表（自动发现 data/season*.json，未来赛季无需改代码）
+                case "--seasons":
+                    return SeasonRegistry.RunCli();
+
+                // 决策编排：可计算本地算，随机/未知交 API，语料/规则兜底
+                case "--orchestrate":
+                    return DecisionOrchestrator.RunCli((int)OptDouble(args, "--act", 0), Opt(args, "--difficulty"));
+
                 // 通用最优配队求解（假设全角色 → 排列组合 → 每难度最优）
                 case "--team-solve":
                     return TeamSolver.RunCli(Opt(args, "--difficulty"), (int)OptDouble(args, "--act", 0), Opt(args, "--out"));

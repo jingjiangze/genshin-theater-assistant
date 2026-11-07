@@ -483,6 +483,38 @@ internal static class SelfTest
         Check("配队·每个难度每幕都有解", totalAct > 0 && solved == totalAct,
             $"{solved}/{totalAct} 幕求出 4 人队");
 
+        // 赛季无关：自动发现 data/season*.json，未来赛季丢文件即生效（不改代码/工作流）
+        var seasons = SeasonRegistry.Load();
+        var cur = SeasonRegistry.For(0);
+        Check("赛季·自动发现（未来赛季免改代码）",
+            seasons.Count >= 1 && cur != null && cur.Elements.Count >= 1 && cur.Difficulties.Count >= 1,
+            cur == null ? "无赛季" : $"发现 {seasons.Count} 个｜当前第{cur.Season}赛季 元素{string.Join("/", cur.Elements)} 难度{cur.Difficulties.Count} 幕{cur.ActCount}");
+
+        // 编排器三态：任何一级缺失都必须仍能出指示，且来源标记正确
+        var dOpt = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
+        {
+            Act = 3, Team = generic,
+            Options = new[]
+            {
+                new ChoiceDecider.Option { Index = 1, Raw = "战斗·普通" },
+                new ChoiceDecider.Option { Index = 2, Raw = "伙伴" },
+            },
+        });
+        var dLlm = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
+        {
+            Act = 3, Enemy = enemy3, Team = generic, LlmAttempted = true, LlmText = "先推满怒气条再爆发",
+        });
+        var dNone = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context { Act = 3 });
+        Check("编排·三态都有可执行指示",
+            dOpt.Lines.Count > 0 && dLlm.Lines.Count > 0 && dNone.Lines.Count > 0,
+            $"选项={dOpt.Source} 模型={dLlm.Source} 兜底={dNone.Source}");
+        Check("编排·来源标记正确",
+            dOpt.Source == "◆量化" && dLlm.Lines.Any(l => l.StartsWith("◇")) && dNone.Source == "·规则",
+            $"{dOpt.Source} / {dLlm.Source} / {dNone.Source}");
+        Check("编排·随机要素显式标注",
+            dNone.Randoms.Count >= 2 && dOpt.Randoms.Any(r => r.Contains("角色池")),
+            dNone.Randoms.Count == 0 ? "未标注（错误）" : string.Join("；", dNone.Randoms.Take(3)));
+
         var relPath = Path.Combine(Path.GetDirectoryName(AppPaths.Data("act-playbook.json")) ?? ".", "knowledge-release.json");
         // 文件在就必须真的读到：之前解析失败会静默返回 0，断言照样通过（踩过）
         Check("知识·云端已验证知识可读", File.Exists(relPath) ? Playbook.VerifiedCount > 0 : true,
