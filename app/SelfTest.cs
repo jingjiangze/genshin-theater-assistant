@@ -496,7 +496,12 @@ internal static class SelfTest
         var act10 = alloc.Assigns.FirstOrDefault(a => a.Difficulty == "Lunar" && a.Act == 10 && a.UsedMainForce);
         Check("全局分配·治疗硬约束（第10幕）",
             act10 == null || act10.Team.Any(nm => TeamSolver.HasRole(nm, "Healer")),
-            act10 == null ? "第10幕未分配" : $"{string.Join("/", act10.Team)}");
+            act10 == null
+                ? "第10幕未分配"
+                : $"{string.Join("/", act10.Team)}"
+                  + (act10.Gaps.Count > 0 ? "｜缺口:" + string.Join("+", act10.Gaps) : "")
+                  + (act10.Reasons.Count > 0 ? "｜" + string.Join("，", act10.Reasons) : "")
+                  + "｜池内治疗:" + string.Join("/", TeamSolver.Units.Where(u => TeamSolver.RoleHas(u.Role, "Healer")).Select(u => u.Name + "(" + u.Element + ")")));
         Check("全局分配·无需求幕不占主力",
             alloc.Assigns.Any(a => !a.UsedMainForce), alloc.Notes.FirstOrDefault() ?? "");
 

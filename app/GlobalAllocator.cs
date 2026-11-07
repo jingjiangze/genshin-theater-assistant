@@ -131,12 +131,22 @@ internal static class GlobalAllocator
             {
                 if (role == null) continue;
                 if (asg.Team.Any(nm => HasRole(units, nm, role))) continue;
-                var pick = units
-                    .Where(u => !used.Contains(u.Name) && TeamSolver.RoleHas(u.Role, role))
+                var allWithRole = units.Where(u => TeamSolver.RoleHas(u.Role, role)).ToList();
+                var pick = allWithRole
+                    .Where(u => !used.Contains(u.Name))
                     .OrderByDescending(u => need.Element == u.Element)
                     .ThenByDescending(u => u.Element is "Hydro" or "Electro" or "Geo")
                     .FirstOrDefault();
-                if (pick.Name == null) continue;
+                if (pick.Name == null)
+                {
+                    // 诊因：池里到底有没有这个职能、是不是都被前面的幕用掉了
+                    var names = allWithRole.Select(u => u.Name).ToList();
+                    asg.Gaps.Add(names.Count == 0
+                        ? $"{role}:池内无此职能"
+                        : $"{role}:已被占用({string.Join("/", names)})");
+                    asg.Reasons.Add($"职能占位失败 {role}");
+                    continue;
+                }
                 used.Add(pick.Name);
                 asg.Team.Add(pick.Name);
                 asg.Elements.Add(pick.Element);
