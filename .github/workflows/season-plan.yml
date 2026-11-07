@@ -79,6 +79,27 @@ jobs:
             if ($p.ExitCode -ne 0) { throw "赛季 $sn 求解失败 exit=$($p.ExitCode)" }
             $summary += "- 第 $sn 赛季 → ``$outJson``（$((Get-Item $outJson).Length) 字节）"
           }
+
+      - name: 逐赛季跨幕全局分配（角色只能用一次 + 治疗/破盾硬约束）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $exe = Join-Path (Get-Location) 'dist/TheaterAssistant.exe'
+          $only = "${{ github.event.inputs.season }}"
+          $summary = @()
+          foreach ($f in (Get-ChildItem data/season*.json)) {
+            $sn = ($f.BaseName -replace '\D','')
+            if ($only -and $sn -ne $only) { continue }
+            $outJson = "data/global-alloc-season$sn.json"
+            $log = Join-Path $env:RUNNER_TEMP "alloc-$sn.txt"
+            $p = Start-Process -FilePath $exe -ArgumentList '--global-alloc','--season',$sn,'--out',$outJson -Wait -PassThru -RedirectStandardOutput $log
+            $lines = Get-Content $log -Encoding UTF8
+            $lines | Select-Object -First 40
+            if ($p.ExitCode -ne 0) { throw "赛季 $sn 全局分配失败 exit=$($p.ExitCode)" }
+            $summary += "- 第 $sn 赛季 全局分配 → ``$outJson``（$((Get-Item $outJson).Length) 字节）"
+          }
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 跨幕全局分配产出"
+          foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 通用最优配队产出"
           foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
 
@@ -87,7 +108,7 @@ jobs:
         run: |
           git config user.name "theater-automation[bot]"
           git config user.email "theater-automation[bot]@users.noreply.github.com"
-          git add data/team-plans-season*.json
+          git add data/team-plans-season*.json data/global-alloc-season*.json
           git diff --cached --quiet; if ($LASTEXITCODE -eq 0) { Write-Host "无变化"; exit 0 }
           git commit -m "data: 自动生成通用最优配队（赛季无关，$(Get-Date -Format yyyy-MM-dd)）"
           for ($i=1; $i -le 5; $i++) {
@@ -101,5 +122,7 @@ jobs:
         if: always()
         with:
           name: season-plans-${{ github.run_id }}
-          path: data/team-plans-season*.json
+          path: |
+            data/team-plans-season*.json
+            data/global-alloc-season*.json
           retention-days: 90
