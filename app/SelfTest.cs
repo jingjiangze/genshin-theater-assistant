@@ -393,6 +393,36 @@ internal static class SelfTest
         Check("量化·通用池有元素覆盖", generic.Cover.Count > 0 && !generic.Full,
             $"覆盖 {generic.Cover.Count} 元素，Full={generic.Full}");
 
+        // P2 量化评分器：单调性 / 缺口 / 置信度 / 通用池降置信
+        QuantScorer.LoadWeights(AppPaths.Data("quant-model.json"));
+        var enemy3 = QuantData.Enemy(3, "Lunar");
+        QuantData.TeamProfile MakeTeam(string[] members)
+        {
+            var tp = new QuantData.TeamProfile { Full = true, Source = "(测试池)" };
+            foreach (var n in members)
+            {
+                var el = QuantData.ElementOf(n);
+                tp.Members.Add(new QuantData.Member { Name = n, Element = el });
+                if (el.Length > 0) tp.Cover[el] = tp.Cover.TryGetValue(el, out var c) ? c + 1 : 1;
+            }
+            return tp;
+        }
+        var sNone = QuantScorer.Score(enemy3, MakeTeam(new[] { "钟离" }), 3);       // 无 Electro
+        var sSome = QuantScorer.Score(enemy3, MakeTeam(new[] { "菲谢尔" }), 3);     // 1 个 Electro
+        var sFull = QuantScorer.Score(enemy3, MakeTeam(new[] { "菲谢尔", "雷电将军" }), 3); // 2 个 Electro
+        Check("量化·评分单调性（覆盖越多分越高）",
+            sNone != null && sSome != null && sFull != null && sNone.Score <= sSome.Score && sSome.Score <= sFull.Score,
+            sNone == null ? "无档案" : $"无={sNone.Score:0.00} 1人={sSome.Score:0.00} 2人={sFull.Score:0.00}");
+        Check("量化·缺口显式列出", sNone != null && sNone.Gaps.Count > 0 && sFull != null && sFull.Gaps.Count == 0,
+            sNone == null ? "-" : $"缺={(sNone.Gaps.Count > 0 ? string.Join("+", sNone.Gaps) : "无")} 全覆盖缺口={sFull?.Gaps.Count}");
+        Check("量化·置信度在 0..1 且通用池降置信",
+            sFull != null && sFull.Confidence is >= 0 and <= 1
+            && QuantScorer.Score(enemy3, generic, 3)!.Confidence <= 0.4,
+            sFull == null ? "-" : $"实测池conf={sFull.Confidence:0.00} 通用池conf={QuantScorer.Score(enemy3, generic, 3)!.Confidence:0.00}");
+        Check("量化·结论标注池子来源", sFull != null && sFull.PoolFull && sFull.Decision.Length > 0
+            && QuantScorer.Score(enemy3, generic, 3)!.Decision.Contains("通用池"),
+            sFull == null ? "-" : sFull.Decision);
+
         var relPath = Path.Combine(Path.GetDirectoryName(AppPaths.Data("act-playbook.json")) ?? ".", "knowledge-release.json");
         // 文件在就必须真的读到：之前解析失败会静默返回 0，断言照样通过（踩过）
         Check("知识·云端已验证知识可读", File.Exists(relPath) ? Playbook.VerifiedCount > 0 : true,

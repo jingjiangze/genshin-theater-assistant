@@ -187,6 +187,10 @@ internal static class Program
                             (int)OptDouble(args, "--max", 0));
                     break;
 
+                // 量化决策：敌人需求 × 我方覆盖 → 可解释分数 + 置信度
+                case "--quant-decide":
+                    return QuantScorer.RunCli((int)OptDouble(args, "--act", 0), Opt(args, "--difficulty"), Opt(args, "--out"));
+
                 // 敌人侧量化档案（抗性/波次/机制窗口/需求向量）
                 case "--enemy-profile":
                     return QuantData.RunEnemyCli((int)OptDouble(args, "--act", 0), Opt(args, "--difficulty"));

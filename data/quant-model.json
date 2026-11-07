@@ -1,0 +1,8 @@
+{
+  "_note": "量化评分权重。可调，改动后跑 --selftest 的单调性断言确认没破坏语义。",
+  "_meaning": "score = res*抗性利用 + role*职能覆盖 + know*云端已验证命中 - stam*代价",
+  "res": 0.55,
+  "role": 0.25,
+  "know": 0.20,
+  "stam": 0.10
+}
