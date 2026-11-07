@@ -428,6 +428,40 @@ internal static class SelfTest
             && QuantScorer.Score(enemy3, generic, 3)!.Decision.Contains("通用池"),
             sFull == null ? "-" : sFull.Decision);
 
+        // P2+ 通用最优配队：假设全角色 → 完全枚举 → 每难度最优；最高难度必须全覆盖
+        Check("配队·池子按本季元素过滤",
+            TeamSolver.LoadPool() && TeamSolver.PoolSize >= 20
+            && TeamSolver.SeasonElements.Count >= 1,
+            $"池 {TeamSolver.PoolSize} 人｜本季 {string.Join("/", TeamSolver.SeasonElements)}");
+
+        var lunarTeam3 = TeamSolver.Solve(QuantData.Enemy(3, "Lunar"), 3);
+        Check("配队·最高难度有 4 人解",
+            lunarTeam3.Team.Count == 4 && lunarTeam3.Score > 0,
+            $"Lunar第3幕 {string.Join("/", lunarTeam3.Team)} score={lunarTeam3.Score:0.00}");
+
+        // 需求元素必须被覆盖（覆盖证明存在），否则该幕不可信
+        var host3 = QuantData.Enemy(3, "Lunar");
+        bool coverOk = host3 == null || host3.Need.Count == 0
+            || host3.Need.Keys.All(el => lunarTeam3.Cover.TryGetValue(el, out var c) && c > 0);
+        Check("配队·主需求被覆盖（有覆盖证明）", coverOk,
+            host3 == null ? "-" : $"需求 {string.Join(",", host3.Need.Keys)}｜覆盖 {string.Join(",", lunarTeam3.Cover.Select(k => k.Key + "×" + k.Value))}");
+
+        // 每难度都要有解（不能只有最高难度能算）
+        int solved = 0, totalAct = 0;
+        foreach (var d in QuantData.Difficulties)
+        {
+            var maxAct = d switch { "Easy" => 3, "Normal" => 6, "Hard" => 8, "Visionary" => 10, "Lunar" => 12, _ => 12 };
+            for (int a = 1; a <= maxAct; a++)
+            {
+                var e = QuantData.Enemy(a, d);
+                if (e == null || !e.HasAnyData) continue;
+                totalAct++;
+                if (TeamSolver.Solve(e, a).Team.Count == 4) solved++;
+            }
+        }
+        Check("配队·每个难度每幕都有解", totalAct > 0 && solved == totalAct,
+            $"{solved}/{totalAct} 幕求出 4 人队");
+
         var relPath = Path.Combine(Path.GetDirectoryName(AppPaths.Data("act-playbook.json")) ?? ".", "knowledge-release.json");
         // 文件在就必须真的读到：之前解析失败会静默返回 0，断言照样通过（踩过）
         Check("知识·云端已验证知识可读", File.Exists(relPath) ? Playbook.VerifiedCount > 0 : true,

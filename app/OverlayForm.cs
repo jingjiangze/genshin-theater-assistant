@@ -187,6 +187,10 @@ internal static class Program
                             (int)OptDouble(args, "--max", 0));
                     break;
 
+                // 通用最优配队求解（假设全角色 → 排列组合 → 每难度最优）
+                case "--team-solve":
+                    return TeamSolver.RunCli(Opt(args, "--difficulty"), (int)OptDouble(args, "--act", 0), Opt(args, "--out"));
+
                 // 量化决策：敌人需求 × 我方覆盖 → 可解释分数 + 置信度
                 case "--quant-decide":
                     return QuantScorer.RunCli((int)OptDouble(args, "--act", 0), Opt(args, "--difficulty"), Opt(args, "--out"));
