@@ -491,9 +491,14 @@ internal static class SelfTest
             cur == null ? "无赛季" : $"发现 {seasons.Count} 个｜当前第{cur.Season}赛季 元素{string.Join("/", cur.Elements)} 难度{cur.Difficulties.Count} 幕{cur.ActCount}");
 
         // 编排器三态：任何一级缺失都必须仍能出指示，且来源标记正确
+        // 用「没有云端已验证知识」的幕来验证模型/规则路径（有 ★ 知识的幕本就该优先于模型）
+        int actNoVerified = Enumerable.Range(1, 12).FirstOrDefault(a => Playbook.VerifiedFor(a) == null);
+        if (actNoVerified == 0) actNoVerified = 9;
+        var enemyNoV = QuantData.Enemy(actNoVerified, "Lunar");
+
         var dOpt = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
         {
-            Act = 3, Team = generic,
+            Act = actNoVerified, Team = generic,
             Options = new[]
             {
                 new ChoiceDecider.Option { Index = 1, Raw = "战斗·普通" },
@@ -502,12 +507,13 @@ internal static class SelfTest
         });
         var dLlm = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
         {
-            Act = 3, Enemy = enemy3, Team = generic, LlmAttempted = true, LlmText = "先推满怒气条再爆发",
+            Act = actNoVerified, Enemy = enemyNoV, Team = generic,
+            LlmAttempted = true, LlmText = "先推满怒气条再爆发",
         });
-        var dNone = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context { Act = 3 });
+        var dNone = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context { Act = actNoVerified });
         Check("编排·三态都有可执行指示",
             dOpt.Lines.Count > 0 && dLlm.Lines.Count > 0 && dNone.Lines.Count > 0,
-            $"选项={dOpt.Source} 模型={dLlm.Source} 兜底={dNone.Source}");
+            $"第{actNoVerified}幕｜选项={dOpt.Source} 模型={dLlm.Source} 兜底={dNone.Source}");
         Check("编排·来源标记正确",
             dOpt.Source == "◆量化" && dLlm.Lines.Any(l => l.StartsWith("◇")) && dNone.Source == "·规则",
             $"{dOpt.Source} / {dLlm.Source} / {dNone.Source}");
