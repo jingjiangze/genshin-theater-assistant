@@ -138,6 +138,11 @@ def evidence_from_batches(batches_root: Path) -> list[dict]:
                 if not isinstance(act, int) or not 1 <= act <= 12:
                     act = 0
                 creator = str(op.get("creator_id") or meta_creator).strip()
+                # 已带 platform 前缀就不要再加一次，否则得到 bilibili:bilibili:42，
+                # 同一作者被算成两个 ID，独立作者计数直接失真（单测抓到过）。
+                _prefix = f"{platform}:"
+                if creator.startswith(_prefix):
+                    creator = creator[len(_prefix):]
                 creator_key = f"{platform}:{creator}" if creator else ""
                 source = str(op.get("source") or f"{platform}:{video_id}")
                 channel = str(op.get("channel") or "unknown")
