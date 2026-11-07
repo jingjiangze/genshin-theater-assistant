@@ -483,6 +483,12 @@ internal static class SelfTest
         Check("配队·每个难度每幕都有解", totalAct > 0 && solved == totalAct,
             $"{solved}/{totalAct} 幕求出 4 人队");
 
+        // 别名 → 官方名 → 元素/职能 必须能串起来（此前心海元素为空，池子里等于废人）
+        TeamSolver.LoadPool();
+        Check("策略·别名角色元素与职能可解析",
+            QuantData.ElementOf("珊瑚宫心海") == "Hydro" && TeamSolver.HasRole("珊瑚宫心海", "Healer"),
+            $"珊瑚宫心海 元素={QuantData.ElementOf("珊瑚宫心海")} 治疗={TeamSolver.HasRole("珊瑚宫心海", "Healer")}");
+
         // 决策内容必须来自数据，不硬编码：策略加载、难度权重、触发词一致、别名、幕数数据驱动
         DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
         Check("策略·来自数据文件", DecisionPolicy.Source.Contains("decision-policy"),
@@ -502,6 +508,35 @@ internal static class SelfTest
         Check("策略·幕数由赛季数据推导",
             QuantData.MaxAct("Lunar") >= QuantData.MaxAct("Easy") && QuantData.MaxAct("Lunar") > 0,
             $"Lunar={QuantData.MaxAct("Lunar")}幕 Easy={QuantData.MaxAct("Easy")}幕");
+
+        // 玩家池适配：给一个小池子，分配只能从这个池子里挑（不再输出"通用最优"）
+        var rosterPath = Path.Combine(AppPaths.Dir, "__selftest_roster.json");
+        try
+        {
+            File.WriteAllText(rosterPath, "{\"characters\":[\"行秋\",\"芭芭拉\",\"五郎\",\"丽莎\"]}", new System.Text.UTF8Encoding(false));
+            var pr = GlobalAllocator.Solve(0, rosterPath);
+            var picked = pr.Assigns.SelectMany(a => a.Team).Where(nm => !nm.StartsWith("（")).ToList();
+            var allowed = new HashSet<string>(new[] { "行秋", "芭芭拉", "五郎", "丽莎" }, StringComparer.Ordinal);
+            var outside = picked.Where(nm => !allowed.Contains(nm)).Distinct().ToList();
+            Check("配队·按玩家池分配（不越池）",
+                picked.Count > 0 && outside.Count == 0,
+                picked.Count == 0 ? "未分配" : $"用到 {picked.Distinct().Count()} 人｜越池 {(outside.Count == 0 ? "无" : string.Join("/", outside))}｜{TeamSolver.LastPoolNote}");
+        }
+        finally { try { File.Delete(rosterPath); } catch { } }
+
+        // buff/三选一随机 → 按策略直接交 ◇模型 通道（不做概率建模）
+        var buffWithModel = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
+        {
+            Act = 3, Team = generic, Kind = "choice", LlmAttempted = true, LlmText = "缺人优先拿伙伴，其次辉彩祝福",
+        });
+        var buffNoModel = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
+        {
+            Act = 3, Team = generic, Kind = "choice", LlmAttempted = false,
+        });
+        Check("编排·buff 随机走模型通道",
+            buffWithModel.Source == "◇模型" && buffNoModel.Source.Contains("未取到")
+            && buffNoModel.Randoms.Any(r => r.Contains("buff")),
+            $"有模型={buffWithModel.Source}｜无模型={buffNoModel.Source}");
 
         // 跨幕全局分配：同一角色只能用一次 + 治疗/破盾硬约束
         var alloc = GlobalAllocator.Solve(0);

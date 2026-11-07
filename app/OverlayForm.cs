@@ -189,7 +189,7 @@ internal static class Program
 
                 // 跨幕全局分配：角色只能用一次 + 治疗/破盾硬约束
                 case "--global-alloc":
-                    return GlobalAllocator.RunCli((int)OptDouble(args, "--season", 0), Opt(args, "--out"));
+                    return GlobalAllocator.RunCli((int)OptDouble(args, "--season", 0), Opt(args, "--out"), Opt(args, "--roster"));
 
                 // 决策策略清单（确认决策内容来自数据而非代码）
                 case "--policy":
@@ -206,7 +206,7 @@ internal static class Program
                 // 通用最优配队求解（假设全角色 → 排列组合 → 每难度最优）
                 case "--team-solve":
                     return TeamSolver.RunCli(Opt(args, "--difficulty"), (int)OptDouble(args, "--act", 0), Opt(args, "--out"),
-                        (int)OptDouble(args, "--season", 0));
+                        (int)OptDouble(args, "--season", 0), Opt(args, "--roster"));
 
                 // 量化决策：敌人需求 × 我方覆盖 → 可解释分数 + 置信度
                 case "--quant-decide":

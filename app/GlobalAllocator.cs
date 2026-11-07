@@ -58,7 +58,7 @@ internal static class GlobalAllocator
         public List<string> Notes = new();
     }
 
-    public static Result Solve(int season)
+    public static Result Solve(int season, string rosterPath = null)
     {
         var res = new Result();
         var seasons = SeasonRegistry.Load();
@@ -70,7 +70,10 @@ internal static class GlobalAllocator
         QuantData.LoadEnemies(target.Path);
         QuantData.LoadCharacters(AppPaths.Data("characters.json"), AppPaths.Data("substitutes.json"));
         Playbook.Load(AppPaths.Data("act-playbook.json"));
-        if (!TeamSolver.LoadPool(target.Elements)) return res;
+        // 玩家池：有 roster 就只用他的角色；没有就按"公开全角色"给通用最优
+        var roster = string.IsNullOrWhiteSpace(rosterPath) ? null : QuantData.Team(rosterPath);
+        var rosterNames = roster != null && roster.HasData ? roster.Members.Select(m => m.Name).ToList() : null;
+        if (!TeamSolver.LoadPool(target.Elements, rosterNames)) return res;
         var units = TeamSolver.Units;
 
         // ---- 1) 收集有需求的幕 ----
@@ -230,7 +233,10 @@ internal static class GlobalAllocator
         res.TotalScore = res.Assigns.Sum(a => a.Score);
         res.TotalMax = res.Assigns.Sum(a => a.ScoreMax);
         res.Leftover = units.Select(u => u.Name).Where(n => !used.Contains(n)).Take(12).ToList();
+        res.Notes.Add(TeamSolver.LastPoolNote);
         res.Notes.Add($"池 {units.Count} 人｜占用主力 {res.PoolUsed.Count} 人｜未用 {units.Count - res.PoolUsed.Count} 人");
+        if (rosterNames == null)
+            res.Notes.Add("未提供玩家池 → 输出的是『通用最优』，不是某位玩家的最优");
         res.Notes.Add("同一角色全局只用一次（剧诗机制：编入即锁定）");
         res.Notes.Add("无元素需求的幕不占主力，给可复用通用队");
         var dup = res.PoolUsed.GroupBy(n => n, StringComparer.Ordinal).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
@@ -258,10 +264,10 @@ internal static class GlobalAllocator
 
     // ---------------- CLI ----------------
 
-    public static int RunCli(int season, string outPath)
+    public static int RunCli(int season, string outPath, string rosterPath = null)
     {
         Cli.Attach();
-        var r = Solve(season);
+        var r = Solve(season, rosterPath);
         if (r.Assigns.Count == 0) { Cli.Say("没有可分配的幕（缺赛季/敌人数据）"); return 2; }
         Cli.Say($"第{r.Season}赛季 跨幕全局分配｜总分 {r.TotalScore:0.00}/{r.TotalMax:0.00}");
         foreach (var n in r.Notes) Cli.Say("  " + n);
@@ -284,6 +290,7 @@ internal static class GlobalAllocator
                 {
                     generatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                     season = r.Season,
+                    roster = rosterPath ?? "",
                     assumption = "假设拥有公开全部角色 ∩ 本季元素；同一角色全局只用一次（剧诗机制）",
                     totalScore = r.TotalScore,
                     totalMax = r.TotalMax,

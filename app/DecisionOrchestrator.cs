@@ -34,6 +34,8 @@ internal static class DecisionOrchestrator
         public IReadOnlyList<ChoiceDecider.Option> Options = Array.Empty<ChoiceDecider.Option>();
         public string LlmText;              // 外部注入的模型输出（null = 未调用/失败）
         public bool LlmAttempted;
+        /// <summary>当前界面类型：act/choice/shop/team…（choice=三选一，内容随机）。</summary>
+        public string Kind = "";
     }
 
     internal sealed class Decision
@@ -51,6 +53,33 @@ internal static class DecisionOrchestrator
         if (ctx == null) return d;
 
         CollectRandoms(ctx, d);
+
+        // ---- 0) buff/三选一：内容随机、无量化依据 → 直接走 ◇模型 通道 ----
+        // 按用户要求：这类"不可计算的随机要素"不做概率建模，交给模型裁决，
+        // 把 token 花在真正需要判断的地方；模型不可用再退回语料/规则。
+        bool isBuffChoice = string.Equals(ctx.Kind, "choice", StringComparison.OrdinalIgnoreCase)
+                            || (ctx.Options.Count > 0 && ctx.Options.All(o => o.Kind is ChoiceDecider.Kind.Partner
+                                                                              or ChoiceDecider.Kind.Mystery
+                                                                              or ChoiceDecider.Kind.Blessing));
+        if (isBuffChoice && ctx.Options.Count < 2)
+        {
+            d.Randoms.Add("buff/三选一内容随机（按策略交模型，不做概率建模）");
+            d.Provenance.Add("随机要素 → ◇模型 通道");
+            if (!string.IsNullOrWhiteSpace(ctx.LlmText))
+            {
+                foreach (var line in ctx.LlmText.Split('\n').Where(l => l.Trim().Length > 0).Take(3))
+                    d.Lines.Add("◇ " + line.Trim());
+                d.Source = "◇模型";
+                d.Confidence = DecisionPolicy.ConfidenceOf("model", 0.5);
+                return d;
+            }
+            // 模型没取到：不硬编一句"选祝福"，如实说需要模型裁决
+            d.Lines.Add("◇ 三选一内容随机，需模型裁决（当前未取到模型输出）");
+            d.Lines.Add("· 保守做法：缺人拿「伙伴」，缺输出拿「辉彩祝福」");
+            d.Source = "◇模型(未取到)";
+            d.Confidence = DecisionPolicy.ConfidenceOf("rule", 0.3);
+            return d;
+        }
 
         // ---- 1) 量化优先：选项已知就本地打分，置信度够就直接出 ----
         if (ctx.Options.Count >= 2)
@@ -147,6 +176,7 @@ internal static class DecisionOrchestrator
             Team = team,
             Options = Array.Empty<ChoiceDecider.Option>(),
             LlmAttempted = false,
+            Kind = "act",
         };
         var d = Decide(ctx);
         Cli.Say($"来源 {d.Source}｜置信度 {d.Confidence:0.00}｜随机点 {(d.Randoms.Count > 0 ? string.Join("；", d.Randoms) : "无")}");

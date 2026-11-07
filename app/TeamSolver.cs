@@ -43,7 +43,13 @@ internal static class TeamSolver
     private static List<Unit> _pool = new();
     private static List<string> _seasonElements = new();
 
-    public static bool LoadPool(IReadOnlyList<string> seasonElementsOverride = null)
+    /// <summary>
+    /// 加载角色池。
+    /// seasonElementsOverride：指定赛季的开放元素；
+    /// rosterNames：**玩家实际拥有的角色名**（null/空 = 假设拥有公开全角色，通用最优）。
+    /// </summary>
+    public static bool LoadPool(IReadOnlyList<string> seasonElementsOverride = null,
+        IReadOnlyCollection<string> rosterNames = null)
     {
         _pool = new List<Unit>();
         _seasonElements = new List<string>();
@@ -129,12 +135,27 @@ internal static class TeamSolver
             foreach (var kv in roleOf)
             {
                 if (_pool.Any(u => u.Name == kv.Key)) continue;
-                var el = zhToElement.TryGetValue(kv.Key, out var known) ? known : "";
+                // 别名先归一到官方名再查元素（心海→珊瑚宫心海→Hydro）：
+                // 否则试用角色元素为空，本季可带判断与元素覆盖都会漏掉它。
+                var canonKey = DecisionPolicy.Canonical(kv.Key);
+                var el = zhToElement.TryGetValue(canonKey, out var known) ? known
+                       : (zhToElement.TryGetValue(kv.Key, out var known2) ? known2 : "");
                 if (el.Length > 0 && _seasonElements.Count > 0
                     && !_seasonElements.Contains(el, StringComparer.OrdinalIgnoreCase))
                     continue;   // 元素已知且本季不带 → 不进池
                 _pool.Add(new Unit { Name = kv.Key, Element = el, Role = string.Join("|", kv.Value), Trial = true });
             }
+
+            // 玩家池适配：只保留该玩家拥有的角色（别名归一再比）
+            if (rosterNames != null && rosterNames.Count > 0)
+            {
+                var owned = new HashSet<string>(rosterNames.Select(DecisionPolicy.Canonical), StringComparer.Ordinal);
+                foreach (var nm in rosterNames) owned.Add(nm.Trim());
+                var before = _pool.Count;
+                _pool = _pool.Where(u => owned.Contains(DecisionPolicy.Canonical(u.Name)) || owned.Contains(u.Name)).ToList();
+                LastPoolNote = $"玩家池 {rosterNames.Count} 人 ∩ 本季可带 = {_pool.Count} 人（全池 {before} 人）";
+            }
+            else LastPoolNote = "假设拥有公开全角色（通用最优）";
 
             _pool = _pool.OrderBy(u => u.Name, StringComparer.Ordinal).ToList();
             return _pool.Count >= TeamSize;
@@ -152,6 +173,9 @@ internal static class TeamSolver
     }
 
     public static string ElementOfMember(string name) => _pool.FirstOrDefault(x => x.Name == name)?.Element ?? "";
+
+    /// <summary>最近一次 LoadPool 的池子说明（诊断/展示用）。</summary>
+    public static string LastPoolNote { get; private set; } = "";
 
     public static int PoolSize => _pool.Count;
 
@@ -309,7 +333,7 @@ internal static class TeamSolver
 
     // ---------------- CLI ----------------
 
-    public static int RunCli(string difficulty, int act, string outPath, int season = 0)
+    public static int RunCli(string difficulty, int act, string outPath, int season = 0, string rosterPath = null)
     {
         Cli.Attach();
         // 赛季无关：按 Registry 自动发现的文件加载，不再硬编码 season29
@@ -320,7 +344,10 @@ internal static class TeamSolver
         Cli.Say($"赛季 {target.Season}（{Path.GetFileName(target.Path)}）元素 {string.Join("/", target.Elements)}");
         QuantData.LoadEnemies(target.Path);
         Playbook.Load(AppPaths.Data("act-playbook.json"));
-        if (!LoadPool(target.Elements)) { Cli.Say("角色池未加载（characters.json/substitutes.json）"); return 2; }
+        var roster = string.IsNullOrWhiteSpace(rosterPath) ? null : QuantData.Team(rosterPath);
+        var rosterNames = roster != null && roster.HasData ? roster.Members.Select(m => m.Name).ToList() : null;
+        if (!LoadPool(target.Elements, rosterNames)) { Cli.Say("角色池未加载（characters.json/substitutes.json）"); return 2; }
+        Cli.Say(TeamSolver.LastPoolNote);
         Cli.Say($"假设池：公开全角色 ∩ 本季元素（{string.Join("/", _seasonElements)}）= **{_pool.Count}** 人；每队 {TeamSize} 人，组合数 C={CombinationCount(_pool.Count, TeamSize)}");
 
         var diffs = string.IsNullOrWhiteSpace(difficulty) || difficulty == "all"
