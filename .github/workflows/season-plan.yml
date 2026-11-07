@@ -40,6 +40,11 @@ jobs:
       - name: 构建
         shell: pwsh
         run: |
+          # csproj 的 Content 路径是相对工程目录（app/data、app/templates），必须先同步过去，
+          # 否则发布目录没有 data/，--seasons 会报"没有发现 data/season*.json"（实测踩过）
+          New-Item -ItemType Directory -Force app/data, app/templates | Out-Null
+          Copy-Item data/* app/data -Recurse -Force
+          Copy-Item templates/* app/templates -Recurse -Force
           dotnet publish app/TheaterAssistant.csproj -c Release -o dist
 
       - name: 列出赛季（自动发现）
