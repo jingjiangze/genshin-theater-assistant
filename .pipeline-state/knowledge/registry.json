@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-07T00:54:54.984732+00:00",
+  "updated_at": "2026-11-07T01:19:03.554835+00:00",
   "candidate_count": 268,
   "verified_count": 0,
   "candidates": [
@@ -14560,5 +14560,5 @@
     "verified_requires_independent_strategy_eval": true,
     "this_extractor_can_promote_to_verified": false
   },
-  "extractor_hash": "b1e266777df6c42f"
+  "extractor_hash": "23bd63c49d0e2f03"
 }
