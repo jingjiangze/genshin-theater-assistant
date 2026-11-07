@@ -117,7 +117,7 @@ class PersistBatchTests(unittest.TestCase):
     def test_extraction_never_downgrades_terminal_status(self):
         existing = {
             "candidates": [{
-                "candidate_id": extract_knowledge.digest("|".join(("action", "6", "29", "7.1", "", extract_knowledge.normalize("先击败钓客")))), "kind": "action", "text": "先击败钓客", "act": 6,
+                "candidate_id": extract_knowledge.digest("|".join(("action", "6", "29", "7.1", "2026-11", extract_knowledge.normalize("先击败钓客")))), "kind": "action", "text": "先击败钓客", "act": 6, "period": "2026-11",
                 "evidence_ids": ["old"], "evidence": [{
                     "evidence_id": "old", "batch_id": "oldbatch", "observed_batches": ["oldbatch"],
                     "platform": "bilibili", "video_id": "BV-old", "channel": "subtitle",
