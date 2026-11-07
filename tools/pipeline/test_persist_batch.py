@@ -91,7 +91,7 @@ class PersistBatchTests(unittest.TestCase):
         self.assertFalse(inferred)
         evidence = [
             {"evidence_id": "s29", "kind": "action", "text": "先击败钓客", "act": 6,
-             "season": 29, "version": "7.1", "video_id": "BV29a", "creator_id": "bilibili:A"},
+             "season": 29, "version": "7.1", "period": "2026-11", "video_id": "BV29a", "creator_id": "bilibili:A"},
             {"evidence_id": "s30", "kind": "action", "text": "先击败钓客", "act": 6,
              "season": 30, "version": "7.2", "video_id": "BV30a", "creator_id": "bilibili:A"},
         ]
@@ -102,11 +102,11 @@ class PersistBatchTests(unittest.TestCase):
     def test_knowledge_requires_two_creators_and_three_evidence_for_provisional(self):
         evidence = [
             {"evidence_id": "e1", "kind": "action", "text": "先击败钓客", "act": 6,
-             "season": 29, "version": "7.1", "video_id": "BV1", "creator_id": "bilibili:creator-A", "source": "BV1"},
+             "season": 29, "version": "7.1", "period": "2026-11", "video_id": "BV1", "creator_id": "bilibili:creator-A", "source": "BV1"},
             {"evidence_id": "e2", "kind": "action", "text": "先击败钓客", "act": 6,
-             "season": 29, "version": "7.1", "video_id": "BV2", "creator_id": "bilibili:creator-A", "source": "BV2"},
+             "season": 29, "version": "7.1", "period": "2026-11", "video_id": "BV2", "creator_id": "bilibili:creator-A", "source": "BV2"},
             {"evidence_id": "e3", "kind": "action", "text": "先击败钓客", "act": 6,
-             "season": 29, "version": "7.1", "video_id": "BV3", "creator_id": "bilibili:creator-B", "source": "BV3"},
+             "season": 29, "version": "7.1", "period": "2026-11", "video_id": "BV3", "creator_id": "bilibili:creator-B", "source": "BV3"},
         ]
         result = extract_knowledge.merge_candidates(evidence)
         candidate = result["candidates"][0]
@@ -128,7 +128,7 @@ class PersistBatchTests(unittest.TestCase):
         }
         evidence = [{
             "evidence_id": "new", "kind": "action", "text": "先击败钓客", "act": 6,
-            "season": 29, "version": "7.1", "video_id": "BV-new", "platform": "bilibili", "channel": "subtitle", "creator_id": "bilibili:creator-C", "source": "BV-new"
+            "season": 29, "version": "7.1", "period": "2026-11", "video_id": "BV-new", "platform": "bilibili", "channel": "subtitle", "creator_id": "bilibili:creator-C", "source": "BV-new"
         }]
         result = extract_knowledge.merge_candidates(evidence, existing)
         self.assertEqual(result["candidates"][0]["status"], "VERIFIED")
@@ -173,7 +173,7 @@ class PersistBatchTests(unittest.TestCase):
     def test_one_creator_many_videos_stays_candidate(self):
         evidence = [
             {"evidence_id": f"e{i}", "kind": "action", "text": "先击败钓客", "act": 6,
-             "season": 29, "version": "7.1", "video_id": f"BV{i}", "creator_id": "bilibili:creator-A", "source": f"BV{i}"}
+             "season": 29, "version": "7.1", "period": "2026-11", "video_id": f"BV{i}", "creator_id": "bilibili:creator-A", "source": f"BV{i}"}
             for i in range(1, 5)
         ]
         result = extract_knowledge.merge_candidates(evidence)
@@ -345,7 +345,7 @@ class ExtractContextTest(unittest.TestCase):
         # 不同作者推荐不同角色但同属一个职能组时，也应算独立证据支持
         def rec(role, creator, video):
             return {"evidence_id": f"e-{video}", "kind": "act_team", "act": 7,
-                    "text": f"第7幕 推荐 {role}", "season": 29, "version": "7.1",
+                    "text": f"第7幕 推荐 {role}", "season": 29, "version": "7.1", "period": "2026-11", "period": "2026-11",
                     "video_id": video, "creator_id": creator, "channel": "description",
                     "source": f"bilibili:{video}", "source_refs": [], "observed_batches": ["b1"]}
         e = [rec("行秋", "bilibili:A", "BV_a"),
@@ -369,7 +369,7 @@ class ExtractContextTest(unittest.TestCase):
         self.assertNotEqual(per_feb, per_oct)
         def ev(period, vid, creator):
             return {"evidence_id": "e" + vid, "kind": "act_team", "act": 2,
-                    "text": "第2幕 推荐 凯亚", "season": 29, "version": "7.1",
+                    "text": "第2幕 推荐 凯亚", "season": 29, "version": "7.1", "period": "2026-11",
                     "period": period, "video_id": vid, "creator_id": creator,
                     "channel": "description", "source": "bilibili:" + vid,
                     "source_refs": [], "observed_batches": ["b1"]}
@@ -392,7 +392,7 @@ class ExtractContextTest(unittest.TestCase):
         (batch / "manifest.json").write_text(json.dumps({
             "batch_id": "r1-attempt-1", "kind": "evaluation", "status": "INGESTED",
         }), encoding="utf-8")
-        (files / "BVx" / "meta.json").write_text(json.dumps({"platform": "bilibili", "creator_id": "bilibili:42", "season": 29, "version": "7.1"}), encoding="utf-8")
+        (files / "BVx" / "meta.json").write_text(json.dumps({"platform": "bilibili", "creator_id": "bilibili:42", "season": 29, "version": "7.1", "period": "2026-11"}), encoding="utf-8")
         (files / "BVx-ops.json").write_text(json.dumps({"ops": [{"kind": "act_team", "text": "第2幕 推荐 芭芭拉", "act": 2, "channel": "description"}]}), encoding="utf-8")
         got = extract_knowledge.evidence_from_batches(root)
         self.assertEqual(len(got), 1)
@@ -403,13 +403,13 @@ class ExtractContextTest(unittest.TestCase):
         # 关键回归：season/version 不再为 None，候选 key 才不会按 video_id 拆散
         e = [
             {"evidence_id": "e1", "kind": "act_team", "act": 7, "text": "第7幕 推荐 行秋",
-             "season": 29, "version": "7.1", "video_id": "BV_a", "creator_id": "bilibili:1",
+             "season": 29, "version": "7.1", "period": "2026-11", "video_id": "BV_a", "creator_id": "bilibili:1",
              "channel": "description", "source": "bilibili:BV_a", "source_refs": [], "observed_batches": ["b1"]},
             {"evidence_id": "e2", "kind": "act_team", "act": 7, "text": "第7幕 推荐 行秋",
-             "season": 29, "version": "7.1", "video_id": "BV_b", "creator_id": "bilibili:2",
+             "season": 29, "version": "7.1", "period": "2026-11", "video_id": "BV_b", "creator_id": "bilibili:2",
              "channel": "description", "source": "bilibili:BV_b", "source_refs": [], "observed_batches": ["b1"]},
             {"evidence_id": "e3", "kind": "act_team", "act": 7, "text": "第7幕 推荐 行秋",
-             "season": 29, "version": "7.1", "video_id": "BV_c", "creator_id": "bilibili:3",
+             "season": 29, "version": "7.1", "period": "2026-11", "video_id": "BV_c", "creator_id": "bilibili:3",
              "channel": "description", "source": "bilibili:BV_c", "source_refs": [], "observed_batches": ["b1"]},
         ]
         reg = extract_knowledge.merge_candidates(e)
