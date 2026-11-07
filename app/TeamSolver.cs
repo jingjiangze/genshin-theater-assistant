@@ -107,16 +107,39 @@ internal static class TeamSolver
                     Role = roleOf.TryGetValue(zh, out var role) ? role : "",
                 });
             }
-            // 试用角色补齐：职能规则里点名但池中没有的，也当作可用（试用/常驻）
+            // 试用角色补齐：职能规则里点名但池中没有的，**必须先确认本季带得动**。
+            // 之前不看元素直接补，导致火元素角色（班尼特）混进本季 Hydro/Electro/Geo 的队伍里，
+            // 求解器还给了他职能加分 —— 这类"带不动的人"必须排除（断言「配队·队员本季可带」抓到）。
+            var zhToElement = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var kv in enToElement)
+                if (enToZh.TryGetValue(kv.Key, out var cn) && cn.Length > 0)
+                    zhToElement[cn] = kv.Value;
             foreach (var kv in roleOf)
-                if (!_pool.Any(u => u.Name == kv.Key))
-                    _pool.Add(new Unit { Name = kv.Key, Element = "", Role = kv.Value, Trial = true });
+            {
+                if (_pool.Any(u => u.Name == kv.Key)) continue;
+                var el = zhToElement.TryGetValue(kv.Key, out var known) ? known : "";
+                if (el.Length > 0 && _seasonElements.Count > 0
+                    && !_seasonElements.Contains(el, StringComparer.OrdinalIgnoreCase))
+                    continue;   // 元素已知且本季不带 → 不进池
+                _pool.Add(new Unit { Name = kv.Key, Element = el, Role = kv.Value, Trial = true });
+            }
 
             _pool = _pool.OrderBy(u => u.Name, StringComparer.Ordinal).ToList();
             return _pool.Count >= TeamSize;
         }
         catch { return false; }
     }
+
+    /// <summary>该角色本季是否带得动（元素必须在本季开放元素内；元素未知视为可用）。</summary>
+    public static bool IsAvailableThisSeason(string name)
+    {
+        var u = _pool.FirstOrDefault(x => x.Name == name);
+        if (u == null) return false;
+        if (u.Element.Length == 0) return true;
+        return _seasonElements.Count == 0 || _seasonElements.Contains(u.Element, StringComparer.OrdinalIgnoreCase);
+    }
+
+    public static string ElementOfMember(string name) => _pool.FirstOrDefault(x => x.Name == name)?.Element ?? "";
 
     public static int PoolSize => _pool.Count;
     public static IReadOnlyList<string> SeasonElements => _seasonElements;

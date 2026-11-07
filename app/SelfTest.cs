@@ -446,6 +446,22 @@ internal static class SelfTest
         Check("配队·主需求被覆盖（有覆盖证明）", coverOk,
             host3 == null ? "-" : $"需求 {string.Join(",", host3.Need.Keys)}｜覆盖 {string.Join(",", lunarTeam3.Cover.Select(k => k.Key + "×" + k.Value))}");
 
+        // 队员必须本季带得动：元素必须在本季开放元素里（防止火/冰角色混进 Hydro/Electro/Geo 赛季）
+        var badMembers = new List<string>();
+        foreach (var d in QuantData.Difficulties)
+        {
+            var maxAct2 = d switch { "Easy" => 3, "Normal" => 6, "Hard" => 8, "Visionary" => 10, "Lunar" => 12, _ => 12 };
+            for (int a = 1; a <= maxAct2; a++)
+            {
+                var e2 = QuantData.Enemy(a, d);
+                if (e2 == null || !e2.HasAnyData) continue;
+                foreach (var nm in TeamSolver.Solve(e2, a).Team)
+                    if (!TeamSolver.IsAvailableThisSeason(nm)) badMembers.Add($"{d}第{a}幕:{nm}");
+            }
+        }
+        Check("配队·队员本季可带", badMembers.Count == 0,
+            badMembers.Count == 0 ? "全部队员元素均在本季开放元素内" : string.Join(", ", badMembers.Take(5)));
+
         // 每难度都要有解（不能只有最高难度能算）
         int solved = 0, totalAct = 0;
         foreach (var d in QuantData.Difficulties)
