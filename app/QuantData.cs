@@ -125,8 +125,13 @@ internal static class QuantData
     private static void BuildNeed(EnemyProfile p)
     {
         foreach (var kv in p.Resist)
-            if (kv.Value < 0)
-                p.Need[kv.Key] = Math.Min(1.0, -kv.Value / 20.0);
+        {
+            if (kv.Value >= 0) continue;
+            // Physical 是伤害类型，不是角色元素：放进需求向量会导致"永远没人能覆盖"，
+            // 让整幕看起来不合格（实测第1幕因此 score=-0.12）。抗性仍保留在 Resist 里供展示。
+            if (string.Equals(kv.Key, "Physical", StringComparison.OrdinalIgnoreCase)) continue;
+            p.Need[kv.Key] = Math.Min(1.0, -kv.Value / 20.0);
+        }
 
         var (needEl, _) = Playbook.Need(p.Act);
         if (!string.IsNullOrEmpty(needEl))
