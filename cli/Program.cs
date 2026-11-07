@@ -34,6 +34,9 @@ internal static class Program
             case "--seasons":
                 return SeasonRegistry.RunCli();
 
+            case "--llm-probe":
+                return LlmAdvisor.RunProbe(AppPaths.Data("llm.json"), Array.IndexOf(args, "--dry") >= 0);
+
             case "--playbook":
                 return Playbook.RunCli(Opt(args, "--out"));
 

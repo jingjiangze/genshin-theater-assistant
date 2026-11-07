@@ -338,6 +338,7 @@ internal sealed class LlmAdvisor : IDisposable
         if (path == null) { Cli.Say("没有任何 llm 配置（data/llm.json 与 data/llm.example.json 都不存在）"); return 4; }
         Cli.Say("配置文件: " + path);
         var cfg = ParseConfig(File.ReadAllText(path));
+        ApplyEnvOverrides(cfg);   // 云端只设环境变量，凭据不落盘
         Cli.Say($"enabled={cfg.Enabled} 端点={cfg.Endpoints.Count} 超时={cfg.TimeoutSeconds}s 最小间隔={cfg.MinIntervalSeconds}s 单次会话上限={cfg.MaxPerSession}");
         foreach (var ep in cfg.Endpoints)
         {
