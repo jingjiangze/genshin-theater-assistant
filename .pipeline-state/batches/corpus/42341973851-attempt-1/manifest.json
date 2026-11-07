@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "batch_id": "42341973851-attempt-1",
+  "kind": "corpus",
+  "status": "CANDIDATE",
+  "workflow": "corpus-refresh",
+  "run_id": "42341973851",
+  "run_attempt": "1",
+  "source_commit": "ecfdd41cf747788eaf30aeb4eab102ffb60dc42a",
+  "created_at": "2026-11-07T05:19:38.817553+00:00",
+  "file_count": 2,
+  "total_bytes": 30326,
+  "files": [
+    {
+      "path": "guide-corpus-extra.json",
+      "size_bytes": 20144,
+      "sha256": "3d21e16371cb30a58a6b1a6dda058ca7e51a5456db1aa7430a06f7a49cc71660"
+    },
+    {
+      "path": "guide-corpus-wiki.json",
+      "size_bytes": 10182,
+      "sha256": "ea72dedce4258aebe65b6c5773a46362a7f92637005d96d4b69917a3f8aa126a"
+    }
+  ],
+  "promotion": {
+    "eligible": false,
+    "reason": "durable ingestion is not semantic validation or independent ground truth"
+  }
+}
