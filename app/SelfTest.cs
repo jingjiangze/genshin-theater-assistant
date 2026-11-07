@@ -483,6 +483,23 @@ internal static class SelfTest
         Check("配队·每个难度每幕都有解", totalAct > 0 && solved == totalAct,
             $"{solved}/{totalAct} 幕求出 4 人队");
 
+        // 跨幕全局分配：同一角色只能用一次 + 治疗/破盾硬约束
+        var alloc = GlobalAllocator.Solve(0);
+        var mainForce = alloc.Assigns.Where(a => a.UsedMainForce).ToList();
+        var dupNames = alloc.PoolUsed.GroupBy(n => n, StringComparer.Ordinal).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+        Check("全局分配·角色不重复使用", alloc.Assigns.Count > 0 && dupNames.Count == 0,
+            $"分配 {alloc.Assigns.Count} 幕｜主力 {alloc.PoolUsed.Count} 人｜重复 {(dupNames.Count == 0 ? "无" : string.Join("/", dupNames))}");
+        var lunarNeeds = mainForce.Where(a => a.Difficulty == "Lunar").ToList();
+        Check("全局分配·最高难度有需求幕全覆盖",
+            lunarNeeds.Count > 0 && lunarNeeds.All(a => a.Score >= a.ScoreMax - 1e-9),
+            lunarNeeds.Count == 0 ? "无 Luna 需求幕" : $"{lunarNeeds.Count} 幕，最低覆盖 {lunarNeeds.Min(a => a.ScoreMax <= 0 ? 1 : a.Score / a.ScoreMax):0.00}");
+        var act10 = alloc.Assigns.FirstOrDefault(a => a.Difficulty == "Lunar" && a.Act == 10 && a.UsedMainForce);
+        Check("全局分配·治疗硬约束（第10幕）",
+            act10 == null || act10.Team.Any(nm => TeamSolver.Units.Any(u => u.Name == nm && u.Role == "Healer")),
+            act10 == null ? "第10幕未分配" : $"{string.Join("/", act10.Team)}");
+        Check("全局分配·无需求幕不占主力",
+            alloc.Assigns.Any(a => !a.UsedMainForce), alloc.Notes.FirstOrDefault() ?? "");
+
         // 赛季无关：自动发现 data/season*.json，未来赛季丢文件即生效（不改代码/工作流）
         var seasons = SeasonRegistry.Load();
         var cur = SeasonRegistry.For(0);

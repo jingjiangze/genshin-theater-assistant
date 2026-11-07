@@ -187,6 +187,10 @@ internal static class Program
                             (int)OptDouble(args, "--max", 0));
                     break;
 
+                // 跨幕全局分配：角色只能用一次 + 治疗/破盾硬约束
+                case "--global-alloc":
+                    return GlobalAllocator.RunCli((int)OptDouble(args, "--season", 0), Opt(args, "--out"));
+
                 // 赛季注册表（自动发现 data/season*.json，未来赛季无需改代码）
                 case "--seasons":
                     return SeasonRegistry.RunCli();

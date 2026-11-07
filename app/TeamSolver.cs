@@ -146,6 +146,11 @@ internal static class TeamSolver
     public static string ElementOfMember(string name) => _pool.FirstOrDefault(x => x.Name == name)?.Element ?? "";
 
     public static int PoolSize => _pool.Count;
+
+    /// <summary>池内单位（名字/元素/职能），供全局分配使用。</summary>
+    public static IReadOnlyList<(string Name, string Element, string Role)> Units =>
+        _pool.Select(u => (u.Name, u.Element, u.Role)).ToList();
+
     public static IReadOnlyList<string> SeasonElements => _seasonElements;
 
     /// <summary>对一幕一难度求最优 4 人队；完全枚举 + 提前结束（分数达理论上限即停）。</summary>
