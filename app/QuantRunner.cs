@@ -117,10 +117,8 @@ internal static class QuantRunner
                     if (nums.Count == 1) actFact = nums[0];   // 多个幕次=列表行，不当事实
                 }
                 // 条带"事实"可能读到的是视频字幕：散文长句且无「第N幕」→ 本帧战斗事实不可用
-                var bandText = (bandAlways ?? "").Replace("
-", " ").Trim();
-                bool bandProse = bandText.Length >= 8 && !Regex.IsMatch(bandText, @"第s*d{1,2}s*幕")
-                                 && !Regex.IsMatch(bandText, @"^第?s*d{1,2}s*幕?$");
+                var bandText = (bandAlways ?? "").Replace("\n", " ").Replace("\r", " ").Trim();
+                bool bandProse = bandText.Length >= 8 && !Regex.IsMatch(bandText, @"第\s*\d{1,2}\s*幕");
 
                 var options = ChoiceDecider.ParseOptions(lines);
                 var (tSize, tTarget) = ChoiceDecider.ParseTeamSize(text);

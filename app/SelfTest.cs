@@ -374,7 +374,7 @@ internal static class SelfTest
         var ch1 = ChoiceDecider.ParseOptions(new[] { "辉彩祝福·雷晶", "伙伴邀请", "神秘收获" });
         var ch2 = ChoiceDecider.ParseOptions(new[] { "选择辉彩祝福后，本幕所有角色的元素伤害提高。", "伙伴" });
         Check("决策·三选一卡片解析", ch1.Count == 3 && ch2.Count == 1,
-            `带副标题 ${ch1.Count} 个选项，长句被排除后 ${ch2.Count} 个`);
+            $"带副标题 {ch1.Count} 个选项，长句被排除后 {ch2.Count} 个");
 
         Check("知识·playbook 载入", Playbook.Loaded && Playbook.ActCount >= 8,
             $"载入 {Playbook.ActCount} 幕");
