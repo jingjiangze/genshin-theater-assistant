@@ -109,7 +109,16 @@ internal static class GlobalAllocator
         // ---- 2) 阶段A：职能硬约束先占位 ----
         // 治疗/破盾角色是稀缺资源，必须按「难度权重」优先给最需要的幕（Lunar 第10幕），
         // 否则会被前面几幕当普通元素位抢走（实测第10幕"缺治疗(池内已用完)"）。
-        var used = new HashSet<string>(StringComparer.Ordinal);
+        // 剧诗里角色锁定只发生在**同一次挑战内**；Easy/Normal/Hard/Visionary/Lunar 是分开的挑战，
+        // 同一个角色可以在不同难度各用一次。之前用一个全局 used 集合 → 低难度出现"Geo无人"
+        // （云端实测 Hard 第8幕 score=0.00）。改为**按难度独立**分配。
+        var usedByDiff = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+        HashSet<string> UsedOf(string diff)
+        {
+            if (!usedByDiff.TryGetValue(diff, out var set))
+                usedByDiff[diff] = set = new HashSet<string>(StringComparer.Ordinal);
+            return set;
+        }
         var byActEarly = new Dictionary<(string, int), Assign>();
         foreach (var need in slots
                      .Where(s => s.NeedHeal || s.NeedBreak)
@@ -128,6 +137,7 @@ internal static class GlobalAllocator
             {
                 if (role == null) continue;
                 if (asg.Team.Any(nm => HasRole(units, nm, role))) continue;
+                var used = UsedOf(need.Difficulty);
                 var allWithRole = units.Where(u => TeamSolver.RoleHas(u.Role, role)).ToList();
                 var pick = allWithRole
                     .Where(u => !used.Contains(u.Name))
@@ -156,6 +166,7 @@ internal static class GlobalAllocator
         var byAct = new Dictionary<(string, int), Assign>();
         foreach (var s in slots.OrderByDescending(x => x.Importance))
         {
+            var used = UsedOf(s.Difficulty);
             var key = (s.Difficulty, s.Act);
             if (!byAct.TryGetValue(key, out var asg))
             {
@@ -194,6 +205,7 @@ internal static class GlobalAllocator
         // ---- 3) 职能硬约束检查（治疗/破盾必须有人）----
         foreach (var asg in byAct.Values)
         {
+            var used = UsedOf(asg.Difficulty);   // 锁定只在同难度内生效
             var e = QuantData.Enemy(asg.Act, asg.Difficulty);
             if (e == null) continue;
             var why = e.MechanicEffect ?? "";
@@ -232,12 +244,14 @@ internal static class GlobalAllocator
         // ---- 4) 统计 ----
         res.TotalScore = res.Assigns.Sum(a => a.Score);
         res.TotalMax = res.Assigns.Sum(a => a.ScoreMax);
-        res.Leftover = units.Select(u => u.Name).Where(n => !used.Contains(n)).Take(12).ToList();
+        var allUsed = new HashSet<string>(usedByDiff.Values.SelectMany(s => s), StringComparer.Ordinal);
+        res.Leftover = units.Select(u => u.Name).Where(n => !allUsed.Contains(n)).Take(12).ToList();
         res.Notes.Add(TeamSolver.LastPoolNote);
         res.Notes.Add($"池 {units.Count} 人｜占用主力 {res.PoolUsed.Count} 人｜未用 {units.Count - res.PoolUsed.Count} 人");
         if (rosterNames == null)
             res.Notes.Add("未提供玩家池 → 输出的是『通用最优』，不是某位玩家的最优");
-        res.Notes.Add("同一角色全局只用一次（剧诗机制：编入即锁定）");
+        res.Notes.Add("同一角色在**同一难度内**只用一次（剧诗机制：编入即锁定）；不同难度是分开的挑战，可复用");
+        res.Notes.Add("按难度独立分配：" + string.Join("，", usedByDiff.OrderBy(k => k.Key).Select(k => $"{k.Key} 用 {k.Value.Count} 人")));
         res.Notes.Add("无元素需求的幕不占主力，给可复用通用队");
         var dup = res.PoolUsed.GroupBy(n => n, StringComparer.Ordinal).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
         if (dup.Count > 0) res.Notes.Add("⚠ 重复使用: " + string.Join("/", dup));

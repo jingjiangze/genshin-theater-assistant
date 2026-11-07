@@ -132,9 +132,13 @@ internal static class TeamSolver
             foreach (var kv in enToElement)
                 if (enToZh.TryGetValue(kv.Key, out var cn) && cn.Length > 0)
                     zhToElement[cn] = kv.Value;
+            // 别名与官方名是同一个角色：池里已有"珊瑚宫心海"就不能再加"心海"，
+            // 否则同一角色占两个名额（云端实测 Lunar 第10幕出现「心海/芭芭拉」）。
+            var poolKeys = new HashSet<string>(_pool.Select(u => DecisionPolicy.Canonical(u.Name)), StringComparer.Ordinal);
             foreach (var kv in roleOf)
             {
                 if (_pool.Any(u => u.Name == kv.Key)) continue;
+                if (poolKeys.Contains(DecisionPolicy.Canonical(kv.Key))) continue;
                 // 别名先归一到官方名再查元素（心海→珊瑚宫心海→Hydro）：
                 // 否则试用角色元素为空，本季可带判断与元素覆盖都会漏掉它。
                 var canonKey = DecisionPolicy.Canonical(kv.Key);
@@ -144,6 +148,7 @@ internal static class TeamSolver
                     && !_seasonElements.Contains(el, StringComparer.OrdinalIgnoreCase))
                     continue;   // 元素已知且本季不带 → 不进池
                 _pool.Add(new Unit { Name = kv.Key, Element = el, Role = string.Join("|", kv.Value), Trial = true });
+                poolKeys.Add(DecisionPolicy.Canonical(kv.Key));
             }
 
             // 玩家池适配：只保留该玩家拥有的角色（别名归一再比）

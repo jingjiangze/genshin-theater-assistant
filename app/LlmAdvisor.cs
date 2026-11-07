@@ -120,6 +120,40 @@ internal sealed class LlmAdvisor : IDisposable
     /// <summary>实际使用的配置文件路径（诊断用）。</summary>
     public static string LastConfigPath { get; private set; } = "";
 
+    /// <summary>
+    /// 环境变量覆盖（云端/CI 用，避免把凭据写进文件）：
+    /// LLM_ENDPOINT（逗号分隔多个）、LLM_MODEL（默认 deepseek-v4）、LLM_API_KEY、LLM_ENABLED=0/1。
+    /// 只覆盖，不新增语义：仍然默认开启、失败降级、脱敏发送。
+    /// </summary>
+    internal static void ApplyEnvOverrides(Config cfg)
+    {
+        var enabled = Environment.GetEnvironmentVariable("LLM_ENABLED");
+        if (enabled == "0") { cfg.Enabled = false; return; }
+        if (enabled == "1") cfg.Enabled = true;
+
+        var endpoints = Environment.GetEnvironmentVariable("LLM_ENDPOINT");
+        if (string.IsNullOrWhiteSpace(endpoints)) return;
+
+        var model = Environment.GetEnvironmentVariable("LLM_MODEL");
+        if (string.IsNullOrWhiteSpace(model)) model = "deepseek-v4";
+        var keyEnv = Environment.GetEnvironmentVariable("LLM_API_KEY_ENV");
+        if (string.IsNullOrWhiteSpace(keyEnv)) keyEnv = "LLM_API_KEY";
+
+        cfg.Endpoints = endpoints.Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Select(u => u.Trim())
+            .Where(u => u.Length > 0)
+            .Select(u => new Endpoint
+            {
+                Name = "env:" + (new Uri(u).Host),
+                Url = u,
+                Model = model,
+                ApiKeyEnv = keyEnv,
+                Privacy = "standard",
+                TimeoutSeconds = 45,
+            })
+            .ToList();
+    }
+
     public static LlmAdvisor TryLoad(string configPath)
     {
         try
@@ -132,6 +166,7 @@ internal sealed class LlmAdvisor : IDisposable
                 : null;
             if (path == null) return null;
             var cfg = ParseConfig(File.ReadAllText(path));
+            ApplyEnvOverrides(cfg);
             if (!cfg.Enabled || cfg.Endpoints.Count == 0) return null;
             LastConfigPath = path;
             return new LlmAdvisor(cfg);
