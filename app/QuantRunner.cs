@@ -28,7 +28,9 @@ internal static class QuantRunner
     private sealed class FrameResult
     {
         public string Frame = "";
-        public int ActFact;              // 条带里恰好一个「第N幕」（与判定同源，仅自洽性）
+        public int ActFact;              // 条带里恰好一个「第N幕」
+        public string BandText = "";      // 条带 OCR 原文（用于识别"读到的是字幕而非幕次条"）
+        public bool BandProse;            // true = 条带读到长句散文（视频字幕），本帧战斗事实不可用
         public int ActTemplate;          // 模板 actN 命中（另一条独立通道）
         public string KindFact = "";     // team / difficulty / shop / battle / unknown
         public int OptionsFact;          // 可解析选项数
@@ -114,6 +116,12 @@ internal static class QuantRunner
                         .Where(v => v > 0).Distinct().ToList();
                     if (nums.Count == 1) actFact = nums[0];   // 多个幕次=列表行，不当事实
                 }
+                // 条带"事实"可能读到的是视频字幕：散文长句且无「第N幕」→ 本帧战斗事实不可用
+                var bandText = (bandAlways ?? "").Replace("
+", " ").Trim();
+                bool bandProse = bandText.Length >= 8 && !Regex.IsMatch(bandText, @"第s*d{1,2}s*幕")
+                                 && !Regex.IsMatch(bandText, @"^第?s*d{1,2}s*幕?$");
+
                 var options = ChoiceDecider.ParseOptions(lines);
                 var (tSize, tTarget) = ChoiceDecider.ParseTeamSize(text);
                 var kindFact = FactKind(text, options.Count, tSize);
@@ -140,6 +148,7 @@ internal static class QuantRunner
                 {
                     Frame = Path.GetFileNameWithoutExtension(f),
                     ActFact = actFact, ActTemplate = actTemplate, KindFact = kindFact, OptionsFact = options.Count,
+                    BandText = bandText, BandProse = bandProse,
                     TeamSize = tSize, TeamTarget = tTarget, CharsFact = charsFact,
                     SimActDetected = simDetected, SimAct = simAct, Carried = simDetected == 0 && simAct > 0,
                     SimKind = advice.Kind ?? "", SimLine = advice.Lines.FirstOrDefault() ?? "",
@@ -175,6 +184,8 @@ internal static class QuantRunner
         var charFrames = rows.Where(r => r.CharsFact.Count > 0 && r.Recommended.Count > 0).ToList();
         int charHit = charFrames.Count(r => r.Recommended.Any(x => r.CharsFact.Contains(x)));
         int carriedFrames = rows.Count(r => r.Carried);
+        int bandProseFrames = rows.Count(r => r.BandProse);
+        int bandAnyText = rows.Count(r => r.BandText.Length > 0);
         int detectedFrames = rows.Count(r => r.SimActDetected > 0);
 
         double Pct(int a, int b) => b == 0 ? 0 : 100.0 * a / b;
@@ -201,7 +212,10 @@ internal static class QuantRunner
         md.AppendLine();
         md.AppendLine($"- 本帧真正检测到幕次：**{detectedFrames}/{rows.Count}**");
         md.AppendLine($"- 沿用上一帧（未检测）：**{carriedFrames}/{rows.Count}** ← 这部分时长里指示依赖历史，需注意");
-        md.AppendLine($"- 模板通道命中：{rows.Count(r => r.ActTemplate > 0)}｜条带通道命中：{combatFrames.Count}");
+        md.AppendLine($"- 模板通道命中：{rows.Count(r => r.ActTemplate > 0)}｜条带单幕次命中：{combatFrames.Count}");
+        md.AppendLine($"- 条带读到文本 {bandAnyText} 帧，其中 **{bandProseFrames} 帧是散文长句（=视频字幕，不是游戏幕次条）**");
+        if (bandProseFrames > 0)
+            md.AppendLine("  > ⚠ 结论：视频帧上条带 ROI 会命中 UP 主字幕，**战斗维度只在条带单幕次帧上可信**；战斗指标分母=0 表示无可用样本，不是 0 分。");
         md.AppendLine();
         md.AppendLine("## 界面类型分布（客观侧）");
         md.AppendLine();

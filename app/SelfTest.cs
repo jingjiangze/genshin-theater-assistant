@@ -370,6 +370,12 @@ internal static class SelfTest
             $"通用 {rAll.Count} 步，含跨视频共识");
 
         // 幕内知识全部来自 data/act-playbook.json：代码不再按幕硬编码
+        // 三选一：带副标题的卡片也要解析成选项（50 视频实测 choice 10 帧 / 0 决策）
+        var ch1 = ChoiceDecider.ParseOptions(new[] { "辉彩祝福·雷晶", "伙伴邀请", "神秘收获" });
+        var ch2 = ChoiceDecider.ParseOptions(new[] { "选择辉彩祝福后，本幕所有角色的元素伤害提高。", "伙伴" });
+        Check("决策·三选一卡片解析", ch1.Count == 3 && ch2.Count == 1,
+            `带副标题 ${ch1.Count} 个选项，长句被排除后 ${ch2.Count} 个`);
+
         Check("知识·playbook 载入", Playbook.Loaded && Playbook.ActCount >= 8,
             $"载入 {Playbook.ActCount} 幕");
         Check("知识·首领提示来自数据", (Playbook.Boss(3) ?? "").Contains("翠翎恐蕈") && Playbook.Boss(4) == null,

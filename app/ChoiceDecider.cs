@@ -80,8 +80,10 @@ internal static class ChoiceDecider
             if (string.IsNullOrWhiteSpace(raw)) continue;
             var line = raw.Trim();
 
+            // 三选一卡片常带副标题（"辉彩祝福·雷晶"、"伙伴邀请"），原先 <=12 会把它们整条丢掉，
+            // 导致 choice 界面明明有 3 个选项却解析出 0 个（50 视频实测：choice 10 帧 / 0 决策）。
             var ev = EventWords.Match(line);
-            if (ev.Success && line.Length <= 12)
+            if (ev.Success && line.Length <= 16 && !line.Any(c => "。？！，；".Contains(c)))
             {
                 var k = ev.Groups[1].Value switch
                 {
