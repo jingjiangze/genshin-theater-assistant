@@ -1,0 +1,100 @@
+name: season-plan
+
+# 赛季无关的「通用最优配队」自动产出：
+# 自动扫描 data/season*.json，对**每个赛季**生成 team-plans 并提交到主仓。
+# 新赛季只要把 data/seasonNN.json 丢进来，本工作流会自动认到，无需改代码。
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: '只跑指定赛季号（留空=全部）'
+        required: false
+        default: ''
+  schedule:
+    - cron: '0 4 1 * *'      # 每月 1 日 04:00 UTC（新赛季开始后自动补）
+  push:
+    branches: [main]
+    paths:
+      - 'data/season*.json'
+      - 'app/TeamSolver.cs'
+      - 'app/SeasonRegistry.cs'
+      - 'app/QuantData.cs'
+      - 'app/QuantScorer.cs'
+      - '.github/workflows/season-plan.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  plan:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: 构建
+        shell: pwsh
+        run: |
+          dotnet publish app/TheaterAssistant.csproj -c Release -o dist
+
+      - name: 列出赛季（自动发现）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $exe = Join-Path (Get-Location) 'dist/TheaterAssistant.exe'
+          $out = Join-Path $env:RUNNER_TEMP 'seasons.txt'
+          $p = Start-Process -FilePath $exe -ArgumentList '--seasons' -Wait -PassThru -RedirectStandardOutput $out
+          $lines = Get-Content $out -Encoding UTF8
+          $lines | Select-Object -First 20
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 赛季自动发现"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ('```' + [Environment]::NewLine + ($lines -join [Environment]::NewLine) + [Environment]::NewLine + '```')
+          if ($p.ExitCode -ne 0) { throw "赛季发现失败 exit=$($p.ExitCode)" }
+
+      - name: 逐赛季生成通用最优配队
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $exe = Join-Path (Get-Location) 'dist/TheaterAssistant.exe'
+          $only = "${{ github.event.inputs.season }}"
+          $files = Get-ChildItem data/season*.json
+          $summary = @()
+          foreach ($f in $files) {
+            $sn = ($f.BaseName -replace '\D','')
+            if ($only -and $sn -ne $only) { continue }
+            $outJson = "data/team-plans-season$sn.json"
+            $log = Join-Path $env:RUNNER_TEMP "plan-$sn.txt"
+            $p = Start-Process -FilePath $exe -ArgumentList '--team-solve','--difficulty','all','--season',$sn,'--out',$outJson -Wait -PassThru -RedirectStandardOutput $log
+            $lines = Get-Content $log -Encoding UTF8
+            $lines | Select-Object -First 30
+            if ($p.ExitCode -ne 0) { throw "赛季 $sn 求解失败 exit=$($p.ExitCode)" }
+            $summary += "- 第 $sn 赛季 → ``$outJson``（$((Get-Item $outJson).Length) 字节）"
+          }
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 通用最优配队产出"
+          foreach ($l in $summary) { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $l }
+
+      - name: 提交到主仓（供客户端读取，跨赛季保留）
+        shell: pwsh
+        run: |
+          git config user.name "theater-automation[bot]"
+          git config user.email "theater-automation[bot]@users.noreply.github.com"
+          git add data/team-plans-season*.json
+          git diff --cached --quiet; if ($LASTEXITCODE -eq 0) { Write-Host "无变化"; exit 0 }
+          git commit -m "data: 自动生成通用最优配队（赛季无关，$(Get-Date -Format yyyy-MM-dd)）"
+          for ($i=1; $i -le 5; $i++) {
+            git push origin HEAD:main
+            if ($LASTEXITCODE -eq 0) { break }
+            git pull --rebase origin main
+            Start-Sleep -Seconds 5
+          }
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: season-plans-${{ github.run_id }}
+          path: data/team-plans-season*.json
+          retention-days: 90

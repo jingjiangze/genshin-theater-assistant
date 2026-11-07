@@ -43,7 +43,7 @@ internal static class TeamSolver
     private static List<Unit> _pool = new();
     private static List<string> _seasonElements = new();
 
-    public static bool LoadPool()
+    public static bool LoadPool(IReadOnlyList<string> seasonElementsOverride = null)
     {
         _pool = new List<Unit>();
         _seasonElements = new List<string>();
@@ -94,6 +94,10 @@ internal static class TeamSolver
                         if (n.ValueKind == JsonValueKind.String && n.GetString() is { Length: > 0 } s)
                             _seasonElements.Add(s);
             }
+
+            // 指定赛季时用该赛季的元素覆盖 substitutes.json 里的静态值（赛季无关复用）
+            if (seasonElementsOverride != null && seasonElementsOverride.Count > 0)
+                _seasonElements = seasonElementsOverride.ToList();
 
             foreach (var kv in enToElement)
             {
@@ -284,12 +288,17 @@ internal static class TeamSolver
 
     // ---------------- CLI ----------------
 
-    public static int RunCli(string difficulty, int act, string outPath)
+    public static int RunCli(string difficulty, int act, string outPath, int season = 0)
     {
         Cli.Attach();
-        QuantData.LoadEnemies(AppPaths.Data("season29.json"));
+        // 赛季无关：按 Registry 自动发现的文件加载，不再硬编码 season29
+        var seasons = SeasonRegistry.Load();
+        var target = SeasonRegistry.For(season) ?? seasons.FirstOrDefault();
+        if (target == null) { Cli.Say("没有赛季数据（data/season*.json）"); return 2; }
+        Cli.Say($"赛季 {target.Season}（{Path.GetFileName(target.Path)}）元素 {string.Join("/", target.Elements)}");
+        QuantData.LoadEnemies(target.Path);
         Playbook.Load(AppPaths.Data("act-playbook.json"));
-        if (!LoadPool()) { Cli.Say("角色池未加载（characters.json/substitutes.json）"); return 2; }
+        if (!LoadPool(target.Elements)) { Cli.Say("角色池未加载（characters.json/substitutes.json）"); return 2; }
         Cli.Say($"假设池：公开全角色 ∩ 本季元素（{string.Join("/", _seasonElements)}）= **{_pool.Count}** 人；每队 {TeamSize} 人，组合数 C={CombinationCount(_pool.Count, TeamSize)}");
 
         var diffs = string.IsNullOrWhiteSpace(difficulty) || difficulty == "all"
@@ -321,6 +330,7 @@ internal static class TeamSolver
                 var doc = new
                 {
                     generatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    season = target.Season,
                     assumption = $"假设拥有公开全部角色，且只带本季开放元素（{string.Join("/", _seasonElements)}），池 {_pool.Count} 人",
                     teamSize = TeamSize,
                     plans,

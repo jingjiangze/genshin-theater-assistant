@@ -197,7 +197,8 @@ internal static class Program
 
                 // 通用最优配队求解（假设全角色 → 排列组合 → 每难度最优）
                 case "--team-solve":
-                    return TeamSolver.RunCli(Opt(args, "--difficulty"), (int)OptDouble(args, "--act", 0), Opt(args, "--out"));
+                    return TeamSolver.RunCli(Opt(args, "--difficulty"), (int)OptDouble(args, "--act", 0), Opt(args, "--out"),
+                        (int)OptDouble(args, "--season", 0));
 
                 // 量化决策：敌人需求 × 我方覆盖 → 可解释分数 + 置信度
                 case "--quant-decide":
