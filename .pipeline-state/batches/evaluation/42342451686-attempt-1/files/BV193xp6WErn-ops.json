@@ -1,0 +1,207 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 06:13:44",
+  "bvid": "BV193xp6WErn",
+  "frames": 8,
+  "candidates": 22,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕自备较弱主C+辅助，8幕好友高练主C，9幕自备较强主C+辅助，月谕2治疗角色",
+      "act": 5,
+      "source": "BV193xp6WErn@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：6幕雷+岩、8幕破岩盾",
+      "act": 6,
+      "source": "BV193xp6WErn@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找角色",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：圣兽",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：把钱花光",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：自备较强主C+辅助",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2雷岩-2挂件",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：愚人众",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：钟离+菲谢尔+卡齐娜+挂件",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "剩余3次重置次数，是否消耗重置次数刷新待选事件？",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买到2雷+2雷岩",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "缺角色买角色缺buf买buff",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：菲林斯+爱诺+卡齐娜+充能挂件",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：确保有2挂件",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买buff：4水雷",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买角色：强力外援>弱C+辅助>治疗",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：纳塔龙武士",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：菲谢尔+夜兰+2挂件",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买buff",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹机兵>水幻灵",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：较弱主C+水雷岩挂件",
+      "act": 0,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色8-6幕雷+岩、8幕破岩盾",
+      "act": 6,
+      "source": "BV193xp6WErn@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

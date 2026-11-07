@@ -1,0 +1,207 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 06:14:22",
+  "bvid": "BV1R3xp6WEKz",
+  "frames": 8,
+  "candidates": 22,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕好友高练主C",
+      "act": 6,
+      "source": "BV1R3xp6WEKz@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：3幕雷。4幕嘲讽。5幕盾奶",
+      "act": 3,
+      "source": "BV1R3xp6WEKz@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2雷岩+2挂件",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后合角色：3幕雷，4幕嘲讽，5幕盾奶",
+      "act": 3,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：愚人众",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：钟离+菲谢尔+卡齐娜+挂件",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "combo",
+      "text": "钟E-菲Q-卡Qe-菲e-钟Qaaaa",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2级水雷buf",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "可买1角色",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：熔岩游像·流燃体",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：夜兰+3挂件",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：确保有4挂件",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买buff：4水雷",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买角色：嘲讽>盾奶>强力外援",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：纳塔龙武士",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找角色",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买4水雷buff",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：水幻灵",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：菲利斯+爱诺+盾奶",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买buf",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：强力外援",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：把钱花光",
+      "act": 0,
+      "source": "BV1R3xp6WEKz@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

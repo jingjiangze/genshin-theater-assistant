@@ -1,0 +1,1209 @@
+{
+  "schema_version": 1,
+  "label_method": "subtitle_chapter_agreement",
+  "reports": [
+    {
+      "schema_version": 1,
+      "video_id": "BV13EM36uEgB",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV14Q4ce3EEE",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV15YG8zxE7t",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV172Vd6xEKn",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV17hxW68Ej9",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV18Jcwz3E1c",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV18QZWYBEsv",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV193xp6WErn",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV195iLBREaz",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV19wSBYfE5S",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1ahtR6mEBV",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1B8Th6BET6",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1BH4y1F7Z5",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1CorNYeERY",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 2,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 2
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1epFZeVEuA",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1Fv421r7pp",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1G86xBFEk5",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1gMuF6gEqs",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1HBxa6oEAw",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1Hc9LBjEmQ",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1hXTv6uECJ",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1KSiqBGERh",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 6,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 6
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1kUtu6BEin",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1LwRKBmE2n",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1LZYP6dE9u",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 5,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 5
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1obhfzxE8k",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1oi6pBtEjA",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1pDP6zLEGq",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1pe7zz5EKo",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1poto6BE7b",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1R3xp6WEKz",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1rkHpzBEn9",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1saaz6qEbH",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1seF9eJEuJ",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1SH4y1o7se",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 1,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 1
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1SNxW67Ed1",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 1,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 1
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1T89VBUEcR",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1ThRyBGECJ",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1tLtM6GErx",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1UE421g7we",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 1,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 1
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1UxVy6gEWZ",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1vyXfYaEg6",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1w5hpzcENd",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1WfiPeiEb9",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1wRaSzrEEK",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1XSAdzTE3S",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1ynvvBbEkn",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1yP4y1g7HH",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1Z5Gg6dE5U",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 8,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 8
+      },
+      "samples": []
+    },
+    {
+      "schema_version": 1,
+      "video_id": "BV1zmGM6xEvh",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 7,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 7
+      },
+      "samples": []
+    }
+  ],
+  "total_labels": 0,
+  "externally_evaluated_videos": 0,
+  "promotion_eligible": false
+}
