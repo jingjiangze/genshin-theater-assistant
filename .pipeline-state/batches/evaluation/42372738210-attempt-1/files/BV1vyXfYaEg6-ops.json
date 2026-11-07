@@ -1,0 +1,27 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 13:09:17",
+  "bvid": "BV1vyXfYaEg6",
+  "frames": 7,
+  "candidates": 2,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "触发神秘收获效果，已跳过本次角色选择环节",
+      "act": 0,
+      "source": "BV1vyXfYaEg6@s",
+      "creator_id": "39682437",
+      "creator_name": "风来也Fly",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "就选它我来教大家逃课哈",
+      "act": 0,
+      "source": "BV1vyXfYaEg6@s",
+      "creator_id": "39682437",
+      "creator_name": "风来也Fly",
+      "needsReview": true
+    }
+  ]
+}

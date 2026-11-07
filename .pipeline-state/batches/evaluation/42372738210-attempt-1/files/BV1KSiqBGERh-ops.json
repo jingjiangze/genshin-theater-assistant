@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 13:09:30",
+  "bvid": "BV1KSiqBGERh",
+  "frames": 6,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "选择圣牌",
+      "act": 0,
+      "source": "BV1KSiqBGERh@90s",
+      "creator_id": "3546761826142729",
+      "creator_name": "旅行的意义是XP",
+      "needsReview": true
+    }
+  ]
+}
