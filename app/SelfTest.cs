@@ -484,6 +484,8 @@ internal static class SelfTest
             $"{solved}/{totalAct} 幕求出 4 人队");
 
         // 别名 → 官方名 → 元素/职能 必须能串起来（此前心海元素为空，池子里等于废人）
+        // 别名归一依赖策略已加载：必须显式先 Load，否则 Canonical 还是恒等映射
+        DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
         TeamSolver.LoadPool();
         Check("策略·别名角色元素与职能可解析",
             QuantData.ElementOf("珊瑚宫心海") == "Hydro" && TeamSolver.HasRole("珊瑚宫心海", "Healer"),
