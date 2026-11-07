@@ -1,0 +1,198 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 08:45:44",
+  "bvid": "BV1kUtu6BEin",
+  "frames": 8,
+  "candidates": 21,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主C+辅助，8幕自备较强主C+辅助",
+      "act": 6,
+      "source": "BV1kUtu6BEin@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：月谕2草、9幕水或草",
+      "act": 9,
+      "source": "BV1kUtu6BEin@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主c+辅助，8幕自备较强主c+辅助",
+      "act": 6,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买到buf",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：较强主C+辅助",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：月谕2章、9幕水或草",
+      "act": 9,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：把钱花光",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2绽放2挂件",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：愚人众",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：卡维+行秋+2挂件",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：缺角色买角色缺buff买buf",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：纳塔龙众",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：久岐忍+卡维+哥伦比娅+挂件",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后合角色：月谕2草、9幕水或草",
+      "act": 9,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：确保有4挂件",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买buff：看自备主c",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买角色：强力外援>弱C+辅助",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹守卫",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找角色",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买buff",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：弱C+辅助",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

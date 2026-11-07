@@ -1,0 +1,45 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 08:42:51",
+  "bvid": "BV1ynvvBbEkn",
+  "frames": 8,
+  "candidates": 4,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "心动盲盒插队（先排队才能插队）",
+      "act": 0,
+      "source": "BV1ynvvBbEkn@s",
+      "creator_id": "3494365880126366",
+      "creator_name": "仙帝归来兮",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "心动盲插队（先排队才能插队）",
+      "act": 0,
+      "source": "BV1ynvvBbEkn@s",
+      "creator_id": "3494365880126366",
+      "creator_name": "仙帝归来兮",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "动盒插队（先排队才能插队）",
+      "act": 0,
+      "source": "BV1ynvvBbEkn@s",
+      "creator_id": "3494365880126366",
+      "creator_name": "仙帝归来兮",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "心动盒插队（先排队才能插队）",
+      "act": 0,
+      "source": "BV1ynvvBbEkn@s",
+      "creator_id": "3494365880126366",
+      "creator_name": "仙帝归来兮",
+      "needsReview": true
+    }
+  ]
+}

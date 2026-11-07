@@ -1,0 +1,171 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 08:45:15",
+  "bvid": "BV1zmGM6xEvh",
+  "frames": 7,
+  "candidates": 18,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主C+辅助，8幕夏洛蒂（冰对空)9幕自备较强主C+辅助）",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：3幕雷、5幕冰水6幕冰水8幕雷",
+      "act": 3,
+      "source": "BV1zmGM6xEvh@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "第8幕:菲林斯+爱诺+夏洛蒂(冰对空)+雷后台 先驱秘源统辖阵列",
+      "act": 8,
+      "source": "BV1zmGM6xEvh@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛蒂（冰对空），9幕自备较强主ct辅助",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@1079s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买到4级感电",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@1079s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：菲林斯+艾诺+夏洛蒂+雷",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@1079s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛蒂（冰对空），9幕自备较强主c+辅助",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2感电2挂件（最好有1雷）",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹龙兽",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：夜兰+欧洛伦+2挂件",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：缺角色买角色缺buff买buff",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：菲林斯+爱诺+雷+挂件",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛带（冰对空），9幕自备较强主ct辅助",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2冻结buf",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：海乱鬼",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：丝柯克+莱依拉+行秋+水冰",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找角色",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：菲林斯+爱诺+夏洛蒂+雷",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

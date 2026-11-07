@@ -1,0 +1,189 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 08:46:13",
+  "bvid": "BV172Vd6xEKn",
+  "frames": 8,
+  "candidates": 20,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕罗莎莉亚+卡齐娜",
+      "act": 5,
+      "source": "BV172Vd6xEKn@0s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：3幕冰后台、7幕高频火或高频冰、10幕破岩盾、月谕牌需盾奶",
+      "act": 3,
+      "source": "BV172Vd6xEKn@0s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2火岩祝福",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：可莉+阿贝多+罗莎莉亚+卡齐娜",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找角色",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：深渊咏者-紫电",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：把钱花光",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：主c+盾",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买3融化1挂件",
+      "act": 0,
+      "source": "BV172Vd6xEKn@249s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：丘丘雷兜王",
+      "act": 0,
+      "source": "BV172Vd6xEKn@249s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：神绫华+重云+诺艾尔+挂件",
+      "act": 0,
+      "source": "BV172Vd6xEKn@249s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "结尾：优先找3幕冰后台",
+      "act": 3,
+      "source": "BV172Vd6xEKn@249s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买4融化祝福",
+      "act": 0,
+      "source": "BV172Vd6xEKn@498s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：浊水幻灵",
+      "act": 0,
+      "source": "BV172Vd6xEKn@498s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：香菱+重云+诺艾尔+挂件",
+      "act": 0,
+      "source": "BV172Vd6xEKn@498s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买角色",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹重机",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：神里绫华+3挂件",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹守卫",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：香菱+罗莎莉亚+卡齐娜+挂件",
+      "act": 0,
+      "source": "BV172Vd6xEKn@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    }
+  ]
+}
