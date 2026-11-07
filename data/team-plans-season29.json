@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-07 12:13:36",
+  "generatedAt": "2026-11-07 12:57:47",
   "season": 29,
   "assumption": "假设拥有公开全部角色，且只带本季开放元素（Hydro/Electro/Geo），池 56 人",
   "teamSize": 4,
@@ -8,19 +8,19 @@
       "Difficulty": "Easy",
       "Act": 1,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -32,19 +32,19 @@
       "Difficulty": "Easy",
       "Act": 2,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -87,19 +87,19 @@
       "Difficulty": "Normal",
       "Act": 1,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -111,19 +111,19 @@
       "Difficulty": "Normal",
       "Act": 2,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -166,19 +166,19 @@
       "Difficulty": "Normal",
       "Act": 4,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -238,7 +238,9 @@
         "Electro": 3,
         "Geo": 1
       },
-      "Gaps": [],
+      "Gaps": [
+        "缺破盾/钝击"
+      ],
       "Reasons": [
         "枚举 56 选 4（C=367290），最优分 1.11/1.15"
       ],
@@ -248,19 +250,19 @@
       "Difficulty": "Hard",
       "Act": 1,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -272,19 +274,19 @@
       "Difficulty": "Hard",
       "Act": 2,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -327,19 +329,19 @@
       "Difficulty": "Hard",
       "Act": 4,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -399,7 +401,9 @@
         "Electro": 3,
         "Geo": 1
       },
-      "Gaps": [],
+      "Gaps": [
+        "缺破盾/钝击"
+      ],
       "Reasons": [
         "枚举 56 选 4（C=367290），最优分 1.11/1.15"
       ],
@@ -409,19 +413,19 @@
       "Difficulty": "Hard",
       "Act": 7,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -466,7 +470,9 @@
       "Cover": {
         "Geo": 4
       },
-      "Gaps": [],
+      "Gaps": [
+        "缺破盾/钝击"
+      ],
       "Reasons": [
         "枚举 56 选 4（C=367290），最优分 1.15/1.15"
       ],
@@ -476,19 +482,19 @@
       "Difficulty": "Visionary",
       "Act": 1,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -500,19 +506,19 @@
       "Difficulty": "Visionary",
       "Act": 2,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -555,19 +561,19 @@
       "Difficulty": "Visionary",
       "Act": 4,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -627,7 +633,9 @@
         "Electro": 3,
         "Geo": 1
       },
-      "Gaps": [],
+      "Gaps": [
+        "缺破盾/钝击"
+      ],
       "Reasons": [
         "枚举 56 选 4（C=367290），最优分 1.11/1.15"
       ],
@@ -637,19 +645,19 @@
       "Difficulty": "Visionary",
       "Act": 7,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -694,7 +702,9 @@
       "Cover": {
         "Geo": 4
       },
-      "Gaps": [],
+      "Gaps": [
+        "缺破盾/钝击"
+      ],
       "Reasons": [
         "枚举 56 选 4（C=367290），最优分 1.15/1.15"
       ],
@@ -704,19 +714,19 @@
       "Difficulty": "Visionary",
       "Act": 9,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -731,41 +741,41 @@
         "哥伦比娅",
         "坎蒂丝",
         "塔利雅",
-        "夜兰"
+        "心海"
       ],
       "Alts": [
         [
           "丽莎",
           "哥伦比娅",
           "坎蒂丝",
-          "塔利雅"
+          "心海"
         ],
         [
           "丽莎",
           "久岐忍",
           "哥伦比娅",
-          "坎蒂丝"
+          "心海"
         ],
         [
           "丽莎",
           "久岐忍",
           "九条裟罗",
-          "哥伦比娅"
+          "芭芭拉"
         ]
       ],
-      "Score": 1,
+      "Score": 1.15,
       "ScoreMax": 1.3,
       "Need": {
         "Hydro": 1
       },
       "Cover": {
-        "Hydro": 4
+        "Hydro": 3
       },
       "Gaps": [
         "缺治疗"
       ],
       "Reasons": [
-        "枚举 56 选 4（C=367290），最优分 1.00/1.15"
+        "枚举 56 选 4（C=367290），最优分 1.15/1.15"
       ],
       "HasElementNeed": true
     },
@@ -773,19 +783,19 @@
       "Difficulty": "Lunar",
       "Act": 1,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -797,19 +807,19 @@
       "Difficulty": "Lunar",
       "Act": 2,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -852,19 +862,19 @@
       "Difficulty": "Lunar",
       "Act": 4,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -924,7 +934,9 @@
         "Electro": 3,
         "Geo": 1
       },
-      "Gaps": [],
+      "Gaps": [
+        "缺破盾/钝击"
+      ],
       "Reasons": [
         "枚举 56 选 4（C=367290），最优分 1.11/1.15"
       ],
@@ -934,19 +946,19 @@
       "Difficulty": "Lunar",
       "Act": 7,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -991,7 +1003,9 @@
       "Cover": {
         "Geo": 4
       },
-      "Gaps": [],
+      "Gaps": [
+        "缺破盾/钝击"
+      ],
       "Reasons": [
         "枚举 56 选 4（C=367290），最优分 1.15/1.15"
       ],
@@ -1001,19 +1015,19 @@
       "Difficulty": "Lunar",
       "Act": 9,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -1028,41 +1042,41 @@
         "哥伦比娅",
         "坎蒂丝",
         "塔利雅",
-        "夜兰"
+        "心海"
       ],
       "Alts": [
         [
           "丽莎",
           "哥伦比娅",
           "坎蒂丝",
-          "塔利雅"
+          "心海"
         ],
         [
           "丽莎",
           "久岐忍",
           "哥伦比娅",
-          "坎蒂丝"
+          "心海"
         ],
         [
           "丽莎",
           "久岐忍",
           "九条裟罗",
-          "哥伦比娅"
+          "芭芭拉"
         ]
       ],
-      "Score": 1,
+      "Score": 1.15,
       "ScoreMax": 1.3,
       "Need": {
         "Hydro": 1
       },
       "Cover": {
-        "Hydro": 4
+        "Hydro": 3
       },
       "Gaps": [
         "缺治疗"
       ],
       "Reasons": [
-        "枚举 56 选 4（C=367290），最优分 1.00/1.15"
+        "枚举 56 选 4（C=367290），最优分 1.15/1.15"
       ],
       "HasElementNeed": true
     },
@@ -1070,19 +1084,19 @@
       "Difficulty": "Lunar",
       "Act": 11,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
@@ -1094,19 +1108,19 @@
       "Difficulty": "Lunar",
       "Act": 12,
       "Team": [
-        "荒泷一斗",
         "夜兰",
-        "丽莎",
-        "久岐忍"
+        "五郎",
+        "心海",
+        "丽莎"
       ],
       "Alts": [],
       "Score": 0,
       "ScoreMax": 0,
       "Need": {},
       "Cover": {
-        "Geo": 1,
         "Hydro": 1,
-        "Electro": 2
+        "Geo": 1,
+        "Electro": 1
       },
       "Gaps": [],
       "Reasons": [
