@@ -68,7 +68,10 @@ internal static class TeamSolver
                             enToZh[e.Name] = cn;
             }
 
-            var roleOf = new Dictionary<string, string>(StringComparer.Ordinal);
+            // 一个角色可以同时是多个职能（芭芭拉/诺艾尔 = 挂水/破盾 + 治疗）。
+            // 之前用 Dictionary<string,string> + TryAdd 只保留第一个命中的规则，
+            // 结果 Healer 身份被 HydroApplier 覆盖 → 第10幕永远补不到治疗（断言抓到「池内治疗为空」）。
+            var roleOf = new Dictionary<string, List<string>>(StringComparer.Ordinal);
             var roles = new Dictionary<string, List<string>>(StringComparer.Ordinal);
             if (File.Exists(subsPath))
             {
@@ -85,7 +88,8 @@ internal static class TeamSolver
                                 if (n.ValueKind == JsonValueKind.String && n.GetString() is { Length: > 0 } nm)
                                 {
                                     list.Add(nm);
-                                    roleOf.TryAdd(nm, role);
+                                    if (!roleOf.TryGetValue(nm, out var rs)) { rs = new List<string>(); roleOf[nm] = rs; }
+                                    if (!rs.Contains(role)) rs.Add(role);
                                 }
                         roles[role] = list;
                     }
@@ -108,7 +112,7 @@ internal static class TeamSolver
                 {
                     Name = zh,
                     Element = kv.Value,
-                    Role = roleOf.TryGetValue(zh, out var role) ? role : "",
+                    Role = roleOf.TryGetValue(zh, out var rolesFor) ? string.Join("|", rolesFor) : "",
                 });
             }
             // 试用角色补齐：职能规则里点名但池中没有的，**必须先确认本季带得动**。
