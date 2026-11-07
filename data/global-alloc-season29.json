@@ -1,0 +1,672 @@
+{
+  "generatedAt": "2026-11-07 13:23:18",
+  "season": 29,
+  "assumption": "假设拥有公开全部角色 ∩ 本季元素；同一角色全局只用一次（剧诗机制）",
+  "totalScore": 18,
+  "totalMax": 22,
+  "notes": [
+    "池 56 人｜占用主力 42 人｜未用 14 人",
+    "同一角色全局只用一次（剧诗机制：编入即锁定）",
+    "无元素需求的幕不占主力，给可复用通用队",
+    "✓ 无重复使用"
+  ],
+  "assigns": [
+    {
+      "Difficulty": "Easy",
+      "Act": 1,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Easy",
+      "Act": 2,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Normal",
+      "Act": 1,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Normal",
+      "Act": 2,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Normal",
+      "Act": 4,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Hard",
+      "Act": 1,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Hard",
+      "Act": 2,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Hard",
+      "Act": 4,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Hard",
+      "Act": 7,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 1,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 2,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 4,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 7,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 9,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 1,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 2,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 4,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 7,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 9,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 11,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 12,
+      "Team": [
+        "（通用队：可复用低练度角色）"
+      ],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 0,
+      "Gaps": [],
+      "UsedMainForce": false,
+      "Reasons": [
+        "本幕无元素需求 → 不占用主力"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 6,
+      "Team": [
+        "五郎",
+        "九条裟罗",
+        "伊安珊"
+      ],
+      "Elements": [
+        "Geo",
+        "Electro",
+        "Electro"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": [
+        "职能占位 五郎（GeoBreak）"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 8,
+      "Team": [
+        "卡齐娜",
+        "兹白",
+        "凝光"
+      ],
+      "Elements": [
+        "Geo",
+        "Geo",
+        "Geo"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": [
+        "职能占位 卡齐娜（GeoBreak）"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 10,
+      "Team": [
+        "芭芭拉",
+        "夜兰",
+        "爱诺"
+      ],
+      "Elements": [
+        "Hydro",
+        "Hydro",
+        "Hydro"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": [
+        "职能占位 芭芭拉（Healer）"
+      ]
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 6,
+      "Team": [
+        "诺艾尔",
+        "北斗",
+        "多莉"
+      ],
+      "Elements": [
+        "Geo",
+        "Electro",
+        "Electro"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": [
+        "职能占位 诺艾尔（GeoBreak）"
+      ]
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 8,
+      "Team": [
+        "钟离",
+        "娜维娅",
+        "希诺宁"
+      ],
+      "Elements": [
+        "Geo",
+        "Geo",
+        "Geo"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": [
+        "职能占位 钟离（GeoBreak）"
+      ]
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 10,
+      "Team": [
+        "心海",
+        "莫娜",
+        "那维莱特"
+      ],
+      "Elements": [
+        "",
+        "Hydro",
+        "Hydro"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": [
+        "职能占位 心海（Healer）"
+      ]
+    },
+    {
+      "Difficulty": "Hard",
+      "Act": 6,
+      "Team": [
+        "米提亚",
+        "菲林斯"
+      ],
+      "Elements": [
+        "Electro",
+        "Electro"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [
+        "GeoBreak:已被占用(五郎/卡齐娜/诺艾尔/钟离)"
+      ],
+      "UsedMainForce": true,
+      "Reasons": [
+        "职能占位失败 GeoBreak"
+      ]
+    },
+    {
+      "Difficulty": "Hard",
+      "Act": 8,
+      "Team": [],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 1,
+      "Gaps": [
+        "GeoBreak:已被占用(五郎/卡齐娜/诺艾尔/钟离)",
+        "Geo无人"
+      ],
+      "UsedMainForce": true,
+      "Reasons": [
+        "职能占位失败 GeoBreak"
+      ]
+    },
+    {
+      "Difficulty": "Normal",
+      "Act": 6,
+      "Team": [],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 1,
+      "Gaps": [
+        "GeoBreak:已被占用(五郎/卡齐娜/诺艾尔/钟离)",
+        "Electro无人"
+      ],
+      "UsedMainForce": true,
+      "Reasons": [
+        "职能占位失败 GeoBreak"
+      ]
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 3,
+      "Team": [
+        "赛诺",
+        "雷电将军"
+      ],
+      "Elements": [
+        "Electro",
+        "Electro"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": []
+    },
+    {
+      "Difficulty": "Lunar",
+      "Act": 5,
+      "Team": [
+        "荒泷一斗",
+        "云堇",
+        "丽莎",
+        "久岐忍"
+      ],
+      "Elements": [
+        "Geo",
+        "Geo",
+        "Electro",
+        "Electro"
+      ],
+      "Score": 2,
+      "ScoreMax": 2,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": []
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 3,
+      "Team": [
+        "伊涅芙",
+        "克洛琳德"
+      ],
+      "Elements": [
+        "Electro",
+        "Electro"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": []
+    },
+    {
+      "Difficulty": "Visionary",
+      "Act": 5,
+      "Team": [
+        "千织",
+        "叶洛亚",
+        "八重神子",
+        "刻晴"
+      ],
+      "Elements": [
+        "Geo",
+        "Geo",
+        "Electro",
+        "Electro"
+      ],
+      "Score": 2,
+      "ScoreMax": 2,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": []
+    },
+    {
+      "Difficulty": "Hard",
+      "Act": 3,
+      "Team": [
+        "旅行者",
+        "欧洛伦"
+      ],
+      "Elements": [
+        "Electro",
+        "Electro"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": []
+    },
+    {
+      "Difficulty": "Hard",
+      "Act": 5,
+      "Team": [
+        "莉奈娅",
+        "阿贝多",
+        "瓦列里",
+        "瓦雷莎"
+      ],
+      "Elements": [
+        "Geo",
+        "Geo",
+        "Electro",
+        "Electro"
+      ],
+      "Score": 2,
+      "ScoreMax": 2,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": []
+    },
+    {
+      "Difficulty": "Normal",
+      "Act": 3,
+      "Team": [
+        "菲谢尔",
+        "赛索斯"
+      ],
+      "Elements": [
+        "Electro",
+        "Electro"
+      ],
+      "Score": 1,
+      "ScoreMax": 1,
+      "Gaps": [],
+      "UsedMainForce": true,
+      "Reasons": []
+    },
+    {
+      "Difficulty": "Normal",
+      "Act": 5,
+      "Team": [
+        "阿罗夏",
+        "雷泽"
+      ],
+      "Elements": [
+        "Electro",
+        "Electro"
+      ],
+      "Score": 1,
+      "ScoreMax": 2,
+      "Gaps": [
+        "Geo无人"
+      ],
+      "UsedMainForce": true,
+      "Reasons": []
+    },
+    {
+      "Difficulty": "Easy",
+      "Act": 3,
+      "Team": [],
+      "Elements": [],
+      "Score": 0,
+      "ScoreMax": 1,
+      "Gaps": [
+        "Electro无人"
+      ],
+      "UsedMainForce": true,
+      "Reasons": []
+    }
+  ]
+}
