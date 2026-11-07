@@ -134,7 +134,9 @@ internal static class DecisionOrchestrator
         // ---- 5) 语料/规则兜底：保证永远有指示 ----
         if (d.Lines.Count == 0)
         {
-            var next = TheaterLogic.NextAction("act", ctx.Act);
+            // 不依赖 TheaterLogic（它带 OCR/WinForms 依赖，会让 Linux CLI 编译不进来）：
+            // 直接查幕内知识数据；查不到就如实说"暂无资料"。
+            var next = Playbook.Next("act", ctx.Act) ?? Playbook.Missing;
             d.Lines.Add("· " + (string.IsNullOrEmpty(next) ? "按屏幕提示推进，别交主力耐力" : next));
             d.Source = "·规则";
             d.Confidence = DecisionPolicy.ConfidenceOf("rule", 0.3);
