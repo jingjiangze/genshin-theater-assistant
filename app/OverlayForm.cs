@@ -187,6 +187,14 @@ internal static class Program
                             (int)OptDouble(args, "--max", 0));
                     break;
 
+                // 敌人侧量化档案（抗性/波次/机制窗口/需求向量）
+                case "--enemy-profile":
+                    return QuantData.RunEnemyCli((int)OptDouble(args, "--act", 0), Opt(args, "--difficulty"));
+
+                // 我方侧量化档案（池子覆盖；没有 roster.json 时明确标 Full=false）
+                case "--team-profile":
+                    return QuantData.RunTeamCli();
+
                 // 幕内知识清单（确认内容来自数据而非代码）
                 case "--playbook":
                     return Playbook.RunCli(Opt(args, "--out"));
