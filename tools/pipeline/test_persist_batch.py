@@ -360,7 +360,10 @@ class ExtractContextTest(unittest.TestCase):
     def test_evaluation_batch_evidence_is_read_with_creator(self):
         # 50 视频实测：跨作者共识 29 条全在 evaluation 批次里，
         # 原先只 glob ingest/* 导致知识管线永远收不到独立作者证据。
-        root = Path(self.tmp.name)
+        import tempfile
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
         batch = root / "evaluation" / "r1-attempt-1"
         files = batch / "files"
         (files / "BVx").mkdir(parents=True)
