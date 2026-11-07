@@ -1,0 +1,63 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 04:46:21",
+  "bvid": "BV14Q4ce3EEE",
+  "frames": 7,
+  "candidates": 6,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "待命是可出战色的补充量，通过完成战或选择伙伴事件，才能转变为可出战。",
+      "act": 0,
+      "source": "BV14Q4ce3EEE@0s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "特邀角色是当期指定的部分不受元素限制的可选角色。",
+      "act": 0,
+      "source": "BV14Q4ce3EEE@0s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选择神秘收获事件时,待",
+      "act": 0,
+      "source": "BV14Q4ce3EEE@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选择后，伙伴事件消耗的",
+      "act": 0,
+      "source": "BV14Q4ce3EEE@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选效果增加1项",
+      "act": 0,
+      "source": "BV14Q4ce3EEE@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "待命是可出战的补充量，通过完成战或选择伙伴事件，才能转变为可出战。",
+      "act": 0,
+      "source": "BV14Q4ce3EEE@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    }
+  ]
+}

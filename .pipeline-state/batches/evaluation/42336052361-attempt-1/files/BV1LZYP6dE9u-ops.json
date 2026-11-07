@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-07 04:51:33",
+  "bvid": "BV1LZYP6dE9u",
+  "frames": 5,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "ps：多带挂元素角色，圣牌需要奶！！8关要星反应，10关要高频冰角色！",
+      "act": 0,
+      "source": "BV1LZYP6dE9u@0s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    }
+  ]
+}
