@@ -1,0 +1,42 @@
+{
+  "_note": "决策策略数据。代码不再硬编码这些内容——调整行为改本文件即可。缺字段时代码用中性默认并标注 source=default。",
+  "_sources": "roleTriggers 来自 act-playbook 机制文本的实测用词；difficultyWeights 对应用户要求『最高难度最重要』",
+  "teamSize": 4,
+  "coveragePerElement": 2,
+  "difficultyWeights": {
+    "Lunar": 1.0,
+    "Visionary": 0.8,
+    "Hard": 0.6,
+    "Normal": 0.4,
+    "Easy": 0.25
+  },
+  "defaultDifficultyWeight": 0.5,
+  "roleTriggers": {
+    "healer": ["奶", "治疗", "标记"],
+    "breaker": ["破锅", "钝击", "破盾", "护盾"]
+  },
+  "scoring": {
+    "resistNormalizer": 20,
+    "roleBonus": 0.15,
+    "wastePenalty": 0.04,
+    "roleNeutralWhenNoNeed": 0.5,
+    "candidateRoleBonus": 0.8,
+    "mainDpsBufferBonus": 0.15
+  },
+  "confidence": {
+    "quant": 0.75,
+    "verified": 0.7,
+    "model": 0.5,
+    "rule": 0.3,
+    "singleNeed": 0.3,
+    "genericPoolCap": 0.4
+  },
+  "aliases": {
+    "心海": "珊瑚宫心海",
+    "一斗": "荒泷一斗",
+    "皇女": "菲谢尔",
+    "影": "雷电将军",
+    "神子": "八重神子",
+    "甘雨": "甘雨"
+  }
+}

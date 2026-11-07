@@ -60,7 +60,7 @@ internal static class DecisionOrchestrator
             if (pick?.Pick != null)
             {
                 d.Lines.Add($"▶ 选第{pick.Pick.Index}张：{pick.Pick.Raw}");
-                d.Confidence = 0.75;
+                d.Confidence = DecisionPolicy.ConfidenceOf("quant", 0.75);
                 d.Source = "◆量化";
                 d.Provenance.Add($"选项 {ctx.Options.Count} 张已读到 → 本地打分可判");
                 if (ctx.Team != null && !ctx.Team.Full)
@@ -75,7 +75,7 @@ internal static class DecisionOrchestrator
         {
             d.Lines.Add("★ " + verified);
             d.Source = "★已验证";
-            d.Confidence = 0.7;
+            d.Confidence = DecisionPolicy.ConfidenceOf("verified", 0.7);
             d.Provenance.Add("2+ 独立作者 + 固定 holdout 通过");
         }
 
@@ -98,7 +98,7 @@ internal static class DecisionOrchestrator
             foreach (var line in ctx.LlmText.Split('\n').Where(l => l.Trim().Length > 0).Take(3))
                 d.Lines.Add("◇ " + line.Trim());
             if (d.Source.Length == 0) d.Source = "◇模型";
-            d.Confidence = Math.Max(d.Confidence, 0.5);
+            d.Confidence = Math.Max(d.Confidence, DecisionPolicy.ConfidenceOf("model", 0.5));
             d.Provenance.Add("选项未读到 → 交模型裁决（随机要素）");
         }
 
@@ -108,7 +108,7 @@ internal static class DecisionOrchestrator
             var next = TheaterLogic.NextAction("act", ctx.Act);
             d.Lines.Add("· " + (string.IsNullOrEmpty(next) ? "按屏幕提示推进，别交主力耐力" : next));
             d.Source = "·规则";
-            d.Confidence = 0.3;
+            d.Confidence = DecisionPolicy.ConfidenceOf("rule", 0.3);
             d.Provenance.Add("量化/语料/模型都不可用");
         }
 
@@ -128,6 +128,7 @@ internal static class DecisionOrchestrator
     public static int RunCli(int act, string difficulty)
     {
         Cli.Attach();
+        DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
         SeasonRegistry.Load();
         QuantData.LoadEnemies(AppPaths.Data("season29.json"));
         QuantData.LoadCharacters(AppPaths.Data("characters.json"), AppPaths.Data("substitutes.json"));

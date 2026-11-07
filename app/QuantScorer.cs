@@ -87,7 +87,7 @@ internal static class QuantScorer
                 .Select(m => m.Name)
                 .ToList();
             int cover = team.Cover.TryGetValue(element, out var c) ? c : members.Count;
-            double factor = Math.Min(1.0, cover / 2.0);   // 2 人视为充分覆盖
+            double factor = Math.Min(1.0, (double)cover / DecisionPolicy.CoveragePerElement);
             covered += need * factor;
             res.Candidates.Add(new Candidate
             {
@@ -106,12 +106,12 @@ internal static class QuantScorer
 
         // ---- 职能覆盖（治疗/破盾类需求，来自 playbook 的 why 文本线索）----
         var why = string.Join(" ", enemy.MechanicEffect, Playbook.Need(act).Why);
-        bool needHeal = why.Contains("奶") || why.Contains("治疗") || why.Contains("力竭");
-        bool needBreak = why.Contains("破锅") || why.Contains("钝击") || why.Contains("破盾") || why.Contains("护盾");
+        bool needHeal = DecisionPolicy.NeedsHealer(why);
+        bool needBreak = DecisionPolicy.NeedsBreaker(why);
         int roleNeeded = 0, roleHave = 0;
         if (needHeal) { roleNeeded++; if (team.Roles.TryGetValue("Healer", out var h) && h > 0) roleHave++; }
         if (needBreak) { roleNeeded++; if (team.Roles.TryGetValue("GeoBreak", out var g) && g > 0) roleHave++; }
-        res.RolePart = roleNeeded == 0 ? 0.5 : (double)roleHave / roleNeeded;   // 无职能需求时给中性 0.5
+        res.RolePart = roleNeeded == 0 ? DecisionPolicy.RoleNeutralWhenNoNeed : (double)roleHave / roleNeeded;
 
         // ---- 云端已验证知识命中 ----
         res.KnowPart = Playbook.VerifiedFor(act) != null ? 1.0 : 0.0;
@@ -124,13 +124,13 @@ internal static class QuantScorer
 
         // ---- 置信度：候选需求之间的分差（只有 1 个需求时视为证据不足）----
         var contribs = res.Candidates.Select(c => c.Contribution).OrderByDescending(x => x).ToList();
-        if (contribs.Count < 2) res.Confidence = 0.3;
+        if (contribs.Count < 2) res.Confidence = DecisionPolicy.ConfidenceOf("singleNeed", 0.3);
         else
         {
             double best = contribs[0], second = contribs[1];
             res.Confidence = best <= 0 ? 0 : Clamp01((best - second) / Math.Max(best, 1e-6));
         }
-        if (!team.Full) res.Confidence = Math.Min(res.Confidence, 0.4);   // 通用池不给高置信
+        if (!team.Full) res.Confidence = Math.Min(res.Confidence, DecisionPolicy.ConfidenceOf("genericPoolCap", 0.4));
 
         res.Decision = BuildDecision(res, enemy);
         return res;
@@ -160,6 +160,7 @@ internal static class QuantScorer
         QuantData.LoadEnemies(AppPaths.Data("season29.json"));
         QuantData.LoadCharacters(AppPaths.Data("characters.json"), AppPaths.Data("substitutes.json"));
         Playbook.Load(AppPaths.Data("act-playbook.json"));
+        DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
         LoadWeights(AppPaths.Data("quant-model.json"));
 
         var real = QuantData.Team(Path.Combine(AppPaths.Dir, "roster.json"));

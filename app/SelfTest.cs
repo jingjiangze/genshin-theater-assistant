@@ -483,6 +483,26 @@ internal static class SelfTest
         Check("配队·每个难度每幕都有解", totalAct > 0 && solved == totalAct,
             $"{solved}/{totalAct} 幕求出 4 人队");
 
+        // 决策内容必须来自数据，不硬编码：策略加载、难度权重、触发词一致、别名、幕数数据驱动
+        DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
+        Check("策略·来自数据文件", DecisionPolicy.Source.Contains("decision-policy"),
+            $"来源 {DecisionPolicy.Source}｜队形 {DecisionPolicy.TeamSize}｜覆盖 {DecisionPolicy.CoveragePerElement}");
+        Check("策略·难度权重来自数据",
+            DecisionPolicy.DifficultyWeightCount >= 4
+            && DecisionPolicy.DifficultyWeight("Lunar") > DecisionPolicy.DifficultyWeight("Easy"),
+            $"Lunar={DecisionPolicy.DifficultyWeight("Lunar"):0.00} Easy={DecisionPolicy.DifficultyWeight("Easy"):0.00}");
+        // 触发词必须只有一份来源：此前 QuantScorer 多算了"力竭"、分配器没有，两边判定不一致
+        Check("策略·职能触发词单一来源",
+            !DecisionPolicy.NeedsHealer("满条后力竭") && DecisionPolicy.NeedsHealer("被标记要奶满")
+            && DecisionPolicy.NeedsBreaker("16 秒内打碎锅") && !DecisionPolicy.NeedsBreaker("清怪推进"),
+            $"healer 触发 {DecisionPolicy.HealerTriggerCount} 个；力竭不算治疗需求");
+        Check("策略·角色别名归一",
+            DecisionPolicy.Canonical("心海") == "珊瑚宫心海" && DecisionPolicy.Canonical("行秋") == "行秋",
+            $"心海→{DecisionPolicy.Canonical("心海")}｜行秋→{DecisionPolicy.Canonical("行秋")}");
+        Check("策略·幕数由赛季数据推导",
+            QuantData.MaxAct("Lunar") >= QuantData.MaxAct("Easy") && QuantData.MaxAct("Lunar") > 0,
+            $"Lunar={QuantData.MaxAct("Lunar")}幕 Easy={QuantData.MaxAct("Easy")}幕");
+
         // 跨幕全局分配：同一角色只能用一次 + 治疗/破盾硬约束
         var alloc = GlobalAllocator.Solve(0);
         var mainForce = alloc.Assigns.Where(a => a.UsedMainForce).ToList();

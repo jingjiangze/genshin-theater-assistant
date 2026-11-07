@@ -58,6 +58,17 @@ internal static class QuantData
 
     public static IReadOnlyList<string> Difficulties => _actsOf.Keys.ToList();
 
+    /// <summary>该难度下的最大幕号（从赛季数据推导，不在代码里写死 3/6/8/10/12）。</summary>
+    public static int MaxAct(string difficulty)
+    {
+        if (!_actsOf.TryGetValue(difficulty ?? "", out var table) || table.ValueKind != JsonValueKind.Object)
+            return _actsOf.Count > 0 ? MaxAct(_actsOf.Keys.First()) : 12;
+        var max = 0;
+        foreach (var e in table.EnumerateObject())
+            if (int.TryParse(e.Name, out var a) && a > max) max = a;
+        return max > 0 ? max : 12;
+    }
+
     /// <summary>取某难度某幕的量化档案；没有该难度/该幕就返回 null（不编）。</summary>
     public static EnemyProfile Enemy(int act, string difficulty)
     {
@@ -155,7 +166,7 @@ internal static class QuantData
             // 本季带不了的元素（如 Hydro/Electro/Geo 赛季里的 Pyro/Cryo）不进需求，
             // 否则该幕永远"缺人"（实测第5幕 2.00/4.00 缺 Pyro+Cryo）。
             if (!Allowed(kv.Key)) continue;
-            p.Need[kv.Key] = Math.Min(1.0, -kv.Value / 20.0);
+            p.Need[kv.Key] = Math.Min(1.0, -kv.Value / DecisionPolicy.ResistNormalizer);
         }
 
         var (needEl, _) = Playbook.Need(p.Act);

@@ -19,15 +19,8 @@ namespace TheaterAssistant;
 internal static class GlobalAllocator
 {
     /// <summary>难度权重：用户明确要求「最重要的是最高难度」。</summary>
-    private static double DifficultyWeight(string d) => d switch
-    {
-        "Lunar" => 1.00,
-        "Visionary" => 0.80,
-        "Hard" => 0.60,
-        "Normal" => 0.40,
-        "Easy" => 0.25,
-        _ => 0.50,
-    };
+    // 难度权重来自 data/decision-policy.json（不在代码里写死取舍）
+    private static double DifficultyWeight(string d) => DecisionPolicy.DifficultyWeight(d);
 
     internal sealed class Slot
     {
@@ -73,6 +66,7 @@ internal static class GlobalAllocator
         if (target == null) return res;
         res.Season = target.Season;
 
+        DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
         QuantData.LoadEnemies(target.Path);
         QuantData.LoadCharacters(AppPaths.Data("characters.json"), AppPaths.Data("substitutes.json"));
         Playbook.Load(AppPaths.Data("act-playbook.json"));
@@ -83,14 +77,14 @@ internal static class GlobalAllocator
         var slots = new List<Slot>();
         foreach (var diff in target.Difficulties)
         {
-            int maxAct = diff switch { "Easy" => 3, "Normal" => 6, "Hard" => 8, "Visionary" => 10, "Lunar" => 12, _ => 12 };
+            int maxAct = QuantData.MaxAct(diff);   // 从赛季数据推导，新赛季幕数变化自动适配
             for (int a = 1; a <= maxAct; a++)
             {
                 var e = QuantData.Enemy(a, diff);
                 if (e == null || !e.HasAnyData) continue;
                 var why = e.MechanicEffect ?? "";
-                bool heal = why.Contains("奶") || why.Contains("治疗") || why.Contains("标记");
-                bool brk = why.Contains("破锅") || why.Contains("钝击") || why.Contains("破盾") || why.Contains("护盾");
+                bool heal = DecisionPolicy.NeedsHealer(why);
+                bool brk = DecisionPolicy.NeedsBreaker(why);
                 foreach (var kv in e.Need)
                     slots.Add(new Slot
                     {
@@ -176,7 +170,7 @@ internal static class GlobalAllocator
             asg.ScoreMax += s.NeedWeight;
 
             // 每个需求元素要 2 人；先用职能硬约束挑，再按角色舒适度兜底
-            for (int pick = 0; pick < 2; pick++)
+            for (int pick = 0; pick < DecisionPolicy.CoveragePerElement; pick++)
             {
                 var cand = units
                     .Where(u => !used.Contains(u.Name)
@@ -190,7 +184,7 @@ internal static class GlobalAllocator
                 res.PoolUsed.Add(cand.Name);
             }
             int have = asg.Team.Count(nm => units.Any(u => u.Name == nm && string.Equals(u.Element, s.Element, StringComparison.OrdinalIgnoreCase)));
-            asg.Score += s.NeedWeight * Math.Min(1.0, have / 2.0);
+            asg.Score += s.NeedWeight * Math.Min(1.0, (double)have / DecisionPolicy.CoveragePerElement);
             if (have == 0) asg.Gaps.Add($"{s.Element}无人");
         }
 
@@ -200,8 +194,8 @@ internal static class GlobalAllocator
             var e = QuantData.Enemy(asg.Act, asg.Difficulty);
             if (e == null) continue;
             var why = e.MechanicEffect ?? "";
-            bool heal = why.Contains("奶") || why.Contains("治疗") || why.Contains("标记");
-            bool brk = why.Contains("破锅") || why.Contains("钝击") || why.Contains("破盾") || why.Contains("护盾");
+            bool heal = DecisionPolicy.NeedsHealer(why);
+            bool brk = DecisionPolicy.NeedsBreaker(why);
             if (heal && !asg.Team.Any(nm => HasRole(units, nm, "Healer")))
             {
                 // 换一个未用的 Healer 进来（同元素优先），把最不重要的元素位挤掉
@@ -249,9 +243,10 @@ internal static class GlobalAllocator
     private static double Score((string Name, string Element, string Role) u, Slot s)
     {
         double v = 1.0;
-        if (s.NeedHeal && TeamSolver.RoleHas(u.Role, "Healer")) v += 0.8;
-        if (s.NeedBreak && TeamSolver.RoleHas(u.Role, "GeoBreak")) v += 0.8;
-        if ((TeamSolver.RoleHas(u.Role, "MainDps") || TeamSolver.RoleHas(u.Role, "Buffer"))) v += 0.15;
+        if (s.NeedHeal && TeamSolver.RoleHas(u.Role, "Healer")) v += DecisionPolicy.CandidateRoleBonus;
+        if (s.NeedBreak && TeamSolver.RoleHas(u.Role, "GeoBreak")) v += DecisionPolicy.CandidateRoleBonus;
+        if ((TeamSolver.RoleHas(u.Role, "MainDps") || TeamSolver.RoleHas(u.Role, "Buffer")))
+            v += DecisionPolicy.MainDpsBufferBonus;
         return v;
     }
 

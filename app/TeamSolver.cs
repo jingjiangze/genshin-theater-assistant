@@ -38,7 +38,7 @@ internal static class TeamSolver
         public bool HasElementNeed;
     }
 
-    private const int TeamSize = 4;
+    private static int TeamSize => DecisionPolicy.TeamSize;
 
     private static List<Unit> _pool = new();
     private static List<string> _seasonElements = new();
@@ -88,8 +88,10 @@ internal static class TeamSolver
                                 if (n.ValueKind == JsonValueKind.String && n.GetString() is { Length: > 0 } nm)
                                 {
                                     list.Add(nm);
-                                    if (!roleOf.TryGetValue(nm, out var rs)) { rs = new List<string>(); roleOf[nm] = rs; }
+                                    var canon = DecisionPolicy.Canonical(nm);   // 心海→珊瑚宫心海 等别名归一
+                                    if (!roleOf.TryGetValue(canon, out var rs)) { rs = new List<string>(); roleOf[canon] = rs; }
                                     if (!rs.Contains(role)) rs.Add(role);
+                                    if (canon != nm) roleOf[nm] = rs;   // 别名也保留一份，兼容旧数据
                                 }
                         roles[role] = list;
                     }
@@ -112,7 +114,9 @@ internal static class TeamSolver
                 {
                     Name = zh,
                     Element = kv.Value,
-                    Role = roleOf.TryGetValue(zh, out var rolesFor) ? string.Join("|", rolesFor) : "",
+                    Role = roleOf.TryGetValue(DecisionPolicy.Canonical(zh), out var rolesFor)
+                    ? string.Join("|", rolesFor)
+                    : (roleOf.TryGetValue(zh, out var rf2) ? string.Join("|", rf2) : ""),
                 });
             }
             // 试用角色补齐：职能规则里点名但池中没有的，**必须先确认本季带得动**。
@@ -309,6 +313,7 @@ internal static class TeamSolver
     {
         Cli.Attach();
         // 赛季无关：按 Registry 自动发现的文件加载，不再硬编码 season29
+        DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
         var seasons = SeasonRegistry.Load();
         var target = SeasonRegistry.For(season) ?? seasons.FirstOrDefault();
         if (target == null) { Cli.Say("没有赛季数据（data/season*.json）"); return 2; }
@@ -326,7 +331,7 @@ internal static class TeamSolver
 
         foreach (var d in diffs)
         {
-            var maxAct = d switch { "Easy" => 3, "Normal" => 6, "Hard" => 8, "Visionary" => 10, "Lunar" => 12, _ => 12 };
+            var maxAct = QuantData.MaxAct(d);
             sb.AppendLine($"## {d}");
             for (int a = 1; a <= maxAct; a++)
             {
