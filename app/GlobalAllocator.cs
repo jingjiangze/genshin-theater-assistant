@@ -109,17 +109,59 @@ internal static class GlobalAllocator
             }
         }
 
-        // ---- 2) 贪心：重要的需求先满足；每人全局只用一次 ----
+        // ---- 2) 阶段A：职能硬约束先占位 ----
+        // 治疗/破盾角色是稀缺资源，必须按「难度权重」优先给最需要的幕（Lunar 第10幕），
+        // 否则会被前面几幕当普通元素位抢走（实测第10幕"缺治疗(池内已用完)"）。
         var used = new HashSet<string>(StringComparer.Ordinal);
+        var byActEarly = new Dictionary<(string, int), Assign>();
+        foreach (var need in slots
+                     .Where(s => s.NeedHeal || s.NeedBreak)
+                     .GroupBy(s => (s.Difficulty, s.Act))
+                     .Select(g => g.OrderByDescending(x => x.Importance).First())
+                     .OrderByDescending(s => s.DiffWeight))
+        {
+            var key = (need.Difficulty, need.Act);
+            if (!byActEarly.TryGetValue(key, out var asg))
+            {
+                asg = new Assign { Difficulty = need.Difficulty, Act = need.Act, UsedMainForce = true };
+                byActEarly[key] = asg;
+                res.Assigns.Add(asg);
+            }
+            foreach (var role in new[] { need.NeedHeal ? "Healer" : null, need.NeedBreak ? "GeoBreak" : null })
+            {
+                if (role == null) continue;
+                if (asg.Team.Any(nm => HasRole(units, nm, role))) continue;
+                var pick = units
+                    .Where(u => !used.Contains(u.Name) && TeamSolver.RoleHas(u.Role, role))
+                    .OrderByDescending(u => need.Element == u.Element)
+                    .ThenByDescending(u => u.Element is "Hydro" or "Electro" or "Geo")
+                    .FirstOrDefault();
+                if (pick.Name == null) continue;
+                used.Add(pick.Name);
+                asg.Team.Add(pick.Name);
+                asg.Elements.Add(pick.Element);
+                res.PoolUsed.Add(pick.Name);
+                asg.Reasons.Add($"职能占位 {pick.Name}（{role}）");
+            }
+        }
+
+        // ---- 2b) 阶段B：按需求重要度分配元素位；每人全局只用一次 ----
         var byAct = new Dictionary<(string, int), Assign>();
         foreach (var s in slots.OrderByDescending(x => x.Importance))
         {
             var key = (s.Difficulty, s.Act);
             if (!byAct.TryGetValue(key, out var asg))
             {
-                asg = new Assign { Difficulty = s.Difficulty, Act = s.Act, UsedMainForce = true, ScoreMax = 0 };
+                if (byActEarly.TryGetValue(key, out var early))
+                {
+                    asg = early;              // 阶段A 已为该幕占好职能位，直接复用
+                }
+                else
+                {
+                    asg = new Assign { Difficulty = s.Difficulty, Act = s.Act, UsedMainForce = true };
+                    res.Assigns.Add(asg);
+                }
                 byAct[key] = asg;
-                res.Assigns.Add(asg);
             }
             asg.ScoreMax += s.NeedWeight;
 
@@ -164,7 +206,7 @@ internal static class GlobalAllocator
                     asg.Team.Add(healer.Name);
                     asg.Reasons.Add($"补治疗 {healer.Name}");
                 }
-                else asg.Gaps.Add("缺治疗(池内已用完)");
+                else asg.Gaps.Add("治疗已用完");
             }
             if (brk && !asg.Team.Any(nm => HasRole(units, nm, "GeoBreak")))
             {

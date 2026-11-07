@@ -122,6 +122,28 @@ internal static class QuantData
     /// 需求向量：①抗性为负的元素（弱点）②playbook 明确要求的功能元素。
     /// 两者都取不到 → 空字典（调用方不得凭空加分）。
     /// </summary>
+    private static List<string> _allowedElements = new();
+
+    /// <summary>本季能带的元素（优先 substitutes.json，其次从赛季文件自动发现）。</summary>
+    private static bool Allowed(string element)
+    {
+        if (_allowedElements.Count == 0)
+        {
+            var fromSeason = SeasonRegistry.CurrentElements();
+            if (fromSeason.Count > 0) _allowedElements = fromSeason.ToList();
+        }
+        return _allowedElements.Count == 0
+            || _allowedElements.Contains(element, StringComparer.OrdinalIgnoreCase);
+    }
+
+    internal static void RefreshAllowedElements()
+    {
+        _allowedElements = new List<string>();
+        if (_seasonElements.Count > 0) { _allowedElements = _seasonElements.ToList(); return; }
+        var fromSeason = SeasonRegistry.CurrentElements();
+        if (fromSeason.Count > 0) _allowedElements = fromSeason.ToList();
+    }
+
     private static void BuildNeed(EnemyProfile p)
     {
         foreach (var kv in p.Resist)
@@ -130,11 +152,14 @@ internal static class QuantData
             // Physical 是伤害类型，不是角色元素：放进需求向量会导致"永远没人能覆盖"，
             // 让整幕看起来不合格（实测第1幕因此 score=-0.12）。抗性仍保留在 Resist 里供展示。
             if (string.Equals(kv.Key, "Physical", StringComparison.OrdinalIgnoreCase)) continue;
+            // 本季带不了的元素（如 Hydro/Electro/Geo 赛季里的 Pyro/Cryo）不进需求，
+            // 否则该幕永远"缺人"（实测第5幕 2.00/4.00 缺 Pyro+Cryo）。
+            if (!Allowed(kv.Key)) continue;
             p.Need[kv.Key] = Math.Min(1.0, -kv.Value / 20.0);
         }
 
         var (needEl, _) = Playbook.Need(p.Act);
-        if (!string.IsNullOrEmpty(needEl))
+        if (!string.IsNullOrEmpty(needEl) && Allowed(needEl))
             p.Need[needEl] = Math.Max(p.Need.TryGetValue(needEl, out var w) ? w : 0, 1.0);
     }
 
@@ -215,6 +240,7 @@ internal static class QuantData
                         if (n.ValueKind == JsonValueKind.String && n.GetString() is { Length: > 0 } s)
                             _seasonElements.Add(s);
             }
+            RefreshAllowedElements();
             return _elementOf.Count > 0 || _roleOf.Count > 0;
         }
         catch { return false; }
