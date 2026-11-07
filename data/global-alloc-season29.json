@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-07 13:23:18",
+  "generatedAt": "2026-11-07 15:02:48",
   "season": 29,
   "assumption": "假设拥有公开全部角色 ∩ 本季元素；同一角色全局只用一次（剧诗机制）",
   "totalScore": 18,
@@ -372,7 +372,7 @@
       "Difficulty": "Lunar",
       "Act": 10,
       "Team": [
-        "芭芭拉",
+        "珊瑚宫心海",
         "夜兰",
         "爱诺"
       ],
@@ -386,7 +386,7 @@
       "Gaps": [],
       "UsedMainForce": true,
       "Reasons": [
-        "职能占位 芭芭拉（Healer）"
+        "职能占位 珊瑚宫心海（Healer）"
       ]
     },
     {
@@ -435,12 +435,12 @@
       "Difficulty": "Visionary",
       "Act": 10,
       "Team": [
-        "心海",
+        "芭芭拉",
         "莫娜",
         "那维莱特"
       ],
       "Elements": [
-        "",
+        "Hydro",
         "Hydro",
         "Hydro"
       ],
@@ -449,7 +449,7 @@
       "Gaps": [],
       "UsedMainForce": true,
       "Reasons": [
-        "职能占位 心海（Healer）"
+        "职能占位 芭芭拉（Healer）"
       ]
     },
     {
