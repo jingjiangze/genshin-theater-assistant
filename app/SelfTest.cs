@@ -378,6 +378,21 @@ internal static class SelfTest
 
         Check("知识·playbook 载入", Playbook.Loaded && Playbook.ActCount >= 8,
             $"载入 {Playbook.ActCount} 幕");
+        // P1 量化数据：敌人侧解析出抗性/需求；缺数据时必须说"无"，不许外推
+        QuantData.LoadEnemies(AppPaths.Data("season29.json"));
+        QuantData.LoadCharacters(AppPaths.Data("characters.json"), AppPaths.Data("substitutes.json"));
+        var boss3 = QuantData.Enemy(3, "Lunar");
+        Check("量化·敌人档案可解析",
+            QuantData.Difficulties.Count >= 4 && boss3 != null && boss3.Level > 0,
+            $"难度 {QuantData.Difficulties.Count} 个 | 第3幕 Lv{boss3?.Level} 波次{boss3?.Waves.Count} 需求{boss3?.Need.Count}");
+        Check("量化·需求向量有据可依", boss3 != null && boss3.Need.ContainsKey("Electro"),
+            boss3 == null ? "无档案" : string.Join(",", boss3.Need.Select(k => k.Key + "=" + k.Value.ToString("0.0"))));
+        var teamNoRoster = QuantData.Team(Path.Combine(AppPaths.Dir, "__no_roster__.json"));
+        Check("量化·池子缺失标 Full=false", !teamNoRoster.Full, teamNoRoster.Source);
+        var generic = QuantData.GenericTeam();
+        Check("量化·通用池有元素覆盖", generic.Cover.Count > 0 && !generic.Full,
+            $"覆盖 {generic.Cover.Count} 元素，Full={generic.Full}");
+
         var relPath = Path.Combine(Path.GetDirectoryName(AppPaths.Data("act-playbook.json")) ?? ".", "knowledge-release.json");
         // 文件在就必须真的读到：之前解析失败会静默返回 0，断言照样通过（踩过）
         Check("知识·云端已验证知识可读", File.Exists(relPath) ? Playbook.VerifiedCount > 0 : true,
