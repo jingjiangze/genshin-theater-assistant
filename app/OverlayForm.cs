@@ -224,6 +224,10 @@ internal static class Program
                 case "--orchestrate":
                     return DecisionOrchestrator.RunCli((int)OptDouble(args, "--act", 0), Opt(args, "--difficulty"));
 
+                // 配队质量闸门（硬判据：人数/唯一/覆盖/职能/可带/零分）
+                case "--quality-gates":
+                    return QualityGates.RunCli((int)OptDouble(args, "--season", 0));
+
                 // 通用最优配队求解（假设全角色 → 排列组合 → 每难度最优）
                 case "--team-solve":
                     return TeamSolver.RunCli(Opt(args, "--difficulty"), (int)OptDouble(args, "--act", 0), Opt(args, "--out"),
