@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -30,6 +30,20 @@
   <ItemGroup>
     <!-- Apache-2.0；PP-OCRv5/v6 ONNX 管线（SkiaSharp + OnnxRuntime），跨平台，AOT 友好 -->
     <PackageReference Include="RapidOcrNet" Version="4.2.0" />
+
+    <!--
+      DirectML 加速（可选）：默认不启用，保证单文件 exe 体积与离线可用性不变。
+      启用方式：dotnet publish -p:UseDirectML=true
+      原理：普通包只含 CPU 原生库，反射调用 AppendExecutionProvider_DML 会抛
+            EntryPointNotFoundException（CI 实测 EP=CPU(DirectML 不可用: EntryPointNotFoundException)）；
+            换成 DirectML 包后原生层才有该 EP，同一份代码自动变成 DirectML(gpu0)。
+      注意：版本必须与 RapidOcrNet 依赖的 OnnxRuntime 完全一致（1.29.0），否则原生库冲突。
+    -->
+    <PackageReference Include="Microsoft.ML.OnnxRuntime.DirectML" Version="1.29.0"
+                      Condition="'$(UseDirectML)' == 'true'" />
+    <!-- 启用 DirectML 时屏蔽传递引入的纯 CPU 原生库，避免两份 onnxruntime.dll 冲突 -->
+    <PackageReference Update="Microsoft.ML.OnnxRuntime" ExcludeAssets="runtime"
+                      Condition="'$(UseDirectML)' == 'true'" />
     <!-- 内嵌 B站官方播放器 / BWIKI 页面；缺失运行时自动退回系统浏览器 -->
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4314.35" />
   </ItemGroup>
