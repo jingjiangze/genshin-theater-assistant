@@ -224,6 +224,10 @@ internal static class Program
                 case "--orchestrate":
                     return DecisionOrchestrator.RunCli((int)OptDouble(args, "--act", 0), Opt(args, "--difficulty"));
 
+                // 幕级推荐（社区共识 + 已验证知识，供选人加权）
+                case "--curated-picks":
+                    return CuratedPicks.RunCli();
+
                 // 配队质量闸门（硬判据：人数/唯一/覆盖/职能/可带/零分）
                 case "--quality-gates":
                     return QualityGates.RunCli((int)OptDouble(args, "--season", 0));
