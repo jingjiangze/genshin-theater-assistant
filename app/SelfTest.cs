@@ -569,9 +569,17 @@ internal static class SelfTest
         // 跨幕全局分配：同一角色只能用一次 + 治疗/破盾硬约束
         var alloc = GlobalAllocator.Solve(0);
         var mainForce = alloc.Assigns.Where(a => a.UsedMainForce).ToList();
-        var dupNames = alloc.PoolUsed.GroupBy(n => n, StringComparer.Ordinal).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
-        Check("全局分配·角色不重复使用", alloc.Assigns.Count > 0 && dupNames.Count == 0,
-            $"分配 {alloc.Assigns.Count} 幕｜主力 {alloc.PoolUsed.Count} 人｜重复 {(dupNames.Count == 0 ? "无" : string.Join("/", dupNames))}");
+        // 口径：剧诗锁定只在**同一次挑战**内生效；Easy…Lunar 是分开的挑战，同一角色可跨难度复用。
+        // 所以断言的是"**同一难度内**不重复"，不是全局不重复（早期断言写错了口径）。
+        var dupByDiff = new List<string>();
+        foreach (var g in alloc.Assigns.Where(a => a.UsedMainForce).GroupBy(a => a.Difficulty))
+        {
+            var names = g.SelectMany(a => a.Team).Where(nm => !nm.StartsWith("（")).ToList();
+            foreach (var d in names.GroupBy(n => n, StringComparer.Ordinal).Where(x => x.Count() > 1))
+                dupByDiff.Add($"{g.Key}:{d.Key}×{d.Count()}");
+        }
+        Check("全局分配·同难度内不重复（跨难度可复用）", alloc.Assigns.Count > 0 && dupByDiff.Count == 0,
+            $"分配 {alloc.Assigns.Count} 幕｜主力 {alloc.PoolUsed.Count} 人｜同难度重复 {(dupByDiff.Count == 0 ? "无" : string.Join("/", dupByDiff.Take(5)))}");
         var lunarNeeds = mainForce.Where(a => a.Difficulty == "Lunar").ToList();
         Check("全局分配·最高难度有需求幕全覆盖",
             lunarNeeds.Count > 0 && lunarNeeds.All(a => a.Score >= a.ScoreMax - 1e-9),
