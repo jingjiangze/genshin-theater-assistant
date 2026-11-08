@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "release_id": "rel-15f2f266b037e02c",
+  "created_at": "2026-11-08T10:43:38.883597+00:00",
+  "registry_sha256": "03f4378a617f2434aa352fc0afea6f600d0e32210f3ce120dc6d6570b7762ace",
+  "candidates": [
+    {
+      "candidate_id": "a75fed69d918cc511b233c76135db64f83f767bd60f76be97b0f029e0b29193d",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 爱诺",
+      "act": 3,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c60ad05149eb75a8899870c6a0e38bf713889f529ce82991498c8a138dd41f60",
+        "ad0ca8b1c7718b0f644fc0efc25340d095916533e1a30cd39a42d76b112e30bd",
+        "683cd06a09dcaf577abdc45d915d80e50614f84b2baa24c2f7cc2101d1ed84b7"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c60ad05149eb75a8899870c6a0e38bf713889f529ce82991498c8a138dd41f60",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 爱诺",
+          "act": 3
+        },
+        {
+          "evidence_id": "ad0ca8b1c7718b0f644fc0efc25340d095916533e1a30cd39a42d76b112e30bd",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1",
+            "42370658741-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 爱诺",
+          "act": 3
+        },
+        {
+          "evidence_id": "683cd06a09dcaf577abdc45d915d80e50614f84b2baa24c2f7cc2101d1ed84b7",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 爱诺",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 2,
+      "status": "VERIFIED",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 8,
+      "unique_video_count": 3,
+      "verification": {
+        "evaluation_id": "eval-strategy-holdout-v1",
+        "holdout_passed": true,
+        "baseline_regression_passed": true,
+        "strategy_gate_passed": true,
+        "holdout_samples": 22,
+        "strategy_success_rate": 1.0,
+        "baseline_strategy_success_rate": 0.5,
+        "counter_evidence_resolved": true,
+        "verified_at": "2026-11-08T10:43:21.143498+00:00"
+      }
+    },
+    {
+      "candidate_id": "d22fd513fccea9c97250408ad76e46754f2a433aed6008359cedbba6cd10db9c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 夜兰",
+      "act": 2,
+      "season": 29,
+      "period": "2026-11",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cc57cb0698aed75bae42a36defdb911997c6bf1587f3fa1a13c57ca3574b4118",
+        "1c1c06cfa91bb4930542fc811bafaa2e78ea947d37df8fa6fdc7044560b090c2",
+        "6e92475e5070323aaf0c32707b577540d7e3e6470bc007a137e7891da4e88a75"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cc57cb0698aed75bae42a36defdb911997c6bf1587f3fa1a13c57ca3574b4118",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV17hxW68Ej9",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:362965193",
+          "creator_name": "凝渡_Du",
+          "channel": "description",
+          "source": "bilibili:BV17hxW68Ej9",
+          "source_refs": [
+            "bilibili:BV17hxW68Ej9"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 夜兰",
+          "act": 2
+        },
+        {
+          "evidence_id": "1c1c06cfa91bb4930542fc811bafaa2e78ea947d37df8fa6fdc7044560b090c2",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1",
+            "42370658741-attempt-1"
+          ],
+          "video_id": "BV193xp6WErn",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV193xp6WErn",
+          "source_refs": [
+            "bilibili:BV193xp6WErn"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 夜兰",
+          "act": 2
+        },
+        {
+          "evidence_id": "6e92475e5070323aaf0c32707b577540d7e3e6470bc007a137e7891da4e88a75",
+          "batch_id": "42327765393-attempt-1",
+          "observed_batches": [
+            "42327765393-attempt-1"
+          ],
+          "video_id": "BV1R3xp6WEKz",
+          "platform": "bilibili",
+          "period": "2026-11",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:431073645",
+          "creator_name": "你的影月月",
+          "channel": "description",
+          "source": "bilibili:BV1R3xp6WEKz",
+          "source_refs": [
+            "bilibili:BV1R3xp6WEKz"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 夜兰",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 2,
+      "status": "VERIFIED",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
+      "role_group": "HydroApplier",
+      "group_creator_count": 2,
+      "group_video_count": 9,
+      "unique_video_count": 3,
+      "verification": {
+        "evaluation_id": "eval-strategy-holdout-v1",
+        "holdout_passed": true,
+        "baseline_regression_passed": true,
+        "strategy_gate_passed": true,
+        "holdout_samples": 22,
+        "strategy_success_rate": 1.0,
+        "baseline_strategy_success_rate": 1.0,
+        "counter_evidence_resolved": true,
+        "verified_at": "2026-11-08T10:43:21.143541+00:00"
+      }
+    }
+  ]
+}
