@@ -179,6 +179,20 @@ internal static class TeamSolver
 
     public static string ElementOfMember(string name) => _pool.FirstOrDefault(x => x.Name == name)?.Element ?? "";
 
+    /// <summary>把当前池转成 TeamProfile（供量化评分与配队共用同一口径）。</summary>
+    public static QuantData.TeamProfile AsTeamProfile()
+    {
+        var t = new QuantData.TeamProfile { Full = false, Source = "(TeamSolver 池: " + LastPoolNote + ")" };
+        foreach (var u in _pool)
+        {
+            t.Members.Add(new QuantData.Member { Name = u.Name, Element = u.Element, Role = u.Role, Trial = u.Trial });
+            if (u.Element.Length > 0) t.Cover[u.Element] = t.Cover.TryGetValue(u.Element, out var c) ? c + 1 : 1;
+            foreach (var role in (u.Role ?? "").Split('|', StringSplitOptions.RemoveEmptyEntries))
+                t.Roles[role] = t.Roles.TryGetValue(role, out var r) ? r + 1 : 1;
+        }
+        return t;
+    }
+
     /// <summary>最近一次 LoadPool 的池子说明（诊断/展示用）。</summary>
     public static string LastPoolNote { get; private set; } = "";
 
