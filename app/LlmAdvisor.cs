@@ -125,19 +125,22 @@ internal sealed class LlmAdvisor : IDisposable
     /// LLM_ENDPOINT（逗号分隔多个）、LLM_MODEL（默认 deepseek-v4）、LLM_API_KEY、LLM_ENABLED=0/1。
     /// 只覆盖，不新增语义：仍然默认开启、失败降级、脱敏发送。
     /// </summary>
-    internal static void ApplyEnvOverrides(Config cfg)
+    internal static void ApplyEnvOverrides(Config cfg, string envPrefix = "LLM_")
     {
-        var enabled = Environment.GetEnvironmentVariable("LLM_ENABLED");
+        // envPrefix 允许并存两套通道：
+        //   LLM_*        主通道（玩家实际使用，省配额）
+        //   LLM_VERIFY_* 验证/模拟通道（云端 CI 与模拟测试专用，可指向另一个模型，交叉对照）
+        var enabled = Environment.GetEnvironmentVariable(envPrefix + "ENABLED");
         if (enabled == "0") { cfg.Enabled = false; return; }
         if (enabled == "1") cfg.Enabled = true;
 
-        var endpoints = Environment.GetEnvironmentVariable("LLM_ENDPOINT");
+        var endpoints = Environment.GetEnvironmentVariable(envPrefix + "ENDPOINT");
         if (string.IsNullOrWhiteSpace(endpoints)) return;
 
-        var model = Environment.GetEnvironmentVariable("LLM_MODEL");
+        var model = Environment.GetEnvironmentVariable(envPrefix + "MODEL");
         if (string.IsNullOrWhiteSpace(model)) model = "deepseek-v4";
-        var keyEnv = Environment.GetEnvironmentVariable("LLM_API_KEY_ENV");
-        if (string.IsNullOrWhiteSpace(keyEnv)) keyEnv = "LLM_API_KEY";
+        var keyEnv = Environment.GetEnvironmentVariable(envPrefix + "API_KEY_ENV");
+        if (string.IsNullOrWhiteSpace(keyEnv)) keyEnv = envPrefix + "API_KEY";
 
         cfg.Endpoints = endpoints.Split(',', StringSplitOptions.RemoveEmptyEntries)
             .Select(u => u.Trim())
@@ -208,7 +211,7 @@ internal sealed class LlmAdvisor : IDisposable
         {
             model,
             temperature = 0.2,
-            max_tokens = 220,
+            max_tokens = 400,   // 推理型模型会先用预算写 reasoning_content，给足避免 content 为空
             messages = new object[]
             {
                 new { role = "system", content = system },
@@ -227,8 +230,12 @@ internal sealed class LlmAdvisor : IDisposable
             var first = ch.EnumerateArray().FirstOrDefault();
             if (first.ValueKind != JsonValueKind.Object) return null;
             if (!first.TryGetProperty("message", out var msg)) return null;
-            if (!msg.TryGetProperty("content", out var content) || content.ValueKind != JsonValueKind.String) return null;
-            var text = (content.GetString() ?? "").Trim();
+            var text = msg.TryGetProperty("content", out var content) && content.ValueKind == JsonValueKind.String
+                ? (content.GetString() ?? "").Trim() : "";
+            // 推理型模型（deepseek-v4.1-flash 实测）在 max_tokens 偏小时 content 为空、
+            // 答案落在 reasoning_content 里；不认这一段就等于把可用输出判成失败。
+            if (text.Length == 0 && msg.TryGetProperty("reasoning_content", out var rc) && rc.ValueKind == JsonValueKind.String)
+                text = (rc.GetString() ?? "").Trim();
             return text.Length == 0 ? null : text;
         }
         catch { return null; }
@@ -328,7 +335,7 @@ internal sealed class LlmAdvisor : IDisposable
 
     // ---------------- 连通性探针（审计/自检用） ----------------
 
-    public static int RunProbe(string configPath, bool dry)
+    public static int RunProbe(string configPath, bool dry, bool verifyChannel = false)
     {
         Cli.Attach();
         // 与 TryLoad 同一套回退：本机 data/llm.json 优先，其次仓库内 data/llm.example.json（默认开启）
@@ -338,7 +345,10 @@ internal sealed class LlmAdvisor : IDisposable
         if (path == null) { Cli.Say("没有任何 llm 配置（data/llm.json 与 data/llm.example.json 都不存在）"); return 4; }
         Cli.Say("配置文件: " + path);
         var cfg = ParseConfig(File.ReadAllText(path));
-        ApplyEnvOverrides(cfg);   // 云端只设环境变量，凭据不落盘
+        // 验证/模拟通道独立：读 LLM_VERIFY_*，可与主通道指向不同模型，互不占配额
+        var prefix = verifyChannel ? "LLM_VERIFY_" : "LLM_";
+        ApplyEnvOverrides(cfg, prefix);   // 云端只设环境变量，凭据不落盘
+        Cli.Say($"通道: {prefix}*（{(verifyChannel ? "验证/模拟专用" : "主通道")}）");
         Cli.Say($"enabled={cfg.Enabled} 端点={cfg.Endpoints.Count} 超时={cfg.TimeoutSeconds}s 最小间隔={cfg.MinIntervalSeconds}s 单次会话上限={cfg.MaxPerSession}");
         foreach (var ep in cfg.Endpoints)
         {
