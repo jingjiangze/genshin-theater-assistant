@@ -1,0 +1,207 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-08 12:17:45",
+  "bvid": "BV1LwRKBmE2n",
+  "frames": 8,
+  "candidates": 22,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：1幕后台火、6幕香菱+班尼特、7幕自备强力主C+辅助、9幕纳西妲+行秋",
+      "act": 1,
+      "source": "BV1LwRKBmE2n@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色: 2幕火",
+      "act": 2,
+      "source": "BV1LwRKBmE2n@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选角色：1幕后台火、6幕香菱+班尼特、7幕自备强力主c+辅助、9幕草神+行秋",
+      "act": 1,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：缺祝福买祝福，缺角色买角色",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹守卫",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：烟绵+绮良良+续人+挂件",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找4燃烧+看菱+班尼特",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：基尼奇+迪希雅+班尼特+香签",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选择神秘收获事件时，待",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选效果增加暖",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：自备强力主c+辅助",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：把钱花光",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：主c+质",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选角色：1幕后台火、6幕香菱+班尼特、7幕自备強力主c+辅助、9幕草神+行秋",
+      "act": 1,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2蒸发2挂件",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：大灵",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：绩人+塔利雅+火后台+挂件",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买1燃烧祝福",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：熔岩游像，土者",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：绮良良+火接件+2挂件",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：愚人众",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@781s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：烟缘+塔利雅+2挂件",
+      "act": 0,
+      "source": "BV1LwRKBmE2n@781s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

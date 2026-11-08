@@ -1,0 +1,27 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-08 12:17:21",
+  "bvid": "BV1B8Th6BET6",
+  "frames": 7,
+  "candidates": 2,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "√开局正常输出",
+      "act": 0,
+      "source": "BV1B8Th6BET6@s",
+      "creator_id": "3706925199919121",
+      "creator_name": "溜小溜吖",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "√开局全抗150%",
+      "act": 0,
+      "source": "BV1B8Th6BET6@s",
+      "creator_id": "3706925199919121",
+      "creator_name": "溜小溜吖",
+      "needsReview": true
+    }
+  ]
+}

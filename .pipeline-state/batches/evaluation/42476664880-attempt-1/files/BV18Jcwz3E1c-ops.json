@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-08 12:17:28",
+  "bvid": "BV18Jcwz3E1c",
+  "frames": 8,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "准备&础战角色选择借角色难点规划",
+      "act": 0,
+      "source": "BV18Jcwz3E1c@0s",
+      "creator_id": "3546904602348393",
+      "creator_name": "甜醋只有干货",
+      "needsReview": true
+    }
+  ]
+}
