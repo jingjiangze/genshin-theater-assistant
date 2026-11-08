@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "release_id": "rel-15f2f266b037e02c",
- "created_at": "2026-11-08T10:43:38.883597+00:00",
- "registry_sha256": "03f4378a617f2434aa352fc0afea6f600d0e32210f3ce120dc6d6570b7762ace",
+ "release_id": "rel-c61e3559f25a6a96",
+ "created_at": "2026-11-08T10:47:07.419470+00:00",
+ "registry_sha256": "5322d808f08de1092f1891f59167326e25c97423b154ff815f9dcf9d65841ca9",
  "candidates": [
   {
    "candidate_id": "a75fed69d918cc511b233c76135db64f83f767bd60f76be97b0f029e0b29193d",
@@ -28,7 +28,8 @@
      "evidence_id": "c60ad05149eb75a8899870c6a0e38bf713889f529ce82991498c8a138dd41f60",
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
-      "42327765393-attempt-1"
+      "42327765393-attempt-1",
+      "42472608772-attempt-1"
      ],
      "video_id": "BV17hxW68Ej9",
      "platform": "bilibili",
@@ -52,7 +53,8 @@
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
       "42327765393-attempt-1",
-      "42370658741-attempt-1"
+      "42370658741-attempt-1",
+      "42472608772-attempt-1"
      ],
      "video_id": "BV193xp6WErn",
      "platform": "bilibili",
@@ -75,7 +77,8 @@
      "evidence_id": "683cd06a09dcaf577abdc45d915d80e50614f84b2baa24c2f7cc2101d1ed84b7",
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
-      "42327765393-attempt-1"
+      "42327765393-attempt-1",
+      "42472608772-attempt-1"
      ],
      "video_id": "BV1R3xp6WEKz",
      "platform": "bilibili",
@@ -113,7 +116,7 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 0.5,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-08T10:43:21.143498+00:00"
+    "verified_at": "2026-11-08T10:46:50.356735+00:00"
    }
   },
   {
@@ -140,7 +143,8 @@
      "evidence_id": "cc57cb0698aed75bae42a36defdb911997c6bf1587f3fa1a13c57ca3574b4118",
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
-      "42327765393-attempt-1"
+      "42327765393-attempt-1",
+      "42472608772-attempt-1"
      ],
      "video_id": "BV17hxW68Ej9",
      "platform": "bilibili",
@@ -164,7 +168,8 @@
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
       "42327765393-attempt-1",
-      "42370658741-attempt-1"
+      "42370658741-attempt-1",
+      "42472608772-attempt-1"
      ],
      "video_id": "BV193xp6WErn",
      "platform": "bilibili",
@@ -187,7 +192,8 @@
      "evidence_id": "6e92475e5070323aaf0c32707b577540d7e3e6470bc007a137e7891da4e88a75",
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
-      "42327765393-attempt-1"
+      "42327765393-attempt-1",
+      "42472608772-attempt-1"
      ],
      "video_id": "BV1R3xp6WEKz",
      "platform": "bilibili",
@@ -225,10 +231,10 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 1.0,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-08T10:43:21.143541+00:00"
+    "verified_at": "2026-11-08T10:46:50.356793+00:00"
    }
   }
  ],
- "published_to_main": "2026-11-08T10:43:40.096565+00:00",
- "source": "automation-data/knowledge/releases/rel-15f2f266b037e02c"
+ "published_to_main": "2026-11-08T10:47:08.702702+00:00",
+ "source": "automation-data/knowledge/releases/rel-c61e3559f25a6a96"
 }
