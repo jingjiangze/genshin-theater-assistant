@@ -191,6 +191,10 @@ internal static class Program
                 case "--global-alloc":
                     return GlobalAllocator.RunCli((int)OptDouble(args, "--season", 0), Opt(args, "--out"), Opt(args, "--roster"));
 
+                // OCR 后处理参数（BetterGI 对齐：置信度过滤 + 同排排序）
+                case "--ocr":
+                    return OcrTextPipeline.RunCli();
+
                 // 决策策略清单（确认决策内容来自数据而非代码）
                 case "--policy":
                     return DecisionPolicy.RunCli();
@@ -291,7 +295,7 @@ internal static class Program
 
                 case "--version":
                     Cli.Attach();
-                    Cli.Say("TheaterAssistant 0.30.0 · 只读像素，不注入/不读内存/不模拟键鼠");
+                    Cli.Say("TheaterAssistant 0.32.0 · 只读像素，不注入/不读内存/不模拟键鼠");
                     return 0;
             }
         }
