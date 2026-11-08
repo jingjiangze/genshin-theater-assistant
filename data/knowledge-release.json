@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "release_id": "rel-fa5442302153a80a",
- "created_at": "2026-11-07T14:18:11.855124+00:00",
- "registry_sha256": "5f3da47628cdd52f87e71678d960e1a4fa5241c245f6d22c4f629cb0e9fb75a1",
+ "release_id": "rel-7e11adbc3807c588",
+ "created_at": "2026-11-08T14:53:29.987323+00:00",
+ "registry_sha256": "3dda33671cdc8c58d37e12966b129975bb39a876391597e9fb96e18f1be66fff",
  "candidates": [
   {
    "candidate_id": "a75fed69d918cc511b233c76135db64f83f767bd60f76be97b0f029e0b29193d",
@@ -28,7 +28,10 @@
      "evidence_id": "c60ad05149eb75a8899870c6a0e38bf713889f529ce82991498c8a138dd41f60",
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
-      "42327765393-attempt-1"
+      "42327765393-attempt-1",
+      "42472608772-attempt-1",
+      "42479920569-attempt-1",
+      "42491533860-attempt-1"
      ],
      "video_id": "BV17hxW68Ej9",
      "platform": "bilibili",
@@ -52,7 +55,10 @@
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
       "42327765393-attempt-1",
-      "42370658741-attempt-1"
+      "42370658741-attempt-1",
+      "42472608772-attempt-1",
+      "42479920569-attempt-1",
+      "42491533860-attempt-1"
      ],
      "video_id": "BV193xp6WErn",
      "platform": "bilibili",
@@ -75,7 +81,10 @@
      "evidence_id": "683cd06a09dcaf577abdc45d915d80e50614f84b2baa24c2f7cc2101d1ed84b7",
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
-      "42327765393-attempt-1"
+      "42327765393-attempt-1",
+      "42472608772-attempt-1",
+      "42479920569-attempt-1",
+      "42491533860-attempt-1"
      ],
      "video_id": "BV1R3xp6WEKz",
      "platform": "bilibili",
@@ -113,7 +122,7 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 0.5,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-07T14:17:53.831303+00:00"
+    "verified_at": "2026-11-08T14:53:09.797460+00:00"
    }
   },
   {
@@ -140,7 +149,10 @@
      "evidence_id": "cc57cb0698aed75bae42a36defdb911997c6bf1587f3fa1a13c57ca3574b4118",
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
-      "42327765393-attempt-1"
+      "42327765393-attempt-1",
+      "42472608772-attempt-1",
+      "42479920569-attempt-1",
+      "42491533860-attempt-1"
      ],
      "video_id": "BV17hxW68Ej9",
      "platform": "bilibili",
@@ -164,7 +176,10 @@
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
       "42327765393-attempt-1",
-      "42370658741-attempt-1"
+      "42370658741-attempt-1",
+      "42472608772-attempt-1",
+      "42479920569-attempt-1",
+      "42491533860-attempt-1"
      ],
      "video_id": "BV193xp6WErn",
      "platform": "bilibili",
@@ -187,7 +202,10 @@
      "evidence_id": "6e92475e5070323aaf0c32707b577540d7e3e6470bc007a137e7891da4e88a75",
      "batch_id": "42327765393-attempt-1",
      "observed_batches": [
-      "42327765393-attempt-1"
+      "42327765393-attempt-1",
+      "42472608772-attempt-1",
+      "42479920569-attempt-1",
+      "42491533860-attempt-1"
      ],
      "video_id": "BV1R3xp6WEKz",
      "platform": "bilibili",
@@ -225,10 +243,10 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 1.0,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-07T14:17:53.831364+00:00"
+    "verified_at": "2026-11-08T14:53:09.797516+00:00"
    }
   }
  ],
- "published_to_main": "2026-11-07T15:02:36.718703+00:00",
- "source": "automation-data/knowledge/releases/rel-fa5442302153a80a"
+ "published_to_main": "2026-11-08T15:31:50.444333+00:00",
+ "source": "automation-data/knowledge/releases/rel-7e11adbc3807c588"
 }
