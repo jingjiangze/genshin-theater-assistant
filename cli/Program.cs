@@ -56,6 +56,9 @@ internal static class Program
                 return TeamSolver.RunCli(Opt(args, "--difficulty"), Num(args, "--act", 0),
                     Opt(args, "--out"), Num(args, "--season", 0), Opt(args, "--roster"));
 
+            case "--quality-gates":
+                return QualityGates.RunCli(Num(args, "--season", 0));
+
             case "--global-alloc":
                 return GlobalAllocator.RunCli(Num(args, "--season", 0), Opt(args, "--out"), Opt(args, "--roster"));
 
@@ -116,6 +119,8 @@ internal static class Program
         Step("量化决策", () => QuantScorer.RunCli(0, null, null));
         Step("通用最优配队（全赛季全难度）", () => TeamSolver.RunCli("all", 0, null, 0, null));
         Step("跨幕全局分配（当前赛季）", () => GlobalAllocator.RunCli(0, null, null));
+        // 把配队从"只打印"升级为"逐条断言"（B 层 → A 层，见 docs/FLOW.md §3）
+        Step("配队质量闸门", () => QualityGates.RunCli(0));
         Step("OCR 引擎调优", OcrTuning.RunCli);
         Step("决策编排三态", () => DecisionOrchestrator.RunCli(0, null));
         // 真实调用模型（enabled 时）：这是 flow 之前**完全没覆盖**的一环。
