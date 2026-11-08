@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-08T15:50:25.064Z",
+  "generatedAt": "2026-11-08T17:40:10.277Z",
   "period": "2026-11",
   "criteria": "纯净度(pure100/likely60/mixed20) + 高难(月谕80/卓越60/困难30) + 当期季节+40 + 文本量 + 时长 + 纯净特征+25；short/excluded 淘汰",
-  "total": 12,
+  "total": 34,
   "thisRun": {
-    "candidates": 18,
-    "added": 12,
-    "updated": 0
+    "candidates": 25,
+    "added": 22,
+    "updated": 3
   },
   "sources": [
     {
@@ -18,7 +18,51 @@
       "textLines": 28,
       "score": 292,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1WZ4u6zE2A",
+      "title": "原神2026年11月水雷岩幻想真境剧诗月谕模式，29人入场速通！跟着打，15分钟打不满你来找我！",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 674,
+      "textLines": 16,
+      "score": 259,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1G86xBFEk5",
+      "title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年02月)火水岩/新深渊/低配满花/试用角色/幻想真境剧诗/原神月之四",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 2174,
+      "textLines": 31,
+      "score": 256.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1LwRKBmE2n",
+      "title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年05月)火水草/新深渊/平民低配满花/试用角色/超低配/幻想真境剧诗/原神月之六",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1859,
+      "textLines": 31,
+      "score": 256.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1zmGM6xEvh",
+      "title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年08月)水雷冰/新深渊/平民低配满花/试用角色/超低配/幻想真境剧诗/原神月之八",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1285,
+      "textLines": 31,
+      "score": 256.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
     },
     {
       "bv": "BV1saaz6qEbH",
@@ -29,7 +73,7 @@
       "textLines": 30,
       "score": 255,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
     },
     {
       "bv": "BV1hXTv6uECJ",
@@ -40,7 +84,40 @@
       "textLines": 29,
       "score": 253.5,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1Hc9LBjEmQ",
+      "title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年04月)水冰岩/新深渊/平民低配满花/试用角色/超低配/幻想真境剧诗/原神月之五",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1757,
+      "textLines": 27,
+      "score": 250.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1iDxp6oEBQ",
+      "title": "【原神】复习月曜！水雷岩⛰️幻想真境剧诗(2026年11月)月谕模式试用角色满星攻略",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 836,
+      "textLines": 3,
+      "score": 239.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1GKTH6PEFF",
+      "title": "【幻想真境剧诗】2026.7(火雷冰)月谕模式+卓越模式  低配满花攻略",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 896,
+      "textLines": 27,
+      "score": 235.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
     },
     {
       "bv": "BV1epFZeVEuA",
@@ -54,6 +131,83 @@
       "lastSeenAt": "2026-11-08T15:50:25.064Z"
     },
     {
+      "bv": "BV1KVTJ6DE1g",
+      "title": "幻想真境剧诗 月谕难度(2026.7)/试用角色/幻想真镜剧诗/原神6.7/月之八版本/火雷冰，满花/代练视频/低配版",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 5577,
+      "textLines": 12,
+      "score": 228,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1ghEm6AENC",
+      "title": "6月全4星仅需1C月谕满星胎教级攻略卓越困难通用低配幻想真境剧诗满花",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1364,
+      "textLines": 38,
+      "score": 227,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1kEts65E9d",
+      "title": "幻想真境剧诗 月谕难度低配满星(2026.8)/试用角色/幻想真镜剧诗/原神6.7/月之八版本/水雷冰代练视频/低配/满星",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 4072,
+      "textLines": 11,
+      "score": 226.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV14da96jECE",
+      "title": "幻想真境剧诗 月谕难度低配满星(2026.9)/试用角色/幻想真镜剧诗/原神7.1/月之八版本/草雷水代练视频/低配/满星",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 3895,
+      "textLines": 11,
+      "score": 226.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1TGTJ6HETM",
+      "title": "幻想真境剧诗 月谕难度(2026.7)/试用角色/幻想真镜剧诗/原神6.7/月之八版本/火雷冰，满花/代练视频/低配版",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 2710,
+      "textLines": 11,
+      "score": 226.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1TrnX6mE9E",
+      "title": "幻想真境剧诗 月谕难度低配满星(2026.10)/试用角色/幻想真镜剧诗/原神7.1/月之八版本/代练视频/低配/水冰风满星",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 4191,
+      "textLines": 11,
+      "score": 226.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1zMaC6BEiz",
+      "title": "【原神】（0+0希格雯主C）2026年10月（水冰风） 幻想真境剧诗 低配满星攻略／月谕模式",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1657,
+      "textLines": 11,
+      "score": 226.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
       "bv": "BV1R3xp6WEKz",
       "title": "【原神】幻想真境剧诗 困难难度(2026年11月)水雷岩/新深渊/平民低配攻略/试用角色/超低配/幻想真境剧诗/原神7.1",
       "purity": "likely",
@@ -63,6 +217,39 @@
       "score": 215,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
       "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1SBR8BgEXc",
+      "title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年05月)火水草低配满花攻略",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1253,
+      "textLines": 3,
+      "score": 214.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1hJiVBCEPZ",
+      "title": "【幻想真境剧诗】：全网最稳，最无脑，最公式，超低配打法拿满奖励，轻松满花。卓越月谕难度通用(2026年1月1：水火雷)",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 481,
+      "textLines": 1,
+      "score": 196.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1Dy4u67EYQ",
+      "title": "【不务正业】哈哈我不听！薇斯纳不带奶强杀月谕圣牌2【幻想真境剧诗2026年11月】",
+      "purity": "mixed",
+      "difficulty": "Lunar",
+      "duration": 189,
+      "textLines": 11,
+      "score": 196.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
     },
     {
       "bv": "BV17hxW68Ej9",
@@ -87,6 +274,28 @@
       "lastSeenAt": "2026-11-08T15:50:25.064Z"
     },
     {
+      "bv": "BV1tEPEzoEd9",
+      "title": "3月剧诗||所有角色1级武器无圣遗物月谕满花全网首发||幻想真境剧诗||卓越困难低配满星原神新深渊",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1503,
+      "textLines": 2,
+      "score": 173,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
+      "bv": "BV1ViHHz9E39",
+      "title": "十月幻想真境剧诗！月谕模式平民满花攻略！",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 953,
+      "textLines": 0,
+      "score": 170,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
       "bv": "BV1qphuz7EjD",
       "title": "【8月幻想真境剧诗】全4星角色1级武器无圣遗物卓越模式满花流程（附正常流程一图流攻略）",
       "purity": "likely",
@@ -98,6 +307,17 @@
       "lastSeenAt": "2026-11-08T15:50:25.064Z"
     },
     {
+      "bv": "BV16X4Y6FEAA",
+      "title": "其他攻略打不满？11月幻想真境剧诗月谕低配满星满花原神",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 733,
+      "textLines": 3,
+      "score": 159.5,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
+    },
+    {
       "bv": "BV1A3o6B4ENj",
       "title": "5月水火草月谕满花培养推荐||凑角色平民超低配幻想真境剧诗满星",
       "purity": "likely",
@@ -107,6 +327,17 @@
       "score": 158,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
       "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1ztYA64E6U",
+      "title": "7分钟速通10月幻想真境剧诗月谕模式满花",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 505,
+      "textLines": 0,
+      "score": 155,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
     },
     {
       "bv": "BV1euhHzyEeW",
@@ -140,6 +371,17 @@
       "score": 113,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
       "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1j4xH6sEfa",
+      "title": "7分钟速通11月幻想真境剧诗月谕模式满花",
+      "purity": "mixed",
+      "difficulty": "Lunar",
+      "duration": 480,
+      "textLines": 0,
+      "score": 100,
+      "firstSeenAt": "2026-11-08T17:40:10.277Z",
+      "lastSeenAt": "2026-11-08T17:40:10.277Z"
     }
   ]
 }
