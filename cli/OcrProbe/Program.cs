@@ -36,6 +36,9 @@ internal static class Program
         // --by-kind：按界面类型选模型（30 帧实验发现 v6 强于角色名、v5 强于数字）
         var byKind = Flag("--by-kind");
         var charsPath = Opt("--chars", "data/characters.json");
+        // --side：检测器输入短边（PP-OCRv6 默认 736）。降低可提速，但小字可能丢——
+        // 这是 DirectML 被上游阻塞后，CPU 侧唯一的加速旋钮，必须量化取舍。
+        var sideArg = int.TryParse(Opt("--side", "0"), out var sd) ? sd : 0;
 
         if (Flag("--help") || (dir == null && !Flag("--version")))
         {
@@ -49,6 +52,7 @@ internal static class Program
   --models <dir>   模型根目录（默认 models，内含 v5/ 与 v6/ 子目录）
   --threads N      ONNX 线程数（0=交给运行时；云端 4 核建议 2，留余量）
   --limit N        只跑前 N 张（快速冒烟）
+  --side N         检测器输入短边（默认 736；降低可提速，小字可能丢）
   --out <file>     结果写 JSON
 ");
             return dir == null ? 0 : 2;
@@ -86,7 +90,8 @@ internal static class Program
         if (modelArg is "v6" or "both") TryAdd("v6");
 
         Console.WriteLine($"环境: {Environment.OSVersion} / {Environment.ProcessorCount} 核 / dotnet {Environment.Version}");
-        Console.WriteLine($"模型根: {Path.GetFullPath(modelsRoot)}｜请求 {modelArg}｜可用 {(sets.Count == 0 ? "无" : string.Join(",", sets.Select(s => s.Name)))}");
+        Console.WriteLine($"模型根: {Path.GetFullPath(modelsRoot)}｜请求 {modelArg}｜可用 {(sets.Count == 0 ? "无" : string.Join(",", sets.Select(s => s.Name)))}"
+            + (sideArg > 0 ? $"｜LimitSideLen={sideArg}（提速实验）" : ""));
 
         if (sets.Count == 0)
         {
@@ -125,7 +130,9 @@ internal static class Program
             foreach (var (name, ocr) in engines)
             {
                 var sw = Stopwatch.StartNew();
-                var r = ocr.Detect(bmp, ReferenceEquals(name, "v6-small") ? RapidOcrOptions.PPOCRv6 : RapidOcrOptions.Default);
+                var baseOpt = ReferenceEquals(name, "v6-small") ? RapidOcrOptions.PPOCRv6 : RapidOcrOptions.Default;
+                var useOpt = sideArg > 0 ? baseOpt with { LimitSideLen = sideArg, ImgResize = 0 } : baseOpt;
+                var r = ocr.Detect(bmp, useOpt);
                 sw.Stop();
                 var text = string.Join("\n", r.TextBlocks.Select(b => b.Text).Where(t => !string.IsNullOrWhiteSpace(t)));
                 row[name] = text;
@@ -161,7 +168,9 @@ internal static class Program
                 if (bmp == null) continue;
 
                 var r5 = engines[0].Ocr.Detect(bmp, RapidOcrOptions.Default);
-                var r6 = engines[1].Ocr.Detect(bmp, RapidOcrOptions.PPOCRv6);
+                var r6 = engines[1].Ocr.Detect(bmp, sideArg > 0
+                    ? RapidOcrOptions.PPOCRv6 with { LimitSideLen = sideArg, ImgResize = 0 }
+                    : RapidOcrOptions.PPOCRv6);
                 var t5 = string.Join("\n", r5.TextBlocks.Select(b => b.Text).Where(x => !string.IsNullOrWhiteSpace(x)));
                 var t6 = string.Join("\n", r6.TextBlocks.Select(b => b.Text).Where(x => !string.IsNullOrWhiteSpace(x)));
 
