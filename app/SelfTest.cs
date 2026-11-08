@@ -491,6 +491,30 @@ internal static class SelfTest
             QuantData.ElementOf("珊瑚宫心海") == "Hydro" && TeamSolver.HasRole("珊瑚宫心海", "Healer"),
             $"珊瑚宫心海 元素={QuantData.ElementOf("珊瑚宫心海")} 治疗={TeamSolver.HasRole("珊瑚宫心海", "Healer")}");
 
+        // 幕级推荐（社区共识 + 已验证知识）必须真的进到选人里，而不是只当提示文本
+        {
+            CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
+            Check("决策·幕级推荐可加载", CuratedPicks.ActCount >= 2 && CuratedPicks.TotalPicks >= 3,
+                $"{CuratedPicks.Source}｜{CuratedPicks.ActCount} 幕 / {CuratedPicks.TotalPicks} 条");
+            // 找一幕有推荐、且推荐角色在本季可带的情况，验证分配结果包含推荐角色
+            var hitActs = new List<string>();
+            var missActs = new List<string>();
+            var allocPick = GlobalAllocator.Solve(0);
+            foreach (var a in allocPick.Assigns.Where(x => x.UsedMainForce && x.Difficulty == "Lunar"))
+            {
+                var rec = CuratedPicks.For(a.Act);
+                if (rec.Count == 0) continue;
+                var usable = rec.Keys.Where(nm => TeamSolver.IsAvailableThisSeason(nm)).ToList();
+                if (usable.Count == 0) continue;
+                var hit = a.Team.Any(nm => usable.Contains(nm));
+                (hit ? hitActs : missActs).Add($"第{a.Act}幕[{string.Join("/", usable)}]");
+            }
+            Check("决策·推荐角色进入配队", hitActs.Count > 0 && hitActs.Count >= missActs.Count,
+                $"命中 {hitActs.Count} 幕、未命中 {missActs.Count} 幕"
+                + (hitActs.Count > 0 ? "｜命中: " + string.Join("; ", hitActs.Take(3)) : "")
+                + (missActs.Count > 0 ? "｜未命中: " + string.Join("; ", missActs.Take(3)) : ""));
+        }
+
         // 决策层·幕间优先级：boss 幕与高 level 幕必须优先拿到资源
         // 审计背景：赛季数据有 boss 标记与递增 level（Lunar 85→100），但此前分配器完全没用。
         {
