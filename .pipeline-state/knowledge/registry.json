@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-08T14:28:02.701422+00:00",
-  "candidate_count": 955,
+  "updated_at": "2026-11-08T14:53:08.072581+00:00",
+  "candidate_count": 973,
   "verified_count": 2,
   "candidates": [
     {
@@ -2526,7 +2526,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -3166,7 +3167,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -3571,7 +3573,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -5060,7 +5063,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -5238,6 +5242,57 @@
         }
       ],
       "independent_creator_count": 0,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "17297cb2a3d408b96cf9064155635b1ee33033b6a2aabdd5fc8a79580db167bd",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 愚人众风役人",
+      "act": 2,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "80e6a7871dd92b923ad1b828a75eb86fb0f712a993e99875deab2984a0fbb621"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "80e6a7871dd92b923ad1b828a75eb86fb0f712a993e99875deab2984a0fbb621",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1T89VBUEcR",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1T89VBUEcR",
+          "source_refs": [
+            "bilibili:BV1T89VBUEcR"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 愚人众风役人",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
@@ -7182,7 +7237,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -8389,7 +8445,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -8414,7 +8471,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -9006,6 +9064,57 @@
           "kind": "action",
           "text": "需要留的后台角色：3幕電，4幕嘲讽,5幕盾奶",
           "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "28b3fb5abfc547d170994e528ec429463e83b6d16b9f2d053313798d8c213470",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "水晶2左4左，优先2级水晶",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "a3be0a99a15100245a95a867db54a96d10b2b810e547fb9c9427496e22f11ab1"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "a3be0a99a15100245a95a867db54a96d10b2b810e547fb9c9427496e22f11ab1",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1T89VBUEcR",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1T89VBUEcR",
+          "source_refs": [
+            "bilibili:BV1T89VBUEcR"
+          ],
+          "kind": "action",
+          "text": "水晶2左4左，优先2级水晶",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -9791,7 +9900,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -10359,7 +10469,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -11928,7 +12039,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -12192,7 +12304,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -12998,7 +13111,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -13843,7 +13957,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -14406,6 +14521,57 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "3d98085507fba4f0b27bc8cdd3225df5e9627f155047a4b234608af5fa0a1628",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "冻结2右4级根据自己C的属性选对应增伤",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "09a128e42a3e674bfec3e7c21bb601a6d22ed2f702855a0b67907516e3b17f86"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "09a128e42a3e674bfec3e7c21bb601a6d22ed2f702855a0b67907516e3b17f86",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1T89VBUEcR",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1T89VBUEcR",
+          "source_refs": [
+            "bilibili:BV1T89VBUEcR"
+          ],
+          "kind": "buy",
+          "text": "冻结2右4级根据自己C的属性选对应增伤",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
     },
     {
       "candidate_id": "3dad06a8323a62102d38cda1f27f5070be54d120887678051f81741018d63885",
@@ -15004,7 +15170,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -16195,7 +16362,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -16248,7 +16416,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -16548,7 +16717,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -16966,6 +17136,57 @@
         }
       ],
       "independent_creator_count": 0,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "4810aa9a525910b690e41e3b868371e19e8a081c18789cfc9e3fdff8c67ba1ad",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "1-3幕先捞两人 叠火风/蒸发buff为主",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "82df9475f68e80bf5f67802f8628fd247ac23e34de8559331940052672eab11b"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "82df9475f68e80bf5f67802f8628fd247ac23e34de8559331940052672eab11b",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1epFZeVEuA",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:451207525",
+          "creator_name": "Tespdom",
+          "channel": "description",
+          "source": "bilibili:BV1epFZeVEuA",
+          "source_refs": [
+            "bilibili:BV1epFZeVEuA"
+          ],
+          "kind": "action",
+          "text": "1-3幕先捞两人 叠火风/蒸发buff为主",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
@@ -17809,7 +18030,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -17937,7 +18159,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -18467,7 +18690,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -19699,7 +19923,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -20295,7 +20520,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -21057,7 +21283,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -21271,7 +21498,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -21697,7 +21925,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -22092,7 +22321,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -22652,7 +22882,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -23140,7 +23371,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -23593,7 +23825,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -24968,6 +25201,57 @@
       "unique_video_count": 2
     },
     {
+      "candidate_id": "75d6d3059f7c71182be4b18a9240cf541af277212820579db9654e280f7c1deb",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "告别卡手，告别炸缸。誓死效忠锁配队大人.JPG",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "93e6a9c4e41d60c06a8a3c3fb05aae4748989a55ad2a2a22563ffdbe0eb16f9b"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "93e6a9c4e41d60c06a8a3c3fb05aae4748989a55ad2a2a22563ffdbe0eb16f9b",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1h6dfBxEZk",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:1959276",
+          "creator_name": "成分复九十八",
+          "channel": "description",
+          "source": "bilibili:BV1h6dfBxEZk",
+          "source_refs": [
+            "bilibili:BV1h6dfBxEZk"
+          ],
+          "kind": "action",
+          "text": "告别卡手，告别炸缸。誓死效忠锁配队大人.JPG",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "7621f070ba57f24ee41ff45d7de60598668e635db06b8716aa75a8924df26ba7",
       "knowledge_type": "strategy",
       "kind": "action",
@@ -26088,7 +26372,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -26197,7 +26482,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -26222,7 +26508,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -27183,7 +27470,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -27443,7 +27731,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -28205,6 +28494,57 @@
         }
       ],
       "independent_creator_count": 0,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "85481e4fb0c57dda3c2ff4f82ac683e1893fb34020fa5b827ab0933a95d0bd34",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "选定分支",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "26836d521d2f14e6405de5965ba895bfc001c2eab7eb8b6fb544a30be62db2fc"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "26836d521d2f14e6405de5965ba895bfc001c2eab7eb8b6fb544a30be62db2fc",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1h6dfBxEZk",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:1959276",
+          "creator_name": "成分复九十八",
+          "channel": "chapter",
+          "source": "bilibili:BV1h6dfBxEZk",
+          "source_refs": [
+            "bilibili:BV1h6dfBxEZk"
+          ],
+          "kind": "buy",
+          "text": "选定分支",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
@@ -29238,7 +29578,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -29643,7 +29984,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -30302,7 +30644,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -30964,7 +31307,8 @@
           "batch_id": "42472608772-attempt-1",
           "observed_batches": [
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1YL7TzTEz6",
           "platform": "bilibili",
@@ -31559,7 +31903,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -32381,6 +32726,57 @@
         }
       ],
       "independent_creator_count": 0,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "98e8de4026b9f24f20bcaec3baeda3f3c2dfcf488c46ca3343cf9a34d6bc8fab",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 遗迹龙兽",
+      "act": 1,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "64d5669970741db8f2b4c92e72aa05f4872005d3a8c908de8c28a35e66f56488"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "64d5669970741db8f2b4c92e72aa05f4872005d3a8c908de8c28a35e66f56488",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1T89VBUEcR",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1T89VBUEcR",
+          "source_refs": [
+            "bilibili:BV1T89VBUEcR"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 遗迹龙兽",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
@@ -33376,7 +33772,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -33428,7 +33825,8 @@
           "batch_id": "42472608772-attempt-1",
           "observed_batches": [
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1A8RKBbEpD",
           "platform": "bilibili",
@@ -33692,7 +34090,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -34192,6 +34591,57 @@
           ],
           "kind": "team",
           "text": "队伍：自备嘲讽角色+挂件",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a3cddc78195698d19386a58e76c78b9a587c683e1bf38c291abec5ec28de333b",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "第8幕先破次数盾",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e5c897050aa8b1a26db65a2e71e7e3ae6e61d5b4098aace9ef75249b100d83ab"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e5c897050aa8b1a26db65a2e71e7e3ae6e61d5b4098aace9ef75249b100d83ab",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1epFZeVEuA",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:451207525",
+          "creator_name": "Tespdom",
+          "channel": "description",
+          "source": "bilibili:BV1epFZeVEuA",
+          "source_refs": [
+            "bilibili:BV1epFZeVEuA"
+          ],
+          "kind": "action",
+          "text": "第8幕先破次数盾",
           "act": 0
         }
       ],
@@ -35207,7 +35657,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -35233,7 +35684,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -35258,7 +35710,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -35744,7 +36197,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -35848,7 +36302,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -36229,7 +36684,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -36385,7 +36841,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -36680,7 +37137,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -36706,7 +37164,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -37458,7 +37917,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -37484,7 +37944,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -37509,7 +37970,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -37530,7 +37992,7 @@
         }
       ],
       "independent_creator_count": 2,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
@@ -37669,7 +38131,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -37864,6 +38327,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "b69b8ef590fea327bc2a113e4ab52ad24537674a0734325cba248245b9ef5675",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "✅ 辉彩祝福选择优先级",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "6.6",
+        "max": "6.6"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "6d50cc7b76772d3841fb3f9ead2f82178d44d3a0259c79412e48154b7ecf6d06"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "6d50cc7b76772d3841fb3f9ead2f82178d44d3a0259c79412e48154b7ecf6d06",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV17kV96nEFw",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "6.6",
+          "context_inferred": true,
+          "creator_id": "bilibili:3706925199919121",
+          "creator_name": "溜小溜吖",
+          "channel": "description",
+          "source": "bilibili:BV17kV96nEFw",
+          "source_refs": [
+            "bilibili:BV17kV96nEFw"
+          ],
+          "kind": "buy",
+          "text": "✅ 辉彩祝福选择优先级",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "b6a3cf43b91ae0aadfd8e46715a66ff7ebb501e3d9763e22a09be1cce2505680",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -37991,7 +38505,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -38016,7 +38531,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -38515,6 +39031,57 @@
       "role_group": "GeoBreak",
       "group_creator_count": 1,
       "group_video_count": 4,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "b9209a249a3d28303b9201cd264748aa245cd1dcde190ccc52d052548b416ead",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第10幕 推荐 打桩",
+      "act": 10,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c2ee9154a374e7b32134d7c7a133b4803d4621971acb3c153807292b27395c6c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c2ee9154a374e7b32134d7c7a133b4803d4621971acb3c153807292b27395c6c",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1epFZeVEuA",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:451207525",
+          "creator_name": "Tespdom",
+          "channel": "description",
+          "source": "bilibili:BV1epFZeVEuA",
+          "source_refs": [
+            "bilibili:BV1epFZeVEuA"
+          ],
+          "kind": "act_team",
+          "text": "第10幕 推荐 打桩",
+          "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
       "unique_video_count": 1
     },
     {
@@ -39766,7 +40333,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -39784,6 +40352,57 @@
           "kind": "act_team",
           "text": "第10幕 推荐 弓箭手",
           "act": 10
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "c07d1ddaf34c2972a7f7dbf2c54555313c02a52fb418d679980bc0fc1ae43038",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 巡陆艇",
+      "act": 9,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8001e0ac8ab494c217f37a249dafae4f7257a6fa0e4b86f334aa6b959ef277a8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8001e0ac8ab494c217f37a249dafae4f7257a6fa0e4b86f334aa6b959ef277a8",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1T89VBUEcR",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1T89VBUEcR",
+          "source_refs": [
+            "bilibili:BV1T89VBUEcR"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 巡陆艇",
+          "act": 9
         }
       ],
       "independent_creator_count": 1,
@@ -40270,7 +40889,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -40986,7 +41606,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -41230,6 +41851,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "c6bc62e5a5657cd6f07a368261e43e5708aa2ed579adae5757137dae68df07ba",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第3幕 推荐 上温迪控怪",
+      "act": 3,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "02db4464b1821b3af6c568689d6908860ff2137e9e2f15fb592fd59c5df9286a"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "02db4464b1821b3af6c568689d6908860ff2137e9e2f15fb592fd59c5df9286a",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1epFZeVEuA",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:451207525",
+          "creator_name": "Tespdom",
+          "channel": "description",
+          "source": "bilibili:BV1epFZeVEuA",
+          "source_refs": [
+            "bilibili:BV1epFZeVEuA"
+          ],
+          "kind": "act_team",
+          "text": "第3幕 推荐 上温迪控怪",
+          "act": 3
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "c6d858a6e00ceb0f9aaf4ba71756a60386a9121a7d941a7f5da04cfde11331db",
       "knowledge_type": "strategy",
       "kind": "action",
@@ -41314,7 +41986,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -41366,6 +42039,57 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "c73f5c5e281cc6e019aa502e34bf3135a24df8d4b780bbba1ff435ff1b863625",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第6幕 推荐 上芙宁娜",
+      "act": 6,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8b587973897bc61868b55ba631a5ea10335eee9fb6f57d363118e0cdf0f565da"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8b587973897bc61868b55ba631a5ea10335eee9fb6f57d363118e0cdf0f565da",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1epFZeVEuA",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:451207525",
+          "creator_name": "Tespdom",
+          "channel": "description",
+          "source": "bilibili:BV1epFZeVEuA",
+          "source_refs": [
+            "bilibili:BV1epFZeVEuA"
+          ],
+          "kind": "act_team",
+          "text": "第6幕 推荐 上芙宁娜",
+          "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
     },
     {
       "candidate_id": "c74134d4fe5ffee062953d69079a4521f9c5ccc79aa98d6b9fcd159946fbbfe6",
@@ -41657,7 +42381,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -41682,7 +42407,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -42554,7 +43280,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -42622,6 +43349,57 @@
           ],
           "kind": "buy",
           "text": "开：买22续件",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "cbaaa048a8c7d5393e215ace7d739eca1deb950c9ff645cfe16845e858566888",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "觉得有用的话别忘了点赞❤️收藏⭐关注我，后续会第一时间更新原神最新攻略！",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "6.6",
+        "max": "6.6"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3d9d0e9f01e8c059c0bfb5c5afa4219a4dfaec0139d51af9bf15680d88703b37"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3d9d0e9f01e8c059c0bfb5c5afa4219a4dfaec0139d51af9bf15680d88703b37",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV17kV96nEFw",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "6.6",
+          "context_inferred": true,
+          "creator_id": "bilibili:3706925199919121",
+          "creator_name": "溜小溜吖",
+          "channel": "description",
+          "source": "bilibili:BV17kV96nEFw",
+          "source_refs": [
+            "bilibili:BV17kV96nEFw"
+          ],
+          "kind": "action",
+          "text": "觉得有用的话别忘了点赞❤️收藏⭐关注我，后续会第一时间更新原神最新攻略！",
           "act": 0
         }
       ],
@@ -42990,7 +43768,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -43060,6 +43839,57 @@
           "kind": "act_team",
           "text": "第8幕 推荐 丝柯克",
           "act": 8
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "cc938c59b83ba624efbe029e19f1f2aee14092de43ea87478af3e8ddfc1437bd",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第4幕 推荐 纳塔龙众",
+      "act": 4,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2d4c83ac828ce6980f0e7dc0a2c3643c576026ea422121df679f2507b0df94b8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2d4c83ac828ce6980f0e7dc0a2c3643c576026ea422121df679f2507b0df94b8",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1T89VBUEcR",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1T89VBUEcR",
+          "source_refs": [
+            "bilibili:BV1T89VBUEcR"
+          ],
+          "kind": "act_team",
+          "text": "第4幕 推荐 纳塔龙众",
+          "act": 4
         }
       ],
       "independent_creator_count": 1,
@@ -43520,7 +44350,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -44178,7 +45009,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -44446,7 +45278,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -44472,7 +45305,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -44497,7 +45331,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -45096,7 +45931,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -45431,6 +46267,57 @@
           "kind": "act_team",
           "text": "第6幕 推荐 雷神",
           "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d5e3c211989e579b3af08ada366d93046082eef4d72da5fb7d319af46cb8ba50",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "具体的角色配队组合和最优 BUFF 选择我已经整理好另外发一个图文，大家直接抄作业就行！",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "6.6",
+        "max": "6.6"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "219d06de1f46d674df7cf7e5a632359c4798edd1ed6462d31c677e27c319aeb2"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "219d06de1f46d674df7cf7e5a632359c4798edd1ed6462d31c677e27c319aeb2",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV17kV96nEFw",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "6.6",
+          "context_inferred": true,
+          "creator_id": "bilibili:3706925199919121",
+          "creator_name": "溜小溜吖",
+          "channel": "description",
+          "source": "bilibili:BV17kV96nEFw",
+          "source_refs": [
+            "bilibili:BV17kV96nEFw"
+          ],
+          "kind": "buy",
+          "text": "具体的角色配队组合和最优 BUFF 选择我已经整理好另外发一个图文，大家直接抄作业就行！",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -46045,7 +46932,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -46558,7 +47446,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -47227,7 +48116,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -47582,7 +48472,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -47659,7 +48550,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -48311,7 +49203,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -48560,6 +49453,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "e70278f16f302a6cb28e88fdc7a2850fcc13036d03d6391593e4eac0a12aa465",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 流血狗",
+      "act": 5,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "8ccc5c8909a2af813da504dee04d3d4a750dc68e8f4b166083ef3cbd7cb6f5ed"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "8ccc5c8909a2af813da504dee04d3d4a750dc68e8f4b166083ef3cbd7cb6f5ed",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1T89VBUEcR",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1T89VBUEcR",
+          "source_refs": [
+            "bilibili:BV1T89VBUEcR"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 流血狗",
+          "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "e72143183d289051447fd0216accc923f410431cc19c1ae42a1886f0905766d5",
       "knowledge_type": "strategy",
       "kind": "buy",
@@ -48616,6 +49560,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "e76126836af6d0a14b397ec622b565fab34fee3af357f02fc07eac36e02a0c6c",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 火使徒",
+      "act": 7,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d5fc593af6d259497a95fed6eae2886337a7740a0fcc12b418f77fa8f89fdbe8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d5fc593af6d259497a95fed6eae2886337a7740a0fcc12b418f77fa8f89fdbe8",
+          "batch_id": "42491533860-attempt-1",
+          "observed_batches": [
+            "42491533860-attempt-1"
+          ],
+          "video_id": "BV1T89VBUEcR",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1T89VBUEcR",
+          "source_refs": [
+            "bilibili:BV1T89VBUEcR"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 火使徒",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "e7a9319ff330eeaae238626825e99bdcc8d4532538e60c8b2e7bb08539d2ab44",
       "knowledge_type": "strategy",
       "kind": "action",
@@ -48638,7 +49633,8 @@
           "batch_id": "42472608772-attempt-1",
           "observed_batches": [
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1YL7TzTEz6",
           "platform": "bilibili",
@@ -49762,7 +50758,8 @@
             "42203849799-attempt-1",
             "42205716184-attempt-1",
             "42221398383-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -49839,7 +50836,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -49998,7 +50996,8 @@
           "batch_id": "42472608772-attempt-1",
           "observed_batches": [
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1YL7TzTEz6",
           "platform": "bilibili",
@@ -50315,7 +51314,8 @@
           "observed_batches": [
             "42327765393-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV17hxW68Ej9",
           "platform": "bilibili",
@@ -50341,7 +51341,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -50746,7 +51747,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -51877,7 +52879,8 @@
             "42327765393-attempt-1",
             "42370658741-attempt-1",
             "42472608772-attempt-1",
-            "42479920569-attempt-1"
+            "42479920569-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -52975,7 +53978,8 @@
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
             "42190135209-attempt-1",
-            "42225115611-attempt-1"
+            "42225115611-attempt-1",
+            "42491533860-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
