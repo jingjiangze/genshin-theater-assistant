@@ -107,6 +107,7 @@ run_step "通用最优配队（全赛季全难度）" "$CLI --team-solve --diffi
   $CLI --team-solve --difficulty all --out /tmp/team-plans.json
 run_step "跨幕全局分配" "$CLI --global-alloc" $CLI --global-alloc --out /tmp/global-alloc.json
 run_step "第二赛季冒烟" "$CLI --season-smoke" $CLI --season-smoke
+run_step "配队质量闸门（硬判据）" "$CLI --quality-gates" $CLI --quality-gates
 run_step "决策编排三态" "$CLI --orchestrate" $CLI --orchestrate
 
 # ---------- 5) 模型通道（有 key 才跑） ----------
