@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-08T17:33:55.848389+00:00",
-  "candidate_count": 1051,
+  "updated_at": "2026-11-08T17:40:29.772826+00:00",
+  "candidate_count": 1087,
   "verified_count": 2,
   "candidates": [
     {
@@ -140,7 +140,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -354,7 +355,8 @@
           "evidence_id": "01f3fa9aaf0ed1f2955ac08141fdbead2986dcf8d8b3d033a4cb3e4f824b3af9",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -729,7 +731,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -877,7 +880,8 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "81d80a10f69a87b22dec7ca8f55c0a5f9d7ee692cd152ca228af9861c330cdce"
+        "81d80a10f69a87b22dec7ca8f55c0a5f9d7ee692cd152ca228af9861c330cdce",
+        "a32e460cca5412a3a42462808e893879ae7ac082f4b4d0053d63e5f844e813e9"
       ],
       "evidence": [
         {
@@ -902,6 +906,29 @@
           "kind": "action",
           "text": "辉彩祝福-10花（出现概率低）（注意，这个是不需要另一个+10为代价的）",
           "act": 0
+        },
+        {
+          "evidence_id": "a32e460cca5412a3a42462808e893879ae7ac082f4b4d0053d63e5f844e813e9",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "action",
+          "text": "辉彩祝福-10花（出现概率低）（注意，这个是不需要另一个+10为代价的）",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -911,7 +938,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "group_creator_count": 0,
       "group_video_count": 0,
-      "unique_video_count": 1
+      "unique_video_count": 2
     },
     {
       "candidate_id": "03c1de8abaa8ca90c17e68d00f656992d772e8848bd83a031b965358c2eb0d78",
@@ -2686,7 +2713,8 @@
           "evidence_id": "443bbebe33347812febedec15fbbf846b07aa347b17171b56020043386d4c586",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -2741,7 +2769,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -3437,7 +3466,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -3679,7 +3709,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -3947,7 +3978,8 @@
           "evidence_id": "04c3743ae8522272fd124407a5cda22c380d2f488f80d89b4e72364d0af51977",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -5227,6 +5259,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "1689ae26185c8ad67d96ddf0e341fe3455aff6a535804f8106548e0c299d8b7a",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.10",
+        "max": "2026.10"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "a86018aed8c93085b2dbc2155e24d252d612a9f8791bcf00303f6fa984f1b7e4"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "a86018aed8c93085b2dbc2155e24d252d612a9f8791bcf00303f6fa984f1b7e4",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TrnX6mE9E",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.10",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TrnX6mE9E",
+          "source_refs": [
+            "bilibili:BV1TrnX6mE9E"
+          ],
+          "kind": "action",
+          "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "16bcb69d8f4e8fdece8b8c6680ee4d552b8e63cbe436c3c3432a183f72e8782b",
       "knowledge_type": "strategy",
       "kind": "action",
@@ -5248,7 +5331,8 @@
           "evidence_id": "4644901f9d9d2c2d5541eb9080ec9312cdff02f52fa1eb3f669329a4ad5646f8",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -5442,7 +5526,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -6724,7 +6809,8 @@
           "evidence_id": "bbc07688ae4e2615bffcf51bad17a331337c1f16a8a49394f4899e25fca72b80",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -7030,7 +7116,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -7239,6 +7326,57 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 2
+    },
+    {
+      "candidate_id": "1e0ec1179ac2bfbc10160816b07534d987bd38d8afe554d23b71bf30a41662f4",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "月谕30r（满花额外加五r，需要正常练度）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.8",
+        "max": "2026.8"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "dddd291125fb07921856deddd18a401564a22dd8e249b7855e440e112ba0b729"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "dddd291125fb07921856deddd18a401564a22dd8e249b7855e440e112ba0b729",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1kEts65E9d",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.8",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1kEts65E9d",
+          "source_refs": [
+            "bilibili:BV1kEts65E9d"
+          ],
+          "kind": "action",
+          "text": "月谕30r（满花额外加五r，需要正常练度）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
     },
     {
       "candidate_id": "1e8d11068fc48c1900e08640399c64116bdea51a5d0f259e727873ea006bf918",
@@ -8044,7 +8182,8 @@
           "evidence_id": "cc2218220669dddeeac2ab43bef7bc429bea7f10a348d2db40cb129fa782c7e9",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -8251,7 +8390,8 @@
           "evidence_id": "f8b52d643ec026d0fac7849fea5b5cdbd403a9b5a134cb4156d67c2083f4e5b0",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -8528,7 +8668,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -8829,6 +8970,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "24f6206e40d3574cfb94bf99553120caec263023c8ea619dfbe1cf7d3e6b2dd0",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "月谕30r（满花额外加五r，需要正常练度）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.9",
+        "max": "2026.9"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "131dffc9f42da5f062e2988e935c031806ac9394e9d73af59e7c1f8daaa1e828"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "131dffc9f42da5f062e2988e935c031806ac9394e9d73af59e7c1f8daaa1e828",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV14da96jECE",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.9",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV14da96jECE",
+          "source_refs": [
+            "bilibili:BV14da96jECE"
+          ],
+          "kind": "action",
+          "text": "月谕30r（满花额外加五r，需要正常练度）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "253677fc23899c334868299843451459114fdfb1561e7b05d7292b625d506461",
       "knowledge_type": "strategy",
       "kind": "buy",
@@ -8910,7 +9102,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -9464,7 +9657,8 @@
           "evidence_id": "e19bd120b243b31dae3075920a79e960a211dd216b171646d415d8275519348c",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -9566,7 +9760,8 @@
           "evidence_id": "1aebbabf64fda46e693bbb9c0cfc4e35c440311f19deb9e60dd971bfdb45e9f9",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -10457,7 +10652,8 @@
           "evidence_id": "3239f8c6e37dbcfd0fc739f58cdbfb519377342b88f2cb79061d7c6fe655564b",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -10626,7 +10822,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -10730,7 +10927,8 @@
           "evidence_id": "e65505bc96e2b9bb30acbb86fa6e7ac3dedc1c565fe48ce0f5c42d5e043924f6",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -11085,7 +11283,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -11552,7 +11751,8 @@
           "evidence_id": "7e35398743d4348a72c83399094e8be793a1c26cdb2ebfeaf5370bd78f50c690",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -12393,7 +12593,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -12789,7 +12990,8 @@
           "evidence_id": "266203cb137cd5cac61dc954eaba48e804c0d29ed3ed142030c671ddc9d43263",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -12905,7 +13107,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -12957,7 +13160,8 @@
           "evidence_id": "55302b103ef517e25d111db916c82d7c897eee82589abef1728da718efdf34a0",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -12986,6 +13190,81 @@
       "group_creator_count": 1,
       "group_video_count": 5,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "326e3abfdf85b59b6c54f6b1bdf5ef0b998501337f4d5d4b82ceef246e86937a",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "235133074a1382cd7d7b174ca83bb11bd4ad9dcba10b4bc8c919c6ab7b769130",
+        "76aff14d5a5d1c11448c8da2c0e706d221d87ad743633696da77338f99c20ced"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "235133074a1382cd7d7b174ca83bb11bd4ad9dcba10b4bc8c919c6ab7b769130",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1KVTJ6DE1g",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1KVTJ6DE1g",
+          "source_refs": [
+            "bilibili:BV1KVTJ6DE1g"
+          ],
+          "kind": "action",
+          "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+          "act": 0
+        },
+        {
+          "evidence_id": "76aff14d5a5d1c11448c8da2c0e706d221d87ad743633696da77338f99c20ced",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TGTJ6HETM",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TGTJ6HETM",
+          "source_refs": [
+            "bilibili:BV1TGTJ6HETM"
+          ],
+          "kind": "action",
+          "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "3290ea4d84e28577eacfa6e46c0f6b29cb6d8cfb19569289f0817276fc760c83",
@@ -13225,7 +13504,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -13712,7 +13992,8 @@
           "evidence_id": "eeacf9f6f037efb59d9495d3c301e1e626cf4bb6ccc659d7218b9df3a7f90443",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -13808,7 +14089,8 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "2c72742be34db11b1d8f63823a444e8ff146b66642bf3440a67dde71e12de0e9"
+        "2c72742be34db11b1d8f63823a444e8ff146b66642bf3440a67dde71e12de0e9",
+        "ccca2a03f7fd17423431cf0bee9b779416cf900c6de8bd86470720362649fecc"
       ],
       "evidence": [
         {
@@ -13833,6 +14115,29 @@
           "kind": "buy",
           "text": "选择神秘收获可以重置1次",
           "act": 0
+        },
+        {
+          "evidence_id": "ccca2a03f7fd17423431cf0bee9b779416cf900c6de8bd86470720362649fecc",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "buy",
+          "text": "选择神秘收获可以重置1次",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -13842,7 +14147,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "group_creator_count": 0,
       "group_video_count": 0,
-      "unique_video_count": 1
+      "unique_video_count": 2
     },
     {
       "candidate_id": "365d51e97ff4d4e9f870d4a8c43c8a5e1536b86ce396e4ad79adabbf4f1717fd",
@@ -14087,7 +14392,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -14435,6 +14741,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "388d034d8f12af04ac74a825996671ba3ca31fc5baed2127ef4ba12da17f45cf",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.8",
+        "max": "2026.8"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "433db5447a416fc359e291b5917e894d2ee407fa13ee877fa11d4c6ce0e56abd"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "433db5447a416fc359e291b5917e894d2ee407fa13ee877fa11d4c6ce0e56abd",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1kEts65E9d",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.8",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1kEts65E9d",
+          "source_refs": [
+            "bilibili:BV1kEts65E9d"
+          ],
+          "kind": "action",
+          "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "38af03127dbf7b220230549d144bd3c7328c1f814f3e1aafb115110bd77debb9",
       "knowledge_type": "strategy",
       "kind": "buy",
@@ -14564,7 +14921,8 @@
           "evidence_id": "5e122849a5f9b7f041ae43a669e8ecc75deeb4e0c59ca0e08103b370eeca9598",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -14935,7 +15293,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -15144,7 +15503,8 @@
           "evidence_id": "344ed8455c5239e9621133ddc57d570fb19921bdba8ecabe01c8e23bb978bb8c",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -15487,6 +15847,57 @@
         }
       ],
       "independent_creator_count": 0,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "3cba26ceb02de325d199d6a4e7a76244075ff12ac72fdda42d50c1b5ae765e54",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第9幕 推荐 魔像禁卫",
+      "act": 9,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "4e861b6179f93f4dd16315cfa8b21b8b62bd732a60331b7bc0937fd39a832bab"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "4e861b6179f93f4dd16315cfa8b21b8b62bd732a60331b7bc0937fd39a832bab",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "act_team",
+          "text": "第9幕 推荐 魔像禁卫",
+          "act": 9
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
@@ -18142,7 +18553,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -18292,6 +18704,57 @@
         }
       ],
       "independent_creator_count": 0,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "47328bc42fab5afca3a042ac518d39656679ea22da0b43e3ea187ce1a465a8c2",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "注：角色池浅小伙伴在前期的选取挂件角色注意保留菲谢尔，夏沃蕾，香菱(有练度)以及一位弓箭角色留给最后一间 ，第七幕到第九幕以及两个圣牌的挑战顺序按照自己当前的角色池来选择",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "22e57650c96acf1cad6d8d04228aaf3b2ab706a27ddfeb07b4e0c4004e6a916b"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "22e57650c96acf1cad6d8d04228aaf3b2ab706a27ddfeb07b4e0c4004e6a916b",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1GKTH6PEFF",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:270885270",
+          "creator_name": "不爱玩游戏的肉",
+          "channel": "description",
+          "source": "bilibili:BV1GKTH6PEFF",
+          "source_refs": [
+            "bilibili:BV1GKTH6PEFF"
+          ],
+          "kind": "buy",
+          "text": "注：角色池浅小伙伴在前期的选取挂件角色注意保留菲谢尔，夏沃蕾，香菱(有练度)以及一位弓箭角色留给最后一间 ，第七幕到第九幕以及两个圣牌的挑战顺序按照自己当前的角色池来选择",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
@@ -18993,7 +19456,8 @@
           "evidence_id": "587ea97e8f511dfc950bd7fd53a5c4c3ab56bbae3ee678ea668b1972c9416367",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -19021,6 +19485,81 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "4a635d378823f0dfb3dd62527513489e3371ba9053d1f8aa21dd996bb80a5d92",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "5512b8180d344c534780f7bf9410e946d89059c163dbbefc1634d38fc2b89f1b",
+        "0999519318f8afba611e6d3f9ae4eb9b45d2cbf51e6bdfd858e804a4a5f295d4"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "5512b8180d344c534780f7bf9410e946d89059c163dbbefc1634d38fc2b89f1b",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1KVTJ6DE1g",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1KVTJ6DE1g",
+          "source_refs": [
+            "bilibili:BV1KVTJ6DE1g"
+          ],
+          "kind": "action",
+          "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
+          "act": 0
+        },
+        {
+          "evidence_id": "0999519318f8afba611e6d3f9ae4eb9b45d2cbf51e6bdfd858e804a4a5f295d4",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TGTJ6HETM",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TGTJ6HETM",
+          "source_refs": [
+            "bilibili:BV1TGTJ6HETM"
+          ],
+          "kind": "action",
+          "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "4b2b8d2a9a67e216b80bf4c8e0122c7c1d73ba7315a9e632570b77de191cd461",
@@ -19528,6 +20067,57 @@
       "unique_video_count": 6
     },
     {
+      "candidate_id": "4e69b3dd1ffa3d78866a70099f5266d8f50545cd4d797aff7e56859aee59378c",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.8",
+        "max": "2026.8"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "e85af60afa0ba53742b084a1104f206d1009608cd349beface630d7227273ca6"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "e85af60afa0ba53742b084a1104f206d1009608cd349beface630d7227273ca6",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1kEts65E9d",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.8",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1kEts65E9d",
+          "source_refs": [
+            "bilibili:BV1kEts65E9d"
+          ],
+          "kind": "action",
+          "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "4e803ffed75877ef2b47ba0643ecd1168be938ea3b8836c0968c1628c5562eb3",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -19561,7 +20151,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -19692,7 +20283,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -20594,7 +21186,8 @@
           "evidence_id": "dfa68ffaa93b7073ef846641fd8f20969202fe4ee0a5db116ade79dbaf859cf0",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -20624,6 +21217,81 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "54cbeb6df51e0c78116132f2a9e22b486399d9dbdf941da446d36f029e6116c6",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "月谕模式需要28-32名角色70+，10关（需要除试用外自养角色22名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "1fa5eeb2ce2bd8d17e523f384482ece05ccdbad3c939912ee3e79ebd95c0c8b6",
+        "bcadf0a508e07f1e0b16a65ec566294fc2c75158fbedf8e9279d833d335f8356"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "1fa5eeb2ce2bd8d17e523f384482ece05ccdbad3c939912ee3e79ebd95c0c8b6",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1KVTJ6DE1g",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1KVTJ6DE1g",
+          "source_refs": [
+            "bilibili:BV1KVTJ6DE1g"
+          ],
+          "kind": "action",
+          "text": "月谕模式需要28-32名角色70+，10关（需要除试用外自养角色22名）",
+          "act": 0
+        },
+        {
+          "evidence_id": "bcadf0a508e07f1e0b16a65ec566294fc2c75158fbedf8e9279d833d335f8356",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TGTJ6HETM",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TGTJ6HETM",
+          "source_refs": [
+            "bilibili:BV1TGTJ6HETM"
+          ],
+          "kind": "action",
+          "text": "月谕模式需要28-32名角色70+，10关（需要除试用外自养角色22名",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
+    },
+    {
       "candidate_id": "551d7e45a0992c28b5563e7b88b9642748820918166684db1bea470fb6457100",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -20645,7 +21313,8 @@
           "evidence_id": "74fa7dd1b09b8be2a38987b4ef8a895998c6c55e20e3700032bf60e2ad308b78",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -20718,6 +21387,57 @@
           ],
           "kind": "buy",
           "text": "开局：买4冰祝福",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "55440504d87c9897b98abd12da349c3a221d2c045b017991b2886753623bc596",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.9",
+        "max": "2026.9"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "3f652a5a694bcc290281dca381f09b5d63b92c0d1b0142e0bcadec691a6fabfb"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "3f652a5a694bcc290281dca381f09b5d63b92c0d1b0142e0bcadec691a6fabfb",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV14da96jECE",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.9",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV14da96jECE",
+          "source_refs": [
+            "bilibili:BV14da96jECE"
+          ],
+          "kind": "action",
+          "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
           "act": 0
         }
       ],
@@ -21015,7 +21735,8 @@
           "evidence_id": "183a23c04c4f71a465ea89102ef788f3b7441b85775850791af5e32c8d8c7986",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -21344,7 +22065,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -21617,7 +22339,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -22041,7 +22764,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -22218,7 +22942,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -22983,6 +23708,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "5e714285778241f67b13ca3d68800a753c1e2dbaaf33a3149bc6ce544c2fd5e3",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "月谕30r（满花额外加五r，需要正常练度）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.10",
+        "max": "2026.10"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "6122b9d6cc644cee0b9bef2f3d362ead64e343c3d36fd31b975910c25abd5ba9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "6122b9d6cc644cee0b9bef2f3d362ead64e343c3d36fd31b975910c25abd5ba9",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TrnX6mE9E",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.10",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TrnX6mE9E",
+          "source_refs": [
+            "bilibili:BV1TrnX6mE9E"
+          ],
+          "kind": "action",
+          "text": "月谕30r（满花额外加五r，需要正常练度）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "5ed3276b1e61962c4edd44d56168eb3e7b5a4bbff68d32178e5e66f55850c33a",
       "knowledge_type": "strategy",
       "kind": "team",
@@ -23060,7 +23836,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -23328,7 +24105,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -23432,7 +24210,8 @@
           "evidence_id": "8b444c76543fda9a8c19806fcc4f7d2753f762f9b2f7470f476ac1fada6b7cad",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -23483,7 +24262,8 @@
           "evidence_id": "34ad391f1f116772e31118f81ccb3c4961c364b6b88604602a84e30f14c3cc3c",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -23586,7 +24366,8 @@
           "evidence_id": "4c4ed95252468b951046891df2983d437cad4a5f2644d7574ef034b348ff2eda",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -23757,7 +24538,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -24206,7 +24988,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -24269,7 +25052,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -24443,6 +25227,57 @@
           "kind": "buy",
           "text": "买buf",
           "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "66e6ebe8f2573f0ffa50afce0e43a76a418af69f191714574d6f05c7c8b27656",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第5幕 推荐 小宝",
+      "act": 5,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "7a6520853150ce291467bcdd5b368c2ac651869eb33e0825385fe7cd67424945"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "7a6520853150ce291467bcdd5b368c2ac651869eb33e0825385fe7cd67424945",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "act_team",
+          "text": "第5幕 推荐 小宝",
+          "act": 5
         }
       ],
       "independent_creator_count": 1,
@@ -25366,7 +26201,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -25794,6 +26630,81 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "6e865b672f884d8a8bd5ba84a18cd6425d7dd0c35dd26e972e0b55ba448a04db",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "a7d891cd8637afa75fb388daa0ab7b8b2db6922a100f02cac13213323d815479",
+        "dec800e0f5719b86966141a354f622154740c667319f79172a0890da61624d68"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "a7d891cd8637afa75fb388daa0ab7b8b2db6922a100f02cac13213323d815479",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1KVTJ6DE1g",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1KVTJ6DE1g",
+          "source_refs": [
+            "bilibili:BV1KVTJ6DE1g"
+          ],
+          "kind": "action",
+          "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+          "act": 0
+        },
+        {
+          "evidence_id": "dec800e0f5719b86966141a354f622154740c667319f79172a0890da61624d68",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TGTJ6HETM",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TGTJ6HETM",
+          "source_refs": [
+            "bilibili:BV1TGTJ6HETM"
+          ],
+          "kind": "action",
+          "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "6ee4ed2b2c07e6f764a6f9673042f40e4729a47008a90da5f730371c5d902599",
@@ -26683,6 +27594,57 @@
         }
       ],
       "independent_creator_count": 0,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "7311fa9eb13de3e4381e2aa40739c88840de2571d68a7f3ee9b6f8d7d24a074a",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.10",
+        "max": "2026.10"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cab8fb17adf95b3383e726e858e5d429e54d609069ecc04c2d5ec56078722473"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cab8fb17adf95b3383e726e858e5d429e54d609069ecc04c2d5ec56078722473",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TrnX6mE9E",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.10",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TrnX6mE9E",
+          "source_refs": [
+            "bilibili:BV1TrnX6mE9E"
+          ],
+          "kind": "action",
+          "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
@@ -27983,7 +28945,8 @@
           "evidence_id": "b2a245e135748edf786fccf67a4c204546f76bf152dd47ae15991ee49a8d10be",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -28194,7 +29157,8 @@
           "evidence_id": "c640af3d72396642f405d389d2b94c098c0fdfcb3a158df36b4c1cd7ce6ab7fb",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -28724,7 +29688,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -28786,7 +29751,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -28951,7 +29917,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -29267,6 +30234,57 @@
       "role_group": "HydroApplier",
       "group_creator_count": 2,
       "group_video_count": 6,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "7e819ae1415c0d605f65d76fbd551435562df85893ee6f2ea8039959050ed731",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "月谕模式需要28-32名角色70+，10关（需要除试用外自养角色22名",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.9",
+        "max": "2026.9"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "80418271a0ba078ad9669c7e8f8d60d96253545f9dff1cae0a2d23eab98713c1"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "80418271a0ba078ad9669c7e8f8d60d96253545f9dff1cae0a2d23eab98713c1",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV14da96jECE",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.9",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV14da96jECE",
+          "source_refs": [
+            "bilibili:BV14da96jECE"
+          ],
+          "kind": "action",
+          "text": "月谕模式需要28-32名角色70+，10关（需要除试用外自养角色22名",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
       "unique_video_count": 1
     },
     {
@@ -29944,7 +30962,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -30000,7 +31019,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -30183,6 +31203,81 @@
       "group_creator_count": 0,
       "group_video_count": 0,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "81dc2c8e16576d381fa4eb2658ea91489904b487df2d1c065ab2d0667eb8255f",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "月谕30r（满花额外加五r，需要正常练度）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "2b16599782cfe6d588a96bd914481cd3046ad6b57a6675e150574928b80d0aae",
+        "9a92e98833827fb222a481b9764e3f1be24af8ef18d91ca17c245db3b5e4cbec"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "2b16599782cfe6d588a96bd914481cd3046ad6b57a6675e150574928b80d0aae",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1KVTJ6DE1g",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1KVTJ6DE1g",
+          "source_refs": [
+            "bilibili:BV1KVTJ6DE1g"
+          ],
+          "kind": "action",
+          "text": "月谕30r（满花额外加五r，需要正常练度）",
+          "act": 0
+        },
+        {
+          "evidence_id": "9a92e98833827fb222a481b9764e3f1be24af8ef18d91ca17c245db3b5e4cbec",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TGTJ6HETM",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TGTJ6HETM",
+          "source_refs": [
+            "bilibili:BV1TGTJ6HETM"
+          ],
+          "kind": "action",
+          "text": "月谕30r（满花额外加五r，需要正常练度）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "8212b7e6dd7d93779dcd83013c179a77fdb8fb72168d27f7d206a4bcc10a12d5",
@@ -30637,7 +31732,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -30793,7 +31889,8 @@
           "evidence_id": "2551cf4b889c7d3d8357ad9d104ec9701db71e13444fc507fef53e3b983240ce",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -30953,7 +32050,8 @@
           "evidence_id": "671e3a876dce6b5aac6c3395813dc4f314cae0be861812691a6ac202710e0b53",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -31352,6 +32450,57 @@
         }
       ],
       "independent_creator_count": 0,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "868a7522493e1e3750250e9f34a2147a351922a90c91f433a6f9eacec691c67c",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "月谕模式需要28-32名角色70+，10关（需要除试用外自养角色22名",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.8",
+        "max": "2026.8"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "47008973f3349ec5aae84c1bbe242df364d4cb4f10543fc95348a2541563bd53"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "47008973f3349ec5aae84c1bbe242df364d4cb4f10543fc95348a2541563bd53",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1kEts65E9d",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.8",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1kEts65E9d",
+          "source_refs": [
+            "bilibili:BV1kEts65E9d"
+          ],
+          "kind": "action",
+          "text": "月谕模式需要28-32名角色70+，10关（需要除试用外自养角色22名",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
@@ -32078,6 +33227,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "896d76f124a42e92f939f0789fab7fe63df3cebb040b2a5030ebe60860900b0f",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "需要满足条件才可以打",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "cfa0b74668c4ab47ca650fa2b2390a0cca03d9b286d19e7394d5c68d44b1c398"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "cfa0b74668c4ab47ca650fa2b2390a0cca03d9b286d19e7394d5c68d44b1c398",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1KVTJ6DE1g",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1KVTJ6DE1g",
+          "source_refs": [
+            "bilibili:BV1KVTJ6DE1g"
+          ],
+          "kind": "action",
+          "text": "需要满足条件才可以打",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "8974b56c1244b1b85a67205eb80e5e497d115056aad279e470574f2e4892e701",
       "knowledge_type": "strategy",
       "kind": "buy",
@@ -32274,7 +33474,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -32733,7 +33934,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -33016,6 +34218,57 @@
           "kind": "buy",
           "text": "需要选出角色：6幕自备较弱主e+辅助，8幕自备较强主ct辅助",
           "act": 6
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "8d1d6316e9180264a4b31868a432605b5ef0588e8f96468406f59263e398b2b3",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "月谕模式需要28-32名角色70+，1",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.10",
+        "max": "2026.10"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "075ca413cd76f75fd20dd36d1ba36d145aa65c240803785551d3c55bfc4f77c5"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "075ca413cd76f75fd20dd36d1ba36d145aa65c240803785551d3c55bfc4f77c5",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TrnX6mE9E",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.10",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TrnX6mE9E",
+          "source_refs": [
+            "bilibili:BV1TrnX6mE9E"
+          ],
+          "kind": "action",
+          "text": "月谕模式需要28-32名角色70+，1",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -33738,7 +34991,8 @@
           "evidence_id": "1073467e0468dc4e870fea054915c830043b46fe45419b958c229e6dc3bf00cd",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -34434,7 +35688,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -34634,6 +35889,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "9300b5f24859e5297c4e97d4531e0016265facfa4064e6701984811da38bbcc3",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.8",
+        "max": "2026.8"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "b96bba9d44456c6ad4cb7b52e5a734605232af6983e3abaab094cd8e312efce9"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "b96bba9d44456c6ad4cb7b52e5a734605232af6983e3abaab094cd8e312efce9",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1kEts65E9d",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.8",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1kEts65E9d",
+          "source_refs": [
+            "bilibili:BV1kEts65E9d"
+          ],
+          "kind": "action",
+          "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "93a165ae71ca741f7e983ed7e821f7643aa724191d5ea1329128142bb61a3d45",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -34659,7 +35965,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -34703,7 +36010,8 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "a65a42fbae6d2ebe103a1d790c741ca6aa28abbe985d4fa98906e1449c75a401"
+        "a65a42fbae6d2ebe103a1d790c741ca6aa28abbe985d4fa98906e1449c75a401",
+        "1faaf57bdb0bee71774e7ddf15f37e4eb208c13621549666b2a04006c5bdde75"
       ],
       "evidence": [
         {
@@ -34728,6 +36036,29 @@
           "kind": "buy",
           "text": "神秘收获选项+1",
           "act": 0
+        },
+        {
+          "evidence_id": "1faaf57bdb0bee71774e7ddf15f37e4eb208c13621549666b2a04006c5bdde75",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "buy",
+          "text": "神秘收获选项+1",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -34737,7 +36068,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "group_creator_count": 0,
       "group_video_count": 0,
-      "unique_video_count": 1
+      "unique_video_count": 2
     },
     {
       "candidate_id": "9445f5ef405d3b49b1093a06354c7fd2abd8bc693174cb6da1cf158ae9cdf7a9",
@@ -35031,7 +36362,8 @@
           "evidence_id": "0f8e00f8aac18ac952ba0889774021a7e095b18363cb557c417cfc8e0c9b0c81",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -35797,6 +37129,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "999912888c665153fb368553b6b2cde5521b44e8ab4340af4c55da54b02c26d8",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "怪物选择&amp;参考阵容",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "10bd8e2411242c0a3da02b1c0a397d98e9fb338ec3c98678b5f79e7de1a7cfca"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "10bd8e2411242c0a3da02b1c0a397d98e9fb338ec3c98678b5f79e7de1a7cfca",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "buy",
+          "text": "怪物选择&amp;参考阵容",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "9a530376aac1270b0487a0703479012c0b24020adfa82ae986a88d0c59c1e6f0",
       "knowledge_type": "strategy",
       "kind": "buy",
@@ -35884,7 +37267,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -36398,6 +37782,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "9cc37e03ba652628cad9217c56f9a69e1d2d263da6bd6f236e8d73e06473b3f6",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.9",
+        "max": "2026.9"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c6599ff85a5a8e79569e49a32098ccd64380cbe85dc4100a7bbc43d78d35273c"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c6599ff85a5a8e79569e49a32098ccd64380cbe85dc4100a7bbc43d78d35273c",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV14da96jECE",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.9",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV14da96jECE",
+          "source_refs": [
+            "bilibili:BV14da96jECE"
+          ],
+          "kind": "action",
+          "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "9ce80919110eecb5311470f2220f6cabd3da0cdf92cd2cbba7c2496e0305f449",
       "knowledge_type": "strategy",
       "kind": "buy",
@@ -36788,7 +38223,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -37071,6 +38507,57 @@
           "kind": "buy",
           "text": "需要选出角色：5幕自备较弱主C+辅助，&幕好友高练主C，9幕自备较强主C+辅助，月谕2治疗角色",
           "act": 5
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a063e32f5a77572b7650bc489f43f4e3b65cf3c6850477a5e0ff637a51056535",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.10",
+        "max": "2026.10"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "af32798c3898cd1b9ed3c9acdc617b0d082810890b46be6be4a6ffb027cf163a"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "af32798c3898cd1b9ed3c9acdc617b0d082810890b46be6be4a6ffb027cf163a",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TrnX6mE9E",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.10",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TrnX6mE9E",
+          "source_refs": [
+            "bilibili:BV1TrnX6mE9E"
+          ],
+          "kind": "action",
+          "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -37426,7 +38913,8 @@
           "evidence_id": "f836dd55f37d3ad6aed28d46bbccd2fd11bc43b0f2c2a7a5e854fea381733cb7",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -38760,7 +40248,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -38870,6 +40359,57 @@
           "kind": "buy",
           "text": "开：买35件",
           "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "a7d0d5040f5aa45ac867026bd04c4b3ff49ef62ef340a0930c09600b892600f2",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第4幕 推荐 小宝",
+      "act": 4,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "4e21c3cddeb15ec40c7956be85eaac16a709fdabf9843c5d013700d17c62b571"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "4e21c3cddeb15ec40c7956be85eaac16a709fdabf9843c5d013700d17c62b571",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "act_team",
+          "text": "第4幕 推荐 小宝",
+          "act": 4
         }
       ],
       "independent_creator_count": 1,
@@ -39329,7 +40869,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -39436,7 +40977,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -40266,7 +41808,8 @@
           "evidence_id": "46dd730a986c4a28f564f2959c4dc4f8b7dd070b438c03fd010fd8e2514cf1c8",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -40353,7 +41896,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -40821,7 +42365,8 @@
           "evidence_id": "24d5d87c6b0694ea4804f10949618a887667990b1be87c7e9f4b0176233f6be5",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -41155,7 +42700,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -41243,7 +42789,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -41293,7 +42840,7 @@
         }
       ],
       "independent_creator_count": 2,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
@@ -41435,7 +42982,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -41702,7 +43250,8 @@
           "evidence_id": "2abf1879513cb357d6a66455d9a4cc097d3f01b7384346fe3eee57a09623d2a1",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -41864,7 +43413,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -42154,7 +43704,8 @@
           "evidence_id": "72d200d4c3f6a225c65d23fca6dcf763383284c3a4c68ab79bc0fcc6f29ca409",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -42364,7 +43915,8 @@
           "evidence_id": "b8ebec95ccc8e342a13a25d42edb7c9a4b5e60c72c326eb553552078ce8783f2",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -42961,7 +44513,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -43173,7 +44726,8 @@
           "evidence_id": "7fec0eb122e3ba3d38de0207320be239f94aebb3ae4b85b0c820ee0ffbca3953",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -43483,7 +45037,8 @@
           "evidence_id": "fbdeb546dadac0055121da352ab711c9b7026c923db8743e888f4f59267d61d7",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -43642,7 +45197,8 @@
           "evidence_id": "baaca4c22f8f1d0e45f58d72cac954775098435154e9d179c2265bc5b0640b81",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -43693,7 +45249,8 @@
           "evidence_id": "49f4d3d4e5b709240d22f1a6f314d2ce840698ba2315d20fe6a95307ad437a32",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -43903,7 +45460,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -44247,7 +45805,8 @@
           "evidence_id": "39383a542225deed7f6f2f79079f07f3c990ede46e6a4fa7e99247c7e69e972a",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -44463,7 +46022,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -44787,7 +46347,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -45025,7 +46586,8 @@
           "evidence_id": "44f33254086c8a8c5b7ef458b68e2234337a353b29bb4b9e070a8f0b6f1af580",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -45094,6 +46656,57 @@
           ],
           "kind": "action",
           "text": "别诗月/老深全包情书×3",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "c46e6402cec5c4ad29af5c87348865cd15dbe54313cc7b5d0af9228c08b90186",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.9",
+        "max": "2026.9"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "dc8700133934c3e29a55f3a86dd9fbca36255f91f45a911cc6306bb09091124d"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "dc8700133934c3e29a55f3a86dd9fbca36255f91f45a911cc6306bb09091124d",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV14da96jECE",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.9",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV14da96jECE",
+          "source_refs": [
+            "bilibili:BV14da96jECE"
+          ],
+          "kind": "action",
+          "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
           "act": 0
         }
       ],
@@ -45480,6 +47093,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "c68575446110745da6438c47c2ea9a22cd08dd23d91dc11c17ae14125c245749",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第1幕 推荐 冰深渊法师",
+      "act": 1,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "a1dea36d4a495ae84cd19503fa4013ef101da904271ab56d190a3b80b6e47005"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "a1dea36d4a495ae84cd19503fa4013ef101da904271ab56d190a3b80b6e47005",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "act_team",
+          "text": "第1幕 推荐 冰深渊法师",
+          "act": 1
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "c6bc62e5a5657cd6f07a368261e43e5708aa2ed579adae5757137dae68df07ba",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -45618,7 +47282,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -46019,7 +47684,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -46693,6 +48359,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "c9fd74131cda21d0024922a02ea8bafc3d0c708894dac252d1194ef600971eec",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第7幕 推荐 深渊咏者",
+      "act": 7,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "a1f5d4aa13a914f80b2054430df67e83433066c7f87628634b77b1f494eb7b15"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "a1f5d4aa13a914f80b2054430df67e83433066c7f87628634b77b1f494eb7b15",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "act_team",
+          "text": "第7幕 推荐 深渊咏者",
+          "act": 7
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "ca1a8b802a0f81e0c5ef1f6bc03900477fc289b9bc85c4893ef6e7cf114964ba",
       "knowledge_type": "strategy",
       "kind": "buy",
@@ -46787,6 +48504,57 @@
         }
       ],
       "independent_creator_count": 0,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "ca51091c0c6ccd9074b0849dd49e2e31ec7e68eb6a9697cc2fcd6344ba09e6e5",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.8",
+        "max": "2026.8"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "129545ac875cee6a3cac1f2ad32f295d12eef9b48956b8e089c927e794f95c63"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "129545ac875cee6a3cac1f2ad32f295d12eef9b48956b8e089c927e794f95c63",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1kEts65E9d",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.8",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1kEts65E9d",
+          "source_refs": [
+            "bilibili:BV1kEts65E9d"
+          ],
+          "kind": "action",
+          "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
       "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
@@ -47414,7 +49182,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -47626,7 +49395,8 @@
           "evidence_id": "348b0ac7c53499339451dc57910e6d1db4cc34b65d397e187d5c22bc20d73b83",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -48901,6 +50671,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "d20e439b8885068e87589a47798b59e8c438ab97126e1c7e1f02d819669e8f6b",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "选角色+第一幕",
+      "act": null,
+      "season": 29,
+      "period": "2026-05",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "0ff29eec90d1dcbb3a1c4775aa9982bc65c402c4bd631cd2c086544d639bb0e3"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "0ff29eec90d1dcbb3a1c4775aa9982bc65c402c4bd631cd2c086544d639bb0e3",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1SBR8BgEXc",
+          "platform": "bilibili",
+          "period": "2026-05",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:1978621636",
+          "creator_name": "ouyfuygbkjv",
+          "channel": "chapter",
+          "source": "bilibili:BV1SBR8BgEXc",
+          "source_refs": [
+            "bilibili:BV1SBR8BgEXc"
+          ],
+          "kind": "buy",
+          "text": "选角色+第一幕",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "d22fd513fccea9c97250408ad76e46754f2a433aed6008359cedbba6cd10db9c",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -48958,7 +50779,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -49061,7 +50883,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -49595,7 +51418,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -49859,7 +51683,8 @@
           "evidence_id": "33c5a6a7fda1da7b8721ee628fe461b423efdd5b28003d9de1720fb7c33ca6bf",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -50227,7 +52052,8 @@
           "evidence_id": "3d99321b118cb93e83466ebdfff5138af40a370977eaa59f57166dd565f5f866",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -50712,7 +52538,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -50741,6 +52568,81 @@
       "group_creator_count": 1,
       "group_video_count": 2,
       "unique_video_count": 1
+    },
+    {
+      "candidate_id": "d985b1a7df5c13548685e66d68e247d2766b44794918dd1d0f2429f2d6ca6a65",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "10c59e39be56e5a8f19edebae2d87907e6e9089ededfb71a0b490935e0248a43",
+        "ca9c1af72033c4567f133fbbc4c8d434a7891fab45c2c476819af51338a40ccf"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "10c59e39be56e5a8f19edebae2d87907e6e9089ededfb71a0b490935e0248a43",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1KVTJ6DE1g",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1KVTJ6DE1g",
+          "source_refs": [
+            "bilibili:BV1KVTJ6DE1g"
+          ],
+          "kind": "action",
+          "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
+          "act": 0
+        },
+        {
+          "evidence_id": "ca9c1af72033c4567f133fbbc4c8d434a7891fab45c2c476819af51338a40ccf",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TGTJ6HETM",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TGTJ6HETM",
+          "source_refs": [
+            "bilibili:BV1TGTJ6HETM"
+          ],
+          "kind": "action",
+          "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 2
     },
     {
       "candidate_id": "d9df3cea5ec967d20a48ee455c3f7b8c588aa8a6ba308271c2900432ab1be423",
@@ -51167,7 +53069,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -51616,7 +53519,8 @@
           "evidence_id": "3c029c51938b7ff7808f4cb8c6393119be2e0ff714fa1960a6bdb6494cd0bea0",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -51890,7 +53794,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -52051,6 +53956,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "e052dbe5fe250df3fe64e7fd6d07e607448ace9f7f85993d608863578d73949b",
+      "knowledge_type": "strategy",
+      "kind": "buy",
+      "text": "第一幕: 赛诺+迪奥娜+开局选的2个挂件角色",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "02ab74f2c9ce535eaa7e0f9ebb17205d85d23fbdf536135dc56e78dbf7a12971"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "02ab74f2c9ce535eaa7e0f9ebb17205d85d23fbdf536135dc56e78dbf7a12971",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1GKTH6PEFF",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:270885270",
+          "creator_name": "不爱玩游戏的肉",
+          "channel": "description",
+          "source": "bilibili:BV1GKTH6PEFF",
+          "source_refs": [
+            "bilibili:BV1GKTH6PEFF"
+          ],
+          "kind": "buy",
+          "text": "第一幕: 赛诺+迪奥娜+开局选的2个挂件角色",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "e055ed669d8e6d779f52421e69e262205e79a451a5cf44e59d9bf0a517452b9b",
       "knowledge_type": "strategy",
       "kind": "team",
@@ -52180,7 +54136,8 @@
           "evidence_id": "3293f768313051539196ce2af6e7b128f670c6e6881e3117e9a9b2516d17718b",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -52300,7 +54257,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -52440,7 +54398,8 @@
             "42225115611-attempt-1",
             "42479920569-attempt-1",
             "42497741547-attempt-1",
-            "42498352372-attempt-1"
+            "42498352372-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -53088,7 +55047,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -53413,7 +55373,8 @@
           "evidence_id": "b8f0ef743b5f928947140333376ccde3eeb287b2fa38162fcc2847656c336555",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -54367,6 +56328,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "eb63ab68dadc40bcdf0c786f38cb02412831c4083a91c4a973f1b015864c5c5d",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.10",
+        "max": "2026.10"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "c1ad5e50e5e376bbdde1f78b214fffc9af6b8856a6f2e9050a64095f4cd9d1fc"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "c1ad5e50e5e376bbdde1f78b214fffc9af6b8856a6f2e9050a64095f4cd9d1fc",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1TrnX6mE9E",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.10",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV1TrnX6mE9E",
+          "source_refs": [
+            "bilibili:BV1TrnX6mE9E"
+          ],
+          "kind": "action",
+          "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "eb70da7e177be02fd9f0cd1a04b7e47d5e4b1dce652175a8e0c5576f3c6972cd",
       "knowledge_type": "strategy",
       "kind": "action",
@@ -54554,7 +56566,8 @@
           "evidence_id": "5fcb14e9895d73a9590d2cf59d4bd0a42260063b5ada82e326ee8ea4bb8f7e11",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -54860,7 +56873,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -54989,7 +57003,8 @@
           "evidence_id": "1ae70f5a73bf2d91f2e2bbb14a7f04d9e155056839186f301d137f2efa75b29a",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -55361,7 +57376,8 @@
           "evidence_id": "23f8b265a042c8a35171f2d530e251175b5347979318735113c97239878f9041",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -55501,7 +57517,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -55553,7 +57570,8 @@
           "evidence_id": "983f94f2fec51c7ac8d292d4a9cb7b64e93c751f0fa3442a9a3282c4d8c68955",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -55909,7 +57927,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -55953,7 +57972,8 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "77a8a402f4ebe6dd8c1d9c5f1c76870ff0152a0d8a83eb0c933821cb923386aa"
+        "77a8a402f4ebe6dd8c1d9c5f1c76870ff0152a0d8a83eb0c933821cb923386aa",
+        "1383603d48c3f0e39ea0274fe66ffceddd0367ef9181e00b7291b37cea0b2b88"
       ],
       "evidence": [
         {
@@ -55978,6 +57998,29 @@
           "kind": "buy",
           "text": "获得2次待选事件重置次数（多2个骰子）",
           "act": 0
+        },
+        {
+          "evidence_id": "1383603d48c3f0e39ea0274fe66ffceddd0367ef9181e00b7291b37cea0b2b88",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "buy",
+          "text": "获得2次待选事件重置次数（多2个骰子）",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -55987,7 +58030,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "group_creator_count": 0,
       "group_video_count": 0,
-      "unique_video_count": 1
+      "unique_video_count": 2
     },
     {
       "candidate_id": "f267f354b92de5c83de4d080216b955c4466da65b7b82e4bd58ccdb676050bff",
@@ -56341,7 +58384,8 @@
           "evidence_id": "3db8c0575966afd91fec1591b81efd337377bb1cf39fd115790bdbdbd1e0ebcb",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -57116,7 +59160,8 @@
           "evidence_id": "48a8e2f0ab7ca33720880ba5a94a1c072247e6b14d3cd48ec3f477d1cf9591a4",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -57212,7 +59257,8 @@
       "conditions": [],
       "steps": [],
       "evidence_ids": [
-        "d380613d77093e4a068aba0af863bb23feb82abc5345ac911a3fd04b18ba00f2"
+        "d380613d77093e4a068aba0af863bb23feb82abc5345ac911a3fd04b18ba00f2",
+        "726fcca293c0e890e6d1f566476c702868c58e1b3f5f53f8fbb6f49cf03b6e1f"
       ],
       "evidence": [
         {
@@ -57237,6 +59283,29 @@
           "kind": "buy",
           "text": "待选事项+1",
           "act": 0
+        },
+        {
+          "evidence_id": "726fcca293c0e890e6d1f566476c702868c58e1b3f5f53f8fbb6f49cf03b6e1f",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "buy",
+          "text": "待选事项+1",
+          "act": 0
         }
       ],
       "independent_creator_count": 1,
@@ -57246,7 +59315,7 @@
       "status_reason": "insufficient versioned independent video/creator evidence",
       "group_creator_count": 0,
       "group_video_count": 0,
-      "unique_video_count": 1
+      "unique_video_count": 2
     },
     {
       "candidate_id": "f8fc7253850cbe092e85508a684610ac71c1b0c6e880825758f1e6d84b91f81c",
@@ -57278,7 +59347,8 @@
             "42497741547-attempt-1",
             "42498352372-attempt-1",
             "42501030488-attempt-1",
-            "42505306624-attempt-1"
+            "42505306624-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -57295,6 +59365,57 @@
           ],
           "kind": "buy",
           "text": "需要选出角色：5幕自备较弱主C+辅助，8幕好友高练主C，9幕自备较强主C+辅助，月谕2治疗角色",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
+      "candidate_id": "f91a27efb4b81ac9f1ead673efaaf583138af3ea0c87174b0fa4128ec6325eb8",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "buff优先级：火雷&gt;冰雷&gt;火冰",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.7",
+        "max": "2026.7"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "fd2af9b0ffc8f331a61af157bbcda9e8adf273a56c3c91a88ad0020ebd193343"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "fd2af9b0ffc8f331a61af157bbcda9e8adf273a56c3c91a88ad0020ebd193343",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1GKTH6PEFF",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.7",
+          "context_inferred": true,
+          "creator_id": "bilibili:270885270",
+          "creator_name": "不爱玩游戏的肉",
+          "channel": "description",
+          "source": "bilibili:BV1GKTH6PEFF",
+          "source_refs": [
+            "bilibili:BV1GKTH6PEFF"
+          ],
+          "kind": "action",
+          "text": "buff优先级：火雷&gt;冰雷&gt;火冰",
           "act": 0
         }
       ],
@@ -57781,7 +59902,8 @@
           "evidence_id": "253bfb2a247dd38fcc3ad84d92938e5e9d3bb649bc05d5e9d77c631a2252cff7",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -58039,6 +60161,57 @@
       "unique_video_count": 3
     },
     {
+      "candidate_id": "fcba3cc7251ee58f63300b7e39e9918928ce9a2ed6e6524965ddbc8aa361301e",
+      "knowledge_type": "strategy",
+      "kind": "action",
+      "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+      "act": null,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "2026.9",
+        "max": "2026.9"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "d67e4da7d5bee0e476e538766dcead12180e699062e1c5c79d4b5b8aa4180eb6"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "d67e4da7d5bee0e476e538766dcead12180e699062e1c5c79d4b5b8aa4180eb6",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV14da96jECE",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "2026.9",
+          "context_inferred": true,
+          "creator_id": "bilibili:1820567267",
+          "creator_name": "爱吃甜筒的貓",
+          "channel": "description",
+          "source": "bilibili:BV14da96jECE",
+          "source_refs": [
+            "bilibili:BV14da96jECE"
+          ],
+          "kind": "action",
+          "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+          "act": 0
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "fd08ff9f68f8257e4a13e49a8f8289601345abeacbac7d8911dfb6de595df0bf",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -58198,6 +60371,57 @@
       "unique_video_count": 1
     },
     {
+      "candidate_id": "fd5f090b2466c17de1dd39900b124e78f687a94e14849b231c1e7b5df46496f4",
+      "knowledge_type": "strategy",
+      "kind": "act_team",
+      "text": "第2幕 推荐 鳍游龙",
+      "act": 2,
+      "season": 29,
+      "period": "",
+      "version_range": {
+        "min": "7.1",
+        "max": "7.1"
+      },
+      "conditions": [],
+      "steps": [],
+      "evidence_ids": [
+        "1a1451dffe0e3d2a9d45ae5872c7ef17e5ed0548dc385b8050ab5770f6c674b8"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "1a1451dffe0e3d2a9d45ae5872c7ef17e5ed0548dc385b8050ab5770f6c674b8",
+          "batch_id": "42505478504-attempt-1",
+          "observed_batches": [
+            "42505478504-attempt-1"
+          ],
+          "video_id": "BV1ghEm6AENC",
+          "platform": "bilibili",
+          "period": "",
+          "season": 29,
+          "version": "7.1",
+          "context_inferred": true,
+          "creator_id": "bilibili:3546904602348393",
+          "creator_name": "甜醋只有干货",
+          "channel": "description",
+          "source": "bilibili:BV1ghEm6AENC",
+          "source_refs": [
+            "bilibili:BV1ghEm6AENC"
+          ],
+          "kind": "act_team",
+          "text": "第2幕 推荐 鳍游龙",
+          "act": 2
+        }
+      ],
+      "independent_creator_count": 1,
+      "status": "CANDIDATE",
+      "confidence": null,
+      "counter_evidence": [],
+      "status_reason": "insufficient versioned independent video/creator evidence",
+      "group_creator_count": 0,
+      "group_video_count": 0,
+      "unique_video_count": 1
+    },
+    {
       "candidate_id": "fda6c9c23b086bbb507b355074470bb77efac1414f0e0b260ac43fabadffb9f4",
       "knowledge_type": "strategy",
       "kind": "act_team",
@@ -58326,7 +60550,8 @@
           "evidence_id": "02c358409d2fc8e5f6042f15fc92e38ff985bff29d6ab80abda7091e17a5d508",
           "batch_id": "42190135209-attempt-1",
           "observed_batches": [
-            "42190135209-attempt-1"
+            "42190135209-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -58381,7 +60606,8 @@
             "42225115611-attempt-1",
             "42491533860-attempt-1",
             "42497741547-attempt-1",
-            "42501030488-attempt-1"
+            "42501030488-attempt-1",
+            "42505478504-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
