@@ -109,6 +109,7 @@ internal static class GlobalAllocator
 
         DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
         LoadActWeights();
+        CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
         QuantData.LoadEnemies(target.Path);
         QuantData.LoadCharacters(AppPaths.Data("characters.json"), AppPaths.Data("substitutes.json"));
         Playbook.Load(AppPaths.Data("act-playbook.json"));
@@ -311,6 +312,9 @@ internal static class GlobalAllocator
     private static double Score((string Name, string Element, string Role) u, Slot s)
     {
         double v = 1.0;
+        // 幕级推荐：该幕社区共识/已验证推荐的角色优先
+        var pickW = CuratedPicks.WeightOf(s.Act, u.Name);
+        if (pickW > 0) v += 0.30 * pickW;
         if (s.NeedHeal && TeamSolver.RoleHas(u.Role, "Healer")) v += DecisionPolicy.CandidateRoleBonus;
         if (s.NeedBreak && TeamSolver.RoleHas(u.Role, "GeoBreak")) v += DecisionPolicy.CandidateRoleBonus;
         if ((TeamSolver.RoleHas(u.Role, "MainDps") || TeamSolver.RoleHas(u.Role, "Buffer")))
