@@ -163,8 +163,14 @@ internal static class QuantScorer
         DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
         LoadWeights(AppPaths.Data("quant-model.json"));
 
+        // 口径统一：量化评分与配队必须用**同一个池**（TeamSolver），
+        // 否则同一幕会出现"评分说缺 Electro、配队却给出 Electro 队"（云端审计抓到）。
         var real = QuantData.Team(Path.Combine(AppPaths.Dir, "roster.json"));
-        var team = real.HasData ? real : QuantData.GenericTeam();
+        QuantData.TeamProfile team;
+        if (real.HasData) team = real;
+        else if (TeamSolver.LoadPool(SeasonRegistry.CurrentElements(), null) && TeamSolver.PoolSize > 0)
+            team = TeamSolver.AsTeamProfile();
+        else team = QuantData.GenericTeam();
 
         var acts = act > 0 ? new[] { act } : Enumerable.Range(1, 12).ToArray();
         var lines = new List<string>();
