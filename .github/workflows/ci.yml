@@ -112,6 +112,20 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ('```' + [Environment]::NewLine + ($lines -join [Environment]::NewLine) + [Environment]::NewLine + '```')
           if ($p.ExitCode -ne 0) { throw "配队求解失败 exit=$($p.ExitCode)" }
 
+      # DirectML 是可选加速：默认构建不带它（保体积/离线）。这里验证"能编译"，
+      # 但不把成功当必过——runner 无 GPU，EP 能否真正启用只能在玩家真机验证。
+      - name: 尝试 DirectML 构建（可选，失败不阻断）
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          New-Item -ItemType Directory -Force app/data, app/templates | Out-Null
+          Copy-Item data/* app/data -Recurse -Force -ErrorAction SilentlyContinue
+          dotnet build app/TheaterAssistant.csproj -c Release -p:UseDirectML=true -o dist-dml 2>&1 | Select-Object -Last 12
+          if (Test-Path dist-dml/TheaterAssistant.exe) {
+            "DirectML 构建产物: $((Get-Item dist-dml/TheaterAssistant.exe).Length) 字节"
+          } else { throw "未产出 exe" }
+
       - name: OCR 执行提供器实测（真实初始化引擎）
         shell: pwsh
         run: |
