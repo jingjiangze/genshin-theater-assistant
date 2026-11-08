@@ -574,8 +574,8 @@ internal static class SelfTest
         var dupByDiff = new List<string>();
         foreach (var g in alloc.Assigns.Where(a => a.UsedMainForce).GroupBy(a => a.Difficulty))
         {
-            var names = g.SelectMany(a => a.Team).Where(nm => !nm.StartsWith("（")).ToList();
-            foreach (var d in names.GroupBy(n => n, StringComparer.Ordinal).Where(x => x.Count() > 1))
+            var teamNames = g.SelectMany(a => a.Team).Where(nm => !nm.StartsWith("（")).ToList();
+            foreach (var d in teamNames.GroupBy(n => n, StringComparer.Ordinal).Where(x => x.Count() > 1))
                 dupByDiff.Add($"{g.Key}:{d.Key}×{d.Count()}");
         }
         Check("全局分配·同难度内不重复（跨难度可复用）", alloc.Assigns.Count > 0 && dupByDiff.Count == 0,
