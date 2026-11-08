@@ -491,6 +491,50 @@ internal static class SelfTest
             QuantData.ElementOf("珊瑚宫心海") == "Hydro" && TeamSolver.HasRole("珊瑚宫心海", "Healer"),
             $"珊瑚宫心海 元素={QuantData.ElementOf("珊瑚宫心海")} 治疗={TeamSolver.HasRole("珊瑚宫心海", "Healer")}");
 
+        // 配队质量闸门：把 B 层的"只打印"升级为 A 层的"逐条断言"
+        int gateRealCheckedActs = 0;
+        QualityGates.Load(AppPaths.Data("decision-policy.json"));
+        var gateReal = new QualityGates.Report();
+        {
+            int checkedActs = 0;
+            foreach (var d in QuantData.Difficulties)
+            {
+                for (int a = 1; a <= QuantData.MaxAct(d); a++)
+                {
+                    var e = QuantData.Enemy(a, d);
+                    if (e == null || !e.HasAnyData) continue;
+                    QualityGates.CheckPlan(TeamSolver.Solve(e, a), e, gateReal);
+                    checkedActs++;
+                }
+            }
+            gateRealCheckedActs = checkedActs;
+        }
+        Check("闸门·真实配队全过", gateReal.Passed,
+            $"检查 {gateReal.Checked} 项（{gateRealCheckedActs} 幕）｜违规 {gateReal.Violations.Count}"
+            + (gateReal.Violations.Count > 0 ? "｜首个: " + gateReal.Violations[0] : ""));
+
+        // 闸门必须能真的检出违规，否则等于没判据
+        var gateBad = new QualityGates.Report();
+        var badPlan = new TeamSolver.Plan { Difficulty = "Lunar", Act = 3 };
+        badPlan.Team.Add("钟离");   // 只有 1 人，且没覆盖 Electro
+        badPlan.Need["Electro"] = 1.0;
+        var badEnemy = QuantData.Enemy(3, "Lunar");
+        QualityGates.CheckPlan(badPlan, badEnemy, gateBad);
+        Check("闸门·能检出违规（人数/需求）",
+            !gateBad.Passed
+            && gateBad.Violations.Any(v => v.Gate == "G1")
+            && gateBad.Violations.Any(v => v.Gate == "G3"),
+            string.Join("；", gateBad.Violations.Select(v => v.ToString()).Take(3)));
+
+        // 无元素需求却给分 → G7 必须拦住
+        var gateG7 = new QualityGates.Report();
+        var scorePlan = new TeamSolver.Plan { Difficulty = "Lunar", Act = 1, Score = 0.5 };
+        scorePlan.Team.AddRange(new[] { "钟离", "五郎", "云堇", "凝光" });
+        QualityGates.CheckPlan(scorePlan, QuantData.Enemy(1, "Lunar"), gateG7);
+        Check("闸门·无需求不给伪得分（G7）",
+            gateG7.Violations.Any(v => v.Gate == "G7"),
+            string.Join("；", gateG7.Violations.Where(v => v.Gate == "G7").Select(v => v.ToString())));
+
         // OCR 引擎调优：参数来自数据；DirectML 是可选增益，缺失必须回退 CPU 而不是崩
         OcrTuning.Load(AppPaths.Data("decision-policy.json"));
         Check("OCR·引擎调优参数来自数据",
