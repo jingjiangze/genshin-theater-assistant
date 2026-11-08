@@ -302,7 +302,6 @@ internal static class LiveProbe
                     // 全链路 ③（渲染）：由独立的 --selftest-visual 覆盖（7 断言），
                     // 不在此重复实现——审计发现不存在 OverlayRenderer 独立类，
                     // 渲染逻辑内嵌在 OverlayForm；重造会与已有自检重复（优先复用已有设施）。
-                    }
                 }
             }
         }
