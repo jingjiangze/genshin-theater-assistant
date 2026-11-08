@@ -213,6 +213,37 @@ def read_danmaku_text(path: Path) -> list[tuple[str, str]]:
 
 
 # ---------------- 主流程 ----------------
+PURITY_EXCLUDE_RE = re.compile(r"(解说|实况|吐槽|整活|切片|混剪|合集|锐评|测评|分析|讲解|反应|弹幕版|二创)")
+PURITY_STRONG_RE = re.compile(r"(纯净|无解说|无剪辑|原声|全程|完整|一条过|无删减)")
+
+
+def classify_purity(title: str, duration, text_evidence: str) -> str:
+    """纯净度分级（供"真实模拟"筛选输入源）。
+
+    分级口径：
+      excluded   标题明确是解说/剪辑类 —— 不要
+      short      时长 < 3 分钟 —— 切片，不要
+      pure       标题自称纯净 + 时长 >= 8 分钟 + 有文本证据
+      likely     时长 >= 8 分钟且无排除词，但标题没自称纯净
+      mixed      其余（时长 3–8 分钟，或既无纯净特征也无排除词）
+    """
+    t = title or ""
+    if PURITY_EXCLUDE_RE.search(t):
+        return "excluded"
+    try:
+        dur = float(duration or 0)
+    except (TypeError, ValueError):
+        dur = 0.0
+    if 0 < dur < 180:
+        return "short"
+    strong = bool(PURITY_STRONG_RE.search(t))
+    if dur >= 480 and strong and text_evidence == "AVAILABLE":
+        return "pure"
+    if dur >= 480:
+        return "likely"
+    return "mixed"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--platform", choices=["bilibili", "youtube"], default="bilibili")
@@ -416,11 +447,16 @@ def main() -> int:
                 "NO_TEXT_EVIDENCE" if not texts else
                 ("CHAPTER_ONLY" if all(ch == "chapter" for _, _, ch in texts) else "AVAILABLE")
             )
+            # 「纯净流」最终分级：**必须放在 text_evidence 之后**（依赖它），
+            # 否则 KeyError（本轮犯过：先算 purity 后赋值 text_evidence）。
+            # 目的：为"真实模拟"挑高质量输入源，而不是拿解说/切片当素材。
+            rec["purity"] = classify_purity(rec.get("title") or "", info.get("duration"), rec["text_evidence"])
+
             if rec["text_evidence"] in ("NO_TEXT_EVIDENCE", "CHAPTER_ONLY"):
                 with (out / "no_text_videos.txt").open("a", encoding="utf-8") as f:
                     f.write(f"{vid}\t{rec['text_evidence']}\t{rec.get('creator_id') or ''}\n")
             summary["videos"].append(rec)
-            print(f"[ok] {vid}: 文本 {len(texts)} 行 / 候选 {len(ops)} 条"
+            print(f"[ok] {vid}: 文本 {len(texts)} 行 / 候选 {len(ops)} 条 / 纯净度 {rec['purity']}"
                   f" / {rec['text_evidence']}（未下载视频）", file=sys.stderr)
             time.sleep(1)   # 不在短时间内连续打接口
 
