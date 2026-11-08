@@ -77,7 +77,13 @@ jobs:
           # 单一关键词按播放量排序会被同一 UP 主占满（实测 8/8 全是 mid=431073645）。
           # 多关键词轮转采样，让证据治理能拿到真正独立的作者。
           # 优先找「文字攻略型」UP 主：纯视频讲解只有章节标题，产不出文本证据
-          MORE="幻想真境剧诗 逐幕 配队 角色推荐|剧诗 文字攻略 阵容 满花|幻想真境剧诗 7.1 角色需求|剧诗 幕次 队伍 攻略"
+          if ("${{ github.event.inputs.more }}" -ne "") {
+            MORE="${{ github.event.inputs.more }}"
+            Write-Host "使用自定义关键词组: $MORE"
+          } else {
+            MORE="幻想真境剧诗 逐幕 配队 角色推荐|剧诗 文字攻略 阵容 满花|幻想真境剧诗 7.1 角色需求|剧诗 幕次 队伍 攻略"
+          }
+          "MORE=$MORE" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
           # 并行分支曾把 push 触发压到 2 个视频做烟测；现放开到 8（手动/定时仍用 12）
           LIMIT="${{ github.event_name == 'push' && '8' || github.event.inputs.limit || '12' }}"
           cd tools/video-frames
