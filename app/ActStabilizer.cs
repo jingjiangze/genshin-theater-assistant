@@ -50,7 +50,7 @@ internal sealed class ActStabilizer
 
     /// <summary>是否该弃权：以**持续时间**为准；帧数阈值保留为辅助上限（防极端慢 tick）。</summary>
     public bool ShouldAbstain =>
-        MissedMilliseconds >= Math.Max(1000, AbstainAfterMilliseconds)
+        MissedMilliseconds >= Math.Max(100, AbstainAfterMilliseconds)
         || ConsecutiveMisses >= Math.Max(AbstainAfterMisses, 30);
 
     public int? Committed => _committed;
