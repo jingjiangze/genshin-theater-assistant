@@ -4,7 +4,7 @@
   "teamSize": 4,
   "coveragePerElement": 2,
   "difficultyWeights": {
-    "Lunar": 1.0,
+    "Lunar": 1,
     "Visionary": 0.8,
     "Hard": 0.6,
     "Normal": 0.4,
@@ -12,8 +12,17 @@
   },
   "defaultDifficultyWeight": 0.5,
   "roleTriggers": {
-    "healer": ["奶", "治疗", "标记"],
-    "breaker": ["破锅", "钝击", "破盾", "护盾"]
+    "healer": [
+      "奶",
+      "治疗",
+      "标记"
+    ],
+    "breaker": [
+      "破锅",
+      "钝击",
+      "破盾",
+      "护盾"
+    ]
   },
   "scoring": {
     "resistNormalizer": 20,
@@ -38,5 +47,10 @@
     "影": "雷电将军",
     "神子": "八重神子",
     "甘雨": "甘雨"
+  },
+  "ocr": {
+    "dropScore": 0.5,
+    "sameLineTolerance": 10,
+    "_note": "来自 BetterGI 实测参数：DropScore=0.5f；同排判定 Y 差<10px 按 X 排序"
   }
 }
