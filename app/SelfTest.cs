@@ -491,6 +491,26 @@ internal static class SelfTest
             QuantData.ElementOf("珊瑚宫心海") == "Hydro" && TeamSolver.HasRole("珊瑚宫心海", "Healer"),
             $"珊瑚宫心海 元素={QuantData.ElementOf("珊瑚宫心海")} 治疗={TeamSolver.HasRole("珊瑚宫心海", "Healer")}");
 
+        // ○语料兜底层必须真实存在（审计发现此前只在注释里）
+        {
+            GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
+            var noInfo = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context { Act = 3 });
+            Check("编排·○语料层真实命中", GuideIndex.Count > 0,
+                $"语料库 {GuideIndex.Count} 条｜第3幕无信息时来源={noInfo.Source}");
+        }
+
+        // 弃权必须按时间而非帧数（tick=1000ms 时 3 帧=3 秒过于激进）
+        {
+            var st = new ActStabilizer { AbstainAfterMilliseconds = 200 };
+            st.Push(9);
+            st.Push(null);
+            var early = st.ShouldAbstain;
+            System.Threading.Thread.Sleep(260);
+            st.Push(null);
+            Check("弃权·按持续时间判定", !early && st.ShouldAbstain,
+                $"200ms 内不弃权={!early}｜超时后弃权={st.ShouldAbstain}｜累计 {st.MissedMilliseconds}ms");
+        }
+
         // 幕级推荐（社区共识 + 已验证知识）必须真的进到选人里，而不是只当提示文本
         {
             CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
