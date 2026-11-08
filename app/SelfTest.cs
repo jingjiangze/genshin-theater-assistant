@@ -496,20 +496,26 @@ internal static class SelfTest
             CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
             Check("决策·幕级推荐可加载", CuratedPicks.ActCount >= 2 && CuratedPicks.TotalPicks >= 3,
                 $"{CuratedPicks.Source}｜{CuratedPicks.ActCount} 幕 / {CuratedPicks.TotalPicks} 条");
-            // 找一幕有推荐、且推荐角色在本季可带的情况，验证分配结果包含推荐角色
+            // 验证推荐信号**是否影响选人**。
+            // 注意：必须用 TeamSolver 逐幕独立求解，不能用 GlobalAllocator 全局分配——
+            // 全局分配有"角色只能用一次"约束，推荐角色可能被更高优先级的 boss 幕先占用，
+            // 此时第3幕拿不到赛诺是**正确行为**，不是推荐没生效（本轮踩过这个误判）。
             var hitActs = new List<string>();
             var missActs = new List<string>();
-            var allocPick = GlobalAllocator.Solve(0);
-            foreach (var a in allocPick.Assigns.Where(x => x.UsedMainForce && x.Difficulty == "Lunar"))
+            foreach (var act in CuratedPicks.ActCount > 0 ? Enumerable.Range(1, 12) : Enumerable.Empty<int>())
             {
-                var rec = CuratedPicks.For(a.Act);
+                var rec = CuratedPicks.For(act);
                 if (rec.Count == 0) continue;
+                var enemy = QuantData.Enemy(act, "Lunar");
+                if (enemy == null || !enemy.HasAnyData) continue;
+                var plan = TeamSolver.Solve(enemy, act);
                 var usable = rec.Keys.Where(nm => TeamSolver.IsAvailableThisSeason(nm)).ToList();
                 if (usable.Count == 0) continue;
-                var hit = a.Team.Any(nm => usable.Contains(nm));
-                (hit ? hitActs : missActs).Add($"第{a.Act}幕[{string.Join("/", usable)}]");
+                var hit = plan.Team.Any(nm => usable.Contains(nm));
+                (hit ? hitActs : missActs).Add($"第{act}幕[{string.Join("/", usable)}]");
             }
-            Check("决策·推荐角色进入配队", hitActs.Count > 0 && hitActs.Count >= missActs.Count,
+            Check("决策·推荐角色影响选人（逐幕独立求解）",
+                hitActs.Count > 0 && hitActs.Count >= missActs.Count,
                 $"命中 {hitActs.Count} 幕、未命中 {missActs.Count} 幕"
                 + (hitActs.Count > 0 ? "｜命中: " + string.Join("; ", hitActs.Take(3)) : "")
                 + (missActs.Count > 0 ? "｜未命中: " + string.Join("; ", missActs.Take(3)) : ""));
