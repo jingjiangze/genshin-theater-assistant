@@ -289,27 +289,29 @@ internal static class TeamSolver
         foreach (var kv in need)
             if (cover.TryGetValue(kv.Key, out var cnt) && cnt > 0) score += kv.Value;
         if (needHeal && (RoleHas(_pool[a].Role, "Healer") || RoleHas(_pool[b].Role, "Healer")
-                      || RoleHas(_pool[c].Role, "Healer") || RoleHas(_pool[d].Role, "Healer"))) score += 0.15;
+                      || RoleHas(_pool[c].Role, "Healer") || RoleHas(_pool[d].Role, "Healer"))) score += 0.30;
         if (needBreak && (RoleHas(_pool[a].Role, "GeoBreak") || RoleHas(_pool[b].Role, "GeoBreak")
-                       || RoleHas(_pool[c].Role, "GeoBreak") || RoleHas(_pool[d].Role, "GeoBreak"))) score += 0.15;
+                       || RoleHas(_pool[c].Role, "GeoBreak") || RoleHas(_pool[d].Role, "GeoBreak"))) score += 0.30;
         score -= 0.04 * waste;    // 非需求元素占位的轻惩罚，避免"凑元素"
 
-        // 角色强度加成：GOOD 强度分（0–100）归一后加权。
-        // 这是"最强角色优先给难关"真正生效的地方——此前配队只按元素覆盖打分，
-        // 没有强度项，所谓"最优"实际只是"覆盖最优"。
+        // 角色强度加成：GOOD 强度分（0–100）归一后加权，**按队平均**。
+        // 必须平均而非累加：累加时 4 人可达 4×0.25=1.0，远大于职能加分 0.15，
+        // 会把"需要破盾"的幕配成"四个高练度但没破盾"的队（本轮实测 G5 违规 4 项）。
+        double strengthSum = 0;
         foreach (var i in new[] { a, b, c, d })
         {
             var s = CharacterStrength.ScoreOf(_pool[i].Name);
-            if (s > 0) score += StrengthWeight * (s / 100.0);
+            if (s > 0) strengthSum += s / 100.0;
         }
+        score += StrengthWeight * (strengthSum / 4.0);
 
         // 幕级推荐加成：该幕有社区共识/已验证推荐的角色时优先。
         // 审计背景：此前 verified 知识只作提示文本，选人逻辑完全不知道"这一幕推荐谁"。
+        // 推荐同样按队平均（理由同上：累加会放大到 4 倍）
+        double pickSum = 0;
         foreach (var i in new[] { a, b, c, d })
-        {
-            var w = CuratedPicks.WeightOf(act, _pool[i].Name);
-            if (w > 0) score += CuratedPickWeight * w;
-        }
+            pickSum += CuratedPicks.WeightOf(act, _pool[i].Name);
+        score += CuratedPickWeight * (pickSum / 4.0);
         return score;
     }
 
