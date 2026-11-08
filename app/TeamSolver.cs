@@ -39,7 +39,7 @@ internal static class TeamSolver
     }
 
     /// <summary>幕级推荐加成系数（来自 decision-policy.json 的 curatedPicks）。</summary>
-    private static double CuratedPickWeight = 0.30;
+    private static double CuratedPickWeight = 0.10;
 
     private static int TeamSize => DecisionPolicy.TeamSize;
 
