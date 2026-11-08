@@ -18,6 +18,10 @@ REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 # 实测 3 帧跑出过互相矛盾的结论。frames-sample 仅用于快速冒烟。
 FRAMES="$REPO/testdata/ocr-frames"
 DO_SYNC=0; DO_PUSH=0
+# ROLE 决定"谁跑什么"（见 docs/PARALLEL-WORK.md）：
+#   box（默认）= 决策链 + OCR 模型验证，不写仓库
+#   ci         = 只跑纯逻辑部分（Python 契约交 CI 自己的 job，这里跳过）
+ROLE="${ROLE:-box}"
 while [ $# -gt 0 ]; do
   case "$1" in
     --sync) DO_SYNC=1; shift;;
@@ -135,8 +139,14 @@ else
 fi
 
 # ---------- 7) 知识管线契约 ----------
-run_step "Python 单测（知识管线）" "python3 -m unittest" \
-  bash -c 'cd tools/pipeline && python3 -m unittest 2>&1 | tail -4'
+if [ "$ROLE" = "ci" ]; then
+  say ""
+  say "──── Python 单测（知识管线）────"
+  say "SKIP：ROLE=ci，Python 契约由 CI 自己的 job 负责（避免重复劳动）"
+else
+  run_step "Python 单测（知识管线）" "python3 -m unittest" \
+    bash -c 'cd tools/pipeline && python3 -m unittest 2>&1 | tail -4'
+fi
 
 # ---------- 8) 汇总 ----------
 TOTAL=$(python3 -c "import json,sys;print(len(json.loads(sys.argv[1])))" "$STEPS_JSON")
@@ -180,7 +190,9 @@ say "报告: $REPORT_MD"
 say "JSON: $REPORT_JSON"
 
 # ---------- 9) 可选推回 GitHub ----------
-if [ $DO_PUSH -eq 1 ] && [ -n "${GH_TOKEN:-}" ]; then
+if [ $DO_PUSH -eq 1 ] && [ "$ROLE" = "box" ]; then
+  say "⚠ ROLE=box 默认不写仓库（避免与 CI 冲突）；如需推送请显式设 ROLE=ci 或手动提交"
+elif [ $DO_PUSH -eq 1 ] && [ -n "${GH_TOKEN:-}" ]; then
   run_step "报告推回 GitHub" "gh-commit" \
     node "$REPO/../gh-commit.mjs" jingjiangze/genshin-theater-assistant main \
       "ci(cloud): 云端全流程报告 $STATUS" cloud-run-report.md cloud-run-report.json
