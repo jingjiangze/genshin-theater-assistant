@@ -491,6 +491,24 @@ internal static class SelfTest
             QuantData.ElementOf("珊瑚宫心海") == "Hydro" && TeamSolver.HasRole("珊瑚宫心海", "Healer"),
             $"珊瑚宫心海 元素={QuantData.ElementOf("珊瑚宫心海")} 治疗={TeamSolver.HasRole("珊瑚宫心海", "Healer")}");
 
+        // 决策层·幕间优先级：boss 幕与高 level 幕必须优先拿到资源
+        // 审计背景：赛季数据有 boss 标记与递增 level（Lunar 85→100），但此前分配器完全没用。
+        {
+            var allocBoss = GlobalAllocator.Solve(0);
+            var lunarMain = allocBoss.Assigns.Where(a => a.Difficulty == "Lunar" && a.UsedMainForce).ToList();
+            double Cov(GlobalAllocator.Assign a) => a.ScoreMax > 1e-9 ? a.Score / a.ScoreMax : 1.0;
+            var bossActs = lunarMain.Where(a => QuantData.Enemy(a.Act, "Lunar")?.Boss == true).ToList();
+            var nonBossActs = lunarMain.Where(a => QuantData.Enemy(a.Act, "Lunar")?.Boss != true).ToList();
+            var bossCov = bossActs.Count > 0 ? bossActs.Average(Cov) : 1.0;
+            var nonBossCov = nonBossActs.Count > 0 ? nonBossActs.Average(Cov) : 1.0;
+            Check("决策·boss 幕优先（覆盖不低于非 boss）",
+                bossActs.Count > 0 && bossCov >= nonBossCov - 1e-9,
+                $"boss {bossActs.Count} 个 平均 {bossCov:0.00}｜非 boss {nonBossActs.Count} 个 {nonBossCov:0.00}｜boss 幕: " + string.Join("/", bossActs.Select(a => "第" + a.Act + "幕")));
+            var hardest = bossActs.OrderByDescending(a => QuantData.Enemy(a.Act, "Lunar")?.Level ?? 0).FirstOrDefault();
+            Check("决策·最难幕不留缺口", hardest != null && hardest.Gaps.Count == 0,
+                hardest == null ? "无 boss 幕" : $"第{hardest.Act}幕 Lv{QuantData.Enemy(hardest.Act, "Lunar")?.Level} 覆盖 {Cov(hardest):0.00} 缺口 {hardest.Gaps.Count}");
+        }
+
         // 配队质量闸门：把 B 层的"只打印"升级为 A 层的"逐条断言"
         int gateRealCheckedActs = 0;
         QualityGates.Load(AppPaths.Data("decision-policy.json"));
