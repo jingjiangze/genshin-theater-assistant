@@ -1,0 +1,35 @@
+﻿{
+  "generatedAt": "2026-11-08 15:02:58",
+  "reports": 2,
+  "frames": 24,
+  "truth": 1,
+  "accStable": 0,
+  "accRaw": 100,
+  "jumps": 4,
+  "flips": 1,
+  "avgMs": 1255,
+  "kinds": {
+    "act": 23,
+    "team": 1
+  },
+  "perReport": [
+    {
+      "File": "BV193xp6WErn-replay.json",
+      "Frames": 12,
+      "TruthFrames": 1,
+      "StableRight": 0,
+      "RawRight": 1,
+      "Jumps": 2,
+      "Flips": 1
+    },
+    {
+      "File": "BV1R3xp6WEKz-replay.json",
+      "Frames": 12,
+      "TruthFrames": 0,
+      "StableRight": 0,
+      "RawRight": 0,
+      "Jumps": 2,
+      "Flips": 0
+    }
+  ]
+}

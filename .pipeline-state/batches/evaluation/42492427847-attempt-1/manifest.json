@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "batch_id": "42492427847-attempt-1",
+  "kind": "evaluation",
+  "status": "INSUFFICIENT_EXTERNAL_LABELS",
+  "workflow": "video-eval",
+  "run_id": "42492427847",
+  "run_attempt": "1",
+  "source_commit": "fe7e3da32db8ba75e806e27c581b4c9ff60d6fef",
+  "created_at": "2026-11-08T15:03:38.297971+00:00",
+  "file_count": 12,
+  "total_bytes": 48687,
+  "files": [
+    {
+      "path": "BV193xp6WErn/meta.json",
+      "size_bytes": 2019,
+      "sha256": "42dc9264eb896fa37c98a2c4baeec9c462e5d1903a961044a4b870bc014cf5a9"
+    },
+    {
+      "path": "BV193xp6WErn-ops.json",
+      "size_bytes": 9243,
+      "sha256": "ece1daa8c936233172aa20f6617f9e3095e5f5d08e85fc2dd118479a7772e086"
+    },
+    {
+      "path": "BV193xp6WErn-replay.json",
+      "size_bytes": 7216,
+      "sha256": "659650db8ec58cabd9b2d1bf2bcccd86f4f3420b6f5d865dc7a98aa4768bd00d"
+    },
+    {
+      "path": "BV193xp6WErn-replay.md",
+      "size_bytes": 4346,
+      "sha256": "e3b0278aca77177831a650be5614f11ac8be7f036e791ccf13b47a409cdb4473"
+    },
+    {
+      "path": "BV1R3xp6WEKz/meta.json",
+      "size_bytes": 1544,
+      "sha256": "bc7a4645bf35d5f619bfdfb4776968552dce61fdc2832f34bea43c7634c2533c"
+    },
+    {
+      "path": "BV1R3xp6WEKz-ops.json",
+      "size_bytes": 6370,
+      "sha256": "8b9e4f4cf564b1b43a48d84d69aec8174a016a1b50a1bc588d5180d1b4175fc1"
+    },
+    {
+      "path": "BV1R3xp6WEKz-replay.json",
+      "size_bytes": 7218,
+      "sha256": "2c043d0845994c55ad8dad50584c4fa191547865471a90c988479b2013f253fa"
+    },
+    {
+      "path": "BV1R3xp6WEKz-replay.md",
+      "size_bytes": 4205,
+      "sha256": "4f8666b6a291651df3a2c977e51fb2c8b918135a3774b98412c569e1f2e33c2c"
+    },
+    {
+      "path": "experience/OPS-CONSENSUS.md",
+      "size_bytes": 2574,
+      "sha256": "c9f4633d86f6bf5a92250e9139558e8858876374a7befb6da6f55299030b144d"
+    },
+    {
+      "path": "experience/rules.json",
+      "size_bytes": 631,
+      "sha256": "1ef4f1a19eb639ea80a50e1539e08643675313456fb6dc98968ffffa294265c0"
+    },
+    {
+      "path": "experience/SUMMARY.md",
+      "size_bytes": 1409,
+      "sha256": "19be7ec95462e64bdfdc6bae70c64c82cce12d88a888ca49f299806a6a72ab02"
+    },
+    {
+      "path": "external-eval.json",
+      "size_bytes": 1912,
+      "sha256": "7c823f2f571073d563dcc10879619dc3cc76d9cd663b7f0c96578995932444ef"
+    }
+  ],
+  "promotion": {
+    "eligible": false,
+    "reason": "durable ingestion is not semantic validation or independent ground truth"
+  }
+}
