@@ -1,37 +1,0 @@
-[01:15:25] stage2 å¼€å§‹
---- extract-opsï¼ˆå¸§â†’æ“ä½œå€™é€‰ï¼‰---
-OCR: OCR: PP-OCRv5 ÖĞÎÄ
-É¨Ãè 129/129 Ö¡£¬ÌáÈ¡ºòÑ¡ 6 Ìõ ¡ú C:\DDDD\Agent Work\_tmp\theater-overlay\_tmp\local-train-20261107\out\ops-local.json
-  {   "kind": "buy",   "text": "¿ÉÑ¡½ÇÉ«Ô¤ÀÀ",   "act": 0,   "source": "BV1eExm6dEmt@1005s",   "needsReview": true }
-  {   "kind": "buy",   "text": "ÇëÑ¡ÔñÒ»Ãû´ıÃüÉ«×ª±äÎª¿É³öÕ½É«",   "act": 0,   "source": "BV1eExm6dEmt@405s",   "needsReview": true }
-  {   "kind": "buy",   "text": "¿É´Ó2¸öÉñÃØÊÕ»ñĞ§¹ûÖĞÑ¡Ôñ1¸ö",   "act": 0,   "source": "BV1eExm6dEmt@765s",   "needsReview": true }
-  {   "kind": "buy",   "text": "Ñ¡ÔñÒ»¸öÉñÃØÊÕ»ñĞ§¹û",   "act": 0,   "source": "BV1eExm6dEmt@772s",   "needsReview": true }
-  {   "kind": "buy",   "text": "Ñ¡ÔñÉñÃØÊÕ»ñÊÂ¼şÊ±£¬¿É",   "act": 0,   "source": "BV1eExm6dEmt@772s",   "needsReview": true }
-  {   "kind": "buy",   "text": "ÒÔÖØÖÃ´ÎÑ¡Ğ§¹û",   "act": 0,   "source": "BV1eExm6dEmt@772s",   "needsReview": true }
---- corpus-scanï¼ˆå¸§â†’æ”»ç•¥è¯­æ–™å¢é‡ï¼‰---
-OCR: OCR: PP-OCRv5 ÖĞÎÄ
-É¨Ãè 129/129 Ö¡£¬ÊÕÂ¼ 23 Ìõ£¨È¥ÖØºó£©
-  {   "id": "scan-BV1eExm6dEmt-1",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "Íê³É¡¸Ê¥ÅÆÌôÕ½¡¹²¢Í¨¹ıµÚÊ®Ä»Ñİ³ö¡­",   "text": "Íê³É¡¸Ê¥ÅÆÌôÕ½¡¹²¢Í¨¹ıµÚÊ®Ä»Ñİ¡­
-  {   "id": "scan-BV1eExm6dEmt-2",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "¡¸ÔÂÚÍÄ£Ê½¡¹µÄÄÑ¶È½Ï¸ß£¬Çë×öºÃ³ä¡­",   "text": "¡¸ÔÂÚÍÄ£Ê½¡¹µÄÄÑ¶È½Ï¸ß£¬Çë×öºÃ¡­
-  {   "id": "scan-BV1eExm6dEmt-3",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "? »ñµÃ120»Ã¾çÖ®»¨",   "text": "? »ñµÃ120»Ã¾çÖ®»¨",   "sou¡­
-  {   "id": "scan-BV1eExm6dEmt-4",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "? »ñµÃ8¼¶¡¸×£¸£µÈ¼¶¡¹£º",   "text": "? »ñµÃ8¼¶¡¸×£¸£µÈ¼¶¡¹£º",   ¡­
-  {   "id": "scan-BV1eExm6dEmt-5",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "ÌØÑû½ÇÉ«×£¸£µÈ¼¶µÄÔöÒæĞ§¹ûÌáÉı1¡­",   "text": "ÌØÑû½ÇÉ«×£¸£µÈ¼¶µÄÔöÒæĞ§¹ûÌáÉı¡­
-  {   "id": "scan-BV1eExm6dEmt-1020s-6",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "ÔÂÚÍÊ¥ÅÆ£ºÊ®Æß¡¤ĞÇ",   "text": "ÔÂÚÍÊ¥ÅÆ£ºÊ®Æß¡¤ĞÇ",   "s¡­
-  {   "id": "scan-BV1eExm6dEmt-1020s-7",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "¡¸Ê¥ÅÆÌôÕ½]¼á³ÖÕ½¶·µ½µ¹¼ÆÊ±½áÊø",   "text": "¡¸Ê¥ÅÆÌôÕ½]¼á³ÖÕ½¶·¡­
-  {   "id": "scan-BV1eExm6dEmt-1020s-8",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "Íê³ÉËùÓĞÊ¥ÅÆÌôÕ½£¬ÇÒ³É¹¦Í¨¹ıµÚÊ®¡­",   "text": "Íê³ÉËùÓĞÊ¥ÅÆÌôÕ½£¬¡­
-  {   "id": "scan-BV1eExm6dEmt-1035s-9",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "ÔÂÚÍÊ¥ÅÆ?Áù?ÁµÈË",   "text": "ÔÂÚÍÊ¥ÅÆ?Áù?ÁµÈË",   "s¡­
-  {   "id": "scan-BV1eExm6dEmt-1035s-10",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "¡¸Ê¥ÅÆÌôÕ½]ÔÚÒ»¶¨Ê±¼äÄÚ»÷°ÜÇ¿µĞ",   "text": "¡¸Ê¥ÅÆÌôÕ½]ÔÚÒ»¶¨¡­
-  {   "id": "scan-BV1eExm6dEmt-1035s-11",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "×£¸£µÈ¼¶13:Ñİ³öÌôÕ½ÖĞ£¬½ÇÉ«Éú¡­",   "text": "×£¸£µÈ¼¶13:Ñİ¡­
-  {   "id": "scan-BV1eExm6dEmt-1035s-12",   "act": 0,   "tags": [     "Í¨ÓÃ",     "ÊÓÆµOCR"   ],   "title": "Íê³ÉËùÓĞÊ¥ÅÆÌôÕ½£¬ÇÒ³É¹¦Í¨¹ıµÚÊ®¡­",   "text": "Íê³ÉËùÓĞÊ¥ÅÆÌôÕ½¡­
-  ¡­¡­ ÆäÓà 11 ÌõÂÔ
-ÒÑĞ´: C:\DDDD\Agent Work\_tmp\theater-overlay\_tmp\local-train-20261107\out\corpus-extra.json
---- quantï¼ˆå¸§â†’è½¯ä»¶æŒ‡ç¤º vs ç•Œé¢äº‹å®ï¼‰---
-OCR: OCR: PP-OCRv5 ÖĞÎÄ£ü½ÇÉ«±í 253 ¸ö£üÖ¡ 129
-Õ½¶·¡¤Ë«Í¨µÀ½»²æÒ»ÖÂ 0/0£¨0.0%£©£ü±¾Ö¡¼ì²â=12 ÑØÓÃ=110
-¾ö²ß¡¤±àºÅÓĞĞ§ 29/29£¨100.0%£©£ü¸ÃÆúÈ¨Ê±ÆúÈ¨ 100/100
-ÈËÎï¡¤ÍÆ¼ö³öÏÖÔÚ±à¶Ó 0/8£¨0.0%£©
-ÒÑĞ´: C:\DDDD\Agent Work\_tmp\theater-overlay\_tmp\local-train-20261107\out\quant.md
-ÒÑĞ´: C:\DDDD\Agent Work\_tmp\theater-overlay\_tmp\local-train-20261107\out\quant.json
---- consensusï¼ˆè·¨è§†é¢‘å…±è¯†ï¼šæœ¬æœº+äº‘ç«¯å†å²ï¼‰---
-¶ÀÁ¢×÷Õß¹²Ê¶ 0 Ìõ / ¸ôÀëºòÑ¡ 222 Ìõ / ÊÓÆµ 50 ¸ö ¡ú C:\DDDD\Agent Work\_tmp\theater-overlay\_tmp\local-train-20261107\out\OPS-CONSENSUS-local.md
-[02:03:55] stage2 ç»“æŸ
