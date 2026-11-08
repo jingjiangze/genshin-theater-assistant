@@ -64,7 +64,7 @@ if [ $? -ne 0 ]; then say "构建失败"; tail -25 "$LOG"; exit 1; fi
 say "构建 OK"
 
 # ---------- 3) 跑验证 ----------
-if [ ! -d "$FRAMES" ] || [ -z "$(ls "$FRAMES"/*.png 2>/dev/null | head -1)" ]; then
+if [ ! -d "$FRAMES" ] || [ -z "$(ls "$FRAMES"/*.png "$FRAMES"/*.jpg 2>/dev/null | head -1)" ]; then
   say "== 无帧目录（$FRAMES）→ 跳过推理，只报告模型与运行时就绪 =="
   dotnet cli/OcrProbe/bin/OcrProbe.dll --models "$MODELS" --model v5 2>&1 | tail -6 | tee -a "$LOG"
   say "结论：模型与环境就绪（未跑真实帧）"
