@@ -81,13 +81,14 @@ jobs:
           # 单一关键词按播放量排序会被同一 UP 主占满（实测 8/8 全是 mid=431073645）。
           # 多关键词轮转采样，让证据治理能拿到真正独立的作者。
           # 优先找「文字攻略型」UP 主：纯视频讲解只有章节标题，产不出文本证据
-          if ("${{ github.event.inputs.more }}" -ne "") {
+          # 注意：本 job 跑在 ubuntu-latest，必须用 bash 语法（此处曾误写 PowerShell 导致 line 6 syntax error）
+          if [ -n "${{ github.event.inputs.more }}" ]; then
             MORE="${{ github.event.inputs.more }}"
-            Write-Host "使用自定义关键词组: $MORE"
-          } else {
+            echo "使用自定义关键词组: $MORE"
+          else
             MORE="幻想真境剧诗 逐幕 配队 角色推荐|剧诗 文字攻略 阵容 满花|幻想真境剧诗 7.1 角色需求|剧诗 幕次 队伍 攻略"
-          }
-          "MORE=$MORE" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          fi
+          echo "MORE=$MORE" >> "$GITHUB_ENV"
           # 并行分支曾把 push 触发压到 2 个视频做烟测；现放开到 8（手动/定时仍用 12）
           LIMIT="${{ github.event_name == 'push' && '8' || github.event.inputs.limit || '12' }}"
           cd tools/video-frames
@@ -182,54 +183,50 @@ jobs:
       - name: 优选纯净源清单（高难 + 当期 + 纯净度）
         if: always()
         continue-on-error: true
-        shell: pwsh
+        shell: bash
         run: |
-          chcp 65001 > $null
-          # 不限定 frames/ingest：采集的实际落盘位置随脚本变化，全仓找最稳
-          $sum = Get-ChildItem -Path . -Recurse -Filter ingest-summary.json -ErrorAction SilentlyContinue |
-                 Where-Object { $_.FullName -notmatch "node_modules" } |
-                 Sort-Object LastWriteTime -Descending | Select-Object -First 1
-          if (-not $sum) { Write-Host "跳过：全仓未找到 ingest-summary.json"; exit 0 }
-          Write-Host "使用批次: $($sum.FullName)"
-          $j0 = Get-Content $sum.FullName -Raw | ConvertFrom-Json
-          Write-Host "视频数: $($j0.videos.Count)"
-          node tools/video-frames/pick.mjs $sum.FullName --out data/pure-sources.json --top 30
-          if ($LASTEXITCODE -ne 0) { Write-Host "pick.mjs 退出码 $LASTEXITCODE（不阻断）"; exit 0 }
-          if (Test-Path data/pure-sources.json) {
-            $j = Get-Content data/pure-sources.json -Raw | ConvertFrom-Json
-            Write-Host "清单共 $($j.total) 条（本轮新增 $($j.thisRun.added)，更新 $($j.thisRun.updated)）"
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 优选纯净源清单"
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "共 $($j.total) 条；本轮新增 $($j.thisRun.added)"
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ""
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 分 | 纯净度 | 难度 | 时长 | BV | 标题 |"
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|---:|---|---|"
-            foreach ($s in ($j.sources | Select-Object -First 12)) {
-              $ttl = if ($s.title) { $s.title.Substring(0, [Math]::Min(40, $s.title.Length)) } else { "" }
-              Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| $($s.score) | $($s.purity) | $($s.difficulty) | $([int]($s.duration/60))分 | $($s.bv) | $ttl |"
-            }
-          }
+          set +e
+          # 不限定 frames/ingest：采集落盘位置随脚本变化，全仓找最稳
+          SUM=$(find . -name ingest-summary.json -not -path "*/node_modules/*" -printf "%T@ %p
+" 2>/dev/null | sort -rn | head -1 | cut -d' ' -f2-)
+          if [ -z "$SUM" ]; then echo "跳过：全仓未找到 ingest-summary.json"; exit 0; fi
+          echo "使用批次: $SUM"
+          node tools/video-frames/pick.mjs "$SUM" --out data/pure-sources.json --top 30 || { echo "pick.mjs 失败（不阻断）"; exit 0; }
+          if [ -f data/pure-sources.json ]; then
+            node -e "
+const j=require('./data/pure-sources.json');
+console.log(\`清单共 \${j.total} 条（本轮新增 \${j.thisRun.added}，更新 \${j.thisRun.updated}）\`);
+const L=[];
+L.push('### 优选纯净源清单','共 '+j.total+' 条；本轮新增 '+j.thisRun.added,'');
+L.push('| 分 | 纯净度 | 难度 | 时长 | BV | 标题 |','|---|---|---|---:|---|---|');
+for(const s of j.sources.slice(0,12)){
+  const t=(s.title||'').slice(0,40);
+  L.push(\`| \${s.score} | \${s.purity} | \${s.difficulty} | \${Math.floor((s.duration||0)/60)}分 | \${s.bv} | \${t} |\`);
+}
+require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, L.join('\\n')+'\\n');
+"
+          fi
       # 清单必须提交回仓库才会"累积"（否则只在本次运行的临时工作目录里，下次又从 12 条开始）。
       # [skip ci] 避免自触发 CI（清单更新不需要跑完整构建）。
       - name: 提交优选清单（累积）
         if: always()
         continue-on-error: true
-        shell: pwsh
+        shell: bash
         run: |
-          if (-not (Test-Path data/pure-sources.json)) { Write-Host "无清单，跳过"; exit 0 }
+          set +e
+          [ -f data/pure-sources.json ] || { echo "无清单，跳过"; exit 0; }
           git config user.email "actions@github.com"
           git config user.name "theater-bot"
           git add data/pure-sources.json
-          $changed = git status --porcelain data/pure-sources.json
-          if (-not $changed) { Write-Host "清单无变化，跳过提交"; exit 0 }
-          $j = Get-Content data/pure-sources.json -Raw | ConvertFrom-Json
-          git commit -m "chore(sources): 更新优选清单 共$($j.total)条 [skip ci]"
-          for ($i = 1; $i -le 3; $i++) {
-            git pull --rebase --autostash -q origin main 2>$null
-            git push -q origin HEAD:main 2>$null
-            if ($LASTEXITCODE -eq 0) { Write-Host "已推送（尝试 $i）"; exit 0 }
-            Start-Sleep -Seconds 5
-          }
-          Write-Host "推送失败（不阻断）"
+          if [ -z "$(git status --porcelain data/pure-sources.json)" ]; then echo "清单无变化，跳过提交"; exit 0; fi
+          TOTAL=$(node -e "console.log(require('./data/pure-sources.json').total)")
+          git commit -m "chore(sources): 更新优选清单 共${TOTAL}条 [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash -q origin main 2>/dev/null
+            if git push -q origin HEAD:main 2>/dev/null; then echo "已推送（尝试 $i）"; exit 0; fi
+            sleep 5
+          done
+          echo "推送失败（不阻断）"
 
       - name: 写入长期数据账本
         if: success()
