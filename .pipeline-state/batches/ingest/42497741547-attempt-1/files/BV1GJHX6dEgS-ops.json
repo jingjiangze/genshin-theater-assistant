@@ -1,0 +1,209 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 16:05:58",
+ "bvid": "BV1GJHX6dEgS",
+ "frames": 0,
+ "candidates": 20,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "祝福：水风2右4右，冻结2右4根据自己C选，冰风2左4左（有相关C可4右）",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "第7幕：看情况选（水风/冰风升至4级）",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "风+高频挂水选火使徒",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "风+高频挂冰选雷使徒（最好有盾）",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "第9幕：根据box看情况选（2关都很肉需要高练度）",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "瑞希+冰主选木精",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "水系多选岩浆怪",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "action",
+   "text": "辉彩祝福-10花（出现概率低）（注意，这个是不需要另一个+10为代价的）",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "待选事项+1",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "获得2次待选事件重置次数（多2个骰子）",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "神秘收获选项+1",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "选择神秘收获可以重置1次",
+   "act": 0,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 嵌合角熊",
+   "act": 1,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 愚人众风役人",
+   "act": 2,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 恒常机关阵列",
+   "act": 3,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第4幕 推荐 愚人众讨债人",
+   "act": 4,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 渠道联络人",
+   "act": 5,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 福瑞寒冰射手",
+   "act": 6,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 嵌合翼骏狮",
+   "act": 8,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 冰锅",
+   "act": 10,
+   "source": "bilibili:BV1GJHX6dEgS",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  }
+ ]
+}

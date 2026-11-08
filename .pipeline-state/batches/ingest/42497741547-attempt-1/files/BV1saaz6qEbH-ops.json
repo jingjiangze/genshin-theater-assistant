@@ -1,0 +1,169 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 16:05:39",
+ "bvid": "BV1saaz6qEbH",
+ "frames": 0,
+ "candidates": 16,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "需要选出角色：6幕自备较弱主c+辅助、7幕行秋、8幕自备较强主c+辅助",
+   "act": 0,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "需要留的后台角色：5幕风、6幕弓箭手",
+   "act": 0,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 行秋",
+   "act": 7,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 弓箭手",
+   "act": 6,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 流浪者",
+   "act": 1,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 芭芭拉",
+   "act": 1,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 凯亚",
+   "act": 1,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 流浪者",
+   "act": 2,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 芭芭拉",
+   "act": 2,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 布伦妮",
+   "act": 2,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 凯亚",
+   "act": 2,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 那维莱特",
+   "act": 3,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 茜特菈莉",
+   "act": 3,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 布伦妮",
+   "act": 3,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 那维莱特",
+   "act": 5,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 茜特菈莉",
+   "act": 5,
+   "source": "bilibili:BV1saaz6qEbH",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}
