@@ -49,6 +49,9 @@ const launchOpts = {
 };
 if (exe && fs.existsSync(exe)) launchOpts.executablePath = exe;   // runner 上没有 Thorium → 用自带 chromium
 const browser = await chromium.launch(launchOpts);
+// B站对未登录/风控请求返回 412（反爬）。必须给出**可诊断**的错误，
+// 否则只会看到 page.evaluate 的 'Execution context was destroyed' 这种误导信息（box 实测踩过）。
+let saw412 = false;
 const ctx = await browser.newContext({
   viewport: { width: 1920, height: 1080 },
   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36',
@@ -57,6 +60,7 @@ const ctx = await browser.newContext({
 await ctx.addCookies(cookies);
 
 const page = await ctx.newPage();
+page.on('response', (r) => { if (r.status() === 412) saw412 = true; });
 page.on('console', m => { if (m.type() === 'error') console.log('  [page]', String(m.text()).slice(0, 160)); });
 
 await page.goto(`https://www.bilibili.com/video/${bvid}/`, { waitUntil: 'domcontentloaded', timeout: 60000 });
