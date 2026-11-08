@@ -151,13 +151,27 @@ for (const [qi, q] of queries.entries()) {
 
 // 「相关纯净源」打分：优先无解说/无剪辑的完整实录，且赛季要对得上。
 // 分数只用于排序，不删除任何来源——排序依据会写进输出，可审计。
+// 「纯净流」判定（标题层）：硬排除 + 初步分级。
+// 审计背景：原实现只有加减分，没有硬排除、也没有时长（搜索阶段拿不到时长），
+// 且"攻略/低配/满花"与"纯净/无解说"同属加分项 → 攻略型混剪可能排序高于纯净流。
+// 这里分两步：本函数做**标题硬排除**，时长相关的最终分级在 ingest.py（有 duration）。
+const EXCLUDE_RE = /(解说|实况|吐槽|整活|切片|混剪|合集|锐评|测评|分析|讲解|反应|弹幕版|二创)/;
+const PURE_RE = /(纯净|无解说|无剪辑|原声|全程|完整|一条过|无删减)/;
+
+function titlePurity(title) {
+  const t = title || '';
+  if (EXCLUDE_RE.test(t)) return 'excluded';   // 明确是解说/剪辑类，直接不要
+  if (PURE_RE.test(t)) return 'pure-title';    // 标题自称纯净，待时长确认
+  return 'unknown';
+}
+
 function relevanceScore(title) {
   const t = title || '';
   let s = 0;
   const has = (re) => re.test(t);
   // 纯净源特征
   if (has(/纯净|无解说|无剪辑|原声|全程/)) s += 4;
-  if (has(/实况|解说|吐槽|整活|切片|混剪|合集/)) s -= 3;
+  if (EXCLUDE_RE.test(t)) s -= 99;   // 硬排除：不参与排序竞争
   // 与目标强相关（本玩法/难度）
   if (has(/幻想真境剧诗|剧诗/)) s += 2;
   if (has(/月谕|卓越/)) s += 2;
@@ -175,9 +189,11 @@ function relevanceScore(title) {
 
 // 已知作者不足时按「关键词轮转」从未知作者条目补足：
 // 同一关键词按播放量排序常被一个 UP 主占满，轮转能采到不同作者（真实 mid 由 yt-dlp 阶段写）。
-for (const it of all) it.relevance = relevanceScore(it.title);
+for (const it of all) { it.relevance = relevanceScore(it.title); it.title_purity = titlePurity(it.title); }
 all.sort((x, y) => (y.relevance || 0) - (x.relevance || 0));
-const chosen = all.slice(0, want);
+const usable = all.filter(x => x.title_purity !== 'excluded');
+const excludedCount = all.length - usable.length;
+const chosen = usable.slice(0, want);
 const byQuery = new Map();
 for (const it of fallback) {
   const k = it.query || keyword;
@@ -204,6 +220,8 @@ console.log(JSON.stringify({
   target_period: process.env.TARGET_PERIOD || '2026-11',
   independent_creators: seenAuthors.size,
   creator_unknown_count: chosen.filter(x => x.creator_unknown).length,
+  title_excluded_count: excludedCount,
+  title_pure_count: chosen.filter(x => x.title_purity === 'pure-title').length,
   items: chosen,
 }, null, 2));
 await browser.close();
