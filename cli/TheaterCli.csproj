@@ -25,6 +25,7 @@
     <Compile Include="..\app\ActStabilizer.cs" Link="app\ActStabilizer.cs" />
     <Compile Include="..\app\OcrTextPipeline.cs" Link="app\OcrTextPipeline.cs" />
     <Compile Include="..\app\OcrTuning.cs" Link="app\OcrTuning.cs" />
+    <Compile Include="..\app\QualityGates.cs" Link="app\QualityGates.cs" />
     <Compile Include="..\app\LlmAdvisor.cs" Link="app\LlmAdvisor.cs" />
   </ItemGroup>
 
