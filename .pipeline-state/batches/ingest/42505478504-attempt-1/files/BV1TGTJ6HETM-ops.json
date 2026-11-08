@@ -1,0 +1,69 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 17:38:42",
+ "bvid": "BV1TGTJ6HETM",
+ "frames": 0,
+ "candidates": 6,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "月谕30r（满花额外加五r，需要正常练度）",
+   "act": 0,
+   "source": "bilibili:BV1TGTJ6HETM",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "1820567267",
+   "creator_name": "爱吃甜筒的貓"
+  },
+  {
+   "kind": "action",
+   "text": "轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）",
+   "act": 0,
+   "source": "bilibili:BV1TGTJ6HETM",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "1820567267",
+   "creator_name": "爱吃甜筒的貓"
+  },
+  {
+   "kind": "action",
+   "text": "简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）",
+   "act": 0,
+   "source": "bilibili:BV1TGTJ6HETM",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "1820567267",
+   "creator_name": "爱吃甜筒的貓"
+  },
+  {
+   "kind": "action",
+   "text": "困难模式需要18个角色70+，8关（需要除试用外自养角色12名）",
+   "act": 0,
+   "source": "bilibili:BV1TGTJ6HETM",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "1820567267",
+   "creator_name": "爱吃甜筒的貓"
+  },
+  {
+   "kind": "action",
+   "text": "卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）",
+   "act": 0,
+   "source": "bilibili:BV1TGTJ6HETM",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "1820567267",
+   "creator_name": "爱吃甜筒的貓"
+  },
+  {
+   "kind": "action",
+   "text": "月谕模式需要28-32名角色70+，10关（需要除试用外自养角色22名",
+   "act": 0,
+   "source": "bilibili:BV1TGTJ6HETM",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "1820567267",
+   "creator_name": "爱吃甜筒的貓"
+  }
+ ]
+}

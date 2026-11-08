@@ -1,0 +1,11 @@
+[description|] 治疗机制地方传奇是吧，哈哈，我不听！什么岩锅，圣骸兽，关底boss，让一让！
+[description|] （配置较高该强行打法仅供参考，不具实战价值，实际上是强行没上沃和七七，上个沃的话0命薇就能打月谕圣牌2了，但话又说回来正常打也不会这么浪费主c吧，堆两个奶妈就过了）
+[description|] 薇斯纳61（95级 73/232）
+[description|] 奥黛塔01（81/195）
+[description|] 沃雅妮莎00（6w生命）
+[description|] 七七60
+[chapter|] 强杀圣牌2地方传奇
+[chapter|] 强杀岩锅
+[chapter|] 圣牌1圣骸兽
+[chapter|] 关底boss
+[chapter|] 面板展示

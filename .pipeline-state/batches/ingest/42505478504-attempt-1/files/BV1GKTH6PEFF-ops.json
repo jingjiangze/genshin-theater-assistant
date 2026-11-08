@@ -1,0 +1,39 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 17:40:07",
+ "bvid": "BV1GKTH6PEFF",
+ "frames": 0,
+ "candidates": 3,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "buff优先级：火雷&gt;冰雷&gt;火冰",
+   "act": 0,
+   "source": "bilibili:BV1GKTH6PEFF",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "270885270",
+   "creator_name": "不爱玩游戏的肉"
+  },
+  {
+   "kind": "buy",
+   "text": "注：角色池浅小伙伴在前期的选取挂件角色注意保留菲谢尔，夏沃蕾，香菱(有练度)以及一位弓箭角色留给最后一间 ，第七幕到第九幕以及两个圣牌的挑战顺序按照自己当前的角色池来选择",
+   "act": 0,
+   "source": "bilibili:BV1GKTH6PEFF",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "270885270",
+   "creator_name": "不爱玩游戏的肉"
+  },
+  {
+   "kind": "buy",
+   "text": "第一幕: 赛诺+迪奥娜+开局选的2个挂件角色",
+   "act": 0,
+   "source": "bilibili:BV1GKTH6PEFF",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "270885270",
+   "creator_name": "不爱玩游戏的肉"
+  }
+ ]
+}

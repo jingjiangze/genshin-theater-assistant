@@ -1,0 +1,11 @@
+[description|] 共5个难度，本期限制火雷冰角色，特邀四位角色不受限制
+[description|] 轻简5r
+[description|] 简单7r
+[description|] 困难15r
+[description|] 卓越25r
+[description|] 月谕30r（满花额外加五r，需要正常练度）
+[description|] 轻简模式需要10个角色，60+，3关（需要除试用角色外自养4名角色）
+[description|] 简单模式需要14角色，60+，6关（需要除试用角色外自养角色8名）
+[description|] 困难模式需要18个角色70+，8关（需要除试用外自养角色12名）
+[description|] 卓越模式需要22名角色70+，10关（需要除试用外自养角色16名）
+[description|] 月谕模式需要28-32名角色70+，10关（需要除试用外自养角色22名

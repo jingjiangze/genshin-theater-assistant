@@ -1,0 +1,19 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 17:37:49",
+ "bvid": "BV1SBR8BgEXc",
+ "frames": 0,
+ "candidates": 1,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "选角色+第一幕",
+   "act": 0,
+   "source": "bilibili:BV1SBR8BgEXc",
+   "channel": "chapter",
+   "status": "CANDIDATE",
+   "creator_id": "1978621636",
+   "creator_name": "ouyfuygbkjv"
+  }
+ ]
+}

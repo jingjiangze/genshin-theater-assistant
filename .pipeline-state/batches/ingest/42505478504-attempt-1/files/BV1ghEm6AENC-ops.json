@@ -1,0 +1,129 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 17:38:48",
+ "bvid": "BV1ghEm6AENC",
+ "frames": 0,
+ "candidates": 12,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "怪物选择&amp;参考阵容",
+   "act": 0,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "action",
+   "text": "辉彩祝福-10花（出现概率低）（注意，这个是不需要另一个+10为代价的）",
+   "act": 0,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "待选事项+1",
+   "act": 0,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "获得2次待选事件重置次数（多2个骰子）",
+   "act": 0,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "神秘收获选项+1",
+   "act": 0,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "选择神秘收获可以重置1次",
+   "act": 0,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 冰深渊法师",
+   "act": 1,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 鳍游龙",
+   "act": 2,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第4幕 推荐 小宝",
+   "act": 4,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 小宝",
+   "act": 5,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 深渊咏者",
+   "act": 7,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 魔像禁卫",
+   "act": 9,
+   "source": "bilibili:BV1ghEm6AENC",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  }
+ ]
+}
