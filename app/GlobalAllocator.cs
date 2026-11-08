@@ -22,6 +22,43 @@ internal static class GlobalAllocator
     // 难度权重来自 data/decision-policy.json（不在代码里写死取舍）
     private static double DifficultyWeight(string d) => DecisionPolicy.DifficultyWeight(d);
 
+    /// <summary>boss 幕权重倍数（来自 decision-policy.json 的 actWeights）。</summary>
+    private static double ActBossMultiplier = 1.5;
+    /// <summary>level 归一后的权重增幅（0.5 表示最高 level 幕额外 +50%）。</summary>
+    private static double ActLevelFactor = 0.5;
+
+    /// <summary>读 actWeights（缺省用内置默认，不硬失败）。</summary>
+    private static void LoadActWeights()
+    {
+        try
+        {
+            var p = AppPaths.Data("decision-policy.json");
+            if (!File.Exists(p)) return;
+            using var doc = System.Text.Json.JsonDocument.Parse(File.ReadAllText(p));
+            if (!doc.RootElement.TryGetProperty("actWeights", out var aw) || aw.ValueKind != System.Text.Json.JsonValueKind.Object)
+                return;
+            if (aw.TryGetProperty("bossMultiplier", out var bm) && bm.ValueKind == System.Text.Json.JsonValueKind.Number)
+                ActBossMultiplier = bm.GetDouble();
+            if (aw.TryGetProperty("levelFactor", out var lf) && lf.ValueKind == System.Text.Json.JsonValueKind.Number)
+                ActLevelFactor = lf.GetDouble();
+        }
+        catch { }
+    }
+
+    /// <summary>该难度下所有幕的 level 范围（用于归一）。</summary>
+    private static (int Min, int Max) LevelRange(string difficulty)
+    {
+        int min = int.MaxValue, max = int.MinValue;
+        for (int a = 1; a <= QuantData.MaxAct(difficulty); a++)
+        {
+            var e = QuantData.Enemy(a, difficulty);
+            if (e == null || e.Level <= 0) continue;
+            if (e.Level < min) min = e.Level;
+            if (e.Level > max) max = e.Level;
+        }
+        return min == int.MaxValue ? (0, 0) : (min, max);
+    }
+
     internal sealed class Slot
     {
         public string Difficulty = "";
@@ -31,7 +68,11 @@ internal static class GlobalAllocator
         public double DiffWeight;
         public bool NeedHeal;
         public bool NeedBreak;
-        public double Importance => NeedWeight * DiffWeight;
+        /// <summary>幕权重：boss 幕与高 level 幕更高（决策层：强角色要优先给难关）。</summary>
+        public double ActWeight = 1.0;
+        public bool IsBoss;
+        public int Level;
+        public double Importance => NeedWeight * DiffWeight * ActWeight;
     }
 
     internal sealed class Assign
@@ -67,6 +108,7 @@ internal static class GlobalAllocator
         res.Season = target.Season;
 
         DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
+        LoadActWeights();
         QuantData.LoadEnemies(target.Path);
         QuantData.LoadCharacters(AppPaths.Data("characters.json"), AppPaths.Data("substitutes.json"));
         Playbook.Load(AppPaths.Data("act-playbook.json"));
@@ -88,12 +130,18 @@ internal static class GlobalAllocator
                 var why = e.MechanicEffect ?? "";
                 bool heal = DecisionPolicy.NeedsHealer(why);
                 bool brk = DecisionPolicy.NeedsBreaker(why);
+                // 幕权重：boss 幕 + 高 level 幕优先（level 在本难度内归一）
+                var (minLv, maxLv) = LevelRange(diff);
+                double lvFactor = maxLv > minLv ? (e.Level - minLv) / (double)(maxLv - minLv) : 0;
+                double actW = (e.Boss ? ActBossMultiplier : 1.0) * (1.0 + ActLevelFactor * lvFactor);
+
                 foreach (var kv in e.Need)
                     slots.Add(new Slot
                     {
                         Difficulty = diff, Act = a, Element = kv.Key,
                         NeedWeight = kv.Value, DiffWeight = DifficultyWeight(diff),
                         NeedHeal = heal, NeedBreak = brk,
+                        ActWeight = actW, IsBoss = e.Boss, Level = e.Level,
                     });
                 if (e.Need.Count == 0)
                     res.Assigns.Add(new Assign
