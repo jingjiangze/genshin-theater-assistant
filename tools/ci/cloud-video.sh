@@ -49,11 +49,25 @@ NPX_OK=$([ -d node_modules/playwright-core ] && echo 1 || echo 0)
 [ "$NPX_OK" = "0" ] && { say "✗ playwright-core 安装失败"; exit 4; }
 
 # ── 2) 逐条抽帧（BROWSER_PATH 复用系统 chrome）─────────────
+# 前置硬条件：B站播放页对未登录请求返回 412（反爬），无 cookie 抽不到帧。
+# 这不是分辨率问题，是直接被拒——box 实测确认，所以提前判空并说明怎么补。
+if [ -z "${BILI_COOKIE:-}" ]; then
+  say ""
+  say "✗ 缺少 BILI_COOKIE：B站播放页会返回 412 反爬，抽帧必然失败。"
+  say "  补法：把浏览器里 bilibili.com 的 cookie 写入 box 的 .env.local ——"
+  say "        echo 'export BILI_COOKIE=\"SESSDATA=...; bili_jct=...; buvid3=...\"' >> /workspace/theater/.env.local"
+  say "  在补齐前，本轮只做 OCR 验证（若已有帧）与决策链回归。"
+  SKIP_FRAMES=1
+else
+  SKIP_FRAMES=0
+fi
 say ""
 say "──── 抽帧 ────"
 export BROWSER_PATH="$CHROME"
 FAILED=0
+[ "${SKIP_FRAMES:-0}" = "1" ] && say "（跳过抽帧）"
 for BV in "${BVIDS[@]}"; do
+  [ "${SKIP_FRAMES:-0}" = "1" ] && break
   say "→ $BV (every=$EVERY max=$MAX)"
   if node hd.mjs "$BV" out="$REPO/frames/$BV" every="$EVERY" max="$MAX" 2>&1 | tail -4 | tee -a "$LOG"; then
     n=$(ls "$REPO/frames/$BV"/*.png 2>/dev/null | wc -l)
