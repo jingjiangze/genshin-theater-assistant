@@ -84,6 +84,11 @@ dotnet cli/OcrProbe/bin/OcrProbe.dll --models "$MODELS" --dir "$FRAMES" --model 
   --out cloud-ocr-cross.json 2>&1 | tail -6 | tee -a "$LOG"
 
 say "== 结论 =="
-if grep -q "两模型一致性良好" "$LOG"; then say "PASS：云端可用 v5-mobile 承担回归，结论可外推到桌面端"; 
-elif grep -q "差异较大" "$LOG"; then say "WARN：两模型差异大，云端结论不能直接套用桌面端"; 
-else say "PASS(部分)：模型与运行时验证完成，交叉验证未得出"; fi
+# 判定依据来自 OcrProbe 的输出（阈值读 decision-policy.cloud.json 的 minAgreementPct）
+if grep -q "可用轻量模型承担回归" "$LOG"; then
+  say "PASS：两模型相似度达标 → 云端可用 v5-mobile 承担回归，结论可外推"
+elif grep -q "不能直接套用桌面端" "$LOG"; then
+  say "WARN：两模型相似度不足 → 云端结论不能直接套用桌面端，需人工核对差异帧"
+else
+  say "PASS(部分)：模型与运行时验证完成，但交叉验证未产出判定（检查帧目录）"
+fi
