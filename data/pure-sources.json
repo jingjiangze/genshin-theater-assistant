@@ -1,0 +1,145 @@
+{
+  "generatedAt": "2026-11-08T15:50:25.064Z",
+  "period": "2026-11",
+  "criteria": "纯净度(pure100/likely60/mixed20) + 高难(月谕80/卓越60/困难30) + 当期季节+40 + 文本量 + 时长 + 纯净特征+25；short/excluded 淘汰",
+  "total": 12,
+  "thisRun": {
+    "candidates": 18,
+    "added": 12,
+    "updated": 0
+  },
+  "sources": [
+    {
+      "bv": "BV193xp6WErn",
+      "title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年11月)水雷岩/新深渊/平民低配满花/试用角色/超低配/幻想真境剧诗/原神7.1",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1370,
+      "textLines": 28,
+      "score": 292,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1saaz6qEbH",
+      "title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年10月)水冰风/新深渊/平民低配满花/试用角色/超低配/幻想真境剧诗/原神7.1",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1434,
+      "textLines": 30,
+      "score": 255,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1hXTv6uECJ",
+      "title": "【原神】幻想真境剧诗 卓越+月谕难度(2026年07月)火雷冰/新深渊/平民低配满花/试用角色/超低配/幻想真境剧诗/原神月之八",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1491,
+      "textLines": 29,
+      "score": 253.5,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1epFZeVEuA",
+      "title": "2月剧诗|速通卓越模式一镜到底满星章|纯净全流程展示",
+      "purity": "pure",
+      "difficulty": "Visionary",
+      "duration": 922,
+      "textLines": 9,
+      "score": 228.5,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1R3xp6WEKz",
+      "title": "【原神】幻想真境剧诗 困难难度(2026年11月)水雷岩/新深渊/平民低配攻略/试用角色/超低配/幻想真境剧诗/原神7.1",
+      "purity": "likely",
+      "difficulty": "Hard",
+      "duration": 842,
+      "textLines": 20,
+      "score": 215,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV17hxW68Ej9",
+      "title": "低配还不带满角色也能拿满奖励？11月幻想真境剧诗全网最好抄攻略+一图流！ 全难度通用（2026年11月）水雷岩",
+      "purity": "likely",
+      "difficulty": "",
+      "duration": 1232,
+      "textLines": 17,
+      "score": 195.5,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1rkHpzBEn9",
+      "title": "【10月幻想真境剧诗】月谕模式全角色1级武器无圣遗物满花流程（附正常流程一图流攻略）",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 1602,
+      "textLines": 10,
+      "score": 185,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1qphuz7EjD",
+      "title": "【8月幻想真境剧诗】全4星角色1级武器无圣遗物卓越模式满花流程（附正常流程一图流攻略）",
+      "purity": "likely",
+      "difficulty": "Visionary",
+      "duration": 1429,
+      "textLines": 8,
+      "score": 162,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1A3o6B4ENj",
+      "title": "5月水火草月谕满花培养推荐||凑角色平民超低配幻想真境剧诗满星",
+      "purity": "likely",
+      "difficulty": "Lunar",
+      "duration": 602,
+      "textLines": 2,
+      "score": 158,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1euhHzyEeW",
+      "title": "全网唯一！女角色全1级0氪，满花8月卓越幻想真境剧诗",
+      "purity": "likely",
+      "difficulty": "Visionary",
+      "duration": 1182,
+      "textLines": 2,
+      "score": 153,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1T89VBUEcR",
+      "title": "4月幻想真境剧诗月谕满花满星低配极速省流版卓越困难普通通用",
+      "purity": "mixed",
+      "difficulty": "Lunar",
+      "duration": 462,
+      "textLines": 25,
+      "score": 137.5,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    },
+    {
+      "bv": "BV1YL7TzTEz6",
+      "title": "「新深渊一万次重开的奇迹」钟离主C十万物伤百万岩伤！钟希芙莫满星剧诗卓越模式全10幕255秒",
+      "purity": "mixed",
+      "difficulty": "Visionary",
+      "duration": 460,
+      "textLines": 22,
+      "score": 113,
+      "firstSeenAt": "2026-11-08T15:50:25.064Z",
+      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+    }
+  ]
+}
