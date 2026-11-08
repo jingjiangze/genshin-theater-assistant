@@ -61,5 +61,10 @@
     "requireHealer": true,
     "requireBreaker": true,
     "_note": "配队硬判据。requireHealer/requireBreaker=true 表示：机制文本触发治疗/破盾需求时，队里必须有对应职能，否则判违规。"
+  },
+  "actWeights": {
+    "bossMultiplier": 1.5,
+    "levelFactor": 0.5,
+    "_note": "幕间优先级（决策层）。Importance = 需求权重 × 难度权重 × 幕权重。幕权重 = (boss ? bossMultiplier : 1) × (1 + levelFactor × 该幕 level 在本难度内的归一位置)。为什么需要：赛季数据里有 boss 标记与递增 level（Lunar 85→100），但此前分配器完全没用，导致第10幕（boss/level100）拿到的角色不比第5幕（非boss/level90）强。"
   }
 }
