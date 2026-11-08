@@ -314,7 +314,7 @@ internal static class GlobalAllocator
         double v = 1.0;
         // 幕级推荐：该幕社区共识/已验证推荐的角色优先
         var pickW = CuratedPicks.WeightOf(s.Act, u.Name);
-        if (pickW > 0) v += 0.30 * pickW;
+        if (pickW > 0) v += 0.10 * pickW;
         if (s.NeedHeal && TeamSolver.RoleHas(u.Role, "Healer")) v += DecisionPolicy.CandidateRoleBonus;
         if (s.NeedBreak && TeamSolver.RoleHas(u.Role, "GeoBreak")) v += DecisionPolicy.CandidateRoleBonus;
         if ((TeamSolver.RoleHas(u.Role, "MainDps") || TeamSolver.RoleHas(u.Role, "Buffer")))
