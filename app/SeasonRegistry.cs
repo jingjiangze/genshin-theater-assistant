@@ -93,6 +93,49 @@ internal static class SeasonRegistry
         catch { return null; }
     }
 
+    /// <summary>
+    /// 赛季新鲜度：用 startsAt 与今天比较，判断这份数据是否还可能是"当前赛季"。
+    ///
+    /// 为什么需要：所有量化都建立在赛季数据上（元素/敌人/难度/幕数），
+    /// 一旦数据过期，配队与需求向量全部失效，但表面上看不出任何错误。
+    /// 这里只做**告警**，不自动改数据（改数据要靠外部抓取，不能猜）。
+    /// </summary>
+    internal sealed class Freshness
+    {
+        public int DaysSinceStart = -1;
+        public string Verdict = "未知";
+        public bool Stale;
+        public string Detail = "";
+    }
+
+    /// <summary>35 天视为一个赛季周期上限（含缓冲）；超过即提示可能已过期。</summary>
+    public const int MaxSeasonDays = 35;
+
+    public static Freshness CheckFreshness(SeasonInfo s, DateTime? nowUtc = null)
+    {
+        var f = new Freshness();
+        if (s == null) { f.Verdict = "无赛季数据"; f.Stale = true; return f; }
+        if (string.IsNullOrWhiteSpace(s.StartsAt)) { f.Verdict = "缺 startsAt，无法判断时效"; return f; }
+
+        if (!DateTimeOffset.TryParse(s.StartsAt, out var start))
+        {
+            f.Verdict = "startsAt 无法解析：" + s.StartsAt;
+            return f;
+        }
+
+        var now = nowUtc.HasValue
+            ? new DateTimeOffset(nowUtc.Value, TimeSpan.Zero)
+            : DateTimeOffset.UtcNow;
+        f.DaysSinceStart = (int)(now - start).TotalDays;
+        f.Detail = $"startsAt={start:yyyy-MM-dd} 距今 {f.DaysSinceStart} 天（阈值 {MaxSeasonDays} 天）";
+
+        if (f.DaysSinceStart < -1) { f.Verdict = "startsAt 在未来，数据可能有误"; f.Stale = true; }
+        else if (f.DaysSinceStart <= MaxSeasonDays) { f.Verdict = "当前赛季（新）"; }
+        else if (f.DaysSinceStart <= MaxSeasonDays * 2) { f.Verdict = "可能已过期（跨赛季？）"; f.Stale = true; }
+        else { f.Verdict = "已过期（需更新赛季数据）"; f.Stale = true; }
+        return f;
+    }
+
     /// <summary>取指定赛季；0 表示当前赛季。</summary>
     public static SeasonInfo For(int season) =>
         season <= 0 ? _all.FirstOrDefault(s => s.IsCurrent) ?? _all.FirstOrDefault()
@@ -110,10 +153,19 @@ internal static class SeasonRegistry
         var list = Load();
         if (list.Count == 0) { Cli.Say("没有发现 data/season*.json（赛季无关设计：丢文件即生效）"); return 2; }
         Cli.Say($"发现 {list.Count} 个赛季（自动扫描 data/season*.json，新增文件即生效，无需改代码）");
+        var staleAny = false;
         foreach (var s in list)
-            Cli.Say($"  第{s.Season}赛季{(s.IsCurrent ? "（当前）" : "")} 版本{s.Version} " +
+        {
+            var f = CheckFreshness(s);
+            if (f.Stale) staleAny = true;
+            var mark = f.Stale ? "⚠" : "✓";
+            Cli.Say($"{mark} 第{s.Season}赛季{(s.IsCurrent ? "（当前）" : "")} 版本{s.Version} " +
                     $"元素{string.Join("/", s.Elements)} 难度{s.Difficulties.Count}个 最多{s.ActCount}幕 " +
                     $"起{s.StartsAt} ← {Path.GetFileName(s.Path)}");
+            Cli.Say($"    时效：{f.Verdict}｜{f.Detail}");
+        }
+        if (staleAny)
+            Cli.Say("⚠ 存在过期/可疑赛季：请更新 data/seasonNN.json（数据必须外部抓取，不可猜）");
         return 0;
     }
 }
