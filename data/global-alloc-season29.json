@@ -1,18 +1,14 @@
 {
-  "generatedAt": "2026-11-08 12:09:22",
+  "generatedAt": "2026-11-07 15:02:48",
   "season": 29,
-  "roster": "",
   "assumption": "假设拥有公开全部角色 ∩ 本季元素；同一角色全局只用一次（剧诗机制）",
-  "totalScore": 22,
+  "totalScore": 18,
   "totalMax": 22,
   "notes": [
-    "假设拥有公开全角色（通用最优）",
-    "池 55 人｜占用主力 53 人｜未用 2 人",
-    "未提供玩家池 → 输出的是『通用最优』，不是某位玩家的最优",
-    "同一角色在**同一难度内**只用一次（剧诗机制：编入即锁定）；不同难度是分开的挑战，可复用",
-    "按难度独立分配：Easy 用 2 人，Hard 用 12 人，Lunar 用 15 人，Normal 用 9 人，Visionary 用 15 人",
+    "池 56 人｜占用主力 42 人｜未用 14 人",
+    "同一角色全局只用一次（剧诗机制：编入即锁定）",
     "无元素需求的幕不占主力，给可复用通用队",
-    "⚠ 重复使用: 五郎/卡齐娜/珊瑚宫心海/赛诺/雷电将军/荒泷一斗/云堇/丽莎/久岐忍/九条裟罗/伊安珊/诺艾尔/钟离/芭芭拉/夜兰"
+    "✓ 无重复使用"
   ],
   "assigns": [
     {
@@ -356,8 +352,8 @@
       "Act": 8,
       "Team": [
         "卡齐娜",
-        "诺艾尔",
-        "钟离"
+        "兹白",
+        "凝光"
       ],
       "Elements": [
         "Geo",
@@ -377,8 +373,8 @@
       "Act": 10,
       "Team": [
         "珊瑚宫心海",
-        "芭芭拉",
-        "夜兰"
+        "夜兰",
+        "爱诺"
       ],
       "Elements": [
         "Hydro",
@@ -397,9 +393,9 @@
       "Difficulty": "Visionary",
       "Act": 6,
       "Team": [
-        "五郎",
-        "九条裟罗",
-        "伊安珊"
+        "诺艾尔",
+        "北斗",
+        "多莉"
       ],
       "Elements": [
         "Geo",
@@ -411,16 +407,16 @@
       "Gaps": [],
       "UsedMainForce": true,
       "Reasons": [
-        "职能占位 五郎（GeoBreak）"
+        "职能占位 诺艾尔（GeoBreak）"
       ]
     },
     {
       "Difficulty": "Visionary",
       "Act": 8,
       "Team": [
-        "卡齐娜",
-        "诺艾尔",
-        "钟离"
+        "钟离",
+        "娜维娅",
+        "希诺宁"
       ],
       "Elements": [
         "Geo",
@@ -432,16 +428,16 @@
       "Gaps": [],
       "UsedMainForce": true,
       "Reasons": [
-        "职能占位 卡齐娜（GeoBreak）"
+        "职能占位 钟离（GeoBreak）"
       ]
     },
     {
       "Difficulty": "Visionary",
       "Act": 10,
       "Team": [
-        "珊瑚宫心海",
         "芭芭拉",
-        "夜兰"
+        "莫娜",
+        "那维莱特"
       ],
       "Elements": [
         "Hydro",
@@ -453,70 +449,60 @@
       "Gaps": [],
       "UsedMainForce": true,
       "Reasons": [
-        "职能占位 珊瑚宫心海（Healer）"
+        "职能占位 芭芭拉（Healer）"
       ]
     },
     {
       "Difficulty": "Hard",
       "Act": 6,
       "Team": [
-        "五郎",
-        "九条裟罗",
-        "伊安珊"
+        "米提亚",
+        "菲林斯"
       ],
       "Elements": [
-        "Geo",
         "Electro",
         "Electro"
       ],
       "Score": 1,
       "ScoreMax": 1,
-      "Gaps": [],
+      "Gaps": [
+        "GeoBreak:已被占用(五郎/卡齐娜/诺艾尔/钟离)"
+      ],
       "UsedMainForce": true,
       "Reasons": [
-        "职能占位 五郎（GeoBreak）"
+        "职能占位失败 GeoBreak"
       ]
     },
     {
       "Difficulty": "Hard",
       "Act": 8,
-      "Team": [
-        "卡齐娜",
-        "诺艾尔",
-        "钟离"
-      ],
-      "Elements": [
-        "Geo",
-        "Geo",
-        "Geo"
-      ],
-      "Score": 1,
+      "Team": [],
+      "Elements": [],
+      "Score": 0,
       "ScoreMax": 1,
-      "Gaps": [],
+      "Gaps": [
+        "GeoBreak:已被占用(五郎/卡齐娜/诺艾尔/钟离)",
+        "Geo无人"
+      ],
       "UsedMainForce": true,
       "Reasons": [
-        "职能占位 卡齐娜（GeoBreak）"
+        "职能占位失败 GeoBreak"
       ]
     },
     {
       "Difficulty": "Normal",
       "Act": 6,
-      "Team": [
-        "五郎",
-        "九条裟罗",
-        "伊安珊"
-      ],
-      "Elements": [
-        "Geo",
-        "Electro",
-        "Electro"
-      ],
-      "Score": 1,
+      "Team": [],
+      "Elements": [],
+      "Score": 0,
       "ScoreMax": 1,
-      "Gaps": [],
+      "Gaps": [
+        "GeoBreak:已被占用(五郎/卡齐娜/诺艾尔/钟离)",
+        "Electro无人"
+      ],
       "UsedMainForce": true,
       "Reasons": [
-        "职能占位 五郎（GeoBreak）"
+        "职能占位失败 GeoBreak"
       ]
     },
     {
@@ -561,8 +547,8 @@
       "Difficulty": "Visionary",
       "Act": 3,
       "Team": [
-        "赛诺",
-        "雷电将军"
+        "伊涅芙",
+        "克洛琳德"
       ],
       "Elements": [
         "Electro",
@@ -578,10 +564,10 @@
       "Difficulty": "Visionary",
       "Act": 5,
       "Team": [
-        "荒泷一斗",
-        "云堇",
-        "丽莎",
-        "久岐忍"
+        "千织",
+        "叶洛亚",
+        "八重神子",
+        "刻晴"
       ],
       "Elements": [
         "Geo",
@@ -599,8 +585,8 @@
       "Difficulty": "Hard",
       "Act": 3,
       "Team": [
-        "赛诺",
-        "雷电将军"
+        "旅行者",
+        "欧洛伦"
       ],
       "Elements": [
         "Electro",
@@ -616,10 +602,10 @@
       "Difficulty": "Hard",
       "Act": 5,
       "Team": [
-        "荒泷一斗",
-        "云堇",
-        "丽莎",
-        "久岐忍"
+        "莉奈娅",
+        "阿贝多",
+        "瓦列里",
+        "瓦雷莎"
       ],
       "Elements": [
         "Geo",
@@ -637,8 +623,8 @@
       "Difficulty": "Normal",
       "Act": 3,
       "Team": [
-        "赛诺",
-        "雷电将军"
+        "菲谢尔",
+        "赛索斯"
       ],
       "Elements": [
         "Electro",
@@ -654,37 +640,31 @@
       "Difficulty": "Normal",
       "Act": 5,
       "Team": [
-        "荒泷一斗",
-        "云堇",
-        "丽莎",
-        "久岐忍"
+        "阿罗夏",
+        "雷泽"
       ],
       "Elements": [
-        "Geo",
-        "Geo",
         "Electro",
         "Electro"
       ],
-      "Score": 2,
+      "Score": 1,
       "ScoreMax": 2,
-      "Gaps": [],
+      "Gaps": [
+        "Geo无人"
+      ],
       "UsedMainForce": true,
       "Reasons": []
     },
     {
       "Difficulty": "Easy",
       "Act": 3,
-      "Team": [
-        "赛诺",
-        "雷电将军"
-      ],
-      "Elements": [
-        "Electro",
-        "Electro"
-      ],
-      "Score": 1,
+      "Team": [],
+      "Elements": [],
+      "Score": 0,
       "ScoreMax": 1,
-      "Gaps": [],
+      "Gaps": [
+        "Electro无人"
+      ],
       "UsedMainForce": true,
       "Reasons": []
     }
