@@ -491,6 +491,32 @@ internal static class SelfTest
             QuantData.ElementOf("珊瑚宫心海") == "Hydro" && TeamSolver.HasRole("珊瑚宫心海", "Healer"),
             $"珊瑚宫心海 元素={QuantData.ElementOf("珊瑚宫心海")} 治疗={TeamSolver.HasRole("珊瑚宫心海", "Healer")}");
 
+        // BetterGI OCR 对齐（审计 docs/BETTERGI-OCR-AUDIT.md 的 D1/D2）
+        OcrTextPipeline.LoadFromPolicy(AppPaths.Data("decision-policy.json"));
+        var rawBoxes = new[]
+        {
+            new OcrTextPipeline.Box { X = 300, Y = 100, Score = 0.92, Text = "第二张" },
+            new OcrTextPipeline.Box { X = 100, Y = 102, Score = 0.95, Text = "第一张" },
+            new OcrTextPipeline.Box { X = 500, Y = 99,  Score = 0.90, Text = "第三张" },
+            new OcrTextPipeline.Box { X = 100, Y = 300, Score = 0.40, Text = "低分噪声" },
+            new OcrTextPipeline.Box { X = 120, Y = 305, Score = 0.88, Text = "下一排" },
+        };
+        var ordered = OcrTextPipeline.ToLines(rawBoxes);
+        Check("OCR·置信度过滤（BetterGI DropScore）",
+            !ordered.Contains("低分噪声") && ordered.Count == 4,
+            $"阈值 {OcrTextPipeline.DropScore:0.00}｜保留 {ordered.Count} 条：{string.Join("/", ordered)}");
+        Check("OCR·同排按 X 排序（Y 差<10px 归并）",
+            ordered.Count >= 3 && ordered[0] == "第一张" && ordered[1] == "第二张" && ordered[2] == "第三张",
+            string.Join(" → ", ordered));
+        // 不同排不能被合并：Y 差远大于容差时保持 Y 顺序
+        var twoRows = OcrTextPipeline.OrderSameLine(new[]
+        {
+            new OcrTextPipeline.Box { X = 900, Y = 400, Text = "下" },
+            new OcrTextPipeline.Box { X = 900, Y = 100, Text = "上" },
+        });
+        Check("OCR·跨排不误合并", twoRows.Count == 2 && twoRows[0].Text == "上" && twoRows[1].Text == "下",
+            string.Join(" → ", twoRows.Select(b => b.Text)));
+
         // 决策内容必须来自数据，不硬编码：策略加载、难度权重、触发词一致、别名、幕数数据驱动
         DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
         Check("策略·来自数据文件", DecisionPolicy.Source.Contains("decision-policy"),
