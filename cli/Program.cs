@@ -35,7 +35,7 @@ internal static class Program
                 return SeasonRegistry.RunCli();
 
             case "--llm-probe":
-                return LlmAdvisor.RunProbe(AppPaths.Data("llm.json"), Array.IndexOf(args, "--dry") >= 0);
+                return LlmAdvisor.RunProbe(AppPaths.Data("llm.json"), Array.IndexOf(args, "--dry") >= 0, Array.IndexOf(args, "--verify") >= 0);
 
             case "--playbook":
                 return Playbook.RunCli(Opt(args, "--out"));
@@ -64,6 +64,9 @@ internal static class Program
 
             case "--ocr":
                 return OcrTextPipeline.RunCli();
+
+            case "--ocr-tuning":
+                return OcrTuning.RunCli();
 
             case "--decide":
                 {
@@ -113,6 +116,7 @@ internal static class Program
         Step("量化决策", () => QuantScorer.RunCli(0, null, null));
         Step("通用最优配队（全赛季全难度）", () => TeamSolver.RunCli("all", 0, null, 0, null));
         Step("跨幕全局分配（当前赛季）", () => GlobalAllocator.RunCli(0, null, null));
+        Step("OCR 引擎调优", OcrTuning.RunCli);
         Step("决策编排三态", () => DecisionOrchestrator.RunCli(0, null));
         // 真实调用模型（enabled 时）：这是 flow 之前**完全没覆盖**的一环。
         // 语义是"可观测不阻断"：拿不到就 WARN，退出码仍 0（云端网络/配额抖动不该判全流程失败）。
