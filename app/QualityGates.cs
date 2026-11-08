@@ -136,6 +136,72 @@ internal static class QualityGates
         }
     }
 
+    /// <summary>
+    /// 量化决策的判据（把 `--quant-decide` 从"能算"升级为"可判对错"）。
+    ///
+    /// 审计背景（docs/FLOW.md §3）：`--quant-decide` 属 B 层——能算出分数/缺口/来源，
+    /// 但没有任何断言保证分数自洽。这里补 6 条可判真的性质：
+    ///   Q1 分数 ∈ [0,1]
+    ///   Q2 置信度 ∈ [0,1]
+    ///   Q3 缺口与覆盖互补：Gaps 里的元素，其 Candidate.Members 必须为空
+    ///   Q4 抗性分可重算：ResPart == Σ(need×factor) / Σneed（无需求时为 0）
+    ///   Q5 知识分一致：KnowPart>0 ⟺ 该幕存在云端已验证知识
+    ///   Q6 通用池降置信：PoolFull=false ⇒ Confidence ≤ 上限
+    /// </summary>
+    public static void CheckQuantDecision(QuantScorer.Result r, Report into)
+    {
+        if (r == null) { into.Violations.Add(new Violation { Gate = "Q0", Where = "-", Detail = "无量化结果" }); return; }
+        var where = $"第{r.Act}幕";
+        into.Checked++;
+
+        // Q1 / Q2 取值范围
+        if (r.Score < -1e-9 || r.Score > 1 + 1e-9)
+            into.Violations.Add(new Violation { Gate = "Q1", Where = where, Detail = $"分数越界 {r.Score:0.000}" });
+        if (r.Confidence < -1e-9 || r.Confidence > 1 + 1e-9)
+            into.Violations.Add(new Violation { Gate = "Q2", Where = where, Detail = $"置信度越界 {r.Confidence:0.000}" });
+
+        // Q3 缺口与覆盖必须互补（不能"既说缺又有人覆盖"或反之）
+        foreach (var gap in r.Gaps)
+        {
+            var element = gap.Split('(')[0].Trim();
+            var cand = r.Candidates.FirstOrDefault(c => c.Element == element);
+            if (cand != null && cand.Members.Count > 0)
+                into.Violations.Add(new Violation
+                {
+                    Gate = "Q3", Where = where,
+                    Detail = $"缺口声称缺 {element}，但候选里已有 {string.Join("/", cand.Members.Take(2))}",
+                });
+        }
+
+        // Q4 抗性分可重算
+        var needTotal = r.Candidates.Sum(c => c.NeedWeight);
+        var covered = r.Candidates.Sum(c => c.NeedWeight * c.CoverFactor);
+        var expectRes = needTotal > 0 ? covered / needTotal : 0;
+        if (Math.Abs(expectRes - r.ResPart) > 1e-6)
+            into.Violations.Add(new Violation
+            {
+                Gate = "Q4", Where = where,
+                Detail = $"抗性分不自洽：报告 {r.ResPart:0.0000}，按候选重算 {expectRes:0.0000}",
+            });
+
+        // Q5 知识分必须与实际已验证知识一致
+        var hasVerified = Playbook.VerifiedFor(r.Act) != null;
+        if ((r.KnowPart > 0) != hasVerified)
+            into.Violations.Add(new Violation
+            {
+                Gate = "Q5", Where = where,
+                Detail = $"知识分 {r.KnowPart:0.00} 与已验证知识存在性({(hasVerified ? "有" : "无")})不一致",
+            });
+
+        // Q6 通用池必须降置信（避免"没有玩家池也给高置信"）
+        if (!r.PoolFull && r.Confidence > DecisionPolicy.ConfidenceOf("genericPoolCap", 0.4) + 1e-9)
+            into.Violations.Add(new Violation
+            {
+                Gate = "Q6", Where = where,
+                Detail = $"通用池置信 {r.Confidence:0.00} 超过上限 {DecisionPolicy.ConfidenceOf("genericPoolCap", 0.4):0.00}",
+            });
+    }
+
     public static int RunCli(int season)
     {
         Cli.Attach();
@@ -170,16 +236,30 @@ internal static class QualityGates
             }
         }
 
+        // 量化决策判据（B 层 → A 层）
+        var quantReport = new Report();
+        var teamForQuant = TeamSolver.AsTeamProfile();
+        foreach (var diff in target.Difficulties)
+        {
+            for (int a = 1; a <= QuantData.MaxAct(diff); a++)
+            {
+                var e = QuantData.Enemy(a, diff);
+                if (e == null || !e.HasAnyData) continue;
+                CheckQuantDecision(QuantScorer.Score(e, teamForQuant, a), quantReport);
+            }
+        }
+
         var allocReport = new Report();
         try { CheckAllocation(GlobalAllocator.Solve(season), allocReport); }
         catch (Exception ex) { allocReport.Violations.Add(new Violation { Gate = "G0", Where = "global-alloc", Detail = ex.GetType().Name }); }
 
-        report.Checked += allocReport.Checked;
+        report.Checked += allocReport.Checked + quantReport.Checked;
         report.Violations.AddRange(allocReport.Violations);
+        report.Violations.AddRange(quantReport.Violations);
 
         if (report.Passed)
         {
-            Cli.Say($"✅ 全部通过：{report.Checked} 项检查无违规（G1 人数 / G2 同难度唯一 / G3 需求覆盖 / G4 治疗 / G5 破盾 / G6 本季可带 / G7 无需求零分）");
+            Cli.Say($"✅ 全部通过：{report.Checked} 项检查无违规（G1 人数 / G2 同难度唯一 / G3 需求覆盖 / G4 治疗 / G5 破盾 / G6 本季可带 / G7 无需求零分 / Q1-Q6 量化自洽）");
             return 0;
         }
 
