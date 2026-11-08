@@ -511,6 +511,26 @@ internal static class SelfTest
                 $"200ms 内不弃权={!early}｜超时后弃权={st.ShouldAbstain}｜累计 {st.MissedMilliseconds}ms");
         }
 
+        // 角色强度：GOOD 多指标量化（圣遗物/天赋/命座/武器），缺字段必须不评分
+        {
+            CharacterStrength.LoadModel(AppPaths.Data("strength-model.json"));
+            var demoRoster = Path.Combine(AppPaths.Dir, "samples", "roster", "strength-demo.json");
+            if (File.Exists(demoRoster))
+            {
+                CharacterStrength.Load(demoRoster, AppPaths.Data("characters.json"));
+                var yelan = CharacterStrength.ScoreOf("夜兰");
+                var zhongli = CharacterStrength.ScoreOf("钟离");
+                Check("强度·GOOD 多指标可量化",
+                    yelan > 0 && zhongli < 0,
+                    $"夜兰={yelan:0.0} 分（6命/天赋6-10-13/专武/圣遗物）；钟离={zhongli:0.0}（-1=缺字段不评分）");
+                var noelle = CharacterStrength.ScoreOf("诺艾尔");
+                Check("强度·命座与圣遗物参与计分",
+                    noelle > 0 && yelan > noelle,
+                    $"诺艾尔（6命但圣遗物弱）={noelle:0.0} < 夜兰={yelan:0.0}");
+            }
+            else Check("强度·GOOD 多指标可量化", false, "缺演示样本 strength-demo.json");
+        }
+
         // 幕级推荐（社区共识 + 已验证知识）必须真的进到选人里，而不是只当提示文本
         {
             CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
