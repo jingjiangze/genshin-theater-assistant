@@ -55,14 +55,17 @@ export BROWSER_PATH="$CHROME"
 FAILED=0
 for BV in "${BVIDS[@]}"; do
   say "→ $BV (every=$EVERY max=$MAX)"
-  if node hd.mjs "$BV" out="../../frames/$BV" every="$EVERY" max="$MAX" 2>&1 | tail -4 | tee -a "$LOG"; then
-    n=$(ls "../../frames/$BV"/*.png 2>/dev/null | wc -l)
+  if node hd.mjs "$BV" out="$REPO/frames/$BV" every="$EVERY" max="$MAX" 2>&1 | tail -4 | tee -a "$LOG"; then
+    n=$(ls "$REPO/frames/$BV"/*.png 2>/dev/null | wc -l)
     say "  帧数: $n"
     [ "$n" -eq 0 ] && { say "  ⚠ 未抽到帧"; FAILED=$((FAILED+1)); }
   else
     say "  ✗ 抽帧失败"; FAILED=$((FAILED+1))
   fi
 done
+
+# 回到仓库根：上面 cd 到了 tools/video-frames，后面的相对路径都基于仓库根
+cd "$REPO" || exit 2
 
 # ── 3) OCR 验证（OcrProbe，Linux 原生）─────────────────────
 say ""
@@ -71,10 +74,10 @@ if dotnet --version >/dev/null 2>&1; then
   dotnet build cli/OcrProbe/OcrProbe.csproj -c Release -o cli/OcrProbe/bin 2>&1 | grep -E "error|Error\(s\)" | head -3 | tee -a "$LOG"
   if [ -d models/v5 ] && [ -d models/v6 ]; then
     for BV in "${BVIDS[@]}"; do
-      [ -d "../../frames/$BV" ] || continue
+      [ -d "$REPO/frames/$BV" ] || continue
       say "→ OCR $BV"
       dotnet cli/OcrProbe/bin/OcrProbe.dll --models models --dir "../../frames/$BV" \
-        --model both --threads 2 --out "../../frames/$BV-ocr.json" 2>&1 | grep -E "平均|非空|相似度|已写" | tee -a "$LOG"
+        --model both --threads 2 --out "$REPO/frames/$BV-ocr.json" 2>&1 | grep -E "平均|非空|相似度|已写" | tee -a "$LOG"
     done
   else
     say "SKIP：无模型（先跑 cloud-ocr.sh）"
@@ -88,7 +91,7 @@ say ""
 say "──── 汇总 ────"
 TOT=0
 for BV in "${BVIDS[@]}"; do
-  n=$(ls "../../frames/$BV"/*.png 2>/dev/null | wc -l)
+  n=$(ls "$REPO/frames/$BV"/*.png 2>/dev/null | wc -l)
   say "  $BV: $n 帧"
   TOT=$((TOT+n))
 done
