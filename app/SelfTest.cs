@@ -491,6 +491,15 @@ internal static class SelfTest
             QuantData.ElementOf("珊瑚宫心海") == "Hydro" && TeamSolver.HasRole("珊瑚宫心海", "Healer"),
             $"珊瑚宫心海 元素={QuantData.ElementOf("珊瑚宫心海")} 治疗={TeamSolver.HasRole("珊瑚宫心海", "Healer")}");
 
+        // OCR 引擎调优：参数来自数据；DirectML 是可选增益，缺失必须回退 CPU 而不是崩
+        OcrTuning.Load(AppPaths.Data("decision-policy.json"));
+        Check("OCR·引擎调优参数来自数据",
+            OcrTuning.Source.Contains("decision-policy"),
+            $"来源 {OcrTuning.Source}｜DirectML={OcrTuning.EnableDirectML} device={OcrTuning.DirectMLDeviceId} threads={(OcrTuning.NumThreads == 0 ? "自动" : OcrTuning.NumThreads.ToString())}");
+        Check("OCR·执行提供器状态可读（CPU 兜底）",
+            !string.IsNullOrEmpty(OcrTuning.EpStatus),
+            $"EP={OcrTuning.EpStatus}");
+
         // BetterGI OCR 对齐（审计 docs/BETTERGI-OCR-AUDIT.md 的 D1/D2）
         OcrTextPipeline.LoadFromPolicy(AppPaths.Data("decision-policy.json"));
         var rawBoxes = new[]
