@@ -33,6 +33,9 @@ internal static class Program
         var threads = int.TryParse(Opt("--threads", "0"), out var th) ? th : 0;
         var limit = int.TryParse(Opt("--limit", "0"), out var lm) ? lm : 0;
         var outPath = Opt("--out");
+        // --by-kind：按界面类型选模型（30 帧实验发现 v6 强于角色名、v5 强于数字）
+        var byKind = Flag("--by-kind");
+        var charsPath = Opt("--chars", "data/characters.json");
 
         if (Flag("--help") || (dir == null && !Flag("--version")))
         {
@@ -143,6 +146,64 @@ internal static class Program
             Console.WriteLine($"[{name}] 平均 {avg:0.0} ms/帧｜P95 {p95:0.0} ms｜非空 {nonEmpty}/{acc.Count}（{100.0 * nonEmpty / Math.Max(1, acc.Count):0.0}%）");
         }
 
+        // ── 按界面类型选模型：用"关键字段命中"判断哪种策略更好 ──
+        if (byKind && engines.Count == 2)
+        {
+            var dic = LoadCharacterNames(charsPath);
+            Console.WriteLine();
+            Console.WriteLine($"[按界面选模型] 角色名词典 {dic.Count} 个（来自 {charsPath}）");
+
+            var rows = new List<(string File, string Kind, int V5Name, int V6Name, int PickName,
+                                 int V5Num, int V6Num, int PickNum, double PickMs, string Picked)>();
+            foreach (var f in files)
+            {
+                using var bmp = SKBitmap.Decode(f);
+                if (bmp == null) continue;
+
+                var r5 = engines[0].Ocr.Detect(bmp, RapidOcrOptions.Default);
+                var r6 = engines[1].Ocr.Detect(bmp, RapidOcrOptions.PPOCRv6);
+                var t5 = string.Join("\n", r5.TextBlocks.Select(b => b.Text).Where(x => !string.IsNullOrWhiteSpace(x)));
+                var t6 = string.Join("\n", r6.TextBlocks.Select(b => b.Text).Where(x => !string.IsNullOrWhiteSpace(x)));
+
+                // 界面类型用**两模型并集**判定，避免偏向任一模型
+                var kind = GuessKind(t5 + "\n" + t6);
+                // 选模型：角色相关界面要角色名（v6 强）→ v6；战斗 HUD 要数字（v5 强）→ v5
+                var pickV6 = kind is "team" or "select" or "unknown";
+                var picked = pickV6 ? "v6" : "v5";
+                var pickedText = pickV6 ? t6 : t5;
+                var pickedMs = pickV6 ? r6.DetectTime : r5.DetectTime;
+                if (pickedMs <= 0) pickedMs = -1;
+
+                rows.Add((Path.GetFileName(f), kind,
+                    CountNames(t5, dic), CountNames(t6, dic), CountNames(pickedText, dic),
+                    CountNumbers(t5), CountNumbers(t6), CountNumbers(pickedText),
+                    pickedMs, picked));
+            }
+
+            if (rows.Count > 0)
+            {
+                double Sum(Func<(string File, string Kind, int V5Name, int V6Name, int PickName, int V5Num, int V6Num, int PickNum, double PickMs, string Picked), int> sel)
+                    => rows.Sum(sel);
+                Console.WriteLine();
+                Console.WriteLine("| 策略 | 角色名命中 | 数字命中 |");
+                Console.WriteLine("|---|---:|---:|");
+                Console.WriteLine($"| 全 v5-mobile | {Sum(r => r.V5Name)} | {Sum(r => r.V5Num)} |");
+                Console.WriteLine($"| 全 v6-small | {Sum(r => r.V6Name)} | {Sum(r => r.V6Num)} |");
+                Console.WriteLine($"| **按界面选** | **{Sum(r => r.PickName)}** | **{Sum(r => r.PickNum)}** |");
+
+                var bestName = Math.Max(rows.Sum(r => r.V5Name), rows.Sum(r => r.V6Name));
+                var bestNum = Math.Max(rows.Sum(r => r.V5Num), rows.Sum(r => r.V6Num));
+                var pickName = rows.Sum(r => r.PickName);
+                var pickNum = rows.Sum(r => r.PickNum);
+                Console.WriteLine();
+                Console.WriteLine($"角色名最优单模型 {bestName} → 按界面 {pickName}（{(pickName >= bestName ? "不劣 ✅" : "更差 ❌")}）");
+                Console.WriteLine($"数字最优单模型 {bestNum} → 按界面 {pickNum}（{(pickNum >= bestNum ? "不劣 ✅" : "更差 ❌")}）");
+
+                foreach (var g in rows.GroupBy(r => r.Kind))
+                    Console.WriteLine($"  {g.Key}: {g.Count()} 帧（选 {(g.Count(x => x.Picked == "v6") > g.Count() / 2 ? "v6" : "v5")}）");
+            }
+        }
+
         // 交叉验证：两个引擎的**字符级相似度**（"跑其他模型"的核心产出）
         //
         // 注意：不能用"整段文本完全相等"当一致率——三张图的输出都是几十行，
@@ -232,6 +293,50 @@ internal static class Program
         }
         catch { }
         return 80;
+    }
+
+    /// <summary>从 characters.json 的 zhNames 取角色中文名词典。</summary>
+    private static HashSet<string> LoadCharacterNames(string path)
+    {
+        var set = new HashSet<string>(StringComparer.Ordinal);
+        try
+        {
+            if (!File.Exists(path)) return set;
+            using var doc = System.Text.Json.JsonDocument.Parse(File.ReadAllText(path));
+            if (doc.RootElement.TryGetProperty("zhNames", out var zh) && zh.ValueKind == System.Text.Json.JsonValueKind.Object)
+                foreach (var e in zh.EnumerateObject())
+                    if (e.Value.ValueKind == System.Text.Json.JsonValueKind.String && e.Value.GetString() is { Length: > 1 } s)
+                        set.Add(s);
+        }
+        catch { }
+        return set;
+    }
+
+    /// <summary>界面类型判定：只用文本特征，不依赖 Windows 侧代码。</summary>
+    private static string GuessKind(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return "unknown";
+        if (text.Contains("队伍配置") || text.Contains("待命角色") || text.Contains("已选开幕")
+            || text.Contains("编入") || text.Contains("试用角色")) return "team";
+        if (text.Contains("可选角色") || text.Contains("邀请助演")) return "select";
+        if (text.Contains("挑战限时") || text.Contains("怒气") || text.Contains("秒") && text.Contains("/"))
+            return "battle";
+        if (text.Contains("幻剧之花") || text.Contains("祝福等级") || text.Contains("辉彩祝福")) return "buff";
+        return "unknown";
+    }
+
+    private static int CountNames(string text, HashSet<string> dic)
+    {
+        if (string.IsNullOrEmpty(text)) return 0;
+        int n = 0;
+        foreach (var name in dic) if (text.Contains(name, StringComparison.Ordinal)) n++;
+        return n;
+    }
+
+    private static int CountNumbers(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return 0;
+        return System.Text.RegularExpressions.Regex.Matches(text, @"\d+\s*/\s*\d+|\d+\.\d+|\d{2,}").Count;
     }
 
     private static string Norm(string s) =>
