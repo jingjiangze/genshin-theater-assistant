@@ -164,6 +164,32 @@ jobs:
             frames/ingest/no_text_videos.txt
           retention-days: 30
 
+      # 优选纯净源：把本轮候选并入 data/pure-sources.json（累积，不覆盖历史）
+      # 目的："视频不要断"——清单稳定增长，后续采集/抽帧优先用它。
+      - name: 优选纯净源清单（高难 + 当期 + 纯净度）
+        if: always()
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $sum = Get-ChildItem frames/ingest -Recurse -Filter ingest-summary.json -ErrorAction SilentlyContinue |
+                 Sort-Object LastWriteTime -Descending | Select-Object -First 1
+          if (-not $sum) { Write-Host "跳过：未找到 ingest-summary.json"; exit 0 }
+          Write-Host "使用批次: $($sum.FullName)"
+          node tools/video-frames/pick.mjs $sum.FullName --out data/pure-sources.json --top 30
+          if (Test-Path data/pure-sources.json) {
+            $j = Get-Content data/pure-sources.json -Raw | ConvertFrom-Json
+            Write-Host "清单共 $($j.total) 条（本轮新增 $($j.thisRun.added)，更新 $($j.thisRun.updated)）"
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 优选纯净源清单"
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "共 $($j.total) 条；本轮新增 $($j.thisRun.added)"
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ""
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 分 | 纯净度 | 难度 | 时长 | BV | 标题 |"
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|---|---:|---|---|"
+            foreach ($s in ($j.sources | Select-Object -First 12)) {
+              $ttl = if ($s.title) { $s.title.Substring(0, [Math]::Min(40, $s.title.Length)) } else { "" }
+              Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| $($s.score) | $($s.purity) | $($s.difficulty) | $([int]($s.duration/60))分 | $($s.bv) | $ttl |"
+            }
+          }
+
       - name: 写入长期数据账本
         if: success()
         shell: bash
