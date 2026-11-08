@@ -682,6 +682,17 @@ internal static class SelfTest
         Check("全局分配·无需求幕不占主力",
             alloc.Assigns.Any(a => !a.UsedMainForce), alloc.Notes.FirstOrDefault() ?? "");
 
+        // 赛季时效性：当前赛季数据不能过期（过期则所有量化都建立在错误基础上）
+        {
+            var cur0 = SeasonRegistry.For(0);
+            var fresh = SeasonRegistry.CheckFreshness(cur0);
+            var fake = SeasonRegistry.CheckFreshness(new SeasonRegistry.SeasonInfo { Season = 99, StartsAt = "2020-01-01T00:00:00Z" });
+            Check("赛季·时效检查可判新旧",
+                !fresh.Stale && fresh.DaysSinceStart >= 0
+                && fake.Stale && fake.Verdict.Contains("过期"),
+                $"当前：{fresh.Verdict}（{fresh.Detail}）｜伪造旧赛季：{fake.Verdict}");
+        }
+
         // 赛季无关：自动发现 data/season*.json，未来赛季丢文件即生效（不改代码/工作流）
         var seasons = SeasonRegistry.Load();
         var cur = SeasonRegistry.For(0);
