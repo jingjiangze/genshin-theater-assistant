@@ -11,8 +11,14 @@ import fs from 'node:fs';
 const exe = process.env.BROWSER_PATH;   // 存在才用（本机 Thorium），否则用 playwright 自带 chromium
 const rawCookie = process.env.BILI_COOKIE || '';
 if (!rawCookie.trim()) {
-  console.error('缺少 BILI_COOKIE 环境变量');
-  process.exit(2);
+  // 无 cookie 时降级而不是退出：未登录只能拿低清流（约 480p），
+  // 但“抽到帧”对流式验证仍有价值（幕次条带 OCR 在 480p 也可用，实测 91.7%）。
+  // 设 HD_REQUIRE_COOKIE=1 则保持原来的硬失败行为。
+  if (process.env.HD_REQUIRE_COOKIE === '1') {
+    console.error('缺少 BILI_COOKIE 环境变量（HD_REQUIRE_COOKIE=1 要求必须提供）');
+    process.exit(2);
+  }
+  console.error('[warn] 无 BILI_COOKIE，将按未登录降级抽取（分辨率较低，约 480p）');
 }
 
 const cookies = rawCookie
