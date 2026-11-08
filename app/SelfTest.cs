@@ -535,6 +535,39 @@ internal static class SelfTest
             gateG7.Violations.Any(v => v.Gate == "G7"),
             string.Join("；", gateG7.Violations.Where(v => v.Gate == "G7").Select(v => v.ToString())));
 
+        // 量化决策自洽判据（Q1-Q6）：把 --quant-decide 从"能算"升级为"可判对错"
+        {
+            var quantGate = new QualityGates.Report();
+            var quantTeam = TeamSolver.AsTeamProfile();
+            int quantActs = 0;
+            foreach (var d in QuantData.Difficulties)
+            {
+                for (int a = 1; a <= QuantData.MaxAct(d); a++)
+                {
+                    var e = QuantData.Enemy(a, d);
+                    if (e == null || !e.HasAnyData) continue;
+                    QualityGates.CheckQuantDecision(QuantScorer.Score(e, quantTeam, a), quantGate);
+                    quantActs++;
+                }
+            }
+            Check("闸门·量化自洽（Q1-Q6）", quantGate.Passed,
+                $"检查 {quantGate.Checked} 项（{quantActs} 幕）｜违规 {quantGate.Violations.Count}"
+                + (quantGate.Violations.Count > 0 ? "｜首个: " + quantGate.Violations[0] : ""));
+        }
+
+        // 判据必须能真的拦住坏数据，否则等于没有判据
+        {
+            var badQuant = new QualityGates.Report();
+            var badResult = new QuantScorer.Result { Act = 3, Score = 1.5, Confidence = -0.2, ResPart = 0.99, KnowPart = 0 };
+            badResult.Candidates.Add(new QuantScorer.Candidate { Element = "Electro", NeedWeight = 1.0, CoverFactor = 0 });
+            QualityGates.CheckQuantDecision(badResult, badQuant);
+            Check("闸门·量化能检出越界与不自洽",
+                badQuant.Violations.Any(v => v.Gate == "Q1")
+                && badQuant.Violations.Any(v => v.Gate == "Q2")
+                && badQuant.Violations.Any(v => v.Gate == "Q4"),
+                string.Join("；", badQuant.Violations.Select(v => v.ToString()).Take(3)));
+        }
+
         // OCR 引擎调优：参数来自数据；DirectML 是可选增益，缺失必须回退 CPU 而不是崩
         OcrTuning.Load(AppPaths.Data("decision-policy.json"));
         Check("OCR·引擎调优参数来自数据",
