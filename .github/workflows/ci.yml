@@ -54,6 +54,12 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: 缓存 OCR 模型（省去每次 ~1 分钟下载）
+        uses: actions/cache@v4
+        with:
+          path: models/v5
+          key: ocr-models-v5-${{ hashFiles(models/fetch-models.ps1) }}
+
       - name: 拉取中文 OCR 模型（带 SHA256 校验）
         shell: pwsh
         run: .\models\fetch-models.ps1
@@ -114,7 +120,10 @@ jobs:
 
       # DirectML 是可选加速：默认构建不带它（保体积/离线）。这里验证"能编译"，
       # 但不把成功当必过——runner 无 GPU，EP 能否真正启用只能在玩家真机验证。
-      - name: 尝试 DirectML 构建（可选，失败不阻断）
+      # 已知上游停更（DirectML 包 1.24.4 vs 依赖 1.29.0），默认不跑，避免每次白耗 1 分钟 + 报错噪音。
+      # 需要验证时手动触发本工作流并勾选检查，或本地 dotnet build -p:DirectMLVersion=...
+      - name: 尝试 DirectML 构建（仅手动触发，失败不阻断）
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         continue-on-error: true
         shell: pwsh
         run: |
