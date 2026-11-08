@@ -112,6 +112,19 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ('```' + [Environment]::NewLine + ($lines -join [Environment]::NewLine) + [Environment]::NewLine + '```')
           if ($p.ExitCode -ne 0) { throw "配队求解失败 exit=$($p.ExitCode)" }
 
+      - name: OCR 执行提供器实测（真实初始化引擎）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $exe = Join-Path (Get-Location) 'dist/TheaterAssistant.exe'
+          $out = Join-Path $env:RUNNER_TEMP 'ocr-ep.txt'
+          $p = Start-Process -FilePath $exe -ArgumentList '--ocr-ep' -Wait -PassThru -RedirectStandardOutput $out
+          $lines = Get-Content $out -Encoding UTF8
+          $lines | Select-Object -First 10
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### OCR 执行提供器"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ('```' + [Environment]::NewLine + ($lines -join [Environment]::NewLine) + [Environment]::NewLine + '```')
+          if ($p.ExitCode -ne 0) { throw "OCR 引擎初始化失败 exit=$($p.ExitCode)" }
+
       - name: 大模型端点配置校验（离线，不联网）
         shell: pwsh
         run: |
