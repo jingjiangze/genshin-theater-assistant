@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "release_id": "rel-6e134f5b2c414c63",
- "created_at": "2026-11-08T17:34:15.219659+00:00",
- "registry_sha256": "15f3272cb30ec964bbe1044af377a2edf53d4610447a539f0a93f1549214e058",
+ "release_id": "rel-945cf002ca4ee1c7",
+ "created_at": "2026-11-08T17:40:47.063805+00:00",
+ "registry_sha256": "1a4fcfcae256753dd96ff5106b30661c81341f170bfd2518045245cc0bf44417",
  "candidates": [
   {
    "candidate_id": "a75fed69d918cc511b233c76135db64f83f767bd60f76be97b0f029e0b29193d",
@@ -62,7 +62,8 @@
       "42497741547-attempt-1",
       "42498352372-attempt-1",
       "42501030488-attempt-1",
-      "42505306624-attempt-1"
+      "42505306624-attempt-1",
+      "42505478504-attempt-1"
      ],
      "video_id": "BV193xp6WErn",
      "platform": "bilibili",
@@ -129,7 +130,7 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 0.5,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-08T17:33:55.848267+00:00"
+    "verified_at": "2026-11-08T17:40:31.235704+00:00"
    }
   },
   {
@@ -190,7 +191,8 @@
       "42497741547-attempt-1",
       "42498352372-attempt-1",
       "42501030488-attempt-1",
-      "42505306624-attempt-1"
+      "42505306624-attempt-1",
+      "42505478504-attempt-1"
      ],
      "video_id": "BV193xp6WErn",
      "platform": "bilibili",
@@ -257,10 +259,10 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 1.0,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-08T17:33:55.848315+00:00"
+    "verified_at": "2026-11-08T17:40:31.235752+00:00"
    }
   }
  ],
- "published_to_main": "2026-11-08T17:34:16.480399+00:00",
- "source": "automation-data/knowledge/releases/rel-6e134f5b2c414c63"
+ "published_to_main": "2026-11-08T17:40:48.180516+00:00",
+ "source": "automation-data/knowledge/releases/rel-945cf002ca4ee1c7"
 }
