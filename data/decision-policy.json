@@ -38,7 +38,8 @@
     "model": 0.5,
     "rule": 0.3,
     "singleNeed": 0.3,
-    "genericPoolCap": 0.4
+    "genericPoolCap": 0.4,
+    "corpus": 0.45
   },
   "aliases": {
     "心海": "珊瑚宫心海",
@@ -71,5 +72,9 @@
     "weightCommunity": 0.1,
     "weightVerified": 0.1,
     "_note": "幕级推荐加成（软信号）。必须小于职能加分（candidateRoleBonus=0.8 / roleBonus=0.15）与需求权重，否则会出现「为了选推荐角色而丢掉治疗/破盾」的回归（本轮实测 G5 违规 7 项）。定位：同分时优先推荐角色，而非覆盖硬约束。"
+  },
+  "abstain": {
+    "abstainAfterSeconds": 10,
+    "_note": "弃权阈值（时间驱动）。实测 tick=1000ms；旧值 3 帧 = 3 秒过于激进——切界面/打 boss/结算贴图时幕次标签消失 5–15 秒是常态。10 秒覆盖常见场景，且与 tick 频率解耦（改扫描间隔不需重调）。"
   }
 }
