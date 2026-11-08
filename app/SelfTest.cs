@@ -792,8 +792,12 @@ internal static class SelfTest
         Check("编排·三态都有可执行指示",
             dOpt.Lines.Count > 0 && dLlm.Lines.Count > 0 && dNone.Lines.Count > 0,
             $"第{actNoVerified}幕｜选项={dOpt.Source} 模型={dLlm.Source} 兜底={dNone.Source}");
+        // 兜底来源可以是 ○语料（语料库有内容时优先于 ·规则）或 ·规则（语料库空时）——
+        // 两者都正确，硬写 "·规则" 会在补上语料层后误报（本轮踩过）。
         Check("编排·来源标记正确",
-            dOpt.Source == "◆量化" && dLlm.Lines.Any(l => l.StartsWith("◇")) && dNone.Source == "·规则",
+            dOpt.Source == "◆量化"
+            && dLlm.Lines.Any(l => l.StartsWith("◇"))
+            && (dNone.Source == "·规则" || dNone.Source == "○语料"),
             $"{dOpt.Source} / {dLlm.Source} / {dNone.Source}");
         Check("编排·随机要素显式标注",
             dNone.Randoms.Count >= 2 && dOpt.Randoms.Any(r => r.Contains("角色池")),
