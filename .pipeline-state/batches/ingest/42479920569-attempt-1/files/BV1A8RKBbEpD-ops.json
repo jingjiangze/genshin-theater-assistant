@@ -1,0 +1,19 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 12:24:53",
+ "bvid": "BV1A8RKBbEpD",
+ "frames": 0,
+ "candidates": 1,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "原神 5 月幻想真境剧诗满花通关实战攻略！全程实录手搓演示，全覆盖：怪物选择优先级｜全阵容满花推荐｜BUFF 选择逻辑｜操作细节拆解｜通关避坑要点平民 / 高配阵容全都有，直接跟着抄就能满花，火水草版本一站式通关指南三连 + 关注，持续更新",
+   "act": 0,
+   "source": "bilibili:BV1A8RKBbEpD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3706925199919121",
+   "creator_name": "溜小溜吖"
+  }
+ ]
+}
