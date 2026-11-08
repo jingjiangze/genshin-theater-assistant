@@ -131,7 +131,28 @@ internal static class DecisionOrchestrator
             d.Provenance.Add("选项未读到 → 交模型裁决（随机要素）");
         }
 
-        // ---- 5) 语料/规则兜底：保证永远有指示 ----
+        // ---- 5a) ○语料兜底：检索攻略语料（GuideIndex）
+        // 审计发现：此前这一层**只在注释里**，代码从未调用 GuideIndex——
+        // 文档写着五级兜底，实际只有四级。这里补上真实检索。
+        if (d.Lines.Count == 0 && GuideIndex.Count > 0 && ctx.Act.HasValue)
+        {
+            try
+            {
+                var q = $"第{ctx.Act}幕 " + (ctx.Enemy?.Boss is { Length: > 0 } ? "" : "");
+                var hits = GuideIndex.Search(q.Trim(), ctx.Act, 2);
+                foreach (var h in hits.Where(x => !string.IsNullOrWhiteSpace(x)).Take(2))
+                    d.Lines.Add("○ " + h.Trim());
+                if (d.Lines.Count > 0)
+                {
+                    d.Source = "○语料";
+                    d.Confidence = Math.Max(d.Confidence, DecisionPolicy.ConfidenceOf("corpus", 0.45));
+                    d.Provenance.Add($"GuideIndex 命中 {hits.Count} 条（语料库 {GuideIndex.Count} 条）");
+                }
+            }
+            catch { }
+        }
+
+        // ---- 5b) 规则兜底：保证永远有指示 ----
         if (d.Lines.Count == 0)
         {
             // 不依赖 TheaterLogic（它带 OCR/WinForms 依赖，会让 Linux CLI 编译不进来）：
