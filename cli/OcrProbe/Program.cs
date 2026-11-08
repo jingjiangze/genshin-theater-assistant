@@ -70,9 +70,13 @@ internal static class Program
                 var det = Path.Combine(modelsRoot, d, "PP-OCRv6_det_small.onnx");
                 var rec = Path.Combine(modelsRoot, d, "PP-OCRv6_rec_small.onnx");
                 var key = Path.Combine(modelsRoot, d, "ppocrv6_small_dict.txt");
+                // RapidOcrNet 的 InitModels(det,cls,rec,keys,op) 不做 null 检查：
+                // clsPath 为 null 会走到 TextClassifier.InitModel("") 抛 FileNotFoundException（云端实测）。
+                // v6 官方也用 PP-OCRv5 的同一个方向分类器，因此回退到 v5 的 cls。
                 var cls = Path.Combine(modelsRoot, d, "ch_PP-LCNet_x0_25_textline_ori_cls_mobile.onnx");
-                if (File.Exists(det) && File.Exists(rec) && File.Exists(key))
-                    sets.Add(("v6-small", det, File.Exists(cls) ? cls : null, rec, key, RapidOcrOptions.PPOCRv6));
+                if (!File.Exists(cls)) cls = Path.Combine(modelsRoot, "v5", "ch_PP-LCNet_x0_25_textline_ori_cls_mobile.onnx");
+                if (File.Exists(det) && File.Exists(rec) && File.Exists(key) && File.Exists(cls))
+                    sets.Add(("v6-small", det, cls, rec, key, RapidOcrOptions.PPOCRv6));
             }
         }
         if (modelArg is "v5" or "both") TryAdd("v5");
