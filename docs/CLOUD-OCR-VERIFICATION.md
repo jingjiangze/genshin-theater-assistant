@@ -74,3 +74,43 @@
 bash tools/ci/cloud-ocr.sh /workspace/theater /workspace/theater/frames-sample
 # 产物：cloud-ocr-v5.json / cloud-ocr-v6.json / cloud-ocr-cross.json / cloud-ocr.log
 ```
+
+## 8. DirectML 的真实可行性（审计结论：当前不可用）
+
+| 项 | 事实 | 来源 |
+|---|---|---|
+| RapidOcrNet 4.2.0 依赖 | `Microsoft.ML.OnnxRuntime` **1.29.0** | 包 nuspec |
+| `Microsoft.ML.OnnxRuntime.DirectML` 最新版 | **1.24.4**（共 45 个版本，停更） | CI 的 NU1102 报错原文 |
+| 因此 | **无法在同一工程内同时满足 1.29.0 与 DirectML** | CI 实测 |
+
+CI 原文：
+```
+error NU1102: Unable to find package Microsoft.ML.OnnxRuntime.DirectML with version (>= 1.29.0)
+  - Found 45 version(s) in nuget.org [ Nearest version: 1.24.4 ]
+```
+
+**不降级 OnnxRuntime 去迁就 DirectML 的原因**：RapidOcrNet 4.2 的取消支持（RunOptions.Terminate 逐 kernel）、
+v6 专用预处理、`DetectBoxes` 等能力都建立在 1.29 上，降级等于回退功能换加速，不划算。
+
+### 代码侧已就绪（等上游即可启用）
+
+`OcrService.BuildSessionOptions()` 反射探测 `AppendExecutionProvider_DML(int)`，CI 实测：
+
+```
+引擎状态: OCR: PP-OCRv5 中文 | CPU(DirectML 不可用: EntryPointNotFoundException)
+执行提供器: CPU(DirectML 不可用: EntryPointNotFoundException)
+DirectML 配置: enable=True device=0 threads=自动
+```
+
+`EntryPointNotFoundException` 精确说明：**托管方法存在、原生库无该 EP** → catch 后回退 CPU，不崩。
+
+上游发布匹配版本后，`dotnet publish -p:DirectMLVersion=1.29.0` 即可零代码改动切到 `DirectML(gpu0)`。
+
+### 替代的加速路径（可行，未做）
+
+CPU 侧仍有空间，且比 DirectML 更可控：
+1. **限制检测输入尺寸**（`RapidOcrOptions.LimitSideLen`，默认 736）——720p 帧可降到 480，速度近似线性提升；
+2. **复用检测结果**：连续帧界面不变时跳过 det，只跑 rec；
+3. 线程数与 `RecMaxDegreeOfParallelism` 调优。
+
+这三项都不引入新依赖，且能在云端量化验证收益，列为下一轮。
