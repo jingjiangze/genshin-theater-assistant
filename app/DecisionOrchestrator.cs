@@ -185,22 +185,26 @@ internal static class DecisionOrchestrator
         foreach (var l in d.Lines) Cli.Say("  " + l);
         foreach (var p in d.Provenance) Cli.Say("  · " + p);
 
-        // 三态验证：有选项 / 无选项 / 有模型输出
+        // 三态验证：有选项 / 仅模型 / 全不可用
+        // 关键：必须挑**没有云端已验证知识**的幕，否则 ★已验证 会盖住模型/规则通道，
+        // 三个分支看起来都"通过"，实际根本没走到（云端审计抓到的假绿）。
+        int actNoVerified = Enumerable.Range(1, 12).FirstOrDefault(a => Playbook.VerifiedFor(a) == null);
+        if (actNoVerified == 0) actNoVerified = 9;
         Cli.Say("");
-        Cli.Say("三态自检（编排器必须每种情况都能出指示）：");
+        Cli.Say($"三态自检（用第{actNoVerified}幕：无已验证知识，确保模型/规则通道被真正走到）：");
         var withOpts = Decide(new Context
         {
-            Act = act > 0 ? act : 3, Difficulty = difficulty, Enemy = enemy, Team = team,
+            Act = act > 0 ? act : actNoVerified, Difficulty = difficulty, Enemy = enemy, Team = team,
             Options = new[] { new ChoiceDecider.Option { Index = 1, Raw = "战斗·普通" }, new ChoiceDecider.Option { Index = 2, Raw = "伙伴" } },
         });
         Cli.Say($"  ① 选项已知 → {withOpts.Source}：{(withOpts.Lines.Count > 0 ? withOpts.Lines[0] : "（空，错误）")}");
         var withLlm = Decide(new Context
         {
-            Act = act > 0 ? act : 3, Difficulty = difficulty, Enemy = enemy, Team = team,
+            Act = act > 0 ? act : actNoVerified, Difficulty = difficulty, Enemy = enemy, Team = team,
             LlmAttempted = true, LlmText = "先上雷把怒气条推满，满条后立刻爆发",
         });
         Cli.Say($"  ② 仅模型可用 → {withLlm.Source}：{(withLlm.Lines.Count > 0 ? withLlm.Lines[0] : "（空，错误）")}");
-        var none = Decide(new Context { Act = act > 0 ? act : 3, Difficulty = difficulty });
+        var none = Decide(new Context { Act = act > 0 ? act : actNoVerified, Difficulty = difficulty });
         Cli.Say($"  ③ 全都不可用 → {none.Source}：{(none.Lines.Count > 0 ? none.Lines[0] : "（空，错误）")}");
         return 0;
     }
