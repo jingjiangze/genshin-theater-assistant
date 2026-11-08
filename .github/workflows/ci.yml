@@ -121,7 +121,7 @@ jobs:
           chcp 65001 > $null
           New-Item -ItemType Directory -Force app/data, app/templates | Out-Null
           Copy-Item data/* app/data -Recurse -Force -ErrorAction SilentlyContinue
-          dotnet build app/TheaterAssistant.csproj -c Release -p:UseDirectML=true -o dist-dml 2>&1 | Select-Object -Last 12
+          dotnet build app/TheaterAssistant.csproj -c Release -p:DirectMLVersion=1.29.0 -o dist-dml 2>&1 | Select-Object -Last 12
           if (Test-Path dist-dml/TheaterAssistant.exe) {
             "DirectML 构建产物: $((Get-Item dist-dml/TheaterAssistant.exe).Length) 字节"
           } else { throw "未产出 exe" }
