@@ -40,6 +40,8 @@ internal static class TeamSolver
 
     /// <summary>幕级推荐加成系数（来自 decision-policy.json 的 curatedPicks）。</summary>
     private static double CuratedPickWeight = 0.10;
+    /// <summary>角色强度权重（来自 strength-model.json 的 teamWeight）。</summary>
+    private static double StrengthWeight = 0.25;
 
     private static int TeamSize => DecisionPolicy.TeamSize;
 
@@ -292,6 +294,15 @@ internal static class TeamSolver
                        || RoleHas(_pool[c].Role, "GeoBreak") || RoleHas(_pool[d].Role, "GeoBreak"))) score += 0.15;
         score -= 0.04 * waste;    // 非需求元素占位的轻惩罚，避免"凑元素"
 
+        // 角色强度加成：GOOD 强度分（0–100）归一后加权。
+        // 这是"最强角色优先给难关"真正生效的地方——此前配队只按元素覆盖打分，
+        // 没有强度项，所谓"最优"实际只是"覆盖最优"。
+        foreach (var i in new[] { a, b, c, d })
+        {
+            var s = CharacterStrength.ScoreOf(_pool[i].Name);
+            if (s > 0) score += StrengthWeight * (s / 100.0);
+        }
+
         // 幕级推荐加成：该幕有社区共识/已验证推荐的角色时优先。
         // 审计背景：此前 verified 知识只作提示文本，选人逻辑完全不知道"这一幕推荐谁"。
         foreach (var i in new[] { a, b, c, d })
@@ -377,6 +388,9 @@ internal static class TeamSolver
         var roster = string.IsNullOrWhiteSpace(rosterPath) ? null : QuantData.Team(rosterPath);
         var rosterNames = roster != null && roster.HasData ? roster.Members.Select(m => m.Name).ToList() : null;
         CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
+        CharacterStrength.LoadModel(AppPaths.Data("strength-model.json"));
+        CharacterStrength.Load(Path.Combine(AppPaths.Dir, rosterPath ?? "roster.json"), AppPaths.Data("characters.json"));
+        Cli.Say($"强度数据: {CharacterStrength.Source}");
         Cli.Say($"幕级推荐: {CuratedPicks.Source}（覆盖 {CuratedPicks.ActCount} 幕）");
         if (!LoadPool(target.Elements, rosterNames)) { Cli.Say("角色池未加载（characters.json/substitutes.json）"); return 2; }
         Cli.Say(TeamSolver.LastPoolNote);
