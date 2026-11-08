@@ -17,10 +17,12 @@ while true; do
   dotnet build cli/TheaterCli.csproj -c Release -o cli/bin >>"$LOG" 2>&1
   b=$?
   if [ $b -ne 0 ]; then say "cycle#$n BUILD FAIL"; sleep "$INTERVAL"; continue; fi
-  out=$($CLI --flow 2>&1)
+  # 用统一 runner 跑完整流程（含质量闸门 / OCR 交叉 / Python 契约），
+  # 而不是只跑 --flow——后者覆盖不到配队闸门与 OCR 模型验证。
+  out=$(bash tools/ci/cloud-all.sh "$REPO" 2>&1)
   code=$?
-  pass=$(echo "$out" | grep -c "全流程通过" || true)
-  say "cycle#$n flow exit=$code pass=$pass $(echo "$out" | grep -E '失败步骤' | head -1)"
+  summary=$(echo "$out" | grep -E "汇总: " | tail -1)
+  say "cycle#$n cloud-all exit=$code $summary"
   echo "$out" > "$REPO/last-flow.log"
   # 第二赛季冒烟：验证"丢 seasonNN.json 即生效"
   $CLI --season-smoke >/tmp/season-smoke.log 2>&1 && say "cycle#$n season-smoke OK" || say "cycle#$n season-smoke FAIL"
