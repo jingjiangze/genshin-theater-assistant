@@ -184,27 +184,11 @@ jobs:
         shell: bash
         run: |
           set +e
-          # 不限定 frames/ingest：采集落盘位置随脚本变化，全仓找最稳
-          # 不用 -printf（其 \n 在 YAML block scalar 里易被写成真实换行而撑破 YAML，
-          # 本轮就这么坏过一次）；改用 ls -t 按修改时间取最新。
           SUM=$(ls -t $(find . -name ingest-summary.json -not -path "*/node_modules/*" 2>/dev/null) 2>/dev/null | head -1)
           if [ -z "$SUM" ]; then echo "跳过：全仓未找到 ingest-summary.json"; exit 0; fi
           echo "使用批次: $SUM"
           node tools/video-frames/pick.mjs "$SUM" --out data/pure-sources.json --top 30 || { echo "pick.mjs 失败（不阻断）"; exit 0; }
-          if [ -f data/pure-sources.json ]; then
-            node -e "
-const j=require('./data/pure-sources.json');
-console.log(\`清单共 \${j.total} 条（本轮新增 \${j.thisRun.added}，更新 \${j.thisRun.updated}）\`);
-const L=[];
-L.push('### 优选纯净源清单','共 '+j.total+' 条；本轮新增 '+j.thisRun.added,'');
-L.push('| 分 | 纯净度 | 难度 | 时长 | BV | 标题 |','|---|---|---|---:|---|---|');
-for(const s of j.sources.slice(0,12)){
-  const t=(s.title||'').slice(0,40);
-  L.push(\`| \${s.score} | \${s.purity} | \${s.difficulty} | \${Math.floor((s.duration||0)/60)}分 | \${s.bv} | \${t} |\`);
-}
-require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, L.join('\\n')+'\\n');
-"
-          fi
+          node tools/video-frames/report.mjs data/pure-sources.json
       # 清单必须提交回仓库才会"累积"（否则只在本次运行的临时工作目录里，下次又从 12 条开始）。
       # [skip ci] 避免自触发 CI（清单更新不需要跑完整构建）。
       - name: 提交优选清单（累积）
