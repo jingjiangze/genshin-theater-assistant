@@ -16,6 +16,9 @@ on:
       - tools/video-frames/search.mjs
   workflow_dispatch:
     inputs:
+      more:
+        description: '额外关键词组，管道分隔（一次跑多组，比连续触发更省）'
+        required: false
       platform:
         description: 'bilibili 或 youtube'
         required: false
@@ -40,7 +43,8 @@ permissions:
 
 concurrency:
   group: video-ingest-${{ github.ref }}
-  cancel-in-progress: true
+  # 审计：连续触发多次筛选时，原 true 会取消前一个（实测 3 轮只成功 1 轮，清单停在 12 条）。
+  cancel-in-progress: false
 
 jobs:
   ingest:
