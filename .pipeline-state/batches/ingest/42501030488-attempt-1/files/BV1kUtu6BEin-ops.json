@@ -1,0 +1,179 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 16:44:43",
+ "bvid": "BV1kUtu6BEin",
+ "frames": 0,
+ "candidates": 17,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "需要选出角色：6幕自备较弱主c+辅助，8幕自备较强主c+辅助",
+   "act": 0,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "需要留的后台角色：月谕2草、9幕水或草",
+   "act": 0,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "buy",
+   "text": "根据剩余角色元素选择对应深渊法师",
+   "act": 0,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "buy",
+   "text": "水雷多选火、草多选水",
+   "act": 0,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 水或草",
+   "act": 9,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 卡维",
+   "act": 1,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 行秋",
+   "act": 1,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 久岐忍",
+   "act": 2,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 卡维",
+   "act": 2,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 哥伦比娅",
+   "act": 2,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 赛诺",
+   "act": 3,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 菈乌玛",
+   "act": 3,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 行秋",
+   "act": 3,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 久岐忍",
+   "act": 5,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 菈乌玛",
+   "act": 5,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 哥伦比娅",
+   "act": 5,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 赛诺",
+   "act": 9,
+   "source": "bilibili:BV1kUtu6BEin",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}

@@ -1,0 +1,16 @@
+[description|] 第一幕:夜兰+皇女+卡琪娜
+[description|] 第二幕:行秋+夜兰
+[description|] 第三幕:钟离+菲爱+雷后台
+[description|] 第四幕:欧洛伦
+[description|] 第五幕:钟离+卡琪娜+皇女+欧洛伦
+[description|] 第六幕:希诺宁+菲爱+后台雷
+[description|] 第七幕:希诺宁+水神+少女+北斗
+[description|] 第八幕:兹少女+诺艾尔
+[description|] 月谕1:兹少
+[description|] 月谕2芭芭拉
+[description|] 第九幕:1+0龙王+后台雷+岩
+[description|] 第十幕:1+0龙王+芙+后台雷+岩
+[chapter|] 角色配置除龙王都0命
+[chapter|] 第一、二幕
+[chapter|] 第三、四幕
+[chapter|] 第六、七幕

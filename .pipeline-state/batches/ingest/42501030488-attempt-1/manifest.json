@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "batch_id": "42501030488-attempt-1",
+  "kind": "ingest",
+  "status": "INGESTED",
+  "workflow": "video-ingest",
+  "run_id": "42501030488",
+  "run_attempt": "1",
+  "source_commit": "67469dfca252d116d7547c2e1fa671f60683452b",
+  "created_at": "2026-11-08T16:45:59.807857+00:00",
+  "file_count": 47,
+  "total_bytes": 99908,
+  "files": [
+    {
+      "path": "BV12hYw6vEzC/meta.json",
+      "size_bytes": 1131,
+      "sha256": "b103a0df278c4b8dd7b3de198d6e49872c0bf1eaf63842e5020d3cac7ce0e85b"
+    },
+    {
+      "path": "BV12hYw6vEzC/subs.txt",
+      "size_bytes": 93,
+      "sha256": "0dcd39760a13b711e9bb8b8ea150091f9fd2c68159c371f57fdfa8275d41edf3"
+    },
+    {
+      "path": "BV12hYw6vEzC-ops.json",
+      "size_bytes": 232,
+      "sha256": "0b5305ebe5d62c57b6294ee63fa39310906316829317ea523b6d1692dd19b2e8"
+    },
+    {
+      "path": "BV172Vd6xEKn/meta.json",
+      "size_bytes": 2051,
+      "sha256": "5eca7564fc37ff1aabde0ef74bc78069905d17cb107ee1bfb7e12733b5806308"
+    },
+    {
+      "path": "BV172Vd6xEKn/subs.txt",
+      "size_bytes": 1915,
+      "sha256": "70ae9afec3770407dacd3afc4bff89c3913f7155020ea1a1fe2cda23e6fdd6f9"
+    },
+    {
+      "path": "BV172Vd6xEKn-ops.json",
+      "size_bytes": 5083,
+      "sha256": "ec6eefeb40b097537216153f3c2a91ddb3756093c6422bc4d064007cd51667f9"
+    },
+    {
+      "path": "BV193xp6WErn/meta.json",
+      "size_bytes": 2093,
+      "sha256": "2fa50b9c9674ce85bb709f09644f6003cdfdf064603e6881eb12572c7f32bc18"
+    },
+    {
+      "path": "BV193xp6WErn/subs.txt",
+      "size_bytes": 1882,
+      "sha256": "ceecdc2ff064cd9f738b87cb44acdb012b43749be58649ca013a0e4c58c4b686"
+    },
+    {
+      "path": "BV193xp6WErn-ops.json",
+      "size_bytes": 4001,
+      "sha256": "8f2b59aa9c14af2440a6655e434d5f89bb1db9b2757beb56ddba19571a0441bd"
+    },
+    {
+      "path": "BV1Bmxp6fEtM/meta.json",
+      "size_bytes": 363,
+      "sha256": "4cbbd921c140193febd606648eddfef4f3a5824109c3f1c0d450e27dcb92c7fa"
+    },
+    {
+      "path": "BV1Bmxp6fEtM/subs.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "BV1Bmxp6fEtM-ops.json",
+      "size_bytes": 232,
+      "sha256": "a193010ecd125266cc7c9fc4bde13142339cdc210c71404ff768ecc62d371da6"
+    },
+    {
+      "path": "BV1R3xp6WEKz/meta.json",
+      "size_bytes": 1618,
+      "sha256": "9ed09d9eb0b46e52ada1bd21ccd328a9b4214bee3d63a8ad4e8458b5f19f716c"
+    },
+    {
+      "path": "BV1R3xp6WEKz/subs.txt",
+      "size_bytes": 1311,
+      "sha256": "f8ec4091173684a12d87cb40e5802ef546cb95f888f209095c655748142feddb"
+    },
+    {
+      "path": "BV1R3xp6WEKz-ops.json",
+      "size_bytes": 4413,
+      "sha256": "041ac45f21d4540f66b316c5eade9189993bb5b3e569939fd27640846baff4a6"
+    },
+    {
+      "path": "BV1TpRKBPEP6/meta.json",
+      "size_bytes": 1161,
+      "sha256": "a1dcf92f7fe60bb86990fc567f8dbad1ad311d7c1d322020038b32f77d65a5da"
+    },
+    {
+      "path": "BV1TpRKBPEP6/subs.txt",
+      "size_bytes": 185,
+      "sha256": "5caf80bcc151f362cbfc116a165335bcda0220106212af3c4dada95758bb055b"
+    },
+    {
+      "path": "BV1TpRKBPEP6-ops.json",
+      "size_bytes": 232,
+      "sha256": "60922a52108a646a3ca2893b6d654c58ab2ff4f2bd40a49ee4a4b372f0f8dd45"
+    },
+    {
+      "path": "BV1WZ4u6zE2A/meta.json",
+      "size_bytes": 1522,
+      "sha256": "63a177da8cab32a9b753d8e6d3d760b300056d850d1b75c61ef45b671aaaf146"
+    },
+    {
+      "path": "BV1WZ4u6zE2A/subs.txt",
+      "size_bytes": 668,
+      "sha256": "3a3b683844396baeeec22b6608360ef4bc0eccb8b08e4c1a5f517226cfc6225f"
+    },
+    {
+      "path": "BV1WZ4u6zE2A-ops.json",
+      "size_bytes": 232,
+      "sha256": "6c0750f0aa48cf852deca8694f2810ce882797adbabd5b8d1411cf0a06cb02a4"
+    },
+    {
+      "path": "BV1b4iLB2ESD/meta.json",
+      "size_bytes": 3472,
+      "sha256": "4e7ec7e4c31f0b1e4a37c4b789925287d32e2ab157b4e4e446e2534546bc2d98"
+    },
+    {
+      "path": "BV1b4iLB2ESD/subs.txt",
+      "size_bytes": 2628,
+      "sha256": "f008ea7db66fb2ef59af5856fb7d4eb8cec0f81b69dd01829dda8f468442a383"
+    },
+    {
+      "path": "BV1b4iLB2ESD-ops.json",
+      "size_bytes": 6100,
+      "sha256": "0293e4a3c58f5e2ed2cb0cdb2f3780ce0afcca9479b00dca5646c57112f372a7"
+    },
+    {
+      "path": "BV1bKABzCENY/meta.json",
+      "size_bytes": 532,
+      "sha256": "5663f79f516bee2a75f2ca1a4ed36779583e38fbddbdf2240ee86c8d04595391"
+    },
+    {
+      "path": "BV1bKABzCENY/subs.txt",
+      "size_bytes": 44,
+      "sha256": "59de577a3176e16ff14c0ac5a8f3db75decad74e993369557570306e18a2a7fa"
+    },
+    {
+      "path": "BV1bKABzCENY-ops.json",
+      "size_bytes": 232,
+      "sha256": "80bfdb31702fc7d9880685c9201fe9f8fd68b1cd345d750e5f3477ecf0b18adb"
+    },
+    {
+      "path": "BV1bPxH6gEgw/meta.json",
+      "size_bytes": 1217,
+      "sha256": "0fc2902113cf317f00bb5f2e201da0637d0a1535289bc66307ba3e96d312dcf6"
+    },
+    {
+      "path": "BV1bPxH6gEgw/subs.txt",
+      "size_bytes": 93,
+      "sha256": "564745c4e04403a1a0484dcfef89cc5a9d597fd3c10caf6408f04c6106877064"
+    },
+    {
+      "path": "BV1bPxH6gEgw-ops.json",
+      "size_bytes": 232,
+      "sha256": "ef1b2cec24df41b695a867aca695b23338df9306e1b55b6b75ead783e0d3a024"
+    },
+    {
+      "path": "BV1hXTv6uECJ/meta.json",
+      "size_bytes": 2070,
+      "sha256": "4aacaa5be1f8194c3789b9ae4f6e0f9afcb39a4047f404892d317f8a1d918b81"
+    },
+    {
+      "path": "BV1hXTv6uECJ/subs.txt",
+      "size_bytes": 1909,
+      "sha256": "071f4a907d6665f98cb4a571021b37aa148a8b4ea21f1bea1dc7705ca0762173"
+    },
+    {
+      "path": "BV1hXTv6uECJ-ops.json",
+      "size_bytes": 4880,
+      "sha256": "aba8bb2f4a7b2ac4fd84b54dc5899a3cb44aeccab96c44b6468b7636a64bfd93"
+    },
+    {
+      "path": "BV1kUtu6BEin/meta.json",
+      "size_bytes": 2172,
+      "sha256": "e1f23dcf4234042301a550db325c6e78da947abb8a3aa03cc2f412b4dd1271d5"
+    },
+    {
+      "path": "BV1kUtu6BEin/subs.txt",
+      "size_bytes": 2023,
+      "sha256": "c3bd6c7926c66ed1281575fc77a11f121def3c4704bb8d5845b9f1fa6f94d8bc"
+    },
+    {
+      "path": "BV1kUtu6BEin-ops.json",
+      "size_bytes": 4466,
+      "sha256": "9347558f660b6fa257ce03b7b9acfb097cbe62296d2db1caee100594daae68d4"
+    },
+    {
+      "path": "BV1na436NENz/meta.json",
+      "size_bytes": 639,
+      "sha256": "374ad1d9671a38d90d6f7084ac33c1249e19ed01544af003cbb3bf4fdbb1c05e"
+    },
+    {
+      "path": "BV1na436NENz/subs.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "BV1na436NENz-ops.json",
+      "size_bytes": 232,
+      "sha256": "d0a5a93b68aeccccdaff96150e0c2b8fe197c04ae50d9bf860b8c353bf1965fb"
+    },
+    {
+      "path": "BV1ppxx6CEDY/meta.json",
+      "size_bytes": 902,
+      "sha256": "62cc3922ebaa8414a67e7b659d5d1ab81c4db2b4e294b175a74462e5f6186b59"
+    },
+    {
+      "path": "BV1ppxx6CEDY/subs.txt",
+      "size_bytes": 292,
+      "sha256": "b5d61ac940d20063515b62a08345d067ff14f7c5a702dd36e76fd3b4977da28a"
+    },
+    {
+      "path": "BV1ppxx6CEDY-ops.json",
+      "size_bytes": 232,
+      "sha256": "65a46794f81860bddf697535ed03e9404a139f1a4997b2f08f0c109fb1c3eb99"
+    },
+    {
+      "path": "BV1saaz6qEbH/meta.json",
+      "size_bytes": 2124,
+      "sha256": "1598ab53f2723e6c4cec7dbedeab875dc3cb1f41c2a1116698960a17245f3f83"
+    },
+    {
+      "path": "BV1saaz6qEbH/subs.txt",
+      "size_bytes": 1963,
+      "sha256": "082ba2194e543463a50306f36c4c7d0fe4e36a8ad73b7b104542babfccc169e1"
+    },
+    {
+      "path": "BV1saaz6qEbH-ops.json",
+      "size_bytes": 4227,
+      "sha256": "da4e12a77dc7d4b74bbea6d91fd48f5d53fb162c6fd768d875d95ceedbdd3e4d"
+    },
+    {
+      "path": "ingest-summary.json",
+      "size_bytes": 26658,
+      "sha256": "fec238061615e347c7792a65ca81ce4c016566cf21dde69670cd75de3a605e06"
+    },
+    {
+      "path": "no_text_videos.txt",
+      "size_bytes": 151,
+      "sha256": "b95f014059c583b1f7053e0af3343911706c8cac393b6c2a998eb9376ff5a423"
+    }
+  ],
+  "promotion": {
+    "eligible": false,
+    "reason": "durable ingestion is not semantic validation or independent ground truth"
+  }
+}

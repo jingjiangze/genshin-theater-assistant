@@ -1,0 +1,239 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 16:44:32",
+ "bvid": "BV1b4iLB2ESD",
+ "frames": 0,
+ "candidates": 23,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "开局：买2蒸发，2挂件",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "选关：龙兽》小宝",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "team",
+   "text": "队伍：克落林德+易安珊",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "action",
+   "text": "开局：尽力蒸发",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "选关：土豆》红烧土豆",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "team",
+   "text": "队伍：炎绯+塔利亚",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "开局：买齐4蒸发",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "team",
+   "text": "队伍：火神+西格文",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "action",
+   "text": "开局：找保证有足够挂件的情况下找大哥组合",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "买感电祝福",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "选关：机械》愚人众",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "team",
+   "text": "队伍：4挂件",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "选关：纯水》其他",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "team",
+   "text": "队伍：炎绯+塔利亚+后台雷",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "开局：买感电2-4级",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "team",
+   "text": "队伍：火神+柯洛琳德+西格文+易安珊",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "开局：买祝福+角色",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "选关：犀牛》红鼬",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "team",
+   "text": "队伍：关键火+水+雷",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "buy",
+   "text": "选关：丘丘王》火法师",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "team",
+   "text": "队伍：月预角色",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "action",
+   "text": "开局：把钱花光",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  },
+  {
+   "kind": "team",
+   "text": "队伍：上强力角色",
+   "act": 0,
+   "source": "bilibili:BV1b4iLB2ESD",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "520175970",
+   "creator_name": "是核善有爱的百渊呀"
+  }
+ ]
+}

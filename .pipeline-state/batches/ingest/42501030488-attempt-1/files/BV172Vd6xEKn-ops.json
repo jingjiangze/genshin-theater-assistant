@@ -1,0 +1,199 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 16:45:42",
+ "bvid": "BV172Vd6xEKn",
+ "frames": 0,
+ "candidates": 19,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "角色需求：3个高练度主C(其中1个去好友那借)+对应辅助、高练香菱、罗莎莉亚、卡齐娜，剩下的尽量选后台挂元素的角色",
+   "act": 0,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "buy",
+   "text": "需要选出角色：5幕罗莎莉亚+卡齐娜",
+   "act": 0,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "需要留的后台角色：3幕冰、7幕高频火或高频冰、10幕破岩盾、月谕需盾奶",
+   "act": 0,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 神里绫华",
+   "act": 1,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 重云",
+   "act": 1,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 诺艾尔",
+   "act": 1,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 香菱",
+   "act": 2,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 重云",
+   "act": 2,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 诺艾尔",
+   "act": 2,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 可莉",
+   "act": 3,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 阿贝多",
+   "act": 3,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第4幕 推荐 神里绫华",
+   "act": 4,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 香菱",
+   "act": 5,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 罗莎莉亚",
+   "act": 5,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 卡齐娜",
+   "act": 5,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 可莉",
+   "act": 6,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 阿贝多",
+   "act": 6,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 罗莎莉亚",
+   "act": 6,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 卡齐娜",
+   "act": 6,
+   "source": "bilibili:BV172Vd6xEKn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}
