@@ -166,16 +166,25 @@ jobs:
 
       # 优选纯净源：把本轮候选并入 data/pure-sources.json（累积，不覆盖历史）
       # 目的："视频不要断"——清单稳定增长，后续采集/抽帧优先用它。
+      # 优选纯净源：把本轮候选并入 data/pure-sources.json（累积，不覆盖历史）
+      # 目的："视频不要断"——清单稳定增长，后续采集/抽帧优先用它。
+      # continue-on-error：优选失败绝不能阻断后面的账本写入（上一轮就因此把账本 skipped 了）。
       - name: 优选纯净源清单（高难 + 当期 + 纯净度）
         if: always()
+        continue-on-error: true
         shell: pwsh
         run: |
           chcp 65001 > $null
-          $sum = Get-ChildItem frames/ingest -Recurse -Filter ingest-summary.json -ErrorAction SilentlyContinue |
+          # 不限定 frames/ingest：采集的实际落盘位置随脚本变化，全仓找最稳
+          $sum = Get-ChildItem -Path . -Recurse -Filter ingest-summary.json -ErrorAction SilentlyContinue |
+                 Where-Object { $_.FullName -notmatch "node_modules" } |
                  Sort-Object LastWriteTime -Descending | Select-Object -First 1
-          if (-not $sum) { Write-Host "跳过：未找到 ingest-summary.json"; exit 0 }
+          if (-not $sum) { Write-Host "跳过：全仓未找到 ingest-summary.json"; exit 0 }
           Write-Host "使用批次: $($sum.FullName)"
+          $j0 = Get-Content $sum.FullName -Raw | ConvertFrom-Json
+          Write-Host "视频数: $($j0.videos.Count)"
           node tools/video-frames/pick.mjs $sum.FullName --out data/pure-sources.json --top 30
+          if ($LASTEXITCODE -ne 0) { Write-Host "pick.mjs 退出码 $LASTEXITCODE（不阻断）"; exit 0 }
           if (Test-Path data/pure-sources.json) {
             $j = Get-Content data/pure-sources.json -Raw | ConvertFrom-Json
             Write-Host "清单共 $($j.total) 条（本轮新增 $($j.thisRun.added)，更新 $($j.thisRun.updated)）"
@@ -189,7 +198,6 @@ jobs:
               Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| $($s.score) | $($s.purity) | $($s.difficulty) | $([int]($s.duration/60))分 | $($s.bv) | $ttl |"
             }
           }
-
       - name: 写入长期数据账本
         if: success()
         shell: bash
