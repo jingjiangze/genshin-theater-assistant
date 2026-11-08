@@ -24,8 +24,23 @@ internal sealed class ActStabilizer
     /// <summary>被拦下的候选次数（诊断用）。</summary>
     public int Rejected { get; private set; }
 
-    /// <summary>连续"没观测到幕次"的帧数（弃权判定用）。</summary>
+    /// <summary>连续"没观测到幕次"的帧数（诊断用）。</summary>
     public int ConsecutiveMisses { get; private set; }
+
+    /// <summary>
+    /// 连续未识别的**持续时间**（毫秒）——弃权判定的真正依据。
+    ///
+    /// 为什么不用"帧数"：帧数阈值依赖 tick 频率。实测本程序 tick=1000ms，
+    /// 3 帧 = 3 秒；但切界面、打 boss、结算贴图时幕次标签消失 5–15 秒是常态，
+    /// 3 秒就弃权会把大量"其实还在同一幕"的画面判成未知。
+    /// 用时间则与 tick 频率解耦，换设备/改扫描间隔都不用重调。
+    /// </summary>
+    public int MissedMilliseconds { get; private set; }
+
+    /// <summary>弃权阈值（毫秒）。默认 10 秒——覆盖"幕次标签短暂消失"的常见场景。</summary>
+    public int AbstainAfterMilliseconds { get; set; } = 10000;
+
+    private DateTime? _firstMissAt;
 
     /// <summary>
     /// 连续未识别帧数达到该阈值时，调用方应**弃权**（明确说"暂不判断"），
@@ -33,7 +48,10 @@ internal sealed class ActStabilizer
     /// </summary>
     public int AbstainAfterMisses { get; set; } = 3;
 
-    public bool ShouldAbstain => ConsecutiveMisses >= Math.Max(1, AbstainAfterMisses);
+    /// <summary>是否该弃权：以**持续时间**为准；帧数阈值保留为辅助上限（防极端慢 tick）。</summary>
+    public bool ShouldAbstain =>
+        MissedMilliseconds >= Math.Max(1000, AbstainAfterMilliseconds)
+        || ConsecutiveMisses >= Math.Max(AbstainAfterMisses, 30);
 
     public int? Committed => _committed;
 
@@ -44,10 +62,14 @@ internal sealed class ActStabilizer
             // 没观测到幕次：保持已确认结果，但**不清零**候选计数 ——
             // 条带 OCR 经常漏一帧，若清零，`9, 漏, 9` 就永远确认不了（CI 断言抓到过）。
             ConsecutiveMisses++;
+            _firstMissAt ??= DateTime.UtcNow;
+            MissedMilliseconds = (int)(DateTime.UtcNow - _firstMissAt.Value).TotalMilliseconds;
             return _committed;
         }
 
         ConsecutiveMisses = 0;
+        MissedMilliseconds = 0;
+        _firstMissAt = null;
         var act = observed.Value;
 
         if (_committed == act)
