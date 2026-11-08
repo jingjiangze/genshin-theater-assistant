@@ -195,6 +195,10 @@ internal static class Program
                 case "--ocr":
                     return OcrTextPipeline.RunCli();
 
+                // OCR 引擎调优（线程 / DirectML EP 实际状态）
+                case "--ocr-tuning":
+                    return OcrTuning.RunCli();
+
                 // 决策策略清单（确认决策内容来自数据而非代码）
                 case "--policy":
                     return DecisionPolicy.RunCli();
@@ -230,7 +234,7 @@ internal static class Program
 
                 // 大模型端点探针：--llm-probe [--dry]（dry=只校验配置不联网）
                 case "--llm-probe":
-                    return LlmAdvisor.RunProbe(AppPaths.Data("llm.json"), args.Any(a => a == "--dry"));
+                    return LlmAdvisor.RunProbe(AppPaths.Data("llm.json"), args.Any(a => a == "--dry"), args.Any(a => a == "--verify"));
 
                 // 资源包 / 更新（MAA 式：程序与资源都能更新）
                 case "--check-update":
