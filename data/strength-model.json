@@ -1,0 +1,18 @@
+{
+  "_note": "角色强度量化权重。数据来自 GOOD v1 标准格式（社区圣遗物扫描器通用，本仓库 roster 已是该格式，此前只用了 key/level）。",
+  "_why": "配队此前只按“元素覆盖+职能”打分，没有角色强度 → 所谓最优是覆盖最优而非通关最优。",
+  "weightArtifact": 0.4,
+  "weightTalent": 0.25,
+  "weightConstellation": 0.2,
+  "weightWeapon": 0.15,
+  "artifactCvWeight": 0.6,
+  "artifactRollWeight": 0.4,
+  "artifactCvFull": 180,
+  "artifactRollFull": 24,
+  "_params": {
+    "artifactCvFull": "CV=暴击率×2+暴击伤害；180 视为满分（约 60/120 双爆）",
+    "artifactRollFull": "有效词条数；24 视为满分（每件 4 有效词条约 6 件）"
+  },
+  "teamWeight": 0.25,
+  "_teamWeightNote": "配队选人时的强度权重。必须小于职能硬约束（candidateRoleBonus 0.8），大于幕级推荐（0.10）——强度是主要软信号，推荐是次要。"
+}
