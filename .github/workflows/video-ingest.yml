@@ -198,6 +198,29 @@ jobs:
               Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| $($s.score) | $($s.purity) | $($s.difficulty) | $([int]($s.duration/60))分 | $($s.bv) | $ttl |"
             }
           }
+      # 清单必须提交回仓库才会"累积"（否则只在本次运行的临时工作目录里，下次又从 12 条开始）。
+      # [skip ci] 避免自触发 CI（清单更新不需要跑完整构建）。
+      - name: 提交优选清单（累积）
+        if: always()
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          if (-not (Test-Path data/pure-sources.json)) { Write-Host "无清单，跳过"; exit 0 }
+          git config user.email "actions@github.com"
+          git config user.name "theater-bot"
+          git add data/pure-sources.json
+          $changed = git status --porcelain data/pure-sources.json
+          if (-not $changed) { Write-Host "清单无变化，跳过提交"; exit 0 }
+          $j = Get-Content data/pure-sources.json -Raw | ConvertFrom-Json
+          git commit -m "chore(sources): 更新优选清单 共$($j.total)条 [skip ci]"
+          for ($i = 1; $i -le 3; $i++) {
+            git pull --rebase --autostash -q origin main 2>$null
+            git push -q origin HEAD:main 2>$null
+            if ($LASTEXITCODE -eq 0) { Write-Host "已推送（尝试 $i）"; exit 0 }
+            Start-Sleep -Seconds 5
+          }
+          Write-Host "推送失败（不阻断）"
+
       - name: 写入长期数据账本
         if: success()
         shell: bash
