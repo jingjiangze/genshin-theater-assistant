@@ -1,0 +1,26 @@
+﻿{
+  "generatedAt": "2026-11-08 15:39:38",
+  "reports": 1,
+  "frames": 6,
+  "truth": 1,
+  "accStable": 100,
+  "accRaw": 100,
+  "jumps": 0,
+  "flips": 1,
+  "avgMs": 3990,
+  "kinds": {
+    "act": 5,
+    "team": 1
+  },
+  "perReport": [
+    {
+      "File": "BV1R3xp6WEKz-replay.json",
+      "Frames": 6,
+      "TruthFrames": 1,
+      "StableRight": 1,
+      "RawRight": 1,
+      "Jumps": 0,
+      "Flips": 1
+    }
+  ]
+}

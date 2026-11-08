@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "label_method": "subtitle_chapter_agreement",
+  "reports": [
+    {
+      "schema_version": 1,
+      "video_id": "BV1R3xp6WEKz",
+      "status": "INSUFFICIENT_EXTERNAL_LABELS",
+      "label_method": "subtitle_chapter_agreement",
+      "prediction_input": "video_frame_ocr_and_templates",
+      "label_sources": [
+        "subtitle",
+        "chapter"
+      ],
+      "independence_scope": "separate text/metadata channels; same-video uploader dependence may remain",
+      "label_count": 0,
+      "frame_count": 6,
+      "coverage": 0.0,
+      "accuracy": null,
+      "raw_accuracy": null,
+      "min_labels_required": 10,
+      "promotion_eligible": false,
+      "promotion_reason": "evaluation output alone cannot promote knowledge; holdout and source diversity gates are not yet complete",
+      "excluded": {
+        "fewer_than_two_independent_channels": 6
+      },
+      "samples": []
+    }
+  ],
+  "total_labels": 0,
+  "externally_evaluated_videos": 0,
+  "promotion_eligible": false
+}
