@@ -514,7 +514,9 @@ internal static class SelfTest
         // 角色强度：GOOD 多指标量化（圣遗物/天赋/命座/武器），缺字段必须不评分
         {
             CharacterStrength.LoadModel(AppPaths.Data("strength-model.json"));
-            var demoRoster = Path.Combine(AppPaths.Dir, "samples", "roster", "strength-demo.json");
+            // 注意：samples/ 在仓库根，不在 exe 目录（CI 里 AppPaths.Dir = dist/）；
+            // data/ 会随包分发，所以演示样本放 data/ 才可靠（本轮踩过）。
+            var demoRoster = AppPaths.Data("roster-strength-demo.json");
             if (File.Exists(demoRoster))
             {
                 CharacterStrength.Load(demoRoster, AppPaths.Data("characters.json"));
