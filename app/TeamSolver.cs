@@ -38,6 +38,9 @@ internal static class TeamSolver
         public bool HasElementNeed;
     }
 
+    /// <summary>幕级推荐加成系数（来自 decision-policy.json 的 curatedPicks）。</summary>
+    private static double CuratedPickWeight = 0.30;
+
     private static int TeamSize => DecisionPolicy.TeamSize;
 
     private static List<Unit> _pool = new();
@@ -243,7 +246,7 @@ internal static class TeamSolver
         for (int c = b + 1; c < n - 1; c++)
         for (int d = c + 1; d < n; d++)
         {
-            var score = Eval(a, b, c, d, plan.Need, needHeal, needBreak, out var cover);
+            var score = Eval(a, b, c, d, plan.Need, needHeal, needBreak, act, out var cover);
             if (score > best)
             {
                 best = score;
@@ -269,7 +272,7 @@ internal static class TeamSolver
     }
 
     private static double Eval(int a, int b, int c, int d,
-        Dictionary<string, double> need, bool needHeal, bool needBreak, out Dictionary<string, int> cover)
+        Dictionary<string, double> need, bool needHeal, bool needBreak, int act, out Dictionary<string, int> cover)
     {
         cover = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         double score = 0;
@@ -288,6 +291,14 @@ internal static class TeamSolver
         if (needBreak && (RoleHas(_pool[a].Role, "GeoBreak") || RoleHas(_pool[b].Role, "GeoBreak")
                        || RoleHas(_pool[c].Role, "GeoBreak") || RoleHas(_pool[d].Role, "GeoBreak"))) score += 0.15;
         score -= 0.04 * waste;    // 非需求元素占位的轻惩罚，避免"凑元素"
+
+        // 幕级推荐加成：该幕有社区共识/已验证推荐的角色时优先。
+        // 审计背景：此前 verified 知识只作提示文本，选人逻辑完全不知道"这一幕推荐谁"。
+        foreach (var i in new[] { a, b, c, d })
+        {
+            var w = CuratedPicks.WeightOf(act, _pool[i].Name);
+            if (w > 0) score += CuratedPickWeight * w;
+        }
         return score;
     }
 
@@ -365,6 +376,8 @@ internal static class TeamSolver
         Playbook.Load(AppPaths.Data("act-playbook.json"));
         var roster = string.IsNullOrWhiteSpace(rosterPath) ? null : QuantData.Team(rosterPath);
         var rosterNames = roster != null && roster.HasData ? roster.Members.Select(m => m.Name).ToList() : null;
+        CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
+        Cli.Say($"幕级推荐: {CuratedPicks.Source}（覆盖 {CuratedPicks.ActCount} 幕）");
         if (!LoadPool(target.Elements, rosterNames)) { Cli.Say("角色池未加载（characters.json/substitutes.json）"); return 2; }
         Cli.Say(TeamSolver.LastPoolNote);
         Cli.Say($"假设池：公开全角色 ∩ 本季元素（{string.Join("/", _seasonElements)}）= **{_pool.Count}** 人；每队 {TeamSize} 人，组合数 C={CombinationCount(_pool.Count, TeamSize)}");
