@@ -1,0 +1,29 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 14:52:47",
+ "bvid": "BV1h6dfBxEZk",
+ "frames": 0,
+ "candidates": 2,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "告别卡手，告别炸缸。誓死效忠锁配队大人.JPG",
+   "act": 0,
+   "source": "bilibili:BV1h6dfBxEZk",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "1959276",
+   "creator_name": "成分复九十八"
+  },
+  {
+   "kind": "buy",
+   "text": "选定分支",
+   "act": 0,
+   "source": "bilibili:BV1h6dfBxEZk",
+   "channel": "chapter",
+   "status": "CANDIDATE",
+   "creator_id": "1959276",
+   "creator_name": "成分复九十八"
+  }
+ ]
+}

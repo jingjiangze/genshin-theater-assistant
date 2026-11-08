@@ -1,0 +1,89 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 14:51:45",
+ "bvid": "BV1T89VBUEcR",
+ "frames": 0,
+ "candidates": 8,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "水晶2左4左，优先2级水晶",
+   "act": 0,
+   "source": "bilibili:BV1T89VBUEcR",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "buy",
+   "text": "冻结2右4级根据自己C的属性选对应增伤",
+   "act": 0,
+   "source": "bilibili:BV1T89VBUEcR",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 遗迹龙兽",
+   "act": 1,
+   "source": "bilibili:BV1T89VBUEcR",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 愚人众风役人",
+   "act": 2,
+   "source": "bilibili:BV1T89VBUEcR",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第4幕 推荐 纳塔龙众",
+   "act": 4,
+   "source": "bilibili:BV1T89VBUEcR",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 流血狗",
+   "act": 5,
+   "source": "bilibili:BV1T89VBUEcR",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 火使徒",
+   "act": 7,
+   "source": "bilibili:BV1T89VBUEcR",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  },
+  {
+   "kind": "act_team",
+   "text": "第9幕 推荐 巡陆艇",
+   "act": 9,
+   "source": "bilibili:BV1T89VBUEcR",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3546904602348393",
+   "creator_name": "甜醋只有干货"
+  }
+ ]
+}

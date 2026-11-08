@@ -1,0 +1,169 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 14:51:11",
+ "bvid": "BV17hxW68Ej9",
+ "frames": 0,
+ "candidates": 16,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "第10幕 高练阵容，建议带奶妈，参考阵容：那维莱特",
+   "act": 0,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 夜兰",
+   "act": 1,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 皇女",
+   "act": 1,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 卡其娜",
+   "act": 1,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 夜兰",
+   "act": 2,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 补伤害的",
+   "act": 2,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 菲林斯",
+   "act": 3,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 爱诺",
+   "act": 3,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 皇女",
+   "act": 3,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 稍微带点伤害",
+   "act": 5,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 菲林斯",
+   "act": 6,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 爱诺",
+   "act": 6,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 莉奈娅",
+   "act": 8,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 芙芙",
+   "act": 8,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 叶洛亚",
+   "act": 8,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 高练阵容",
+   "act": 10,
+   "source": "bilibili:BV17hxW68Ej9",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "362965193",
+   "creator_name": "凝渡_Du"
+  }
+ ]
+}

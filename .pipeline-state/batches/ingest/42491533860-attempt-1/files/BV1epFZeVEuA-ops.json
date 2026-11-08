@@ -1,0 +1,59 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-08 14:50:36",
+ "bvid": "BV1epFZeVEuA",
+ "frames": 0,
+ "candidates": 5,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "1-3幕先捞两人 叠火风/蒸发buff为主",
+   "act": 0,
+   "source": "bilibili:BV1epFZeVEuA",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "451207525",
+   "creator_name": "Tespdom"
+  },
+  {
+   "kind": "action",
+   "text": "第8幕先破次数盾",
+   "act": 0,
+   "source": "bilibili:BV1epFZeVEuA",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "451207525",
+   "creator_name": "Tespdom"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 上温迪控怪",
+   "act": 3,
+   "source": "bilibili:BV1epFZeVEuA",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "451207525",
+   "creator_name": "Tespdom"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 上芙宁娜",
+   "act": 6,
+   "source": "bilibili:BV1epFZeVEuA",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "451207525",
+   "creator_name": "Tespdom"
+  },
+  {
+   "kind": "act_team",
+   "text": "第10幕 推荐 打桩",
+   "act": 10,
+   "source": "bilibili:BV1epFZeVEuA",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "451207525",
+   "creator_name": "Tespdom"
+  }
+ ]
+}
