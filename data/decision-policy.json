@@ -51,6 +51,9 @@
   "ocr": {
     "dropScore": 0.5,
     "sameLineTolerance": 10,
-    "_note": "来自 BetterGI 实测参数：DropScore=0.5f；同排判定 Y 差<10px 按 X 排序"
+    "enableDirectML": true,
+    "directMLDeviceId": 0,
+    "numThreads": 0,
+    "_note": "dropScore/sameLineTolerance 来自 BetterGI 实测；enableDirectML 需引用 Microsoft.ML.OnnxRuntime.DirectML 包才生效，否则反射探测失败自动回退 CPU；numThreads=0 交给 ORT 决定（避免 OCR 占满 CPU 拖慢游戏）"
   }
 }
