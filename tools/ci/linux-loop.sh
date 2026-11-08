@@ -22,6 +22,13 @@ while true; do
   pass=$(echo "$out" | grep -c "全流程通过" || true)
   say "cycle#$n flow exit=$code pass=$pass $(echo "$out" | grep -E '失败步骤' | head -1)"
   echo "$out" > "$REPO/last-flow.log"
+  # 第二赛季冒烟：验证"丢 seasonNN.json 即生效"
+  $CLI --season-smoke >/tmp/season-smoke.log 2>&1 && say "cycle#$n season-smoke OK" || say "cycle#$n season-smoke FAIL"
+  $CLI --ocr >/tmp/ocr.log 2>&1 && say "cycle#$n ocr-pipeline OK" || say "cycle#$n ocr-pipeline FAIL"
+  # 模型端点探针（enabled 时）：可观测，不阻断
+  if [ -n "${LLM_API_KEY:-}" ]; then
+    $CLI --llm-probe >/tmp/llm-probe.log 2>&1 && say "cycle#$n llm OK" || say "cycle#$n llm WARN"
+  fi
   ( cd tools/pipeline && python3 -m unittest >/dev/null 2>&1 && say "cycle#$n python OK" || say "cycle#$n python FAIL" )
   sleep "$INTERVAL"
 done
