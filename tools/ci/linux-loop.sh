@@ -24,6 +24,19 @@ while true; do
   summary=$(echo "$out" | grep -E "汇总: " | tail -1)
   say "cycle#$n cloud-all exit=$code $summary"
   echo "$out" > "$REPO/last-flow.log"
+
+  # 持续视频链路：从优选清单里取前 N 条高难源抽帧（视频不要断）
+  # 只在有 cookie 时跑（B站未登录会 412，脚本内部已判空）
+  if [ -f "$REPO/data/pure-sources.json" ] && [ -n "${BILI_COOKIE:-}" ]; then
+    BVS=$(node -e "const j=require(\"$REPO/data/pure-sources.json\");console.log(j.sources.slice(0,${VIDEO_TOP:-2}).map(s=>s.bv).join(\" \"))" 2>/dev/null)
+    if [ -n "$BVS" ]; then
+      say "cycle#$n 抽帧: $BVS"
+      bash tools/ci/cloud-video.sh "$REPO" $BVS >/tmp/cv.log 2>&1
+      say "cycle#$n cloud-video exit=$? $(grep -E \"合计\" /tmp/cv.log | tail -1)"
+    fi
+  else
+    say "cycle#$n 跳过抽帧（无清单或无 cookie）"
+  fi
   # 第二赛季冒烟：验证"丢 seasonNN.json 即生效"
   # 验证/模拟通道：读 LLM_VERIFY_*，与主通道分离（可用不同模型交叉对照）
   if [ -n "${LLM_VERIFY_API_KEY:-}" ]; then
