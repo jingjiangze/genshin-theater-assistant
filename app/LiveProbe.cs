@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -255,6 +255,54 @@ internal static class LiveProbe
                     lines.Add($"      判定: kind={advice.Kind ?? "unknown"} act={advice.Act?.ToString() ?? "-"} 命中 " +
                               $"{(hits.Count > 0 ? string.Join(", ", hits.Select(h => $"{h.Name}={h.Score}")) : "无")}");
                     Check("判定不为空", !string.IsNullOrWhiteSpace(advice.Header), advice.Header);
+
+                    // ── 全链路 ①：三级编排必须给出带来源标记的指示 ──
+                    // 审计背景：此前真机模拟只验到"识别 + TheaterLogic.Evaluate"为止，
+                    // 没验 DecisionOrchestrator（真正的决策出口），也没验渲染与多帧连续。
+                    try
+                    {
+                        var orch = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
+                        {
+                            Act = advice.Act,
+                            Enemy = advice.Act.HasValue ? QuantData.Enemy(advice.Act.Value, "Lunar") : null,
+                        });
+                        var src = orch.Source ?? "";
+                        Check("编排给出带来源标记的指示",
+                            !string.IsNullOrWhiteSpace(src)
+                            && (src.StartsWith("◆") || src.StartsWith("◇") || src.StartsWith("★") || src.StartsWith("○") || src.StartsWith("·")),
+                            $"来源={src}｜置信度={orch.Confidence:0.00}｜行数={orch.Lines.Count}"
+                            + (orch.Lines.Count > 0 ? "｜首行: " + orch.Lines[0] : ""));
+                    }
+                    catch (Exception ex)
+                    {
+                        Check("编排给出带来源标记的指示", false, ex.GetType().Name + ": " + ex.Message);
+                    }
+
+                    // ── 全链路 ②：连续多帧的时序稳定（前进立即 / 连续未识别按时间弃权）──
+                    try
+                    {
+                        var stab = new ActStabilizer { AbstainAfterMilliseconds = 150 };
+                        stab.Push(3);
+                        var actFirst = stab.Committed;
+                        stab.Push(3);
+                        var stable = stab.Committed;
+                        stab.Push(null);
+                        var noAbstainYet = !stab.ShouldAbstain;
+                        Thread.Sleep(200);
+                        stab.Push(null);
+                        Check("多帧稳定器：稳定时不跳变、超时后弃权",
+                            actFirst == 3 && stable == 3 && noAbstainYet && stab.ShouldAbstain,
+                            $"首帧={actFirst} 稳定={stable} 未超时不弃权={noAbstainYet} 超时后弃权={stab.ShouldAbstain}（累计 {stab.MissedMilliseconds}ms）");
+                    }
+                    catch (Exception ex)
+                    {
+                        Check("多帧稳定器：稳定时不跳变、超时后弃权", false, ex.GetType().Name);
+                    }
+
+                    // 全链路 ③（渲染）：由独立的 --selftest-visual 覆盖（7 断言），
+                    // 不在此重复实现——审计发现不存在 OverlayRenderer 独立类，
+                    // 渲染逻辑内嵌在 OverlayForm；重造会与已有自检重复（优先复用已有设施）。
+                    }
                 }
             }
         }
