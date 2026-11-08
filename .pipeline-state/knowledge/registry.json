@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-08T16:46:52.650662+00:00",
+  "updated_at": "2026-11-08T16:46:54.380014+00:00",
   "candidate_count": 1051,
   "verified_count": 2,
   "candidates": [
@@ -38820,7 +38820,7 @@
         "strategy_success_rate": 1.0,
         "baseline_strategy_success_rate": 0.5,
         "counter_evidence_resolved": true,
-        "verified_at": "2026-11-08T16:11:57.352409+00:00"
+        "verified_at": "2026-11-08T16:46:54.379864+00:00"
       }
     },
     {
@@ -41284,7 +41284,7 @@
         }
       ],
       "independent_creator_count": 2,
-      "status": "PROVISIONAL",
+      "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
@@ -49012,7 +49012,7 @@
         "strategy_success_rate": 1.0,
         "baseline_strategy_success_rate": 1.0,
         "counter_evidence_resolved": true,
-        "verified_at": "2026-11-08T16:11:57.352474+00:00"
+        "verified_at": "2026-11-08T16:46:54.379911+00:00"
       }
     },
     {
