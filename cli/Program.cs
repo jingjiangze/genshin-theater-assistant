@@ -56,6 +56,9 @@ internal static class Program
                 return TeamSolver.RunCli(Opt(args, "--difficulty"), Num(args, "--act", 0),
                     Opt(args, "--out"), Num(args, "--season", 0), Opt(args, "--roster"));
 
+            case "--strength":
+                return CharacterStrength.RunCli(Opt(args, "--roster"));
+
             case "--curated-picks":
                 return CuratedPicks.RunCli();
 
