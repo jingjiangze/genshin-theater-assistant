@@ -14,7 +14,9 @@
 set -uo pipefail
 
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
-FRAMES="$REPO/frames-sample"
+# 默认用入仓的 30 帧真实基线（testdata/ocr-frames）；少于 30 帧的测量会落在噪声里，
+# 实测 3 帧跑出过互相矛盾的结论。frames-sample 仅用于快速冒烟。
+FRAMES="$REPO/testdata/ocr-frames"
 DO_SYNC=0; DO_PUSH=0
 while [ $# -gt 0 ]; do
   case "$1" in
