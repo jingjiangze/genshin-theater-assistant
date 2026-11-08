@@ -37,6 +37,7 @@ internal sealed class OcrService : IDisposable
         {
             try
             {
+                OcrTuning.Load(AppPaths.Data("decision-policy.json"));   // 线程/DirectML 开关来自数据
                 modelsDir = ExtractEmbeddedModels() ?? modelsDir;
                 var v6Det = Path.Combine(modelsDir, "v6", "PP-OCRv6_det_small.onnx");
                 var v6Rec = Path.Combine(modelsDir, "v6", "PP-OCRv6_rec_small.onnx");
@@ -50,20 +51,27 @@ internal sealed class OcrService : IDisposable
 
                 var ocr = new RapidOcrNet.RapidOcr();
 
+                // RapidOcrNet 4.2.0 的 InitModels(..., SessionOptions) 是官方公开入口
+                // （见 BobLd/RapidOcrNet RapidOcr.cs）。这里注入自建 SessionOptions，
+                // 从而：① 线程数可控 ② 若运行时含 DirectML EP 则自动启用 GPU 推理。
+                using var sessionOptions = BuildSessionOptions();
+                var ep = OcrTuning.EpStatus;
+
                 if (File.Exists(v6Det) && File.Exists(v6Rec) && File.Exists(v6Key))
                 {
-                    ocr.InitModels(v6Det, File.Exists(v5Cls) ? v5Cls : null, v6Rec, v6Key);
-                    _status = "OCR: PP-OCRv6 small（中文）";
+                    ocr.InitModels(v6Det, File.Exists(v5Cls) ? v5Cls : null, v6Rec, v6Key, sessionOptions);
+                    _status = $"OCR: PP-OCRv6 small（中文）| {ep}";
                 }
                 else if (File.Exists(v5Det) && File.Exists(v5RecCn) && File.Exists(v5KeyCn))
                 {
-                    ocr.InitModels(v5Det, v5Cls, v5RecCn, v5KeyCn);
-                    _status = "OCR: PP-OCRv5 中文";
+                    ocr.InitModels(v5Det, v5Cls, v5RecCn, v5KeyCn, sessionOptions);
+                    _status = $"OCR: PP-OCRv5 中文 | {ep}";
                 }
                 else
                 {
-                    ocr.InitModels(); // NuGet 自带 latin 模型，只能做链路自检
-                    _status = "OCR: latin（缺中文模型，降级）";
+                    // NuGet 自带 latin 模型，只能做链路自检
+                    ocr.InitModels(sessionOptions);
+                    _status = $"OCR: latin（缺中文模型，降级）| {ep}";
                 }
 
                 _ocr = ocr;
@@ -128,6 +136,50 @@ internal sealed class OcrService : IDisposable
     }
 
     /// <summary>识别整帧文字；未就绪/失败返回 null（调用方按"无 OCR"处理）。</summary>
+    /// <summary>
+    /// 构造 SessionOptions：线程数 + 尝试 DirectML。
+    ///
+    /// DirectML 用**反射**调用 AppendExecutionProvider_DML：
+    ///   · 引用的是普通 Microsoft.ML.OnnxRuntime 时，方法不存在 → 静默回退 CPU（不会编译失败、不会崩）；
+    ///   · 换成 Microsoft.ML.OnnxRuntime.DirectML 包后，同一份代码自动启用 GPU（核显/独显）。
+    /// 这样"加速"是可选增益，不是运行前提，也不破坏单文件离线可用。
+    /// </summary>
+    private static Microsoft.ML.OnnxRuntime.SessionOptions BuildSessionOptions()
+    {
+        var op = new Microsoft.ML.OnnxRuntime.SessionOptions();
+        try
+        {
+            op.GraphOptimizationLevel = Microsoft.ML.OnnxRuntime.GraphOptimizationLevel.ORT_ENABLE_EXTENDED;
+            // 抓屏与游戏同机：限制线程，避免 OCR 把 CPU 占满拖慢游戏本身
+            var threads = OcrTuning.NumThreads;
+            if (threads > 0) { op.IntraOpNumThreads = threads; op.InterOpNumThreads = Math.Max(1, threads / 2); }
+        }
+        catch { }
+
+        OcrTuning.EpStatus = "CPU";
+        if (!OcrTuning.EnableDirectML) return op;
+
+        try
+        {
+            var m = typeof(Microsoft.ML.OnnxRuntime.SessionOptions).GetMethod(
+                "AppendExecutionProvider_DML",
+                new[] { typeof(int) });
+            if (m == null)
+            {
+                OcrTuning.EpStatus = "CPU（当前包无 DirectML EP）";
+                return op;
+            }
+            m.Invoke(op, new object[] { OcrTuning.DirectMLDeviceId });
+            OcrTuning.EpStatus = $"DirectML(gpu{OcrTuning.DirectMLDeviceId})";
+        }
+        catch (Exception ex)
+        {
+            // 驱动/显卡不支持时不要崩，明确降级
+            OcrTuning.EpStatus = "CPU（DirectML 不可用: " + (ex.InnerException?.GetType().Name ?? ex.GetType().Name) + "）";
+        }
+        return op;
+    }
+
     public Task<string> RecognizeAsync(Bitmap frame)
     {
         if (!_ready || _ocr == null) return Task.FromResult<string>(null);
