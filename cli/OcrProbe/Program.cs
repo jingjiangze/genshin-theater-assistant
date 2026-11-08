@@ -143,23 +143,33 @@ internal static class Program
             Console.WriteLine($"[{name}] 平均 {avg:0.0} ms/帧｜P95 {p95:0.0} ms｜非空 {nonEmpty}/{acc.Count}（{100.0 * nonEmpty / Math.Max(1, acc.Count):0.0}%）");
         }
 
-        // 交叉验证：两个引擎文本一致率（"跑其他模型"的核心产出）
+        // 交叉验证：两个引擎的**字符级相似度**（"跑其他模型"的核心产出）
+        //
+        // 注意：不能用"整段文本完全相等"当一致率——三张图的输出都是几十行，
+        // 只要一个标点不同就判整帧不一致，实测得出 0/3 的假象（本轮踩过）。
+        // 改用字符 bigram Jaccard，能反映"实质内容是否相同"。
         if (engines.Count == 2)
         {
-            int same = 0, compare = 0;
+            var sims = new List<(string File, double Sim)>();
             foreach (var r in results)
             {
                 var a = r[engines[0].Name] as string;
                 var b = r[engines[1].Name] as string;
                 if (a == null || b == null) continue;
-                compare++;
-                if (Norm(a) == Norm(b)) same++;
+                sims.Add((r["file"] as string ?? "?", BigramJaccard(a, b)));
             }
-            var rate = compare == 0 ? 0 : 100.0 * same / compare;
-            Console.WriteLine($"[交叉验证] {engines[0].Name} vs {engines[1].Name} 一致 {same}/{compare}（{rate:0.0}%）");
-            Console.WriteLine(rate >= 80
-                ? "  → 两模型一致性良好（差异 <20%），云端可用轻量模型承担回归"
-                : "  → ⚠ 两模型差异较大，云端结论不能直接套用到桌面端，需人工核对差异帧");
+            if (sims.Count > 0)
+            {
+                var avg = sims.Average(x => x.Sim) * 100;
+                var min = sims.MinBy(x => x.Sim);
+                Console.WriteLine($"[交叉验证] {engines[0].Name} vs {engines[1].Name} 字符相似度 平均 {avg:0.0}%（最低 {min.Sim * 100:0.0}% @ {min.File}）");
+                foreach (var s in sims) Console.WriteLine($"    {s.File}: {s.Sim * 100:0.0}%");
+                // 阈值来自 data/decision-policy.cloud.json（minAgreementPct），缺省 80
+                var threshold = ReadAgreementThreshold();
+                Console.WriteLine(avg >= threshold
+                    ? $"  → 两模型一致性 ≥{threshold:0}%，云端可用轻量模型承担回归，结论可外推"
+                    : $"  → ⚠ 相似度 <{threshold:0}%，云端结论不能直接套用桌面端，需人工核对差异帧");
+            }
         }
 
         if (!string.IsNullOrWhiteSpace(outPath))
@@ -186,6 +196,42 @@ internal static class Program
             Console.WriteLine("已写: " + Path.GetFullPath(outPath));
         }
         return 0;
+    }
+
+    /// <summary>字符 bigram 的 Jaccard 相似度（0..1）。忽略空白与标点，避免格式差异放大。</summary>
+    private static double BigramJaccard(string a, string b)
+    {
+        static HashSet<string> Grams(string s)
+        {
+            var t = new string((s ?? "").Where(c => !char.IsWhiteSpace(c) && !char.IsPunctuation(c)).ToArray());
+            var set = new HashSet<string>(StringComparer.Ordinal);
+            for (int i = 0; i + 1 < t.Length; i++) set.Add(t.Substring(i, 2));
+            if (t.Length == 1) set.Add(t);
+            return set;
+        }
+        var A = Grams(a); var B = Grams(b);
+        if (A.Count == 0 && B.Count == 0) return 1.0;
+        if (A.Count == 0 || B.Count == 0) return 0.0;
+        var inter = A.Count(x => B.Contains(x));
+        var union = A.Count + B.Count - inter;
+        return union == 0 ? 1.0 : (double)inter / union;
+    }
+
+    /// <summary>从 data/decision-policy.cloud.json 读一致率阈值；读不到用 80。</summary>
+    private static double ReadAgreementThreshold()
+    {
+        try
+        {
+            var p = Path.Combine("data", "decision-policy.cloud.json");
+            if (!File.Exists(p)) return 80;
+            using var doc = System.Text.Json.JsonDocument.Parse(File.ReadAllText(p));
+            if (doc.RootElement.TryGetProperty("verify", out var v)
+                && v.TryGetProperty("minAgreementPct", out var m)
+                && m.ValueKind == System.Text.Json.JsonValueKind.Number)
+                return m.GetDouble();
+        }
+        catch { }
+        return 80;
     }
 
     private static string Norm(string s) =>
