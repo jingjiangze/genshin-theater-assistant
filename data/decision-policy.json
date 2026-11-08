@@ -68,8 +68,8 @@
     "_note": "幕间优先级（决策层）。Importance = 需求权重 × 难度权重 × 幕权重。幕权重 = (boss ? bossMultiplier : 1) × (1 + levelFactor × 该幕 level 在本难度内的归一位置)。为什么需要：赛季数据里有 boss 标记与递增 level（Lunar 85→100），但此前分配器完全没用，导致第10幕（boss/level100）拿到的角色不比第5幕（非boss/level90）强。"
   },
   "curatedPicks": {
-    "weightCommunity": 0.3,
-    "weightVerified": 0.3,
-    "_note": "幕级推荐加成：该角色在本幕被社区共识/已验证知识推荐时，选人加分（weight × 来源权重和）。此前 verified 知识只当提示文本显示，不参与选人。"
+    "weightCommunity": 0.1,
+    "weightVerified": 0.1,
+    "_note": "幕级推荐加成（软信号）。必须小于职能加分（candidateRoleBonus=0.8 / roleBonus=0.15）与需求权重，否则会出现「为了选推荐角色而丢掉治疗/破盾」的回归（本轮实测 G5 违规 7 项）。定位：同分时优先推荐角色，而非覆盖硬约束。"
   }
 }
