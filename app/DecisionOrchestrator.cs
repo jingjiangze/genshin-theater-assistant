@@ -138,10 +138,15 @@ internal static class DecisionOrchestrator
         {
             try
             {
-                var q = $"第{ctx.Act}幕 " + (ctx.Enemy?.Boss is { Length: > 0 } ? "" : "");
-                var hits = GuideIndex.Search(q.Trim(), ctx.Act, 2);
-                foreach (var h in hits.Where(x => !string.IsNullOrWhiteSpace(x)).Take(2))
-                    d.Lines.Add("○ " + h.Trim());
+                // GuideIndex.Search 返回 List<Hit>，Hit.Entry 才是内容（Title/Text）
+                var hits = GuideIndex.Search($"第{ctx.Act}幕", ctx.Act, 3);
+                foreach (var h in hits.Take(2))
+                {
+                    var line = h?.Entry?.Text;
+                    if (string.IsNullOrWhiteSpace(line)) line = h?.Entry?.Title;
+                    if (!string.IsNullOrWhiteSpace(line))
+                        d.Lines.Add("○ " + (line.Length > 60 ? line[..60] + "…" : line.Trim()));
+                }
                 if (d.Lines.Count > 0)
                 {
                     d.Source = "○语料";
