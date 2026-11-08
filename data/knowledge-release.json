@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "release_id": "rel-fa5442302153a80a",
- "created_at": "2026-11-07T14:18:11.855124+00:00",
- "registry_sha256": "5f3da47628cdd52f87e71678d960e1a4fa5241c245f6d22c4f629cb0e9fb75a1",
+ "release_id": "rel-15f2f266b037e02c",
+ "created_at": "2026-11-08T10:43:38.883597+00:00",
+ "registry_sha256": "03f4378a617f2434aa352fc0afea6f600d0e32210f3ce120dc6d6570b7762ace",
  "candidates": [
   {
    "candidate_id": "a75fed69d918cc511b233c76135db64f83f767bd60f76be97b0f029e0b29193d",
@@ -113,7 +113,7 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 0.5,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-07T14:17:53.831303+00:00"
+    "verified_at": "2026-11-08T10:43:21.143498+00:00"
    }
   },
   {
@@ -225,10 +225,10 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 1.0,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-07T14:17:53.831364+00:00"
+    "verified_at": "2026-11-08T10:43:21.143541+00:00"
    }
   }
  ],
- "published_to_main": "2026-11-07T15:02:36.718703+00:00",
- "source": "automation-data/knowledge/releases/rel-fa5442302153a80a"
+ "published_to_main": "2026-11-08T10:43:40.096565+00:00",
+ "source": "automation-data/knowledge/releases/rel-15f2f266b037e02c"
 }
