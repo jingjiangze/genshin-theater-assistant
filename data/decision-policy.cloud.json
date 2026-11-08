@@ -1,0 +1,18 @@
+{
+  "_note": "云端（Linux/headless）专用决策策略覆盖层。合并顺序：decision-policy.json → decision-policy.cloud.json（本文件）。只写与桌面端不同的项，其余沿用基础策略。",
+  "_why": "云端验证/模拟跑的是**针对云端环境**的配置：无 DirectML（Linux）、4 核共享、内存 8G、型号 EPYC 9254（AVX-512）。桌面端那套（DirectML + 高线程 + v6 大模型）在云上既不生效也可能拖慢。",
+  "ocr": {
+    "dropScore": 0.5,
+    "sameLineTolerance": 10,
+    "enableDirectML": false,
+    "numThreads": 2,
+    "model": "v5",
+    "_modelNote": "云端默认 v5-mobile（22MB，AVX-512 下快）；v6-small 用于交叉验证对比，不作为默认——v6 在 CPU 上更慢且需专用 options。"
+  },
+  "verify": {
+    "_note": "验证/模拟通道与主通道分离：云端用 LLM_VERIFY_* 指向另一模型，避免与主通道抢配额，同时形成交叉对照。",
+    "llmEnvPrefix": "LLM_VERIFY_",
+    "crossCheckOcrModels": ["v5", "v6"],
+    "minAgreementPct": 80
+  }
+}
