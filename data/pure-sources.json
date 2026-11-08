@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-08T15:50:25.064Z",
+  "generatedAt": "2026-11-08T17:33:34.801Z",
   "period": "2026-11",
   "criteria": "纯净度(pure100/likely60/mixed20) + 高难(月谕80/卓越60/困难30) + 当期季节+40 + 文本量 + 时长 + 纯净特征+25；short/excluded 淘汰",
   "total": 12,
   "thisRun": {
-    "candidates": 18,
-    "added": 12,
-    "updated": 0
+    "candidates": 1,
+    "added": 0,
+    "updated": 1
   },
   "sources": [
     {
@@ -18,7 +18,7 @@
       "textLines": 28,
       "score": 292,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-08T15:50:25.064Z"
+      "lastSeenAt": "2026-11-08T17:33:34.801Z"
     },
     {
       "bv": "BV1saaz6qEbH",
