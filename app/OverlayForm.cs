@@ -224,6 +224,10 @@ internal static class Program
                 case "--orchestrate":
                     return DecisionOrchestrator.RunCli((int)OptDouble(args, "--act", 0), Opt(args, "--difficulty"));
 
+                // 角色强度（GOOD 多指标：圣遗物/天赋/命座/武器）
+                case "--strength":
+                    return CharacterStrength.RunCli(Opt(args, "--roster"));
+
                 // 幕级推荐（社区共识 + 已验证知识，供选人加权）
                 case "--curated-picks":
                     return CuratedPicks.RunCli();
