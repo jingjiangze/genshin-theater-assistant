@@ -58,7 +58,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: models/v5
-          key: ocr-models-v5-${{ hashFiles(models/fetch-models.ps1) }}
+          key: ocr-models-v5-${{ hashFiles('models/fetch-models.ps1') }}
 
       - name: 拉取中文 OCR 模型（带 SHA256 校验）
         shell: pwsh
