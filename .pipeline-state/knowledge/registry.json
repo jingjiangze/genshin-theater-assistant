@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-08T10:43:19.627906+00:00",
+  "updated_at": "2026-11-08T10:43:21.143618+00:00",
   "candidate_count": 853,
-  "verified_count": 0,
+  "verified_count": 2,
   "candidates": [
     {
       "candidate_id": "006edc73d1790f2aa6b46962b36dc7916f3b24ba3d5f863b25fda6a3c6343bf9",
@@ -31654,14 +31654,25 @@
         }
       ],
       "independent_creator_count": 2,
-      "status": "PROVISIONAL",
+      "status": "VERIFIED",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
       "group_creator_count": 2,
       "group_video_count": 8,
-      "unique_video_count": 3
+      "unique_video_count": 3,
+      "verification": {
+        "evaluation_id": "eval-strategy-holdout-v1",
+        "holdout_passed": true,
+        "baseline_regression_passed": true,
+        "strategy_gate_passed": true,
+        "holdout_samples": 22,
+        "strategy_success_rate": 1.0,
+        "baseline_strategy_success_rate": 0.5,
+        "counter_evidence_resolved": true,
+        "verified_at": "2026-11-08T10:43:21.143498+00:00"
+      }
     },
     {
       "candidate_id": "a9209c377ccc7c43225763caac9a207ae8f3215fa5ea51c49603c5356c5664e8",
@@ -33671,7 +33682,7 @@
         }
       ],
       "independent_creator_count": 2,
-      "status": "PROVISIONAL",
+      "status": "CANDIDATE",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
@@ -40051,14 +40062,25 @@
         }
       ],
       "independent_creator_count": 2,
-      "status": "PROVISIONAL",
+      "status": "VERIFIED",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
       "role_group": "HydroApplier",
       "group_creator_count": 2,
       "group_video_count": 9,
-      "unique_video_count": 3
+      "unique_video_count": 3,
+      "verification": {
+        "evaluation_id": "eval-strategy-holdout-v1",
+        "holdout_passed": true,
+        "baseline_regression_passed": true,
+        "strategy_gate_passed": true,
+        "holdout_samples": 22,
+        "strategy_success_rate": 1.0,
+        "baseline_strategy_success_rate": 1.0,
+        "counter_evidence_resolved": true,
+        "verified_at": "2026-11-08T10:43:21.143541+00:00"
+      }
     },
     {
       "candidate_id": "d266c47f312f5c574d05262b08d76ce0a656bb86a07ef5759f38f0e1aa08238b",
