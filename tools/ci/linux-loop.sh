@@ -25,6 +25,11 @@ while true; do
   # 第二赛季冒烟：验证"丢 seasonNN.json 即生效"
   $CLI --season-smoke >/tmp/season-smoke.log 2>&1 && say "cycle#$n season-smoke OK" || say "cycle#$n season-smoke FAIL"
   $CLI --ocr >/tmp/ocr.log 2>&1 && say "cycle#$n ocr-pipeline OK" || say "cycle#$n ocr-pipeline FAIL"
+  $CLI --ocr-tuning >/tmp/ocr-tuning.log 2>&1 && say "cycle#$n ocr-tuning $(grep -o 'EP=.*' /tmp/ocr-tuning.log | head -1)" || say "cycle#$n ocr-tuning FAIL"
+  # 验证/模拟通道：读 LLM_VERIFY_*，与主通道分离（可用不同模型交叉对照）
+  if [ -n "${LLM_VERIFY_API_KEY:-}" ]; then
+    $CLI --llm-probe --verify >/tmp/llm-verify.log 2>&1 && say "cycle#$n llm-verify OK" || say "cycle#$n llm-verify WARN"
+  fi
   # 模型端点探针（enabled 时）：可观测，不阻断
   if [ -n "${LLM_API_KEY:-}" ]; then
     $CLI --llm-probe >/tmp/llm-probe.log 2>&1 && say "cycle#$n llm OK" || say "cycle#$n llm WARN"
