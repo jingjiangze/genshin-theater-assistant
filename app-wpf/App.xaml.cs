@@ -18,7 +18,7 @@ namespace TheaterAssistant;
 /// </summary>
 public partial class App : System.Windows.Application
 {
-    private OverlayWindow _overlay;
+    private PetWindow _pet;
     private System.Windows.Forms.NotifyIcon _tray;
 
     internal static string LogDir => Path.Combine(
@@ -47,8 +47,8 @@ public partial class App : System.Windows.Application
             // 决策层初始化（失败不阻塞悬浮窗）
             try { DecisionBridge.Init(); } catch (Exception ex) { LogCrash(ex, "DecisionBridge.Init"); }
 
-            _overlay = new OverlayWindow();
-            _overlay.Show();
+            _pet = new PetWindow();
+            _pet.Show();
             InitTray();
         }
         catch (Exception ex)
@@ -89,12 +89,20 @@ public partial class App : System.Windows.Application
         }
     }
 
+    /// <summary>托盘/菜单入口：展开或收起详细面板（桌宠本体常驻）。</summary>
     private void ToggleOverlay()
     {
-        if (_overlay == null) return;
-        if (_overlay.IsVisible) _overlay.Hide();
-        else _overlay.Show();
+        try
+        {
+            if (_detail != null && _detail.IsVisible) { _detail.Hide(); return; }
+            _detail ??= new OverlayWindow();
+            _detail.Show();
+            _detail.Activate();
+        }
+        catch (Exception ex) { LogCrash(ex, "ToggleOverlay"); }
     }
+
+    private OverlayWindow _detail;
 
     private void OpenSettings()
     {
