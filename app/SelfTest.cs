@@ -1204,10 +1204,11 @@ internal static class SelfTest
 
         Check("渲染尺寸（按 DPI 缩放）", bmp.Width == W && bmp.Height == H, $"{bmp.Width}x{bmp.Height}（DPI {form.DeviceDpi} → 缩放 {dpiScale:0.00}）");
 
-        // 左侧 4px 强调条必须是金色（198,168,96）
-        var accent = bmp.GetPixel(1, bmp.Height / 2);
-        bool accentOk = accent.R > 150 && accent.G > 120 && accent.B < 130;
-        Check("左侧金色强调条", accentOk, $"RGB({accent.R},{accent.G},{accent.B})");
+        // 左侧强调条改成"派蒙天蓝"(126,184,232) 且只占标题行高度（AI 卡片风格常把色条收在标题侧）。
+        // 采样点随之移到竖条实际区域 (1,18)，不再取半高的整条。
+        var accent = bmp.GetPixel(1, 18);
+        bool accentOk = accent.B > 170 && accent.G > 140 && accent.R < 170;
+        Check("左侧天蓝强调条", accentOk, $"RGB({accent.R},{accent.G},{accent.B})");
 
         // 背景应是深色（角落采样，避开强调条）
         var bg = bmp.GetPixel(bmp.Width - 6, bmp.Height - 6);
@@ -1238,26 +1239,29 @@ internal static class SelfTest
         }
         Check("正文有文字像素", body > 150, $"亮点 {body} 个");
 
-        // 溢出检测：最后 4 列里有亮点 = 文字被画到边界外（175% 下曾把"攻略"裁掉）
+        // 溢出检测：最右 4 列里有**文字级亮点** = 文字被画到边界外（175% 下曾把"攻略"裁掉）。
+        // 新样式有圆角描边，描边像素亮度中等（≤120），所以这里用 150 阈值只抓文字；
+        // 同时跳过最外 1 列（圆角弧的抗锯齿会落在那）。
         int edge = 0;
         for (int y = 0; y < bmp.Height; y++)
         {
-            for (int x = bmp.Width - 4; x < bmp.Width; x++)
+            for (int x = Math.Max(0, bmp.Width - 4); x < bmp.Width - 1; x++)
             {
                 var p = bmp.GetPixel(x, y);
-                if (p.R > 120 && p.G > 120 && p.B > 120) edge++;
+                if (p.R > 150 && p.G > 150 && p.B > 150) edge++;
             }
         }
         Check("文字不溢出右边", edge == 0, $"右边 4 列亮点 {edge} 个");
 
-        // 底部热键行也必须在画布内（贴底 2 行不该有亮点）
+        // 底部热键行也必须在画布内（贴底 2 行不该有**文字级**亮点）。
+        // 与右边同理：圆角描边亮度中等，用 150 阈值只抓文字。
         int bottom = 0;
         for (int y = bmp.Height - 2; y < bmp.Height; y++)
         {
             for (int x = 0; x < bmp.Width; x++)
             {
                 var p = bmp.GetPixel(x, y);
-                if (p.R > 120 && p.G > 120 && p.B > 120) bottom++;
+                if (p.R > 150 && p.G > 150 && p.B > 150) bottom++;
             }
         }
         Check("文字不溢出底边", bottom == 0, $"底部 2 行亮点 {bottom} 个");
