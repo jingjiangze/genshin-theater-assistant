@@ -36,6 +36,13 @@ internal static class WpfSelfTest
             log.AppendLine($"{(ok ? "PASS" : "FAIL")}  {name}  {detail}");
         }
 
+        // ⓪ 决策层初始化（自检必须在 App 的 Init 之前跑，所以这里自己先init）
+        //    这样"语料库/角色池/OCR"这些真实数据链路能被断言覆盖，而不是只验窗口能不能画。
+        try { DecisionBridge.Init(); } catch (Exception ex) { LogCrashLite("DecisionBridge.Init", ex); }
+
+        // ①a 语料索引必须真的加载出内容（WPF 版曾漏调 GuideIndex.Load，显示 0 条）
+        Check("语料索引已加载", GuideIndex.Count > 0, $"GuideIndex {GuideIndex.Count} 条");
+
         // ① 资源字典（App.xaml）已在 Application 初始化时加载，能走到这里就说明解析通过
         Check("App 资源字典可解析",
             Application.Current?.Resources.Count > 0,
@@ -115,6 +122,18 @@ internal static class WpfSelfTest
         try { File.WriteAllText(outPath, log.ToString(), new UTF8Encoding(false)); } catch { }
         Console.Write(log.ToString());
         return fail == 0 ? 0 : 1;
+    }
+
+    private static void LogCrashLite(string where, Exception ex)
+    {
+        try
+        {
+            System.IO.Directory.CreateDirectory(App.LogDir);
+            System.IO.File.WriteAllText(
+                System.IO.Path.Combine(App.LogDir, $"crash-{DateTime.Now:yyyyMMdd-HHmmss}.log"),
+                $"{DateTime.Now:O}\r\nSOURCE: {where}\r\n{ex}\r\n");
+        }
+        catch { }
     }
 
     private static BitmapSource Render(Window w, int width, int height)
