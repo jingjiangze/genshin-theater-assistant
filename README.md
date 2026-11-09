@@ -102,6 +102,7 @@ CI 对 42 个 B站攻略视频做了「抽帧 → 逐帧模拟运行 → 对答�
 |---|---|
 | 本赛季完整思路（机制/节奏/首领/手法/决策） | [`docs/SEASON-SUMMARY.md`](docs/SEASON-SUMMARY.md) |
 | 蒸馏出来的判断规程（含弃权规则） | [`docs/experience/SKILL.md`](docs/experience/SKILL.md) |
+| 游戏内遮罩（透明置顶 / 日志面板 / 识别框） | [`docs/MASK-WINDOW.md`](docs/MASK-WINDOW.md) |
 | 所有实测数字与踩坑（20+ 节审计） | [`AUDIT-2026-11-05.md`](AUDIT-2026-11-05.md) |
 | 视频取帧与批量适配 | [`docs/VIDEO-FRAMES.md`](docs/VIDEO-FRAMES.md)、[`templates/README.md`](templates/README.md) |
 | 二次开发 | [`docs/DEV-README.md`](docs/DEV-README.md) |
