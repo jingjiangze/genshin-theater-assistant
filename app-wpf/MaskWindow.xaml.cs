@@ -51,9 +51,11 @@ public partial class MaskWindow : Window
     private static readonly SolidColorBrush InfoBrush = Freeze(Color.FromRgb(0x7E, 0xB8, 0xE8));
     private static readonly SolidColorBrush DecideBrush = Freeze(Color.FromRgb(0xD6, 0xB6, 0x60));
     private static readonly SolidColorBrush OcrBrush = Freeze(Color.FromRgb(0x60, 0xC4, 0xB8));
+    private static readonly SolidColorBrush OkBrush = Freeze(Color.FromRgb(0x5B, 0xD4, 0x8E));
 
     private readonly OverlayLogDocument _logDocument;
     private int _lineCount;
+    private bool _logExpanded;
 
     /// <summary>默认点击穿透（遮罩只看不点）。Ctrl+Alt+L 可切换，用于拖动/排查。</summary>
     public bool ClickThrough { get; private set; } = true;
@@ -106,9 +108,30 @@ public partial class MaskWindow : Window
         ClickThrough = on;
         ApplyWindowStyles();
         FootText.Text = on
-            ? "只读屏幕 · 不注入 · Ctrl+Alt+H 显隐"
+            ? "Ctrl+Alt+M 收起日志"
             : "穿透已关（可拖动/排查）· Ctrl+Alt+L 恢复";
     }
+
+    /// <summary>面板标题跟随玩法（剧诗/深渊…）。</summary>
+    public void SetMode(string displayName)
+    {
+        if (string.IsNullOrWhiteSpace(displayName)) return;
+        TitleText.Text = displayName.EndsWith("助手", StringComparison.Ordinal) ? displayName : displayName + "助手";
+    }
+
+    /// <summary>
+    /// 日志展开/收起。默认收起：只留「现在做」——
+    /// 玩家在打的时候需要的是指令，不是解释；要排查时一键展开。
+    /// </summary>
+    public void SetLogExpanded(bool on)
+    {
+        _logExpanded = on;
+        LogBlock.Visibility = on ? Visibility.Visible : Visibility.Collapsed;
+        Divider.Visibility = on ? Visibility.Visible : Visibility.Collapsed;
+        Chevron.Text = on ? "▾" : "▸";
+    }
+
+    public bool LogExpanded => _logExpanded;
 
     /// <summary>右上角状态胶囊：幕次 + 决策来源（颜色跟来源标记走）。</summary>
     public void SetStatus(string actText, string source, string extra = "")
@@ -120,10 +143,10 @@ public partial class MaskWindow : Window
     }
 
     /// <summary>
-    /// 「现在做」一行（与悬浮窗/桌宠同一句）。空字符串 = 整行收起——
-    /// 弃权时不显示旧指令，避免玩家照着过期的提示操作。
+    /// 「现在做」一行（与悬浮窗/桌宠同一句）。空字符串 = 整行收起。
+    /// warn=true 时用警示色（弃权/异常），避免玩家照着过期指令操作。
     /// </summary>
-    public void SetAdvice(string text)
+    public void SetAdvice(string text, bool warn = false)
     {
         if (string.IsNullOrWhiteSpace(text))
         {
@@ -133,6 +156,9 @@ public partial class MaskWindow : Window
         }
 
         AdviceText.Text = text;
+        AdviceText.Foreground = warn ? WarnBrush : TextBrush;
+        AdviceMark.Foreground = warn ? WarnBrush : OkBrush;
+        AdviceMark.Text = warn ? "⚠" : "▶";
         AdviceRow.Visibility = Visibility.Visible;
     }
 
