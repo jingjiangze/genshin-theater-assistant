@@ -886,46 +886,88 @@ internal sealed class OverlayForm : Form
         g.SmoothingMode = SmoothingMode.AntiAlias;
         g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
+        // ── 卡片：圆角 + 半透明（AI 助手常见形态；派蒙配色偏"淡蓝白 + 金"）──
+        // 用户要求「参考 AI 和派蒙风格」，并明确 exe 体积不用卡死，所以这里用纯 GDI 圆角路径，
+        // 不引额外皮肤库（体积不是瓶颈，但少一个依赖总是好的）。
+        var card = RoundedRect(new Rectangle(0, 0, Width - 1, Height - 1), 10);
         using (var bg = new LinearGradientBrush(ClientRectangle,
-                   Color.FromArgb(26, 30, 42), Color.FromArgb(15, 17, 24), 90f))
+                   Color.FromArgb(240, 30, 36, 52),      // 上：稍亮的深蓝灰
+                   Color.FromArgb(238, 18, 21, 32),      // 下：更深
+                   90f))
         {
-            g.FillRectangle(bg, ClientRectangle);
+            g.FillPath(bg, card);
+        }
+        // 外描边：派蒙天蓝的一点点辉光感
+        using (var edge = new Pen(Color.FromArgb(70, 126, 184, 232), 1f))
+        {
+            g.DrawPath(edge, card);
         }
 
-        // 左侧强调条
-        using (var accent = new SolidBrush(Color.FromArgb(198, 168, 96)))
+        // ── 标题行：左侧星标 + 标题 + 右侧状态 ──
+        using (var accent = new SolidBrush(Color.FromArgb(126, 184, 232)))   // 派蒙天蓝
         {
-            g.FillRectangle(accent, 0, 0, 4, Height);
+            // 四角星（✦）+ 左侧竖条
+            DrawStar(g, accent, 16, 17, 5f);
+            g.FillRectangle(accent, 0, 10, 3, 18);
+        }
+        using (var headBrush = new SolidBrush(Color.FromArgb(232, 240, 255)))  // 淡蓝白
+        {
+            g.DrawString(_header, _titleFont, headBrush, new PointF(30, 10));
+        }
+        using (var sep = new Pen(Color.FromArgb(50, 70, 92, 120)))
+        {
+            g.DrawLine(sep, 14, 34, Width - 14, 34);
         }
 
-        // 顶部状态行
-        using (var headBrush = new SolidBrush(Color.FromArgb(236, 240, 252)))
-        {
-            g.DrawString(_header, _titleFont, headBrush, new PointF(16, 10));
-        }
-        using (var pen = new Pen(Color.FromArgb(52, 58, 76)))
-        {
-            g.DrawLine(pen, 14, 34, Width - 14, 34);
-        }
-
-        // 正文
-        using var bodyBrush2 = new SolidBrush(Color.FromArgb(198, 206, 224));
+        // ── 正文：按来源标记上色（◆量化 / ★已验证 / ◇模型 / ○语料 / ·规则）──
+        // 这样玩家一眼能看出"这条建议有多可信"，而不是一屏同色文字。
         float y = 40;
         foreach (var line in _lines)
         {
+            var color = ColorOfSource(line);
+            using var brush = new SolidBrush(color);
             var size = g.MeasureString(line, _bodyFont, Width - 32);
-            g.DrawString(line, _bodyFont, bodyBrush2, new RectangleF(16, y, Width - 32, size.Height + 4));
-            y += size.Height + 2;
+            g.DrawString(line, _bodyFont, brush, new RectangleF(16, y, Width - 32, size.Height + 4));
+            y += size.Height + 3;
             if (y > Height - 26) break;
         }
 
-        // 底部：热键提示 + 诊断
-        using var footBrush = new SolidBrush(Color.FromArgb(140, 148, 168));
+        // ── 页脚：热键提示（低调色，不与正文抢注意力）──
+        using var footBrush = new SolidBrush(Color.FromArgb(132, 142, 164));
         using var footFont = new Font("Microsoft YaHei UI", 8f);
         var foot = _clickThrough
             ? "Ctrl+Alt+L 拖动 · Ctrl+Alt+H 显隐 · Ctrl+Alt+D 存帧 · Ctrl+Alt+G 攻略"
             : "拖动中（穿透已关）· Ctrl+Alt+L 恢复穿透";
         g.DrawString(foot, footFont, footBrush, new PointF(16, Height - 20));
+    }
+
+    /// <summary>按来源标记决定文字颜色——玩家据此判断可信度。</summary>
+    private static Color ColorOfSource(string line)
+    {
+        if (string.IsNullOrEmpty(line)) return Color.FromArgb(198, 206, 224);
+        return line[0] switch
+        {
+            '◆' => Color.FromArgb(96, 168, 232),    // 量化：天蓝
+            '★' => Color.FromArgb(214, 182, 96),    // 已验证：金
+            '◇' => Color.FromArgb(160, 136, 220),   // 模型：紫
+            '○' => Color.FromArgb(96, 196, 184),    // 语料：青
+            '⚠' => Color.FromArgb(232, 152, 88),    // 告警：橙
+            '·' => Color.FromArgb(150, 158, 178),   // 规则：灰
+            _ => Color.FromArgb(214, 222, 238),     // 普通：近白
+        };
+    }
+
+    /// <summary>画一个四角星（派蒙的星形元素），用两条交叉的菱形近似。</summary>
+    private static void DrawStar(Graphics g, Brush b, float cx, float cy, float r)
+    {
+        var pts = new[]
+        {
+            new PointF(cx, cy - r), new PointF(cx + r * 0.28f, cy - r * 0.28f),
+            new PointF(cx + r, cy), new PointF(cx + r * 0.28f, cy + r * 0.28f),
+            new PointF(cx, cy + r), new PointF(cx - r * 0.28f, cy + r * 0.28f),
+            new PointF(cx - r, cy), new PointF(cx - r * 0.28f, cy - r * 0.28f),
+        };
+        g.FillPolygon(b, pts);
     }
 
     protected override void Dispose(bool disposing)
