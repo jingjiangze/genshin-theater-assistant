@@ -75,8 +75,25 @@ internal static class EnkaClient
             // 超时放宽到 30s：Enka 首次响应可能 5–15s，10s 会抛 TaskCanceledException（实测踩过）。
             // 显式 UseProxy=false：系统里可能残留失效代理（本机 git 曾配过 127.0.0.1:7897），
             // HttpClient 默认走系统代理 → 连不上还以为是网络问题。
-            var handler = new HttpClientHandler { UseProxy = false };
-            // 国内访问 enka.network 实测 25s+（curl 也测得 25s），30s 会随机超时 → 放宽到 60s
+            // 关键：.NET 默认走 "Happy Eyeballs"，IPv6 不通时会先挂很久才回落 IPv4，
+            // 表现为"curl 25s 能拿到、HttpClient 60s 超时"（实测踩过）。
+            // 这里用 SocketsHttpHandler 的 ConnectCallback 强制 IPv4，绕过该问题。
+            var handler = new System.Net.Http.SocketsHttpHandler
+            {
+                UseProxy = false,
+                ConnectTimeout = TimeSpan.FromSeconds(25),
+                ConnectCallback = async (ctx, ct) =>
+                {
+                    var addrs = await System.Net.Dns.GetHostAddressesAsync(ctx.DnsEndPoint.Host, ct);
+                    var v4 = System.Linq.Enumerable.FirstOrDefault(addrs, a => a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                    var target = v4 ?? System.Linq.Enumerable.First(addrs);
+                    var sock = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork,
+                                                             System.Net.Sockets.SocketType.Stream,
+                                                             System.Net.Sockets.ProtocolType.Tcp) { NoDelay = true };
+                    await sock.ConnectAsync(new System.Net.IPEndPoint(target, ctx.DnsEndPoint.Port), ct);
+                    return new System.Net.Sockets.NetworkStream(sock, ownsSocket: true);
+                },
+            };
             using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(60) };
             // Enka 要求带 User-Agent，否则可能 403/429
             http.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "theater-assistant/0.53 (read-only; contact: local)");
