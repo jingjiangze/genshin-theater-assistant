@@ -31,6 +31,15 @@
       "apiKeyEnv": "GROQ_API_KEY",
       "privacy": "standard",
       "note": "需注册免费 key；作为第三兜底"
+    },
+    {
+      "name": "local-minimind",
+      "url": "http://127.0.0.1:17915/v1/chat/completions",
+      "model": "minimind-26m",
+      "apiKeyEnv": "",
+      "privacy": "local-only",
+      "note": "本地推理进程 tools/ml/serve.py（MiniMind2-Small 26M 全参微调，fp16 49MB）。仅当本进程在跑才可用；离线兜底用",
+      "timeoutSeconds": 30
     }
   ],
   "timeoutSeconds": 8,
