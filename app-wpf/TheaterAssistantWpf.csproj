@@ -85,6 +85,11 @@
     <Compile Include="..\app\Speech.cs" Link="logic\Speech.cs" />
     <Compile Include="..\app\TeamSolver.cs" Link="logic\TeamSolver.cs" />
     <Compile Include="..\app\Advice.cs" Link="logic\Advice.cs" />
+    <!-- 主循环输入侧：抓屏(GameWindow/ScreenCapture) + OCR + 模板匹配 + 幕内逻辑 -->
+    <Compile Include="..\app\Recognition.cs" Link="logic\Recognition.cs" />
+    <Compile Include="..\app\OcrService.cs" Link="logic\OcrService.cs" />
+    <Compile Include="..\app\TemplateFactory.cs" Link="logic\TemplateFactory.cs" />
+    <Compile Include="..\app\TheaterLogic.cs" Link="logic\TheaterLogic.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -98,6 +103,7 @@
   <ItemGroup>
     <!-- 与 WinForms 版一致：RapidOcrNet 提供 PP-OCR 推理 -->
     <PackageReference Include="RapidOcrNet" Version="4.2.0" />
+    <PackageReference Include="SkiaSharp" Version="3.119.1" />
   </ItemGroup>
 
 </Project>
