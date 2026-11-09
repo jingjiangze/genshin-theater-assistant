@@ -11,6 +11,13 @@
     <Color x:Key="TextBody">#D6DEEE</Color>
     <Color x:Key="TextDim">#848C9C</Color>
 
+    <!-- Color 资源不能直接赋给 Fill/BorderBrush 等需要 Brush 的属性，
+         必须显式包一层 SolidColorBrush（本次启动崩溃就是漏了这步）。 -->
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentBlue}"/>
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimary}"/>
+    <SolidColorBrush x:Key="TextBodyBrush" Color="{StaticResource TextBody}"/>
+    <SolidColorBrush x:Key="TextDimBrush" Color="{StaticResource TextDim}"/>
+
     <LinearGradientBrush x:Key="CardBrush" StartPoint="0,0" EndPoint="0,1">
       <GradientStop Color="{StaticResource CardTop}" Offset="0"/>
       <GradientStop Color="{StaticResource CardBottom}" Offset="1"/>
@@ -19,21 +26,21 @@
     <DropShadowEffect x:Key="CardShadow" BlurRadius="18" ShadowDepth="3" Opacity="0.55" Color="#000000"/>
 
     <Style x:Key="HeadText" TargetType="TextBlock">
-      <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+      <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
       <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
       <Setter Property="FontSize" Value="13"/>
       <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
 
     <Style x:Key="BodyText" TargetType="TextBlock">
-      <Setter Property="Foreground" Value="{StaticResource TextBody}"/>
+      <Setter Property="Foreground" Value="{StaticResource TextBodyBrush}"/>
       <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
       <Setter Property="FontSize" Value="12"/>
       <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
 
     <Style x:Key="FootText" TargetType="TextBlock">
-      <Setter Property="Foreground" Value="{StaticResource TextDim}"/>
+      <Setter Property="Foreground" Value="{StaticResource TextDimBrush}"/>
       <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
       <Setter Property="FontSize" Value="10"/>
     </Style>
