@@ -181,6 +181,93 @@ if (season && season.acts) {
   }
 }
 
+// ⑤c 幕-职能需求（每幕需要哪些职能，来源：act-teams 的实际出场角色 → 反查职能）
+// 逻辑：某幕里出场过的角色，若带某职能，则该幕"需要"该职能——这是从实战反推的，不是猜。
+const cnRoles = {};   // 中文名 → [roles]
+for (const [cn, info] of Object.entries(subs.characters || {})) {
+  if (info && Array.isArray(info.roles)) cnRoles[cn] = info.roles;
+}
+const roleLabel = {};
+for (const [rk, rv] of Object.entries(subs.roles || {})) roleLabel[rk] = (rv && rv.label) || rk;
+
+for (const a of teams.acts || []) {
+  const needCount = {};   // role → 出现次数
+  for (const r of (a.top || [])) {
+    for (const role of (cnRoles[r.name] || [])) {
+      needCount[role] = (needCount[role] || 0) + r.videos;
+    }
+  }
+  for (const [role, cnt] of Object.entries(needCount).sort((x, y) => y[1] - x[1]).slice(0, 3)) {
+    if (cnt < 2) continue;
+    const prefer = (subs.substitutionRules || []).find(x => x.role === role)?.prefer || [];
+    add({
+      act: a.act,
+      tags: ["职能", role, `第${a.act}幕`],
+      title: `第${a.act}幕 需要 ${roleLabel[role] || role}`,
+      text: `第${a.act}幕出场角色中，${roleLabel[role] || role} 职能累计出现 ${cnt} 次，说明这一幕对它有实际需求。可选：${prefer.slice(0, 6).join("、") || "见替代关系"}。`,
+      source: "act-teams × substitutes（实战反推）",
+    });
+  }
+}
+
+// ⑤d 抗性弱点解读（从 res 文本里抽 Weak / 高抗元素）
+for (const [diff, actMap] of Object.entries((season && season.acts) || {})) {
+  if (!actMap || typeof actMap !== "object") continue;
+  for (const [actStr, v] of Object.entries(actMap)) {
+    const act = Number(actStr);
+    const enc = v && (v.encounters || [])[0];
+    if (!enc || !enc.res) continue;
+    const res = String(enc.res);
+    const weak = (res.match(/Weak:\s*([^.;]+)/i) || [])[1];
+    const high = [...res.matchAll(/([A-Z][a-z]+)\s+(\d{2,3})%/g)]
+      .filter(m => Number(m[2]) >= 50).map(m => `${m[1]} ${m[2]}%`);
+    if (!weak && high.length === 0) continue;
+    add({
+      act,
+      tags: ["抗性", "弱点", `第${act}幕`],
+      title: `第${act}幕 该打什么元素（${diff}）`,
+      text: [weak ? `弱点：${weak.trim()}` : "", high.length ? `高抗（≥50%）：${high.join("、")}` : ""]
+        .filter(Boolean).join("；") + "。",
+      source: `season29.json（${diff}）`,
+    });
+  }
+}
+
+// ⑤e 角色在某幕的定位（把职能并入幕次语境，比前两种表述多出"能干嘛"）
+for (const a of teams.acts || []) {
+  for (const r of (a.top || []).slice(0, 6)) {
+    const roles = cnRoles[r.name] || [];
+    if (roles.length === 0) continue;
+    const labels = roles.map(x => roleLabel[x] || x);
+    add({
+      act: a.act,
+      tags: ["定位", r.name, `第${a.act}幕`].concat(roles),
+      title: `${r.name} 在第${a.act}幕的定位`,
+      text: `${r.name} 在第${a.act}幕出场 ${r.videos} 次，职能为 ${labels.join("/")}。该幕共有 ${a.distinct} 个角色被使用，若缺 ${r.name}，可从同职能替代里换。`,
+      source: "act-teams × substitutes",
+    });
+  }
+}
+
+// ⑤f 首领幕标记（来源：season29 的 acts[].boss 布尔值）
+{
+  const lunar = (season && season.acts && (season.acts.Lunar || season.acts.Hard)) || {};
+  for (const [actStr, v] of Object.entries(lunar)) {
+    const act = Number(actStr);
+    if (!Number.isFinite(act) || !v || typeof v !== "object") continue;
+    const isBoss = v.boss === true;
+    if (!isBoss) continue;
+    const lv = v.level || 0;
+    add({
+      act,
+      tags: ["首领幕", "节奏", `第${act}幕`],
+      title: `第${act}幕 是首领幕`,
+      text: `第${act}幕为首领幕（角色等级 ${lv || "?"}）。首领幕抗性与机制都会上一个台阶，应保留耐力未耗尽的强力角色；前序普通幕尽量用替补角色过渡。`,
+      source: "season29.json（boss 标记）",
+    });
+  }
+}
+
 // ⑥ 保留原有手工语料
 for (const e of (oldCorpus.entries || [])) add(e);
 
