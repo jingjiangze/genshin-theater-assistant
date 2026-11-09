@@ -123,8 +123,9 @@ jobs:
       # 已知上游停更（DirectML 包 1.24.4 vs 依赖 1.29.0），默认不跑，避免每次白耗 1 分钟 + 报错噪音。
       # 需要验证时手动触发本工作流并勾选检查，或本地 dotnet build -p:DirectMLVersion=...
       # WPF 版（v0.60 起，解决 WinForms 观感问题）。与 WinForms 版并存，验收后再删旧的。
+      # 注意：v0.61 起 WPF 构建**必须过**——它已经是交付形态，再 continue-on-error
+      # 会让编译错误静默通过（此前确实发生过：XAML 类型错误只在运行时炸）。
       - name: 构建 WPF 版（Windows）
-        continue-on-error: true
         shell: pwsh
         run: |
           chcp 65001 > $null
@@ -146,6 +147,7 @@ jobs:
 
           # build 只产出框架依赖版；要"下载即用"必须 publish 成单文件自包含
           dotnet publish app-wpf/TheaterAssistantWpf.csproj -c Release -o dist-wpf 2>&1 | Select-Object -Last 20
+          if ($LASTEXITCODE -ne 0) { throw "WPF publish 失败 (exit $LASTEXITCODE)" }
           # 验证 data 真的作为嵌入资源进了 dll（前几次都栽在这）
           $dll = "dist-wpf/TheaterAssistantWpf.dll"
           if (Test-Path $dll) {
@@ -156,28 +158,46 @@ jobs:
           }
           Write-Host "dist-wpf/data 文件数: $((Get-ChildItem dist-wpf/data -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count)"
           $exe = "dist-wpf/TheaterAssistantWpf.exe"
-          if (Test-Path $exe) {
-            $sz = [math]::Round((Get-Item $exe).Length / 1MB, 1)
-            Write-Host "WPF 单文件发布成功: $sz MB"
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版单文件发布：成功（$sz MB）"
-          } else {
-            Write-Host "WPF 单文件发布失败（不阻断，仅记录）"
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版单文件发布：失败（不阻断）"
-          }
+          if (-not (Test-Path $exe)) { throw "WPF 单文件发布失败：没有产出 exe" }
+          $sz = [math]::Round((Get-Item $exe).Length / 1MB, 1)
+          Write-Host "WPF 单文件发布成功: $sz MB"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版单文件发布：成功（$sz MB）"
 
       # WPF 自检：真实实例化窗口并渲染（XamlParseException 这类只有运行时才炸的问题靠它兜住）
-      - name: WPF 自检（实例化+渲染两个窗口）
-        continue-on-error: true
+      # 渲染出的 PNG 一并上传，供视觉验收（遮罩/悬浮窗/桌宠/设置页的实际样子）。
+      - name: WPF 自检（实例化+渲染全部窗口）
         shell: pwsh
         run: |
           chcp 65001 > $null
           $exe = "dist-wpf/TheaterAssistantWpf.exe"
-          if (-not (Test-Path $exe)) { Write-Host "跳过：无 WPF exe"; exit 0 }
+          if (-not (Test-Path $exe)) { throw "缺少 WPF exe，自检无法进行" }
           $out = Join-Path $env:RUNNER_TEMP wpf-selftest.txt
           $p = Start-Process -FilePath $exe -ArgumentList "--selftest-wpf" -Wait -PassThru -RedirectStandardOutput $out
           if (Test-Path $out) { Get-Content $out -Encoding UTF8 }
           Write-Host "selftest-wpf exit=$($p.ExitCode)"
+
+          # 自检把 PNG 与报告写在 %LOCALAPPDATA%\TheaterAssistant，收集到 workspace 才能上传
+          $dir = Join-Path $env:LOCALAPPDATA "TheaterAssistant"
+          New-Item -ItemType Directory -Force "dist-wpf/selftest" | Out-Null
+          if (Test-Path $dir) {
+            Copy-Item (Join-Path $dir "selftest-wpf-*.png") "dist-wpf/selftest" -Force -ErrorAction SilentlyContinue
+            Copy-Item (Join-Path $dir "selftest-wpf-report.txt") "dist-wpf/selftest" -Force -ErrorAction SilentlyContinue
+          }
+          Get-ChildItem "dist-wpf/selftest" -ErrorAction SilentlyContinue | Select-Object Name, Length
+          if (-not (Test-Path "dist-wpf/selftest/selftest-wpf-mask.png")) {
+            Write-Host "::warning::没有采集到遮罩渲染图（selftest-wpf-mask.png）"
+          }
           if ($p.ExitCode -ne 0) { throw "WPF 自检失败 (exit $($p.ExitCode))" }
+
+      - name: 上传 WPF 自检渲染图（视觉验收）
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: wpf-selftest-${{ github.sha }}
+          path: dist-wpf/selftest/
+          retention-days: 30
+          if-no-files-found: warn
 
       - name: 上传 WPF 单文件 exe
         if: always()
