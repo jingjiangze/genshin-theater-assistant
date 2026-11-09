@@ -993,13 +993,20 @@ internal sealed class OverlayForm : Form
     // 玩家不需要填 UID、不需要装扫描器、更不碰游戏内存（封号红线）。
     // 只尝试一次：失败也标记，避免每 tick 反复请求 Enka（有速率限制）。
     private bool _rosterUidTried;
+    private DateTime _rosterNextTryAt = DateTime.MinValue;
+    private string _rosterLastUid = "";
     private string _rosterUidNote = "";
 
     private void TryAutoFetchRoster(string text)
     {
-        if (_rosterUidTried) return;
-        var uid = EnkaClient.ExtractUid(text);
-        if (uid.Length != 9) return;
+        // 失败后不能永久放弃：国内访问 enka 可能只是这次慢（实测 25s）。
+        // 改为冷却重试——同一 UID 失败后等 10 分钟再试，避免频繁请求又不至于一次失败就废掉。
+        var uid0 = EnkaClient.ExtractUid(text);
+        if (uid0.Length != 9) return;
+        if (uid0 == _rosterLastUid && DateTime.UtcNow < _rosterNextTryAt) return;
+        if (_rosterUidTried && uid0 == _rosterLastUid) { _rosterNextTryAt = DateTime.UtcNow.AddMinutes(10); _rosterUidTried = false; }
+        var uid = uid0;
+        _rosterLastUid = uid;
         _rosterUidTried = true;
         _rosterUidNote = $"正在查询 UID {uid} 的角色池…";
         System.Threading.Tasks.Task.Run(() =>
