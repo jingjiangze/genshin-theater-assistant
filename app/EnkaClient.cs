@@ -294,7 +294,7 @@ internal static class AvatarIdMap
                                 // 两种形态都要注册：characters.json 里既有 "Hu Tao" 也有 "KamisatoAyaka"，
                                 // Enka 的英文名来自官方（带空格）。只认一种会漏掉一半（实测 60%→92%）。
                                 _keyToCn[e.Name] = cn;
-                                _keyToCn[NormKey(e.Name)] = cn;
+                                _keyToCn[AvatarIdMapHandle.NormKey(e.Name)] = cn;
                             }
                 }
             }
