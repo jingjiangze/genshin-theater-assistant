@@ -1,4 +1,4 @@
-﻿# 幻想真境剧诗 · 助手（Theater Assistant）
+# 幻想真境剧诗 · 助手（Theater Assistant）
 
 **一句话：把"现在该做什么"直接告诉你的剧诗小窗——只读屏幕像素，不注入、不模拟按键。**
 
@@ -108,7 +108,7 @@ CI 对 42 个 B站攻略视频做了「抽帧 → 逐帧模拟运行 → 对答�
 
 ## 许可
 
-- 代码：MIT（见 `LICENSE`）
+- 代码：**GPL-3.0**（见 `LICENSE`）。本项目参考了 BetterGI（GPL-3.0）的实现，故整体以 GPL-3.0 分发；第三方来源与衍生说明见 `NOTICE.md`
 - 依赖：RapidOcrNet / PP-OCR 模型 = Apache-2.0；WebView2 = 微软许可
 - 游戏内容与数据：归 miHoYo 所有；本仓库只做玩家自用的辅助显示，不含自动化操作
 
