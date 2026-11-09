@@ -5,6 +5,7 @@
 // 本项目改写为无第三方 P/Invoke 依赖（原用 Vanara.PInvoke），修改时间 2026-11。
 // 本文件以 GPL-3.0 分发，全文见仓库根 LICENSE，来源说明见 NOTICE.md。
 // ─────────────────────────────────────────────────────────────────────────────
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace TheaterAssistant;
