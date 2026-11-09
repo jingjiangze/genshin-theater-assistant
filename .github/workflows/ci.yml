@@ -149,6 +149,20 @@ jobs:
             Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版单文件发布：失败（不阻断）"
           }
 
+      # WPF 自检：真实实例化窗口并渲染（XamlParseException 这类只有运行时才炸的问题靠它兜住）
+      - name: WPF 自检（实例化+渲染两个窗口）
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $exe = "dist-wpf/TheaterAssistantWpf.exe"
+          if (-not (Test-Path $exe)) { Write-Host "跳过：无 WPF exe"; exit 0 }
+          $out = Join-Path $env:RUNNER_TEMP wpf-selftest.txt
+          $p = Start-Process -FilePath $exe -ArgumentList "--selftest-wpf" -Wait -PassThru -RedirectStandardOutput $out
+          if (Test-Path $out) { Get-Content $out -Encoding UTF8 }
+          Write-Host "selftest-wpf exit=$($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { throw "WPF 自检失败 (exit $($p.ExitCode))" }
+
       - name: 上传 WPF 单文件 exe
         if: always()
         continue-on-error: true
