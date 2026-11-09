@@ -80,17 +80,22 @@ internal sealed class MainLoop
             using var bmp = ScreenCapture.CaptureClient(win);
             if (bmp == null) { LastStatus = "抓屏失败"; _ball.SetState(FloatingBall.BallState.Waiting); return; }
 
+            // ②b OCR 预处理（D5 白字掩膜，配置驱动；off 时返回 null 用原图）
+            OcrPreprocess.Load(AppPaths.Data("decision-policy.json"));
+            using var pre = OcrPreprocess.Apply(bmp);
+            var ocrFrame = pre ?? bmp;
+
             // ③ 模板：分辨率变了就重载
             LoadTemplatesFor(bmp.Width, bmp.Height);
             var hits = Matcher.Scan(bmp, _templates);
 
             // ④ 条带 OCR（幕次）：只在底部 0.828–0.878 高、0.28–0.74 宽的条带里认，快且准
-            var band = await _ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 4);
+            var band = await _ocr.RecognizeRegionAsync(ocrFrame, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 4);
 
             // ⑤ 全帧 OCR：每 3 帧兜一次（不必要每帧全扫，省 CPU）
             if (_tickCount % 3 == 0)
             {
-                var full = await _ocr.RecognizeAsync(bmp);
+                var full = await _ocr.RecognizeAsync(ocrFrame);
                 if (!string.IsNullOrWhiteSpace(full)) _cachedText = full;
             }
             var text = _cachedText;
