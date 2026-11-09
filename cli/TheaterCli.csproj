@@ -46,6 +46,7 @@
     <Compile Include="..\app\DecisionBridge.cs" Link="app\DecisionBridge.cs" />
     <Compile Include="..\app\EnkaClient.cs" Link="app\EnkaClient.cs" />
     <Compile Include="..\app\RosterResolver.cs" Link="app\RosterResolver.cs" />
+    <Compile Include="..\app\RosterMerge.cs" Link="app\RosterMerge.cs" />
     <Compile Include="..\app\LlmAdvisor.cs" Link="app\LlmAdvisor.cs" />
   </ItemGroup>
 
