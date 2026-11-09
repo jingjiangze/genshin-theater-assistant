@@ -40,9 +40,11 @@ internal static class AppPaths
         get
         {
             if (_extractRoot != null) return _extractRoot;
+            // 注意：Resolve 传入的 relative 已含 "data/" 前缀，
+            // ExtractRoot 若再带 data 会解到 data/data/（实测踩过）。
             var root = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "TheaterAssistant", "data");
+                "TheaterAssistant");
             try { Directory.CreateDirectory(root); } catch { }
             _extractRoot = root;
             return root;
