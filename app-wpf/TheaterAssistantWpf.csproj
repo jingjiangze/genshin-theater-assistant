@@ -108,6 +108,9 @@
     <!-- 与 WinForms 版一致：RapidOcrNet 提供 PP-OCR 推理 -->
     <PackageReference Include="RapidOcrNet" Version="4.2.0" />
     <PackageReference Include="SkiaSharp" Version="3.119.1" />
+    <!-- Fluent 控件与主题：BetterGI 的观感九成来自它（FluentWindow/TitleBar/ToggleSwitch/CardControl）。
+         4.3.0 支持 net8.0-windows，单 TFM 引入。 -->
+    <PackageReference Include="WPF-UI" Version="4.3.0" />
     <!-- OpenCV：用于 OCR 预处理（BetterGI 的 D3–D5）。
          注意 D3(竖排旋转)/D4(透视裁剪) RapidOcrNet 内部已实现，这里只为 D5(白字掩膜) 及后续增强引入。 -->
     <PackageReference Include="OpenCvSharp4" Version="4.13.0.20261107" />
