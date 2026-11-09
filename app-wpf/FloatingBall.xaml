@@ -1,0 +1,70 @@
+<Window x:Class="TheaterAssistant.FloatingBall"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="剧诗助手"
+        Width="76" Height="76"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        ResizeMode="NoResize"
+        Opacity="0"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Ideal">
+
+  <!--
+    悬浮球：照抄「空荧酒馆」地图悬浮窗（kongying-tavern/MapsBalloon, GPL-3.0）的形态：
+      · 76×76 小尺寸，不占屏幕（它用 75×72）；
+      · Window.Template 置空 + WindowChrome GlassFrameThickness=-1 去掉系统边框；
+      · Opacity 从 0 淡入，避免启动闪一下；
+      · 双击 → 打开详细面板；左键拖动；右键 → 托盘菜单同款。
+    差异：形象用内置矢量（规避游戏立绘版权），并可被 Assets/ball.png 覆盖。
+  -->
+  <WindowChrome.WindowChrome>
+    <WindowChrome GlassFrameThickness="-1" CaptionHeight="0" ResizeBorderThickness="0"/>
+  </WindowChrome.WindowChrome>
+  <Window.Template>
+    <ControlTemplate TargetType="Window"/>
+  </Window.Template>
+
+  <Grid x:Name="Root" Background="Transparent" Cursor="Hand"
+        ToolTip="单击展开 · 拖动移动 · 右键菜单">
+
+    <!-- 外发光（状态色） -->
+    <Ellipse x:Name="Halo" Width="72" Height="72" Fill="#4C7EB8E8">
+      <Ellipse.Effect>
+        <BlurEffect Radius="16"/>
+      </Ellipse.Effect>
+    </Ellipse>
+
+    <!-- 球体 -->
+    <Ellipse x:Name="Ball" Width="62" Height="62" StrokeThickness="1.5"
+             Stroke="#5C7EB8E8">
+      <Ellipse.Fill>
+        <RadialGradientBrush GradientOrigin="0.35,0.3">
+          <GradientStop Color="#FFFFFFFF" Offset="0"/>
+          <GradientStop Color="#FFE8F2FF" Offset="0.62"/>
+          <GradientStop Color="#FFC9DEF5" Offset="1"/>
+        </RadialGradientBrush>
+      </Ellipse.Fill>
+    </Ellipse>
+
+    <!-- 星形（派蒙元素） -->
+    <Path x:Name="Star" Fill="#FFFFD86A" Stretch="Uniform" Width="26" Height="26"
+          HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-6,0,0"
+          Data="M 12,0 L 15.4,7.6 L 24,9 L 17.6,15 L 19.2,24 L 12,20 L 4.8,24 L 6.4,15 L 0,9 L 8.6,7.6 Z">
+      <Path.RenderTransform>
+        <RotateTransform x:Name="StarSpin" CenterX="12" CenterY="12"/>
+      </Path.RenderTransform>
+    </Path>
+
+    <!-- 状态角标 -->
+    <Border x:Name="Badge" HorizontalAlignment="Right" VerticalAlignment="Top"
+            Margin="0,4,2,0" CornerRadius="8" Padding="5,1" Background="#E61C2430">
+      <TextBlock x:Name="BadgeText" Text="◆" Foreground="#FFD6DEEE"
+                 FontFamily="Microsoft YaHei UI" FontSize="10"/>
+    </Border>
+  </Grid>
+</Window>
