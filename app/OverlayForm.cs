@@ -139,11 +139,11 @@ internal static class Program
                             (int)OptDouble(args, "--team", 0), (int)OptDouble(args, "--target", 4));
                     }
 
-                // 视频模拟运行：按时间顺序逐帧跑完整链路，输出时序报告
+                // 视频模拟运行：按时间顺序逐帧跑完整链路，输出时序报告（--llm = ◇模型层在环）
                 case "--replay":
                     if (args.Length >= 2)
                         return ReplayRunner.Run(args[1], Opt(args, "--out"), Opt(args, "--json"),
-                            (int)OptDouble(args, "--min-stable", 2));
+                            (int)OptDouble(args, "--min-stable", 2), args.Contains("--llm"));
                     break;
 
                 // 帧驱动量化对照：软件指示 vs 该帧客观事实（人物/决策/战斗）
@@ -294,10 +294,11 @@ internal static class Program
                     return LiveProbe.RunProbe(Opt(args, "--title"), (int)OptDouble(args, "--frames", 1), Opt(args, "--out"));
 
                 // 自动化的"真机模拟实测"：起假窗口 → 抓帧 → 比对源帧 → 识别 → 断言（4=无桌面会话跳过）
+                // --llm：◇模型层在环（走 data/llm.json，本地验证指向 tools/ml/serve.py）
                 case "--selftest-live":
                     {
                         var (lw, lh) = ParseSize(Opt(args, "--size"), 1920, 1080);
-                        return LiveProbe.RunSelfTest(Opt(args, "--png"), lw, lh, Opt(args, "--title"));
+                        return LiveProbe.RunSelfTest(Opt(args, "--png"), lw, lh, Opt(args, "--title"), args.Contains("--llm"));
                     }
 
                 case "--version":
