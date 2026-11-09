@@ -342,7 +342,30 @@ internal static class Program
         }
 
         ApplicationConfiguration.Initialize();
-        Application.Run(new OverlayForm());
+
+        // 崩溃必须留证据：此前这里裸调 Application.Run，构造函数里任一 Load 抛异常
+        // 都会让进程**静默退出**——用户看到的现象正是"悬浮窗没出现、后台也没有"（本次实测踩到）。
+        try
+        {
+            Application.Run(new OverlayForm());
+        }
+        catch (Exception ex)
+        {
+            try
+            {
+                var dir = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TheaterAssistant");
+                Directory.CreateDirectory(dir);
+                var f = Path.Combine(dir, $"crash-{DateTime.Now:yyyyMMdd-HHmmss}.log");
+                File.WriteAllText(f,
+                    $"{DateTime.Now:O}\r\n{ex}\r\n\r\n--- args ---\r\n{string.Join(" ", Environment.GetCommandLineArgs())}\r\n");
+                MessageBox.Show(
+                    $"启动失败：{ex.GetType().Name}\r\n\r\n{ex.Message}\r\n\r\n日志已写入：\r\n{f}",
+                    "剧诗助手", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch { }
+            return 1;
+        }
         return 0;
     }
 
@@ -458,9 +481,12 @@ internal sealed class OverlayForm : Form
         Playbook.Load(AppPaths.Data("act-playbook.json"));
         LoadTemplatesFor(0, 0);
 
-
         _timer.Tick += OnTick;
         Shown += OnShown;
+
+        // 托盘必须有：此前 ShowInTaskbar=false 且没有托盘，窗口一旦没显示出来
+        // 用户就完全无从操作（本次实测现象就是"任务栏没有、后台也没有"）。
+        InitTray();
     }
 
     protected override bool ShowWithoutActivation => true;
@@ -1033,6 +1059,111 @@ internal sealed class OverlayForm : Form
         });
     }
 
+
+    // ── 托盘 + 设置入口 ──────────────────────────────────────────
+    // 用户要求「做成和其他原神工具类似的」，核心就是：托盘常驻、右键有菜单、能打开设置。
+    private NotifyIcon _tray;
+    private SettingsForm _settings;
+
+    private static string LogDir => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TheaterAssistant");
+
+    private void InitTray()
+    {
+        try
+        {
+            _tray = new NotifyIcon
+            {
+                Icon = BuildTrayIcon(),
+                Text = "剧诗助手 · 左键显示/隐藏 · 右键菜单",
+                Visible = true,
+            };
+            var menu = new ContextMenuStrip();
+            menu.Items.Add("显示 / 隐藏悬浮窗", null, (_, _) => ToggleVisible());
+            menu.Items.Add("设置…", null, (_, _) => OpenSettings());
+            menu.Items.Add(new ToolStripSeparator());
+            menu.Items.Add("打开配置目录", null, (_, _) => OpenFolder(AppPaths.Dir));
+            menu.Items.Add("打开日志目录", null, (_, _) => OpenFolder(LogDir));
+            menu.Items.Add(new ToolStripSeparator());
+            menu.Items.Add("退出", null, (_, _) => { try { Close(); } catch { } });
+            _tray.ContextMenuStrip = menu;
+            _tray.DoubleClick += (_, _) => ToggleVisible();
+        }
+        catch
+        {
+            _tray = null;   // 托盘失败不影响悬浮窗本身
+        }
+    }
+
+    private void ToggleVisible()
+    {
+        try
+        {
+            Visible = !Visible;
+            if (Visible) Activate();
+        }
+        catch { }
+    }
+
+    private void OpenSettings()
+    {
+        try
+        {
+            if (_settings != null && !_settings.IsDisposed)
+            {
+                _settings.Activate();
+                return;
+            }
+            _settings = new SettingsForm();
+            _settings.Show();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("打开设置失败：" + ex.Message, "剧诗助手", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+    }
+
+    private static void OpenFolder(string path)
+    {
+        try
+        {
+            Directory.CreateDirectory(path);
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = path,
+                UseShellExecute = true,
+            });
+        }
+        catch { }
+    }
+
+    /// <summary>用代码画一个托盘图标（深蓝底 + 天蓝星），避免额外资源文件与体积。</summary>
+    private static Icon BuildTrayIcon()
+    {
+        using var bmp = new Bitmap(32, 32);
+        using (var g = Graphics.FromImage(bmp))
+        {
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.Clear(Color.Transparent);
+            using var bg = new SolidBrush(Color.FromArgb(30, 36, 52));
+            g.FillEllipse(bg, 0, 0, 31, 31);
+            using var star = new SolidBrush(Color.FromArgb(126, 184, 232));
+            var pts = new[]
+            {
+                new PointF(16, 5), new PointF(19, 13), new PointF(27, 16), new PointF(19, 19),
+                new PointF(16, 27), new PointF(13, 19), new PointF(5, 16), new PointF(13, 13),
+            };
+            g.FillPolygon(star, pts);
+        }
+        // 从 HBITMAP 复制成 Icon（GetHicon 后必须 DestroyIcon，否则句柄泄漏）
+        var h = bmp.GetHicon();
+        try { return (Icon)Icon.FromHandle(h).Clone(); }
+        finally { DestroyIcon(h); }
+    }
+
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern bool DestroyIcon(IntPtr handle);
+
 }
 
 internal sealed record TemplateEntry(string Name, Bitmap Bitmap, double Threshold)
@@ -1043,6 +1174,5 @@ internal sealed record TemplateEntry(string Name, Bitmap Bitmap, double Threshol
     /// </summary>
     public static double ThresholdFor(string name) =>
         name != null && name.StartsWith("act", StringComparison.Ordinal) && name.Length <= 5 ? 0.90 : 0.86;
-
 
 }
