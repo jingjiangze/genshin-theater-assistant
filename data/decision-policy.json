@@ -54,8 +54,8 @@
     "sameLineTolerance": 10,
     "enableDirectML": true,
     "directMLDeviceId": 0,
-    "numThreads": 0,
-    "_note": "dropScore/sameLineTolerance 来自 BetterGI 实测；enableDirectML 需引用 Microsoft.ML.OnnxRuntime.DirectML 包才生效，否则反射探测失败自动回退 CPU；numThreads=0 交给 ORT 决定（避免 OCR 占满 CPU 拖慢游戏）",
+    "numThreads": 6,
+    "_note": "dropScore/sameLineTolerance 来自 BetterGI 实测；enableDirectML 需引用 DirectML 包否则反射探测回退 CPU。numThreads=6 是 2026-11-10 混合架构实测：0(自动,ORT 用满 16 逻辑核跨 E 核)=5.0s/帧、6(P核)=1.56s/帧、8(6P+2E)=3.8s/帧 —— 钉到物理 P 核数，剩下的核留给游戏",
     "preprocess": {
       "mode": "off",
       "whiteLow": 210,
