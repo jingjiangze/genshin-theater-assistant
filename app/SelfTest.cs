@@ -566,6 +566,18 @@ internal static class SelfTest
                 + (missActs.Count > 0 ? "｜未命中: " + string.Join("; ", missActs.Take(3)) : ""));
         }
 
+        // P0：决策层必须真的接入生产指示（否则 2400 行决策代码只在 CI 里跑）
+        {
+            var ready = DecisionBridge.Init();
+            var demo = new Advice("测试", new List<string> { "· 旧逻辑行" }, "", 3, "act");
+            var merged = DecisionBridge.Append(demo);
+            var grew = merged.Lines.Count > demo.Lines.Count;
+            var tagged = merged.Lines.Any(l => l.StartsWith("◆") || l.StartsWith("★") || l.StartsWith("○") || l.StartsWith("·"));
+            Check("决策层已接入生产指示（只做加法）", ready && grew && tagged,
+                $"就绪={ready}｜旧 {demo.Lines.Count} 行 → 新 {merged.Lines.Count} 行｜诊断={merged.Diagnostics}"
+                + "｜首行: " + (merged.Lines.Count > 0 ? merged.Lines[0] : "(空)"));
+        }
+
         // 全局分配的 G1（每幕满 4 人）必须纳入 CI ——
         // 此前只测 TeamSolver 的逐幕方案，没测 GlobalAllocator 的实际分配，
         // 导致「box 的 --quality-gates 报 14 项 G1 违规、CI 却全绿」。
