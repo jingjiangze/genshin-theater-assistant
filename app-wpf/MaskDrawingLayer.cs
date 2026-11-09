@@ -22,6 +22,8 @@ internal sealed class MaskBox
     public Color LabelColor = Color.FromRgb(0xE8, 0xF0, 0xFF);
     /// <summary>true = 只画角括号（识别框），false = 画整框（区域 ROI）。</summary>
     public bool CornersOnly = true;
+    /// <summary>true = 标签画在框右上（用于左下角会被日志面板遮住的区域框）。</summary>
+    public bool LabelAlignRight;
 }
 
 /// <summary>
@@ -126,10 +128,11 @@ public sealed class MaskDrawingLayer : FrameworkElement
             FlowDirection.LeftToRight, Face, 11, GetBrush(box.LabelColor), pixelsPerDip);
 
         const double padX = 5, padY = 2;
-        var x = r.Left;
+        var x = box.LabelAlignRight ? r.Right - ft.Width - padX * 2 : r.Left;
         var y = r.Top - ft.Height - padY * 2 - 2;
         if (y < 0) y = r.Top + 2;                       // 贴到窗口顶端时画进框里
         if (x + ft.Width + padX * 2 > ActualWidth) x = Math.Max(0, ActualWidth - ft.Width - padX * 2);
+        if (x < 0) x = 0;
 
         var pill = new Rect(x, y, ft.Width + padX * 2, ft.Height + padY * 2);
         dc.DrawRoundedRectangle(GetBrush(Color.FromArgb(0xD8, 0x0A, 0x0D, 0x12)),
