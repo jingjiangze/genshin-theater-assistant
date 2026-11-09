@@ -343,6 +343,12 @@ internal static class Program
 
         ApplicationConfiguration.Initialize();
 
+        // 全局异常注册（照抄 BetterGI 的做法：三处都要挂，缺一处就会静默丢异常）
+        //   ① UI 线程未捕获 ② 后台 Task 未观察 ③ 非 UI 线程未捕获
+        AppDomain.CurrentDomain.UnhandledException += (_, ev) => LogCrash(ev.ExceptionObject as Exception, "AppDomain");
+        Application.ThreadException += (_, ev) => LogCrash(ev.Exception, "UI-Thread");
+        TaskScheduler.UnobservedTaskException += (_, ev) => { LogCrash(ev.Exception, "Task"); ev.SetObserved(); };
+
         // 崩溃必须留证据：此前这里裸调 Application.Run，构造函数里任一 Load 抛异常
         // 都会让进程**静默退出**——用户看到的现象正是"悬浮窗没出现、后台也没有"（本次实测踩到）。
         try
@@ -1059,6 +1065,24 @@ internal sealed class OverlayForm : Form
         });
     }
 
+
+    /// <summary>
+    /// 统一崩溃落盘。三处异常入口（UI/线程池/Task）都走这里，
+    /// 这样"进程静默消失"永远能查到原因，而不是只能猜。
+    /// </summary>
+    internal static void LogCrash(Exception ex, string source)
+    {
+        try
+        {
+            var dir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TheaterAssistant");
+            Directory.CreateDirectory(dir);
+            var f = Path.Combine(dir, $"crash-{DateTime.Now:yyyyMMdd-HHmmss}.log");
+            File.WriteAllText(f,
+                $"{DateTime.Now:O}\r\nSOURCE: {source}\r\n{ex}\r\n\r\n--- args ---\r\n{string.Join(" ", Environment.GetCommandLineArgs())}\r\n");
+        }
+        catch { }
+    }
 
     // ── 托盘 + 设置入口 ──────────────────────────────────────────
     // 用户要求「做成和其他原神工具类似的」，核心就是：托盘常驻、右键有菜单、能打开设置。
