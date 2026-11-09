@@ -102,9 +102,28 @@ internal static class GameWindow
     }
 }
 
-/// <summary>GDI 抓取窗口客户区像素（等价 BetterGI 的 BitBlt 后端，不做任何注入）。</summary>
+/// <summary>
+/// 抓窗口客户区像素。优先 BitBlt(窗口 DC)——它取的是**窗口自己的画面**，被别的窗口压住也照样能抓；
+/// 取到全黑（某些 D3D 独占交换链会这样）时回落到 CopyFromScreen。
+///
+/// 与 BetterGI 的 BitBlt 后端同一思路，但代码自写（不搬它的 Fischless.GameCapture，
+/// 那个子模块的许可证在离线环境无法确认），也不做它会做的注册表改写。
+/// </summary>
 internal static class ScreenCapture
 {
+    private const uint SRCCOPY = 0x00CC0020;
+    private const uint CAPTUREBLT = 0x40000000;
+
+    [DllImport("user32.dll")] private static extern IntPtr GetDC(IntPtr hWnd);
+    [DllImport("user32.dll")] private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+    [DllImport("gdi32.dll")] private static extern IntPtr CreateCompatibleDC(IntPtr hdc);
+    [DllImport("gdi32.dll")] private static extern IntPtr CreateCompatibleBitmap(IntPtr hdc, int w, int h);
+    [DllImport("gdi32.dll")] private static extern IntPtr SelectObject(IntPtr hdc, IntPtr obj);
+    [DllImport("gdi32.dll")] private static extern bool BitBlt(IntPtr dst, int x, int y, int w, int h,
+        IntPtr src, int sx, int sy, uint rop);
+    [DllImport("gdi32.dll")] private static extern bool DeleteObject(IntPtr obj);
+    [DllImport("gdi32.dll")] private static extern bool DeleteDC(IntPtr hdc);
+
     public static Bitmap CaptureClient(IntPtr hWnd)
     {
         if (!GameWindow.GetClientRect(hWnd, out var r)) return null;
@@ -112,6 +131,48 @@ internal static class ScreenCapture
         int h = r.Bottom - r.Top;
         if (w < 40 || h < 40) return null;
 
+        var viaBlt = CaptureByBitBlt(hWnd, w, h);
+        if (viaBlt != null && !LooksBlank(viaBlt)) return viaBlt;
+        viaBlt?.Dispose();
+
+        return CaptureFromScreen(hWnd, w, h);
+    }
+
+    /// <summary>BitBlt(窗口 DC)：受窗口自身画面驱动，不依赖屏幕坐标/遮挡关系。</summary>
+    private static Bitmap CaptureByBitBlt(IntPtr hWnd, int w, int h)
+    {
+        IntPtr srcDc = IntPtr.Zero, memDc = IntPtr.Zero, hBmp = IntPtr.Zero, oldObj = IntPtr.Zero;
+        try
+        {
+            srcDc = GetDC(hWnd);
+            if (srcDc == IntPtr.Zero) return null;
+
+            memDc = CreateCompatibleDC(srcDc);
+            hBmp = CreateCompatibleBitmap(srcDc, w, h);
+            if (memDc == IntPtr.Zero || hBmp == IntPtr.Zero) return null;
+
+            oldObj = SelectObject(memDc, hBmp);
+            if (!BitBlt(memDc, 0, 0, w, h, srcDc, 0, 0, SRCCOPY | CAPTUREBLT)) return null;
+
+            using var raw = Image.FromHbitmap(hBmp);
+            return raw.Clone(new Rectangle(0, 0, w, h), PixelFormat.Format32bppArgb);
+        }
+        catch
+        {
+            return null;
+        }
+        finally
+        {
+            if (memDc != IntPtr.Zero && oldObj != IntPtr.Zero) SelectObject(memDc, oldObj);
+            if (hBmp != IntPtr.Zero) DeleteObject(hBmp);
+            if (memDc != IntPtr.Zero) DeleteDC(memDc);
+            if (srcDc != IntPtr.Zero) ReleaseDC(hWnd, srcDc);
+        }
+    }
+
+    /// <summary>屏幕坐标拷贝（回落路径）：窗口被遮挡时会抓到别人的像素，所以只当兜底。</summary>
+    private static Bitmap CaptureFromScreen(IntPtr hWnd, int w, int h)
+    {
         var origin = new GameWindow.POINT { X = 0, Y = 0 };
         if (!GameWindow.ClientToScreen(hWnd, ref origin)) return null;
 
@@ -119,6 +180,22 @@ internal static class ScreenCapture
         using var g = Graphics.FromImage(bmp);
         g.CopyFromScreen(origin.X, origin.Y, 0, 0, new Size(w, h), CopyPixelOperation.SourceCopy);
         return bmp;
+    }
+
+    /// <summary>抽样判断是否全黑（BitBlt 失败在 D3D 窗口上表现为整幅黑图而不是返回 false）。</summary>
+    private static bool LooksBlank(Bitmap bmp)
+    {
+        int hit = 0, total = 0;
+        for (int y = 0; y < bmp.Height; y += 16)
+        {
+            for (int x = 0; x < bmp.Width; x += 16)
+            {
+                var c = bmp.GetPixel(x, y);
+                total++;
+                if (c.R + c.G + c.B > 24) hit++;
+            }
+        }
+        return total == 0 || hit * 100 / total < 2;   // 非黑像素 <2% 视为没抓到
     }
 }
 
