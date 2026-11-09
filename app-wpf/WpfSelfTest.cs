@@ -59,6 +59,25 @@ internal static class WpfSelfTest
             Check("OverlayWindow 实例化并渲染", false, ex.GetType().Name + ": " + ex.Message);
         }
 
+        // ②b 桌宠窗口（收起态）：动画与气泡是运行时逻辑，这里只验它能建起来并画出形象
+        try
+        {
+            var pet = new PetWindow();
+            pet.Show();
+            pet.SetState(PetWindow.PetState.Done);
+            pet.ShowAdvice("第 6 幕 · 困难",
+                new[] { ("◆ 建议：五郎/九条裟罗/伊安珊", "量化"), ("★ 云端已验证：第3幕推荐 爱诺", "已验证") });
+            var pb = Render(pet, 260, 360);
+            var pn = NonBlankRatio(pb);
+            Check("PetWindow 实例化并渲染", pn > 0.01, $"非空像素 {pn:P1}");
+            Save(pb, "selftest-wpf-pet.png");
+            pet.Close();
+        }
+        catch (Exception ex)
+        {
+            Check("PetWindow 实例化并渲染", false, ex.GetType().Name + ": " + ex.Message);
+        }
+
         // ③ 设置窗口实例化 + 渲染
         try
         {
