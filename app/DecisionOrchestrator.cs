@@ -32,6 +32,9 @@ internal static class DecisionOrchestrator
         public QuantData.EnemyProfile Enemy;
         public QuantData.TeamProfile Team;
         public IReadOnlyList<ChoiceDecider.Option> Options = Array.Empty<ChoiceDecider.Option>();
+        /// <summary>当前队伍人数 / 目标人数（从截图里的 x/y 读出；0 表示未知）。</summary>
+        public int TeamSize;
+        public int TeamTarget = 4;
         public string LlmText;              // 外部注入的模型输出（null = 未调用/失败）
         public bool LlmAttempted;
         /// <summary>当前界面类型：act/choice/shop/team…（choice=三选一，内容随机）。</summary>
@@ -84,7 +87,8 @@ internal static class DecisionOrchestrator
         // ---- 1) 量化优先：选项已知就本地打分，置信度够就直接出 ----
         if (ctx.Options.Count >= 2)
         {
-            var (size, target) = (0, 4);
+            var size = Math.Max(0, ctx.TeamSize);
+            var target = ctx.TeamTarget > 0 ? ctx.TeamTarget : 4;
             var pick = ChoiceDecider.Decide(ctx.Options, ctx.Act ?? 0, size, target);
             if (pick?.Pick != null)
             {
