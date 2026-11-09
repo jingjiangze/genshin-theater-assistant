@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using MessageBox = System.Windows.MessageBox;
 
 namespace TheaterAssistant;
@@ -26,7 +25,7 @@ public partial class SettingsWindow : Wpf.Ui.Controls.FluentWindow
 {
     private readonly ListBox _nav;
     private readonly ContentControl _host;
-    private readonly Rectangle _indicator;
+    private readonly System.Windows.Shapes.Rectangle _indicator;
     private readonly List<UIElement> _pages = new();
     private int _lastIndex = -1;
 
