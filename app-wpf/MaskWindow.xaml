@@ -20,110 +20,112 @@
         TextOptions.TextRenderingMode="ClearType">
 
   <!--
-    遮罩窗口（照抄 BetterGI 的 MaskWindow 结构，见 NOTICE.md）：
-      · 整窗透明、无边框、置顶、不抢焦点、默认点击穿透 —— 盖在游戏上但不挡操作；
-      · 一个绘制层（识别框 + 标签）+ 左下角日志面板（RichTextBox + OverlayLogDocument）；
-      · 窗口位置/尺寸由 MaskWindowHost 按游戏客户区实时跟随，这里不写死。
+    遮罩窗口（结构照抄 BetterGI 的 MaskWindow，视觉按"文字更醒目 + 更不占视野"重做）：
+      · 整窗透明、无边框、置顶、不抢焦点、默认点击穿透；
+      · 左下角一块紧凑卡片：默认只显示「现在做」+ 状态；日志按 Ctrl+Alt+M 展开；
+      · 一层识别框（帧像素 → 窗口比例换算）；
+      · 位置/尺寸由 MaskWindowHost 按游戏客户区跟随。
 
-    为什么不用 BGI 的 WS_CHILD 挂进游戏窗口：本项目红线是「只读、不注入」，
-    独立置顶窗口同样能跟随客户区，但不会改变其他进程的窗口树。
+    为什么默认收起日志：玩家在打，不是在看日志。占视野的是"解释"，不是"指令"。
   -->
   <Grid x:Name="Root" Background="Transparent">
 
-    <!-- 识别框层：铺满整窗，不参与命中测试 -->
     <local:MaskDrawingLayer x:Name="DrawLayer"/>
 
-    <!-- 左下角日志面板 -->
-    <Border x:Name="LogPanel"
+    <Border x:Name="Panel"
             HorizontalAlignment="Left" VerticalAlignment="Bottom"
-            Margin="12,0,0,88"
-            Width="440" MaxHeight="300"
-            CornerRadius="10"
+            Margin="14,0,0,92"
+            Width="404"
+            CornerRadius="9"
             BorderThickness="1"
-            BorderBrush="#3D7EB8E8">
+            BorderBrush="#40FFFFFF">
       <Border.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-          <GradientStop Color="#CC141A22" Offset="0"/>
-          <GradientStop Color="#D6080B10" Offset="1"/>
-        </LinearGradientBrush>
+        <SolidColorBrush Color="#E6141720"/>
       </Border.Background>
       <Border.Effect>
-        <DropShadowEffect BlurRadius="18" ShadowDepth="3" Opacity="0.55" Color="#000000"/>
+        <DropShadowEffect BlurRadius="14" ShadowDepth="2" Opacity="0.5" Color="#000000"/>
       </Border.Effect>
 
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
-          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- 标题行：竖条 + 名称 + 右侧状态胶囊 -->
-        <Grid Grid.Row="0" Margin="10,8,10,0">
+        <!-- 标题行：玩法名 + 状态胶囊 + 折叠指示 -->
+        <Grid Grid.Row="0" Margin="12,8,12,0">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
 
-          <Border Grid.Column="0" Width="3" Height="12" CornerRadius="2"
-                  Background="#FF7EB8E8" Margin="0,0,7,0" VerticalAlignment="Center"/>
+          <Border Grid.Column="0" Width="3" Height="13" CornerRadius="2"
+                  Background="#FF4C8DFF" Margin="0,0,8,0" VerticalAlignment="Center"/>
 
-          <TextBlock Grid.Column="1" Text="剧诗助手"
-                     FontFamily="Microsoft YaHei UI" FontSize="12" FontWeight="SemiBold"
-                     Foreground="#FFE8F0FF" VerticalAlignment="Center"/>
+          <TextBlock Grid.Column="1" x:Name="TitleText" Text="剧诗助手"
+                     FontFamily="Microsoft YaHei UI" FontSize="12.5" FontWeight="SemiBold"
+                     Foreground="#FFF2F6FF" VerticalAlignment="Center"
+                     TextTrimming="CharacterEllipsis"/>
 
-          <Border Grid.Column="2" x:Name="StatusChip" CornerRadius="8" Padding="7,1"
-                  Background="#331E2A38" VerticalAlignment="Center" MaxWidth="248">
+          <Border Grid.Column="2" x:Name="StatusChip" CornerRadius="7" Padding="7,1.5"
+                  Background="#33FFFFFF" VerticalAlignment="Center" MaxWidth="200" Margin="8,0,0,0">
             <TextBlock x:Name="StatusText" Text="初始化…"
-                       FontFamily="Microsoft YaHei UI" FontSize="10"
+                       FontFamily="Microsoft YaHei UI" FontSize="10.5"
                        TextTrimming="CharacterEllipsis"
-                       Foreground="#FF9FC3E8"/>
+                       Foreground="#FFBFD4F0"/>
           </Border>
+
+          <TextBlock Grid.Column="3" x:Name="Chevron" Text="▸" Margin="7,0,0,0"
+                     FontSize="10" Foreground="#FF8C96A8" VerticalAlignment="Center"/>
         </Grid>
 
-        <Rectangle Grid.Row="0" Height="1" Margin="10,26,10,0" VerticalAlignment="Bottom"
-                   Fill="#26FFFFFF"/>
-
-        <!-- 「现在做」：产品唯一的一句话指示（与悬浮窗/桌宠同一句），没有就整行收起 -->
-        <Grid Grid.Row="1" x:Name="AdviceRow" Margin="10,5,10,0" Visibility="Collapsed">
+        <!-- 「现在做」：整块界面里唯一必须一眼看到的东西 -->
+        <Grid Grid.Row="1" x:Name="AdviceRow" Margin="12,7,12,9" Visibility="Collapsed">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
-          <TextBlock Grid.Column="0" Text="▶" Margin="0,0,5,0" FontSize="10"
-                     Foreground="#FF7ED8A0" VerticalAlignment="Top"/>
+          <TextBlock Grid.Column="0" x:Name="AdviceMark" Text="▶" Margin="0,2,7,0" FontSize="11"
+                     Foreground="#FF5BD48E" VerticalAlignment="Top"/>
           <TextBlock Grid.Column="1" x:Name="AdviceText" Text=""
-                     FontFamily="Microsoft YaHei UI" FontSize="12"
-                     Foreground="#FFF0F6FF" TextWrapping="Wrap"
-                     MaxHeight="34" TextTrimming="CharacterEllipsis"/>
+                     FontFamily="Microsoft YaHei UI" FontSize="14.5" FontWeight="SemiBold"
+                     Foreground="#FFFFFFFF" TextWrapping="Wrap"
+                     MaxHeight="42" TextTrimming="CharacterEllipsis"
+                     LineHeight="20" LineStackingStrategy="BlockLineHeight"/>
         </Grid>
 
-        <!-- 日志正文：只读、无边框、透明背景；裁剪由 OverlayLogDocument 负责 -->
-        <RichTextBox Grid.Row="2" x:Name="LogTextBox"
-                     Margin="10,5,10,0" MinHeight="96" MaxHeight="220"
-                     IsReadOnly="True" IsUndoEnabled="False"
-                     AcceptsReturn="False" AcceptsTab="False"
-                     IsDocumentEnabled="False" Focusable="False"
-                     BorderThickness="0" Background="Transparent" Padding="0"
-                     VerticalScrollBarVisibility="Hidden"
-                     HorizontalScrollBarVisibility="Disabled"
-                     Foreground="#FFD6DEEE"
-                     FontFamily="Microsoft YaHei UI" FontSize="11"
-                     CaretBrush="Transparent"/>
+        <!-- 展开时才有的部分：分隔线 + 日志 + 页脚 -->
+        <Rectangle Grid.Row="2" x:Name="Divider" Height="1" Margin="12,0,12,0"
+                   Fill="#26FFFFFF" Visibility="Collapsed"/>
 
-        <!-- 页脚：热键提示 + 行数上限（与 BGI 一致的信息密度） -->
-        <Grid Grid.Row="3" Margin="10,4,10,7">
-          <TextBlock x:Name="FootText" HorizontalAlignment="Left"
-                     Text="只读屏幕 · 不注入 · Ctrl+Alt+H 显隐"
-                     FontFamily="Microsoft YaHei UI" FontSize="9.5"
-                     Foreground="#FF7C8899"/>
-          <TextBlock x:Name="CountText" HorizontalAlignment="Right"
-                     Text="日志 0 行"
-                     FontFamily="Microsoft YaHei UI" FontSize="9.5"
-                     Foreground="#FF5C6675"/>
-        </Grid>
+        <StackPanel Grid.Row="3" x:Name="LogBlock" Visibility="Collapsed">
+          <RichTextBox x:Name="LogTextBox"
+                       Margin="12,5,12,0" MaxHeight="164"
+                       IsReadOnly="True" IsUndoEnabled="False"
+                       AcceptsReturn="False" AcceptsTab="False"
+                       IsDocumentEnabled="False" Focusable="False"
+                       BorderThickness="0" Background="Transparent" Padding="0"
+                       VerticalScrollBarVisibility="Hidden"
+                       HorizontalScrollBarVisibility="Disabled"
+                       Foreground="#FFE2E8F4"
+                       FontFamily="Microsoft YaHei UI" FontSize="11.5"
+                       CaretBrush="Transparent"/>
+
+          <Grid Margin="12,3,12,6">
+            <TextBlock x:Name="FootText" HorizontalAlignment="Left"
+                       Text="Ctrl+Alt+M 收起日志"
+                       FontFamily="Microsoft YaHei UI" FontSize="9.5"
+                       Foreground="#FF7C8899"/>
+            <TextBlock x:Name="CountText" HorizontalAlignment="Right"
+                       Text="0 行"
+                       FontFamily="Microsoft YaHei UI" FontSize="9.5"
+                       Foreground="#FF5C6675"/>
+          </Grid>
+        </StackPanel>
       </Grid>
     </Border>
   </Grid>
