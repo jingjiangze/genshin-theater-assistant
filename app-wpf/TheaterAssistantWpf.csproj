@@ -115,21 +115,24 @@
   </ItemGroup>
 
   <!--
-    随包资源（data/、templates/）必须**动态**加入：
-    它们在 CI 里由 PowerShell 在 dotnet publish 之前复制到 app-wpf/ 下，
-    而 MSBuild 的 `<Content Include="data\**\*">` 这类 glob 在**项目求值时**就展开，
-    那时目录可能还不存在 → 文件不会被打进单文件 exe。
-    实测后果：exe 里 data/guide-corpus.json 只有 23 条（编译期旧内容），而不是最新的 786 条。
-    用 Target 在 PrepareForPublish 前重新扫描目录，能拿到运行时复制进来的全部文件。
+    随包资源（data/、templates/）走 **EmbeddedResource**，不用 Content。
+    原因（三个方案实测都失败过）：
+      ① 静态 `<Content Include="data\**\*">` —— glob 在项目求值时展开，CI 里 data 是运行时才复制的 → 匹配不到；
+      ② `ContentWithTargetPath` 动态加入 —— 与默认 Content 机制重复 → NETSDK1152（33 个文件同路径冲突）；
+      ③ 动态 `Content` + CopyToPublishDirectory —— 时机仍不对，dist-wpf/data 文件数始终为 0。
+    嵌入资源在编译期就确定，且 AppPaths 会在首次读取时解包到
+    %LOCALAPPDATA%\TheaterAssistant\data，最可靠（模型一直用的就是这个方式）。
   -->
   <Target Name="IncludeRuntimeData" BeforeTargets="PrepareForPublish;ComputeFilesToPublish">
-    <!-- 只用 Content（不用 ContentWithTargetPath）：后者会与默认 Content 复制机制重复，
-         同一文件以相同相对路径出现两次 → NETSDK1152 冲突（实测踩过）。 -->
     <ItemGroup Condition="Exists('data')">
-      <Content Include="data\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+      <EmbeddedResource Include="data\**\*">
+        <LogicalName>TheaterAssistant.res.data.%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+      </EmbeddedResource>
     </ItemGroup>
     <ItemGroup Condition="Exists('templates')">
-      <Content Include="templates\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+      <EmbeddedResource Include="templates\**\*">
+        <LogicalName>TheaterAssistant.res.templates.%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+      </EmbeddedResource>
     </ItemGroup>
   </Target>
 
