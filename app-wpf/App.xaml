@@ -1,0 +1,41 @@
+<Application x:Class="TheaterAssistant.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnExplicitShutdown">
+  <Application.Resources>
+    <!-- 派蒙 + AI 助手风格配色（与 WinForms 版同源，但由 WPF 矢量渲染，无锯齿） -->
+    <Color x:Key="CardTop">#F01E2434</Color>
+    <Color x:Key="CardBottom">#F0121520</Color>
+    <Color x:Key="AccentBlue">#7EB8E8</Color>
+    <Color x:Key="TextPrimary">#E8F0FF</Color>
+    <Color x:Key="TextBody">#D6DEEE</Color>
+    <Color x:Key="TextDim">#848C9C</Color>
+
+    <LinearGradientBrush x:Key="CardBrush" StartPoint="0,0" EndPoint="0,1">
+      <GradientStop Color="{StaticResource CardTop}" Offset="0"/>
+      <GradientStop Color="{StaticResource CardBottom}" Offset="1"/>
+    </LinearGradientBrush>
+
+    <DropShadowEffect x:Key="CardShadow" BlurRadius="18" ShadowDepth="3" Opacity="0.55" Color="#000000"/>
+
+    <Style x:Key="HeadText" TargetType="TextBlock">
+      <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+      <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <Style x:Key="BodyText" TargetType="TextBlock">
+      <Setter Property="Foreground" Value="{StaticResource TextBody}"/>
+      <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="FootText" TargetType="TextBlock">
+      <Setter Property="Foreground" Value="{StaticResource TextDim}"/>
+      <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
+      <Setter Property="FontSize" Value="10"/>
+    </Style>
+  </Application.Resources>
+</Application>
