@@ -30,7 +30,11 @@ internal static class DecisionBridge
             }
             CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
             CharacterStrength.LoadModel(AppPaths.Data("strength-model.json"));
-            CharacterStrength.Load(Path.Combine(AppPaths.Dir, "roster.json"), AppPaths.Data("characters.json"));
+            // 角色池优先级：Enka 自动获取的 > 玩家手放的 roster.json
+            // 用户明确「最优要按玩家当前角色池判定」，所以自动来源优先。
+            var enkaPath = Path.Combine(AppPaths.Dir, "roster-enka.json");
+            var rosterPath = File.Exists(enkaPath) ? enkaPath : Path.Combine(AppPaths.Dir, "roster.json");
+            CharacterStrength.Load(rosterPath, AppPaths.Data("characters.json"));
             _ready = true;
         }
         catch
