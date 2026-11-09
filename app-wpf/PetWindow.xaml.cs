@@ -69,7 +69,6 @@ public partial class PetWindow : Window
         PetCanvas.MouseLeftButtonDown += OnPetMouseDown;
         PetCanvas.MouseMove += OnPetMouseMove;
         PetCanvas.MouseLeftButtonUp += OnPetMouseUp;
-        PetCanvas.MouseDoubleClick += (_, _) => ToggleDetail();
     }
 
     [DllImport("user32.dll")] private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
@@ -88,7 +87,9 @@ public partial class PetWindow : Window
     // ── 拖动 ────────────────────────────────────────────────────
     private void OnPetMouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (e.ClickCount >= 2) return;      // 双击交给 ToggleDetail
+        // WPF 的 UIElement 没有 MouseDoubleClick 事件（那是 WinForms 的），
+        // 双击必须用 MouseLeftButtonDown 的 ClickCount 判断。
+        if (e.ClickCount >= 2) { ToggleDetail(); return; }
         _dragging = true;
         _dragStart = PointToScreen(e.GetPosition(this));
         _winStart = new Point(Left, Top);
