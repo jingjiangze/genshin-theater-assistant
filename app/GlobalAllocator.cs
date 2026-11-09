@@ -305,6 +305,30 @@ internal static class GlobalAllocator
         var dup = res.PoolUsed.GroupBy(n => n, StringComparer.Ordinal).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
         if (dup.Count > 0) res.Notes.Add("⚠ 重复使用: " + string.Join("/", dup));
         else res.Notes.Add("✓ 无重复使用");
+        // ---- 4) 补位：主力幕必须满 4 人 ----
+        // 审计背景：此前只"按需分配"（元素位 + 职能位），需求只覆盖 3 个槽位时
+        // 就会出现「Lunar 第6幕 分配了 3 人 ≠ 4」（box 的 --quality-gates 发现，CI 未覆盖）。
+        // 实战少一个角色是实质损失，必须补满；补位优先强度高、等级高，且同难度内不重复。
+        foreach (var a in res.Assigns.Where(x => x.UsedMainForce))
+        {
+            if (a.Team.Count >= DecisionPolicy.TeamSize) continue;
+            var usedNow = UsedOf(a.Difficulty);
+            var fillers = units
+                .Where(u => !usedNow.Contains(u.Name) && !a.Team.Contains(u.Name))
+                .OrderByDescending(u => CharacterStrength.ScoreOf(u.Name))
+                .ThenByDescending(u => u.Level)
+                .ToList();
+            foreach (var f in fillers)
+            {
+                if (a.Team.Count >= DecisionPolicy.TeamSize) break;
+                a.Team.Add(f.Name);
+                usedNow.Add(f.Name);
+                a.Reasons.Add($"补位 {f.Name}（强度/等级优先，非需求位）");
+            }
+            if (a.Team.Count < DecisionPolicy.TeamSize)
+                a.Gaps.Add($"池内可用不足，仅 {a.Team.Count}/{DecisionPolicy.TeamSize} 人");
+        }
+
         return res;
     }
 
