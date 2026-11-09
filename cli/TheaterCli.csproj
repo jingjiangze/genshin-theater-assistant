@@ -43,6 +43,7 @@
     <Compile Include="..\app\CuratedPicks.cs" Link="app\CuratedPicks.cs" />
     <Compile Include="..\app\GuideIndex.cs" Link="app\GuideIndex.cs" />
     <Compile Include="..\app\CharacterStrength.cs" Link="app\CharacterStrength.cs" />
+    <Compile Include="..\app\DecisionBridge.cs" Link="app\DecisionBridge.cs" />
     <Compile Include="..\app\LlmAdvisor.cs" Link="app\LlmAdvisor.cs" />
   </ItemGroup>
 
