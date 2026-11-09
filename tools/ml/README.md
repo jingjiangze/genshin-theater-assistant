@@ -75,10 +75,31 @@ MiniMind2-Small 是标准 `LlamaForCausalLM`（config.json 无自定义代码）
 GitHub runner 无 GPU 且训练不可复现；CI 只跑 `build-sft.mjs` 的数据校验（秒级）。
 权重在 `out/`（gitignore），不提交仓库。
 
-## 接入客户端（PENDING）
+## 接入客户端（已完成，◇模型层在环）
 
-训练产物是全参权重（fp16 约 52MB）。要进产品需要：
-1. 转 GGUF（上游 `MiniMind2-gguf` 有现成配方）→ llama.cpp，或转 ONNX（OpenVINO 吃 Intel GPU）；
-2. 客户端在 `data/llm.json` 里把端点指向本地推理进程（`LlmAdvisor` 走 HTTP，最小改动）。
+```bat
+:: 1) 起本地推理进程（OpenAI 兼容；8765 常被占可用 17915）
+.mlvenv\Scripts\python.exe tools\ml\serve.py --model out/minimind-26m-fp16 --port 17915
+::   GET  /health  → {"ok":true,"backend":"torch-cpu",...}
+::   POST /v1/chat/completions → 实测 CPU 985ms/答（26M fp16）
 
-这一步未做。
+:: 2) data/llm.json 指向它（llm.json 已被 gitignore，不进仓）
+{
+  "enabled": true, "minIntervalSeconds": 1, "cooldownSeconds": 5, "timeoutSeconds": 30,
+  "endpoints": [{ "name": "local-minimind", "url": "http://127.0.0.1:17915/v1/chat/completions",
+                  "model": "minimind-26m", "timeoutSeconds": 30 }]
+}
+
+:: 3) ◇层在环验证（模型进程开着跑）
+TheaterAssistant.exe --selftest-live --size 1600x900 --llm   → 新增断言「◇模型层在环」+ 编排来源=◇模型
+TheaterAssistant.exe --replay frames\ --llm                   → 报告多一列「◇模型」，摘要「◇模型在环：30/30 帧」
+```
+
+**接线点**（2026-11-10）：WPF 主循环在「选项未读到」时调用 `RefineAsync`（自带限频/冷却/脱敏），
+把 `ctx.LlmText/LlmAttempted` 交给编排器；编排器在「三选一内容随机」与「信息不足」两个分支输出 `◇模型` 来源。
+模型进程没起 = 客户端自动降级回 ○语料/·规则，零配置成本。
+
+**OpenVINO（Intel Arc）现状**：openvino 2026.4.1 已装且能看到 GPU（Arc B580），但 `optimum-intel` 导出
+与 transformers 5.x / datasets / huggingface-hub 的版本三角在离线环境解不开（transformers 要 hub<2.0，
+datasets 要 2.x）。serve.py 的后端是可插拔的：模型目录里出现 `.xml`（OV IR）即自动走 GPU；
+解开版本三角后 `optimum-cli export openvino --model out/minimind-26m-fp16 out/minimind-26m-ov` 一步即插上。
