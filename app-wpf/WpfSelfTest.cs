@@ -76,6 +76,23 @@ internal static class WpfSelfTest
             Check("PetWindow 实例化并渲染", false, ex.GetType().Name + ": " + ex.Message);
         }
 
+        // ②c 悬浮球（常态形态，照 MapsBalloon 的 76×76）
+        try
+        {
+            var ball = new FloatingBall();
+            ball.Show();
+            ball.SetState(FloatingBall.BallState.Done);
+            var bb = Render(ball, 76, 76);
+            var bn = NonBlankRatio(bb);
+            Check("FloatingBall 实例化并渲染", bn > 0.01, $"非空像素 {bn:P1}");
+            Save(bb, "selftest-wpf-ball.png");
+            ball.Close();
+        }
+        catch (Exception ex)
+        {
+            Check("FloatingBall 实例化并渲染", false, ex.GetType().Name + ": " + ex.Message);
+        }
+
         // ③ 设置窗口实例化 + 渲染
         try
         {
