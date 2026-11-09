@@ -54,6 +54,7 @@
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
           <RowDefinition Height="*"/>
           <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -74,9 +75,10 @@
                      Foreground="#FFE8F0FF" VerticalAlignment="Center"/>
 
           <Border Grid.Column="2" x:Name="StatusChip" CornerRadius="8" Padding="7,1"
-                  Background="#331E2A38" VerticalAlignment="Center">
+                  Background="#331E2A38" VerticalAlignment="Center" MaxWidth="248">
             <TextBlock x:Name="StatusText" Text="初始化…"
                        FontFamily="Microsoft YaHei UI" FontSize="10"
+                       TextTrimming="CharacterEllipsis"
                        Foreground="#FF9FC3E8"/>
           </Border>
         </Grid>
@@ -84,8 +86,22 @@
         <Rectangle Grid.Row="0" Height="1" Margin="10,26,10,0" VerticalAlignment="Bottom"
                    Fill="#26FFFFFF"/>
 
+        <!-- 「现在做」：产品唯一的一句话指示（与悬浮窗/桌宠同一句），没有就整行收起 -->
+        <Grid Grid.Row="1" x:Name="AdviceRow" Margin="10,5,10,0" Visibility="Collapsed">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Grid.Column="0" Text="▶" Margin="0,0,5,0" FontSize="10"
+                     Foreground="#FF7ED8A0" VerticalAlignment="Top"/>
+          <TextBlock Grid.Column="1" x:Name="AdviceText" Text=""
+                     FontFamily="Microsoft YaHei UI" FontSize="12"
+                     Foreground="#FFF0F6FF" TextWrapping="Wrap"
+                     MaxHeight="34" TextTrimming="CharacterEllipsis"/>
+        </Grid>
+
         <!-- 日志正文：只读、无边框、透明背景；裁剪由 OverlayLogDocument 负责 -->
-        <RichTextBox Grid.Row="1" x:Name="LogTextBox"
+        <RichTextBox Grid.Row="2" x:Name="LogTextBox"
                      Margin="10,5,10,0" MinHeight="96" MaxHeight="220"
                      IsReadOnly="True" IsUndoEnabled="False"
                      AcceptsReturn="False" AcceptsTab="False"
@@ -98,7 +114,7 @@
                      CaretBrush="Transparent"/>
 
         <!-- 页脚：热键提示 + 行数上限（与 BGI 一致的信息密度） -->
-        <Grid Grid.Row="2" Margin="10,4,10,7">
+        <Grid Grid.Row="3" Margin="10,4,10,7">
           <TextBlock x:Name="FootText" HorizontalAlignment="Left"
                      Text="只读屏幕 · 不注入 · Ctrl+Alt+H 显隐"
                      FontFamily="Microsoft YaHei UI" FontSize="9.5"
