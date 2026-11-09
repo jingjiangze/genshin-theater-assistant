@@ -286,6 +286,26 @@ for (const [diff, actMap] of Object.entries((season && season.acts) || {})) {
   });
 }
 
+// ⑤h BWIKI 语料（从 wiki.biligame.com 的剧诗专页提取，见 bwiki-corpus.mjs）
+{
+  const bwPath = path.join(ROOT, "data", "bwiki-corpus.json");
+  if (fs.existsSync(bwPath)) {
+    const bw = JSON.parse(fs.readFileSync(bwPath, "utf8").replace(/^\uFEFF/, ""));
+    let n = 0;
+    for (const e of (bw.entries || [])) {
+      add({
+        act: e.act || 0,
+        tags: (e.tags || []).concat(["BWIKI"]),
+        title: e.title || "BWIKI",
+        text: e.text || "",
+        source: e.source || "BWIKI",
+      });
+      n++;
+    }
+    console.log(`  并入 BWIKI 语料 ${n} 条`);
+  }
+}
+
 // ⑥ 保留原有手工语料
 for (const e of (oldCorpus.entries || [])) add(e);
 
@@ -295,6 +315,7 @@ sources['act-teams'] = `从 ${teams.videosWithAct} 份 B 站字幕提取的每�
 sources['characters'] = '角色元素/职能表（data/characters.json）';
 sources['substitutes'] = '等价角色/职能分组（data/substitutes.json）';
 sources['act-playbook'] = '幕内首领与机制（data/act-playbook.json）';
+sources['bwiki'] = 'BWIKI 幻想真境剧诗（wiki.biligame.com/ys，CC BY-NC-SA）';
 
 const result = {
   season: oldCorpus.season || 29,
