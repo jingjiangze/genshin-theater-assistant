@@ -181,6 +181,7 @@ public partial class App : System.Windows.Application
                 Thickness = 1.5,
                 Label = "幕次条带",
                 CornersOnly = false,
+                LabelAlignRight = true,   // 左边是被日志面板盖住的区域
             });
         }
         foreach (var h in s.Hits)
@@ -197,6 +198,9 @@ public partial class App : System.Windows.Application
 
         var actText = s.Act.HasValue ? $"第{s.Act}幕" : "";
         w.SetStatus(actText, s.Source, s.Abstained ? $"弃权 {s.MissedMs}ms" : "");
+
+        // 「现在做」：弃权时清空（不展示过期指令），否则用决策层的第一句
+        w.SetAdvice(s.Abstained || s.Lines.Count == 0 ? "" : s.Lines[0]);
 
         var key = $"{s.Act}|{s.Source}|{s.Abstained}|{s.Status}";
         if (key == _maskLogKey) return;
