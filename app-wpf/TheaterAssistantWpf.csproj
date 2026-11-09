@@ -71,6 +71,7 @@
     <Compile Include="..\app\SeasonRegistry.cs" Link="logic\SeasonRegistry.cs" />
     <Compile Include="..\app\Speech.cs" Link="logic\Speech.cs" />
     <Compile Include="..\app\TeamSolver.cs" Link="logic\TeamSolver.cs" />
+    <Compile Include="..\app\TheaterLogic.cs" Link="logic\TheaterLogic.cs" />
   </ItemGroup>
 
   <ItemGroup>
