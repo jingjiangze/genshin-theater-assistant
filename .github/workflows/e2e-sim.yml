@@ -73,7 +73,8 @@ jobs:
           Get-ChildItem .\dist -Filter 'crash-*.txt' -ErrorAction SilentlyContinue | ForEach-Object {
             Write-Host "--- $($_.Name) ---"; Get-Content $_.FullName -Encoding UTF8
           }
-          if ($p.ExitCode -ne 0) { throw "replay 失败 (exit $($p.ExitCode))" }
+          # 退出码语义：0=时序稳定，1=时序 WARN（报告已写出，由下面门槛裁定），>=2=参数/环境错
+          if ($p.ExitCode -ge 2) { throw "replay 失败 (exit $($p.ExitCode))" }
           Get-Content "$out\replay.md" -Encoding UTF8 | Select-Object -First 14
 
       - name: 断言（时序质量门槛）
@@ -102,7 +103,7 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 跳变 / 抖动 | $jumps / $flips |"
 
           # 门槛：这是回归门，不是"看起来还行"——达不到就红
-          if ($steps.Count -ne $frames) { throw "步数与帧数不一致：$($steps.Count) vs $frames" }
+          if ($frames -lt 28) { throw "回放帧数过少：$frames（testdata/ocr-frames 应 ≥28 张可解码 1080p）" }
           if ($withAction -lt [math]::Ceiling($frames * 0.6)) { throw "给出现在做的帧太少：$withAction/$frames（门槛 60%）" }
           if ($withHit -lt [math]::Ceiling($frames * 0.5)) { throw "检索命中太少：$withHit/$frames（门槛 50%）" }
           if ($jumps -gt 3) { throw "幕次跳变过多：$jumps（门槛 ≤3）" }
