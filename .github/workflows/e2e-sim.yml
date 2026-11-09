@@ -87,8 +87,8 @@ jobs:
           $actSeen = @($steps | Where-Object { $_.Act -gt 0 }).Count
           $withAction = @($steps | Where-Object { $_.NextAction -and $_.NextAction.Length -gt 4 }).Count
           $withHit = @($steps | Where-Object { $_.TopHit -and $_.TopHit.Length -gt 4 }).Count
-          $jumps = [int]$j.jumps
-          $flips = [int]$j.flips
+          $jumps = @($j.jumps).Count
+          $flips = @($j.flips).Count
 
           "帧 $frames｜判出幕次 $actSeen｜给出现在做 $withAction｜检索命中 $withHit｜跳变 $jumps｜抖动 $flips" |
             Tee-Object -FilePath e2e\summary.txt
