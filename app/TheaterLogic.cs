@@ -224,7 +224,6 @@ internal sealed class RosterData
     }
 }
 
-internal sealed record Advice(string Header, List<string> Lines, string Diagnostics, int? Act = null, string Kind = null);
 
 /// <summary>剧本决策：只看识别结果 + 第 29 期数据；不含任何游戏内操作。</summary>
 internal static class TheaterLogic
