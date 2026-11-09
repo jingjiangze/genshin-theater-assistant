@@ -137,7 +137,7 @@ internal static class WpfSelfTest
             mask.SetFrame(new[]
             {
                 new MaskBox { Bounds = new Rect(96, 118, 180, 64), Label = "act3 0.97", Color = Color.FromRgb(0x7E, 0xD8, 0xA0) },
-                new MaskBox { Bounds = new Rect(360, 596, 588, 36), Label = "幕次条带", CornersOnly = false },
+                new MaskBox { Bounds = new Rect(360, 596, 588, 36), Label = "幕次条带", CornersOnly = false, LabelAlignRight = true },
                 new MaskBox { Bounds = new Rect(980, 300, 96, 96), Label = "hall 0.91", Color = Color.FromRgb(0xD6, 0xB6, 0x60) },
             }, 1280, 720);
 
