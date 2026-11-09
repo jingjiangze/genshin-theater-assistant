@@ -87,11 +87,9 @@ jobs:
           "帧 $frames｜判出幕次 $actSeen｜给出现在做 $withAction｜检索命中 $withHit｜跳变 $jumps｜抖动 $flips" |
             Tee-Object -FilePath e2e\summary.txt
 
-          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value @'
-### 全链路时序回放
-| 指标 | 值 |
-|---|---|
-'@
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 全链路时序回放"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 指标 | 值 |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "|---|---|"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 帧数 | $frames |"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 判出幕次 | $actSeen |"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 给出现在做 | $withAction |"
