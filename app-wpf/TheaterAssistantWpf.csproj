@@ -38,6 +38,10 @@
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- 关键：不加这行，Content（data/、templates/）不会打进单文件 exe，
+         运行时 AppPaths.Data() 找不到 → 语料库显示 0 条（本轮实测踩到）。
+         WinForms 版一直有这行，WPF 迁移时漏了。 -->
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <DebugType>none</DebugType>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
