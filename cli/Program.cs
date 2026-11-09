@@ -56,6 +56,12 @@ internal static class Program
                 return TeamSolver.RunCli(Opt(args, "--difficulty"), Num(args, "--act", 0),
                     Opt(args, "--out"), Num(args, "--season", 0), Opt(args, "--roster"));
 
+            case "--enka":
+                return EnkaClient.RunCli(Opt(args, "--uid") ?? "");
+
+            case "--roster-resolve":
+                return RosterResolver.RunCli();
+
             case "--decision-bridge":
                 return DecisionBridge.RunCli();
 
