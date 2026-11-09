@@ -17,6 +17,7 @@ namespace TheaterAssistant;
 public partial class App : System.Windows.Application
 {
     private FloatingBall _ball;
+    private MainLoop _loop;
     private OverlayWindow _detailWin;
 
     /// <summary>供子窗口回调（如悬浮球双击展开详情）。</summary>
@@ -52,6 +53,10 @@ public partial class App : System.Windows.Application
             _ball = new FloatingBall();
             _ball.Show();
             InitTray();
+
+            // 主循环：抓屏 → 识别 → 决策 → 驱动悬浮球
+            _loop = new MainLoop(_ball);
+            _ = _loop.StartAsync();
         }
         catch (Exception ex)
         {
