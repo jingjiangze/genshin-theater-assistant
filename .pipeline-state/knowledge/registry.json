@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-09T15:41:36.415668+00:00",
+  "updated_at": "2026-11-09T17:45:43.766880+00:00",
   "candidate_count": 1090,
   "verified_count": 2,
   "candidates": [
@@ -40532,7 +40532,7 @@
         "strategy_success_rate": 1.0,
         "baseline_strategy_success_rate": 0.5,
         "counter_evidence_resolved": true,
-        "verified_at": "2026-11-09T15:41:36.415482+00:00"
+        "verified_at": "2026-11-09T17:45:43.766713+00:00"
       }
     },
     {
@@ -51087,7 +51087,7 @@
         "strategy_success_rate": 1.0,
         "baseline_strategy_success_rate": 1.0,
         "counter_evidence_resolved": true,
-        "verified_at": "2026-11-09T15:41:36.415541+00:00"
+        "verified_at": "2026-11-09T17:45:43.766757+00:00"
       }
     },
     {
