@@ -135,7 +135,7 @@ internal static class LiveProbe
     /// 自动化真机模拟：起假窗口 → 抓帧 → 与源帧比对 → 走识别 → 断言。
     /// 抓屏空白（无桌面会话/被锁屏）时返回 4，调用方按"跳过"处理。
     /// </summary>
-    public static int RunSelfTest(string png, int w, int h, string title)
+    public static int RunSelfTest(string png, int w, int h, string title, bool useLlm = false)
     {
         Cli.Attach();
         var lines = new List<string>();
@@ -259,12 +259,41 @@ internal static class LiveProbe
                     // ── 全链路 ①：三级编排必须给出带来源标记的指示 ──
                     // 审计背景：此前真机模拟只验到"识别 + TheaterLogic.Evaluate"为止，
                     // 没验 DecisionOrchestrator（真正的决策出口），也没验渲染与多帧连续。
+                    // --llm 时把 ◇模型层拉进环：data/llm.json 指向 tools/ml/serve.py（本地 MiniMind 26M）。
+                    LlmAdvisor llm = null;
+                    string llmText = null;
+                    var llmAttempted = false;
+                    if (useLlm)
+                    {
+                        llm = LlmAdvisor.TryLoad(AppPaths.Data("llm.json"));
+                        if (llm is { Enabled: true })
+                        {
+                            try
+                            {
+                                llmText = llm.RefineAsync(advice.Header ?? "剧诗界面",
+                                    advice.Lines.Take(3).ToList(),
+                                    "未导入角色池").GetAwaiter().GetResult();
+                                llmAttempted = true;
+                            }
+                            catch (Exception ex2)
+                            {
+                                lines.Add("WARN  ◇模型调用异常  " + ex2.GetType().Name + ": " + ex2.Message);
+                            }
+                        }
+                        Check("◇模型层在环（本地推理进程）",
+                            !llmAttempted || !string.IsNullOrWhiteSpace(llmText),
+                            llm == null ? "未启用：缺 data/llm.json（先起 tools/ml/serve.py 再加 --llm）"
+                                        : $"健康={llm.Health}｜输出={(llmText ?? "空").Trim()}");
+                    }
+
                     try
                     {
                         var orch = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
                         {
                             Act = advice.Act,
                             Enemy = advice.Act.HasValue ? QuantData.Enemy(advice.Act.Value, "Lunar") : null,
+                            LlmText = llmText,
+                            LlmAttempted = llmAttempted,
                         });
                         var src = orch.Source ?? "";
                         Check("编排给出带来源标记的指示",
