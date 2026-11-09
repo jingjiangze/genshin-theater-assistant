@@ -1,3 +1,9 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// 本文件包含对 BetterGI（https://github.com/babalae/better-genshin-impact）实现的
+// 参考或衍生。原版权：Copyright (c) babalae 及 BetterGI contributors（GPL-3.0）。
+// 本项目在 WinForms + .NET 8 下重写/改写，修改时间 2026-11。
+// 本文件以 GPL-3.0 分发，全文见仓库根 LICENSE，来源说明见 NOTICE.md。
+// ─────────────────────────────────────────────────────────────────────────────
 using System.Text;
 using System.Text.Json;
 
