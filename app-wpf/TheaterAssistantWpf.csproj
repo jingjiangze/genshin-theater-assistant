@@ -75,6 +75,8 @@
     <Compile Include="..\app\GlobalAllocator.cs" Link="logic\GlobalAllocator.cs" />
     <Compile Include="..\app\GuideIndex.cs" Link="logic\GuideIndex.cs" />
     <Compile Include="..\app\GuideNotes.cs" Link="logic\GuideNotes.cs" />
+    <!-- 玩法档案：剧诗/深渊的识别区域与时间轴规则（data/modes.json 驱动） -->
+    <Compile Include="..\app\GameMode.cs" Link="logic\GameMode.cs" />
     <Compile Include="..\app\OcrTextPipeline.cs" Link="logic\OcrTextPipeline.cs" />
     <Compile Include="..\app\OcrTuning.cs" Link="logic\OcrTuning.cs" />
     <Compile Include="..\app\Playbook.cs" Link="logic\Playbook.cs" />
