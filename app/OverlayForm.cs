@@ -224,6 +224,9 @@ internal static class Program
                 case "--orchestrate":
                     return DecisionOrchestrator.RunCli((int)OptDouble(args, "--act", 0), Opt(args, "--difficulty"));
 
+                case "--decision-bridge":
+                    return DecisionBridge.RunCli();
+
                 // 角色强度（GOOD 多指标：圣遗物/天赋/命座/武器）
                 case "--strength":
                     return CharacterStrength.RunCli(Opt(args, "--roster"));
@@ -430,6 +433,11 @@ internal sealed class OverlayForm : Form
         DoubleBuffered = true;
         Text = "剧诗助手";
 
+        // P0 接入（AUDIT-OVERALL.md）：此前生产主循环只用 TheaterLogic（纯规则），
+        // 量化/配队/推荐/强度约 2400 行决策代码只在 CI/CLI 里跑。这里初始化决策层，
+        // 让它的建议真正进入玩家看到的悬浮窗。失败不影响旧逻辑（try/catch + 布尔标记）。
+        DecisionBridge.Init();
+
         _theater = TheaterData.Load(AppPaths.Data("season29.json"));
         _roster = RosterData.TryLoad(Path.Combine(AppPaths.Dir, "roster.json"));
 
@@ -440,6 +448,7 @@ internal sealed class OverlayForm : Form
         Routine.Load(AppPaths.Data("rotations.json"));
         Playbook.Load(AppPaths.Data("act-playbook.json"));
         LoadTemplatesFor(0, 0);
+
 
         _timer.Tick += OnTick;
         Shown += OnShown;
@@ -569,6 +578,9 @@ internal sealed class OverlayForm : Form
             var stableAct = _actStab.Push(advice.Act);
             if (stableAct != advice.Act)
                 advice = advice with { Act = stableAct, Kind = stableAct.HasValue ? "act" : advice.Kind };
+
+            // 决策层：把量化/配队/推荐/强度的结论追加进指示（保留旧逻辑的输出，只做加法）
+            advice = DecisionBridge.Append(advice);
 
             // 弃权：连续多帧都没认出幕次 → 明确说"暂不判断"，不再沿用旧幕次给过时指令。
             // 实测约 25~30% 帧属于沿用（AUDIT §36），长期沿用比弃权更容易误导。
