@@ -4,6 +4,10 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Brush = System.Windows.Media.Brush;
+using Brushes = System.Windows.Media.Brushes;
+using SolidColorBrush = System.Windows.Media.SolidColorBrush;
+using Color = System.Windows.Media.Color;
 
 namespace TheaterAssistant;
 
