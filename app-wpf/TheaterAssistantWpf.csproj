@@ -123,19 +123,14 @@
     用 Target 在 PrepareForPublish 前重新扫描目录，能拿到运行时复制进来的全部文件。
   -->
   <Target Name="IncludeRuntimeData" BeforeTargets="PrepareForPublish;ComputeFilesToPublish">
-    <ItemGroup Condition="Exists(data)">
-      <ContentWithTargetPath Include="data\**\*">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <TargetPath>data\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-      </ContentWithTargetPath>
+    <!-- 只用 Content（不用 ContentWithTargetPath）：后者会与默认 Content 复制机制重复，
+         同一文件以相同相对路径出现两次 → NETSDK1152 冲突（实测踩过）。 -->
+    <ItemGroup Condition="Exists('data')">
+      <Content Include="data\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     </ItemGroup>
-    <ItemGroup Condition="Exists(templates)">
-      <ContentWithTargetPath Include="templates\**\*">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <TargetPath>templates\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-      </ContentWithTargetPath>
+    <ItemGroup Condition="Exists('templates')">
+      <Content Include="templates\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     </ItemGroup>
-    <Message Importance="high" Text="IncludeRuntimeData: data=$(CountFiles) templates=$(CountTpl)" />
   </Target>
 
 </Project>
