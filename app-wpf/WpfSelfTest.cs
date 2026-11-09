@@ -22,6 +22,8 @@ namespace TheaterAssistant;
 ///   2. OverlayWindow 能实例化（XAML 中的资源引用全部可解析）
 ///   3. SettingsWindow 能实例化
 ///   4. 两者都能渲染成非空白位图（说明控件树真的建起来了）
+///   5. 遮罩窗口能渲染，且日志裁剪守住 200 inline 上限（照抄 BetterGI 的判据）
+///   6. 遮罩显隐策略（前台显示 / 别的程序隐藏 / 最小化保持 / 手动隐藏优先）
 /// </summary>
 internal static class WpfSelfTest
 {
@@ -114,6 +116,64 @@ internal static class WpfSelfTest
         catch (Exception ex)
         {
             Check("SettingsWindow 实例化并渲染", false, ex.GetType().Name + ": " + ex.Message);
+        }
+
+        // ③b 遮罩窗口（照抄 BetterGI 的结构）：日志裁剪 + 识别框 + 状态胶囊
+        try
+        {
+            var mask = new MaskWindow();
+            mask.Show();
+            mask.SetStatus("第3幕", "★云端已验证");
+
+            // 300 行远超上限：裁剪后 inline 数必须 ≤ 200（与上游同一条判据）
+            for (var i = 0; i < 300; i++)
+                mask.AppendLog(i % 7 == 0 ? "WRN" : "INF", $"第 {i} 行：合成日志，用于验证裁剪上限");
+
+            var inlines = mask.TrimLogsNow();
+            Check("遮罩日志有上限", inlines <= OverlayLogDocument.MaximumInlines,
+                $"inline {inlines} / 上限 {OverlayLogDocument.MaximumInlines}；已写入 {mask.LogLineCount} 行");
+
+            mask.SetFrame(new[]
+            {
+                new MaskBox { Bounds = new Rect(96, 118, 180, 64), Label = "act3 0.97", Color = Color.FromRgb(0x7E, 0xD8, 0xA0) },
+                new MaskBox { Bounds = new Rect(360, 596, 588, 36), Label = "幕次条带", CornersOnly = false },
+                new MaskBox { Bounds = new Rect(980, 300, 96, 96), Label = "hall 0.91", Color = Color.FromRgb(0xD6, 0xB6, 0x60) },
+            }, 1280, 720);
+
+            var mb = Render(mask, 1280, 720);
+            var mn = NonBlankRatio(mb);
+            Check("MaskWindow 实例化并渲染", mn > 0.01, $"非空像素 {mn:P1}");
+            Save(mb, "selftest-wpf-mask.png");
+            mask.Close();
+        }
+        catch (Exception ex)
+        {
+            Check("MaskWindow 实例化并渲染", false, ex.GetType().Name + ": " + ex.Message);
+        }
+
+        // ③c 遮罩显隐策略（纯函数：上游把这段埋在 EvaluateLocked 里，没法单独测）
+        try
+        {
+            var bounds = new GameWindow.RECT { Left = 100, Top = 50, Right = 1380, Bottom = 770 };
+            var active = new MaskGameState(new IntPtr(1), bounds, active: true, minimized: false, fgOwned: true, capturing: true);
+            var otherApp = new MaskGameState(new IntPtr(1), bounds, active: false, minimized: false, fgOwned: false, capturing: true);
+            var minimized = new MaskGameState(new IntPtr(1), bounds, active: false, minimized: true, fgOwned: false, capturing: true);
+            var gone = new MaskGameState(IntPtr.Zero, default, active: false, minimized: false, fgOwned: false, capturing: false);
+
+            var ok = MaskPolicy.Decide(active, false) == true
+                     && MaskPolicy.Decide(otherApp, false) == false
+                     && MaskPolicy.Decide(minimized, false) == null      // 最小化时保持现状，避免闪烁
+                     && MaskPolicy.Decide(gone, false) == false
+                     && MaskPolicy.Decide(active, true) == false;        // 手动隐藏优先于一切
+
+            Check("遮罩显隐策略", ok,
+                $"前台={MaskPolicy.Decide(active, false)} 别的程序={MaskPolicy.Decide(otherApp, false)} " +
+                $"最小化={MaskPolicy.Decide(minimized, false)?.ToString() ?? "null"} " +
+                $"无窗口={MaskPolicy.Decide(gone, false)} 手动隐藏={MaskPolicy.Decide(active, true)}");
+        }
+        catch (Exception ex)
+        {
+            Check("遮罩显隐策略", false, ex.GetType().Name + ": " + ex.Message);
         }
 
         log.AppendLine();
