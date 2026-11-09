@@ -238,10 +238,16 @@ public partial class App : System.Windows.Application
 
         // 「现在做」：弃权时改成警示句（不展示过期指令），否则用决策层的第一句。
         // 决策行自带来源标记（◆/★/◇/○/·），面板已经有一个 ▶ 前缀，这里把重复的标记去掉。
+        // 第二条 = 战斗中的手法指导（MainLoop 追加在 Lines 末尾的「手法·」行），弃权时不展示。
         if (s.Abstained)
+        {
             w.SetAdvice("幕次未识别，请在剧诗界面停留一下再走", warn: true);
+        }
         else
+        {
             w.SetAdvice(s.Lines.Count == 0 ? "" : StripMarker(s.Lines[0]));
+            w.SetGuide(s.Lines.FirstOrDefault(l => l.StartsWith("手法·")));
+        }
 
         var key = $"{s.Act}|{s.Source}|{s.Abstained}|{s.Status}";
         if (key == _maskLogKey) return;
