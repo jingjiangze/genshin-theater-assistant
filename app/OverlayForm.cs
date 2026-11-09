@@ -456,41 +456,6 @@ internal sealed class OverlayForm : Form
         LoadTemplatesFor(0, 0);
 
 
-    // ── 零配置角色池（用户要求「自动通过 uid 查」）─────────────────
-    // 悬浮窗截图里本来就有 UID（界面右下角 `UID:xxxxxxxxx`），OCR 顺带读到即可，
-    // 玩家不需要填 UID、不需要装扫描器、更不碰游戏内存（封号红线）。
-    // 只尝试一次：失败也标记，避免每 tick 反复请求 Enka（有速率限制）。
-    private bool _rosterUidTried;
-    private string _rosterUidNote = "";
-
-    private void TryAutoFetchRoster(string text)
-    {
-        if (_rosterUidTried) return;
-        var uid = EnkaClient.ExtractUid(text);
-        if (uid.Length != 9) return;
-        _rosterUidTried = true;
-        _rosterUidNote = $"正在查询 UID {uid} 的角色池…";
-        System.Threading.Tasks.Task.Run(() =>
-        {
-            try
-            {
-                var r = RosterResolver.Resolve(uid: uid);
-                _rosterUidNote = r.Ok
-                    ? $"角色池已更新（{r.Source}：{r.Names.Count} 个角色）"
-                    : $"角色池获取失败：{r.Detail}（可放 roster.json 兜底）";
-                if (r.Ok)
-                {
-                    // 重建决策层：强度/配队改为按玩家真实池计算
-                    try { BeginInvoke(new Action(() => DecisionBridge.Init())); } catch { }
-                }
-            }
-            catch (Exception ex)
-            {
-                _rosterUidNote = "角色池异常：" + ex.GetType().Name;
-            }
-        });
-    }
-
         _timer.Tick += OnTick;
         Shown += OnShown;
     }
@@ -990,4 +955,39 @@ internal sealed record TemplateEntry(string Name, Bitmap Bitmap, double Threshol
     /// </summary>
     public static double ThresholdFor(string name) =>
         name != null && name.StartsWith("act", StringComparison.Ordinal) && name.Length <= 5 ? 0.90 : 0.86;
+    // ── 零配置角色池（用户要求「自动通过 uid 查」）─────────────────
+    // 悬浮窗截图里本来就有 UID（界面右下角 `UID:xxxxxxxxx`），OCR 顺带读到即可，
+    // 玩家不需要填 UID、不需要装扫描器、更不碰游戏内存（封号红线）。
+    // 只尝试一次：失败也标记，避免每 tick 反复请求 Enka（有速率限制）。
+    private bool _rosterUidTried;
+    private string _rosterUidNote = "";
+
+    private void TryAutoFetchRoster(string text)
+    {
+        if (_rosterUidTried) return;
+        var uid = EnkaClient.ExtractUid(text);
+        if (uid.Length != 9) return;
+        _rosterUidTried = true;
+        _rosterUidNote = $"正在查询 UID {uid} 的角色池…";
+        System.Threading.Tasks.Task.Run(() =>
+        {
+            try
+            {
+                var r = RosterResolver.Resolve(uid: uid);
+                _rosterUidNote = r.Ok
+                    ? $"角色池已更新（{r.Source}：{r.Names.Count} 个角色）"
+                    : $"角色池获取失败：{r.Detail}（可放 roster.json 兜底）";
+                if (r.Ok)
+                {
+                    // 重建决策层：强度/配队改为按玩家真实池计算
+                    try { BeginInvoke(new Action(() => DecisionBridge.Init())); } catch { }
+                }
+            }
+            catch (Exception ex)
+            {
+                _rosterUidNote = "角色池异常：" + ex.GetType().Name;
+            }
+        });
+    }
+
 }
