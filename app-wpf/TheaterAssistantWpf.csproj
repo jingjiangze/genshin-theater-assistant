@@ -45,6 +45,12 @@
 
   <ItemGroup>
     <!-- 项目级 using：WPF 项目的隐式 using 集合与 WinForms 不同，System.IO/Text.Json 需显式声明 -->
+    <!-- 根治二义性：UseWindowsForms 会隐式引入 System.Drawing / System.Windows.Forms 的 using，
+         它们与 WPF 的同名类型（Point/Size/Color/Brush/Font/Application/MessageBox/MouseEventArgs…）
+         全面二义。WPF 项目应以 WPF 类型为准 → 移除这两个隐式 using；
+         需要 WinForms 的唯一地方（托盘 NotifyIcon）已显式写全名。 -->
+    <Using Remove="System.Drawing" />
+    <Using Remove="System.Windows.Forms" />
     <Using Include="System.IO" />
     <Using Include="System.Text.Json" />
     <Using Include="System.Text.Json.Nodes" />
