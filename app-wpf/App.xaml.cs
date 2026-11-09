@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using Application = System.Windows.Application;
 using System.Windows.Threading;
 
 namespace TheaterAssistant;
@@ -14,7 +15,7 @@ namespace TheaterAssistant;
 ///   ② 崩溃日志落到 %LOCALAPPDATA%\TheaterAssistant\crash-*.log，任何时候都能查原因；
 ///   ③ ShutdownMode=OnExplicitShutdown：托盘常驻，关掉窗口不等于退出。
 /// </summary>
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
     private OverlayWindow _overlay;
     private System.Windows.Forms.NotifyIcon _tray;
