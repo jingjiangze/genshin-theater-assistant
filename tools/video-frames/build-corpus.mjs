@@ -306,6 +306,34 @@ for (const [diff, actMap] of Object.entries((season && season.acts) || {})) {
   }
 }
 
+// ⑤i BWIKI 各期详情（见 bwiki-periods.mjs）
+{
+  const pp = path.join(ROOT, "data", "bwiki-periods.json");
+  if (fs.existsSync(pp)) {
+    const bw = JSON.parse(fs.readFileSync(pp, "utf8").replace(/^\uFEFF/, ""));
+    let n = 0;
+    for (const e of (bw.entries || [])) {
+      add({ act: e.act || 0, tags: (e.tags || []).concat(["BWIKI"]), title: e.title || "BWIKI", text: e.text || "", source: e.source || "BWIKI" });
+      n++;
+    }
+    console.log(`  并入 BWIKI 各期详情 ${n} 条`);
+  }
+}
+
+// ⑤j 米游社攻略语料（见 miyoushe-corpus.mjs）
+{
+  const mp = path.join(ROOT, "data", "miyoushe-corpus.json");
+  if (fs.existsSync(mp)) {
+    const ms = JSON.parse(fs.readFileSync(mp, "utf8").replace(/^\uFEFF/, ""));
+    let n = 0;
+    for (const e of (ms.entries || [])) {
+      add({ act: e.act || 0, tags: (e.tags || []).concat(["米游社"]), title: e.title || "米游社攻略", text: e.text || "", source: e.source || "米游社" });
+      n++;
+    }
+    console.log(`  并入米游社语料 ${n} 条`);
+  }
+}
+
 // ⑥ 保留原有手工语料
 for (const e of (oldCorpus.entries || [])) add(e);
 
@@ -316,6 +344,7 @@ sources['characters'] = '角色元素/职能表（data/characters.json）';
 sources['substitutes'] = '等价角色/职能分组（data/substitutes.json）';
 sources['act-playbook'] = '幕内首领与机制（data/act-playbook.json）';
 sources['bwiki'] = 'BWIKI 幻想真境剧诗（wiki.biligame.com/ys，CC BY-NC-SA）';
+sources['miyoushe'] = '米游社攻略帖（版权归原作者，标注 post_id 与 uid）';
 
 const result = {
   season: oldCorpus.season || 29,
