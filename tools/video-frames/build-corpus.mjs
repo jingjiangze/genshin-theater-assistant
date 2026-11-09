@@ -268,6 +268,24 @@ for (const a of teams.acts || []) {
   }
 }
 
+// ⑤g 难度概览（来源：season29 各难度的幕数与等级范围）
+for (const [diff, actMap] of Object.entries((season && season.acts) || {})) {
+  if (!actMap || typeof actMap !== "object") continue;
+  const acts = Object.keys(actMap).map(Number).filter(Number.isFinite).sort((a, b) => a - b);
+  if (acts.length === 0) continue;
+  const levels = acts.map(a => actMap[String(a)]?.level).filter(x => typeof x === "number");
+  const minLv = levels.length ? Math.min(...levels) : 0;
+  const maxLv = levels.length ? Math.max(...levels) : 0;
+  const bosses = acts.filter(a => actMap[String(a)]?.boss === true);
+  add({
+    act: 0,
+    tags: ["难度", diff],
+    title: `${diff} 难度概览`,
+    text: `${diff} 共 ${acts.length} 幕，角色等级 ${minLv}–${maxLv}${bosses.length ? `，首领幕：第 ${bosses.join("/")} 幕` : ""}。`,
+    source: "season29.json",
+  });
+}
+
 // ⑥ 保留原有手工语料
 for (const e of (oldCorpus.entries || [])) add(e);
 
