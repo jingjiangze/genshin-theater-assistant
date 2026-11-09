@@ -122,6 +122,31 @@ jobs:
       # 但不把成功当必过——runner 无 GPU，EP 能否真正启用只能在玩家真机验证。
       # 已知上游停更（DirectML 包 1.24.4 vs 依赖 1.29.0），默认不跑，避免每次白耗 1 分钟 + 报错噪音。
       # 需要验证时手动触发本工作流并勾选检查，或本地 dotnet build -p:DirectMLVersion=...
+      # WPF 版（v0.60 起，解决 WinForms 观感问题）。与 WinForms 版并存，验收后再删旧的。
+      - name: 构建 WPF 版（Windows）
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          New-Item -ItemType Directory -Force app-wpf/data, app-wpf/templates, app-wpf/models | Out-Null
+          Copy-Item data/* app-wpf/data -Recurse -Force -ErrorAction SilentlyContinue
+          Copy-Item templates/* app-wpf/templates -Recurse -Force -ErrorAction SilentlyContinue
+          foreach ($v in "v5","v6") {
+            if (Test-Path "models/$v") {
+              New-Item -ItemType Directory -Force "app-wpf/models/$v" | Out-Null
+              Copy-Item "models/$v/*" "app-wpf/models/$v" -Recurse -Force
+            }
+          }
+          dotnet build app-wpf/TheaterAssistantWpf.csproj -c Release 2>&1 | Select-Object -Last 20
+          $exe = "app-wpf/bin/Release/net8.0-windows/win-x64/TheaterAssistantWpf.exe"
+          if (Test-Path $exe) {
+            Write-Host "WPF 构建成功: $((Get-Item $exe).Length) 字节"
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版构建：成功"
+          } else {
+            Write-Host "WPF 构建失败（不阻断，仅记录）"
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版构建：失败（不阻断）"
+          }
+
       - name: 尝试 DirectML 构建（仅手动触发，失败不阻断）
         if: ${{ github.event_name == 'workflow_dispatch' }}
         continue-on-error: true
