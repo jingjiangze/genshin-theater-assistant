@@ -142,11 +142,29 @@ public partial class SettingsWindow : Wpf.Ui.Controls.FluentWindow
             },
             Tag = _pages.Count,
         };
-        _pages.Add(content);
+        // 每页套一张卡片（Fluent 的 CardControl 观感：圆角 + 半透明面 + 1px 边）。
+        // 用 Border 自绘而不引第三方控件：属性少、跨版本不会炸。
+        var card = new Border
+        {
+            Background = new SolidColorBrush(Color.FromArgb(0x12, 0xFF, 0xFF, 0xFF)),
+            BorderBrush = new SolidColorBrush(Color.FromArgb(0x1A, 0xFF, 0xFF, 0xFF)),
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(8),
+            Padding = new Thickness(20, 16, 20, 16),
+            Child = content,
+        };
+
+        _pages.Add(card);
         _nav.Items.Add(item);
 
         if (_pages.Count == 1) _nav.SelectedIndex = 0;   // 首项选中会走 SelectionChanged → ShowPage
     }
+
+    /// <summary>页数（自检用）。</summary>
+    internal int PageCount => _pages.Count;
+
+    /// <summary>切到第 i 页（自检用：验证切页动画路径不抛异常）。</summary>
+    internal void SelectPage(int i) { _nav.SelectedIndex = i; }
 
     /// <summary>切页：内容淡入 + 上移 12px（200ms / DecelerationRatio 0.7，与 BGI 的 FadeInWithSlide 同参数）。</summary>
     private void ShowPage(int index)
