@@ -76,7 +76,8 @@ internal static class EnkaClient
             // 显式 UseProxy=false：系统里可能残留失效代理（本机 git 曾配过 127.0.0.1:7897），
             // HttpClient 默认走系统代理 → 连不上还以为是网络问题。
             var handler = new HttpClientHandler { UseProxy = false };
-            using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(30) };
+            // 国内访问 enka.network 实测 25s+（curl 也测得 25s），30s 会随机超时 → 放宽到 60s
+            using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(60) };
             // Enka 要求带 User-Agent，否则可能 403/429
             http.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "theater-assistant/0.53 (read-only; contact: local)");
             http.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
