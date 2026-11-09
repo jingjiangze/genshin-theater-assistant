@@ -107,9 +107,15 @@ internal static class WpfSelfTest
         {
             var s = new SettingsWindow();
             s.Show();
-            var bmp = Render(s, 720, 560);
+
+            // 导航是 Fluent 形态（左导航 + 卡片页）：页数固定 7，切页走动画路径不能炸
+            var navOk = s.PageCount == 7;
+            try { s.SelectPage(3); } catch { navOk = false; }
+
+            var bmp = Render(s, 880, 620);
             var nonBlank = NonBlankRatio(bmp);
             Check("SettingsWindow 实例化并渲染", nonBlank > 0.01, $"非空像素 {nonBlank:P1}");
+            Check("设置页导航（7 页 + 切页）", navOk, $"PageCount={s.PageCount}");
             Save(bmp, "selftest-wpf-settings.png");
             s.Close();
         }
