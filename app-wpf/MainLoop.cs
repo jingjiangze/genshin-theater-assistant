@@ -21,6 +21,7 @@ internal sealed class MainLoop
 {
     private readonly FloatingBall _ball;
     private readonly GameModeProfile _mode;
+    private LlmAdvisor _llm;
     private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromSeconds(1) };
     private readonly OcrService _ocr = new();
     private readonly List<TemplateEntry> _templates = new();
@@ -61,6 +62,11 @@ internal sealed class MainLoop
             // OCR 后处理阈值（DropScore / 同排容差）来自策略文件，和自检/CLI 用同一份
             try { OcrTextPipeline.LoadFromPolicy(AppPaths.Data("decision-policy.json")); } catch { }
 
+            // ◇模型层（可选）：data/llm.json 指向谁就用谁。
+            // 本地验证时指向 tools/ml/serve.py（MiniMind 26M）；文件不存在 = 不联网，走原兜底。
+            try { _llm = LlmAdvisor.TryLoad(AppPaths.Data("llm.json")); }
+            catch (Exception ex) { App.LogCrash(ex, "MainLoop.LlmLoad"); }
+
             await _ocr.InitializeAsync(AppPaths.ModelsRoot);
             LastStatus = _ocr.Status;
             _ball.SetState(FloatingBall.BallState.Idle);
@@ -73,7 +79,11 @@ internal sealed class MainLoop
         _timer.Start();
     }
 
-    public void Stop() => _timer.Stop();
+    public void Stop()
+    {
+        _timer.Stop();
+        try { _llm?.Dispose(); } catch { }
+    }
 
     private async Task TickAsync()
     {
@@ -181,8 +191,29 @@ internal sealed class MainLoop
             if (teamMax > 0) _teamTarget = teamMax;
 
             var options = ChoiceDecider.ParseOptions(optLines);
-
             var diff = QuantData.Difficulties.LastOrDefault() ?? "";
+
+            // ⑧b ◇模型层在环：只在「选项未读到」时调用（RefineAsync 自带限频/冷却/脱敏）。
+            // 三选一内容随机是编排器指名要模型裁决的场景；模型没起 = null，编排器自动走 ○语料/·规则。
+            string llmText = null;
+            var llmAttempted = false;
+            if (_llm is { Enabled: true } && options.Count < 2)
+            {
+                try
+                {
+                    var rosterLine = TeamSolver.AsTeamProfile() is { } tp && tp.Full ? "已导入角色池" : "未导入角色池";
+                    llmText = await _llm.RefineAsync(
+                        stable.HasValue ? $"第{stable}幕 {diff}" : "剧诗界面（幕次未定）",
+                        optLines.Count > 0 ? optLines.Take(3).ToList() : (IReadOnlyList<string>)Array.Empty<string>(),
+                        rosterLine);
+                    llmAttempted = true;
+                }
+                catch (Exception ex)
+                {
+                    App.LogCrash(ex, "MainLoop.Llm");
+                }
+            }
+
             var enemy = stable.HasValue ? QuantData.Enemy(stable.Value, diff) : null;
             var d = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
             {
@@ -193,6 +224,8 @@ internal sealed class MainLoop
                 Options = options,
                 TeamSize = _teamSize,
                 TeamTarget = _teamTarget,
+                LlmText = llmText,
+                LlmAttempted = llmAttempted,
                 Kind = stable.HasValue ? "act" : (hits.Count > 0 ? "ui" : ""),
             });
 
