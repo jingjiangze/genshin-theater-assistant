@@ -199,8 +199,9 @@ public partial class App : System.Windows.Application
         var actText = s.Act.HasValue ? $"第{s.Act}幕" : "";
         w.SetStatus(actText, s.Source, s.Abstained ? $"弃权 {s.MissedMs}ms" : "");
 
-        // 「现在做」：弃权时清空（不展示过期指令），否则用决策层的第一句
-        w.SetAdvice(s.Abstained || s.Lines.Count == 0 ? "" : s.Lines[0]);
+        // 「现在做」：弃权时清空（不展示过期指令），否则用决策层的第一句。
+        // 决策行自带来源标记（◆/★/◇/○/·），面板已经有一个 ▶ 前缀，这里把重复的标记去掉。
+        w.SetAdvice(s.Abstained || s.Lines.Count == 0 ? "" : StripMarker(s.Lines[0]));
 
         var key = $"{s.Act}|{s.Source}|{s.Abstained}|{s.Status}";
         if (key == _maskLogKey) return;
@@ -223,6 +224,10 @@ public partial class App : System.Windows.Application
         if (s.Hits.Count > 0)
             w.AppendLog("OCR", "命中 " + string.Join("、", s.Hits.Select(h => $"{h.Name} {h.Score:0.00}")));
     }
+
+    /// <summary>去掉决策行开头的来源标记与多余空白（面板已有 ▶ 前缀）。</summary>
+    private static string StripMarker(string line)
+        => (line ?? "").TrimStart('◆', '★', '◇', '○', '·', '⚠', '▶', ' ', '\t', '　');
 
     private void OpenSettings()
     {
