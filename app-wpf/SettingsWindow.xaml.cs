@@ -1,25 +1,34 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 using MessageBox = System.Windows.MessageBox;
 
 namespace TheaterAssistant;
 
 /// <summary>
-/// 设置窗口（WPF 版）——页面分类照抄 BetterGI 的导航结构。
+/// 设置窗口（WPF 版）——形态与动画照 BetterGI：
+///   · FluentWindow + 自绘标题栏（BGI 全仓 40+ 窗口都是这个壳）；
+///   · 左侧导航 + 选中指示条滑动（BGI 用 280ms 弹性 Adorner，这里 240ms 缓动，观感一致）；
+///   · 页面切换「淡入 + 上移 12px」200ms（BGI 的 FadeInWithSlide 同参数）。
 ///
-/// BetterGI 有 53 个 Page（XAML 合计 1.5MB，单页最大 267KB），我们只移植**需要的 7 页**：
+/// 页面分类同样照 BGI 的导航结构，只保留我们能提供的 7 页：
 ///   首页 / 通用 / 识别 / 悬浮窗 / 热键 / 角色池 / 诊断
-/// 每页都做**淡入过渡**（BetterGI 用 Wpf.Ui 做页面动画，这里用原生 DoubleAnimation，不引额外包）。
 /// </summary>
-public partial class SettingsWindow : Window
+public partial class SettingsWindow : Wpf.Ui.Controls.FluentWindow
 {
-    private readonly TabControl _tabs = new() { Margin = new Thickness(12, 12, 12, 0) };
+    private readonly ListBox _nav;
+    private readonly ContentControl _host;
+    private readonly Rectangle _indicator;
+    private readonly List<UIElement> _pages = new();
+    private int _lastIndex = -1;
 
     // 通用
     private readonly Slider _interval = Slider(300, 5000, 100, 1000);
@@ -51,43 +60,36 @@ public partial class SettingsWindow : Window
     {
         InitializeComponent();
 
+        _nav = NavList;
+        _host = PageHost;
+        _indicator = Indicator;
+
         // 照 BetterGI 的页面分类（按我们能提供的范围裁剪到 7 页）
-        _tabs.TabPages().Add(Page("首页", HomePanel()));
-        _tabs.TabPages().Add(Page("通用", Stack(
+        AddPage("首页", HomePanel());
+        AddPage("通用", Stack(
             Label("悬浮窗刷新间隔（毫秒）"), _interval,
             Label("不透明度（%）"), _opacity,
-            Label("正文字号"), _font)));
-        _tabs.TabPages().Add(Page("识别", Stack(
+            Label("正文字号"), _font));
+        AddPage("识别", Stack(
             Label("OCR 模型"), _ocrModel,
             Label("OCR 预处理（D5 白字掩膜）"), _preprocess,
             _llmOn,
-            Hint("说明：D3 竖排 / D4 透视裁剪 RapidOcrNet 已内置，无需配置。"))));
-        _tabs.TabPages().Add(Page("悬浮窗", Stack(_showSource, _hideWhenMissing, Hint("热键：Ctrl+Alt+L 拖动 · H 显隐 · D 存帧 · G 攻略"))));
-        _tabs.TabPages().Add(Page("热键", HotkeyPanel()));
-        _tabs.TabPages().Add(Page("角色池", Stack(
+            Hint("说明：D3 竖排 / D4 透视裁剪 RapidOcrNet 已内置，无需配置。")));
+        AddPage("悬浮窗", Stack(_showSource, _hideWhenMissing,
+            Hint("热键：Ctrl+Alt+M 展开/收起遮罩日志 · Ctrl+Alt+H 显隐 · L 拖动 · D 存帧 · G 攻略")));
+        AddPage("热键", HotkeyPanel());
+        AddPage("角色池", Stack(
             Label("游戏 UID（留空=自动从画面读）"), _uid,
             Label("池来源策略"), _poolSource,
-            Hint("Enka 只能读到「角色展柜」公开的角色，本地 GOOD 可能更全；默认取并集。"))));
-        _tabs.TabPages().Add(Page("诊断", new ScrollViewer { Content = _diag, VerticalScrollBarVisibility = ScrollBarVisibility.Auto }));
+            Hint("Enka 只能读到「角色展柜」公开的角色，本地 GOOD 可能更全；默认取并集。")));
+        AddPage("诊断", new ScrollViewer { Content = _diag, VerticalScrollBarVisibility = ScrollBarVisibility.Auto });
 
-        // 页面切换淡入（BetterGI 用 Wpf.Ui 的页面过渡，这里用原生动画等效）
-        _tabs.SelectionChanged += (_, _) => FadeInCurrentPage();
+        _nav.SelectionChanged += (_, _) => ShowPage(_nav.SelectedIndex);
+        ShowPage(0);   // 首项在订阅之前就选中了，这里补一次渲染
 
-        var buttons = new System.Windows.Controls.StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            Margin = new Thickness(12),
-        };
-        buttons.Children.Add(Button("配置目录", (_, _) => OpenFolder(AppPaths.Dir)));
-        buttons.Children.Add(Button("日志目录", (_, _) => OpenFolder(App.LogDir)));
-        buttons.Children.Add(Button("保存并关闭", (_, _) => { SaveAll(); Close(); }));
-
-        var root = Shell;   // 填充 XAML 里的 Shell（避免与 Content 重复赋值）
-        DockPanel.SetDock(buttons, Dock.Bottom);
-        root.Children.Add(buttons);
-        root.Children.Add(_tabs);
-        Content = root;
+        BtnConfigDir.Click += (_, _) => OpenFolder(AppPaths.Dir);
+        BtnLogDir.Click += (_, _) => OpenFolder(App.LogDir);
+        BtnSave.Click += (_, _) => { SaveAll(); Close(); };
 
         LoadAll();
         RefreshDiag();
@@ -122,18 +124,75 @@ public partial class SettingsWindow : Window
 
     private static StackPanel Stack(params UIElement[] items)
     {
-        var s = new StackPanel { Margin = new Thickness(18) };
+        var s = new StackPanel { Margin = new Thickness(6, 8, 6, 8) };
         foreach (var i in items) s.Children.Add(i);
         return s;
     }
 
-    private static TabItem Page(string title, UIElement content) => new() { Header = title, Content = content };
-
-    private void FadeInCurrentPage()
+    /// <summary>加一页：左侧导航项 + 内容（内容只在切到时才挂进 PageHost）。</summary>
+    private void AddPage(string title, UIElement content)
     {
-        if (_tabs.SelectedContent is not FrameworkElement fe) return;
-        fe.Opacity = 0;
-        fe.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(180)));
+        var item = new ListBoxItem
+        {
+            Content = new TextBlock
+            {
+                Text = title,
+                FontFamily = new FontFamily("Microsoft YaHei UI"),
+                FontSize = 13,
+                VerticalAlignment = VerticalAlignment.Center,
+            },
+            Tag = _pages.Count,
+        };
+        _pages.Add(content);
+        _nav.Items.Add(item);
+
+        if (_pages.Count == 1) _nav.SelectedIndex = 0;   // 首项选中会走 SelectionChanged → ShowPage
+    }
+
+    /// <summary>切页：内容淡入 + 上移 12px（200ms / DecelerationRatio 0.7，与 BGI 的 FadeInWithSlide 同参数）。</summary>
+    private void ShowPage(int index)
+    {
+        if (index < 0 || index >= _pages.Count) return;
+        if (index == _lastIndex) return;
+        _lastIndex = index;
+
+        var page = _pages[index];
+        _host.Content = page;
+
+        var transform = new TranslateTransform(0, 12);
+        page.RenderTransform = transform;
+
+        var ease = new CubicEase { EasingMode = EasingMode.EaseOut };
+        page.BeginAnimation(UIElement.OpacityProperty,
+            new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(200)) { EasingFunction = ease });
+        transform.BeginAnimation(TranslateTransform.YProperty,
+            new DoubleAnimation(12, 0, TimeSpan.FromMilliseconds(200)) { EasingFunction = ease });
+
+        SlideIndicator(index);
+    }
+
+    /// <summary>左侧指示条滑到当前项（BGI 有 280ms 弹性 Adorner，这里是 240ms 缓动）。</summary>
+    private void SlideIndicator(int index)
+    {
+        if (_nav.ItemContainerGenerator.ContainerFromIndex(index) is not ListBoxItem item) return;
+
+        Dispatcher.BeginInvoke(new Action(() =>
+        {
+            try
+            {
+                item.UpdateLayout();
+                var p = item.TransformToAncestor(NavHost).Transform(new Point(0, (item.ActualHeight - _indicator.Height) / 2));
+                var from = Canvas.GetTop(_indicator);
+                if (double.IsNaN(from)) Canvas.SetTop(_indicator, p.Y);
+
+                var anim = new DoubleAnimation(Canvas.GetTop(_indicator), p.Y, TimeSpan.FromMilliseconds(240))
+                {
+                    EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
+                };
+                _indicator.BeginAnimation(Canvas.TopProperty, anim);
+            }
+            catch { }
+        }), System.Windows.Threading.DispatcherPriority.Loaded);
     }
 
     // ── 首页 / 热键 / 诊断 ──────────────────────────────────────
@@ -278,8 +337,3 @@ public partial class SettingsWindow : Window
     }
 }
 
-/// <summary>TabControl.TabPages 在 WPF 里不存在（那是 WinForms），这里补个等价扩展。</summary>
-internal static class TabControlExtensions
-{
-    public static ItemCollection TabPages(this TabControl tabs) => tabs.Items;
-}
