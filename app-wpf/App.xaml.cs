@@ -22,6 +22,7 @@ public partial class App : System.Windows.Application
     private MainLoop _loop;
     private OverlayWindow _detail;
     private MaskWindowHost _maskHost;
+    private GlobalHotkeys _hotkeys;
     private IntPtr _maskGameHandle;
     private string _maskLogKey = "";
 
@@ -55,15 +56,19 @@ public partial class App : System.Windows.Application
             // 决策层初始化（失败不阻塞悬浮窗）
             try { DecisionBridge.Init(); } catch (Exception ex) { LogCrash(ex, "DecisionBridge.Init"); }
 
+            // 玩法档案（剧诗 / 深渊 / …）：识别区域与编号规则都在 data/modes.json 里
+            try { GameModes.Init(); } catch (Exception ex) { LogCrash(ex, "GameModes.Init"); }
+
             _ball = new FloatingBall();
             _ball.Show();
             InitTray();
+            InitHotkeys();
 
             // 遮罩宿主（全屏透明窗 + 左下日志 + 识别框）。窗口按需创建，由游戏窗口事实驱动。
             _maskHost = new MaskWindowHost(() => new MaskWindow());
 
             // 主循环：抓屏 → 识别 → 决策 → 驱动悬浮球 + 遮罩
-            _loop = new MainLoop(_ball);
+            _loop = new MainLoop(_ball, GameModes.Default);
             _loop.Updated += OnLoopUpdated;
             _ = _loop.StartAsync();
         }
@@ -91,6 +96,7 @@ public partial class App : System.Windows.Application
             var menu = new System.Windows.Forms.ContextMenuStrip();
             menu.Items.Add("显示 / 隐藏悬浮窗", null, (_, _) => ToggleOverlay());
             menu.Items.Add("显示 / 隐藏游戏内遮罩", null, (_, _) => ToggleMask());
+            menu.Items.Add("展开 / 收起遮罩日志（Ctrl+Alt+M）", null, (_, _) => ToggleMaskLog());
             menu.Items.Add("设置…", null, (_, _) => OpenSettings());
             menu.Items.Add(new System.Windows.Forms.ToolStripSeparator());
             menu.Items.Add("打开配置目录", null, (_, _) => OpenFolder(AppPaths.Dir));
@@ -120,6 +126,35 @@ public partial class App : System.Windows.Application
             _detail.Activate();
         }
         catch (Exception ex) { LogCrash(ex, "ToggleOverlay"); }
+    }
+
+    /// <summary>全局热键：只注册系统快捷键，不注入、不模拟输入。</summary>
+    private void InitHotkeys()
+    {
+        try
+        {
+            _hotkeys = new GlobalHotkeys(_ball);
+
+            var okH = _hotkeys.Register(0x101, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x48 /*H*/, ToggleMask);
+            var okM = _hotkeys.Register(0x102, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x4D /*M*/, ToggleMaskLog);
+            if (!okH || !okM) LogCrash(new InvalidOperationException($"热键注册失败 H={okH} M={okM}"), "InitHotkeys");
+        }
+        catch (Exception ex)
+        {
+            LogCrash(ex, "InitHotkeys");
+        }
+    }
+
+    /// <summary>Ctrl+Alt+M：展开/收起遮罩日志（默认收起，只留「现在做」）。</summary>
+    private void ToggleMaskLog()
+    {
+        try
+        {
+            var w = _maskHost?.Window ?? _maskHost?.EnsureWindow();
+            if (w == null) return;
+            w.SetLogExpanded(!w.LogExpanded);
+        }
+        catch (Exception ex) { LogCrash(ex, "ToggleMaskLog"); }
     }
 
     /// <summary>托盘入口：手动收起/恢复游戏内遮罩（优先于自动跟随策略）。</summary>
@@ -171,6 +206,8 @@ public partial class App : System.Windows.Application
         var w = _maskHost.EnsureWindow();
         if (w == null) return;
 
+        w.SetMode(s.ModeName);
+
         var boxes = new List<MaskBox>();
         if (s.BandRect is { } band)
         {
@@ -199,9 +236,12 @@ public partial class App : System.Windows.Application
         var actText = s.Act.HasValue ? $"第{s.Act}幕" : "";
         w.SetStatus(actText, s.Source, s.Abstained ? $"弃权 {s.MissedMs}ms" : "");
 
-        // 「现在做」：弃权时清空（不展示过期指令），否则用决策层的第一句。
+        // 「现在做」：弃权时改成警示句（不展示过期指令），否则用决策层的第一句。
         // 决策行自带来源标记（◆/★/◇/○/·），面板已经有一个 ▶ 前缀，这里把重复的标记去掉。
-        w.SetAdvice(s.Abstained || s.Lines.Count == 0 ? "" : StripMarker(s.Lines[0]));
+        if (s.Abstained)
+            w.SetAdvice("幕次未识别，请在剧诗界面停留一下再走", warn: true);
+        else
+            w.SetAdvice(s.Lines.Count == 0 ? "" : StripMarker(s.Lines[0]));
 
         var key = $"{s.Act}|{s.Source}|{s.Abstained}|{s.Status}";
         if (key == _maskLogKey) return;
