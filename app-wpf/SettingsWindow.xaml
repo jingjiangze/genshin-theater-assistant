@@ -2,78 +2,19 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="剧诗助手 · 设置"
-        Width="720" Height="560"
+        Width="760" Height="600"
+        MinWidth="680" MinHeight="520"
         WindowStartupLocation="CenterScreen"
         Background="#1C2030"
         Foreground="#E2E8F4"
         FontFamily="Microsoft YaHei UI"
-        FontSize="13">
+        FontSize="13"
+        TextOptions.TextFormattingMode="Ideal">
 
-  <Grid Margin="0">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-
-    <TabControl Grid.Row="0" Margin="12,12,12,0" Background="#222636" BorderThickness="0">
-      <TabItem Header="通用">
-        <StackPanel Margin="16">
-          <TextBlock Text="悬浮窗刷新间隔（毫秒）" Margin="0,8,0,4"/>
-          <Slider x:Name="IntervalSlider" Minimum="300" Maximum="5000" TickFrequency="100" Value="1000" Width="320" HorizontalAlignment="Left"/>
-          <TextBlock Text="不透明度（%）" Margin="0,16,0,4"/>
-          <Slider x:Name="OpacitySlider" Minimum="40" Maximum="100" TickFrequency="5" Value="96" Width="320" HorizontalAlignment="Left"/>
-          <TextBlock Text="正文字号" Margin="0,16,0,4"/>
-          <Slider x:Name="FontSlider" Minimum="8" Maximum="16" TickFrequency="1" Value="12" Width="320" HorizontalAlignment="Left"/>
-        </StackPanel>
-      </TabItem>
-
-      <TabItem Header="识别">
-        <StackPanel Margin="16">
-          <TextBlock Text="OCR 模型" Margin="0,8,0,4"/>
-          <ComboBox x:Name="OcrModelBox" Width="220" HorizontalAlignment="Left" SelectedIndex="0">
-            <ComboBoxItem Content="v6（推荐）"/>
-            <ComboBoxItem Content="v5"/>
-            <ComboBoxItem Content="自动"/>
-          </ComboBox>
-          <CheckBox x:Name="LlmCheck" Content="启用大模型顾问（◇模型通道）" Margin="0,16,0,0" IsChecked="True"/>
-          <TextBlock Text="说明：OCR 参数改动需重启生效。" Foreground="#848C9C" Margin="0,16,0,0" FontSize="11"/>
-        </StackPanel>
-      </TabItem>
-
-      <TabItem Header="悬浮窗">
-        <StackPanel Margin="16">
-          <CheckBox x:Name="ShowSourceCheck" Content="指示行显示来源标记（◆ ★ ◇ ○ ·）" IsChecked="True" Margin="0,8,0,0"/>
-          <CheckBox x:Name="HideWhenMissingCheck" Content="未检测到游戏窗口时自动隐藏" IsChecked="True" Margin="0,12,0,0"/>
-          <TextBlock Text="热键：Ctrl+Alt+L 拖动 · H 显隐 · D 存帧 · G 攻略" Foreground="#848C9C" Margin="0,20,0,0" FontSize="11"/>
-        </StackPanel>
-      </TabItem>
-
-      <TabItem Header="角色池">
-        <StackPanel Margin="16">
-          <TextBlock Text="游戏 UID（留空=自动从画面读）" Margin="0,8,0,4"/>
-          <TextBox x:Name="UidBox" Width="240" HorizontalAlignment="Left"/>
-          <TextBlock Text="池来源策略" Margin="0,16,0,4"/>
-          <ComboBox x:Name="PoolSourceBox" Width="280" HorizontalAlignment="Left" SelectedIndex="0">
-            <ComboBoxItem Content="自动（GOOD ∪ Enka 合并）"/>
-            <ComboBoxItem Content="仅本地 GOOD"/>
-            <ComboBoxItem Content="仅 Enka 展柜"/>
-          </ComboBox>
-          <TextBlock Foreground="#848C9C" Margin="0,16,0,0" FontSize="11" TextWrapping="Wrap"
-                     Text="Enka 只能读到「角色展柜」公开的角色，本地 GOOD 可能更全；默认取并集，强度字段优先用有值一方。"/>
-        </StackPanel>
-      </TabItem>
-
-      <TabItem Header="诊断">
-        <ScrollViewer Margin="16" VerticalScrollBarVisibility="Auto">
-          <TextBlock x:Name="DiagText" TextWrapping="Wrap" FontSize="12" LineHeight="20"/>
-        </ScrollViewer>
-      </TabItem>
-    </TabControl>
-
-    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="12">
-      <Button x:Name="OpenConfigBtn" Content="配置目录" Width="100" Height="32" Margin="0,0,8,0"/>
-      <Button x:Name="OpenLogBtn" Content="日志目录" Width="100" Height="32" Margin="0,0,8,0"/>
-      <Button x:Name="SaveBtn" Content="保存并关闭" Width="110" Height="32" IsDefault="True"/>
-    </StackPanel>
-  </Grid>
+  <!--
+    页面与控件全部在 SettingsWindow.xaml.cs 里动态构建（7 页：首页/通用/识别/悬浮窗/热键/角色池/诊断），
+    这样页面增删只改一处，且每页切换有淡入过渡（照 BetterGI 的导航页体验）。
+    这里只保留窗口外壳，不重复声明控件。
+  -->
+  <Grid x:Name="Shell"/>
 </Window>
