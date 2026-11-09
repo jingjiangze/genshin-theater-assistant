@@ -119,6 +119,15 @@ internal static class WpfSelfTest
 
     private static BitmapSource Render(Window w, int width, int height)
     {
+        // 必须先固定不透明度：悬浮球/桌宠是 opacity 0→1 淡入的，
+        // 自检在动画跑完前渲染会得到全透明位图（0.0% 非空，本次踩过）。
+        try
+        {
+            w.BeginAnimation(Window.OpacityProperty, null);
+            w.Opacity = 1.0;
+        }
+        catch { }
+
         w.Width = width;
         w.Height = height;
         w.Measure(new Size(width, height));
