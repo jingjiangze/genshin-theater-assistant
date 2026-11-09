@@ -1,0 +1,67 @@
+name: box-wake
+
+# box（云端 Linux）按需唤醒。本工作流只做「心跳」，真正的决策由 data/box-policy.json 决定：
+#   要不要唤醒、最小间隔、唤醒后跑什么任务 —— 全部在策略文件里，改策略不用改本文件。
+#
+# 为什么是「心跳 + 策略」而不是「写死间隔」：
+#   GitHub 的 cron 必须写死在 workflow 里；把调度频率与业务策略分离，
+#   才能做到「改策略不碰 CI 配置」。cron 只是"多久检查一次"，不是"多久唤醒一次"。
+
+on:
+  # 事件优先：上游采集成功 = 可能有新源要抽帧，这时才值得唤醒
+  workflow_run:
+    workflows: ["video-ingest"]
+    types: [completed]
+  # 兜底心跳：即使没有事件，也定期检查一次策略（实际是否唤醒由 minIntervalMinutes 决定）
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: box-wake
+  cancel-in-progress: false
+
+jobs:
+  wake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 读取策略并决策（先 dry-run 便于排查）
+        env:
+          BOX_TOKEN: ${{ secrets.BOX_TOKEN }}
+        run: |
+          node tools/ci/box-wake.mjs --dry
+
+      - name: 按策略唤醒并执行任务
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.dry != 'true'
+        env:
+          BOX_TOKEN: ${{ secrets.BOX_TOKEN }}
+        continue-on-error: true
+        run: |
+          node tools/ci/box-wake.mjs
+
+      - name: 提交状态（最小间隔依赖它，必须持久化）
+        if: always()
+        continue-on-error: true
+        run: |
+          set +e
+          [ -f data/box-state.json ] || { echo "无状态文件，跳过"; exit 0; }
+          git config user.email "actions@github.com"
+          git config user.name "theater-bot"
+          git add data/box-state.json
+          [ -z "$(git status --porcelain data/box-state.json)" ] && { echo "状态无变化"; exit 0; }
+          git commit -m "chore(box): 更新唤醒状态 [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash -q origin main 2>/dev/null
+            if git push -q origin HEAD:main 2>/dev/null; then echo "已推送"; exit 0; fi
+            sleep 5
+          done
+          echo "推送失败（不阻断）"
