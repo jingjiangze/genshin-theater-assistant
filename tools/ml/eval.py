@@ -68,10 +68,18 @@ def main() -> int:
             "cuda" if torch.cuda.is_available() else "cpu")
     dtype = torch.bfloat16 if device == "xpu" else (torch.float16 if device == "cuda" else torch.float32)
 
-    tok = AutoTokenizer.from_pretrained(args.base, trust_remote_code=True)
-    model = AutoModelForCausalLM.from_pretrained(args.base, dtype=dtype, trust_remote_code=True)
-    if os.path.isdir(args.adapter):
+    if os.path.isdir(args.adapter) and os.path.exists(os.path.join(args.adapter, "adapter_config.json")):
+        # LoRA 产物：base + adapter
+        tok = AutoTokenizer.from_pretrained(args.base, trust_remote_code=True)
+        model = AutoModelForCausalLM.from_pretrained(args.base, dtype=dtype, trust_remote_code=True)
         model = PeftModel.from_pretrained(model, args.adapter)
+    elif os.path.isdir(args.adapter) and os.path.exists(os.path.join(args.adapter, "config.json")):
+        # 全参微调产物：目录本身就是完整模型
+        model = AutoModelForCausalLM.from_pretrained(args.adapter, dtype=dtype, trust_remote_code=True)
+        tok = AutoTokenizer.from_pretrained(args.adapter, trust_remote_code=True)
+    else:
+        tok = AutoTokenizer.from_pretrained(args.base, trust_remote_code=True)
+        model = AutoModelForCausalLM.from_pretrained(args.base, dtype=dtype, trust_remote_code=True)
     model.to(device).eval()
 
     rows = load_jsonl(os.path.join(args.data, "theater-sft-val.jsonl"))
