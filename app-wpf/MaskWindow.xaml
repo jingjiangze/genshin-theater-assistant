@@ -85,17 +85,26 @@
 
         <!-- 「现在做」：整块界面里唯一必须一眼看到的东西 -->
         <Grid Grid.Row="1" x:Name="AdviceRow" Margin="12,7,12,9" Visibility="Collapsed">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
-          <TextBlock Grid.Column="0" x:Name="AdviceMark" Text="▶" Margin="0,2,7,0" FontSize="11"
+          <TextBlock Grid.Column="0" Grid.Row="0" x:Name="AdviceMark" Text="▶" Margin="0,2,7,0" FontSize="11"
                      Foreground="#FF5BD48E" VerticalAlignment="Top"/>
-          <TextBlock Grid.Column="1" x:Name="AdviceText" Text=""
+          <TextBlock Grid.Column="1" Grid.Row="0" x:Name="AdviceText" Text=""
                      FontFamily="Microsoft YaHei UI" FontSize="14.5" FontWeight="SemiBold"
                      Foreground="#FFFFFFFF" TextWrapping="Wrap"
                      MaxHeight="42" TextTrimming="CharacterEllipsis"
                      LineHeight="20" LineStackingStrategy="BlockLineHeight"/>
+          <!-- 战斗中的指导：当前幕的手法步骤（第二条，小一号，不抢「现在做」） -->
+          <TextBlock Grid.Column="1" Grid.Row="1" x:Name="GuideText" Text="" Visibility="Collapsed"
+                     FontFamily="Microsoft YaHei UI" FontSize="11.5"
+                     Foreground="#FFBFD4F0" TextTrimming="CharacterEllipsis"
+                     Margin="0,3,0,0" MaxHeight="18"/>
         </Grid>
 
         <!-- 展开时才有的部分：分隔线 + 日志 + 页脚 -->
