@@ -30,6 +30,8 @@ internal sealed class MainLoop
     private string _cachedText = "";
     private int _tickCount;
     private bool _busy;
+    private int _teamSize;
+    private int _teamTarget = 4;
 
     /// <summary>
     /// 每帧快照（给遮罩用）：游戏句柄 + 帧尺寸 + 幕次 + 决策来源 + 命中框。
@@ -56,6 +58,9 @@ internal sealed class MainLoop
     {
         try
         {
+            // OCR 后处理阈值（DropScore / 同排容差）来自策略文件，和自检/CLI 用同一份
+            try { OcrTextPipeline.LoadFromPolicy(AppPaths.Data("decision-policy.json")); } catch { }
+
             await _ocr.InitializeAsync(AppPaths.ModelsRoot);
             LastStatus = _ocr.Status;
             _ball.SetState(FloatingBall.BallState.Idle);
@@ -115,10 +120,23 @@ internal sealed class MainLoop
                 : "";
 
             // ⑤ 全帧 OCR：每 3 帧兜一次（不必要每帧全扫，省 CPU）
+            //    走带框识别 + OcrTextPipeline：先按置信度丢噪声，再按「同排从左到右」排序——
+            //    否则「第N张」的 N 会和屏幕上的实际位置对不上（选错卡）。
             if (_tickCount % 3 == 0)
             {
-                var full = await _ocr.RecognizeAsync(ocrFrame);
-                if (!string.IsNullOrWhiteSpace(full)) _cachedText = full;
+                var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame);
+                if (boxes != null && boxes.Count > 0)
+                {
+                    var pipelineBoxes = boxes.Select(b => new OcrTextPipeline.Box
+                    {
+                        X = b.Rect.X,
+                        Y = b.Rect.Y,
+                        Score = b.Score,
+                        Text = b.Text,
+                    });
+                    var lines = OcrTextPipeline.ToLines(pipelineBoxes);
+                    if (lines.Count > 0) _cachedText = string.Join("\n", lines);
+                }
             }
             var text = _cachedText;
 
@@ -152,6 +170,18 @@ internal sealed class MainLoop
             }
 
             // ⑧ 决策
+            //  ⑧a 先把屏幕上的可选项读出来（三选一/商店卡）——「选第几张」是本项目的主功能，
+            //      没有 Options 时编排器只能给通用建议。
+            var optLines = (text ?? "").Split('\n').Select(s => s.Trim())
+                .Where(s => s.Length > 0).ToList();
+            if (!string.IsNullOrWhiteSpace(band)) optLines.Add(band.Trim());
+
+            var (teamNow, teamMax) = ChoiceDecider.ParseTeamSize(text ?? "");
+            if (teamNow > 0) _teamSize = teamNow;
+            if (teamMax > 0) _teamTarget = teamMax;
+
+            var options = ChoiceDecider.ParseOptions(optLines);
+
             var diff = QuantData.Difficulties.LastOrDefault() ?? "";
             var enemy = stable.HasValue ? QuantData.Enemy(stable.Value, diff) : null;
             var d = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
@@ -160,7 +190,9 @@ internal sealed class MainLoop
                 Difficulty = diff,
                 Enemy = enemy,
                 Team = TeamSolver.AsTeamProfile(),
-                Options = Array.Empty<ChoiceDecider.Option>(),
+                Options = options,
+                TeamSize = _teamSize,
+                TeamTarget = _teamTarget,
                 Kind = stable.HasValue ? "act" : (hits.Count > 0 ? "ui" : ""),
             });
 
