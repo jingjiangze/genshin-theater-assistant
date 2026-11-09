@@ -62,7 +62,7 @@
 
   <ItemGroup>
     <!-- 纯逻辑：直接复用 WinForms 版的实现（不含任何 UI 依赖） -->
-    <Compile Include="..\app\AppPaths.cs" Link="logic\AppPaths.cs" />
+    <!-- AppPaths 用 WPF 专用版（app-wpf/AppPaths.cs，支持嵌入资源解包），不再共享 app/ 的 -->
     <Compile Include="..\app\ActStabilizer.cs" Link="logic\ActStabilizer.cs" />
     <Compile Include="..\app\CharacterStrength.cs" Link="logic\CharacterStrength.cs" />
     <Compile Include="..\app\ChoiceDecider.cs" Link="logic\ChoiceDecider.cs" />
