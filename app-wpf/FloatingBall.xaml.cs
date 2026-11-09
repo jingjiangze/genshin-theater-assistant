@@ -62,7 +62,9 @@ public partial class FloatingBall : Window
 
         Loaded += (_, _) =>
         {
-            // 淡入（照 MapsBalloon 的 Opacity=0 起步）
+            // 淡入：XAML 默认 Opacity=1（保证无消息泵/自检时也能渲染出内容），
+            // 这里先显式置 0 再动画到 1 —— 视觉上仍是淡入，但不依赖"初始为 0"。
+            Opacity = 0;
             var fade = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(500));
             BeginAnimation(OpacityProperty, fade);
             StartAnim();
