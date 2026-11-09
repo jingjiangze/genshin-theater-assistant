@@ -62,3 +62,4 @@ _tmp/
 enka-test.json
 roster-enka.json
 cache/
+.mlvenv/
