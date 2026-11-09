@@ -82,6 +82,10 @@ internal static class DecisionBridge
             if (season != null)
                 TeamSolver.LoadPool(season.Elements, rosterNames);
 
+            // 语料索引必须显式加载——WPF 版迁移时漏了这行，
+            // 导致 ○语料兜底层永远是空、设置页显示"语料库 0 条"（本轮实测的真因，
+            // 不是打包失败：data 早已随嵌入资源进了 exe）。
+            GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
             CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
             CharacterStrength.LoadModel(AppPaths.Data("strength-model.json"));
             CharacterStrength.Load(rosterPath, AppPaths.Data("characters.json"));
