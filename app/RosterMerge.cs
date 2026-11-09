@@ -106,9 +106,11 @@ internal static class RosterMerge
                 ["source"] = "merged(good+enka)",
                 ["_mergedAt"] = DateTime.UtcNow.ToString("o"),
                 ["_note"] = "角色集合取并集；强度字段优先取有值的一方（Enka 实时更准）；武器/圣遗物按角色去重。",
-                ["characters"] = new JsonArray(merged.Values.Cast<JsonNode>().ToArray()),
-                ["weapons"] = new JsonArray(weapons.Cast<JsonNode>().ToArray()),
-                ["artifacts"] = new JsonArray(arts.Cast<JsonNode>().ToArray()),
+                // 必须 DeepClone：JsonNode 已有父节点时再挂载会抛
+                // InvalidOperationException（实测踩过）。这里 nodes 来自已解析的旧树。
+                ["characters"] = new JsonArray(merged.Values.Select(v => (JsonNode)v.DeepClone()).ToArray()),
+                ["weapons"] = new JsonArray(weapons.Select(v => (JsonNode)v.DeepClone()).ToArray()),
+                ["artifacts"] = new JsonArray(arts.Select(v => (JsonNode)v.DeepClone()).ToArray()),
             };
             File.WriteAllText(outPath, outObj.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
 
