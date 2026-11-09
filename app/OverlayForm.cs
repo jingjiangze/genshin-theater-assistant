@@ -345,9 +345,10 @@ internal static class Program
 
         // 全局异常注册（照抄 BetterGI 的做法：三处都要挂，缺一处就会静默丢异常）
         //   ① UI 线程未捕获 ② 后台 Task 未观察 ③ 非 UI 线程未捕获
-        AppDomain.CurrentDomain.UnhandledException += (_, ev) => LogCrash(ev.ExceptionObject as Exception, "AppDomain");
-        Application.ThreadException += (_, ev) => LogCrash(ev.Exception, "UI-Thread");
-        TaskScheduler.UnobservedTaskException += (_, ev) => { LogCrash(ev.Exception, "Task"); ev.SetObserved(); };
+        // LogCrash 定义在 OverlayForm 里（internal static），Program 需带限定名访问。
+        AppDomain.CurrentDomain.UnhandledException += (_, ev) => OverlayForm.LogCrash(ev.ExceptionObject as Exception, "AppDomain");
+        Application.ThreadException += (_, ev) => OverlayForm.LogCrash(ev.Exception, "UI-Thread");
+        TaskScheduler.UnobservedTaskException += (_, ev) => { OverlayForm.LogCrash(ev.Exception, "Task"); ev.SetObserved(); };
 
         // 崩溃必须留证据：此前这里裸调 Application.Run，构造函数里任一 Load 抛异常
         // 都会让进程**静默退出**——用户看到的现象正是"悬浮窗没出现、后台也没有"（本次实测踩到）。
