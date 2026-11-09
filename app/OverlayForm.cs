@@ -474,7 +474,17 @@ internal sealed class OverlayForm : Form
         TopMost = true;
         BackColor = Color.FromArgb(18, 21, 30);
         Size = new Size(600, 236);
-        Location = new Point(40, 80);
+        // 位置必须按**物理分辨率**钳制：高 DPI 下 WinForms 的 Screen.Bounds 是虚拟化逻辑尺寸，
+        // 直接用它定位会让窗口落到可见区域之外（用户看到的现象就是"窗口没出现"）。
+        // 照抄 BetterGI 的口径（见 ScreenMetrics）。
+        Location = ScreenMetrics.ClampToScreen(new Point(40, 80), Size);
+        var scale0 = ScreenMetrics.ScaleFactor();
+        if (scale0 > 1.2f)
+        {
+            // 高缩放下把逻辑尺寸放大回去，否则字会被裁
+            Size = new Size((int)(Size.Width * scale0), (int)(Size.Height * scale0));
+            Location = ScreenMetrics.ClampToScreen(new Point(40, 80), Size);
+        }
         DoubleBuffered = true;
         Text = "剧诗助手";
 
