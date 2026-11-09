@@ -176,16 +176,15 @@ jobs:
           if (Test-Path $out) { Get-Content $out -Encoding UTF8 }
           Write-Host "selftest-wpf exit=$($p.ExitCode)"
 
-          # 自检把 PNG 与报告写在 %LOCALAPPDATA%\TheaterAssistant，收集到 workspace 才能上传
-          $dir = Join-Path $env:LOCALAPPDATA "TheaterAssistant"
+          # 自检把 PNG 与报告写在 exe 同目录（WPF 版 AppPaths.Dir = 可执行文件目录），
+          # 单文件发布时会落在 dist-wpf；统一收集到 dist-wpf/selftest 才能上传。
+          $dir = "dist-wpf"
           New-Item -ItemType Directory -Force "dist-wpf/selftest" | Out-Null
-          if (Test-Path $dir) {
-            Copy-Item (Join-Path $dir "selftest-wpf-*.png") "dist-wpf/selftest" -Force -ErrorAction SilentlyContinue
-            Copy-Item (Join-Path $dir "selftest-wpf-report.txt") "dist-wpf/selftest" -Force -ErrorAction SilentlyContinue
-          }
+          Copy-Item (Join-Path $dir "selftest-wpf-*.png") "dist-wpf/selftest" -Force -ErrorAction SilentlyContinue
+          Copy-Item (Join-Path $dir "selftest-wpf-report.txt") "dist-wpf/selftest" -Force -ErrorAction SilentlyContinue
           Get-ChildItem "dist-wpf/selftest" -ErrorAction SilentlyContinue | Select-Object Name, Length
           if (-not (Test-Path "dist-wpf/selftest/selftest-wpf-mask.png")) {
-            Write-Host "::warning::没有采集到遮罩渲染图（selftest-wpf-mask.png）"
+            throw "没有采集到遮罩渲染图（selftest-wpf-mask.png）"
           }
           if ($p.ExitCode -ne 0) { throw "WPF 自检失败 (exit $($p.ExitCode))" }
 
