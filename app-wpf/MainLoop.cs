@@ -23,11 +23,18 @@ internal sealed class MainLoop
     private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromSeconds(1) };
     private readonly OcrService _ocr = new();
     private readonly List<TemplateEntry> _templates = new();
+    private readonly Dictionary<string, (int W, int H)> _templateSizes = new();
     private readonly ActStabilizer _stab = new();
     private string _bucketKey = "";
     private string _cachedText = "";
     private int _tickCount;
     private bool _busy;
+
+    /// <summary>
+    /// 每帧快照（给遮罩用）：游戏句柄 + 帧尺寸 + 幕次 + 决策来源 + 命中框。
+    /// 遮罩只消费这个事件，不认识识别/决策的内部类型——保持单向依赖。
+    /// </summary>
+    public event Action<TickSnapshot> Updated;
 
     public string LastStatus { get; private set; } = "初始化…";
     public int? LastAct { get; private set; }
@@ -73,12 +80,19 @@ internal sealed class MainLoop
             {
                 LastStatus = "未找到游戏窗口，等待中…";
                 _ball.SetState(FloatingBall.BallState.Waiting);
+                Emit(new TickSnapshot { GameHandle = IntPtr.Zero, Status = LastStatus });
                 return;
             }
 
             // ② 抓屏（只读）
             using var bmp = ScreenCapture.CaptureClient(win);
-            if (bmp == null) { LastStatus = "抓屏失败"; _ball.SetState(FloatingBall.BallState.Waiting); return; }
+            if (bmp == null)
+            {
+                LastStatus = "抓屏失败";
+                _ball.SetState(FloatingBall.BallState.Waiting);
+                Emit(new TickSnapshot { GameHandle = win, Status = LastStatus });
+                return;
+            }
 
             // ②b OCR 预处理（D5 白字掩膜，配置驱动；off 时返回 null 用原图）
             OcrPreprocess.Load(AppPaths.Data("decision-policy.json"));
@@ -112,6 +126,20 @@ internal sealed class MainLoop
                 LastLines = new List<string> { "· 暂不判断：请在剧诗界面停留一下（或切换幕次）" };
                 LastSource = "·";
                 _ball.SetState(FloatingBall.BallState.Waiting);
+                Emit(new TickSnapshot
+                {
+                    GameHandle = win,
+                    FrameWidth = bmp.Width,
+                    FrameHeight = bmp.Height,
+                    Act = stable,
+                    Status = LastStatus,
+                    Source = LastSource,
+                    BandText = band ?? "",
+                    Abstained = true,
+                    MissedMs = _stab.MissedMilliseconds,
+                    Lines = LastLines,
+                    Hits = BuildHits(hits),
+                });
                 return;
             }
 
@@ -140,16 +168,79 @@ internal sealed class MainLoop
                 var s when s.StartsWith("◇") => FloatingBall.BallState.Thinking,
                 _ => FloatingBall.BallState.Idle,
             });
+
+            // ⑩ 遮罩快照（日志 + 识别框都由这里驱动，见 MaskWindowHost）
+            Emit(new TickSnapshot
+            {
+                GameHandle = win,
+                FrameWidth = bmp.Width,
+                FrameHeight = bmp.Height,
+                Act = stable,
+                Status = LastStatus,
+                Source = LastSource,
+                BandText = band ?? "",
+                Lines = LastLines,
+                Hits = BuildHits(hits),
+            });
         }
         catch (Exception ex)
         {
             LastStatus = "循环异常：" + ex.GetType().Name;
             App.LogCrash(ex, "MainLoop.Tick");
+            Emit(new TickSnapshot { Status = LastStatus, Source = "⚠" });
         }
         finally
         {
             _busy = false;
         }
+    }
+
+    private void Emit(TickSnapshot snapshot)
+    {
+        try { Updated?.Invoke(snapshot); } catch (Exception ex) { App.LogCrash(ex, "MainLoop.Updated"); }
+    }
+
+    /// <summary>模板命中 → 遮罩框（坐标是帧像素；四周各留 2px 便于看清）。</summary>
+    private List<MaskHit> BuildHits(List<Matcher.Hit> hits)
+    {
+        var list = new List<MaskHit>();
+        if (hits == null) return list;
+
+        foreach (var h in hits)
+        {
+            if (!_templateSizes.TryGetValue(h.Name, out var sz)) continue;
+            list.Add(new MaskHit
+            {
+                Name = h.Name,
+                Score = h.Score,
+                X = h.X - 2,
+                Y = h.Y - 2,
+                W = sz.W + 4,
+                H = sz.H + 4,
+            });
+        }
+        return list;
+    }
+
+    /// <summary>一帧的可视事实。遮罩只读这些字段，不触碰识别/决策内部。</summary>
+    internal sealed class TickSnapshot
+    {
+        public IntPtr GameHandle;
+        public int FrameWidth;
+        public int FrameHeight;
+        public int? Act;
+        public string Status = "";
+        public string Source = "";
+        public string BandText = "";
+        public bool Abstained;
+        public long MissedMs;
+        public IReadOnlyList<string> Lines = Array.Empty<string>();
+        public IReadOnlyList<MaskHit> Hits = Array.Empty<MaskHit>();
+
+        /// <summary>底部幕次条带 ROI（帧像素），遮罩上画一个虚线区域便于核对。</summary>
+        public System.Windows.Rect? BandRect => FrameWidth > 0
+            ? new System.Windows.Rect(FrameWidth * 0.28, FrameHeight * 0.828, FrameWidth * 0.46, FrameHeight * 0.05)
+            : (System.Windows.Rect?)null;
     }
 
     /// <summary>从文本里取「第N幕」；「一二三…」这类中文数字也认。</summary>
@@ -196,12 +287,18 @@ internal sealed class MainLoop
 
         foreach (var t in _templates) t.Bitmap.Dispose();
         _templates.Clear();
+        _templateSizes.Clear();
 
         foreach (var f in Directory.GetFiles(dir, "*.png"))
         {
             var name = Path.GetFileNameWithoutExtension(f);
             if (name.StartsWith('_')) continue;
-            try { _templates.Add(new TemplateEntry(name, new Bitmap(f), TemplateEntry.ThresholdFor(name))); }
+            try
+            {
+                var t = new TemplateEntry(name, new Bitmap(f), TemplateEntry.ThresholdFor(name));
+                _templates.Add(t);
+                _templateSizes[name] = (t.Bitmap.Width, t.Bitmap.Height);
+            }
             catch { }
         }
     }
@@ -212,4 +309,12 @@ internal sealed class MainLoop
         var m = System.Text.RegularExpressions.Regex.Match(s, @"(\d{3,4})x(\d{3,4})");
         return m.Success && int.TryParse(m.Groups[1].Value, out w) && int.TryParse(m.Groups[2].Value, out h);
     }
+}
+
+/// <summary>模板命中框（帧像素坐标），遮罩据此画识别框。</summary>
+internal sealed class MaskHit
+{
+    public string Name = "";
+    public double Score;
+    public int X, Y, W, H;
 }
