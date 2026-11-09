@@ -144,7 +144,13 @@ internal static class WpfSelfTest
             var mb = Render(mask, 1280, 720);
             var mn = NonBlankRatio(mb);
             Check("MaskWindow 实例化并渲染", mn > 0.01, $"非空像素 {mn:P1}");
-            Save(mb, "selftest-wpf-mask.png");
+            Save(mb, "selftest-wpf-mask.png");       // 生产默认形态：只有「现在做」
+
+            // 展开日志再渲染一张：验收时两张一起看（默认形态 / 排查形态）
+            mask.SetLogExpanded(true);
+            var mb2 = Render(mask, 1280, 720);
+            Check("遮罩日志可展开", NonBlankRatio(mb2) > mn, $"展开后非空像素 {NonBlankRatio(mb2):P1} > 收起 {mn:P1}");
+            Save(mb2, "selftest-wpf-mask-log.png");
             mask.Close();
         }
         catch (Exception ex)
@@ -175,6 +181,34 @@ internal static class WpfSelfTest
         catch (Exception ex)
         {
             Check("遮罩显隐策略", false, ex.GetType().Name + ": " + ex.Message);
+        }
+
+        // ③d 玩法档案（剧诗 / 深渊）：区域数值必须是改造前那四个常量，否则识别位置会悄悄漂
+        try
+        {
+            GameModes.Init();
+            var th = GameModes.Get("theater");
+            var ab = GameModes.Get("abyss");
+
+            var bandOk = th != null
+                         && Math.Abs(th.BandLeft - 0.28) < 1e-9
+                         && Math.Abs(th.BandTop - 0.828) < 1e-9
+                         && Math.Abs(th.BandWidth - 0.46) < 1e-9
+                         && Math.Abs(th.BandHeight - 0.05) < 1e-9;
+
+            var parseOk = th?.ParseAct("第7幕") == 7
+                          && th.ParseAct("第十二幕") == 12
+                          && th.ParseAct("第 3 幕 · 困难") == 3
+                          && ab?.ParseAct("第12层") == 12
+                          && ab.ParseAct("第7幕") == null;
+
+            Check("玩法档案可用", bandOk && parseOk,
+                $"默认={GameModes.Default?.Id} 共{GameModes.All.Count}个 条带={th?.BandLeft},{th?.BandTop},{th?.BandWidth},{th?.BandHeight} " +
+                $"剧诗解析={th?.ParseAct("第7幕")}/{th?.ParseAct("第十二幕")} 深渊解析={ab?.ParseAct("第12层")}");
+        }
+        catch (Exception ex)
+        {
+            Check("玩法档案可用", false, ex.GetType().Name + ": " + ex.Message);
         }
 
         log.AppendLine();
