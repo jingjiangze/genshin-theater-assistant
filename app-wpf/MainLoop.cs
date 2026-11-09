@@ -20,6 +20,7 @@ namespace TheaterAssistant;
 internal sealed class MainLoop
 {
     private readonly FloatingBall _ball;
+    private readonly GameModeProfile _mode;
     private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromSeconds(1) };
     private readonly OcrService _ocr = new();
     private readonly List<TemplateEntry> _templates = new();
@@ -41,11 +42,15 @@ internal sealed class MainLoop
     public string LastSource { get; private set; } = "";
     public List<string> LastLines { get; private set; } = new();
 
-    public MainLoop(FloatingBall ball)
+    public MainLoop(FloatingBall ball, GameModeProfile mode = null)
     {
         _ball = ball;
+        _mode = mode ?? GameModes.Default;
         _timer.Tick += async (_, _) => await TickAsync();
     }
+
+    /// <summary>当前玩法档案（剧诗/深渊…）。识别区域与编号规则都从这里取。</summary>
+    public GameModeProfile Mode => _mode;
 
     public async Task StartAsync()
     {
@@ -103,8 +108,11 @@ internal sealed class MainLoop
             LoadTemplatesFor(bmp.Width, bmp.Height);
             var hits = Matcher.Scan(bmp, _templates);
 
-            // ④ 条带 OCR（幕次）：只在底部 0.828–0.878 高、0.28–0.74 宽的条带里认，快且准
-            var band = await _ocr.RecognizeRegionAsync(ocrFrame, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 4);
+            // ④ 条带 OCR（幕次）：ROI 来自玩法档案（剧诗默认 0.28/0.828/0.46/0.05），快且准
+            var band = _mode.HasBand
+                ? await _ocr.RecognizeRegionAsync(ocrFrame, new RectangleF(
+                    (float)_mode.BandLeft, (float)_mode.BandTop, (float)_mode.BandWidth, (float)_mode.BandHeight), 4)
+                : "";
 
             // ⑤ 全帧 OCR：每 3 帧兜一次（不必要每帧全扫，省 CPU）
             if (_tickCount % 3 == 0)
@@ -114,8 +122,8 @@ internal sealed class MainLoop
             }
             var text = _cachedText;
 
-            // ⑥ 幕次判定：条带优先，其次全帧里的「第N幕」，最后是模板命中
-            int? act = ParseAct(band) ?? ParseAct(text);
+            // ⑥ 幕次判定：条带优先，其次全帧里的「第N幕/层」（正则与中文数字都由档案决定）
+            int? act = _mode.ParseAct(band) ?? _mode.ParseAct(text);
             var stable = _stab.Push(act);
             LastAct = stable;
 
@@ -197,7 +205,15 @@ internal sealed class MainLoop
 
     private void Emit(TickSnapshot snapshot)
     {
-        try { Updated?.Invoke(snapshot); } catch (Exception ex) { App.LogCrash(ex, "MainLoop.Updated"); }
+        try
+        {
+            // 玩法信息与条带 ROI 统一在这里补，调用点不用重复写
+            snapshot.ModeId = _mode.Id;
+            snapshot.ModeName = _mode.DisplayName;
+            snapshot.BandRect ??= BandRectOf(snapshot.FrameWidth, snapshot.FrameHeight);
+            Updated?.Invoke(snapshot);
+        }
+        catch (Exception ex) { App.LogCrash(ex, "MainLoop.Updated"); }
     }
 
     /// <summary>模板命中 → 遮罩框（坐标是帧像素；四周各留 2px 便于看清）。</summary>
@@ -229,6 +245,8 @@ internal sealed class MainLoop
         public int FrameWidth;
         public int FrameHeight;
         public int? Act;
+        public string ModeId = "theater";
+        public string ModeName = "幻想真境剧诗";
         public string Status = "";
         public string Source = "";
         public string BandText = "";
@@ -237,32 +255,19 @@ internal sealed class MainLoop
         public IReadOnlyList<string> Lines = Array.Empty<string>();
         public IReadOnlyList<MaskHit> Hits = Array.Empty<MaskHit>();
 
-        /// <summary>底部幕次条带 ROI（帧像素），遮罩上画一个虚线区域便于核对。</summary>
-        public System.Windows.Rect? BandRect => FrameWidth > 0
-            ? new System.Windows.Rect(FrameWidth * 0.28, FrameHeight * 0.828, FrameWidth * 0.46, FrameHeight * 0.05)
+        /// <summary>底部条带 ROI（帧像素），遮罩上画一个区域框便于核对。由玩法档案决定。</summary>
+        public System.Windows.Rect? BandRect;
+    }
+
+    /// <summary>条带 ROI（帧像素）；玩法无条带时返回 null。</summary>
+    private System.Windows.Rect? BandRectOf(int frameWidth, int frameHeight)
+        => frameWidth > 0 && frameHeight > 0 && _mode.HasBand
+            ? new System.Windows.Rect(
+                frameWidth * _mode.BandLeft,
+                frameHeight * _mode.BandTop,
+                frameWidth * _mode.BandWidth,
+                frameHeight * _mode.BandHeight)
             : (System.Windows.Rect?)null;
-    }
-
-    /// <summary>从文本里取「第N幕」；「一二三…」这类中文数字也认。</summary>
-    private static int? ParseAct(string s)
-    {
-        if (string.IsNullOrWhiteSpace(s)) return null;
-        var m = System.Text.RegularExpressions.Regex.Match(s, @"第\s*(\d{1,2})\s*幕");
-        if (m.Success && int.TryParse(m.Groups[1].Value, out var n)) return n;
-
-        var cn = System.Text.RegularExpressions.Regex.Match(s, @"第\s*([一二三四五六七八九十]{1,2})\s*幕");
-        if (!cn.Success) return null;
-        var map = new Dictionary<char, int> {
-            {'一',1},{'二',2},{'三',3},{'四',4},{'五',5},
-            {'六',6},{'七',7},{'八',8},{'九',9},{'十',10},
-        };
-        var t = cn.Groups[1].Value;
-        if (t.Length == 1) return map.TryGetValue(t[0], out var v) ? v : null;
-        // 十一、十二
-        if (t[0] == '十') return map.TryGetValue(t[1], out var u) ? 10 + u : null;
-        if (t.Length == 2 && t[1] == '十') return map.TryGetValue(t[0], out var w) ? w * 10 : null;
-        return null;
-    }
 
     /// <summary>按客户区尺寸选最接近的模板目录并加载（与 WinForms 版同逻辑）。</summary>
     private void LoadTemplatesFor(int width, int height)
