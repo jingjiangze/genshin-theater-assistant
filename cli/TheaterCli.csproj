@@ -1,5 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <!--
+    排除子项目与构建产物。审计背景（box 实测 BUILD FAIL 10 errors）：
+      - cli/OcrProbe/ 是独立项目（自带 csproj，依赖 RapidOcrNet/SkiaSharp）；
+        父项目的默认 glob 会把它当源码编译 → CS0246 找不到 RapidOcrNet/SkiaSharp。
+      - cli/obj、cli/bin 下的生成文件被 glob 进来 → CS0579 Duplicate AssemblyInfo。
+    这类问题在干净 checkout 的 CI 上不暴露，只在有历史 obj 的 box 上出现。
+  -->
+  <ItemGroup>
+    <Compile Remove="OcrProbe/**" />
+    <Compile Remove="obj/**" />
+    <Compile Remove="bin/**" />
+    <None Remove="OcrProbe/**" />
+  </ItemGroup>
+
   <!-- 跨平台 CLI：只编译**纯逻辑**源码，不引用 WinForms / OCR / 模板匹配。
        目的是让 Linux（含云端 box）也能跑决策与配队的完整流程做测试。 -->
   <PropertyGroup>
