@@ -1,6 +1,6 @@
 # NOTICE · 第三方来源与许可证声明
 
-本项目的**整体许可证**是 **GNU General Public License v3.0**（见仓库根 `LICENSE`）。
+本项目的**整体许可证**是 **GNU General Public License v3.0 or later（GPL-3.0-or-later）**（见仓库根 `LICENSE`，sha256 `3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986`，与 gnu.org GPL-3 原文一致）。
 
 ## 为什么是 GPL-3.0
 
@@ -46,7 +46,7 @@ GPL-3.0 具有传染性，因此本项目整体以 GPL-3.0 分发。
 
 ## 合规义务提醒
 
-以 GPL-3.0 分发意味着：
+以 GPL-3.0-or-later 分发意味着：
 
 1. 分发二进制时**必须提供对应源码**（本项目源码公开在 GitHub，满足此条）；
 2. 必须保留本 NOTICE 与各文件头部的来源声明；
