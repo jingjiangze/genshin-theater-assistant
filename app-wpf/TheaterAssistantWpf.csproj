@@ -25,6 +25,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AssemblyName>TheaterAssistantWpf</AssemblyName>
     <RootNamespace>TheaterAssistant</RootNamespace>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/jingjiangze/genshin-theater-assistant</RepositoryUrl>
     <Version>0.60.0</Version>
     <AssemblyVersion>0.60.0.0</AssemblyVersion>
     <FileVersion>0.60.0.0</FileVersion>
