@@ -1,20 +1,90 @@
-<Window x:Class="TheaterAssistant.SettingsWindow"
+<ui:FluentWindow x:Class="TheaterAssistant.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         Title="剧诗助手 · 设置"
-        Width="760" Height="600"
-        MinWidth="680" MinHeight="520"
+        Width="880" Height="620"
+        MinWidth="760" MinHeight="540"
         WindowStartupLocation="CenterScreen"
-        Background="#1C2030"
-        Foreground="#E2E8F4"
+        ExtendsContentIntoTitleBar="True"
+        WindowCornerPreference="Round"
+        Background="#FF1B1F2A"
+        Foreground="#FFE8EEF8"
         FontFamily="Microsoft YaHei UI"
         FontSize="13"
         TextOptions.TextFormattingMode="Ideal">
 
   <!--
-    页面与控件全部在 SettingsWindow.xaml.cs 里动态构建（7 页：首页/通用/识别/悬浮窗/热键/角色池/诊断），
-    这样页面增删只改一处，且每页切换有淡入过渡（照 BetterGI 的导航页体验）。
-    这里只保留窗口外壳，不重复声明控件。
+    设置窗外壳照 BetterGI 的形态：FluentWindow + 自绘标题栏 + 左侧导航 + 右侧内容。
+    内容页仍由 SettingsWindow.xaml.cs 动态构建（7 页），切换时做「淡入 + 上移 12px」过渡
+    （BetterGI 用 Wpf.Ui 的 FadeInWithSlide，200ms / DecelerationRatio 0.7，这里同参数用原生动画实现）。
+    左侧选中指示条也做滑动动画（BGI 是 280ms 弹性 Adorner，这里 240ms 缓动）。
   -->
-  <Grid x:Name="Shell"/>
-</Window>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <ui:TitleBar Grid.Row="0" Title="剧诗助手 · 设置" ShowMaximize="False" ShowMinimize="True" ShowClose="True"/>
+
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="216"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <!-- 左导航：Canvas 上盖一条滑动指示条 -->
+      <Border Grid.Column="0" Background="#12FFFFFF" CornerRadius="8" Margin="14,4,8,12">
+        <Grid x:Name="NavHost">
+          <Canvas IsHitTestVisible="False">
+            <Rectangle x:Name="Indicator" Width="3" Height="26" RadiusX="1.5" RadiusY="1.5"
+                       Fill="#FF4C8DFF" Margin="7,0,0,0"/>
+          </Canvas>
+
+          <ListBox x:Name="NavList" Background="Transparent" BorderThickness="0"
+                   Margin="0,6,0,6"
+                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                   HorizontalContentAlignment="Stretch">
+            <ListBox.ItemContainerStyle>
+              <Style TargetType="ListBoxItem">
+                <Setter Property="Margin" Value="10,2"/>
+                <Setter Property="Padding" Value="12,7"/>
+                <Setter Property="Foreground" Value="#FFC7D2E4"/>
+                <Setter Property="Template">
+                  <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                      <Border x:Name="Bd" CornerRadius="6" Background="Transparent" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter/>
+                      </Border>
+                      <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                          <Setter TargetName="Bd" Property="Background" Value="#14FFFFFF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                          <Setter TargetName="Bd" Property="Background" Value="#1FFFFFFF"/>
+                          <Setter Property="Foreground" Value="#FFFFFFFF"/>
+                        </Trigger>
+                      </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                  </Setter.Value>
+                </Setter>
+              </Style>
+            </ListBox.ItemContainerStyle>
+          </ListBox>
+        </Grid>
+      </Border>
+
+      <ContentControl Grid.Column="1" x:Name="PageHost" Margin="8,4,16,12"
+                      HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Stretch"/>
+    </Grid>
+
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="12,0,16,14">
+      <Button x:Name="BtnConfigDir" Content="配置目录" Width="104" Height="32" Margin="8,0,0,0"/>
+      <Button x:Name="BtnLogDir" Content="日志目录" Width="104" Height="32" Margin="8,0,0,0"/>
+      <Button x:Name="BtnSave" Content="保存并关闭" Width="112" Height="32" Margin="8,0,0,0"/>
+    </StackPanel>
+  </Grid>
+</ui:FluentWindow>
