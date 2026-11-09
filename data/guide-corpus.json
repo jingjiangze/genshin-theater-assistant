@@ -5821,6 +5821,61 @@
       "source": "season29.json（boss 标记）"
     },
     {
+      "id": "gen-475",
+      "act": 0,
+      "tags": [
+        "难度",
+        "Easy"
+      ],
+      "title": "Easy 难度概览",
+      "text": "Easy 共 3 幕，角色等级 75–80，首领幕：第 3 幕。",
+      "source": "season29.json"
+    },
+    {
+      "id": "gen-476",
+      "act": 0,
+      "tags": [
+        "难度",
+        "Normal"
+      ],
+      "title": "Normal 难度概览",
+      "text": "Normal 共 6 幕，角色等级 80–90，首领幕：第 3/6 幕。",
+      "source": "season29.json"
+    },
+    {
+      "id": "gen-477",
+      "act": 0,
+      "tags": [
+        "难度",
+        "Hard"
+      ],
+      "title": "Hard 难度概览",
+      "text": "Hard 共 8 幕，角色等级 85–95，首领幕：第 3/6/8 幕。",
+      "source": "season29.json"
+    },
+    {
+      "id": "gen-478",
+      "act": 0,
+      "tags": [
+        "难度",
+        "Visionary"
+      ],
+      "title": "Visionary 难度概览",
+      "text": "Visionary 共 10 幕，角色等级 85–100，首领幕：第 3/6/8/10 幕。",
+      "source": "season29.json"
+    },
+    {
+      "id": "gen-479",
+      "act": 0,
+      "tags": [
+        "难度",
+        "Lunar"
+      ],
+      "title": "Lunar 难度概览",
+      "text": "Lunar 共 12 幕，角色等级 85–100，首领幕：第 3/6/8/10 幕。",
+      "source": "season29.json"
+    },
+    {
       "id": "rule-endurance",
       "act": 0,
       "tags": [
