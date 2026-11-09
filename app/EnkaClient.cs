@@ -72,7 +72,11 @@ internal static class EnkaClient
         // 网络请求（同步等待，调用方负责放到后台线程）
         try
         {
-            using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
+            // 超时放宽到 30s：Enka 首次响应可能 5–15s，10s 会抛 TaskCanceledException（实测踩过）。
+            // 显式 UseProxy=false：系统里可能残留失效代理（本机 git 曾配过 127.0.0.1:7897），
+            // HttpClient 默认走系统代理 → 连不上还以为是网络问题。
+            var handler = new HttpClientHandler { UseProxy = false };
+            using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(30) };
             // Enka 要求带 User-Agent，否则可能 403/429
             http.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "theater-assistant/0.53 (read-only; contact: local)");
             http.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
