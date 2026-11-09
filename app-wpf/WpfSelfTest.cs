@@ -131,6 +131,7 @@ internal static class WpfSelfTest
             mask.Show();
             mask.SetStatus("第3幕", "★云端已验证");
             mask.SetAdvice("用雷把怒气条推满，满条后 15 秒内把爆发全打出去");
+            mask.SetGuide("手法·标记期奶满或无敌帧躲，解除后才是输出窗口（伤害 -50%/暴击 -100%）");
 
             // 300 行远超上限：裁剪后 inline 数必须 ≤ 200（与上游同一条判据）
             for (var i = 0; i < 300; i++)
@@ -215,6 +216,19 @@ internal static class WpfSelfTest
         catch (Exception ex)
         {
             Check("玩法档案可用", false, ex.GetType().Name + ": " + ex.Message);
+        }
+
+        // ③e 战斗中的手法指导（rotations.json → Routine.LinesFor）：WPF 生产路径此前缺失（审计发现）
+        try
+        {
+            Routine.Load(AppPaths.Data("rotations.json"));
+            var tech = Routine.LinesFor(3, 3).FirstOrDefault(l => l.StartsWith("手法·"));
+            Check("战斗手法数据可用", Routine.Loaded && !string.IsNullOrEmpty(tech),
+                $"acts={Routine.Count}｜act3={tech ?? "无"}");
+        }
+        catch (Exception ex)
+        {
+            Check("战斗手法数据可用", false, ex.GetType().Name + ": " + ex.Message);
         }
 
         log.AppendLine();
