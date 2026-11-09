@@ -69,7 +69,7 @@ public partial class MaskWindow : Window
         if (LogTextBox.Document.Blocks.LastBlock is Paragraph p)
         {
             p.Margin = new Thickness(0);
-            p.LineHeight = 15.5;
+            p.LineHeight = 16.5;
             p.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
         }
 
@@ -119,6 +119,23 @@ public partial class MaskWindow : Window
         StatusText.Foreground = SourceBrush(source);
     }
 
+    /// <summary>
+    /// 「现在做」一行（与悬浮窗/桌宠同一句）。空字符串 = 整行收起——
+    /// 弃权时不显示旧指令，避免玩家照着过期的提示操作。
+    /// </summary>
+    public void SetAdvice(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            AdviceRow.Visibility = Visibility.Collapsed;
+            AdviceText.Text = "";
+            return;
+        }
+
+        AdviceText.Text = text;
+        AdviceRow.Visibility = Visibility.Visible;
+    }
+
     /// <summary>本帧的识别框（游戏帧像素坐标）+ 帧尺寸。</summary>
     internal void SetFrame(IReadOnlyList<MaskBox> boxes, int gameWidth, int gameHeight)
         => DrawLayer.SetFrame(boxes, gameWidth, gameHeight);
@@ -128,7 +145,7 @@ public partial class MaskWindow : Window
     {
         if (LogTextBox.Document.Blocks.LastBlock is not Paragraph p)
         {
-            p = new Paragraph { Margin = new Thickness(0), LineHeight = 15.5, LineStackingStrategy = LineStackingStrategy.BlockLineHeight };
+            p = new Paragraph { Margin = new Thickness(0), LineHeight = 16.5, LineStackingStrategy = LineStackingStrategy.BlockLineHeight };
             LogTextBox.Document.Blocks.Add(p);
         }
 
@@ -142,11 +159,13 @@ public partial class MaskWindow : Window
             Foreground = LevelBrush(level),
             FontWeight = FontWeights.SemiBold,
         });
-        p.Inlines.Add(new Run(" " + (message ?? "")) { Foreground = level is "WRN" or "ERR" ? LevelBrush(level) : TextBrush });
+        // 正文始终用正文色：只有级别着色，否则连续两条 WRN 会把整块面板染成橙色
+        p.Inlines.Add(new Run(" " + (message ?? "")) { Foreground = TextBrush });
 
         _lineCount++;
-        CountText.Text = $"日志 {_lineCount} 行";
-        _logDocument.MaintainNow();   // UI 线程同步裁剪：行数有上限，内存恒定（自检也走这条）
+        var inlines = _logDocument.MaintainNow();   // UI 线程同步裁剪：行数有上限，内存恒定（自检也走这条）
+        var retained = Math.Max(1, (inlines + 1) / 4);   // 每行 = 3 个 inline + 1 个换行
+        CountText.Text = $"共 {_lineCount} 行 · 最近 {retained} 行";
     }
 
     /// <summary>同步执行日志裁剪并返回尾部段落 inline 数（自检专用）。</summary>
