@@ -137,15 +137,27 @@ jobs:
               Copy-Item "models/$v/*" "app-wpf/models/$v" -Recurse -Force
             }
           }
-          dotnet build app-wpf/TheaterAssistantWpf.csproj -c Release 2>&1 | Select-Object -Last 20
-          $exe = "app-wpf/bin/Release/net8.0-windows/win-x64/TheaterAssistantWpf.exe"
+          # build 只产出框架依赖版；要"下载即用"必须 publish 成单文件自包含
+          dotnet publish app-wpf/TheaterAssistantWpf.csproj -c Release -o dist-wpf 2>&1 | Select-Object -Last 20
+          $exe = "dist-wpf/TheaterAssistantWpf.exe"
           if (Test-Path $exe) {
-            Write-Host "WPF 构建成功: $((Get-Item $exe).Length) 字节"
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版构建：成功"
+            $sz = [math]::Round((Get-Item $exe).Length / 1MB, 1)
+            Write-Host "WPF 单文件发布成功: $sz MB"
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版单文件发布：成功（$sz MB）"
           } else {
-            Write-Host "WPF 构建失败（不阻断，仅记录）"
-            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版构建：失败（不阻断）"
+            Write-Host "WPF 单文件发布失败（不阻断，仅记录）"
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版单文件发布：失败（不阻断）"
           }
+
+      - name: 上传 WPF 单文件 exe
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: TheaterAssistantWpf-${{ github.sha }}
+          path: dist-wpf/TheaterAssistantWpf.exe
+          retention-days: 30
+          if-no-files-found: warn
 
       - name: 尝试 DirectML 构建（仅手动触发，失败不阻断）
         if: ${{ github.event_name == 'workflow_dispatch' }}
