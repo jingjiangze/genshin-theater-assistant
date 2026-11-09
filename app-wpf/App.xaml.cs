@@ -16,7 +16,11 @@ namespace TheaterAssistant;
 /// </summary>
 public partial class App : System.Windows.Application
 {
-    private PetWindow _pet;
+    private FloatingBall _ball;
+    private OverlayWindow _detailWin;
+
+    /// <summary>供子窗口回调（如悬浮球双击展开详情）。</summary>
+    public static App CurrentApp => Current as App;
     private System.Windows.Forms.NotifyIcon _tray;
 
     internal static string LogDir => Path.Combine(
@@ -45,8 +49,8 @@ public partial class App : System.Windows.Application
             // 决策层初始化（失败不阻塞悬浮窗）
             try { DecisionBridge.Init(); } catch (Exception ex) { LogCrash(ex, "DecisionBridge.Init"); }
 
-            _pet = new PetWindow();
-            _pet.Show();
+            _ball = new FloatingBall();
+            _ball.Show();
             InitTray();
         }
         catch (Exception ex)
@@ -87,7 +91,20 @@ public partial class App : System.Windows.Application
         }
     }
 
-    /// <summary>托盘/菜单入口：展开或收起详细面板（桌宠本体常驻）。</summary>
+    /// <summary>打开/收起详细面板（悬浮球双击、托盘菜单都走这里）。</summary>
+    public void OpenDetail()
+    {
+        try
+        {
+            if (_detailWin != null && _detailWin.IsVisible) { _detailWin.Hide(); return; }
+            _detailWin ??= new OverlayWindow();
+            _detailWin.Show();
+            _detailWin.Activate();
+        }
+        catch (Exception ex) { LogCrash(ex, "OpenDetail"); }
+    }
+
+    /// <summary>托盘/菜单入口：展开或收起详细面板。</summary>
     private void ToggleOverlay()
     {
         try
