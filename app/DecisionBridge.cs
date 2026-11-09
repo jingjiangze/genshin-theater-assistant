@@ -14,6 +14,45 @@ internal static class DecisionBridge
 {
     private static bool _ready;
     public static bool Ready => _ready;
+    /// <summary>角色池来源说明（供悬浮窗标注，玩家要能看出池从哪来的）。</summary>
+    public static string PoolNote { get; private set; } = "";
+
+    /// <summary>从 GOOD/合并文件里读出角色中文名（传给 TeamSolver 限定候选）。</summary>
+    private static List<string> ReadRosterNames(string path)
+    {
+        var names = new List<string>();
+        try
+        {
+            if (!File.Exists(path)) return names;
+            var zh = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            try
+            {
+                var cp = AppPaths.Data("characters.json");
+                if (File.Exists(cp))
+                {
+                    using var cd = System.Text.Json.JsonDocument.Parse(File.ReadAllText(cp));
+                    if (cd.RootElement.TryGetProperty("zhNames", out var z) && z.ValueKind == System.Text.Json.JsonValueKind.Object)
+                        foreach (var e in z.EnumerateObject())
+                            if (e.Value.ValueKind == System.Text.Json.JsonValueKind.String && e.Value.GetString() is { Length: > 0 } cn)
+                                zh[e.Name] = cn;
+                }
+            }
+            catch { }
+
+            using var doc = System.Text.Json.JsonDocument.Parse(File.ReadAllText(path));
+            if (!doc.RootElement.TryGetProperty("characters", out var arr) || arr.ValueKind != System.Text.Json.JsonValueKind.Array)
+                return names;
+            foreach (var c in arr.EnumerateArray())
+            {
+                if (c.ValueKind != System.Text.Json.JsonValueKind.Object) continue;
+                var key = c.TryGetProperty("key", out var k) && k.ValueKind == System.Text.Json.JsonValueKind.String ? k.GetString() : null;
+                if (string.IsNullOrEmpty(key)) continue;
+                names.Add(zh.TryGetValue(key, out var cn) ? cn : key);
+            }
+        }
+        catch { }
+        return names;
+    }
 
     /// <summary>初始化决策层所需数据（幂等，失败只标记不可用）。</summary>
     public static bool Init()
@@ -26,15 +65,30 @@ internal static class DecisionBridge
             {
                 QuantData.LoadEnemies(season.Path);
                 QuantData.LoadCharacters(AppPaths.Data("characters.json"), AppPaths.Data("substitutes.json"));
-                TeamSolver.LoadPool(season.Elements);
             }
+
+            // ── 角色池：双轨合并（用户要求「本地 GOOD + 后台异步 Enka 补全」）──
+            // GOOD 可能很全但没有强度字段；Enka 只有展柜角色但强度齐全。
+            // 合并取并集，强度字段优先取有值一方 —— 不能直接替换，否则池会变小。
+            var goodPath = Path.Combine(AppPaths.Dir, "roster.json");
+            var enkaPath = Path.Combine(AppPaths.Dir, "roster-enka.json");
+            var mergedPath = Path.Combine(AppPaths.Dir, "roster-merged.json");
+            var mg = RosterMerge.Merge(File.Exists(goodPath) ? goodPath : null,
+                                       File.Exists(enkaPath) ? enkaPath : null, mergedPath);
+            var rosterPath = mg.Ok ? mg.Path : goodPath;
+
+            // 关键：把玩家角色名传给配队，否则"按你的角色池判定"根本没生效（此前一直是全角色）。
+            var rosterNames = ReadRosterNames(rosterPath);
+            if (season != null)
+                TeamSolver.LoadPool(season.Elements, rosterNames);
+
             CuratedPicks.Load(AppPaths.Data("rotations.json"), AppPaths.Data("knowledge-release.json"));
             CharacterStrength.LoadModel(AppPaths.Data("strength-model.json"));
-            // 角色池优先级：Enka 自动获取的 > 玩家手放的 roster.json
-            // 用户明确「最优要按玩家当前角色池判定」，所以自动来源优先。
-            var enkaPath = Path.Combine(AppPaths.Dir, "roster-enka.json");
-            var rosterPath = File.Exists(enkaPath) ? enkaPath : Path.Combine(AppPaths.Dir, "roster.json");
             CharacterStrength.Load(rosterPath, AppPaths.Data("characters.json"));
+
+            PoolNote = mg.Ok
+                ? $"角色池 {rosterNames.Count} 个（{mg.Detail}）"
+                : $"角色池来源不可用（{mg.Detail}）→ 按全角色估算，置信度已降级";
             _ready = true;
         }
         catch
