@@ -68,6 +68,11 @@ jobs:
                -ArgumentList '--replay','testdata\ocr-frames',"--out","$out\replay.md","--json","$out\replay.json",'--min-stable','2' `
                -Wait -PassThru -RedirectStandardOutput "$out\stdout.txt"
           Write-Host "replay exit=$($p.ExitCode)"
+          Write-Host '--- stdout ---'
+          if (Test-Path "$out\stdout.txt") { Get-Content "$out\stdout.txt" -Encoding UTF8 | Select-Object -Last 40 }
+          Get-ChildItem .\dist -Filter 'crash-*.txt' -ErrorAction SilentlyContinue | ForEach-Object {
+            Write-Host "--- $($_.Name) ---"; Get-Content $_.FullName -Encoding UTF8
+          }
           if ($p.ExitCode -ne 0) { throw "replay 失败 (exit $($p.ExitCode))" }
           Get-Content "$out\replay.md" -Encoding UTF8 | Select-Object -First 14
 
