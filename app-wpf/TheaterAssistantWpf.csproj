@@ -87,6 +87,7 @@
     <Compile Include="..\app\Advice.cs" Link="logic\Advice.cs" />
     <!-- 主循环输入侧：抓屏(GameWindow/ScreenCapture) + OCR + 模板匹配 + 幕内逻辑 -->
     <Compile Include="..\app\Recognition.cs" Link="logic\Recognition.cs" />
+    <Compile Include="..\app\TemplateEntry.cs" Link="logic\TemplateEntry.cs" />
     <Compile Include="..\app\OcrService.cs" Link="logic\OcrService.cs" />
     <Compile Include="..\app\TemplateFactory.cs" Link="logic\TemplateFactory.cs" />
     <Compile Include="..\app\TheaterLogic.cs" Link="logic\TheaterLogic.cs" />
