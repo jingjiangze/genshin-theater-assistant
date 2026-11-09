@@ -121,6 +121,10 @@ def main() -> int:
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--device", default="auto")
     ap.add_argument("--smoke", action="store_true", help="只跑 20 步验证链路")
+    ap.add_argument("--r", type=int, default=16, help="LoRA rank（小模型用 8）")
+    ap.add_argument("--alpha", type=int, default=0, help="LoRA alpha，0 = 2*r")
+    ap.add_argument("--targets", default="q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj")
+    ap.add_argument("--full", action="store_true", help="全参微调（小模型 LoRA 会欠拟合）")
     args = ap.parse_args()
 
     device = pick_device(args.device)
@@ -140,11 +144,18 @@ def main() -> int:
         model.gradient_checkpointing_enable()
         model.enable_input_require_grads()
 
-    model = get_peft_model(model, LoraConfig(
-        r=16, lora_alpha=32, lora_dropout=0.05, bias="none", task_type="CAUSAL_LM",
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
-                        "gate_proj", "up_proj", "down_proj"]))
-    model.print_trainable_parameters()
+    if args.full:
+        # 全参微调：26M 量级的模型 LoRA 会欠拟合（决策任务要的是背下映射表）
+        for p_ in model.parameters():
+            p_.requires_grad = True
+        print("[mode] full fine-tune", flush=True)
+    else:
+        model = get_peft_model(model, LoraConfig(
+            r=args.r, lora_alpha=(args.alpha or args.r * 2), lora_dropout=0.05, bias="none",
+            task_type="CAUSAL_LM", target_modules=args.targets.split(",")))
+    trainable = sum(p_.numel() for p_ in model.parameters() if p_.requires_grad)
+    total = sum(p_.numel() for p_ in model.parameters())
+    print(f"[params] trainable={trainable:,} / {total:,} ({100 * trainable / max(1, total):.2f}%)", flush=True)
     model.to(device)
 
     train_rows = encode(load_jsonl(os.path.join(args.data, "theater-sft-train.jsonl")), tokenizer, args.max_len)
