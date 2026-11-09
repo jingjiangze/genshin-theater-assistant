@@ -137,8 +137,16 @@ jobs:
               Copy-Item "models/$v/*" "app-wpf/models/$v" -Recurse -Force
             }
           }
+          # 诊断：确认 data 复制成功、且真的进了发布目录
+          Write-Host "app-wpf/data 文件数: $((Get-ChildItem app-wpf/data -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count)"
+          if (Test-Path "app-wpf/data/guide-corpus.json") {
+            $gc = Get-Content "app-wpf/data/guide-corpus.json" -Raw | ConvertFrom-Json
+            Write-Host "源语料条数: $($gc.entries.Count)"
+          } else { Write-Host "⚠ app-wpf/data/guide-corpus.json 不存在" }
+
           # build 只产出框架依赖版；要"下载即用"必须 publish 成单文件自包含
           dotnet publish app-wpf/TheaterAssistantWpf.csproj -c Release -o dist-wpf 2>&1 | Select-Object -Last 20
+          Write-Host "dist-wpf/data 文件数: $((Get-ChildItem dist-wpf/data -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count)"
           $exe = "dist-wpf/TheaterAssistantWpf.exe"
           if (Test-Path $exe) {
             $sz = [math]::Round((Get-Item $exe).Length / 1MB, 1)
