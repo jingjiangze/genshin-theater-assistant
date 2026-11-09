@@ -14,6 +14,11 @@ n=0
 while true; do
   n=$((n+1))
   git pull -q --ff-only 2>/dev/null || true
+  # 构建前清理 obj/bin：实测 cli/obj 里残留的旧 AssemblyInfo.cs 会让编译报
+  # CS0579 Duplicate AssemblyInfo（csproj 里的 <Compile Remove="obj/**" /> 挡不住，
+  # MSBuild 对 obj 的默认 glob 行为与显式 Remove 的交互不可靠）。
+  # 干净 checkout 的 CI 不会碰到，只有长期运行的 box 会。
+  rm -rf cli/obj cli/bin
   dotnet build cli/TheaterCli.csproj -c Release -o cli/bin >>"$LOG" 2>&1
   b=$?
   if [ $b -ne 0 ]; then say "cycle#$n BUILD FAIL"; sleep "$INTERVAL"; continue; fi
