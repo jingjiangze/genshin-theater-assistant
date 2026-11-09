@@ -56,6 +56,9 @@ internal static class Program
                 return TeamSolver.RunCli(Opt(args, "--difficulty"), Num(args, "--act", 0),
                     Opt(args, "--out"), Num(args, "--season", 0), Opt(args, "--roster"));
 
+            case "--roster-merge":
+                return RosterMerge.RunCli(Opt(args, "--good"), Opt(args, "--enka"), Opt(args, "--out") ?? Path.Combine(AppPaths.Dir, "roster-merged.json"));
+
             case "--enka":
                 return EnkaClient.RunCli(Opt(args, "--uid") ?? "");
 
