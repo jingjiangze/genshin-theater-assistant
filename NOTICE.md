@@ -32,6 +32,19 @@ GPL-3.0 具有传染性，因此本项目整体以 GPL-3.0 分发。
 - `app/Routine.cs` —— 按幕组织角色轮换的数据结构
 - `app/SelfTest.cs` —— 断言式自检的组织方式
 
+### BetterGI 遮罩层移植（v0.61，2026-11-09）
+
+WPF 版的游戏内遮罩直接按 BetterGI 的遮罩结构移植（用户要求「照抄它的 UI 遮罩」）：
+
+| 本项目文件 | 上游文件 | 移植内容 | 差异 |
+|---|---|---|---|
+| `app-wpf/MaskWindow.xaml(.cs)` | `View/MaskWindow.xaml.cs` + `View/MaskWindow.xaml` | 窗口样式（TRANSPARENT/NOACTIVATE/TOOLWINDOW）、防截屏、日志面板结构 | 不挂 `WS_CHILD` 到游戏窗口（不改变其他进程窗口树）；不引入上游的 MVVM/DI/地图点位 |
+| `app-wpf/MaskWindowHost.cs` | `View/Mask/MaskWindowHost.cs` | 「只上报事实 → 合并投递 Apply」的显隐/置顶/跟随策略 | 去掉配置服务与日志框架；显隐策略抽成纯函数 `MaskPolicy.Decide` 以便断言 |
+| `app-wpf/MaskDrawingLayer.cs` | `View/Mask/MaskWindowDrawingLayer.cs` | 按帧像素→窗口比例绘制、画笔/画刷按 (颜色,线宽) 缓存、标签底衬 | 只保留 rect + 标签（上游是识别框/线/文字/技能 CD 全套快照） |
+| `app-wpf/OverlayLogDocument.cs` | `Helpers/OverlayLogDocument.cs` | 200 inline / 10000 字符上限、`Dispatcher.BeginInvoke(Background)` 单次合并维护、`BeginChange/EndChange` 批量裁剪 | 增加 `MaintainNow()` 供无消息泵的自检确定性断言 |
+
+这些文件均为 WPF + .NET 8 下的改写，不是上游同一份代码；修改时间 2026-11。
+
 **修改说明**：上述文件均由本项目在 WinForms + .NET 8 技术栈下重写或改写，
 与 BetterGI 的 WPF 实现并非同一份代码；修改时间为 2026-11。
 
