@@ -124,6 +124,7 @@ internal static class WpfSelfTest
             var mask = new MaskWindow();
             mask.Show();
             mask.SetStatus("第3幕", "★云端已验证");
+            mask.SetAdvice("用雷把怒气条推满，满条后 15 秒内把爆发全打出去");
 
             // 300 行远超上限：裁剪后 inline 数必须 ≤ 200（与上游同一条判据）
             for (var i = 0; i < 300; i++)
