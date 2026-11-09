@@ -1,0 +1,113 @@
+name: e2e-sim
+
+# 全链路时序模拟（每日 + 手动）。
+#
+# 为什么单独一个工作流：ci 是「提交即验」（编译 + 单帧断言 + 窗口渲染），
+# 这里跑的是**连续时序**——把真机抽出的 1080p 帧按时间顺序喂进完整链路
+# （模板 → 条带 OCR → 幕次稳定 → 决策 → 检索 → 会播报什么），
+# 关注的是「连续跑会不会乱跳/漏判/不出指示」，而不是单帧对不对。
+#
+# 分工（与 docs/PARALLEL-WORK.md 一致）：
+#   · CI：轻量、可复现、每次提交都跑；
+#   · box：重活（视频抽帧/OCR 交叉验证/长回归），由 box-wake 按策略唤醒；
+#   · 本工作流：每天跑一次时序回归，产物留 30 天。
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '10 9 * * *'      # 每天 09:10 UTC（北京时间 17:10，避开 05:00 的 video-eval）
+
+concurrency:
+  group: e2e-sim
+  cancel-in-progress: true
+
+jobs:
+  replay:
+    name: 时序回放（31 帧真实 1080p）
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: 缓存 OCR 模型
+        uses: actions/cache@v4
+        with:
+          path: models/v5
+          key: ocr-models-v5-${{ hashFiles('models/fetch-models.ps1') }}
+
+      - name: 拉取中文 OCR 模型
+        shell: pwsh
+        run: .\models\fetch-models.ps1
+
+      - name: 同步随包资源
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force app/data, app/templates, app/models | Out-Null
+          Copy-Item data/* app/data -Recurse -Force
+          Copy-Item templates/* app/templates -Recurse -Force
+          foreach ($v in 'v5','v6') {
+            if (Test-Path "models/$v") {
+              New-Item -ItemType Directory -Force "app/models/$v" | Out-Null
+              Copy-Item "models/$v/*" "app/models/$v" -Force
+            }
+          }
+
+      - name: 发布单文件 exe
+        run: dotnet publish app/TheaterAssistant.csproj -c Release -r win-x64 --self-contained true -o dist
+
+      - name: 全链路时序回放
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $out = Join-Path (Get-Location) 'e2e'
+          New-Item -ItemType Directory -Force $out | Out-Null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe `
+               -ArgumentList '--replay','testdata\ocr-frames',"--out","$out\replay.md","--json","$out\replay.json",'--min-stable','2' `
+               -Wait -PassThru -RedirectStandardOutput "$out\stdout.txt"
+          Write-Host "replay exit=$($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { throw "replay 失败 (exit $($p.ExitCode))" }
+          Get-Content "$out\replay.md" -Encoding UTF8 | Select-Object -First 14
+
+      - name: 断言（时序质量门槛）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $j = Get-Content 'e2e\replay.json' -Raw -Encoding UTF8 | ConvertFrom-Json
+          $frames = [int]$j.frames
+          $steps = @($j.steps)
+          $actSeen = @($steps | Where-Object { $_.Act -gt 0 }).Count
+          $withAction = @($steps | Where-Object { $_.NextAction -and $_.NextAction.Length -gt 4 }).Count
+          $withHit = @($steps | Where-Object { $_.TopHit -and $_.TopHit.Length -gt 4 }).Count
+          $jumps = [int]$j.jumps
+          $flips = [int]$j.flips
+
+          "帧 $frames｜判出幕次 $actSeen｜给出现在做 $withAction｜检索命中 $withHit｜跳变 $jumps｜抖动 $flips" |
+            Tee-Object -FilePath e2e\summary.txt
+
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value @'
+### 全链路时序回放
+| 指标 | 值 |
+|---|---|
+'@
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 帧数 | $frames |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 判出幕次 | $actSeen |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 给出现在做 | $withAction |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 检索命中 | $withHit |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 跳变 / 抖动 | $jumps / $flips |"
+
+          # 门槛：这是回归门，不是"看起来还行"——达不到就红
+          if ($steps.Count -ne $frames) { throw "步数与帧数不一致：$($steps.Count) vs $frames" }
+          if ($withAction -lt [math]::Ceiling($frames * 0.6)) { throw "给出现在做的帧太少：$withAction/$frames（门槛 60%）" }
+          if ($withHit -lt [math]::Ceiling($frames * 0.5)) { throw "检索命中太少：$withHit/$frames（门槛 50%）" }
+          if ($jumps -gt 3) { throw "幕次跳变过多：$jumps（门槛 ≤3）" }
+
+      - name: 产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-sim-${{ github.sha }}
+          path: e2e/
+          retention-days: 30
