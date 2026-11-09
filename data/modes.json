@@ -1,0 +1,26 @@
+{
+  "_comment": "玩法档案。新增玩法只改这里（识别区域 + 时间轴正则 + 数据文件），不要改识别/决策代码。band = [left, top, width, height]，帧比例；无条带填 0。",
+  "default": "theater",
+  "modes": [
+    {
+      "id": "theater",
+      "displayName": "幻想真境剧诗",
+      "shortName": "剧诗",
+      "enabled": true,
+      "band": [0.28, 0.828, 0.46, 0.05],
+      "actRegex": "第\\s*(\\d{1,2}|[一二三四五六七八九十]{1,2})\\s*幕",
+      "dataFiles": ["act-playbook.json", "act-teams.json", "season29.json", "decision-policy.json"],
+      "note": "当前唯一完整支持的玩法：幕次条带 + 三选一 + 难度面板都有标定与断言。"
+    },
+    {
+      "id": "abyss",
+      "displayName": "深境螺旋",
+      "shortName": "深渊",
+      "enabled": false,
+      "band": [0.0, 0.0, 0.0, 0.0],
+      "actRegex": "第\\s*(\\d{1,2})\\s*层",
+      "dataFiles": ["abyss-rooms.json"],
+      "note": "PENDING：只立了接缝（档案 + 编号解析 + 数据命名空间）。缺三样才能启用——层/间的区域标定帧、逐层敌人与阵容数据、上下半的时间轴规则；在此之前 enabled=false，不参与自动选择。"
+    }
+  ]
+}
