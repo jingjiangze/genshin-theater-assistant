@@ -146,6 +146,14 @@ jobs:
 
           # build 只产出框架依赖版；要"下载即用"必须 publish 成单文件自包含
           dotnet publish app-wpf/TheaterAssistantWpf.csproj -c Release -o dist-wpf 2>&1 | Select-Object -Last 20
+          # 验证 data 真的作为嵌入资源进了 dll（前几次都栽在这）
+          $dll = "dist-wpf/TheaterAssistantWpf.dll"
+          if (Test-Path $dll) {
+            $bytes = [System.IO.File]::ReadAllBytes($dll)
+            $text = [System.Text.Encoding]::UTF8.GetString($bytes)
+            $n = ([regex]::Matches($text, "TheaterAssistant\.res\.data\.")).Count
+            Write-Host "嵌入资源数(dll 内 TheaterAssistant.res.data.*): $n"
+          }
           Write-Host "dist-wpf/data 文件数: $((Get-ChildItem dist-wpf/data -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count)"
           $exe = "dist-wpf/TheaterAssistantWpf.exe"
           if (Test-Path $exe) {
