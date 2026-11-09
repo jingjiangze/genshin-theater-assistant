@@ -312,7 +312,7 @@ $frame.GetType().FullName   # => System.String  ← 直接被转成字符串
 
 ## 许可
 
-- 代码：MIT（见 `LICENSE`）
+- 代码：**GPL-3.0-or-later**（见 `LICENSE`；MIT → GPL-3.0 的历史变更说明见 `NOTICE.md`）
 - 依赖：RapidOcrNet / PP-OCR 模型 = Apache-2.0
 - 游戏内容与数据：归 miHoYo 所有；本仓库只做玩家自用的辅助显示
 
