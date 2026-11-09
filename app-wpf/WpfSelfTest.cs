@@ -4,6 +4,9 @@ using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+// UseWindowsForms 与 UseWPF 共存时，Application/Size 等类型会二义，显式别名到 WPF 侧
+using Application = System.Windows.Application;
+using Size = System.Windows.Size;
 
 namespace TheaterAssistant;
 
