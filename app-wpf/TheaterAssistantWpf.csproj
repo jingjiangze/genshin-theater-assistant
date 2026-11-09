@@ -44,6 +44,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- 项目级 using：WPF 项目的隐式 using 集合与 WinForms 不同，System.IO/Text.Json 需显式声明 -->
+    <Using Include="System.IO" />
+    <Using Include="System.Text.Json" />
+    <Using Include="System.Text.Json.Nodes" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- 纯逻辑：直接复用 WinForms 版的实现（不含任何 UI 依赖） -->
     <Compile Include="..\app\AppPaths.cs" Link="logic\AppPaths.cs" />
     <Compile Include="..\app\ActStabilizer.cs" Link="logic\ActStabilizer.cs" />
