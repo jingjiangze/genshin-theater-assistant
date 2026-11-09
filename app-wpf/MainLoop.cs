@@ -62,6 +62,10 @@ internal sealed class MainLoop
             // OCR 后处理阈值（DropScore / 同排容差）来自策略文件，和自检/CLI 用同一份
             try { OcrTextPipeline.LoadFromPolicy(AppPaths.Data("decision-policy.json")); } catch { }
 
+            // 战斗中手法数据（rotations.json）：Routine.Loaded 才会追加「手法·」行
+            try { Routine.Load(AppPaths.Data("rotations.json")); }
+            catch (Exception ex) { App.LogCrash(ex, "MainLoop.RoutineLoad"); }
+
             // ◇模型层（可选）：data/llm.json 指向谁就用谁。
             // 本地验证时指向 tools/ml/serve.py（MiniMind 26M）；文件不存在 = 不联网，走原兜底。
             try { _llm = LlmAdvisor.TryLoad(AppPaths.Data("llm.json")); }
@@ -228,6 +232,17 @@ internal sealed class MainLoop
                 LlmAttempted = llmAttempted,
                 Kind = stable.HasValue ? "act" : (hits.Count > 0 ? "ui" : ""),
             });
+
+            // ⑧c 战斗中的指导：当前幕的手法步骤（数据来自 rotations.json，只读文本、不模拟输入）。
+            // 审计发现：WinForms 版有这条（OverlayForm 调 Routine.LinesFor），WPF 迁移时丢了——
+            // 玩家在战斗里看到的是"该上谁"，缺"手该怎么按"。取第一条「手法·」行，放最后，
+            // 不顶掉首行的「现在做」；选人参考行不掺和（那是配队层的事）。
+            if (stable.HasValue && Routine.Loaded)
+            {
+                var technique = Routine.LinesFor(stable, 3).FirstOrDefault(l => l.StartsWith("手法·"));
+                if (!string.IsNullOrWhiteSpace(technique) && !d.Lines.Contains(technique))
+                    d.Lines.Add(technique);
+            }
 
             LastSource = d.Source;
             LastLines = d.Lines;
