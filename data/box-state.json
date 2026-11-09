@@ -1,4 +1,6 @@
 {
-  "lastCheckedAt": "2026-11-09T13:52:16.354Z",
-  "lastState": "running"
+  "lastWakeAt": "2026-11-09T15:23:27.224Z",
+  "lastResult": "cloud-video=PASS,cloud-all=ERROR",
+  "lastState": "running",
+  "hibernateAfterMinutes": 20
 }
