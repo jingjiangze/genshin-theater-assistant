@@ -316,7 +316,7 @@ internal static class GlobalAllocator
             var fillers = units
                 .Where(u => !usedNow.Contains(u.Name) && !a.Team.Contains(u.Name))
                 .OrderByDescending(u => CharacterStrength.ScoreOf(u.Name))
-                .ThenByDescending(u => u.Level)
+                .ThenBy(u => u.Element)   // units 是 (Name, Element, Role) 三元组，没有 Level 字段
                 .ToList();
             foreach (var f in fillers)
             {
