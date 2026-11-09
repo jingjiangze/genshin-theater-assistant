@@ -1,0 +1,39 @@
+﻿{
+  "frames": 2,
+  "jumps": [],
+  "flips": [],
+  "steps": [
+    {
+      "Frame": "BV1b8qWB6EDP-0s-1544x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(14.30)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 0,
+      "Ms": 60
+    },
+    {
+      "Frame": "BV1b8qWB6EDP-30s-1544x1080",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "界面文案对照（做识别时用）(14.30)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Boxes": 0,
+      "Ms": 42
+    }
+  ]
+}
