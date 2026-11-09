@@ -945,16 +945,7 @@ internal sealed class OverlayForm : Form
         }
         base.Dispose(disposing);
     }
-}
 
-internal sealed record TemplateEntry(string Name, Bitmap Bitmap, double Threshold)
-{
-    /// <summary>
-    /// 模板级阈值：`actN` 这类"外形几乎一样、只有数字不同"的模板要更严（实测跨幕相似度 0.80–0.81，
-    /// 若继续用 0.86 会擦边误命中）；其余界面锚点用 0.86。
-    /// </summary>
-    public static double ThresholdFor(string name) =>
-        name != null && name.StartsWith("act", StringComparison.Ordinal) && name.Length <= 5 ? 0.90 : 0.86;
     // ── 零配置角色池（用户要求「自动通过 uid 查」）─────────────────
     // 悬浮窗截图里本来就有 UID（界面右下角 `UID:xxxxxxxxx`），OCR 顺带读到即可，
     // 玩家不需要填 UID、不需要装扫描器、更不碰游戏内存（封号红线）。
@@ -980,7 +971,7 @@ internal sealed record TemplateEntry(string Name, Bitmap Bitmap, double Threshol
                 if (r.Ok)
                 {
                     // 重建决策层：强度/配队改为按玩家真实池计算
-                    try { BeginInvoke(new Action(() => DecisionBridge.Init())); } catch { }
+                    try { this.BeginInvoke(new Action(() => DecisionBridge.Init())); } catch { }
                 }
             }
             catch (Exception ex)
@@ -989,5 +980,17 @@ internal sealed record TemplateEntry(string Name, Bitmap Bitmap, double Threshol
             }
         });
     }
+
+}
+
+internal sealed record TemplateEntry(string Name, Bitmap Bitmap, double Threshold)
+{
+    /// <summary>
+    /// 模板级阈值：`actN` 这类"外形几乎一样、只有数字不同"的模板要更严（实测跨幕相似度 0.80–0.81，
+    /// 若继续用 0.86 会擦边误命中）；其余界面锚点用 0.86。
+    /// </summary>
+    public static double ThresholdFor(string name) =>
+        name != null && name.StartsWith("act", StringComparison.Ordinal) && name.Length <= 5 ? 0.90 : 0.86;
+
 
 }
