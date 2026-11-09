@@ -1,0 +1,8 @@
+[description|] 祝福2/4阶分支选择
+[description|] 冰晶：右+左
+[description|] 水晶：右+左
+[description|] 冻结：右+左/右（主力为冰则选左，主力为水则选右）
+[chapter|] 前期准备
+[chapter|] 第1幕，第2幕
+[chapter|] 第9幕，圣牌Ⅰ
+[chapter|] 圣牌Ⅱ，第10幕

@@ -1,0 +1,29 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-09 13:51:17",
+ "bvid": "BV1aBto6DE3X",
+ "frames": 0,
+ "candidates": 2,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "本次剧诗的属性是极其差的，水雷草，三种属性都是辅助角色居多，而且本次剧诗抽角色极其容易一个主C不出，又或者卡属性导致对应关卡没有角色来破机制。建议打完原石就跑路，不要在这一期硬刷卡牌以及满花。",
+   "act": 0,
+   "source": "bilibili:BV1aBto6DE3X",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "175080260",
+   "creator_name": "最高裁判长四季"
+  },
+  {
+   "kind": "buy",
+   "text": "选人+开幕",
+   "act": 0,
+   "source": "bilibili:BV1aBto6DE3X",
+   "channel": "chapter",
+   "status": "CANDIDATE",
+   "creator_id": "175080260",
+   "creator_name": "最高裁判长四季"
+  }
+ ]
+}

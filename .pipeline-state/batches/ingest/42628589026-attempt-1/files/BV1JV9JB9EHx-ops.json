@@ -1,0 +1,19 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-09 13:51:29",
+ "bvid": "BV1JV9JB9EHx",
+ "frames": 0,
+ "candidates": 1,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "冻结：右+左/右（主力为冰则选左，主力为水则选右）",
+   "act": 0,
+   "source": "bilibili:BV1JV9JB9EHx",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "452240436",
+   "creator_name": "我叫呆唯WAW"
+  }
+ ]
+}
