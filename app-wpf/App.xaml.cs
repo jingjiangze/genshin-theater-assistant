@@ -35,6 +35,15 @@ public partial class App : System.Windows.Application
 
         try
         {
+            // WPF 自检：在 CI 里真实实例化两个窗口并渲染成 PNG。
+            // 这样 XamlParseException 这类"只有运行时才炸"的问题在 CI 就能暴露，
+            // 而不是等用户双击时才看到崩溃弹窗（本次踩过：Color 当 Brush 用）。
+            if (Array.IndexOf(e.Args, "--selftest-wpf") >= 0)
+            {
+                Shutdown(WpfSelfTest.Run());
+                return;
+            }
+
             // 决策层初始化（失败不阻塞悬浮窗）
             try { DecisionBridge.Init(); } catch (Exception ex) { LogCrash(ex, "DecisionBridge.Init"); }
 
