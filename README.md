@@ -108,7 +108,7 @@ CI 对 42 个 B站攻略视频做了「抽帧 → 逐帧模拟运行 → 对答�
 
 ## 许可
 
-- 代码：**GPL-3.0**（见 `LICENSE`）。本项目参考了 BetterGI（GPL-3.0）的实现，故整体以 GPL-3.0 分发；第三方来源与衍生说明见 `NOTICE.md`
+- 代码：**GPL-3.0-or-later**（见 `LICENSE`，sha256 与 gnu.org GPL-3 原文一致）。本项目参考了 BetterGI（GPL-3.0）的实现，故整体以 GPL-3.0 分发；第三方来源与衍生说明见 `NOTICE.md`
 - 依赖：RapidOcrNet / PP-OCR 模型 = Apache-2.0；WebView2 = 微软许可
 - 游戏内容与数据：归 miHoYo 所有；本仓库只做玩家自用的辅助显示，不含自动化操作
 
