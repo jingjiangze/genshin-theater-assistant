@@ -22,13 +22,9 @@
       · 双击 → 打开详细面板；左键拖动；右键 → 托盘菜单同款。
     差异：形象用内置矢量（规避游戏立绘版权），并可被 Assets/ball.png 覆盖。
   -->
-  <WindowChrome.WindowChrome>
-    <WindowChrome GlassFrameThickness="-1" CaptionHeight="0" ResizeBorderThickness="0"/>
-  </WindowChrome.WindowChrome>
-  <Window.Template>
-    <ControlTemplate TargetType="Window"/>
-  </Window.Template>
-
+  <!-- 注意：不要置空 Window.Template——那会让 Window.Content 完全不渲染
+       （MapsBalloon 用空模板是因为它把形象放在 Window.Background；
+        我们的内容在 Content 里，必须保留默认模板）。WindowStyle=None 已足够去边框。 -->
   <Grid x:Name="Root" Background="Transparent" Cursor="Hand"
         ToolTip="单击展开 · 拖动移动 · 右键菜单">
 
