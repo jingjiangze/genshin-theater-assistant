@@ -108,6 +108,8 @@
          注意 D3(竖排旋转)/D4(透视裁剪) RapidOcrNet 内部已实现，这里只为 D5(白字掩膜) 及后续增强引入。 -->
     <PackageReference Include="OpenCvSharp4" Version="4.13.0.20261107" />
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.13.0.20261107" />
+    <!-- BitmapConverter（Bitmap ↔ Mat）在 Extensions 包，不在 core -->
+    <PackageReference Include="OpenCvSharp4.Extensions" Version="4.13.0.20261107" />
   </ItemGroup>
 
 </Project>
