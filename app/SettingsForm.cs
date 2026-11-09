@@ -172,7 +172,8 @@ internal sealed class SettingsForm : Form
         lines.AppendLine($"配置目录：{AppPaths.Dir}");
         lines.AppendLine($"数据目录：{AppPaths.Data(".")}");
         lines.AppendLine($"决策层：{(DecisionBridge.Ready ? "已就绪" : "未就绪")}　{DecisionBridge.PoolNote}");
-        lines.AppendLine($"OCR 模型：{OcrTuning.Model}　线程：{OcrTuning.NumThreadsDesc}　EP：{OcrTuning.EpStatus}");
+        lines.AppendLine($"OCR 线程：{OcrTuning.NumThreads}（0=自动）　EP：{OcrTuning.EpStatus}");
+        lines.AppendLine($"OCR 参数来源：{OcrTuning.Source}");
         var logDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TheaterAssistant");
         if (Directory.Exists(logDir))
