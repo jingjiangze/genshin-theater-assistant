@@ -145,6 +145,7 @@ public partial class MaskWindow : Window
     /// <summary>
     /// 「现在做」一行（与悬浮窗/桌宠同一句）。空字符串 = 整行收起。
     /// warn=true 时用警示色（弃权/异常），避免玩家照着过期指令操作。
+    /// guide = 战斗中的手法指导（可选第二条，小一号；空 = 收起）。
     /// </summary>
     public void SetAdvice(string text, bool warn = false)
     {
@@ -152,6 +153,7 @@ public partial class MaskWindow : Window
         {
             AdviceRow.Visibility = Visibility.Collapsed;
             AdviceText.Text = "";
+            SetGuide(null);
             return;
         }
 
@@ -160,6 +162,19 @@ public partial class MaskWindow : Window
         AdviceMark.Foreground = warn ? WarnBrush : OkBrush;
         AdviceMark.Text = warn ? "⚠" : "▶";
         AdviceRow.Visibility = Visibility.Visible;
+    }
+
+    /// <summary>战斗中的手法指导（第二条）。null/空 = 收起。</summary>
+    public void SetGuide(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            GuideText.Visibility = Visibility.Collapsed;
+            GuideText.Text = "";
+            return;
+        }
+        GuideText.Text = text;
+        GuideText.Visibility = Visibility.Visible;
     }
 
     /// <summary>本帧的识别框（游戏帧像素坐标）+ 帧尺寸。</summary>
