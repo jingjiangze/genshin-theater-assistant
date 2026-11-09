@@ -1,0 +1,75 @@
+<Window x:Class="TheaterAssistant.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="剧诗助手"
+        Width="640" Height="300"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        ResizeMode="NoResize"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="ClearType">
+
+  <!-- WPF 的核心优势就在这里：圆角/阴影/渐变都是矢量渲染，边缘抗锯齿，
+       不像 WinForms 的 Region 裁剪那样有明显锯齿（用户反馈"很差"的主因）。 -->
+  <Border x:Name="Card"
+          CornerRadius="12"
+          Background="{StaticResource CardBrush}"
+          BorderBrush="#467EB8E8"
+          BorderThickness="1"
+          Effect="{StaticResource CardShadow}"
+          Padding="0">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <!-- 标题行：左侧星标（Path 矢量，不是字符） + 标题 -->
+      <Grid Grid.Row="0" Margin="14,10,14,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Path Grid.Column="0" VerticalAlignment="Center" Margin="0,0,8,0"
+              Fill="{StaticResource AccentBlue}"
+              Data="M 7,0 L 8.8,5.2 L 14,7 L 8.8,8.8 L 7,14 L 5.2,8.8 L 0,7 L 5.2,5.2 Z"/>
+
+        <TextBlock Grid.Column="1" x:Name="HeadText" Style="{StaticResource HeadText}"
+                   Text="剧诗助手" TextTrimming="CharacterEllipsis"/>
+
+        <TextBlock Grid.Column="2" x:Name="StatusText" Style="{StaticResource FootText}"
+                   VerticalAlignment="Center" Text="初始化…"/>
+      </Grid>
+
+      <!-- 分隔线 -->
+      <Rectangle Grid.Row="0" Height="1" Margin="14,32,14,0" VerticalAlignment="Bottom"
+                 Fill="#3C465E78"/>
+
+      <!-- 正文：按来源标记分色（DataTemplate 里用触发器） -->
+      <ScrollViewer Grid.Row="1" Margin="14,8,14,0" VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled">
+        <ItemsControl x:Name="LineList">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Text}" Foreground="{Binding Brush}"
+                         Style="{StaticResource BodyText}" Margin="0,0,0,3"/>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+
+      <!-- 页脚 -->
+      <TextBlock Grid.Row="2" x:Name="FootText" Style="{StaticResource FootText}"
+                 Margin="14,6,14,10"
+                 Text="Ctrl+Alt+L 拖动 · H 显隐 · D 存帧 · G 攻略"/>
+    </Grid>
+  </Border>
+</Window>
