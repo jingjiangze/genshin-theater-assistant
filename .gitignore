@@ -57,3 +57,8 @@ data/llm.json
 
 # 本地临时训练产物（不入仓）
 _tmp/
+
+# Enka 实测响应（含玩家 UID/昵称/角色，不入公开仓）
+enka-test.json
+roster-enka.json
+cache/
