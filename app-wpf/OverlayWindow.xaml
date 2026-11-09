@@ -39,7 +39,7 @@
         </Grid.ColumnDefinitions>
 
         <Path Grid.Column="0" VerticalAlignment="Center" Margin="0,0,8,0"
-              Fill="{StaticResource AccentBlue}"
+              Fill="{StaticResource AccentBrush}"
               Data="M 7,0 L 8.8,5.2 L 14,7 L 8.8,8.8 L 7,14 L 5.2,8.8 L 0,7 L 5.2,5.2 Z"/>
 
         <TextBlock Grid.Column="1" x:Name="HeadText" Style="{StaticResource HeadText}"
