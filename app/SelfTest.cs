@@ -566,6 +566,17 @@ internal static class SelfTest
                 + (missActs.Count > 0 ? "｜未命中: " + string.Join("; ", missActs.Take(3)) : ""));
         }
 
+        // 全局分配的 G1（每幕满 4 人）必须纳入 CI ——
+        // 此前只测 TeamSolver 的逐幕方案，没测 GlobalAllocator 的实际分配，
+        // 导致「box 的 --quality-gates 报 14 项 G1 违规、CI 却全绿」。
+        {
+            var allocGate = new QualityGates.Report();
+            QualityGates.CheckAllocation(GlobalAllocator.Solve(0), allocGate);
+            Check("闸门·全局分配每幕满 4 人（G1/G2）", allocGate.Passed,
+                $"检查 {allocGate.Checked} 项｜违规 {allocGate.Violations.Count}"
+                + (allocGate.Violations.Count > 0 ? "｜首个: " + allocGate.Violations[0] : ""));
+        }
+
         // 决策层·幕间优先级：boss 幕与高 level 幕必须优先拿到资源
         // 审计背景：赛季数据有 boss 标记与递增 level（Lunar 85→100），但此前分配器完全没用。
         {
