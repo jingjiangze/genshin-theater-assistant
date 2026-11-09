@@ -115,25 +115,25 @@
   </ItemGroup>
 
   <!--
-    随包资源（data/、templates/）走 **EmbeddedResource**，不用 Content。
-    原因（三个方案实测都失败过）：
-      ① 静态 `<Content Include="data\**\*">` —— glob 在项目求值时展开，CI 里 data 是运行时才复制的 → 匹配不到；
-      ② `ContentWithTargetPath` 动态加入 —— 与默认 Content 机制重复 → NETSDK1152（33 个文件同路径冲突）；
-      ③ 动态 `Content` + CopyToPublishDirectory —— 时机仍不对，dist-wpf/data 文件数始终为 0。
-    嵌入资源在编译期就确定，且 AppPaths 会在首次读取时解包到
-    %LOCALAPPDATA%\TheaterAssistant\data，最可靠（模型一直用的就是这个方式）。
+    随包资源（data/、templates/）用**静态 EmbeddedResource**。
+    四次尝试的经验（全部实测过）：
+      ① 静态 Content glob → 打进的是编译期内容，且单文件 bundle 里取不到；
+      ② ContentWithTargetPath 动态 → NETSDK1152（33 个文件同路径冲突）；
+      ③ 动态 Content + CopyToPublishDirectory → dist-wpf/data 文件数始终 0；
+      ④ Target 里加 EmbeddedResource 挂 PrepareForPublish → **太晚**，编译早已完成，资源没进 dll。
+    静态 EmbeddedResource 的 glob 在**编译开始时**求值，而 CI 是在 `dotnet publish` 之前
+    就把 data 复制到 app-wpf/ 的，所以能扫到；AppPaths 首次读取时解包到
+    %LOCALAPPDATA%\TheaterAssistant\data。
   -->
-  <Target Name="IncludeRuntimeData" BeforeTargets="PrepareForPublish;ComputeFilesToPublish">
-    <ItemGroup Condition="Exists('data')">
-      <EmbeddedResource Include="data\**\*">
-        <LogicalName>TheaterAssistant.res.data.%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-      </EmbeddedResource>
-    </ItemGroup>
-    <ItemGroup Condition="Exists('templates')">
-      <EmbeddedResource Include="templates\**\*">
-        <LogicalName>TheaterAssistant.res.templates.%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
-      </EmbeddedResource>
-    </ItemGroup>
-  </Target>
+  <ItemGroup Condition="Exists('data')">
+    <EmbeddedResource Include="data\**\*">
+      <LogicalName>TheaterAssistant.res.data.%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup Condition="Exists('templates')">
+    <EmbeddedResource Include="templates\**\*">
+      <LogicalName>TheaterAssistant.res.templates.%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>
