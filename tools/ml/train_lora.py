@@ -135,8 +135,10 @@ def main() -> int:
 
     model = AutoModelForCausalLM.from_pretrained(args.model, dtype=dtype, trust_remote_code=True)
     model.config.use_cache = False
-    model.gradient_checkpointing_enable()
-    model.enable_input_require_grads()
+    # CPU 上不做梯度检查点：内存够（~3GB），关掉能快 2-3 倍；XPU/CUDA 显存紧时才开。
+    if device != "cpu":
+        model.gradient_checkpointing_enable()
+        model.enable_input_require_grads()
 
     model = get_peft_model(model, LoraConfig(
         r=16, lora_alpha=32, lora_dropout=0.05, bias="none", task_type="CAUSAL_LM",
