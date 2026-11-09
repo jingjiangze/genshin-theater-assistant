@@ -1,0 +1,31 @@
+{
+  "_note": "box（云端 Linux）唤醒策略。读本文件决定『要不要唤醒、什么时候唤醒、唤醒后干什么』，代码里不写死任何间隔或任务清单。",
+  "_why": "box 会因空闲被 Simular 自动 hibernate，loop 随之停止。但『定时无条件唤醒』是浪费——绝大多数时刻没有新东西要跑。因此采用事件驱动 + 幂等 + 最小间隔。",
+  "enabled": true,
+
+  "triggers": {
+    "_comment": "触发源。事件优先于定时；两者都受 minIntervalMinutes 限制。",
+    "onWorkflowSuccess": ["video-ingest"],
+    "schedule": "0 */6 * * *"
+  },
+
+  "minIntervalMinutes": 180,
+  "_minIntervalWhy": "两次唤醒的最小间隔。避免事件密集触发把 box 反复拉起（每次拉起约 40s，且计入配额）。",
+
+  "wakeWhenState": ["hibernated", "failed", "stopped"],
+  "_wakeWhenStateWhy": "只在这些状态才唤醒；running 时什么都不做（幂等）。",
+
+  "tasks": [
+    { "name": "cloud-video", "args": "--top 3", "_desc": "从优选清单取前 3 条高难源抽帧 + OCR（box 的独占价值：帧持久化 + 不耗 CI 分钟）" },
+    { "name": "cloud-all", "args": "", "_desc": "18 步决策链回归（Linux 原生验证）" }
+  ],
+
+  "hibernateAfterMinutes": 20,
+  "_hibernateAfterWhy": "任务跑完后再保留一段时间（便于连续任务），超时主动 hibernate，避免长期占用配额。设为 0 表示不休眠。",
+
+  "requireEnv": ["BILI_COOKIE"],
+  "_requireEnvWhy": "缺这些环境变量时任务必然失败（B站 412），提前判空并跳过，不浪费一次唤醒。",
+
+  "fallbackToCi": true,
+  "_fallbackToCiWhy": "true = box 不可用时自动降级为『跳过，记 PENDING』，不阻塞 CI 主链路。box 是加速器，不是必需件。"
+}
