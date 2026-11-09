@@ -302,6 +302,7 @@ public partial class App : System.Windows.Application
     {
         try { _loop?.Stop(); } catch { }
         try { _maskHost?.Close(); } catch { }
+        try { _hotkeys?.Dispose(); } catch { }
         try { _tray?.Dispose(); } catch { }
         base.OnExit(e);
     }
