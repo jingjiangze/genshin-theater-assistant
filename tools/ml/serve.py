@@ -132,6 +132,10 @@ def main() -> int:
     ap.add_argument("--model", default="out/minimind-26m-fp16")
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--backend", default="auto", choices=["auto", "torch", "ov"])
+    ap.add_argument("--fp8", action="store_true",
+                    help="fp8 weight-only。仅 GPU 后端有收益；CPU 实测比 fp32 慢 4x（2026-11-10 基准，见 README）")
+    ap.add_argument("--int8", action="store_true",
+                    help="int8 weight-only。CPU 实测比 fp32 慢 2x；两者都只建议在 OV/XPU 后端开")
     ap.add_argument("--max-len", type=int, default=1024)
     args = ap.parse_args()
 
@@ -141,7 +145,15 @@ def main() -> int:
     is_ov_dir = os.path.isdir(args.model) and any(f.endswith(".xml") for f in os.listdir(args.model))
     if args.backend in ("ov",) or (args.backend == "auto" and is_ov_dir):
         STATE["tok"], STATE["model_obj"] = load_openvino(args.model)
+        if args.fp8 or args.int8:
+            # OV 导出可用时此处接 NNCF 权重压缩（fp8/int8）；当前 OV 导出被版本三角卡住，见 README
+            print("[warn] OV 后端的 fp8/int8 压缩待 optimum-intel 可用后接入，本次按 fp16 加载", flush=True)
     else:
+        if args.fp8 or args.int8:
+            # 2026-11-10 基准（本机 CPU，48/64 tok × 3 次取最优）：
+            #   fp32 718-919ms｜fp8-wo 2877ms（4x 慢）｜int8-wo 1839ms（2x 慢），输出逐字一致。
+            # CPU 没有低精度 matmul，weight-only 是纯解量化开销 → 拒绝并提示。
+            raise SystemExit("CPU 后端不支持 --fp8/--int8（实测反而更慢，输出不变）；低精度请在 OV/XPU 后端开")
         STATE["tok"], STATE["model_obj"] = load_torch(args.model)
 
     print(f"[serve] backend={STATE['backend']} model={args.model} port={args.port}", flush=True)
