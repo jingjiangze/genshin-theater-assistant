@@ -1,0 +1,87 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    WPF 版（v0.60 起）。WinForms 版保留在 app/ 不动，等 WPF 版验收后再删。
+
+    为什么换 WPF（2026-11 决定）：
+      · WinForms 的圆角/半透明在 GDI+ 下有明显锯齿，观感"很差"（用户实测反馈）；
+      · WPF 原生支持 AllowsTransparency + 矢量渲染 + 淡入动画，且 .NET 8 单文件打包成熟；
+      · 不选 WinUI 3（胡桃工具箱的路线）：单文件 exe 需要 Windows App Runtime，
+        对"下载即用"的分发形态不合适。
+
+    关键：**纯逻辑全部复用 app/ 下的文件**（46 个文件 9009 行），这里只重写 UI 层。
+  -->
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <!-- 托盘用 WinForms 的 NotifyIcon（WPF 无内置托盘，这是社区标准做法）；
+         WPF+WinForms 混用在 .NET 8 是官方支持组合。 -->
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>TheaterAssistantWpf</AssemblyName>
+    <RootNamespace>TheaterAssistant</RootNamespace>
+    <Version>0.60.0</Version>
+    <AssemblyVersion>0.60.0.0</AssemblyVersion>
+    <FileVersion>0.60.0.0</FileVersion>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <InvariantGlobalization>false</InvariantGlobalization>
+
+    <!-- 单文件发布（与 WinForms 版一致；体积不是瓶颈，压缩要开） -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 纯逻辑：直接复用 WinForms 版的实现（不含任何 UI 依赖） -->
+    <Compile Include="..\app\AppPaths.cs" Link="logic\AppPaths.cs" />
+    <Compile Include="..\app\ActStabilizer.cs" Link="logic\ActStabilizer.cs" />
+    <Compile Include="..\app\CharacterStrength.cs" Link="logic\CharacterStrength.cs" />
+    <Compile Include="..\app\ChoiceDecider.cs" Link="logic\ChoiceDecider.cs" />
+    <Compile Include="..\app\Cli.cs" Link="logic\Cli.cs" />
+    <Compile Include="..\app\CuratedPicks.cs" Link="logic\CuratedPicks.cs" />
+    <Compile Include="..\app\DecisionBridge.cs" Link="logic\DecisionBridge.cs" />
+    <Compile Include="..\app\DecisionOrchestrator.cs" Link="logic\DecisionOrchestrator.cs" />
+    <Compile Include="..\app\DecisionPolicy.cs" Link="logic\DecisionPolicy.cs" />
+    <Compile Include="..\app\EnkaClient.cs" Link="logic\EnkaClient.cs" />
+    <Compile Include="..\app\GlobalAllocator.cs" Link="logic\GlobalAllocator.cs" />
+    <Compile Include="..\app\GuideIndex.cs" Link="logic\GuideIndex.cs" />
+    <Compile Include="..\app\GuideNotes.cs" Link="logic\GuideNotes.cs" />
+    <Compile Include="..\app\OcrTextPipeline.cs" Link="logic\OcrTextPipeline.cs" />
+    <Compile Include="..\app\OcrTuning.cs" Link="logic\OcrTuning.cs" />
+    <Compile Include="..\app\Playbook.cs" Link="logic\Playbook.cs" />
+    <Compile Include="..\app\QualityGates.cs" Link="logic\QualityGates.cs" />
+    <Compile Include="..\app\QuantData.cs" Link="logic\QuantData.cs" />
+    <Compile Include="..\app\QuantScorer.cs" Link="logic\QuantScorer.cs" />
+    <Compile Include="..\app\RosterMerge.cs" Link="logic\RosterMerge.cs" />
+    <Compile Include="..\app\RosterResolver.cs" Link="logic\RosterResolver.cs" />
+    <Compile Include="..\app\Routine.cs" Link="logic\Routine.cs" />
+    <Compile Include="..\app\ScreenMetrics.cs" Link="logic\ScreenMetrics.cs" />
+    <Compile Include="..\app\SeasonRegistry.cs" Link="logic\SeasonRegistry.cs" />
+    <Compile Include="..\app\Speech.cs" Link="logic\Speech.cs" />
+    <Compile Include="..\app\TeamSolver.cs" Link="logic\TeamSolver.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 随包资源：data/ 与 templates/ 在 CI 里先复制到 app-wpf/ 下（与 WinForms 版同法） -->
+    <Content Include="data\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="templates\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="models\**\*.onnx" Condition="Exists('models')" />
+    <EmbeddedResource Include="models\**\*.txt" Condition="Exists('models')" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 与 WinForms 版一致：RapidOcrNet 提供 PP-OCR 推理 -->
+    <PackageReference Include="RapidOcrNet" Version="4.2.0" />
+  </ItemGroup>
+
+</Project>
