@@ -4671,6 +4671,1156 @@
       "source": "season29.json（Lunar）"
     },
     {
+      "id": "gen-384",
+      "act": 1,
+      "tags": [
+        "职能",
+        "HydroApplier",
+        "第1幕"
+      ],
+      "title": "第1幕 需要 后台挂水",
+      "text": "第1幕出场角色中，后台挂水 职能累计出现 4 次，说明这一幕对它有实际需求。可选：行秋、夜兰、心海、莫娜、芭芭拉、爱诺。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-385",
+      "act": 1,
+      "tags": [
+        "职能",
+        "GeoBreak",
+        "第1幕"
+      ],
+      "title": "第1幕 需要 岩/钝击破盾",
+      "text": "第1幕出场角色中，岩/钝击破盾 职能累计出现 3 次，说明这一幕对它有实际需求。可选：钟离、卡齐娜、五郎、诺艾尔。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-386",
+      "act": 1,
+      "tags": [
+        "职能",
+        "Healer",
+        "第1幕"
+      ],
+      "title": "第1幕 需要 治疗",
+      "text": "第1幕出场角色中，治疗 职能累计出现 2 次，说明这一幕对它有实际需求。可选：心海、芭芭拉、班尼特、诺艾尔。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-387",
+      "act": 2,
+      "tags": [
+        "职能",
+        "HydroApplier",
+        "第2幕"
+      ],
+      "title": "第2幕 需要 后台挂水",
+      "text": "第2幕出场角色中，后台挂水 职能累计出现 7 次，说明这一幕对它有实际需求。可选：行秋、夜兰、心海、莫娜、芭芭拉、爱诺。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-388",
+      "act": 2,
+      "tags": [
+        "职能",
+        "MainDps",
+        "第2幕"
+      ],
+      "title": "第2幕 需要 主 C",
+      "text": "第2幕出场角色中，主 C 职能累计出现 4 次，说明这一幕对它有实际需求。可选：那维莱特、荒泷一斗、赛诺、雷电将军、爱诺、夜兰。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-389",
+      "act": 2,
+      "tags": [
+        "职能",
+        "Healer",
+        "第2幕"
+      ],
+      "title": "第2幕 需要 治疗",
+      "text": "第2幕出场角色中，治疗 职能累计出现 3 次，说明这一幕对它有实际需求。可选：心海、芭芭拉、班尼特、诺艾尔。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-390",
+      "act": 3,
+      "tags": [
+        "职能",
+        "MainDps",
+        "第3幕"
+      ],
+      "title": "第3幕 需要 主 C",
+      "text": "第3幕出场角色中，主 C 职能累计出现 8 次，说明这一幕对它有实际需求。可选：那维莱特、荒泷一斗、赛诺、雷电将军、爱诺、夜兰。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-391",
+      "act": 3,
+      "tags": [
+        "职能",
+        "HydroApplier",
+        "第3幕"
+      ],
+      "title": "第3幕 需要 后台挂水",
+      "text": "第3幕出场角色中，后台挂水 职能累计出现 4 次，说明这一幕对它有实际需求。可选：行秋、夜兰、心海、莫娜、芭芭拉、爱诺。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-392",
+      "act": 3,
+      "tags": [
+        "职能",
+        "Shielder",
+        "第3幕"
+      ],
+      "title": "第3幕 需要 护盾",
+      "text": "第3幕出场角色中，护盾 职能累计出现 2 次，说明这一幕对它有实际需求。可选：钟离、诺艾尔、行秋。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-393",
+      "act": 5,
+      "tags": [
+        "职能",
+        "HydroApplier",
+        "第5幕"
+      ],
+      "title": "第5幕 需要 后台挂水",
+      "text": "第5幕出场角色中，后台挂水 职能累计出现 5 次，说明这一幕对它有实际需求。可选：行秋、夜兰、心海、莫娜、芭芭拉、爱诺。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-394",
+      "act": 5,
+      "tags": [
+        "职能",
+        "MainDps",
+        "第5幕"
+      ],
+      "title": "第5幕 需要 主 C",
+      "text": "第5幕出场角色中，主 C 职能累计出现 3 次，说明这一幕对它有实际需求。可选：那维莱特、荒泷一斗、赛诺、雷电将军、爱诺、夜兰。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-395",
+      "act": 5,
+      "tags": [
+        "职能",
+        "Healer",
+        "第5幕"
+      ],
+      "title": "第5幕 需要 治疗",
+      "text": "第5幕出场角色中，治疗 职能累计出现 2 次，说明这一幕对它有实际需求。可选：心海、芭芭拉、班尼特、诺艾尔。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-396",
+      "act": 6,
+      "tags": [
+        "职能",
+        "Buffer",
+        "第6幕"
+      ],
+      "title": "第6幕 需要 增伤辅助",
+      "text": "第6幕出场角色中，增伤辅助 职能累计出现 5 次，说明这一幕对它有实际需求。可选：班尼特、五郎、莫娜、香菱。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-397",
+      "act": 6,
+      "tags": [
+        "职能",
+        "HydroApplier",
+        "第6幕"
+      ],
+      "title": "第6幕 需要 后台挂水",
+      "text": "第6幕出场角色中，后台挂水 职能累计出现 5 次，说明这一幕对它有实际需求。可选：行秋、夜兰、心海、莫娜、芭芭拉、爱诺。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-398",
+      "act": 6,
+      "tags": [
+        "职能",
+        "MainDps",
+        "第6幕"
+      ],
+      "title": "第6幕 需要 主 C",
+      "text": "第6幕出场角色中，主 C 职能累计出现 3 次，说明这一幕对它有实际需求。可选：那维莱特、荒泷一斗、赛诺、雷电将军、爱诺、夜兰。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-399",
+      "act": 7,
+      "tags": [
+        "职能",
+        "HydroApplier",
+        "第7幕"
+      ],
+      "title": "第7幕 需要 后台挂水",
+      "text": "第7幕出场角色中，后台挂水 职能累计出现 7 次，说明这一幕对它有实际需求。可选：行秋、夜兰、心海、莫娜、芭芭拉、爱诺。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-400",
+      "act": 7,
+      "tags": [
+        "职能",
+        "Shielder",
+        "第7幕"
+      ],
+      "title": "第7幕 需要 护盾",
+      "text": "第7幕出场角色中，护盾 职能累计出现 6 次，说明这一幕对它有实际需求。可选：钟离、诺艾尔、行秋。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-401",
+      "act": 7,
+      "tags": [
+        "职能",
+        "Buffer",
+        "第7幕"
+      ],
+      "title": "第7幕 需要 增伤辅助",
+      "text": "第7幕出场角色中，增伤辅助 职能累计出现 5 次，说明这一幕对它有实际需求。可选：班尼特、五郎、莫娜、香菱。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-402",
+      "act": 8,
+      "tags": [
+        "职能",
+        "HydroApplier",
+        "第8幕"
+      ],
+      "title": "第8幕 需要 后台挂水",
+      "text": "第8幕出场角色中，后台挂水 职能累计出现 5 次，说明这一幕对它有实际需求。可选：行秋、夜兰、心海、莫娜、芭芭拉、爱诺。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-403",
+      "act": 8,
+      "tags": [
+        "职能",
+        "Shielder",
+        "第8幕"
+      ],
+      "title": "第8幕 需要 护盾",
+      "text": "第8幕出场角色中，护盾 职能累计出现 3 次，说明这一幕对它有实际需求。可选：钟离、诺艾尔、行秋。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-404",
+      "act": 8,
+      "tags": [
+        "职能",
+        "Healer",
+        "第8幕"
+      ],
+      "title": "第8幕 需要 治疗",
+      "text": "第8幕出场角色中，治疗 职能累计出现 3 次，说明这一幕对它有实际需求。可选：心海、芭芭拉、班尼特、诺艾尔。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-405",
+      "act": 9,
+      "tags": [
+        "职能",
+        "Buffer",
+        "第9幕"
+      ],
+      "title": "第9幕 需要 增伤辅助",
+      "text": "第9幕出场角色中，增伤辅助 职能累计出现 5 次，说明这一幕对它有实际需求。可选：班尼特、五郎、莫娜、香菱。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-406",
+      "act": 9,
+      "tags": [
+        "职能",
+        "Healer",
+        "第9幕"
+      ],
+      "title": "第9幕 需要 治疗",
+      "text": "第9幕出场角色中，治疗 职能累计出现 4 次，说明这一幕对它有实际需求。可选：心海、芭芭拉、班尼特、诺艾尔。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-407",
+      "act": 9,
+      "tags": [
+        "职能",
+        "HydroApplier",
+        "第9幕"
+      ],
+      "title": "第9幕 需要 后台挂水",
+      "text": "第9幕出场角色中，后台挂水 职能累计出现 2 次，说明这一幕对它有实际需求。可选：行秋、夜兰、心海、莫娜、芭芭拉、爱诺。",
+      "source": "act-teams × substitutes（实战反推）"
+    },
+    {
+      "id": "gen-408",
+      "act": 2,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第2幕"
+      ],
+      "title": "第2幕 该打什么元素（Easy）",
+      "text": "高抗（≥50%）：Pyro 70%。",
+      "source": "season29.json（Easy）"
+    },
+    {
+      "id": "gen-409",
+      "act": 3,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第3幕"
+      ],
+      "title": "第3幕 该打什么元素（Easy）",
+      "text": "弱点：Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%；高抗（≥50%）：Dendro 80%、Dendro 55%。",
+      "source": "season29.json（Easy）"
+    },
+    {
+      "id": "gen-410",
+      "act": 2,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第2幕"
+      ],
+      "title": "第2幕 该打什么元素（Normal）",
+      "text": "高抗（≥50%）：Pyro 70%。",
+      "source": "season29.json（Normal）"
+    },
+    {
+      "id": "gen-411",
+      "act": 3,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第3幕"
+      ],
+      "title": "第3幕 该打什么元素（Normal）",
+      "text": "弱点：Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%；高抗（≥50%）：Dendro 80%、Dendro 55%。",
+      "source": "season29.json（Normal）"
+    },
+    {
+      "id": "gen-412",
+      "act": 5,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第5幕"
+      ],
+      "title": "第5幕 该打什么元素（Normal）",
+      "text": "高抗（≥50%）：Physical 50%、Physical 50%。",
+      "source": "season29.json（Normal）"
+    },
+    {
+      "id": "gen-413",
+      "act": 6,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第6幕"
+      ],
+      "title": "第6幕 该打什么元素（Normal）",
+      "text": "弱点：all damage types -60%。",
+      "source": "season29.json（Normal）"
+    },
+    {
+      "id": "gen-414",
+      "act": 2,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第2幕"
+      ],
+      "title": "第2幕 该打什么元素（Hard）",
+      "text": "高抗（≥50%）：Pyro 70%。",
+      "source": "season29.json（Hard）"
+    },
+    {
+      "id": "gen-415",
+      "act": 3,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第3幕"
+      ],
+      "title": "第3幕 该打什么元素（Hard）",
+      "text": "弱点：Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%；高抗（≥50%）：Dendro 80%、Dendro 55%。",
+      "source": "season29.json（Hard）"
+    },
+    {
+      "id": "gen-416",
+      "act": 5,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第5幕"
+      ],
+      "title": "第5幕 该打什么元素（Hard）",
+      "text": "高抗（≥50%）：Physical 50%、Physical 50%。",
+      "source": "season29.json（Hard）"
+    },
+    {
+      "id": "gen-417",
+      "act": 6,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第6幕"
+      ],
+      "title": "第6幕 该打什么元素（Hard）",
+      "text": "弱点：all damage types -60%。",
+      "source": "season29.json（Hard）"
+    },
+    {
+      "id": "gen-418",
+      "act": 7,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第7幕"
+      ],
+      "title": "第7幕 该打什么元素（Hard）",
+      "text": "高抗（≥50%）：Pyro 70%、Electro 70%。",
+      "source": "season29.json（Hard）"
+    },
+    {
+      "id": "gen-419",
+      "act": 8,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第8幕"
+      ],
+      "title": "第8幕 该打什么元素（Hard）",
+      "text": "高抗（≥50%）：Dendro 70%。",
+      "source": "season29.json（Hard）"
+    },
+    {
+      "id": "gen-420",
+      "act": 2,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第2幕"
+      ],
+      "title": "第2幕 该打什么元素（Visionary）",
+      "text": "高抗（≥50%）：Pyro 70%。",
+      "source": "season29.json（Visionary）"
+    },
+    {
+      "id": "gen-421",
+      "act": 3,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第3幕"
+      ],
+      "title": "第3幕 该打什么元素（Visionary）",
+      "text": "弱点：Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%；高抗（≥50%）：Dendro 80%、Dendro 55%。",
+      "source": "season29.json（Visionary）"
+    },
+    {
+      "id": "gen-422",
+      "act": 5,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第5幕"
+      ],
+      "title": "第5幕 该打什么元素（Visionary）",
+      "text": "高抗（≥50%）：Physical 50%、Physical 50%。",
+      "source": "season29.json（Visionary）"
+    },
+    {
+      "id": "gen-423",
+      "act": 6,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第6幕"
+      ],
+      "title": "第6幕 该打什么元素（Visionary）",
+      "text": "弱点：all damage types -60%。",
+      "source": "season29.json（Visionary）"
+    },
+    {
+      "id": "gen-424",
+      "act": 7,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第7幕"
+      ],
+      "title": "第7幕 该打什么元素（Visionary）",
+      "text": "高抗（≥50%）：Pyro 70%、Electro 70%。",
+      "source": "season29.json（Visionary）"
+    },
+    {
+      "id": "gen-425",
+      "act": 9,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第9幕"
+      ],
+      "title": "第9幕 该打什么元素（Visionary）",
+      "text": "高抗（≥50%）：Physical 50%、Geo 70%。",
+      "source": "season29.json（Visionary）"
+    },
+    {
+      "id": "gen-426",
+      "act": 10,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第10幕"
+      ],
+      "title": "第10幕 该打什么元素（Visionary）",
+      "text": "高抗（≥50%）：Dendro 70%。",
+      "source": "season29.json（Visionary）"
+    },
+    {
+      "id": "gen-427",
+      "act": 2,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第2幕"
+      ],
+      "title": "第2幕 该打什么元素（Lunar）",
+      "text": "高抗（≥50%）：Pyro 70%。",
+      "source": "season29.json（Lunar）"
+    },
+    {
+      "id": "gen-428",
+      "act": 3,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第3幕"
+      ],
+      "title": "第3幕 该打什么元素（Lunar）",
+      "text": "弱点：Physical, Pyro, Hydro, Electro, Cryo, Anemo, Geo 0%；高抗（≥50%）：Dendro 80%、Dendro 55%。",
+      "source": "season29.json（Lunar）"
+    },
+    {
+      "id": "gen-429",
+      "act": 5,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第5幕"
+      ],
+      "title": "第5幕 该打什么元素（Lunar）",
+      "text": "高抗（≥50%）：Physical 50%、Physical 50%。",
+      "source": "season29.json（Lunar）"
+    },
+    {
+      "id": "gen-430",
+      "act": 6,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第6幕"
+      ],
+      "title": "第6幕 该打什么元素（Lunar）",
+      "text": "弱点：all damage types -60%。",
+      "source": "season29.json（Lunar）"
+    },
+    {
+      "id": "gen-431",
+      "act": 7,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第7幕"
+      ],
+      "title": "第7幕 该打什么元素（Lunar）",
+      "text": "高抗（≥50%）：Pyro 70%、Electro 70%。",
+      "source": "season29.json（Lunar）"
+    },
+    {
+      "id": "gen-432",
+      "act": 9,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第9幕"
+      ],
+      "title": "第9幕 该打什么元素（Lunar）",
+      "text": "高抗（≥50%）：Physical 50%、Geo 70%。",
+      "source": "season29.json（Lunar）"
+    },
+    {
+      "id": "gen-433",
+      "act": 10,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第10幕"
+      ],
+      "title": "第10幕 该打什么元素（Lunar）",
+      "text": "高抗（≥50%）：Dendro 70%。",
+      "source": "season29.json（Lunar）"
+    },
+    {
+      "id": "gen-434",
+      "act": 11,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第11幕"
+      ],
+      "title": "第11幕 该打什么元素（Lunar）",
+      "text": "高抗（≥50%）：Dendro 70%、Electro 70%、Hydro 70%、Pyro 70%。",
+      "source": "season29.json（Lunar）"
+    },
+    {
+      "id": "gen-435",
+      "act": 12,
+      "tags": [
+        "抗性",
+        "弱点",
+        "第12幕"
+      ],
+      "title": "第12幕 该打什么元素（Lunar）",
+      "text": "高抗（≥50%）：Cryo 50%。",
+      "source": "season29.json（Lunar）"
+    },
+    {
+      "id": "gen-436",
+      "act": 1,
+      "tags": [
+        "定位",
+        "卡齐娜",
+        "第1幕",
+        "GeoBreak"
+      ],
+      "title": "卡齐娜 在第1幕的定位",
+      "text": "卡齐娜 在第1幕出场 3 次，职能为 岩/钝击破盾。该幕共有 26 个角色被使用，若缺 卡齐娜，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-437",
+      "act": 1,
+      "tags": [
+        "定位",
+        "芭芭拉",
+        "第1幕",
+        "Healer",
+        "HydroApplier"
+      ],
+      "title": "芭芭拉 在第1幕的定位",
+      "text": "芭芭拉 在第1幕出场 2 次，职能为 治疗/后台挂水。该幕共有 26 个角色被使用，若缺 芭芭拉，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-438",
+      "act": 1,
+      "tags": [
+        "定位",
+        "菲谢尔",
+        "第1幕",
+        "ElectroApplier"
+      ],
+      "title": "菲谢尔 在第1幕的定位",
+      "text": "菲谢尔 在第1幕出场 2 次，职能为 后台挂雷。该幕共有 26 个角色被使用，若缺 菲谢尔，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-439",
+      "act": 2,
+      "tags": [
+        "定位",
+        "夜兰",
+        "第2幕",
+        "HydroApplier",
+        "MainDps"
+      ],
+      "title": "夜兰 在第2幕的定位",
+      "text": "夜兰 在第2幕出场 4 次，职能为 后台挂水/主 C。该幕共有 21 个角色被使用，若缺 夜兰，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-440",
+      "act": 2,
+      "tags": [
+        "定位",
+        "芭芭拉",
+        "第2幕",
+        "Healer",
+        "HydroApplier"
+      ],
+      "title": "芭芭拉 在第2幕的定位",
+      "text": "芭芭拉 在第2幕出场 3 次，职能为 治疗/后台挂水。该幕共有 21 个角色被使用，若缺 芭芭拉，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-441",
+      "act": 3,
+      "tags": [
+        "定位",
+        "爱诺",
+        "第3幕",
+        "HydroApplier",
+        "MainDps"
+      ],
+      "title": "爱诺 在第3幕的定位",
+      "text": "爱诺 在第3幕出场 4 次，职能为 后台挂水/主 C。该幕共有 29 个角色被使用，若缺 爱诺，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-442",
+      "act": 3,
+      "tags": [
+        "定位",
+        "那维莱特",
+        "第3幕",
+        "MainDps"
+      ],
+      "title": "那维莱特 在第3幕的定位",
+      "text": "那维莱特 在第3幕出场 2 次，职能为 主 C。该幕共有 29 个角色被使用，若缺 那维莱特，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-443",
+      "act": 3,
+      "tags": [
+        "定位",
+        "诺艾尔",
+        "第3幕",
+        "Shielder",
+        "GeoBreak",
+        "Healer"
+      ],
+      "title": "诺艾尔 在第3幕的定位",
+      "text": "诺艾尔 在第3幕出场 2 次，职能为 护盾/岩/钝击破盾/治疗。该幕共有 29 个角色被使用，若缺 诺艾尔，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-444",
+      "act": 4,
+      "tags": [
+        "定位",
+        "菲谢尔",
+        "第4幕",
+        "ElectroApplier"
+      ],
+      "title": "菲谢尔 在第4幕的定位",
+      "text": "菲谢尔 在第4幕出场 1 次，职能为 后台挂雷。该幕共有 4 个角色被使用，若缺 菲谢尔，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-445",
+      "act": 4,
+      "tags": [
+        "定位",
+        "夜兰",
+        "第4幕",
+        "HydroApplier",
+        "MainDps"
+      ],
+      "title": "夜兰 在第4幕的定位",
+      "text": "夜兰 在第4幕出场 1 次，职能为 后台挂水/主 C。该幕共有 4 个角色被使用，若缺 夜兰，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-446",
+      "act": 5,
+      "tags": [
+        "定位",
+        "芭芭拉",
+        "第5幕",
+        "Healer",
+        "HydroApplier"
+      ],
+      "title": "芭芭拉 在第5幕的定位",
+      "text": "芭芭拉 在第5幕出场 2 次，职能为 治疗/后台挂水。该幕共有 24 个角色被使用，若缺 芭芭拉，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-447",
+      "act": 5,
+      "tags": [
+        "定位",
+        "那维莱特",
+        "第5幕",
+        "MainDps"
+      ],
+      "title": "那维莱特 在第5幕的定位",
+      "text": "那维莱特 在第5幕出场 2 次，职能为 主 C。该幕共有 24 个角色被使用，若缺 那维莱特，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-448",
+      "act": 5,
+      "tags": [
+        "定位",
+        "行秋",
+        "第5幕",
+        "HydroApplier",
+        "Shielder"
+      ],
+      "title": "行秋 在第5幕的定位",
+      "text": "行秋 在第5幕出场 2 次，职能为 后台挂水/护盾。该幕共有 24 个角色被使用，若缺 行秋，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-449",
+      "act": 6,
+      "tags": [
+        "定位",
+        "香菱",
+        "第6幕",
+        "Buffer"
+      ],
+      "title": "香菱 在第6幕的定位",
+      "text": "香菱 在第6幕出场 3 次，职能为 增伤辅助。该幕共有 22 个角色被使用，若缺 香菱，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-450",
+      "act": 6,
+      "tags": [
+        "定位",
+        "班尼特",
+        "第6幕",
+        "Buffer",
+        "Healer"
+      ],
+      "title": "班尼特 在第6幕的定位",
+      "text": "班尼特 在第6幕出场 2 次，职能为 增伤辅助/治疗。该幕共有 22 个角色被使用，若缺 班尼特，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-451",
+      "act": 6,
+      "tags": [
+        "定位",
+        "行秋",
+        "第6幕",
+        "HydroApplier",
+        "Shielder"
+      ],
+      "title": "行秋 在第6幕的定位",
+      "text": "行秋 在第6幕出场 2 次，职能为 后台挂水/护盾。该幕共有 22 个角色被使用，若缺 行秋，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-452",
+      "act": 6,
+      "tags": [
+        "定位",
+        "夜兰",
+        "第6幕",
+        "HydroApplier",
+        "MainDps"
+      ],
+      "title": "夜兰 在第6幕的定位",
+      "text": "夜兰 在第6幕出场 2 次，职能为 后台挂水/主 C。该幕共有 22 个角色被使用，若缺 夜兰，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-453",
+      "act": 7,
+      "tags": [
+        "定位",
+        "行秋",
+        "第7幕",
+        "HydroApplier",
+        "Shielder"
+      ],
+      "title": "行秋 在第7幕的定位",
+      "text": "行秋 在第7幕出场 6 次，职能为 后台挂水/护盾。该幕共有 11 个角色被使用，若缺 行秋，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-454",
+      "act": 7,
+      "tags": [
+        "定位",
+        "班尼特",
+        "第7幕",
+        "Buffer",
+        "Healer"
+      ],
+      "title": "班尼特 在第7幕的定位",
+      "text": "班尼特 在第7幕出场 3 次，职能为 增伤辅助/治疗。该幕共有 11 个角色被使用，若缺 班尼特，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-455",
+      "act": 7,
+      "tags": [
+        "定位",
+        "香菱",
+        "第7幕",
+        "Buffer"
+      ],
+      "title": "香菱 在第7幕的定位",
+      "text": "香菱 在第7幕出场 2 次，职能为 增伤辅助。该幕共有 11 个角色被使用，若缺 香菱，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-456",
+      "act": 7,
+      "tags": [
+        "定位",
+        "芭芭拉",
+        "第7幕",
+        "Healer",
+        "HydroApplier"
+      ],
+      "title": "芭芭拉 在第7幕的定位",
+      "text": "芭芭拉 在第7幕出场 1 次，职能为 治疗/后台挂水。该幕共有 11 个角色被使用，若缺 芭芭拉，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-457",
+      "act": 7,
+      "tags": [
+        "定位",
+        "菲谢尔",
+        "第7幕",
+        "ElectroApplier"
+      ],
+      "title": "菲谢尔 在第7幕的定位",
+      "text": "菲谢尔 在第7幕出场 1 次，职能为 后台挂雷。该幕共有 11 个角色被使用，若缺 菲谢尔，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-458",
+      "act": 7,
+      "tags": [
+        "定位",
+        "卡齐娜",
+        "第7幕",
+        "GeoBreak"
+      ],
+      "title": "卡齐娜 在第7幕的定位",
+      "text": "卡齐娜 在第7幕出场 1 次，职能为 岩/钝击破盾。该幕共有 11 个角色被使用，若缺 卡齐娜，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-459",
+      "act": 8,
+      "tags": [
+        "定位",
+        "行秋",
+        "第8幕",
+        "HydroApplier",
+        "Shielder"
+      ],
+      "title": "行秋 在第8幕的定位",
+      "text": "行秋 在第8幕出场 3 次，职能为 后台挂水/护盾。该幕共有 14 个角色被使用，若缺 行秋，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-460",
+      "act": 8,
+      "tags": [
+        "定位",
+        "班尼特",
+        "第8幕",
+        "Buffer",
+        "Healer"
+      ],
+      "title": "班尼特 在第8幕的定位",
+      "text": "班尼特 在第8幕出场 2 次，职能为 增伤辅助/治疗。该幕共有 14 个角色被使用，若缺 班尼特，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-461",
+      "act": 8,
+      "tags": [
+        "定位",
+        "爱诺",
+        "第8幕",
+        "HydroApplier",
+        "MainDps"
+      ],
+      "title": "爱诺 在第8幕的定位",
+      "text": "爱诺 在第8幕出场 1 次，职能为 后台挂水/主 C。该幕共有 14 个角色被使用，若缺 爱诺，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-462",
+      "act": 8,
+      "tags": [
+        "定位",
+        "芭芭拉",
+        "第8幕",
+        "Healer",
+        "HydroApplier"
+      ],
+      "title": "芭芭拉 在第8幕的定位",
+      "text": "芭芭拉 在第8幕出场 1 次，职能为 治疗/后台挂水。该幕共有 14 个角色被使用，若缺 芭芭拉，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-463",
+      "act": 9,
+      "tags": [
+        "定位",
+        "班尼特",
+        "第9幕",
+        "Buffer",
+        "Healer"
+      ],
+      "title": "班尼特 在第9幕的定位",
+      "text": "班尼特 在第9幕出场 3 次，职能为 增伤辅助/治疗。该幕共有 8 个角色被使用，若缺 班尼特，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-464",
+      "act": 9,
+      "tags": [
+        "定位",
+        "香菱",
+        "第9幕",
+        "Buffer"
+      ],
+      "title": "香菱 在第9幕的定位",
+      "text": "香菱 在第9幕出场 2 次，职能为 增伤辅助。该幕共有 8 个角色被使用，若缺 香菱，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-465",
+      "act": 9,
+      "tags": [
+        "定位",
+        "芭芭拉",
+        "第9幕",
+        "Healer",
+        "HydroApplier"
+      ],
+      "title": "芭芭拉 在第9幕的定位",
+      "text": "芭芭拉 在第9幕出场 1 次，职能为 治疗/后台挂水。该幕共有 8 个角色被使用，若缺 芭芭拉，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-466",
+      "act": 9,
+      "tags": [
+        "定位",
+        "那维莱特",
+        "第9幕",
+        "MainDps"
+      ],
+      "title": "那维莱特 在第9幕的定位",
+      "text": "那维莱特 在第9幕出场 1 次，职能为 主 C。该幕共有 8 个角色被使用，若缺 那维莱特，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-467",
+      "act": 9,
+      "tags": [
+        "定位",
+        "赛诺",
+        "第9幕",
+        "MainDps",
+        "ElectroApplier"
+      ],
+      "title": "赛诺 在第9幕的定位",
+      "text": "赛诺 在第9幕出场 1 次，职能为 主 C/后台挂雷。该幕共有 8 个角色被使用，若缺 赛诺，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-468",
+      "act": 10,
+      "tags": [
+        "定位",
+        "班尼特",
+        "第10幕",
+        "Buffer",
+        "Healer"
+      ],
+      "title": "班尼特 在第10幕的定位",
+      "text": "班尼特 在第10幕出场 1 次，职能为 增伤辅助/治疗。该幕共有 8 个角色被使用，若缺 班尼特，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-469",
+      "act": 10,
+      "tags": [
+        "定位",
+        "卡齐娜",
+        "第10幕",
+        "GeoBreak"
+      ],
+      "title": "卡齐娜 在第10幕的定位",
+      "text": "卡齐娜 在第10幕出场 1 次，职能为 岩/钝击破盾。该幕共有 8 个角色被使用，若缺 卡齐娜，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-470",
+      "act": 10,
+      "tags": [
+        "定位",
+        "那维莱特",
+        "第10幕",
+        "MainDps"
+      ],
+      "title": "那维莱特 在第10幕的定位",
+      "text": "那维莱特 在第10幕出场 1 次，职能为 主 C。该幕共有 8 个角色被使用，若缺 那维莱特，可从同职能替代里换。",
+      "source": "act-teams × substitutes"
+    },
+    {
+      "id": "gen-471",
+      "act": 3,
+      "tags": [
+        "首领幕",
+        "节奏",
+        "第3幕"
+      ],
+      "title": "第3幕 是首领幕",
+      "text": "第3幕为首领幕（角色等级 90）。首领幕抗性与机制都会上一个台阶，应保留耐力未耗尽的强力角色；前序普通幕尽量用替补角色过渡。",
+      "source": "season29.json（boss 标记）"
+    },
+    {
+      "id": "gen-472",
+      "act": 6,
+      "tags": [
+        "首领幕",
+        "节奏",
+        "第6幕"
+      ],
+      "title": "第6幕 是首领幕",
+      "text": "第6幕为首领幕（角色等级 92）。首领幕抗性与机制都会上一个台阶，应保留耐力未耗尽的强力角色；前序普通幕尽量用替补角色过渡。",
+      "source": "season29.json（boss 标记）"
+    },
+    {
+      "id": "gen-473",
+      "act": 8,
+      "tags": [
+        "首领幕",
+        "节奏",
+        "第8幕"
+      ],
+      "title": "第8幕 是首领幕",
+      "text": "第8幕为首领幕（角色等级 95）。首领幕抗性与机制都会上一个台阶，应保留耐力未耗尽的强力角色；前序普通幕尽量用替补角色过渡。",
+      "source": "season29.json（boss 标记）"
+    },
+    {
+      "id": "gen-474",
+      "act": 10,
+      "tags": [
+        "首领幕",
+        "节奏",
+        "第10幕"
+      ],
+      "title": "第10幕 是首领幕",
+      "text": "第10幕为首领幕（角色等级 100）。首领幕抗性与机制都会上一个台阶，应保留耐力未耗尽的强力角色；前序普通幕尽量用替补角色过渡。",
+      "source": "season29.json（boss 标记）"
+    },
+    {
       "id": "rule-endurance",
       "act": 0,
       "tags": [
