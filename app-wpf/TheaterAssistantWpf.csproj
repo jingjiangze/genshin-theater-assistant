@@ -97,9 +97,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- 随包资源：data/ 与 templates/ 在 CI 里先复制到 app-wpf/ 下（与 WinForms 版同法） -->
-    <Content Include="data\**\*" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="templates\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <!-- 模型走 EmbeddedResource（编译期就存在，glob 没问题） -->
     <EmbeddedResource Include="models\**\*.onnx" Condition="Exists('models')" />
     <EmbeddedResource Include="models\**\*.txt" Condition="Exists('models')" />
   </ItemGroup>
@@ -115,5 +113,29 @@
     <!-- BitmapConverter（Bitmap ↔ Mat）在 Extensions 包，不在 core -->
     <PackageReference Include="OpenCvSharp4.Extensions" Version="4.13.0.20261107" />
   </ItemGroup>
+
+  <!--
+    随包资源（data/、templates/）必须**动态**加入：
+    它们在 CI 里由 PowerShell 在 dotnet publish 之前复制到 app-wpf/ 下，
+    而 MSBuild 的 `<Content Include="data\**\*">` 这类 glob 在**项目求值时**就展开，
+    那时目录可能还不存在 → 文件不会被打进单文件 exe。
+    实测后果：exe 里 data/guide-corpus.json 只有 23 条（编译期旧内容），而不是最新的 786 条。
+    用 Target 在 PrepareForPublish 前重新扫描目录，能拿到运行时复制进来的全部文件。
+  -->
+  <Target Name="IncludeRuntimeData" BeforeTargets="PrepareForPublish;ComputeFilesToPublish">
+    <ItemGroup Condition="Exists(data)">
+      <ContentWithTargetPath Include="data\**\*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <TargetPath>data\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+      </ContentWithTargetPath>
+    </ItemGroup>
+    <ItemGroup Condition="Exists(templates)">
+      <ContentWithTargetPath Include="templates\**\*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <TargetPath>templates\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+      </ContentWithTargetPath>
+    </ItemGroup>
+    <Message Importance="high" Text="IncludeRuntimeData: data=$(CountFiles) templates=$(CountTpl)" />
+  </Target>
 
 </Project>
