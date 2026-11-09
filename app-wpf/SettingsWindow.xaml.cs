@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Windows;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TheaterAssistant;
 
