@@ -77,6 +77,8 @@
     <Compile Include="..\app\GuideNotes.cs" Link="logic\GuideNotes.cs" />
     <!-- 玩法档案：剧诗/深渊的识别区域与时间轴规则（data/modes.json 驱动） -->
     <Compile Include="..\app\GameMode.cs" Link="logic\GameMode.cs" />
+    <!-- ◇模型层：data/llm.json 驱动的 OpenAI 兼容多端点顾问（本地 serve.py / 远端均可） -->
+    <Compile Include="..\app\LlmAdvisor.cs" Link="logic\LlmAdvisor.cs" />
     <Compile Include="..\app\OcrTextPipeline.cs" Link="logic\OcrTextPipeline.cs" />
     <Compile Include="..\app\OcrTuning.cs" Link="logic\OcrTuning.cs" />
     <Compile Include="..\app\Playbook.cs" Link="logic\Playbook.cs" />
