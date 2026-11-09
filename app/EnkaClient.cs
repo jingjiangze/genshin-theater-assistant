@@ -134,10 +134,14 @@ internal static class EnkaClient
 
                 // 等级：propMap["4001"].ival
                 int level = 0;
+                // 注意：Enka 的 ival 是**字符串**（"90"）而不是数字，只判 Number 会得到 level=0（实测踩过）。
                 if (a.TryGetProperty("propMap", out var pm) && pm.ValueKind == JsonValueKind.Object
-                    && pm.TryGetProperty("4001", out var lv) && lv.ValueKind == JsonValueKind.Object
-                    && lv.TryGetProperty("ival", out var iv) && iv.ValueKind == JsonValueKind.Number)
-                    level = iv.GetInt32();
+                    && pm.TryGetProperty("4001", out var lv) && lv.ValueKind == JsonValueKind.Object)
+                {
+                    if (lv.TryGetProperty("ival", out var iv))
+                        level = iv.ValueKind == JsonValueKind.Number ? iv.GetInt32()
+                              : int.TryParse(iv.ValueKind == JsonValueKind.String ? iv.GetString() : null, out var pl) ? pl : 0;
+                }
 
                 // 命座：talentIdList 长度 - 1（0 命时该字段可能缺失）
                 int cons = 0;
