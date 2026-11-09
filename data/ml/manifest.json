@@ -1,0 +1,21 @@
+{
+  "builtAt": "2026-11-09T16:44:58.977Z",
+  "seed": 20261110,
+  "valRatio": 0.1,
+  "total": 418,
+  "train": 376,
+  "val": 42,
+  "byTask": {
+    "t1_now": 160,
+    "t2_team": 18,
+    "t3_qa": 240
+  },
+  "sources": {
+    "act-playbook.json": "7a061f5ea357039d",
+    "act-teams.json": "e73c0f6e46b185f8",
+    "rotations.json": "9e085f1047214555",
+    "season29.json": "07ebcb3fbc3617f0",
+    "guide-corpus.json": "4dfa587668bb5bc3"
+  },
+  "problems": []
+}
