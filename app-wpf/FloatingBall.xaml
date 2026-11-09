@@ -10,7 +10,7 @@
         ShowInTaskbar="False"
         ShowActivated="False"
         ResizeMode="NoResize"
-        Opacity="0"
+        Opacity="1"
         UseLayoutRounding="True"
         TextOptions.TextFormattingMode="Ideal">
 
