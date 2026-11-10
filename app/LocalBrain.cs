@@ -36,6 +36,38 @@ internal sealed class LocalBrain : IDisposable
     private readonly SemaphoreSlim _gate = new(1, 1);
     private bool _disposed;
 
+    /// <summary>
+    /// 单文件发布下原生 llama.dll 会被解包到 bundle 的临时目录，而 LLamaSharp 自己按
+    /// AppContext.BaseDirectory / runtimes/ 找库 → 找不到就抛 TypeInitializationException。
+    /// 这里在**第一次调用任何 LLamaSharp API 之前**，把运行时真实的原生搜索目录告诉它。
+    /// （实测：CI 单文件 exe 上不加这段必定失败）
+    /// </summary>
+    static LocalBrain() => ConfigureNativeSearchPath();
+
+    private static void ConfigureNativeSearchPath()
+    {
+        try
+        {
+            var seen = new List<string>();
+
+            // ① 单文件 bundle：运行时自己的原生库搜索目录（含解包目录）
+            var dirs = (AppContext.GetData("NATIVE_DLL_SEARCH_DIRECTORIES") as string ?? "");
+            foreach (var d in dirs.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries))
+                if (File.Exists(Path.Combine(d, "llama.dll"))) seen.Add(d);
+
+            // ② 常规布局：runtimes\win-x64\native（exe 同级）
+            var ridNative = Path.Combine(AppContext.BaseDirectory, "runtimes", "win-x64", "native");
+            if (File.Exists(Path.Combine(ridNative, "llama.dll"))) seen.Add(ridNative);
+
+            if (seen.Count > 0)
+                LLama.Native.NativeLibraryConfig.All.WithSearchDirectories(seen);
+        }
+        catch
+        {
+            // 配置失败不致命：LLamaSharp 仍会走自己的默认探测
+        }
+    }
+
     public string ModelPath { get; }
     public string Status { get; private set; } = "";
     public bool Ready => _weights != null && !_disposed;
