@@ -1,0 +1,216 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-10 13:51:49",
+  "bvid": "BV1G86xBFEk5",
+  "frames": 8,
+  "candidates": 23,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：4幕聚怪或副c、6幕卡齐娜、7幕行秋+香菱、9幕自备主c组合+破岩盾",
+      "act": 4,
+      "source": "BV1G86xBFEk5@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：1幕火、5幕岩、10幕破岩盾",
+      "act": 1,
+      "source": "BV1G86xBFEk5@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找保证有够挂件的情",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买4蒸发",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买2火晶",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：狗",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：嘉明+芭芭拉+岩",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：蒸发4+火晶2",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：宵宫+叶兰+千织+卡齐",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找大哥+月谕角色",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：狼",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：1幕火、5幕岩°10幕破岩盾",
+      "act": 1,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：把钱花光",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：月谕组合+破盾",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：4幕聚怪或副C、6幕卡齐娜、7幕行秋平香菱、9幕自备主c组合破岩盾",
+      "act": 4,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2蒸发",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：愚人众机器",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：芭芭拉+嘉明",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "结尾：优先拿挂件，为4幕守",
+      "act": 4,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买齐2蒸发+1火晶",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "可买1角色",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：宵宫+夜兰+云堇",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "触发神秘收获效果，已跳过本次角色选择环节",
+      "act": 0,
+      "source": "BV1G86xBFEk5@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}
