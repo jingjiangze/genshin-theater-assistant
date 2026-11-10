@@ -170,12 +170,14 @@ internal sealed class MainLoop
                     (float)_mode.BandLeft, (float)_mode.BandTop, (float)_mode.BandWidth, (float)_mode.BandHeight), 2)
                 : "";
 
-            // ⑤ 全帧 OCR：每 3 帧兜一次（不必要每帧全扫，省 CPU）
-            //    走带框识别 + OcrTextPipeline：先按置信度丢噪声，再按「同排从左到右」排序——
-            //    否则「第N张」的 N 会和屏幕上的实际位置对不上（选错卡）。
-            if (_tickCount % 4 == 0)
+            // ⑤ 选项区 OCR（不再全帧扫）：BetterGI 的识别对象都自带区域，全帧 OCR 只在必要时做。
+            //    选项/商店卡片集中在画面中段，取 0.10–0.95 x / 0.22–0.82 y（约 60% 宽 × 60% 高），
+            //    面积约为全帧的 36%，单次成本降到 1/3；带框 + OcrTextPipeline 保证「第N张」的
+            //    N 与屏幕从左到右的顺序一致（否则会选错卡）。
+            if (_tickCount % 3 == 0)
             {
-                var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame);
+                var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame,
+                    new RectangleF(0.10f, 0.22f, 0.85f, 0.60f));
                 if (boxes != null && boxes.Count > 0)
                 {
                     var pipelineBoxes = boxes.Select(b => new OcrTextPipeline.Box
