@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -259,14 +260,32 @@ internal static class LiveProbe
                     // ── 全链路 ①：三级编排必须给出带来源标记的指示 ──
                     // 审计背景：此前真机模拟只验到"识别 + TheaterLogic.Evaluate"为止，
                     // 没验 DecisionOrchestrator（真正的决策出口），也没验渲染与多帧连续。
-                    // --llm 时把 ◇模型层拉进环：data/llm.json 指向 tools/ml/serve.py（本地 MiniMind 26M）。
+                    // --llm 时把 ◇模型层拉进环：优先进程内 GGUF（内嵌模型，147ms），
+                    // 没有再走 data/llm.json 的 HTTP 端点（tools/ml/serve.py）。
                     LlmAdvisor llm = null;
+                    LocalBrain brain = null;
                     string llmText = null;
                     var llmAttempted = false;
                     if (useLlm)
                     {
+                        brain = LocalBrain.TryLoad(
+                            Path.Combine(AppPaths.ModelsRoot, "llm", "minimind-26m-q8.gguf"));
                         llm = LlmAdvisor.TryLoad(AppPaths.Data("llm.json"));
-                        if (llm is { Enabled: true })
+
+                        if (brain is { Ready: true })
+                        {
+                            try
+                            {
+                                llmText = brain.Ask("我在剧诗第3幕，难度月谕。一句话概括该干嘛。", 64, 2000);
+                                llmAttempted = llmText != null;
+                                lines.Add($"      内嵌模型 {brain.Status}｜{brain.LastLatencyMs}ms");
+                            }
+                            catch (Exception ex2)
+                            {
+                                lines.Add("WARN  内嵌模型异常  " + ex2.GetType().Name + ": " + ex2.Message);
+                            }
+                        }
+                        else if (llm is { Enabled: true })
                         {
                             try
                             {
@@ -280,10 +299,13 @@ internal static class LiveProbe
                                 lines.Add("WARN  ◇模型调用异常  " + ex2.GetType().Name + ": " + ex2.Message);
                             }
                         }
-                        Check("◇模型层在环（本地推理进程）",
+
+                        Check("◇模型层在环（内嵌 GGUF 或 HTTP 端点）",
                             !llmAttempted || !string.IsNullOrWhiteSpace(llmText),
-                            llm == null ? "未启用：缺 data/llm.json（先起 tools/ml/serve.py 再加 --llm）"
-                                        : $"健康={llm.Health}｜输出={(llmText ?? "空").Trim()}");
+                            brain is { Ready: true } ? $"内嵌={brain.Status}｜{brain.LastLatencyMs}ms｜输出={(llmText ?? "空").Trim()}"
+                                                     : llm == null ? "未启用：无内嵌 GGUF 且缺 data/llm.json"
+                                                                   : $"HTTP 健康={llm.Health}｜输出={(llmText ?? "空").Trim()}");
+                        try { brain?.Dispose(); } catch { }
                     }
 
                     try
