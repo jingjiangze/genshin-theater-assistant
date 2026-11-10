@@ -32,6 +32,10 @@
   <ItemGroup>
     <!-- Apache-2.0；PP-OCRv5/v6 ONNX 管线（SkiaSharp + OnnxRuntime），跨平台，AOT 友好 -->
     <PackageReference Include="RapidOcrNet" Version="4.2.0" />
+    <!-- 模板匹配换 OpenCV matchTemplate（SIMD C++），与 BetterGI 同引擎 -->
+    <PackageReference Include="OpenCvSharp4" Version="4.13.0.20261107" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.13.0.20261107" />
+    <PackageReference Include="OpenCvSharp4.Extensions" Version="4.13.0.20261107" />
     <!-- 内嵌推理：llama.cpp 的 C# 绑定（GGUF，CPU 后端） -->
 
     <!--
