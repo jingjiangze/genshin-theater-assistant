@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T15:41:07.451Z",
+  "generatedAt": "2026-11-10T14:37:57.713Z",
   "period": "2026-11",
   "criteria": "纯净度(pure100/likely60/mixed20) + 高难(月谕80/卓越60/困难30) + 当期季节+40 + 文本量 + 时长 + 纯净特征+25；short/excluded 淘汰",
   "total": 19,
@@ -18,7 +18,7 @@
       "textLines": 28,
       "score": 292,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-09T15:41:07.451Z"
+      "lastSeenAt": "2026-11-10T14:37:57.713Z"
     },
     {
       "bv": "BV1G86xBFEk5",
