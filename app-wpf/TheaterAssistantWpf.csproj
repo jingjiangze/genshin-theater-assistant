@@ -79,6 +79,8 @@
     <Compile Include="..\app\GameMode.cs" Link="logic\GameMode.cs" />
     <!-- ◇模型层：data/llm.json 驱动的 OpenAI 兼容多端点顾问（本地 serve.py / 远端均可） -->
     <Compile Include="..\app\LlmAdvisor.cs" Link="logic\LlmAdvisor.cs" />
+    <!-- 内嵌小模型：GGUF + llama.cpp（LLamaSharp），进程内推理，实测 147ms/答 -->
+    <Compile Include="..\app\LocalBrain.cs" Link="logic\LocalBrain.cs" />
     <Compile Include="..\app\OcrTextPipeline.cs" Link="logic\OcrTextPipeline.cs" />
     <Compile Include="..\app\OcrTuning.cs" Link="logic\OcrTuning.cs" />
     <Compile Include="..\app\Playbook.cs" Link="logic\Playbook.cs" />
@@ -104,6 +106,10 @@
     <!-- 模型走 EmbeddedResource（编译期就存在，glob 没问题） -->
     <EmbeddedResource Include="models\**\*.onnx" Condition="Exists('models')" />
     <EmbeddedResource Include="models\**\*.txt" Condition="Exists('models')" />
+    <!-- 内嵌小模型 GGUF（Q8_0 26MB）：打进单文件 exe，首启解压到 %LOCALAPPDATA%\TheaterAssistant\models\llm -->
+    <EmbeddedResource Include="models\**\*.gguf" Condition="Exists('models')">
+      <LogicalName>TheaterAssistant.res.models.%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -113,6 +119,9 @@
     <!-- Fluent 控件与主题：BetterGI 的观感九成来自它（FluentWindow/TitleBar/ToggleSwitch/CardControl）。
          4.3.0 支持 net8.0-windows，单 TFM 引入。 -->
     <PackageReference Include="WPF-UI" Version="4.3.0" />
+    <!-- 内嵌推理：llama.cpp 的 C# 绑定（GGUF，CPU 后端）。实测 26M Q8 生成 63 token ≈ 50ms -->
+    <PackageReference Include="LLamaSharp" Version="0.30.0" />
+    <PackageReference Include="LLamaSharp.Backend.Cpu" Version="0.30.0" />
     <!-- OpenCV：用于 OCR 预处理（BetterGI 的 D3–D5）。
          注意 D3(竖排旋转)/D4(透视裁剪) RapidOcrNet 内部已实现，这里只为 D5(白字掩膜) 及后续增强引入。 -->
     <PackageReference Include="OpenCvSharp4" Version="4.13.0.20261107" />
