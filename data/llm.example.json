@@ -43,5 +43,7 @@
     }
   ],
   "timeoutSeconds": 8,
-  "_measured": "2026-11-06 实测 pollinations-classic: HTTP 200，首字节约 11.2s，v1 兼容返回；端点级超时已设 25s，否则会被 8s 全局超时判死"
+  "_measured": "2026-11-06 实测 pollinations-classic: HTTP 200，首字节约 11.2s，v1 兼容返回；端点级超时已设 25s，否则会被 8s 全局超时判死",
+  "embeddedModelUrl": "",
+  "_embedded": "瘦包分发时把 GGUF 直链填到 embeddedModelUrl（或直接 --fetch-model <url>）；随包内嵌时留空即可。运行时优先用内嵌 llama-server（147ms/答），其次才用下面的 HTTP 端点。"
 }
