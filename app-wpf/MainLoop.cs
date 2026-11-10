@@ -240,7 +240,14 @@ internal sealed class MainLoop
             //  都没有 = null，编排器自动走 ○语料/·规则。
             string llmText = null;
             var llmAttempted = false;
-            if (options.Count < 2 && (_brain is { Ready: true } || _llm is { Enabled: true }))
+            // 本帧界面类型（供 ◇ 调用条件与编排器共用，避免两处口径不一致）
+            var kindNow = stable.HasValue ? "act"
+                        : (options.Count >= 2 ? "choice"
+                        : (hits.Count > 0 ? "ui" : ""));
+
+            // ◇只补「选项未读到」且（幕次已知 或 三选一）：纯 UI 界面不给模型
+            var wantModel = stable.HasValue || string.Equals(kindNow, "choice", StringComparison.OrdinalIgnoreCase);
+            if (wantModel && options.Count < 2 && (_brain is { Ready: true } || _llm is { Enabled: true }))
             {
                 try
                 {
@@ -279,7 +286,7 @@ internal sealed class MainLoop
                 TeamTarget = _teamTarget,
                 LlmText = llmText,
                 LlmAttempted = llmAttempted,
-                Kind = stable.HasValue ? "act" : (hits.Count > 0 ? "ui" : ""),
+                Kind = kindNow,
             });
 
             // ⑧c 战斗中的指导：当前幕的手法步骤（数据来自 rotations.json，只读文本、不模拟输入）。
