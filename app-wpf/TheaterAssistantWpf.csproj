@@ -101,6 +101,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- llama.cpp 原生库（v0.30 avx2 档，从 LLamaSharp.Backend.Cpu 的 nupkg 提取）：
+         该包的原生库不会被 publish 拷贝（CI 实测「No LLamaSharp backend was installed」），
+         这里显式随包，按 LLamaSharp 期望的 LLamaSharpRuntimes/win-x64/native/<avx>/ 结构落位。 -->
+    <Content Include="../native/llamasharp/avx2/*">
+      <Link>LLamaSharpRuntimes/win-x64/native/avx2/%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- 模型走 EmbeddedResource（编译期就存在，glob 没问题） -->
     <EmbeddedResource Include="models\**\*.onnx" Condition="Exists('models')" />
     <EmbeddedResource Include="models\**\*.txt" Condition="Exists('models')" />
