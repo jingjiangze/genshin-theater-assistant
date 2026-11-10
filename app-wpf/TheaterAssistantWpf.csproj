@@ -79,6 +79,8 @@
     <Compile Include="..\app\LlmAdvisor.cs" Link="logic\LlmAdvisor.cs" />
     <!-- 内嵌小模型：GGUF + 随包 llama-server 子进程，实测 147ms/答 -->
     <Compile Include="..\app\LocalBrain.cs" Link="logic\LocalBrain.cs" />
+    <!-- 模板 ROI（BetterGI 式：识别对象自带搜索区域） -->
+    <Compile Include="..\app\RoiMap.cs" Link="logic\RoiMap.cs" />
     <Compile Include="..\app\OcrTextPipeline.cs" Link="logic\OcrTextPipeline.cs" />
     <Compile Include="..\app\OcrTuning.cs" Link="logic\OcrTuning.cs" />
     <Compile Include="..\app\Playbook.cs" Link="logic\Playbook.cs" />
