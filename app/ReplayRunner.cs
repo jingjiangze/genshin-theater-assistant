@@ -53,12 +53,14 @@ internal static class ReplayRunner
         GuideIndex.LoadWithExtra(AppPaths.Data("guide-corpus.json"));
         Playbook.Load(AppPaths.Data("act-playbook.json"));
 
-        // ◇模型层在环（--llm）：走 data/llm.json 的第一个可用端点。
-        // 本地验证时该文件指向 tools/ml/serve.py（MiniMind 26M，OpenAI 兼容）；
-        // 进程没起 = RefineAsync 返回 null / 报错，Step.Llm 记为空，报告如实显示"未在环"。
-        var llm = useLlm ? LlmAdvisor.TryLoad(AppPaths.Data("llm.json")) : null;
+        // ◇模型层在环（--llm）：优先进程内 GGUF（内嵌模型，实测 ~150ms/答），
+        // 没有再走 data/llm.json 的 HTTP 端点（tools/ml/serve.py）。
+        // 两者都不可用 = Step.Llm 记为空，报告如实显示"未在环"。
+        var brain = useLlm ? LocalBrain.TryLoad(Path.Combine(AppPaths.ModelsRoot, "llm", "minimind-26m-q8.gguf")) : null;
+        var llm = useLlm && brain == null ? LlmAdvisor.TryLoad(AppPaths.Data("llm.json")) : null;
         var llmCalled = 0;
         var llmOk = 0;
+        if (useLlm) Cli.Say("◇模型: " + (brain != null ? "内嵌 " + brain.Status : llm != null ? "HTTP " + llm.Health : "未启用"));
 
         using var ocr = new OcrService();
         ocr.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();
@@ -118,18 +120,27 @@ internal static class ReplayRunner
                     Ms = one.ElapsedMilliseconds,
                 };
 
-                // ◇模型层在环：与运行时同一入口（RefineAsync，含脱敏/限频/冷却）。
+                // ◇模型层在环：优先内嵌 GGUF（~150ms），否则 HTTP 端点（~1s）。
                 // 只在决策有意义的帧上调（幕次已判出 / 三选一 / 剧诗界面），unknown 帧不打扰模型。
-                if (llm != null && (st.Act > 0 || st.Kind is "choice" or "theater" or "team"))
+                if ((brain != null || llm != null) && (st.Act > 0 || st.Kind is "choice" or "theater" or "team"))
                 {
                     llmCalled++;
                     try
                     {
-                        var stateLine = (st.Act > 0 ? $"第{st.Act}幕 " : "") + (st.Kind ?? "");
-                        var t = llm.RefineAsync(stateLine,
-                            advice.Lines.Take(3).ToList(),
-                            roster.Loaded ? "已导入角色池" : "未导入角色池").GetAwaiter().GetResult();
-                        st.Llm = (t ?? "").Replace("\r", " ").Trim();
+                        if (brain != null)
+                        {
+                            var ask = (st.Act > 0 ? $"我在剧诗第{st.Act}幕。" : "我在剧诗界面，幕次还没认出来。")
+                                      + "一句话概括该干嘛。";
+                            st.Llm = (brain.Ask(ask, 64, 1500) ?? "").Replace("\r", " ").Trim();
+                        }
+                        else
+                        {
+                            var stateLine = (st.Act > 0 ? $"第{st.Act}幕 " : "") + (st.Kind ?? "");
+                            var t = llm.RefineAsync(stateLine,
+                                advice.Lines.Take(3).ToList(),
+                                roster.Loaded ? "已导入角色池" : "未导入角色池").GetAwaiter().GetResult();
+                            st.Llm = (t ?? "").Replace("\r", " ").Trim();
+                        }
                         if (st.Llm.Length > 0) llmOk++;
                     }
                     catch (Exception ex2)
