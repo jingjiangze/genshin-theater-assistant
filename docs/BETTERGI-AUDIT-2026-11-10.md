@@ -86,3 +86,54 @@ intel-cmplr-lib-rt/-ur/-lic-rt==2026.1.2、intel-sycl-rt==2026.1.2、onemkl-sycl
 | **◇模型在 XPU** | **1160ms** | CPU 全给 OCR；wall 4622ms/帧，◇在环 30/30 |
 
 叠加此前 `numThreads=6`（P 核）钉核，本机单帧从最初的 **8s → 1.16s（约 7x）**。
+
+## 六、内嵌小模型 + 端侧延迟审计（2026-11-10）
+
+用户要求：模型**内嵌或可选下载**、**延迟太高**（端侧小模型）、**看性能占用**。
+
+### 1) 三条内嵌路线的实测结论
+
+| 路线 | 结果 | 证据 |
+|---|---|---|
+| LLamaSharp（进程内 P/Invoke 封装） | ❌ **否决（4 轮 CI）** | NuGet 0.30 包公开 API 与源码 tag 不符（`WithSearchDirectories`/`WithLibrary` 均 CS1061）；原生探测要求 `LLamaSharpRuntimes/win-x64/native/<avx>/`，单文件与裸 publish 均拿不到（`No LLamaSharp backend was installed`） |
+| 随包 **llama-server 子进程** | ✅ **采用** | 官方二进制（llama.cpp b4400 avx2），应用首用拉起、退出即杀；实测 59+64 token = **147ms** |
+| 外部 Python HTTP（上一轮方案） | ⚠ 降为备选 | 985–1487ms，且要求用户装 Python 环境——与「内嵌」目标冲突 |
+
+**落地**：`native/llama-server/`（llama-server.exe + llama/ggml/llava_shared 共 ~5MB）+ `models/llm/minimind-26m-q8.gguf`（26.4MB）随包；`LocalBrain` 负责端口探测（18923 起，被占顺延、已健康则复用）、`/completion` 调用、退出清理。
+
+GGUF 转出链路（含两个坑）：
+1. llama.cpp 上游 `convert_hf_to_gguf.py` 已拆包 → 用自带完整实现的 tag **b4400**；
+2. **transformers 5.x 把 RoPE 写成 `rope_parameters`**，旧转换器只读 `rope_theta` → 生成的 GGUF 缺 `llama.rope.freq_base`（默认 1e4 vs 实际 1e6）→ 生成空串。补回 `rope_theta` 后输出正确。
+
+### 2) 延迟（26M Q8，本机 i5-13400F）
+
+| 项 | 数值 | 对比 |
+|---|---|---|
+| 模型加载（一次） | **35ms** | — |
+| prompt 59 token | **19.7ms**（3402 tok/s） | — |
+| 生成 64 token | **49.5ms**（1273 tok/s） | torch CPU 64 token 919ms |
+| HTTP 端到端（热） | **147ms** | Python 服务 985–1487ms |
+| 冷启动（含起进程+加载） | 532ms（本机）/ 3299ms（4 核 CI） | — |
+| 回放单帧识别步（中位） | **418ms** | 原 2771ms（HTTP 模型抢 CPU）/ 最初 8000ms |
+| 回放整帧 wall（含 ◇） | **859ms/帧** | 原 4694ms |
+
+### 3) 资源占用
+
+| 进程 | RSS | 说明 |
+|---|---|---|
+| llama-server（Q8 26M + 1K ctx） | **52.9MB** | 常驻；应用退出即回收 |
+| OCR 线程 | 6（P 核） | 混合架构钉核，见 §68 |
+
+### 4) OCR 延迟优化（用户点名「参考现有项目」）
+
+- **帧指纹跳过**：32×32 采样哈希（≈1ms），静态界面（选卡/结算/暂停）整帧复用上一帧结果，省掉整帧 OCR。
+- **全帧 OCR 节拍 3 → 4 帧**（条带 OCR 仍每帧）。
+- 保留 `numThreads=6`（P 核）——这是单帧从 5.0s→1.56s 的主因（§68）。
+
+### 5) 验证
+
+| 验证 | 结果 |
+|---|---|
+| CI（WPF 自检） | **14/14 PASS**，含「内嵌模型可用」；`llama-server 就绪｜3299ms｜<正确输出>` |
+| 真机 `--selftest-live --llm`（内嵌） | **11/11 PASS**，编排来源=◇模型，冷启动 532ms |
+| 真机 `--replay --llm`（30 帧，内嵌） | **◇在环 30/30**、现在做 18/30、检索 30/30、识别步中位 418ms |
