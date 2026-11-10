@@ -245,8 +245,9 @@ internal sealed class MainLoop
                         : (options.Count >= 2 ? "choice"
                         : (hits.Count > 0 ? "ui" : ""));
 
-            // ◇只补「选项未读到」且（幕次已知 或 三选一）：纯 UI 界面不给模型
-            var wantModel = stable.HasValue || string.Equals(kindNow, "choice", StringComparison.OrdinalIgnoreCase);
+            // ◇只补「幕内(act)」与「三选一(choice)」：队伍/难度/大堂这类界面答案来自
+            // playbook 确定性文本，交规则+检索更准（模型训练集只有幕次语境与随机要素）。
+            var wantModel = kindNow is "act" or "choice";
             if (wantModel && options.Count < 2 && (_brain is { Ready: true } || _llm is { Enabled: true }))
             {
                 try
