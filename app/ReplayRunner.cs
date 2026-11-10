@@ -65,7 +65,7 @@ internal static class ReplayRunner
         using var ocr = new OcrService();
         ocr.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();
         Cli.Say("OCR: " + ocr.Status + "｜语料 " + GuideIndex.Count + " 条｜帧 " + files.Count
-                + (llm != null ? "｜◇模型: " + llm.Health : "｜◇模型: 未启用（--llm）"));
+                + (brain != null ? "｜◇模型: 内嵌 llama-server" : llm != null ? "｜◇模型: HTTP " + llm.Health : "｜◇模型: 未启用"));
 
         var steps = new List<Step>();
         var stab = new ActStabilizer();
@@ -136,9 +136,9 @@ internal static class ReplayRunner
                         else
                         {
                             var stateLine = (st.Act > 0 ? $"第{st.Act}幕 " : "") + (st.Kind ?? "");
-                            var t = llm.RefineAsync(stateLine,
+                            var t = llm == null ? null : llm.RefineAsync(stateLine,
                                 advice.Lines.Take(3).ToList(),
-                                roster.Loaded ? "已导入角色池" : "未导入角色池").GetAwaiter().GetResult();
+                                roster?.Loaded == true ? "已导入角色池" : "未导入角色池").GetAwaiter().GetResult();
                             st.Llm = (t ?? "").Replace("\r", " ").Trim();
                         }
                         if (st.Llm.Length > 0) llmOk++;
@@ -220,7 +220,7 @@ internal static class ReplayRunner
             $"- 状态分布：{string.Join("，", perKind)}",
             $"- 给出「现在做」：{withNext}/{steps.Count}；检索命中：{retrieved}/{steps.Count}",
             llmCalled > 0
-                ? $"- ◇模型在环：{llmOk}/{llmCalled} 帧有输出（健康: {llm.Health}）"
+                ? $"- ◇模型在环：{llmOk}/{llmCalled} 帧有输出（来源: {(brain != null ? "内嵌 llama-server" : llm?.Health ?? "?")}）"
                 : "- ◇模型在环：未启用（--llm）",
             $"- 幕次序列（原始）：{string.Join(" → ", rawSeq)}；跳变 {rawJumps.Count} 次{(rawJumps.Count > 0 ? "：" + string.Join("；", rawJumps.Take(4)) : "")}",
             $"- 幕次序列（稳定后）：{string.Join(" → ", stableSeq)}；跳变 {jumps.Count} 次{(jumps.Count > 0 ? "：" + string.Join("；", jumps.Take(4)) : "")}",
