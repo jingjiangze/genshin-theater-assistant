@@ -1,6 +1,9 @@
 name: e2e-sim
 
 # 全链路时序模拟（每日 + 手动）。
+# 注意：testdata/ocr-frames 是真实录像抽帧，但为控制仓库体积缩到了 960x540
+#      （文件名里的 1920x1080 是最初的源分辨率，别当成测试分辨率）。
+#      真 1080p 帧的端到端成本另由本机模拟覆盖（见 docs/BETTERGI-AUDIT-2026-11-10.md §6）。
 #
 # 为什么单独一个工作流：ci 是「提交即验」（编译 + 单帧断言 + 窗口渲染），
 # 这里跑的是**连续时序**——把真机抽出的 1080p 帧按时间顺序喂进完整链路
@@ -23,7 +26,7 @@ concurrency:
 
 jobs:
   replay:
-    name: 时序回放（31 帧真实 1080p）
+    name: 时序回放（30 帧真实录像，960x540）
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -62,7 +65,7 @@ jobs:
       - name: 发布单文件 exe
         run: dotnet publish app/TheaterAssistant.csproj -c Release -r win-x64 --self-contained true -o dist
 
-      - name: 全链路时序回放
+      - name: 全链路时序回放（960x540 真实帧）
         shell: pwsh
         run: |
           chcp 65001 > $null
