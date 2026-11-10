@@ -217,6 +217,22 @@ internal static class Matcher
 
     public static List<Hit> Scan(Bitmap frame, IEnumerable<TemplateEntry> templates, int step = 2)
     {
+        if (frame == null) return new List<Hit>();
+
+        // 大分辨率先降到「参考画布」再匹配：1080p 全分辨率精比实测 2.2s/帧（占整帧 74%），
+        // 半分辨率画布下 act 徽章仍有 66x26，阈值 0.9 足够判别；命中框最后 ×2 映射回原分辨率。
+        if (frame.Width >= 1200)
+        {
+            using var half = Resize(frame, 0.5f);
+            var hitsHalf = ScanAt(half, templates, step, 0.5f);
+            foreach (var h in hitsHalf) { h.X *= 2; h.Y *= 2; }
+            return hitsHalf;
+        }
+        return ScanAt(frame, templates, step, 1f);
+    }
+
+    private static List<Hit> ScanAt(Bitmap frame, IEnumerable<TemplateEntry> templates, int step, float baseScale)
+    {
         var result = new List<Hit>();
         if (frame == null) return result;
 
@@ -240,7 +256,7 @@ internal static class Matcher
             // 1) 半分辨率上试 1.00 与各缩放档，取最优（这里便宜：面积只有 1/4）
             foreach (var s in Scales)
             {
-                using var scaledTpl = Resize(t.Bitmap, s * 0.5f);
+                using var scaledTpl = Resize(t.Bitmap, s * baseScale * 0.5f);
                 byte[] ht = Gray(scaledTpl, out int htw, out int hth);
                 if (htw > hw || hth > hh) continue;
 
@@ -258,7 +274,7 @@ internal static class Matcher
             if (Math.Abs(usedScale - 1.0f) < 0.001f) { fineTpl = tpl; ftw = tw; fth = th; }
             else
             {
-                using var sc2 = Resize(t.Bitmap, usedScale);
+                using var sc2 = Resize(t.Bitmap, usedScale * baseScale);
                 fineTpl = Gray(sc2, out ftw, out fth);
             }
 
