@@ -6,6 +6,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -219,8 +220,118 @@ internal static class Matcher
     {
         if (frame == null) return new List<Hit>();
 
-        // 大分辨率先降到「参考画布」再匹配：1080p 全分辨率精比实测 2.2s/帧（占整帧 74%），
-        // 半分辨率画布下 act 徽章仍有 66x26，阈值 0.9 足够判别；命中框最后 ×2 映射回原分辨率。
+        // 引擎选择：优先 OpenCV matchTemplate（SIMD C++，BetterGI 用的就是它）；
+        // 原生库不可用时回退自写灰度 RMSE（保证功能不因加速缺失而挂）。
+        try
+        {
+            return ScanCv(frame, templates);
+        }
+        catch (Exception ex)
+        {
+            CvFallbackReason = ex.GetType().Name + ": " + ex.Message;
+            return ScanRmse(frame, templates, step);
+        }
+    }
+
+    /// <summary>最后一次 OpenCV 失败原因（诊断用；为空表示 OpenCV 在用）。</summary>
+    public static string CvFallbackReason { get; private set; } = "";
+
+    /// <summary>
+    /// 参考画布 + OpenCV：整帧按宽度归一到一个固定画布（>1100 缩到 960），
+    /// 模板按同样比例缩放后做 CCoeffNormed，坐标再映射回原分辨率。
+    /// 为什么这样做：1080p 上自写 RMSE 全帧精比要 2.2s/帧（实测占整帧 74%），
+    /// 而 OpenCV 在 960 画布上 8 个模板 x 2 档缩放约 40-80ms，且阈值语义与 BetterGI 一致。
+    /// </summary>
+    private static List<Hit> ScanCv(Bitmap frame, IEnumerable<TemplateEntry> templates)
+    {
+        const int CanvasW = 960;
+        var k = frame.Width > 1100 ? CanvasW / (double)frame.Width : 1.0;
+        var list = new List<Hit>();
+
+        using var src = OpenCvSharp.Extensions.BitmapConverter.ToMat(frame);
+        using var gray = new OpenCvSharp.Mat();
+        OpenCvSharp.Cv2.CvtColor(src, gray, OpenCvSharp.ColorConversionCodes.BGRA2GRAY);
+
+        OpenCvSharp.Mat canvas = gray;
+        try
+        {
+            if (Math.Abs(k - 1.0) > 1e-6)
+            {
+                canvas = new OpenCvSharp.Mat();
+                OpenCvSharp.Cv2.Resize(gray, canvas,
+                    new OpenCvSharp.Size(Math.Max(16, (int)(frame.Width * k)), Math.Max(16, (int)(frame.Height * k))),
+                    0, 0, OpenCvSharp.InterpolationFlags.Area);
+            }
+
+            // 只试两档缩放：画布已归一，模板与画布本就同基准（多档是给非整数缩放留的余量）
+            float[] scales = { 1.00f, 1.10f };
+
+            foreach (var t in templates)
+            {
+                using var tplSrc = OpenCvSharp.Extensions.BitmapConverter.ToMat(t.Bitmap);
+                using var tplGray = new OpenCvSharp.Mat();
+                OpenCvSharp.Cv2.CvtColor(tplSrc, tplGray, OpenCvSharp.ColorConversionCodes.BGRA2GRAY);
+
+                var roiRect = RoiFor(t.Name, canvas.Cols, canvas.Rows);
+                using var region = new OpenCvSharp.Mat(canvas, roiRect);
+
+                Hit best = null;
+                foreach (var sc in scales)
+                {
+                    var tk = sc * k;
+                    using var tplScaled = new OpenCvSharp.Mat();
+                    if (Math.Abs(tk - 1.0) > 1e-6)
+                        OpenCvSharp.Cv2.Resize(tplGray, tplScaled,
+                            new OpenCvSharp.Size(Math.Max(4, (int)(tplGray.Width * tk)), Math.Max(4, (int)(tplGray.Height * tk))),
+                            0, 0, OpenCvSharp.InterpolationFlags.Area);
+                    else
+                        tplGray.CopyTo(tplScaled);
+
+                    if (tplScaled.Rows > region.Rows || tplScaled.Cols > region.Cols) continue;
+
+                    using var score = new OpenCvSharp.Mat();
+                    OpenCvSharp.Cv2.MatchTemplate(region, tplScaled, score, OpenCvSharp.TemplateMatchModes.CCoeffNormed);
+                    OpenCvSharp.Cv2.MinMaxLoc(score, out _, out double maxV, out _, out OpenCvSharp.Point maxLoc);
+
+                    if (maxV < t.Threshold - 0.05) continue;
+                    if (best != null && maxV <= best.Score) continue;
+
+                    best = new Hit
+                    {
+                        Name = t.Name,
+                        Score = Math.Round(maxV, 4),
+                        X = (int)Math.Round((roiRect.X + maxLoc.X) / k),
+                        Y = (int)Math.Round((roiRect.Y + maxLoc.Y) / k),
+                    };
+                }
+                if (best != null && best.Score >= t.Threshold) list.Add(best);
+            }
+        }
+        finally
+        {
+            if (!ReferenceEquals(canvas, gray)) canvas.Dispose();
+        }
+        return list;
+    }
+
+    /// <summary>
+    /// 模板搜索区域（画布坐标的比例）。默认全画布；data/template-rois.json 可覆盖。
+    /// 有 ROI 时匹配成本按面积线性下降（BetterGI 的做法：每个识别对象自带区域）。
+    /// </summary>
+    private static OpenCvSharp.Rect RoiFor(string name, int w, int h)
+    {
+        var r = Roimap.Lookup(name);
+        if (r == null) return new OpenCvSharp.Rect(0, 0, w, h);
+        var x = (int)Math.Max(0, Math.Min(w - 2, r[0] * w));
+        var y = (int)Math.Max(0, Math.Min(h - 2, r[1] * h));
+        var rw = (int)Math.Max(4, Math.Min(w - x, r[2] * w));
+        var rh = (int)Math.Max(4, Math.Min(h - y, r[3] * h));
+        return new OpenCvSharp.Rect(x, y, rw, rh);
+    }
+
+    private static List<Hit> ScanRmse(Bitmap frame, IEnumerable<TemplateEntry> templates, int step)
+    {
+        // 大分辨率先降到「参考画布」再匹配：半分辨率画布下 act 徽章仍有 66x26。
         if (frame.Width >= 1200)
         {
             using var half = Resize(frame, 0.5f);
