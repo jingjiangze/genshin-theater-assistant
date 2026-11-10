@@ -139,6 +139,12 @@ internal static class Program
                             (int)OptDouble(args, "--team", 0), (int)OptDouble(args, "--target", 4));
                     }
 
+                // 小模型可选下载（瘦包分发用）：--fetch-model <https url> [--sha256 <hex>]
+                case "--fetch-model":
+                    return ModelFetch.RunCli(Opt(args, "--fetch-model") ?? Opt(args, "--url"),
+                        Opt(args, "--sha256"),
+                        (long)OptDouble(args, "--bytes", 0));
+
                 // 视频模拟运行：按时间顺序逐帧跑完整链路，输出时序报告（--llm = ◇模型层在环）
                 case "--replay":
                     if (args.Length >= 2)
