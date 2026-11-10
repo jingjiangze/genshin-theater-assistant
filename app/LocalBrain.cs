@@ -37,10 +37,10 @@ internal sealed class LocalBrain : IDisposable
     private bool _disposed;
 
     /// <summary>
-    /// 单文件发布下原生 llama.dll 会被解包到 bundle 的临时目录，而 LLamaSharp 默认只按
-    /// exe 同级 / runtimes 找库 → 找不到就抛 TypeInitializationException（CI 实测）。
-    /// 这里**不碰 LLamaSharp 的配置 API**（0.30 包与源码 tag 的可见性不一致，实测 CS1061），
-    /// 直接把解包目录里的 llama*.dll / ggml*.dll 复制到 exe 同级——幂等、可失败、不阻塞。
+    /// 单文件发布下原生库会被解包进 bundle 临时目录，而 LLamaSharp 只按
+    /// 「exe 同级 / LLamaSharpRuntimes/{rid}/native/{avx,avx2,avx512,noavx}/」找库（实测包布局）。
+    /// 这里在第一次调用任何 LLamaSharp API 前，把整棵 LLamaSharpRuntimes 树复制到 exe 同级——
+    /// 保留子目录结构（扁平复制会失败，CI 实测 TypeInitializationException）。
     /// </summary>
     static LocalBrain() => EnsureNativeBesideExe();
 
@@ -48,41 +48,35 @@ internal sealed class LocalBrain : IDisposable
     {
         try
         {
+            var dstRoot = Path.Combine(AppContext.BaseDirectory, "LLamaSharpRuntimes");
+            if (Directory.Exists(Path.Combine(dstRoot, "win-x64", "native", "avx2"))) return;   // 已就位
+
             var searchDirs = (AppContext.GetData("NATIVE_DLL_SEARCH_DIRECTORIES") as string ?? "")
                 .Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
 
-            string src = null;
-            foreach (var d in searchDirs)
-                if (File.Exists(Path.Combine(d, "llama.dll"))) { src = d; break; }
-            if (src == null) return;
-
-            var dst = AppContext.BaseDirectory;
-            if (string.Equals(Path.GetFullPath(src), Path.GetFullPath(dst), StringComparison.OrdinalIgnoreCase)) return;
-
-            foreach (var f in Directory.GetFiles(src, "*.dll"))
+            foreach (var dir in searchDirs)
             {
-                var name = Path.GetFileName(f);
-                if (!name.StartsWith("llama", StringComparison.OrdinalIgnoreCase)
-                    && !name.StartsWith("ggml", StringComparison.OrdinalIgnoreCase))
-                    continue;
-                // LLamaSharp 默认探测：exe 同级 + runtimes/win-x64/native；两处都放一份（不同版本顺序不同，0.30 先看 runtimes）
-                var target = Path.Combine(dst, name);
-                if (!File.Exists(target)) File.Copy(f, target, overwrite: true);
-
-                var ridDir = Path.Combine(dst, "runtimes", "win-x64", "native");
-                try
+                var src = Path.Combine(dir, "LLamaSharpRuntimes");
+                if (Directory.Exists(src))
                 {
-                    Directory.CreateDirectory(ridDir);
-                    var ridTarget = Path.Combine(ridDir, name);
-                    if (!File.Exists(ridTarget)) File.Copy(f, ridTarget, overwrite: true);
+                    CopyTree(src, dstRoot);
+                    return;
                 }
-                catch { }
             }
         }
         catch
         {
             // 复制失败（只读目录等）不致命，交给 LLamaSharp 自己的探测
         }
+    }
+
+    private static void CopyTree(string src, string dst)
+    {
+        Directory.CreateDirectory(dst);
+        foreach (var f in Directory.GetFiles(src))
+            File.Copy(f, Path.Combine(dst, Path.GetFileName(f)), overwrite: true);
+        foreach (var d in Directory.GetDirectories(src))
+            CopyTree(d, Path.Combine(dst, Path.GetFileName(d)));
     }
 
     public string ModelPath { get; }
