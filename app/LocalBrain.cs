@@ -60,7 +60,8 @@ internal sealed class LocalBrain : IDisposable
             if (File.Exists(Path.Combine(ridNative, "llama.dll"))) seen.Add(ridNative);
 
             if (seen.Count > 0)
-                LLama.Native.NativeLibraryConfig.All.WithSearchDirectories(seen);
+                // 0.30 的 Container 没有 WithSearchDirectories；用 LLama 单库配置（MTP/多模态才需要 All）
+                LLama.Native.NativeLibraryConfig.LLama.WithSearchDirectories(seen);
         }
         catch
         {
