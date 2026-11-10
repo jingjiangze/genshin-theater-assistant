@@ -32,6 +32,9 @@
   <ItemGroup>
     <!-- Apache-2.0；PP-OCRv5/v6 ONNX 管线（SkiaSharp + OnnxRuntime），跨平台，AOT 友好 -->
     <PackageReference Include="RapidOcrNet" Version="4.2.0" />
+    <!-- 内嵌推理：llama.cpp 的 C# 绑定（GGUF，CPU 后端） -->
+    <PackageReference Include="LLamaSharp" Version="0.30.0" />
+    <PackageReference Include="LLamaSharp.Backend.Cpu" Version="0.30.0" />
 
     <!--
       DirectML 加速：**当前不可用，已在 CI 实测确认**（2026-11-08）。
@@ -70,6 +73,11 @@
     <!-- OCR 模型：作为嵌入资源打进单文件 exe，运行时解压到 %LOCALAPPDATA%\TheaterAssistant\models -->
     <EmbeddedResource Include="models\**\*.onnx" />
     <EmbeddedResource Include="models\**\*.txt" />
+    <!-- 内嵌小模型（GGUF，Q8_0 26MB）：WinForms 版只做 CLI/回放，按目录随包即可 -->
+    <Content Include="models\**\*.gguf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
