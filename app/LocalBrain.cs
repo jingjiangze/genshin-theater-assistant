@@ -44,30 +44,54 @@ internal sealed class LocalBrain : IDisposable
     /// </summary>
     static LocalBrain() => EnsureNativeBesideExe();
 
+    /// <summary>原生库探测结果（自检打印，便于在 CI 上定位"到底文件在不在"）。</summary>
+    public static string NativeProbe { get; private set; } = "";
+
     private static void EnsureNativeBesideExe()
     {
+        var notes = new List<string>();
         try
         {
-            var dstRoot = Path.Combine(AppContext.BaseDirectory, "LLamaSharpRuntimes");
-            if (Directory.Exists(Path.Combine(dstRoot, "win-x64", "native", "avx2"))) return;   // 已就位
+            var baseDir = AppContext.BaseDirectory;
+            var avx2 = Path.Combine(baseDir, "LLamaSharpRuntimes", "win-x64", "native", "avx2", "llama.dll");
+            var flat = Path.Combine(baseDir, "llama.dll");
+            notes.Add("avx2=" + File.Exists(avx2));
+            notes.Add("flat=" + File.Exists(flat));
 
-            var searchDirs = (AppContext.GetData("NATIVE_DLL_SEARCH_DIRECTORIES") as string ?? "")
-                .Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+            var found = File.Exists(avx2) ? avx2 : (File.Exists(flat) ? flat : null);
 
-            foreach (var dir in searchDirs)
+            // 兜底：从 bundle 解包目录整树复制（单文件时代的路径）
+            if (found == null)
             {
-                var src = Path.Combine(dir, "LLamaSharpRuntimes");
-                if (Directory.Exists(src))
+                var dirs = (AppContext.GetData("NATIVE_DLL_SEARCH_DIRECTORIES") as string ?? "")
+                    .Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var d in dirs)
                 {
-                    CopyTree(src, dstRoot);
-                    return;
+                    var src = Path.Combine(d, "LLamaSharpRuntimes");
+                    if (!Directory.Exists(src)) continue;
+                    CopyTree(src, Path.Combine(baseDir, "LLamaSharpRuntimes"));
+                    notes.Add("copied-from=" + d);
+                    break;
                 }
+                if (File.Exists(avx2)) found = avx2;
+            }
+
+            // 最后逃生口：显式告诉 LLamaSharp 库在哪（官方文档给的 WithLibrary）
+            if (found != null)
+            {
+                try
+                {
+                    LLama.Native.NativeLibraryConfig.LLama.WithLibrary(found);
+                    notes.Add("withLibrary=ok");
+                }
+                catch (Exception ex2) { notes.Add("withLibrary=" + ex2.GetType().Name); }
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // 复制失败（只读目录等）不致命，交给 LLamaSharp 自己的探测
+            notes.Add("probe-err=" + ex.GetType().Name);
         }
+        NativeProbe = string.Join("｜", notes);
     }
 
     private static void CopyTree(string src, string dst)
