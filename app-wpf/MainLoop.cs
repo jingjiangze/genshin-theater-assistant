@@ -167,7 +167,7 @@ internal sealed class MainLoop
             // ④ 条带 OCR（幕次）：ROI 来自玩法档案（剧诗默认 0.28/0.828/0.46/0.05），快且准
             var band = _mode.HasBand
                 ? await _ocr.RecognizeRegionAsync(ocrFrame, new RectangleF(
-                    (float)_mode.BandLeft, (float)_mode.BandTop, (float)_mode.BandWidth, (float)_mode.BandHeight), 4)
+                    (float)_mode.BandLeft, (float)_mode.BandTop, (float)_mode.BandWidth, (float)_mode.BandHeight), 2)
                 : "";
 
             // ⑤ 全帧 OCR：每 3 帧兜一次（不必要每帧全扫，省 CPU）
