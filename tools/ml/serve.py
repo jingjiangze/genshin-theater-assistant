@@ -43,8 +43,17 @@ def load_torch(path: str):
     STATE["backend"] = f"torch-{device}"
 
     def generate(ids, max_tokens: int, eos_id: int):
+        # 输入必须搬到模型所在设备（XPU 上不搬会报 index_select device mismatch）
+        ids = ids.to(device)
         with torch.no_grad():
-            return model.generate(ids, max_new_tokens=max_tokens, do_sample=False, pad_token_id=eos_id)
+            out = model.generate(ids, attention_mask=torch.ones_like(ids), max_new_tokens=max_tokens,
+                                 do_sample=False, pad_token_id=eos_id)
+        if device != "cpu":
+            try:
+                torch.xpu.synchronize()
+            except Exception:
+                pass
+        return out.cpu() if hasattr(out, "cpu") else out
 
     return tok, generate
 
