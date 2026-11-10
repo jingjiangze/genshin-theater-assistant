@@ -184,16 +184,30 @@ internal sealed class LocalBrain : IDisposable
             WorkingDirectory = Path.GetDirectoryName(_serverExe) ?? AppContext.BaseDirectory,
         };
         _proc = Process.Start(psi);
-        if (_proc == null) return false;
+        if (_proc == null) { Status = "llama-server 启动失败（Process.Start 返回 null）"; return false; }
+
+        string errText = "";
+        try
+        {
+            _proc.ErrorDataReceived += (_, e) => { if (e.Data != null) errText = (errText + " " + e.Data).Trim(); if (errText.Length > 400) errText = errText[^400..]; };
+            _proc.BeginErrorReadLine();
+            _proc.BeginOutputReadLine();
+        }
+        catch { }
 
         // 等 /health（模型 26MB，实测 <1s；给足 6s 上限）
         var deadline = Environment.TickCount64 + Math.Max(3000, timeoutMs + 4000);
         while (Environment.TickCount64 < deadline)
         {
             if (Health(port)) { _port = port; return false; }
-            if (_proc.HasExited) return false;
+            if (_proc.HasExited)
+            {
+                Status = $"llama-server 退出(code={(int)_proc.ExitCode})：{errText}";
+                return false;
+            }
             Thread.Sleep(120);
         }
+        Status = "llama-server 未在超时内就绪：" + errText;
         return false;
     }
 
