@@ -85,7 +85,7 @@ internal sealed class LocalBrain : IDisposable
         }
     }
 
-    public string ModelPath    public string ModelPath { get; }
+    public string ModelPath { get; }
     public string Status { get; private set; } = "";
     public bool Ready => _weights != null && !_disposed;
 
