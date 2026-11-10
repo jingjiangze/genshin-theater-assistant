@@ -22,6 +22,7 @@ internal sealed class MainLoop
     private readonly FloatingBall _ball;
     private readonly GameModeProfile _mode;
     private LlmAdvisor _llm;
+    private LocalBrain _brain;
     private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromSeconds(1) };
     private readonly OcrService _ocr = new();
     private readonly List<TemplateEntry> _templates = new();
@@ -33,6 +34,13 @@ internal sealed class MainLoop
     private bool _busy;
     private int _teamSize;
     private int _teamTarget = 4;
+
+    // 画面去重（静态界面省算力）：采样哈希 + 上次决策结果
+    private ulong _lastFrameHash;
+    private int _lastDecideTick;
+    private int? _lastStable;
+    private string _lastBandText = "";
+    private IReadOnlyList<MaskHit> _lastHits = Array.Empty<MaskHit>();
 
     /// <summary>
     /// 每帧快照（给遮罩用）：游戏句柄 + 帧尺寸 + 幕次 + 决策来源 + 命中框。
@@ -66,8 +74,10 @@ internal sealed class MainLoop
             try { Routine.Load(AppPaths.Data("rotations.json")); }
             catch (Exception ex) { App.LogCrash(ex, "MainLoop.RoutineLoad"); }
 
-            // ◇模型层（可选）：data/llm.json 指向谁就用谁。
-            // 本地验证时指向 tools/ml/serve.py（MiniMind 26M）；文件不存在 = 不联网，走原兜底。
+            // ◇模型层（可选）：优先进程内 GGUF（实测 147ms/答），没有再走 data/llm.json 的 HTTP 端点。
+            // 两者都没有 = 不联网，走原兜底（○语料 / ·规则）。
+            try { _brain = LocalBrain.TryLoad(AppPaths.LocalModelPath); }
+            catch (Exception ex) { App.LogCrash(ex, "MainLoop.BrainLoad"); }
             try { _llm = LlmAdvisor.TryLoad(AppPaths.Data("llm.json")); }
             catch (Exception ex) { App.LogCrash(ex, "MainLoop.LlmLoad"); }
 
@@ -86,6 +96,7 @@ internal sealed class MainLoop
     public void Stop()
     {
         _timer.Stop();
+        try { _brain?.Dispose(); } catch { }
         try { _llm?.Dispose(); } catch { }
     }
 
@@ -118,6 +129,28 @@ internal sealed class MainLoop
                 return;
             }
 
+            // ②a 画面没变就整帧跳过（模板 + OCR 都不做）——静态界面（选卡/结算/暂停）下省掉 90% 的算力。
+            //     采样 32×32 像素算哈希（≈1ms），比跑一遍 OCR（~1.1s）便宜三个数量级。
+            var frameHash = FrameHash(bmp);
+            if (frameHash == _lastFrameHash && _lastStable.HasValue && _tickCount - _lastDecideTick < 5)
+            {
+                Emit(new TickSnapshot
+                {
+                    GameHandle = win,
+                    FrameWidth = bmp.Width,
+                    FrameHeight = bmp.Height,
+                    Act = _lastStable,
+                    Status = LastStatus,
+                    Source = LastSource,
+                    BandText = _lastBandText,
+                    Lines = LastLines,
+                    Hits = _lastHits,
+                    Skipped = true,
+                });
+                return;
+            }
+            _lastFrameHash = frameHash;
+
             // ②b OCR 预处理（D5 白字掩膜，配置驱动；off 时返回 null 用原图）
             OcrPreprocess.Load(AppPaths.Data("decision-policy.json"));
             using var pre = OcrPreprocess.Apply(bmp);
@@ -136,7 +169,7 @@ internal sealed class MainLoop
             // ⑤ 全帧 OCR：每 3 帧兜一次（不必要每帧全扫，省 CPU）
             //    走带框识别 + OcrTextPipeline：先按置信度丢噪声，再按「同排从左到右」排序——
             //    否则「第N张」的 N 会和屏幕上的实际位置对不上（选错卡）。
-            if (_tickCount % 3 == 0)
+            if (_tickCount % 4 == 0)
             {
                 var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame);
                 if (boxes != null && boxes.Count > 0)
@@ -196,21 +229,34 @@ internal sealed class MainLoop
 
             var options = ChoiceDecider.ParseOptions(optLines);
             var diff = QuantData.Difficulties.LastOrDefault() ?? "";
+            var enemy = stable.HasValue ? QuantData.Enemy(stable.Value, diff) : null;
 
-            // ⑧b ◇模型层在环：只在「选项未读到」时调用（RefineAsync 自带限频/冷却/脱敏）。
-            // 三选一内容随机是编排器指名要模型裁决的场景；模型没起 = null，编排器自动走 ○语料/·规则。
+            // ⑧b ◇模型层在环：只在「选项未读到」时调用。
+            //  ① 进程内 GGUF（LocalBrain，147ms）→ ② data/llm.json 的 HTTP 端点（约 1s）。
+            //  都没有 = null，编排器自动走 ○语料/·规则。
             string llmText = null;
             var llmAttempted = false;
-            if (_llm is { Enabled: true } && options.Count < 2)
+            if (options.Count < 2 && (_brain is { Ready: true } || _llm is { Enabled: true }))
             {
                 try
                 {
-                    var rosterLine = TeamSolver.AsTeamProfile() is { } tp && tp.Full ? "已导入角色池" : "未导入角色池";
-                    llmText = await _llm.RefineAsync(
-                        stable.HasValue ? $"第{stable}幕 {diff}" : "剧诗界面（幕次未定）",
-                        optLines.Count > 0 ? optLines.Take(3).ToList() : (IReadOnlyList<string>)Array.Empty<string>(),
-                        rosterLine);
-                    llmAttempted = true;
+                    var ask = (stable.HasValue ? $"我在剧诗第{stable}幕，难度{diff}。" : "我在剧诗界面，幕次还没认出来。")
+                              + (enemy != null && enemy.HasAnyData ? "这是首领关。" : "")
+                              + "一句话概括该干嘛。";
+
+                    if (_brain is { Ready: true })
+                    {
+                        llmText = _brain.Ask(ask, maxTokens: 72, timeoutMs: 1200);
+                    }
+                    else
+                    {
+                        var rosterLine = TeamSolver.AsTeamProfile() is { } tp && tp.Full ? "已导入角色池" : "未导入角色池";
+                        llmText = await _llm.RefineAsync(
+                            stable.HasValue ? $"第{stable}幕 {diff}" : "剧诗界面（幕次未定）",
+                            optLines.Count > 0 ? optLines.Take(3).ToList() : (IReadOnlyList<string>)Array.Empty<string>(),
+                            rosterLine);
+                    }
+                    llmAttempted = llmText != null;
                 }
                 catch (Exception ex)
                 {
@@ -218,7 +264,6 @@ internal sealed class MainLoop
                 }
             }
 
-            var enemy = stable.HasValue ? QuantData.Enemy(stable.Value, diff) : null;
             var d = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
             {
                 Act = stable,
@@ -246,6 +291,10 @@ internal sealed class MainLoop
 
             LastSource = d.Source;
             LastLines = d.Lines;
+            _lastStable = stable;
+            _lastBandText = band ?? "";
+            _lastHits = BuildHits(hits);
+            _lastDecideTick = _tickCount;
             LastStatus = stable.HasValue ? $"第{stable}幕 · {d.Source}" : d.Source;
 
             // ⑨ 驱动悬浮球：状态色 + 角标
@@ -331,12 +380,33 @@ internal sealed class MainLoop
         public string Source = "";
         public string BandText = "";
         public bool Abstained;
+        /// <summary>true = 画面未变，本帧跳过识别（复用上一帧结果）。</summary>
+        public bool Skipped;
         public long MissedMs;
         public IReadOnlyList<string> Lines = Array.Empty<string>();
         public IReadOnlyList<MaskHit> Hits = Array.Empty<MaskHit>();
 
         /// <summary>底部条带 ROI（帧像素），遮罩上画一个区域框便于核对。由玩法档案决定。</summary>
         public System.Windows.Rect? BandRect;
+    }
+
+    /// <summary>
+    /// 32×32 采样的帧指纹：静态界面（选卡/结算/暂停）下整帧跳过识别。
+    /// 用 GetPixel 采样 1024 次 ≈ 1ms，比一次全帧 OCR（~1.1s）便宜三个数量级。
+    /// </summary>
+    private static ulong FrameHash(System.Drawing.Bitmap bmp)
+    {
+        ulong h = 1469598103934665603UL;
+        int sx = Math.Max(1, bmp.Width / 32), sy = Math.Max(1, bmp.Height / 32);
+        for (int y = 0; y < bmp.Height; y += sy)
+        {
+            for (int x = 0; x < bmp.Width; x += sx)
+            {
+                var c = bmp.GetPixel(x, y);
+                h = (h ^ (uint)(c.R | (c.G << 8) | (c.B << 16))) * 1099511628211UL;
+            }
+        }
+        return h;
     }
 
     /// <summary>条带 ROI（帧像素）；玩法无条带时返回 null。</summary>
