@@ -139,9 +139,10 @@ internal static class Program
                             (int)OptDouble(args, "--team", 0), (int)OptDouble(args, "--target", 4));
                     }
 
-                // 小模型可选下载（瘦包分发用）：--fetch-model <https url> [--sha256 <hex>]
-                case "--fetch-model":
-                    return ModelFetch.RunCli(Opt(args, "--fetch-model") ?? Opt(args, "--url"),
+                // 小模型可选下载（瘦包分发用）：--fetch-llm <https url> [--sha256 <hex>]
+                // 注意：--fetch-model 已被「资源包更新」占用，这里用 --fetch-llm 区分
+                case "--fetch-llm":
+                    return ModelFetch.RunCli(Opt(args, "--fetch-llm") ?? Opt(args, "--url"),
                         Opt(args, "--sha256"),
                         (long)OptDouble(args, "--bytes", 0));
 
