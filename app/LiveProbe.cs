@@ -106,11 +106,13 @@ internal static class LiveProbe
             if (bmp == null) { lines.Add($"第 {i + 1} 帧：抓取失败"); continue; }
 
             var hits = Matcher.Scan(bmp, templates);
-            var text = ocr.RecognizeAsync(bmp).GetAwaiter().GetResult() ?? "";
+            using var probeCanvas = OcrService.ReferenceCanvas(bmp, out var probeScaled);
+            var ocrImg = probeScaled ? probeCanvas : bmp;
+            var text = ocr.RecognizeAsync(ocrImg).GetAwaiter().GetResult() ?? "";
             // 与正式运行同序：没有模板幕次命中就一定看底部条带（条带比整帧文字可靠）
             bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
             string band = actFromTemplate ? null
-                : ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
+                : ocr.RecognizeRegionAsync(ocrImg, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
             var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
 
             var mean = MeanGray(bmp);
@@ -236,10 +238,12 @@ internal static class LiveProbe
                     double sim = TemplateFactory.ScoreAt(gCaptured, gCore, ix, iy);
                     Check("抓到的画面=源帧", sim >= 0.95, $"相似度 {sim:0.0000}（比中间 {iw}x{ih}）");
 
-                    // 识别链路
+                    // 识别链路（与生产一致：OCR 走参考画布 ~1100 长边）
                     using var ocr = new OcrService();
                     ocr.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();
-                    var boxes = ocr.RecognizeBoxesAsync(bmp, null, bmp.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
+                    using var ocrCanvas = OcrService.ReferenceCanvas(bmp, out var ocrScaled);
+                    var ocrImg = ocrScaled ? ocrCanvas : bmp;
+                    var boxes = ocr.RecognizeBoxesAsync(ocrImg, null, ocrImg.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
                     Check("OCR 可用", boxes != null && boxes.Count > 0, boxes == null ? "未就绪" : $"文本框 {boxes.Count} 条");
                     if (boxes != null)
                     {
@@ -252,7 +256,7 @@ internal static class LiveProbe
                     var hits = Matcher.Scan(bmp, LoadTemplates(bmp.Width));
                     var text = string.Join("\n", (boxes ?? new List<OcrBox>()).Select(b => b.Text));
                     var advice = TheaterLogic.Evaluate(hits, text, theater, roster,
-                        ocr.RecognizeRegionAsync(bmp, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult());
+                        ocr.RecognizeRegionAsync(ocrImg, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult());
                     lines.Add($"      判定: kind={advice.Kind ?? "unknown"} act={advice.Act?.ToString() ?? "-"} 命中 " +
                               $"{(hits.Count > 0 ? string.Join(", ", hits.Select(h => $"{h.Name}={h.Score}")) : "无")}");
                     Check("判定不为空", !string.IsNullOrWhiteSpace(advice.Header), advice.Header);
