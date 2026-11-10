@@ -84,7 +84,9 @@ internal static class ReplayRunner
                 using var canvas = OcrService.ReferenceCanvas(img, out var canvasScaled);
                 var ocrImg = canvasScaled ? canvas : img;
 
-                var boxes = ocr.RecognizeBoxesAsync(ocrImg, null, ocrImg.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
+                // 与生产一致：只 OCR 选项区（0.10–0.95 x / 0.22–0.82 y），不全帧扫
+                var boxes = ocr.RecognizeBoxesAsync(ocrImg,
+                    new RectangleF(0.10f, 0.22f, 0.85f, 0.60f), ocrImg.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
                 var text = string.Join("\n", (boxes ?? new List<OcrBox>()).Select(b => b.Text));
 
                 bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
