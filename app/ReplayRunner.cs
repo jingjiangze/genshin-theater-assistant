@@ -79,12 +79,17 @@ internal static class ReplayRunner
                 using var img = new Bitmap(f);
                 var templates = LoadTemplates(img.Width);
                 var hits = Matcher.Scan(img, templates);
-                var boxes = ocr.RecognizeBoxesAsync(img, null, img.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
+
+                // 参考画布：与生产路径一致（MainLoop 用 OcrService.ReferenceCanvas 限到 ~1100 长边）
+                using var canvas = OcrService.ReferenceCanvas(img, out var canvasScaled);
+                var ocrImg = canvasScaled ? canvas : img;
+
+                var boxes = ocr.RecognizeBoxesAsync(ocrImg, null, ocrImg.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
                 var text = string.Join("\n", (boxes ?? new List<OcrBox>()).Select(b => b.Text));
 
                 bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
                 string band = actFromTemplate ? null
-                    : ocr.RecognizeRegionAsync(img, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
+                    : ocr.RecognizeRegionAsync(ocrImg, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
 
                 var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
                 // 视觉代理标签：从同一输入帧的底部条带 OCR 提取，只用于自洽性诊断，不是独立真值
