@@ -237,7 +237,7 @@ internal static class WpfSelfTest
             var brain = LocalBrain.TryLoad(AppPaths.LocalModelPath, threads: 4, contextSize: 512);
             var ans = brain?.Ask("我在剧诗第3幕，难度月谕。一句话概括该干嘛。", 48, 4000);
             Check("内嵌模型可用（GGUF 进程内）", brain is { Ready: true } && !string.IsNullOrWhiteSpace(ans),
-                brain == null ? "GGUF 未找到/加载失败：" + AppPaths.LocalModelPath
+                brain == null ? "GGUF 未找到/加载失败：" + AppPaths.LocalModelPath + "←" + LocalBrain.LastLoadError
                               : $"{brain.Status}｜{brain.LastLatencyMs}ms｜{(ans ?? "空").Trim()}");
             try { brain?.Dispose(); } catch { }
         }
