@@ -60,9 +60,12 @@ internal static class AppPaths
             if (File.Exists(p) || Directory.Exists(p)) return p;
         }
 
-        // 嵌入资源兜底（如 data/guide-corpus.json → 资源名 TheaterAssistant.data.guide-corpus.json）
+        // 嵌入资源兜底（如 data/guide-corpus.json → 资源名 TheaterAssistant.res.data.guide-corpus.json）
+        // models/ 同理：内嵌小模型 GGUF 会被解到 %LOCALAPPDATA%\TheaterAssistant\models\llm\
         if (relative.StartsWith("data" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
-            || relative.StartsWith("data/", StringComparison.OrdinalIgnoreCase))
+            || relative.StartsWith("data/", StringComparison.OrdinalIgnoreCase)
+            || relative.StartsWith("models" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
+            || relative.StartsWith("models/", StringComparison.OrdinalIgnoreCase))
         {
             var extracted = TryExtract(relative);
             if (extracted != null) return extracted;
@@ -76,6 +79,9 @@ internal static class AppPaths
     public static string TemplatesRoot => Resolve("templates");
 
     public static string ModelsRoot => Resolve("models");
+
+    /// <summary>内嵌小模型的 GGUF 路径（EmbeddedResource 解包 → 或 exe 同级 models/llm/）。</summary>
+    public static string LocalModelPath => Resolve(Path.Combine("models", "llm", "minimind-26m-q8.gguf"));
 
     // ── 嵌入资源解包 ────────────────────────────────────────────
     private static string TryExtract(string relative)
