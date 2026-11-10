@@ -209,13 +209,18 @@ jobs:
           retention-days: 30
           if-no-files-found: warn
 
-      - name: 上传 WPF 单文件 exe
+      - name: 上传 WPF 程序目录（含原生库）
         if: always()
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: TheaterAssistantWpf-${{ github.sha }}
-          path: dist-wpf/TheaterAssistantWpf.exe
+          path: |
+            dist-wpf/TheaterAssistantWpf.exe
+            dist-wpf/*.dll
+            dist-wpf/LLamaSharpRuntimes/**
+            dist-wpf/runtimes/**
+            dist-wpf/models/**
           retention-days: 30
           if-no-files-found: warn
 
