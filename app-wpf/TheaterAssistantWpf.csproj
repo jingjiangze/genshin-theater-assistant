@@ -106,9 +106,10 @@
     <!-- 模型走 EmbeddedResource（编译期就存在，glob 没问题） -->
     <EmbeddedResource Include="models\**\*.onnx" Condition="Exists('models')" />
     <EmbeddedResource Include="models\**\*.txt" Condition="Exists('models')" />
-    <!-- 内嵌小模型 GGUF（Q8_0 26MB）：打进单文件 exe，首启解压到 %LOCALAPPDATA%\TheaterAssistant\models\llm -->
+    <!-- 内嵌小模型 GGUF（Q8_0 26MB）：打进单文件 exe，首启解压到 %LOCALAPPDATA%\TheaterAssistant\models\llm
+         LogicalName 必须全点号（%(RecursiveDir) 原生带反斜杠，会让 AppPaths 的两种探测都落空——CI 实测踩过） -->
     <EmbeddedResource Include="models\**\*.gguf" Condition="Exists('models')">
-      <LogicalName>TheaterAssistant.res.models.%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+      <LogicalName>TheaterAssistant.res.models.$([System.String]::Copy('%(RecursiveDir)').Replace('\','.'))%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 
