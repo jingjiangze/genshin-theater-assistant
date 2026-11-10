@@ -37,39 +37,57 @@ internal sealed class LocalBrain : IDisposable
     private bool _disposed;
 
     /// <summary>
-    /// 单文件发布下原生 llama.dll 会被解包到 bundle 的临时目录，而 LLamaSharp 自己按
-    /// AppContext.BaseDirectory / runtimes/ 找库 → 找不到就抛 TypeInitializationException。
-    /// 这里在**第一次调用任何 LLamaSharp API 之前**，把运行时真实的原生搜索目录告诉它。
-    /// （实测：CI 单文件 exe 上不加这段必定失败）
+    /// 单文件发布下原生 llama.dll 会被解包到 bundle 的临时目录，而 LLamaSharp 默认只按
+    /// exe 同级 / runtimes 找库 → 找不到就抛 TypeInitializationException（CI 实测）。
+    /// 这里**不碰 LLamaSharp 的配置 API**（0.30 包与源码 tag 的可见性不一致，实测 CS1061），
+    /// 直接把解包目录里的 llama*.dll / ggml*.dll 复制到 exe 同级——幂等、可失败、不阻塞。
     /// </summary>
-    static LocalBrain() => ConfigureNativeSearchPath();
+    static LocalBrain() => EnsureNativeBesideExe();
 
-    private static void ConfigureNativeSearchPath()
+    private static void EnsureNativeBesideExe()
     {
         try
         {
-            var seen = new List<string>();
+            var searchDirs = (AppContext.GetData("NATIVE_DLL_SEARCH_DIRECTORIES") as string ?? "")
+                .Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
 
-            // ① 单文件 bundle：运行时自己的原生库搜索目录（含解包目录）
-            var dirs = (AppContext.GetData("NATIVE_DLL_SEARCH_DIRECTORIES") as string ?? "");
-            foreach (var d in dirs.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries))
-                if (File.Exists(Path.Combine(d, "llama.dll"))) seen.Add(d);
+            string src = null;
+            foreach (var d in searchDirs)
+                if (File.Exists(Path.Combine(d, "llama.dll"))) { src = d; break; }
+            if (src == null) return;
 
-            // ② 常规布局：runtimes\win-x64\native（exe 同级）
-            var ridNative = Path.Combine(AppContext.BaseDirectory, "runtimes", "win-x64", "native");
-            if (File.Exists(Path.Combine(ridNative, "llama.dll"))) seen.Add(ridNative);
+            var dst = AppContext.BaseDirectory;
+            if (string.Equals(Path.GetFullPath(src), Path.GetFullPath(dst), StringComparison.OrdinalIgnoreCase)) return;
 
-            if (seen.Count > 0)
-                // 0.30 的 Container 没有 WithSearchDirectories；用 LLama 单库配置（MTP/多模态才需要 All）
-                LLama.Native.NativeLibraryConfig.LLama.WithSearchDirectories(seen);
+            foreach (var f in Directory.GetFiles(src, "*.dll"))
+            {
+                var name = Path.GetFileName(f);
+                if (!name.StartsWith("llama", StringComparison.OrdinalIgnoreCase)
+                    && !name.StartsWith("ggml", StringComparison.OrdinalIgnoreCase))
+                    continue;
+                // LLamaSharp 的默认探测是 exe 同级 + runtimes{rid}
+ative；两处都放一份，
+                // 因为不同版本的 selecting policy 顺序不同（实测 0.30 先看 runtimes）。
+                var target = Path.Combine(dst, name);
+                if (!File.Exists(target)) File.Copy(f, target, overwrite: true);
+
+                var ridDir = Path.Combine(dst, "runtimes", "win-x64", "native");
+                try
+                {
+                    Directory.CreateDirectory(ridDir);
+                    var ridTarget = Path.Combine(ridDir, name);
+                    if (!File.Exists(ridTarget)) File.Copy(f, ridTarget, overwrite: true);
+                }
+                catch { }
+            }
         }
         catch
         {
-            // 配置失败不致命：LLamaSharp 仍会走自己的默认探测
+            // 复制失败（只读目录等）不致命，交给 LLamaSharp 自己的探测
         }
     }
 
-    public string ModelPath { get; }
+    public string ModelPath    public string ModelPath { get; }
     public string Status { get; private set; } = "";
     public bool Ready => _weights != null && !_disposed;
 
