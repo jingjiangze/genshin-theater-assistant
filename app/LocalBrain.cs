@@ -40,6 +40,9 @@ internal sealed class LocalBrain : IDisposable
     public string Status { get; private set; } = "";
     public bool Ready => _weights != null && !_disposed;
 
+    /// <summary>上一次 TryLoad 失败的原因（诊断/自检用，不吞异常信息）。</summary>
+    public static string LastLoadError { get; private set; } = "";
+
     /// <summary>最近一次应答耗时（诊断/自检用）。</summary>
     public long LastLatencyMs { get; private set; }
 
@@ -72,10 +75,14 @@ internal sealed class LocalBrain : IDisposable
             var weights = LLama.LLamaWeights.LoadFromFile(mp);
             var exec = new LLama.StatelessExecutor(weights, mp);
             sw.Stop();
+            LastLoadError = "";
             return new LocalBrain(weights, exec, ggufPath, $"GGUF 已加载（{sw.ElapsedMilliseconds}ms，{new FileInfo(ggufPath).Length / 1048576.0:0.0}MB）");
         }
         catch (Exception ex)
         {
+            // 带上完整原因（含内层），否则单文件发布下"加载失败"无从定位
+            LastLoadError = ex.GetType().Name + ": " + ex.Message
+                            + (ex.InnerException != null ? " ← " + ex.InnerException.GetType().Name + ": " + ex.InnerException.Message : "");
             return null;
         }
     }
