@@ -43,3 +43,46 @@
 - `Fischless.GameCapture` 子模块许可证未确认（离线查不到）→ 我们没有搬它的代码，只自写同思路实现。
 - 16:10 / 21:9 下条带 ROI 的实际落点未真机验证（改了 `modes.json` 即可调，不用改代码）。
 - 单尺度匹配的准确率损失未量化（`PLANNED` 前置：先跑 `--quant` 对比）。
+
+## 五、GPU 优先审计与执行（2026-11-10 深夜追加）
+
+### 1) 三条 GPU 路径的可行性（实测）
+
+| 路径 | 结果 | 证据 |
+|---|---|---|
+| **torch XPU（Intel Arc，oneAPI）** | ✅ **打通** | `torch 2.15.0+xpu` → `xpu avail: True, device=Intel(R) Arc(TM) B580 Graphics`；serve.py 自动选 `torch-xpu`+bf16 |
+| DirectML（OCR 用） | ❌ 阻塞 | `Microsoft.ML.OnnxRuntime.DirectML` 最高 **1.24.4**，RapidOcrNet 4.2.0 需 **1.29.0** 托管程序集 → 版本不匹配（nuget flatcontainer 实测） |
+| Intel OpenVINO EP（OCR 用） | ❌ 阻塞 | `intel.ml.onnxruntime.openvino` 最高 **1.24.1**，同上 |
+| OpenVINO IR（LLM 用） | ⏸ 版本三角 | optimum-intel ↔ datasets ↔ huggingface-hub（transformers 5.x 要 hub<2.0、datasets 要 2.x） |
+
+**结论：OCR 暂时只能 CPU**（两个 GPU EP 都落后于 ORT 1.29）；LLM 走 torch XPU 已可用。
+
+### 2) XPU 轮子获取配方（官方 index 会卡死，R2 CDN 可用）
+
+```
+https://download-r2.pytorch.org/whl/xpu/torch-2.15.0%2Bxpu-cp312-cp312-win_amd64.whl   # 781,337,330 B
+# 8 路 range 并行 + 逐块补断点（单连接 ~200KB/s，R2 并发实测 ~5MB/s）
+# 装完还要补 oneAPI 运行库，否则 c10_xpu.dll 报 WinError 126：
+intel-cmplr-lib-rt/-ur/-lic-rt==2026.1.2、intel-sycl-rt==2026.1.2、onemkl-sycl-{blas,dft,lapack,rng,sparse}==2026.1.0
+```
+注意：`ThreadingHTTPServer` 默认 allow_reuse_address，**同端口会双开两个实例**（新版与旧版各占一个）→ 排查时先 `netstat -ano | grep :17915` 确认单实例。
+
+### 3) 速度实测（26M 模型，64 tok）
+
+| 配置 | 热态延迟 | 说明 |
+|---|---|---|
+| CPU fp32 | 919ms | 基准 |
+| **XPU bf16** | **795–1487ms（中位 ~1.0s）** | 与 CPU 持平：26M 是 launch-bound，不是算力-bound |
+| XPU + fp8 weight-only | 1092ms（**+20%**） | 输出逐字一致；torchao 在 XPU 上仍是逐 op 解量化 |
+| CPU + fp8 / int8 | 2877 / 1839ms | 4x / 2x 慢 |
+
+**fp8 结论（CPU 与 GPU 都试过）：弃用**。收益前提是后端有融合 fp8 GEMM，torchao weight-only 不满足。
+
+### 4) 真正的收益：模型让出 CPU → OCR 提速 2.4x
+
+| 场景（30 帧回放，在环） | 识别步均 | 说明 |
+|---|---|---|
+| ◇模型在 CPU（同机） | 2771ms | LLM 与 OCR 抢 CPU |
+| **◇模型在 XPU** | **1160ms** | CPU 全给 OCR；wall 4622ms/帧，◇在环 30/30 |
+
+叠加此前 `numThreads=6`（P 核）钉核，本机单帧从最初的 **8s → 1.16s（约 7x）**。
