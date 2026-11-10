@@ -182,7 +182,7 @@ internal sealed class OcrService : IDisposable
 
 
     /// <summary>
-    /// 「参考画布」（调用方使用）：超过 1100 像素的帧先等比缩到 1100 内再做 OCR/匹配。
+    /// 「参考画布」（调用方使用）：超过 960 像素的帧先等比缩到 960 内再做 OCR/匹配（BetterGI 的 1080p 参考画布尺度）。
     /// 依据（2026-11-10 实测，1920x1080 真帧）：全分辨率整帧 OCR 777ms/帧，
     /// 缩到 ~960 后约 200-250ms；而仓库回归用的 960x540 帧本来就是这个尺度，识别质量一致。
     /// 返回的 Bitmap 由调用方 Dispose；scaled=false 表示没动过、不要 Dispose。
@@ -192,9 +192,9 @@ internal sealed class OcrService : IDisposable
         scaled = false;
         if (frame == null) return null;
         var maxSide = Math.Max(frame.Width, frame.Height);
-        if (maxSide <= 1100) return frame;
+        if (maxSide <= 960) return frame;
 
-        var k = 1100f / maxSide;
+        var k = 960f / maxSide;
         var w = Math.Max(16, (int)(frame.Width * k));
         var h = Math.Max(16, (int)(frame.Height * k));
         var small = new Bitmap(w, h);
