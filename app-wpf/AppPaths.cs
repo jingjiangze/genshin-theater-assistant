@@ -93,6 +93,21 @@ internal static class AppPaths
             var raw = "TheaterAssistant.res." + relative.Replace('/', '\\');
             var dotted = "TheaterAssistant.res." + relative.Replace('/', '.').Replace('\\', '.');
             var s = asm.GetManifestResourceStream(raw) ?? asm.GetManifestResourceStream(dotted);
+
+            // 兜底：按文件名后缀扫描（%(RecursiveDir) 拼出来的名字形态难预测，实测踩过）
+            if (s == null)
+            {
+                var leaf = Path.GetFileName(relative);
+                foreach (var name in asm.GetManifestResourceNames())
+                {
+                    if (name.EndsWith("." + leaf, StringComparison.OrdinalIgnoreCase)
+                        || name.EndsWith(leaf, StringComparison.OrdinalIgnoreCase))
+                    {
+                        s = asm.GetManifestResourceStream(name);
+                        if (s != null) break;
+                    }
+                }
+            }
             if (s == null) return null;
 
             var target = Path.Combine(ExtractRoot, relative.Replace('/', Path.DirectorySeparatorChar));
