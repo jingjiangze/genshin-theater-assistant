@@ -129,7 +129,7 @@ internal static class ReplayRunner
                 // 只在决策有意义的帧上调（幕次已判出 / 三选一 / 剧诗界面），unknown 帧不打扰模型。
                 // ◇只补「幕次已知」与「三选一」（模型训练集只有幕次语境与随机要素）；
                 // hall/difficulty/team 这类界面答案来自 playbook 确定性文本，交规则/检索更准。
-                if ((brain != null || llm != null) && (st.Act > 0 || st.Kind == "choice"))
+                if ((brain != null || llm != null) && st.Kind is "act" or "choice")
                 {
                     llmCalled++;
                     try
