@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "batch_id": "42835417200-attempt-1",
+  "kind": "ingest",
+  "status": "INGESTED",
+  "workflow": "video-ingest",
+  "run_id": "42835417200",
+  "run_attempt": "1",
+  "source_commit": "f044e62e57969d6b91b15edac6fe24d9ae3d633e",
+  "created_at": "2026-11-10T14:37:59.323461+00:00",
+  "file_count": 4,
+  "total_bytes": 10412,
+  "files": [
+    {
+      "path": "BV193xp6WErn/meta.json",
+      "size_bytes": 2093,
+      "sha256": "2fa50b9c9674ce85bb709f09644f6003cdfdf064603e6881eb12572c7f32bc18"
+    },
+    {
+      "path": "BV193xp6WErn/subs.txt",
+      "size_bytes": 1882,
+      "sha256": "ceecdc2ff064cd9f738b87cb44acdb012b43749be58649ca013a0e4c58c4b686"
+    },
+    {
+      "path": "BV193xp6WErn-ops.json",
+      "size_bytes": 4001,
+      "sha256": "7a54f6b7837d4c02c0a4cea4376eb4a1ab3ae7fb220213c0e2e886154cb7e7e9"
+    },
+    {
+      "path": "ingest-summary.json",
+      "size_bytes": 2436,
+      "sha256": "39c5c78f337d2e62921f2e36bb6aa2641c2b5de63a53ef55ea70ae1122d69a3e"
+    }
+  ],
+  "promotion": {
+    "eligible": false,
+    "reason": "durable ingestion is not semantic validation or independent ground truth"
+  }
+}
