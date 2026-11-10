@@ -127,7 +127,9 @@ internal static class ReplayRunner
 
                 // ◇模型层在环：优先内嵌 GGUF（~150ms），否则 HTTP 端点（~1s）。
                 // 只在决策有意义的帧上调（幕次已判出 / 三选一 / 剧诗界面），unknown 帧不打扰模型。
-                if ((brain != null || llm != null) && (st.Act > 0 || st.Kind is "choice" or "theater" or "team"))
+                // ◇只补「幕次已知」与「三选一」（模型训练集只有幕次语境与随机要素）；
+                // hall/difficulty/team 这类界面答案来自 playbook 确定性文本，交规则/检索更准。
+                if ((brain != null || llm != null) && (st.Act > 0 || st.Kind == "choice"))
                 {
                     llmCalled++;
                     try
