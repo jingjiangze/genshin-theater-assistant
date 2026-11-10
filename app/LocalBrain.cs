@@ -65,9 +65,7 @@ internal sealed class LocalBrain : IDisposable
                 if (!name.StartsWith("llama", StringComparison.OrdinalIgnoreCase)
                     && !name.StartsWith("ggml", StringComparison.OrdinalIgnoreCase))
                     continue;
-                // LLamaSharp 的默认探测是 exe 同级 + runtimes{rid}
-ative；两处都放一份，
-                // 因为不同版本的 selecting policy 顺序不同（实测 0.30 先看 runtimes）。
+                // LLamaSharp 默认探测：exe 同级 + runtimes/win-x64/native；两处都放一份（不同版本顺序不同，0.30 先看 runtimes）
                 var target = Path.Combine(dst, name);
                 if (!File.Exists(target)) File.Copy(f, target, overwrite: true);
 
