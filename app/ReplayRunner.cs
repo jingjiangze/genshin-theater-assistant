@@ -89,7 +89,7 @@ internal static class ReplayRunner
 
                 bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
                 string band = actFromTemplate ? null
-                    : ocr.RecognizeRegionAsync(ocrImg, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
+                    : ocr.RecognizeRegionAsync(ocrImg, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 2).GetAwaiter().GetResult();
 
                 var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
                 // 视觉代理标签：从同一输入帧的底部条带 OCR 提取，只用于自洽性诊断，不是独立真值
