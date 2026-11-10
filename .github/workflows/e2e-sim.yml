@@ -54,6 +54,10 @@ jobs:
               Copy-Item "models/$v/*" "app/models/$v" -Force
             }
           }
+          if (Test-Path "models/llm") {
+            New-Item -ItemType Directory -Force "app/models/llm" | Out-Null
+            Copy-Item "models/llm/*" "app/models/llm" -Force
+          }
 
       - name: 发布单文件 exe
         run: dotnet publish app/TheaterAssistant.csproj -c Release -r win-x64 --self-contained true -o dist
