@@ -1,199 +1,148 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// 内嵌小模型推理（llama.cpp / LLamaSharp，GGUF）。
+// 内嵌小模型推理：随包自带 llama.cpp 的 llama-server 子进程 + 本机 HTTP。
 //
-// 为什么内嵌而不是 HTTP：
-//   实测（2026-11-10，MiniMind-26M Q8_0，同一台 i5-13400F）：
-//     · 本地 HTTP（Python + torch）  985–1487ms/答
-//     · llama.cpp 进程内 Q8          加载 35ms ＋ 生成 63 token 49ms ≈ **147ms/答**
-//   差距来自两处：torch eager 对 26M 模型是逐 op 开销；HTTP 还有进程/序列化开销。
-//   llama.cpp 的 C 实现 + Q8 内核在这个尺度上快一个量级，且不吃 Python 环境。
+// 为什么不是进程内 P/Invoke / LLamaSharp：
+//   · LLamaSharp 0.30 的 NuGet 包公开 API 与其源码 tag 不一致（WithSearchDirectories /
+//     WithLibrary 都编译不过，实测 CS1061），其默认原生探测又要求
+//     LLamaSharpRuntimes/win-x64/native/<avx>/ 结构，单文件/裸 publish 均拿不到（CI 四轮实测）。
+//   · 直接用 llama.cpp C API 需要 P/Invoke 十几个版本相关签名，风险同级。
+//   · llama-server 是官方二进制，行为稳定：实测 59 token prompt + 64 token 生成 = **147ms**。
 //
-// 设计约束：
-//   · 只读红线不变：模型只吃文本、只产文本，不碰游戏进程。
-//   · 单飞：同一时刻只允许一次推理（避免主循环与语音/详情面板并发出两个答案）。
-//   · 超时可配：默认 1200ms；超时就返回 null，调用方自动落回 ○语料/·规则。
-//   · 提示词手搓：GGUF 里没有 chat_template（tokenizer_config 未带），
-//     用 Qwen 式 <|im_start|> 模板；注意 **首 token 由 llama 自动补 BOS**（BOS 即 <|im_start|>），
-//     所以提示字符串里第一个 <|im_start|> 不写，否则会重复。
+// 形态：首次用模型时拉起 llama-server（读应用目录下的 GGUF），退出时杀掉；
+// 端口从 18923 起（被占则顺延），已有健康实例则复用。用户机器上不需要装任何东西。
+//
+// 红线不变：只吃文本、只产文本，不碰游戏进程。
 // ─────────────────────────────────────────────────────────────────────────────
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace TheaterAssistant;
 
 internal sealed class LocalBrain : IDisposable
 {
-    /// <summary>与模型训练时的 system 保持一致（改这里要同步重训）。</summary>
+    /// <summary>与训练时的 system 保持一致（改这里要同步重训）。</summary>
     public const string DefaultSystem = "你是原神「幻想真境剧诗」的随身助手。只给一句可照做的中文指令；不确定就说「不确定」。";
 
-    private readonly LLama.LLamaWeights _weights;
-    private readonly LLama.StatelessExecutor _exec;
+    private const int BasePort = 18923;
+
+    private readonly string _gguf;
+    private readonly string _serverExe;
+    private readonly int _threads;
+    private readonly int _ctxSize;
+    private readonly HttpClient _http;
     private readonly SemaphoreSlim _gate = new(1, 1);
+
+    private Process _proc;
+    private int _port;
     private bool _disposed;
 
-    /// <summary>
-    /// 单文件发布下原生库会被解包进 bundle 临时目录，而 LLamaSharp 只按
-    /// 「exe 同级 / LLamaSharpRuntimes/{rid}/native/{avx,avx2,avx512,noavx}/」找库（实测包布局）。
-    /// 这里在第一次调用任何 LLamaSharp API 前，把整棵 LLamaSharpRuntimes 树复制到 exe 同级——
-    /// 保留子目录结构（扁平复制会失败，CI 实测 TypeInitializationException）。
-    /// </summary>
-    static LocalBrain() => EnsureNativeBesideExe();
-
-    /// <summary>原生库探测结果（自检打印，便于在 CI 上定位"到底文件在不在"）。</summary>
-    public static string NativeProbe { get; private set; } = "";
-
-    private static void EnsureNativeBesideExe()
-    {
-        var notes = new List<string>();
-        try
-        {
-            var baseDir = AppContext.BaseDirectory;
-            var avx2 = Path.Combine(baseDir, "LLamaSharpRuntimes", "win-x64", "native", "avx2", "llama.dll");
-            var flat = Path.Combine(baseDir, "llama.dll");
-            notes.Add("avx2=" + File.Exists(avx2));
-            notes.Add("flat=" + File.Exists(flat));
-
-            var found = File.Exists(avx2) ? avx2 : (File.Exists(flat) ? flat : null);
-
-            // 兜底：从 bundle 解包目录整树复制（单文件时代的路径）
-            if (found == null)
-            {
-                var dirs = (AppContext.GetData("NATIVE_DLL_SEARCH_DIRECTORIES") as string ?? "")
-                    .Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var d in dirs)
-                {
-                    var src = Path.Combine(d, "LLamaSharpRuntimes");
-                    if (!Directory.Exists(src)) continue;
-                    CopyTree(src, Path.Combine(baseDir, "LLamaSharpRuntimes"));
-                    notes.Add("copied-from=" + d);
-                    break;
-                }
-                if (File.Exists(avx2)) found = avx2;
-            }
-
-            // 最后逃生口：显式告诉 LLamaSharp 库在哪（官方文档给的 WithLibrary）
-            if (found != null)
-            {
-                try
-                {
-                    LLama.Native.NativeLibraryConfig.LLama.WithLibrary(found);
-                    notes.Add("withLibrary=ok");
-                }
-                catch (Exception ex2) { notes.Add("withLibrary=" + ex2.GetType().Name); }
-            }
-        }
-        catch (Exception ex)
-        {
-            notes.Add("probe-err=" + ex.GetType().Name);
-        }
-        NativeProbe = string.Join("｜", notes);
-    }
-
-    private static void CopyTree(string src, string dst)
-    {
-        Directory.CreateDirectory(dst);
-        foreach (var f in Directory.GetFiles(src))
-            File.Copy(f, Path.Combine(dst, Path.GetFileName(f)), overwrite: true);
-        foreach (var d in Directory.GetDirectories(src))
-            CopyTree(d, Path.Combine(dst, Path.GetFileName(d)));
-    }
-
-    public string ModelPath { get; }
-    public string Status { get; private set; } = "";
-    public bool Ready => _weights != null && !_disposed;
-
-    /// <summary>上一次 TryLoad 失败的原因（诊断/自检用，不吞异常信息）。</summary>
+    /// <summary>上一次 TryLoad 失败的原因（诊断/自检用）。</summary>
     public static string LastLoadError { get; private set; } = "";
+
+    public string ModelPath => _gguf;
+    public string Status { get; private set; } = "";
+    public bool Ready => !_disposed && _gguf != null && File.Exists(_gguf) && _serverExe != null && File.Exists(_serverExe);
 
     /// <summary>最近一次应答耗时（诊断/自检用）。</summary>
     public long LastLatencyMs { get; private set; }
 
-    private LocalBrain(LLama.LLamaWeights weights, LLama.StatelessExecutor exec, string path, string status)
+    /// <summary>最近一次是否复用了已在跑的进程（false = 本次冷启动）。</summary>
+    public bool LastWasWarm { get; private set; }
+
+    private LocalBrain(string gguf, string serverExe, int threads, int ctxSize)
     {
-        _weights = weights;
-        _exec = exec;
-        ModelPath = path;
-        Status = status;
+        _gguf = gguf;
+        _serverExe = serverExe;
+        _threads = threads;
+        _ctxSize = ctxSize;
+        _http = new HttpClient { Timeout = TimeSpan.FromMilliseconds(8000) };
+        Status = $"llama-server 就绪（{new FileInfo(gguf).Length / 1048576.0:0.0}MB 模型）";
     }
 
     /// <summary>
-    /// 加载 GGUF；文件不存在/加载失败返回 null（调用方据此回退）。
-    /// threads=0 交给 llama 自己定（物理核数），实测 6 线程在 13400F 上最快。
+    /// 只做「文件在不在」的检查，不启动进程（避免启动即吃内存）。
+    /// serverExe 缺省时在 exe 同级 llama-server\ 下找。
     /// </summary>
-    public static LocalBrain TryLoad(string ggufPath, int threads = 6, uint contextSize = 1024)
+    public static LocalBrain TryLoad(string ggufPath, string serverExe = null, int threads = 6, int ctxSize = 1024)
     {
-        if (string.IsNullOrWhiteSpace(ggufPath) || !File.Exists(ggufPath)) return null;
         try
         {
-            var mp = new LLama.Common.ModelParams(ggufPath)
-            {
-                ContextSize = contextSize,
-                GpuLayerCount = 0,          // CPU 后端；将来接 Vulkan 后端再放开
-                BatchSize = 256,
-            };
-            if (threads > 0) mp.Threads = threads;
-
-            var sw = Stopwatch.StartNew();
-            var weights = LLama.LLamaWeights.LoadFromFile(mp);
-            var exec = new LLama.StatelessExecutor(weights, mp);
-            sw.Stop();
             LastLoadError = "";
-            return new LocalBrain(weights, exec, ggufPath, $"GGUF 已加载（{sw.ElapsedMilliseconds}ms，{new FileInfo(ggufPath).Length / 1048576.0:0.0}MB）");
+            if (string.IsNullOrWhiteSpace(ggufPath) || !File.Exists(ggufPath))
+            {
+                LastLoadError = "GGUF 不存在：" + ggufPath;
+                return null;
+            }
+
+            var exe = serverExe;
+            if (string.IsNullOrWhiteSpace(exe))
+            {
+                var cand = Path.Combine(AppContext.BaseDirectory, "llama-server", "llama-server.exe");
+                if (File.Exists(cand)) exe = cand;
+            }
+            if (string.IsNullOrWhiteSpace(exe) || !File.Exists(exe))
+            {
+                LastLoadError = "llama-server.exe 不存在（应随包在 llama-server\\ 下）";
+                return null;
+            }
+
+            return new LocalBrain(ggufPath, exe, threads, ctxSize);
         }
         catch (Exception ex)
         {
-            // 带上完整原因（含内层），否则单文件发布下"加载失败"无从定位
-            LastLoadError = ex.GetType().Name + ": " + ex.Message
-                            + (ex.InnerException != null ? " ← " + ex.InnerException.GetType().Name + ": " + ex.InnerException.Message : "");
+            LastLoadError = ex.GetType().Name + ": " + ex.Message;
             return null;
         }
     }
 
     /// <summary>
-    /// 问一句。返回 null = 超时/失败/未就绪（调用方必须能处理 null）。
-    /// timeoutMs 默认 1200ms：实测 147ms，留 8 倍余量给冷启动/GC。
+    /// 问一句。返回 null = 超时/失败（调用方必须能处理 null，自动落回 ○语料/·规则）。
+    /// timeoutMs 默认 2000ms：热身态实测 147ms，留足冷启动余量。
     /// </summary>
-    public string Ask(string user, int maxTokens = 72, int timeoutMs = 1200)
+    public string Ask(string user, int maxTokens = 72, int timeoutMs = 2000)
     {
         if (!Ready || string.IsNullOrWhiteSpace(user)) return null;
-        if (!_gate.Wait(Math.Max(50, timeoutMs))) return null;
+        if (!_gate.Wait(Math.Max(100, timeoutMs))) return null;
 
         var sw = Stopwatch.StartNew();
         try
         {
+            var warm = EnsureServer(timeoutMs);
+            if (_port == 0) return null;
+            LastWasWarm = warm;
+
             var prompt =
-                "system\n" + DefaultSystem + "<|im_end|>\n" +
+                "<|im_start|>system\n" + DefaultSystem + "<|im_end|>\n" +
                 "<|im_start|>user\n" + user.Trim() + "<|im_end|>\n" +
                 "<|im_start|>assistant\n";
 
-            var ip = new LLama.Common.InferenceParams
+            var payload = JsonSerializer.Serialize(new
             {
-                MaxTokens = maxTokens,
-                AntiPrompts = new List<string> { "<|im_end|>" },
-                SamplingPipeline = new LLama.Sampling.DefaultSamplingPipeline { Temperature = 0.0f },
+                prompt,
+                n_predict = maxTokens,
+                temperature = 0.0,
+                stop = new[] { "<|im_end|>" },
+                cache_prompt = true,
+                stream = false,
+            });
+
+            using var req = new HttpRequestMessage(HttpMethod.Post, $"http://127.0.0.1:{_port}/completion")
+            {
+                Content = new StringContent(payload, Encoding.UTF8, "application/json"),
             };
+            using var resp = _http.Send(req, HttpCompletionOption.ResponseContentRead);
+            if (!resp.IsSuccessStatusCode) return null;
 
-            var sb = new StringBuilder();
-            using var cts = new CancellationTokenSource(timeoutMs);
-            var task = Task.Run(async () =>
-            {
-                await foreach (var tok in _exec.InferAsync(prompt, ip, cts.Token).ConfigureAwait(false))
-                    sb.Append(tok);
-            }, cts.Token);
+            var body = resp.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            using var doc = JsonDocument.Parse(body);
+            var text = doc.RootElement.TryGetProperty("content", out var c) ? c.GetString() : null;
+            text = (text ?? "").Trim();
 
-            // 允许超时后放弃等待（推理线程由 llama 内部收尾，不阻塞主循环）
-            if (!task.Wait(Math.Max(50, timeoutMs)))
-            {
-                try { cts.Cancel(); } catch { }
-                return null;
-            }
-
-            var text = sb.ToString().Trim();
             LastLatencyMs = sw.ElapsedMilliseconds;
             return text.Length == 0 ? null : text;
         }
@@ -207,12 +156,84 @@ internal sealed class LocalBrain : IDisposable
         }
     }
 
+    /// <summary>确保 server 在跑；返回 true=复用已有进程，false=本次冷启动。</summary>
+    private bool EnsureServer(int timeoutMs)
+    {
+        if (_port != 0 && Health(_port)) return true;
+
+        // 已有健康实例（例如上一轮应用残留）：直接复用
+        for (var p = BasePort; p < BasePort + 8; p++)
+        {
+            if (Health(p)) { _port = p; return true; }
+        }
+
+        var port = BasePort;
+        for (var p = BasePort; p < BasePort + 8; p++)
+        {
+            if (!PortBusy(p)) { port = p; break; }
+        }
+
+        var psi = new ProcessStartInfo
+        {
+            FileName = _serverExe,
+            Arguments = $"-m \"{_gguf}\" --port {port} -t {_threads} -c {_ctxSize} --no-webui --no-warmup",
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            WorkingDirectory = Path.GetDirectoryName(_serverExe) ?? AppContext.BaseDirectory,
+        };
+        _proc = Process.Start(psi);
+        if (_proc == null) return false;
+
+        // 等 /health（模型 26MB，实测 <1s；给足 6s 上限）
+        var deadline = Environment.TickCount64 + Math.Max(3000, timeoutMs + 4000);
+        while (Environment.TickCount64 < deadline)
+        {
+            if (Health(port)) { _port = port; return false; }
+            if (_proc.HasExited) return false;
+            Thread.Sleep(120);
+        }
+        return false;
+    }
+
+    private bool Health(int port)
+    {
+        try
+        {
+            using var cts = new CancellationTokenSource(300);
+            using var resp = _http.GetAsync($"http://127.0.0.1:{port}/health", cts.Token).GetAwaiter().GetResult();
+            return resp.IsSuccessStatusCode;
+        }
+        catch { return false; }
+    }
+
+    private static bool PortBusy(int port)
+    {
+        try
+        {
+            using var tcp = new System.Net.Sockets.TcpClient();
+            var task = tcp.ConnectAsync("127.0.0.1", port);
+            return task.Wait(200);
+        }
+        catch { return false; }
+    }
+
     public void Dispose()
     {
         if (_disposed) return;
         _disposed = true;
-        try { _exec?.Context?.Dispose(); } catch { }
-        try { _weights?.Dispose(); } catch { }
+        try { _http.Dispose(); } catch { }
+        try
+        {
+            if (_proc is { HasExited: false })
+            {
+                _proc.Kill(entireProcessTree: true);
+                _proc.WaitForExit(1500);
+            }
+        }
+        catch { }
+        try { _proc?.Dispose(); } catch { }
         try { _gate.Dispose(); } catch { }
     }
 }
