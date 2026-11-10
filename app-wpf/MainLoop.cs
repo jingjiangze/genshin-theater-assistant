@@ -154,7 +154,11 @@ internal sealed class MainLoop
             // ②b OCR 预处理（D5 白字掩膜，配置驱动；off 时返回 null 用原图）
             OcrPreprocess.Load(AppPaths.Data("decision-policy.json"));
             using var pre = OcrPreprocess.Apply(bmp);
-            var ocrFrame = pre ?? bmp;
+
+            // ②c 参考画布：1080p 全分辨率 OCR 实测 777ms/帧，缩到 ~1100 长边约 1/3 成本；
+            //     条带 ROI 用的是相对比例，缩放不影响定位（templates 侧 Matcher 自带半分辨率画布）。
+            using var canvas = OcrService.ReferenceCanvas(pre ?? bmp, out var canvasScaled);
+            var ocrFrame = canvasScaled ? canvas : (pre ?? bmp);
 
             // ③ 模板：分辨率变了就重载
             LoadTemplatesFor(bmp.Width, bmp.Height);
