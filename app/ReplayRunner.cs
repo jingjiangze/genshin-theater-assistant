@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Text;
+using System.Threading;
 using System.Text.Json;
 
 namespace TheaterAssistant;
@@ -37,7 +38,7 @@ internal static class ReplayRunner
         public long Ms;
     }
 
-    public static int Run(string frameDir, string outMd, string outJson, int minStable, bool useLlm = false)
+    public static int Run(string frameDir, string outMd, string outJson, int minStable, bool useLlm = false, int paceMs = 0)
     {
         Cli.Attach();
         frameDir = Path.GetFullPath(frameDir);
@@ -68,30 +69,47 @@ internal static class ReplayRunner
                 + (brain != null ? "｜◇模型: 内嵌 llama-server" : llm != null ? "｜◇模型: HTTP " + llm.Health : "｜◇模型: 未启用"));
 
         var steps = new List<Step>();
+        var frameIndex = 0;
+        var lastText = "";
+        var lastBoxCount = 0;
+        var prevStable = 0;
         var stab = new ActStabilizer();
         var sw = System.Diagnostics.Stopwatch.StartNew();
 
         foreach (var f in files)
         {
+            frameIndex++;
             var one = System.Diagnostics.Stopwatch.StartNew();
             try
             {
                 using var img = new Bitmap(f);
                 var templates = LoadTemplates(img.Width);
+                var swMatch = System.Diagnostics.Stopwatch.StartNew();
                 var hits = Matcher.Scan(img, templates);
+                swMatch.Stop();
 
                 // 参考画布：与生产路径一致（MainLoop 用 OcrService.ReferenceCanvas 限到 ~1100 长边）
                 using var canvas = OcrService.ReferenceCanvas(img, out var canvasScaled);
                 var ocrImg = canvasScaled ? canvas : img;
 
-                // 与生产一致：只 OCR 选项区（0.10–0.95 x / 0.22–0.82 y），不全帧扫
-                var boxes = ocr.RecognizeBoxesAsync(ocrImg,
-                    new RectangleF(0.10f, 0.22f, 0.85f, 0.60f), ocrImg.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
-                var text = string.Join("\n", (boxes ?? new List<OcrBox>()).Select(b => b.Text));
+                // 与生产一致的重 OCR 节拍（MainLoop）：幕次未定每 2 帧、已稳定每 8 帧，其余帧复用上次文本。
+                // 回放若每帧都跑整帧 OCR，测出来的不是产品的成本；连续满载还会把 CPU 拖进降频区。
+                var heavyEvery = prevStable > 0 ? 8 : 2;
+                var swOcr = System.Diagnostics.Stopwatch.StartNew();
+                if ((frameIndex - 1) % heavyEvery == 0)
+                {
+                    var boxes = ocr.RecognizeBoxesAsync(ocrImg, null, ocrImg.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
+                    lastText = string.Join(Environment.NewLine, (boxes ?? new List<OcrBox>()).Select(b => b.Text));
+                    lastBoxCount = boxes?.Count ?? 0;
+                }
+                swOcr.Stop();
+                var text = lastText;
 
                 bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
+                var swBand = System.Diagnostics.Stopwatch.StartNew();
                 string band = actFromTemplate ? null
-                    : ocr.RecognizeRegionAsync(ocrImg, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 2).GetAwaiter().GetResult();
+                    : ocr.RecognizeRegionAsync(ocrImg, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
+                swBand.Stop();
 
                 var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
                 // 视觉代理标签：从同一输入帧的底部条带 OCR 提取，只用于自洽性诊断，不是独立真值
@@ -123,7 +141,7 @@ internal static class ReplayRunner
                     Source = advice.Diagnostics ?? "",
                     TopHit = top == null ? "" : $"{top.Entry.Title}({top.Score:0.00})",
                     WouldSpeak = Speech.NormalizeForSpeech(advice.Lines.FirstOrDefault() ?? ""),
-                    Boxes = boxes?.Count ?? 0,
+                    Boxes = lastBoxCount,
                     Ms = one.ElapsedMilliseconds,
                 };
 
@@ -158,7 +176,14 @@ internal static class ReplayRunner
                     }
                 }
 
+                if (Environment.GetEnvironmentVariable("TA_TIMING") == "1")
+                    Cli.Say($"[timing] {Path.GetFileName(f)} match={swMatch.ElapsedMilliseconds} ocr={swOcr.ElapsedMilliseconds} band={swBand.ElapsedMilliseconds} total={one.ElapsedMilliseconds} boxes={st.Boxes}");
+
                 steps.Add(st);
+                prevStable = st.Act;
+
+                // 模拟真机节拍：主循环是 1s tick，连续满载会把 CPU 拖进降频区（实测 match 都会慢 3-5x）
+                if (paceMs > 0) Thread.Sleep(paceMs);
             }
             catch (Exception ex)
             {
