@@ -210,3 +210,38 @@ GGUF 转出链路（含两个坑）：
 我们三步都做了；剩下的差距主要是 **OCR 引擎本身**（RapidOcrNet v5 mobile vs BGI 的 PP-OCRv6 small）
 和 **CPU 线程超订**（CI runner 4 核跑 6 线程）。要让单帧进 300ms 级，需要 GPU EP（已被 ORT 版本卡住）
 或换更小的 det/rec 模型。
+
+### 6.3 「BGI 的 OCR 为什么快」审计 + 参数对齐（2026-11-11）
+
+用户问：BGI 只 OCR 小 ROI，延迟很低，怎么做到的？
+
+**审计（读 RapidOcrNet 4.2.0 源码 + BGI PaddleOcr 实现）**：
+
+| 项 | BGI | 我们（改之前） |
+|---|---|---|
+| det 缩放 | `limit_side_len=960` + **`limitType=max`（只缩不放）**，无白边 | `RapidOcrOptions.Default`：**Padding=50 白边**、`ImgResize=1024` 长边上限 |
+| 角度分类 | 按需（`use_angle_cls` 可关） | `DoAngle=true` → **每个框都跑一次 cls 前向** |
+| rec | 批处理 `batch=min(8,核数)` | RapidOcrNet 内部逐框 |
+| 调用开销 | 只在触发器的对象 rect 上跑 | 之前是整帧（已在上一步改成 ROI） |
+
+**结论**：`RapidOcrOptions.Default` 是给「整张截图」调的一组参数——白边把小 ROI 面积放大 20–40%，
+`DoAngle` 在多框场景每个框多一次模型前向。这两项在小 ROI 上是纯浪费。
+
+**执行**（`app/OcrService.cs` 两套预设，`record with`）：
+
+```csharp
+OptImage = Default with { Padding = 0, ImgResize = 960, DoAngle = false };  // 整帧/选项区
+OptStrip = Default with { Padding = 0, ImgResize = 640, DoAngle = false };  // 条带（单行小字）
+```
+
+**实测（CI runner 4 核，同硬件对比，1080p 6 帧门）**：
+
+| 版本 | 1080p 单帧 |
+|---|---|
+| OpenCV + ROI + 960 画布 | 1025ms |
+| **+ det 参数对齐（无白边/960/无 cls）** | **529ms** |
+
+**1.9 倍**，且「真机模拟实测 10/10」「WPF 自检 14/14」全过（OCR 能力未被参数调整削弱）。
+
+**还剩的差距**：BGI 的 rec 是**批处理**（一次前向处理多个文本框），RapidOcrNet 是逐框；
+要再压就得绕开 RapidOcrNet 自己组 rec 批（成本高、收益约 -80~120ms/帧），或换 v6 small 模型。
