@@ -324,8 +324,9 @@ jobs:
           if (-not ($actRows | Where-Object { $_.act -eq 3 })) { throw "幕次判定回归：合成帧写的是第3幕，未判出 3" }
 
       # 1080p 真实帧回归：仓库里只有 6 张（体积考虑），跑真 1080p 的端到端耗时。
+      # 注意：replay 现在与生产同节拍（重 OCR 每 2/8 帧），所以均值包含重帧成本。
       # 目的：把「1080p 单帧成本」变成 CI 可复现的数字（此前只有本机手动跑），
-      # 并设上限防止后续改动把它悄悄拖慢（本机实测 ~570ms/帧，runner 更快）。
+      # 并设上限防止后续改动把它悄悄拖慢（生产节拍下 p50 ~270ms、重 OCR 帧 ~1.9s，6 帧均值 ~1.2s）。
       - name: 1080p 真实帧回归（耗时门）
         shell: pwsh
         run: |
@@ -341,7 +342,7 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 1080p 真实帧回归"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $line
           $ms = [int]([regex]::Match($line, '平均 (\d+) ms/帧').Groups[1].Value)
-          if ($ms -gt 1500) { throw "1080p 单帧 $ms ms 超过上限 1500ms" }
+          if ($ms -gt 2000) { throw "1080p 单帧 $ms ms 超过上限 2000ms" }
 
       - name: 悬浮窗渲染自检（画到 bitmap 上断言）
         shell: pwsh
