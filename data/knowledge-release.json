@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "release_id": "rel-3a9b99b3945389eb",
- "created_at": "2026-11-10T15:44:43.342952+00:00",
- "registry_sha256": "22094e750635d5e425c88bc666c14caa46acb8957878ebb848fecc1c4637ffe6",
+ "release_id": "rel-b88e02ad0218019d",
+ "created_at": "2026-11-11T13:53:03.062442+00:00",
+ "registry_sha256": "d9bf1d061af05a938c995e0acf9a17237e08fc349e36560f86afad85069dc031",
  "candidates": [
   {
    "candidate_id": "a75fed69d918cc511b233c76135db64f83f767bd60f76be97b0f029e0b29193d",
@@ -66,7 +66,8 @@
       "42505478504-attempt-1",
       "42628589026-attempt-1",
       "42646604982-attempt-1",
-      "42835417200-attempt-1"
+      "42835417200-attempt-1",
+      "43032528221-attempt-1"
      ],
      "video_id": "BV193xp6WErn",
      "platform": "bilibili",
@@ -96,7 +97,8 @@
       "42497741547-attempt-1",
       "42498352372-attempt-1",
       "42501030488-attempt-1",
-      "42628589026-attempt-1"
+      "42628589026-attempt-1",
+      "43032528221-attempt-1"
      ],
      "video_id": "BV1R3xp6WEKz",
      "platform": "bilibili",
@@ -134,7 +136,7 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 0.5,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-10T15:44:20.274206+00:00"
+    "verified_at": "2026-11-11T13:52:43.761420+00:00"
    }
   },
   {
@@ -199,7 +201,8 @@
       "42505478504-attempt-1",
       "42628589026-attempt-1",
       "42646604982-attempt-1",
-      "42835417200-attempt-1"
+      "42835417200-attempt-1",
+      "43032528221-attempt-1"
      ],
      "video_id": "BV193xp6WErn",
      "platform": "bilibili",
@@ -229,7 +232,8 @@
       "42497741547-attempt-1",
       "42498352372-attempt-1",
       "42501030488-attempt-1",
-      "42628589026-attempt-1"
+      "42628589026-attempt-1",
+      "43032528221-attempt-1"
      ],
      "video_id": "BV1R3xp6WEKz",
      "platform": "bilibili",
@@ -267,10 +271,10 @@
     "strategy_success_rate": 1.0,
     "baseline_strategy_success_rate": 1.0,
     "counter_evidence_resolved": true,
-    "verified_at": "2026-11-10T15:44:20.274244+00:00"
+    "verified_at": "2026-11-11T13:52:43.761481+00:00"
    }
   }
  ],
- "published_to_main": "2026-11-10T16:34:36.268572+00:00",
- "source": "automation-data/knowledge/releases/rel-3a9b99b3945389eb"
+ "published_to_main": "2026-11-11T13:53:04.374897+00:00",
+ "source": "automation-data/knowledge/releases/rel-b88e02ad0218019d"
 }
