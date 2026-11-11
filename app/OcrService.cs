@@ -24,6 +24,28 @@ internal sealed class OcrBox
 /// </summary>
 internal sealed class OcrService : IDisposable
 {
+    // ── 识别参数（2026-11-11 审计后调）───────────────────────────────────────
+    // RapidOcrNet 的 Default 是给「整张截图」调的：Padding=50 白边、ImgResize=1024 长边上限、
+    // DoAngle=true 每框跑角度分类。我们用在小 ROI 上，这三项都是纯浪费：
+    //   · 白边把小 ROI 面积放大约 20-40%；
+    //   · 长边 1024 对 960 画布没有压缩收益；
+    //   · UI 文本都是横排，角度分类（cls）每框多一次模型前向。
+    // BGI 的 det 是 limit_type=max（只缩不放）+ 无白边，这里对齐。
+    private static readonly RapidOcrNet.RapidOcrOptions OptImage = RapidOcrNet.RapidOcrOptions.Default with
+    {
+        Padding = 0,
+        ImgResize = 960,
+        DoAngle = false,
+    };
+
+    /// <summary>条带（单行小字条）：长边压到 640，足够读「第N幕」，成本再降一档。</summary>
+    private static readonly RapidOcrNet.RapidOcrOptions OptStrip = RapidOcrNet.RapidOcrOptions.Default with
+    {
+        Padding = 0,
+        ImgResize = 640,
+        DoAngle = false,
+    };
+
     private RapidOcrNet.RapidOcr _ocr;
     private Task _initTask;
     private volatile bool _ready;
@@ -220,7 +242,7 @@ internal sealed class OcrService : IDisposable
                 using var sk = SKBitmap.Decode(ms.ToArray());
                 if (sk == null) return null;
 
-                var result = _ocr.Detect(sk, RapidOcrNet.RapidOcrOptions.Default);
+                var result = _ocr.Detect(sk, OptImage);
                 return result?.StrRes ?? "";
             }
             catch
@@ -268,7 +290,7 @@ internal sealed class OcrService : IDisposable
                 using var sk = SKBitmap.Decode(ms.ToArray());
                 if (sk == null) return null;
 
-                var result = _ocr.Detect(sk, RapidOcrNet.RapidOcrOptions.Default);
+                var result = _ocr.Detect(sk, OptStrip);
                 return result?.StrRes ?? "";
             }
             catch (Exception ex) { return "OCRERR:" + ex.Message; }
@@ -327,7 +349,7 @@ internal sealed class OcrService : IDisposable
                 using var sk = SKBitmap.Decode(ms.ToArray());
                 if (sk == null) return null;
 
-                var result = _ocr.Detect(sk, RapidOcrNet.RapidOcrOptions.Default);
+                var result = _ocr.Detect(sk, OptImage);
                 var list = new List<OcrBox>();
                 if (result?.TextBlocks == null) return list;
 
