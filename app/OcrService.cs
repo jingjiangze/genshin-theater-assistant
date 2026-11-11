@@ -206,9 +206,9 @@ internal sealed class OcrService : IDisposable
         scaled = false;
         if (frame == null) return null;
         var maxSide = Math.Max(frame.Width, frame.Height);
-        if (maxSide <= 1100) return frame;
+        if (maxSide <= 960) return frame;
 
-        var k = 1100f / maxSide;
+        var k = 960f / maxSide;
         var w = Math.Max(16, (int)(frame.Width * k));
         var h = Math.Max(16, (int)(frame.Height * k));
         var small = new Bitmap(w, h);
