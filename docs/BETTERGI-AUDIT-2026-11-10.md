@@ -189,3 +189,24 @@ GGUF 转出链路（含两个坑）：
 我们现在是「1s 节拍 + 单次决策 ~500ms」，属于**同量级但不是同一指标**。要继续压只能：
 ① OCR 直接吃 DirectML/OpenVINO EP（包版本与 ORT 1.29 不匹配，已审计否决）；
 ② 把 26M 的 det/rec 换成更小的专用模型（BGI 是 PP-OCRv6 det/rec small，我们 v5 mobile 同档）。
+
+**CI 1080p 门（2026-11-11 上线）**：仓库新增 `testdata/frames1080`（6 张真 1080p，13MB，覆盖 act/team/choice/theater/unknown），
+`ci` 新增步骤「1080p 真实帧回归（耗时门）」——打印 `总耗时` 并断言 **≤1500ms/帧**。
+首次运行（GitHub runner 4 核 + OCR 6 线程，存在超订）：**1025ms/帧**，通过。
+这条门的意义：窗口化 1080p 是常态分辨率，此前的 CI 回归只覆盖 960×540，1080p 的性能退化没人拦。
+
+**本地时间线（123 帧真 1080p，i5-13400F / 6 线程 OCR）**：
+
+```
+自写 RMSE 全帧全分辨率     2953ms
++ 参考画布（1100/半分辨率）  906ms
++ OpenCV 引擎 + act ROI     639ms
++ 画布 960 + 条带 2x        568ms   ← 已实测
++ 选项区 ROI + 自适应节拍    代码已落（CI 绿），本地复测待下载产物（CDN 限速）
+```
+
+**与 BGI 的差距在哪**：BGI 的 20Hz 是「触发器轮询」频率，重识别同样低频；它的单次识别便宜是因为
+①每个对象只在自己的 rect 里做 ②OpenCV 的 matchTemplate 是 SIMD ③OCR 只跑小 ROI。
+我们三步都做了；剩下的差距主要是 **OCR 引擎本身**（RapidOcrNet v5 mobile vs BGI 的 PP-OCRv6 small）
+和 **CPU 线程超订**（CI runner 4 核跑 6 线程）。要让单帧进 300ms 级，需要 GPU EP（已被 ORT 版本卡住）
+或换更小的 det/rec 模型。
