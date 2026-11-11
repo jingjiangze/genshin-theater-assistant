@@ -174,7 +174,11 @@ internal sealed class MainLoop
             //    选项/商店卡片集中在画面中段，取 0.10–0.95 x / 0.22–0.82 y（约 60% 宽 × 60% 高），
             //    面积约为全帧的 36%，单次成本降到 1/3；带框 + OcrTextPipeline 保证「第N张」的
             //    N 与屏幕从左到右的顺序一致（否则会选错卡）。
-            if (_tickCount % 3 == 0)
+            // 触发时机也学 BetterGI：轻检查（条带）每帧做，重 OCR 只在「可能有三选一」时做——
+            // 幕次未定时每 2 帧一次（要尽快建立上下文）；幕次稳定后每 8 帧一次（1s 节拍下约 8s，
+            // 三选一界面停留时间远长于此，不会漏）。
+            var heavyEvery = LastAct.HasValue ? 8 : 2;   // 上一帧已稳定就不必频繁重扫
+            if (_tickCount % heavyEvery == 0)
             {
                 var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame,
                     new RectangleF(0.10f, 0.22f, 0.85f, 0.60f));
