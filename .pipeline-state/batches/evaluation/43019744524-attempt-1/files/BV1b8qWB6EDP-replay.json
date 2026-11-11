@@ -1,0 +1,46 @@
+﻿{
+  "frames": 2,
+  "jumps": [],
+  "flips": [],
+  "llm": {
+    "ok": 0,
+    "total": 0,
+    "health": ""
+  },
+  "steps": [
+    {
+      "Frame": "BV1b8qWB6EDP-0s-686x480",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "team",
+      "Header": "队伍配置 · 来源 OCR(队伍配置面板)",
+      "NextAction": "现在做：待命角色凑到 28 人再开月谕，额外编入名额别空着",
+      "Source": "act=?, src=OCR(队伍配置面板)",
+      "TopHit": "额外编入名额 = 开幕增益(90.47)",
+      "WouldSpeak": "待命角色凑到 28 人再开月谕，额外编入名额别空着",
+      "Llm": "",
+      "Boxes": 39,
+      "Ms": 2443
+    },
+    {
+      "Frame": "BV1b8qWB6EDP-30s-686x480",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "第16期 详情(14.16)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Llm": "",
+      "Boxes": 47,
+      "Ms": 2840
+    }
+  ]
+}

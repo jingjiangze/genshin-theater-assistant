@@ -1,0 +1,27 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-11 13:06:23",
+  "bvid": "BV1LwRKBmE2n",
+  "frames": 8,
+  "candidates": 2,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：1幕后台火、6幕香菱+班尼特、7幕自备强力主C+辅助、9幕纳西妲+行秋",
+      "act": 1,
+      "source": "BV1LwRKBmE2n@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色: 2幕火",
+      "act": 2,
+      "source": "BV1LwRKBmE2n@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}
