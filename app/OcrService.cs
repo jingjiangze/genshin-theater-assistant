@@ -1,4 +1,6 @@
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Drawing.Imaging;
 using SkiaSharp;
 
@@ -31,20 +33,10 @@ internal sealed class OcrService : IDisposable
     //   · 长边 1024 对 960 画布没有压缩收益；
     //   · UI 文本都是横排，角度分类（cls）每框多一次模型前向。
     // BGI 的 det 是 limit_type=max（只缩不放）+ 无白边，这里对齐。
-    private static readonly RapidOcrNet.RapidOcrOptions OptImage = RapidOcrNet.RapidOcrOptions.Default with
-    {
-        Padding = 0,
-        ImgResize = 960,
-        DoAngle = false,
-    };
+    private static readonly RapidOcrNet.RapidOcrOptions OptImage = RapidOcrNet.RapidOcrOptions.Default;
 
     /// <summary>条带（单行小字条）：长边压到 640，足够读「第N幕」，成本再降一档。</summary>
-    private static readonly RapidOcrNet.RapidOcrOptions OptStrip = RapidOcrNet.RapidOcrOptions.Default with
-    {
-        Padding = 0,
-        ImgResize = 640,
-        DoAngle = false,
-    };
+    private static readonly RapidOcrNet.RapidOcrOptions OptStrip = RapidOcrNet.RapidOcrOptions.Default;
 
     private RapidOcrNet.RapidOcr _ocr;
     private Task _initTask;
@@ -214,9 +206,9 @@ internal sealed class OcrService : IDisposable
         scaled = false;
         if (frame == null) return null;
         var maxSide = Math.Max(frame.Width, frame.Height);
-        if (maxSide <= 960) return frame;
+        if (maxSide <= 1100) return frame;
 
-        var k = 960f / maxSide;
+        var k = 1100f / maxSide;
         var w = Math.Max(16, (int)(frame.Width * k));
         var h = Math.Max(16, (int)(frame.Height * k));
         var small = new Bitmap(w, h);
@@ -225,6 +217,29 @@ internal sealed class OcrService : IDisposable
         g.DrawImage(frame, 0, 0, w, h);
         scaled = true;
         return small;
+    }
+
+
+    /// <summary>诊断：打印一张图上所有 OCR 文本框（位置/分数/文本），用于确定 ROI。CLI: --ocr-dump &lt;png&gt;</summary>
+    public static int DumpBoxes(string pngPath)
+    {
+        if (!File.Exists(pngPath)) { Cli.Say("文件不存在: " + pngPath); return 2; }
+        using var svc = new OcrService();
+        svc.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();
+        Cli.Say("OCR: " + svc.Status);
+
+        using var bmp = new Bitmap(pngPath);
+        using var canvas = ReferenceCanvas(bmp, out var scaled);
+        var use = scaled ? canvas : bmp;
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+        var boxes = svc.RecognizeBoxesAsync(use).GetAwaiter().GetResult() ?? new List<OcrBox>();
+        sw.Stop();
+        Cli.Say($"框 {boxes.Count} 个｜{sw.ElapsedMilliseconds}ms｜画布 {use.Width}x{use.Height}{(scaled ? "（已缩放）" : "")}");
+        foreach (var b in boxes.OrderBy(b => b.Rect.Y).ThenBy(b => b.Rect.X))
+        {
+            Cli.Say($"  ({b.Rect.X,5},{b.Rect.Y,5}) {b.Rect.Width,4}x{b.Rect.Height,-3} {b.Score:0.00}  {b.Text}");
+        }
+        return 0;
     }
 
     public Task<string> RecognizeAsync(Bitmap frame)
