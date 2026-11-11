@@ -146,11 +146,16 @@ internal static class Program
                         Opt(args, "--sha256"),
                         (long)OptDouble(args, "--bytes", 0));
 
+                // OCR 框诊断：打印一张图的全部文本框（确定 ROI 用）
+                case "--ocr-dump":
+                    return OcrService.DumpBoxes(Opt(args, "--ocr-dump") ?? (args.Length >= 2 ? args[1] : null));
+
                 // 视频模拟运行：按时间顺序逐帧跑完整链路，输出时序报告（--llm = ◇模型层在环）
                 case "--replay":
                     if (args.Length >= 2)
                         return ReplayRunner.Run(args[1], Opt(args, "--out"), Opt(args, "--json"),
-                            (int)OptDouble(args, "--min-stable", 2), args.Contains("--llm"));
+                            (int)OptDouble(args, "--min-stable", 2), args.Contains("--llm"),
+                            (int)OptDouble(args, "--pace", 0));
                     break;
 
                 // 帧驱动量化对照：软件指示 vs 该帧客观事实（人物/决策/战斗）
