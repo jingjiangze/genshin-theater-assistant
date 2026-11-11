@@ -1,0 +1,39 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-11 13:51:54",
+ "bvid": "BV1Z5Gg6dE5U",
+ "frames": 0,
+ "candidates": 3,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "✅ 辉彩祝福选择优先级",
+   "act": 0,
+   "source": "bilibili:BV1Z5Gg6dE5U",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3706925199919121",
+   "creator_name": "溜小溜吖"
+  },
+  {
+   "kind": "buy",
+   "text": "具体的角色配队组合和最优 BUFF 选择我已经整理好另外发一个图文，大家直接抄作业就行！",
+   "act": 0,
+   "source": "bilibili:BV1Z5Gg6dE5U",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3706925199919121",
+   "creator_name": "溜小溜吖"
+  },
+  {
+   "kind": "action",
+   "text": "觉得有用的话别忘了点赞❤️收藏⭐关注我，后续会第一时间更新原神最新攻略！",
+   "act": 0,
+   "source": "bilibili:BV1Z5Gg6dE5U",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "3706925199919121",
+   "creator_name": "溜小溜吖"
+  }
+ ]
+}
