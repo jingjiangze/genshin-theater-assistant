@@ -74,7 +74,7 @@ internal static class WpfSelfTest
             pet.SetState(PetWindow.PetState.Done);
             pet.ShowAdvice("第 6 幕 · 困难",
                 new[] { ("◆ 建议：五郎/九条裟罗/伊安珊", "量化"), ("★ 云端已验证：第3幕推荐 爱诺", "已验证") });
-            var pb = Render(pet, 260, 360);
+            var pb = Render(pet, 260, 300);
             var pn = NonBlankRatio(pb);
             Check("PetWindow 实例化并渲染", pn > 0.01, $"非空像素 {pn:P1}");
             Save(pb, "selftest-wpf-pet.png");
@@ -111,6 +111,7 @@ internal static class WpfSelfTest
             // 导航是 Fluent 形态（左导航 + 卡片页）：页数固定 7，切页走动画路径不能炸
             var navOk = s.PageCount == 7;
             try { s.SelectPage(3); } catch { navOk = false; }
+            Pump(320);   // 等指示条 240ms 动画走完，否则截图里蓝条停在旧位置（视觉验收判为"选中态矛盾"）
 
             var bmp = Render(s, 880, 620);
             var nonBlank = NonBlankRatio(bmp);
@@ -131,7 +132,7 @@ internal static class WpfSelfTest
             mask.Show();
             mask.SetStatus("第3幕", "★云端已验证");
             mask.SetAdvice("用雷把怒气条推满，满条后 15 秒内把爆发全打出去");
-            mask.SetGuide("手法·标记期奶满或无敌帧躲，解除后才是输出窗口（伤害 -50%/暴击 -100%）");
+            mask.SetGuide(App.ShortenGuide("手法·标记期奶满或无敌帧躲，解除后才是输出窗口（伤害 -50%/暴击 -100%）"));   // 走生产同一条截断逻辑（>26 字 + 含「（」）
 
             // 300 行远超上限：裁剪后 inline 数必须 ≤ 200（与上游同一条判据）
             for (var i = 0; i < 300; i++)
@@ -144,10 +145,10 @@ internal static class WpfSelfTest
             mask.SetFrame(new[]
             {
                 new MaskBox { Bounds = new Rect(96, 118, 180, 64), Label = "act3 0.97", Color = Color.FromRgb(0x7E, 0xD8, 0xA0) },
-                new MaskBox { Bounds = new Rect(360, 596, 588, 36), Label = "幕次条带", CornersOnly = false, LabelAlignRight = true },
                 new MaskBox { Bounds = new Rect(980, 300, 96, 96), Label = "hall 0.91", Color = Color.FromRgb(0xD6, 0xB6, 0x60) },
             }, 1280, 720);
 
+            Pump(60);   // 让日志的 ScrollToEnd 与布局跑到稳定（否则截图停在顶部）
             var mb = Render(mask, 1280, 720);
             var mn = NonBlankRatio(mb);
             Check("MaskWindow 实例化并渲染", mn > 0.01, $"非空像素 {mn:P1}");
@@ -155,6 +156,7 @@ internal static class WpfSelfTest
 
             // 展开日志再渲染一张：验收时两张一起看（默认形态 / 排查形态）
             mask.SetLogExpanded(true);
+            Pump(60);
             var mb2 = Render(mask, 1280, 720);
             Check("遮罩日志可展开", NonBlankRatio(mb2) > mn, $"展开后非空像素 {NonBlankRatio(mb2):P1} > 收起 {mn:P1}");
             Save(mb2, "selftest-wpf-mask-log.png");
@@ -266,6 +268,18 @@ internal static class WpfSelfTest
         catch { }
     }
 
+    /// <summary>泵一会儿消息队列：让动画/布局跑到稳定态（自检无外部消息泵）。</summary>
+    private static void Pump(int ms)
+    {
+        var frame = new System.Windows.Threading.DispatcherFrame();
+        var timer = new System.Windows.Threading.DispatcherTimer(
+            TimeSpan.FromMilliseconds(ms), System.Windows.Threading.DispatcherPriority.Background,
+            (_, _) => frame.Continue = false, System.Windows.Threading.Dispatcher.CurrentDispatcher);
+        timer.Start();
+        try { System.Windows.Threading.Dispatcher.PushFrame(frame); } catch { }
+        timer.Stop();
+    }
+
     private static BitmapSource Render(Window w, int width, int height)
     {
         // 必须先固定不透明度：悬浮球/桌宠是 opacity 0→1 淡入的，
@@ -282,6 +296,9 @@ internal static class WpfSelfTest
         w.Measure(new Size(width, height));
         w.Arrange(new Rect(0, 0, width, height));
         w.UpdateLayout();
+        // 重新 Measure/Arrange 会把 RichTextBox 的滚动位置重置到顶部，
+        // 所以渲染前对遮罩再滚一次，保证截图与"玩家真看到的"一致。
+        if (w is MaskWindow maskWin) maskWin.ScrollLogToEnd();
 
         var rtb = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
         rtb.Render(w);
