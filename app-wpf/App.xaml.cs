@@ -209,18 +209,8 @@ public partial class App : System.Windows.Application
         w.SetMode(s.ModeName);
 
         var boxes = new List<MaskBox>();
-        if (s.BandRect is { } band)
-        {
-            boxes.Add(new MaskBox
-            {
-                Bounds = band,
-                Color = System.Windows.Media.Color.FromRgb(0x7E, 0xB8, 0xE8),
-                Thickness = 1.5,
-                Label = "幕次条带",
-                CornersOnly = false,
-                LabelAlignRight = true,   // 左边是被日志面板盖住的区域
-            });
-        }
+        // 幕次条带 ROI 不再画：它是内部识别区域，压在左下角面板下面只露出个"开口矩形"，
+        // 视觉验收判为缺陷（框被面板吃掉 26%、左竖边不可见）。要核对 ROI 请用日志里的条带文本。
         foreach (var h in s.Hits)
         {
             boxes.Add(new MaskBox
@@ -246,7 +236,7 @@ public partial class App : System.Windows.Application
         else
         {
             w.SetAdvice(s.Lines.Count == 0 ? "" : StripMarker(s.Lines[0]));
-            w.SetGuide(s.Lines.FirstOrDefault(l => l.StartsWith("手法·")));
+            w.SetGuide(ShortenGuide(s.Lines.FirstOrDefault(l => l.StartsWith("手法·"))));
         }
 
         var key = $"{s.Act}|{s.Source}|{s.Abstained}|{s.Status}";
@@ -269,6 +259,15 @@ public partial class App : System.Windows.Application
 
         if (s.Hits.Count > 0)
             w.AppendLog("OCR", "命中 " + string.Join("、", s.Hits.Select(h => $"{h.Name} {h.Score:0.00}")));
+    }
+
+    /// <summary>手法行压成一句：去掉「（…）」细节、超过 26 字按句读截断（面板一行放不下就被「…」切成半句）。</summary>
+    internal static string ShortenGuide(string line)
+    {
+        if (string.IsNullOrWhiteSpace(line)) return line;
+        var cut = line.IndexOf('（');
+        if (cut > 8) line = line[..cut];
+        return line.Length <= 26 ? line : line[..26];
     }
 
     /// <summary>去掉决策行开头的来源标记与多余空白（面板已有 ▶ 前缀）。</summary>
