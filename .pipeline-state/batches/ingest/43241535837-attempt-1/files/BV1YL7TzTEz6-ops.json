@@ -1,0 +1,39 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-12 14:54:15",
+ "bvid": "BV1YL7TzTEz6",
+ "frames": 0,
+ "candidates": 3,
+ "ops": [
+  {
+   "kind": "action",
+   "text": "其中17/39/19/39秒分别为第3/6/8/10幕这四个首领挑战关卡用时，BOSS血量数据和在视频中所对应的时间进度条分别为：",
+   "act": 0,
+   "source": "bilibili:BV1YL7TzTEz6",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "322872334",
+   "creator_name": "朱玛"
+  },
+  {
+   "kind": "buy",
+   "text": "剧诗用同一个队伍打全十幕的素材在整套流程上可谓是究极折磨，尤其是第一幕开始之前要反复重开摸一堆牌子凹度极其离谱，能恰好拿到自己想要的四个角色期望概率就已经低到跟抽卡十连三金差不多了，哪怕是打单通只需要摸一次角色邀请都仅有20选2的概率能随到",
+   "act": 0,
+   "source": "bilibili:BV1YL7TzTEz6",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "322872334",
+   "creator_name": "朱玛"
+  },
+  {
+   "kind": "action",
+   "text": "我这里每次重开都有录屏计数，光是开局刷牌子补齐队伍就足足凹了7630次，凹完第十幕最终重开次数已经达到了10867次，如图总共录制了200多个G的废素材比原神客户端还大以至于把硬盘空间都给塞满了。",
+   "act": 0,
+   "source": "bilibili:BV1YL7TzTEz6",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "322872334",
+   "creator_name": "朱玛"
+  }
+ ]
+}

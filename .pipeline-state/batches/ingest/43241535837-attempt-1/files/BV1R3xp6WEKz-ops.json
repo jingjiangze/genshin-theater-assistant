@@ -1,0 +1,179 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-12 14:54:09",
+ "bvid": "BV1R3xp6WEKz",
+ "frames": 0,
+ "candidates": 17,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "需要选出角色：6幕好友高练主C",
+   "act": 0,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "需要留的后台角色：3幕雷，4幕嘲讽，5幕盾奶",
+   "act": 0,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第4幕 推荐 嘲讽",
+   "act": 4,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 钟离",
+   "act": 1,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 菲谢尔",
+   "act": 1,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 卡齐娜",
+   "act": 1,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 夜兰",
+   "act": 2,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 菲林斯",
+   "act": 3,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 爱诺",
+   "act": 3,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 菲利斯",
+   "act": 5,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第5幕 推荐 爱诺",
+   "act": 5,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 强力外援",
+   "act": 6,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 菲谢尔",
+   "act": 7,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 夜兰",
+   "act": 7,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 卡齐娜",
+   "act": 7,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第7幕 推荐 钟离",
+   "act": 7,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 强力外援",
+   "act": 8,
+   "source": "bilibili:BV1R3xp6WEKz",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}
