@@ -162,6 +162,7 @@ public partial class PetWindow : Window
         if (string.IsNullOrWhiteSpace(header) && lines == null)
         {
             Bubble.Visibility = Visibility.Collapsed;
+        BubbleTail.Visibility = Visibility.Collapsed;
             return;
         }
         BubbleHead.Text = header ?? "";
@@ -171,6 +172,7 @@ public partial class PetWindow : Window
                 vm.Add(new LineVm { Text = text, Brush = BrushOf(text) });
         BubbleLines.ItemsSource = vm;
         Bubble.Visibility = Visibility.Visible;
+        BubbleTail.Visibility = Visibility.Visible;
     }
 
     internal sealed class LineVm
@@ -184,11 +186,11 @@ public partial class PetWindow : Window
         var c = string.IsNullOrEmpty(line) ? ' ' : line[0];
         return c switch
         {
-            '◆' => new SolidColorBrush(Color.FromRgb(0x2E, 0x6C, 0xA8)),
-            '★' => new SolidColorBrush(Color.FromRgb(0x9A, 0x76, 0x18)),
-            '◇' => new SolidColorBrush(Color.FromRgb(0x6B, 0x52, 0xA8)),
-            '○' => new SolidColorBrush(Color.FromRgb(0x22, 0x7A, 0x72)),
-            '⚠' => new SolidColorBrush(Color.FromRgb(0xB0, 0x5A, 0x18)),
+            '◆' => new SolidColorBrush(Color.FromRgb(0x7E, 0xB8, 0xE8)),
+            '★' => new SolidColorBrush(Color.FromRgb(0xD6, 0xB6, 0x60)),
+            '◇' => new SolidColorBrush(Color.FromRgb(0xA0, 0x88, 0xDC)),
+            '○' => new SolidColorBrush(Color.FromRgb(0x60, 0xC4, 0xB8)),
+            '⚠' => new SolidColorBrush(Color.FromRgb(0xE8, 0x98, 0x58)),
             '·' => new SolidColorBrush(Color.FromRgb(0x55, 0x5E, 0x70)),
             _ => new SolidColorBrush(Color.FromRgb(0x1C, 0x24, 0x30)),
         };
