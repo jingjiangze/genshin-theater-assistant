@@ -87,7 +87,7 @@ public sealed class OverlayLogDocument : IDisposable
                 }
             }
             finally { _box.EndChange(); }
-            _box.ScrollToEnd();
+            ScrollToLatest();
         }
         finally { _maintaining = false; }
     }
@@ -103,6 +103,20 @@ public sealed class OverlayLogDocument : IDisposable
         _pending = null;
         Maintain();
         return _box.Document.Blocks.LastBlock is Paragraph p ? p.Inlines.Count : 0;
+    }
+
+    /// <summary>
+    /// 滚到最新一行。只调 ScrollToEnd 在重新布局（Measure/Arrange）后会被重置，
+    /// 所以先把插入符移到文档末尾——RichTextBox 的滚动跟随插入符，这一步才是可靠的。
+    /// </summary>
+    internal void ScrollToLatest()
+    {
+        try
+        {
+            _box.CaretPosition = _box.Document.ContentEnd;
+            _box.ScrollToEnd();
+        }
+        catch { }
     }
 
     /// <summary>窗口关闭时退订并撤销唯一待办，迟到回调也会检查已释放状态。</summary>
