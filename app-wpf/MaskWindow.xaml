@@ -113,7 +113,7 @@
 
         <StackPanel Grid.Row="3" x:Name="LogBlock" Visibility="Collapsed">
           <RichTextBox x:Name="LogTextBox"
-                       Margin="12,5,12,0" MaxHeight="164"
+                       Margin="12,5,12,0" MaxHeight="132"
                        IsReadOnly="True" IsUndoEnabled="False"
                        AcceptsReturn="False" AcceptsTab="False"
                        IsDocumentEnabled="False" Focusable="False"
@@ -128,11 +128,11 @@
             <TextBlock x:Name="FootText" HorizontalAlignment="Left"
                        Text="Ctrl+Alt+M 收起日志"
                        FontFamily="Microsoft YaHei UI" FontSize="9.5"
-                       Foreground="#FF7C8899"/>
+                       Foreground="#FF9AA6B8"/>
             <TextBlock x:Name="CountText" HorizontalAlignment="Right"
                        Text="0 行"
                        FontFamily="Microsoft YaHei UI" FontSize="9.5"
-                       Foreground="#FF5C6675"/>
+                       Foreground="#FF8B97A8"/>
           </Grid>
         </StackPanel>
       </Grid>
