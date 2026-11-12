@@ -29,9 +29,9 @@
         ToolTip="单击展开 · 拖动移动 · 右键菜单">
 
     <!-- 外发光（状态色） -->
-    <Ellipse x:Name="Halo" Width="72" Height="72" Fill="#4C7EB8E8">
+    <Ellipse x:Name="Halo" Width="62" Height="62" Fill="#4C7EB8E8">
       <Ellipse.Effect>
-        <BlurEffect Radius="16"/>
+        <BlurEffect Radius="11"/>
       </Ellipse.Effect>
     </Ellipse>
 
