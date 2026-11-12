@@ -83,7 +83,7 @@ public sealed class MaskDrawingLayer : FrameworkElement
 
             var r = new Rect(b.X * sx, b.Y * sy, b.Width * sx, b.Height * sy);
             var pen = GetPen(box.Color, Math.Max(1, box.Thickness));
-            var soft = GetPen(Color.FromArgb(0x40, box.Color.R, box.Color.G, box.Color.B), Math.Max(3, box.Thickness + 3));
+            var soft = GetPen(Color.FromArgb(0x8C, box.Color.R, box.Color.G, box.Color.B), Math.Max(2.5, box.Thickness + 2));
 
             if (box.CornersOnly)
             {
