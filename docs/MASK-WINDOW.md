@@ -12,8 +12,8 @@
 │        │ act3 0.97│  ← 模板命中框（四角括号 + 标签底衬，颜色区分模板类型）                    │
 │        └ ─ ─ ─ ─ ┘                                                                          │
 │                                                                                            │
-│                             ┌─────────────── 幕次条带（整框，细线）───────────────┐          │
-│                             └───────────────────────────────────────────────────┘          │
+│  （幕次条带 ROI 不绘制：它是内部识别区域，画出来会被左下角面板压成"开口矩形"——            │
+│    视觉验收判为缺陷，已删；需要核对时看日志里的条带文本）                                  │
 │  ┌───────────────────────────────┐                                                        │
 │  │▌剧诗助手            [第3幕·★已验证]│  ← 左下角日志面板（半透明渐变 + 圆角 + 阴影）          │
 │  │▶ 用雷把怒气条推满，满条后 15 秒…   │  ← 「现在做」（与悬浮窗/桌宠同一句；弃权时整行收起）    │
@@ -29,7 +29,7 @@
 
 | 文件 | 职责 | 关键点 |
 |---|---|---|
-| `app-wpf/MaskWindow.xaml(.cs)` | 窗口本体：透明置顶、左下日志面板、状态胶囊 | 三样式 `WS_EX_TRANSPARENT/NOACTIVATE/TOOLWINDOW` + `WDA_EXCLUDEFROMCAPTURE` |
+| `app-wpf/MaskWindow.xaml(.cs)` | 窗口本体：透明置顶、左下日志面板、状态胶囊 | 三样式 `WS_EX_TRANSPARENT/NOACTIVATE/TOOLWINDOW` + `WDA_EXCLUDEFROMCAPTURE`；**展开日志时必须把插入符移到文末再 ScrollToEnd**（只调 ScrollToEnd 在重排后会被重置，实测停在第 250 行） |
 | `app-wpf/MaskWindowHost.cs` | 显隐、置顶、跟随客户区 | 只接收「事实」，合并后投递一次 Apply；`MaskPolicy.Decide` 是纯函数 |
 | `app-wpf/MaskDrawingLayer.cs` | 识别框 + 标签绘制 | 帧像素 → 窗口 DIP 比例；Pen/Brush 缓存；四角括号 |
 | `app-wpf/OverlayLogDocument.cs` | 日志文档裁剪 | 200 inline / 10000 字符；只在 Background 优先级合并维护一次 |
