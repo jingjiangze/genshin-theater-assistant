@@ -1,0 +1,46 @@
+﻿{
+  "frames": 2,
+  "jumps": [],
+  "flips": [],
+  "llm": {
+    "ok": 0,
+    "total": 0,
+    "health": ""
+  },
+  "steps": [
+    {
+      "Frame": "BV1b8qWB6EDP-0s-686x480",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "difficulty",
+      "Header": "难度选择 · 来源 OCR(难度面板)",
+      "NextAction": "现在做：角色池不够 22 人就先打卓越，够 28 人再上月谕",
+      "Source": "act=?, src=OCR(难度面板)",
+      "TopHit": "两种难度：卓越 12 场 / 月谕 14 场 + 圣牌(37.37)",
+      "WouldSpeak": "角色池不够 22 人就先打卓越，够 28 人再上月谕",
+      "Llm": "",
+      "Boxes": 55,
+      "Ms": 3118
+    },
+    {
+      "Frame": "BV1b8qWB6EDP-30s-686x480",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "difficulty",
+      "Header": "难度选择 · 来源 OCR(难度面板)",
+      "NextAction": "现在做：角色池不够 22 人就先打卓越，够 28 人再上月谕",
+      "Source": "act=?, src=OCR(难度面板)",
+      "TopHit": "两种难度：卓越 12 场 / 月谕 14 场 + 圣牌(37.37)",
+      "WouldSpeak": "角色池不够 22 人就先打卓越，够 28 人再上月谕",
+      "Llm": "",
+      "Boxes": 55,
+      "Ms": 318
+    }
+  ]
+}

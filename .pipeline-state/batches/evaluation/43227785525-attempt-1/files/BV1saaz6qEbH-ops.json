@@ -1,0 +1,90 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-12 14:03:25",
+  "bvid": "BV1saaz6qEbH",
+  "frames": 8,
+  "candidates": 9,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主C+辅助、7幕行秋、8幕自备较强主C+辅助",
+      "act": 6,
+      "source": "BV1saaz6qEbH@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：5幕风、6幕弓箭手",
+      "act": 5,
+      "source": "BV1saaz6qEbH@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主c+辅助，7幕行秋，8幕自备较强主c+辅助",
+      "act": 6,
+      "source": "BV1saaz6qEbH@1004s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：映角色买角色缺buf买buf",
+      "act": 0,
+      "source": "BV1saaz6qEbH@1004s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：那维菜特+茜特莅莉+布伦妮+水",
+      "act": 0,
+      "source": "BV1saaz6qEbH@1004s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主cr辅助，7幕行秋，&幕自备较强主c+辅助",
+      "act": 6,
+      "source": "BV1saaz6qEbH@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2水风1挂件",
+      "act": 0,
+      "source": "BV1saaz6qEbH@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：微合角能",
+      "act": 0,
+      "source": "BV1saaz6qEbH@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：流浪者+芭芭拉+凯亚+挂件",
+      "act": 0,
+      "source": "BV1saaz6qEbH@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

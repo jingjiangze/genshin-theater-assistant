@@ -1,0 +1,63 @@
+﻿{
+  "frames": 3,
+  "jumps": [],
+  "flips": [],
+  "llm": {
+    "ok": 0,
+    "total": 0,
+    "health": ""
+  },
+  "steps": [
+    {
+      "Frame": "BV1U4P3zME3q-0s-854x394",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "第16期 详情(14.16)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Llm": "",
+      "Boxes": 11,
+      "Ms": 1239
+    },
+    {
+      "Frame": "BV1U4P3zME3q-30s-854x394",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "第16期 详情(14.16)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Llm": "",
+      "Boxes": 11,
+      "Ms": 425
+    },
+    {
+      "Frame": "BV1U4P3zME3q-60s-854x394",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "第16期 详情(14.16)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Llm": "",
+      "Boxes": 14,
+      "Ms": 1892
+    }
+  ]
+}

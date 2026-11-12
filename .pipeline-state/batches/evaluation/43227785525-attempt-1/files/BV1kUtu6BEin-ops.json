@@ -1,0 +1,207 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-12 14:08:19",
+  "bvid": "BV1kUtu6BEin",
+  "frames": 7,
+  "candidates": 22,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主C+辅助，8幕自备较强主C+辅助",
+      "act": 6,
+      "source": "BV1kUtu6BEin@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：月谕2草、9幕水或草",
+      "act": 9,
+      "source": "BV1kUtu6BEin@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主e+辅助，8幕自备较强主c+辅助",
+      "act": 6,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后合角色：月谕2草、9幕水或草",
+      "act": 9,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买到buff",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：较强主c+辅助",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主c+辅助，8幕自备较强主e+辅助",
+      "act": 6,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开：买22件",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：愚人众",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：卡维+行秋+2捷件",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主e+辅助，8幕自备较强主ct辅助",
+      "act": 6,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：肤角色买角色缺buf买buf",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：纳塔龙众",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：久峡忍+卡维+哥伦比短+挂件",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：6幕自备较弱主c+辅助，8幕自备较强主c+辅助",
+      "act": 6,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：确保有4续件",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买buf:看自备主c",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买角色：强力外摄>弱<+辅动",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：遗迹守卫",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找角色",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买buf",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：弱c+5盾助",
+      "act": 0,
+      "source": "BV1kUtu6BEin@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

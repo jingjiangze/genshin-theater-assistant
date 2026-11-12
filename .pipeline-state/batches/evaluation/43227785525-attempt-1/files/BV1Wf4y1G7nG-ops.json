@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-12 14:05:48",
+  "bvid": "BV1Wf4y1G7nG",
+  "frames": 8,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "出比该诗歌集更加出名的书籍，其中有一本书就他们并不需要经验去检验它们，他们被休误称为必然真理。",
+      "act": 0,
+      "source": "BV1Wf4y1G7nG@s",
+      "creator_id": "22131322",
+      "creator_name": "ciren司喜人",
+      "needsReview": true
+    }
+  ]
+}

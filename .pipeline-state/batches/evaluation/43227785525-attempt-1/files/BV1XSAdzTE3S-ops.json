@@ -1,0 +1,72 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-12 14:10:00",
+  "bvid": "BV1XSAdzTE3S",
+  "frames": 8,
+  "candidates": 7,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "Lv.4需要选出角色：5幕琳妮特、6幕偏弱主C、18幕偏强主C(或雷C)+聚怪角色",
+      "act": 5,
+      "source": "BV1XSAdzTE3S@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "祝播等级1：演出换战中，角色生命值上限提升1200点需要留的后台角色：5幕冰、7幕冰5秒内击败所有敌人",
+      "act": 5,
+      "source": "BV1XSAdzTE3S@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "Lv.4需要选出角色：5幕琳妮特、6幕偏弱主C、8幕偏强主C(或雷C)+聚怪角色",
+      "act": 5,
+      "source": "BV1XSAdzTE3S@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "祝据等级1：演出接战中，角色生命值上限提升1200点需要留的后台角色：5幕冰、7幕冰专败18名敌人",
+      "act": 5,
+      "source": "BV1XSAdzTE3S@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕琳妮特、6幕偏弱主C、8幕偏强主C(或雷C)聚怪角色",
+      "act": 5,
+      "source": "BV1XSAdzTE3S@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：5幕冰、7幕冰",
+      "act": 5,
+      "source": "BV1XSAdzTE3S@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕琳妮特、6幕偏弱主C、8幕偏强主C(或雷C)+聚怪角色",
+      "act": 5,
+      "source": "BV1XSAdzTE3S@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    }
+  ]
+}
