@@ -129,6 +129,14 @@ public partial class MaskWindow : Window
         LogBlock.Visibility = on ? Visibility.Visible : Visibility.Collapsed;
         Divider.Visibility = on ? Visibility.Visible : Visibility.Collapsed;
         Chevron.Text = on ? "▾" : "▸";
+
+        // 折叠状态下 ScrollToEnd 是空操作（没有 viewport），所以展开后必须再滚一次，
+        // 否则玩家按 Ctrl+Alt+M 看到的是"最旧的 8 行"，最新一条在下面看不到（视觉验收实测踩到）。
+        if (on)
+        {
+            Dispatcher.BeginInvoke(new Action(ScrollLogToEnd), System.Windows.Threading.DispatcherPriority.Loaded);
+            Dispatcher.BeginInvoke(new Action(ScrollLogToEnd), System.Windows.Threading.DispatcherPriority.Background);
+        }
     }
 
     public bool LogExpanded => _logExpanded;
@@ -204,10 +212,15 @@ public partial class MaskWindow : Window
         p.Inlines.Add(new Run(" " + (message ?? "")) { Foreground = TextBrush });
 
         _lineCount++;
-        var inlines = _logDocument.MaintainNow();   // UI 线程同步裁剪：行数有上限，内存恒定（自检也走这条）
+        var inlines = _logDocument.MaintainNow();
+        // 裁剪后强制滚到最新（验收发现日志停在顶部，"最近 50 行"看不到最新一条）
+        Dispatcher.BeginInvoke(new Action(ScrollLogToEnd), System.Windows.Threading.DispatcherPriority.Background);   // UI 线程同步裁剪：行数有上限，内存恒定（自检也走这条）
         var retained = Math.Max(1, (inlines + 1) / 4);   // 每行 = 3 个 inline + 1 个换行
         CountText.Text = $"共 {_lineCount} 行 · 最近 {retained} 行";
     }
+
+    /// <summary>滚到日志最新一行（自检在 Render 前也会调一次，覆盖重排后的重置）。</summary>
+    internal void ScrollLogToEnd() => _logDocument.ScrollToLatest();
 
     /// <summary>同步执行日志裁剪并返回尾部段落 inline 数（自检专用）。</summary>
     internal int TrimLogsNow() => _logDocument.MaintainNow();
