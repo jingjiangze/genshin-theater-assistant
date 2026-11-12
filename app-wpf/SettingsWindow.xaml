@@ -84,7 +84,8 @@
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="12,0,16,14">
       <Button x:Name="BtnConfigDir" Content="配置目录" Width="104" Height="32" Margin="8,0,0,0"/>
       <Button x:Name="BtnLogDir" Content="日志目录" Width="104" Height="32" Margin="8,0,0,0"/>
-      <Button x:Name="BtnSave" Content="保存并关闭" Width="112" Height="32" Margin="8,0,0,0"/>
+      <Button x:Name="BtnSave" Content="保存并关闭" Width="112" Height="32" Margin="8,0,0,0"
+              Background="#FF2C6BD8" Foreground="White" BorderThickness="0"/>
     </StackPanel>
   </Grid>
 </ui:FluentWindow>
