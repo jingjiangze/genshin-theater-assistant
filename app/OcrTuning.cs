@@ -33,6 +33,12 @@ internal static class OcrTuning
     /// </summary>
     public static string EpStatus { get; internal set; } = "未知（OCR 引擎尚未初始化）";
 
+    /// <summary>
+    /// 模型选择（设置窗写入 ocr.model）：v6 / v5 / auto。
+    /// 此前这个字段**只写不读**（审计发现），设置页切了也不生效。
+    /// </summary>
+    public static string ModelPreference { get; private set; } = "auto";
+
     public static void Load(string policyPath)
     {
         Source = "(缺 decision-policy.json 的 ocr 段，用内置默认)";
@@ -50,6 +56,11 @@ internal static class OcrTuning
                 DirectMLDeviceId = dev.GetInt32();
             if (ocr.TryGetProperty("numThreads", out var nt) && nt.ValueKind == JsonValueKind.Number)
                 NumThreads = nt.GetInt32();
+            if (ocr.TryGetProperty("model", out var m) && m.ValueKind == JsonValueKind.String)
+            {
+                var v = (m.GetString() ?? "").Trim().ToLowerInvariant();
+                if (v is "v6" or "v5" or "auto") ModelPreference = v;
+            }
 
             Source = Path.GetFileName(policyPath) + " → ocr";
         }
@@ -61,7 +72,7 @@ internal static class OcrTuning
         Cli.Attach();
         Load(AppPaths.Data("decision-policy.json"));
         Cli.Say($"OCR 调优来源: {Source}");
-        Cli.Say($"  enableDirectML={EnableDirectML} deviceId={DirectMLDeviceId} numThreads={(NumThreads == 0 ? "自动" : NumThreads.ToString())}");
+        Cli.Say($"  enableDirectML={EnableDirectML} deviceId={DirectMLDeviceId} numThreads={(NumThreads == 0 ? "自动" : NumThreads.ToString())} model={ModelPreference}");
         Cli.Say($"  实际执行提供器: {EpStatus}");
         return 0;
     }
