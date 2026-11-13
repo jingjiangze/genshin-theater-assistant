@@ -114,10 +114,16 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 给出现在做 | $withAction |"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 检索命中 | $withHit |"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| 跳变 / 抖动 | $jumps / $flips |"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "| unknown 帧却给指示 | $unknownWithAction（应 0） |"
 
           # 门槛：这是回归门，不是"看起来还行"——达不到就红
+          # 2026-11-14：基线 18/30 是在「旧文本缓存永不过期」下测出来的——那些帧其实在播上一幕的旧指令。
+          # 修掉缓存续命（P0-3）后，识别不出界面的帧会**如实不给指示**，基线降到 14/30，故门槛改 40%，
+          # 同时新增更硬的不变量：Kind=unknown 的帧绝不能有「现在做」（宁可不说，不能说旧的）。
           if ($frames -lt 28) { throw "回放帧数过少：$frames（testdata/ocr-frames 应 ≥28 张可解码 960×540 帧）" }
-          if ($withAction -lt [math]::Ceiling($frames * 0.6)) { throw "给出现在做的帧太少：$withAction/$frames（门槛 60%）" }
+          if ($withAction -lt [math]::Ceiling($frames * 0.4)) { throw "给出现在做的帧太少：$withAction/$frames（门槛 40%）" }
+          $unknownWithAction = @($steps | Where-Object { $_.Kind -eq 'unknown' -and $_.NextAction -and $_.NextAction.Length -gt 4 }).Count
+          if ($unknownWithAction -gt 0) { throw "有 $unknownWithAction 帧在识别不出界面时仍给了过时指示（应为 0）" }
           if ($withHit -lt [math]::Ceiling($frames * 0.5)) { throw "检索命中太少：$withHit/$frames（门槛 50%）" }
           if ($jumps -gt 3) { throw "幕次跳变过多：$jumps（门槛 ≤3）" }
           # 抖动（A→B→A 的界面类别反复横跳）此前只打印不断言；连续回放里抖动=播报会闪，必须拦
