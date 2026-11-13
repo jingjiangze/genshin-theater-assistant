@@ -38,12 +38,16 @@ jobs:
       - name: 缓存 OCR 模型
         uses: actions/cache@v4
         with:
-          path: models/v5
-          key: ocr-models-v5-${{ hashFiles('models/fetch-models.ps1') }}
+          path: |
+            models/v5
+            models/v6
+          key: ocr-models-v56-${{ hashFiles('models/fetch-models.ps1') }}
 
       - name: 拉取中文 OCR 模型
         shell: pwsh
-        run: .\models\fetch-models.ps1
+        run: |
+          .\models\fetch-models.ps1
+          .\models\fetch-models.ps1 -V6   # 生产用 v6 small（与 ci 一致，避免两套模型测出两套数）
 
       - name: 同步随包资源
         shell: pwsh
