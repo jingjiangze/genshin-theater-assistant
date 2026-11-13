@@ -113,8 +113,11 @@ internal static class Routine
         foreach (var s in r.Steps.Take(max))
         {
             var at = string.IsNullOrEmpty(s.At) ? "" : s.At + " ";
-            var prefix = r.Status == "LEGACY_UNVERIFIED" ? "历史候选手法·" : "手法·";
-            var line = $"{prefix}{at}{s.Do}";
+            // 前缀统一用「手法·」：调用侧（遮罩第二行 / MainLoop）只认这个前缀，
+            // 早先对 legacy 条目产出「历史候选手法·」，结果 8/12 幕的手法行被整行过滤掉（审计发现的真缺陷）。
+            // 「是不是验证过的」改成正文附注，不再改变前缀。
+            var line = $"手法·{at}{s.Do}";
+            if (r.Status == "LEGACY_UNVERIFIED") line += "（历史候选）";
             if (!string.IsNullOrEmpty(s.Why)) line += $"（{s.Why}）";
             outLines.Add(line);
         }
