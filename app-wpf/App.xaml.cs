@@ -23,6 +23,7 @@ public partial class App : System.Windows.Application
     private OverlayWindow _detail;
     private MaskWindowHost _maskHost;
     private GlobalHotkeys _hotkeys;
+    private UiPrefs _prefs = new();
     private IntPtr _maskGameHandle;
     private string _maskLogKey = "";
 
@@ -59,17 +60,26 @@ public partial class App : System.Windows.Application
             // 玩法档案（剧诗 / 深渊 / …）：识别区域与编号规则都在 data/modes.json 里
             try { GameModes.Init(); } catch (Exception ex) { LogCrash(ex, "GameModes.Init"); }
 
+            // 设置窗的 ui.json 现在真的会被读（此前只写不读）：扫描间隔 / 不透明度 / 正文字号 / 热键开关
+            _prefs = UiPrefs.Load();
+
             _ball = new FloatingBall();
             _ball.Show();
             InitTray();
             InitHotkeys();
 
             // 遮罩宿主（全屏透明窗 + 左下日志 + 识别框）。窗口按需创建，由游戏窗口事实驱动。
-            _maskHost = new MaskWindowHost(() => new MaskWindow());
+            _maskHost = new MaskWindowHost(() =>
+            {
+                var w = new MaskWindow();
+                w.ApplyPrefs(_prefs);
+                return w;
+            });
 
             // 主循环：抓屏 → 识别 → 决策 → 驱动悬浮球 + 遮罩
             _loop = new MainLoop(_ball, GameModes.Default);
             _loop.Updated += OnLoopUpdated;
+            _loop.SetScanInterval(_prefs.ScanIntervalMs);
             _ = _loop.StartAsync();
         }
         catch (Exception ex)
@@ -133,6 +143,11 @@ public partial class App : System.Windows.Application
     {
         try
         {
+            if (!_prefs.HotkeyEnable)
+            {
+                Console.WriteLine("ui.json: hotkeyEnable=false → 不注册 Ctrl+Alt+H/M");
+                return;
+            }
             _hotkeys = new GlobalHotkeys(_ball);
 
             var okH = _hotkeys.Register(0x101, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x48 /*H*/, ToggleMask);
@@ -143,6 +158,22 @@ public partial class App : System.Windows.Application
         {
             LogCrash(ex, "InitHotkeys");
         }
+    }
+
+    /// <summary>设置窗保存后重读 ui.json：扫描间隔、遮罩不透明度/字号、热键开关立刻生效。</summary>
+    private void ReloadPrefs()
+    {
+        try
+        {
+            _prefs = UiPrefs.Load();
+            _loop?.SetScanInterval(_prefs.ScanIntervalMs);
+            _maskHost?.ApplyPrefs(_prefs);
+
+            _hotkeys?.Dispose();
+            _hotkeys = null;
+            InitHotkeys();
+        }
+        catch (Exception ex) { LogCrash(ex, "ReloadPrefs"); }
     }
 
     /// <summary>Ctrl+Alt+M：展开/收起遮罩日志（默认收起，只留「现在做」）。</summary>
@@ -279,6 +310,8 @@ public partial class App : System.Windows.Application
         try
         {
             var w = new SettingsWindow();
+            // 保存后立刻生效：重读 ui.json 并应用到主循环与已存在的遮罩窗
+            w.Closed += (_, _) => ReloadPrefs();
             w.Show();
             w.Activate();
         }
