@@ -44,8 +44,11 @@ public partial class PetWindow : Window
     private readonly DispatcherTimer _anim = new() { Interval = TimeSpan.FromMilliseconds(40) };
     private double _t;
     private bool _dragging;
-    private Point _dragStart;
-    private Point _winStart;
+    private Point _dragStart;      // 屏幕 DIP
+    private Point _winStart;       // 窗口 DIP（Left/Top）
+
+    // 右下角留白（参考尺寸，DIP）
+    private const double CornerInsetX = 40, CornerInsetY = 80;
 
     private OverlayWindow _detail;
     private bool _eyeClosed;
@@ -54,15 +57,17 @@ public partial class PetWindow : Window
     {
         InitializeComponent();
 
-        // 位置：右下角（桌宠惯例），按物理像素钳制
-        var screen = ScreenMetrics.PhysicalSize;
-        var size = new System.Drawing.Size((int)Width, (int)Height);
-        var p = ScreenMetrics.ClampToScreen(
-            new System.Drawing.Point(screen.Width - size.Width - 40, screen.Height - size.Height - 80), size);
-        Left = p.X;
-        Top = p.Y;
+        // 位置：右下角（桌宠惯例）。
+        // 口径：ScreenMetrics.PhysicalSize 是物理像素，Left/Top 是 DIP —— 先按窗口所在屏的 DPI
+        // 换算成 DIP（物理分辨率 ÷ scale）再钳位，否则 150%/200% 上桌宠会贴到屏幕外。
+        PlaceAtDefaultCorner();
 
-        SourceInitialized += (_, _) => ApplyNoActivate();
+        SourceInitialized += (_, _) =>
+        {
+            ApplyNoActivate();
+            // HWND 建立后能拿到真实显示器 DPI，初始位置按它再校正一次
+            PlaceAtDefaultCorner();
+        };
         Loaded += (_, _) => StartAnim();
 
         // 交互：单击展开详细信息，拖动移动，双击收起/展开
@@ -91,7 +96,7 @@ public partial class PetWindow : Window
         // 双击必须用 MouseLeftButtonDown 的 ClickCount 判断。
         if (e.ClickCount >= 2) { ToggleDetail(); return; }
         _dragging = true;
-        _dragStart = PointToScreen(e.GetPosition(this));
+        _dragStart = ScreenDip(e.GetPosition(this));
         _winStart = new Point(Left, Top);
         PetCanvas.CaptureMouse();
     }
@@ -99,12 +104,14 @@ public partial class PetWindow : Window
     private void OnPetMouseMove(object sender, MouseEventArgs e)
     {
         if (!_dragging) return;
-        var cur = PointToScreen(e.GetPosition(this));
-        var nx = _winStart.X + (cur.X - _dragStart.X);
-        var ny = _winStart.Y + (cur.Y - _dragStart.Y);
-        var clamped = ScreenMetrics.ClampToScreen(
-            new System.Drawing.Point((int)nx, (int)ny),
-            new System.Drawing.Size((int)Width, (int)Height));
+
+        // 全程 DIP：窗口内位置 + Left/Top。旧代码把 PointToScreen（物理像素）的增量
+        // 加到 Left/Top（DIP）上，非 100% 缩放下拖动会跟手不一致。
+        var cur = ScreenDip(e.GetPosition(this));
+        var clamped = ClampToScreenDip(
+            new System.Drawing.Point((int)Math.Round(_winStart.X + cur.X - _dragStart.X),
+                                     (int)Math.Round(_winStart.Y + cur.Y - _dragStart.Y)),
+            WindowSizeDip(), ScreenSizeDip());
         Left = clamped.X;
         Top = clamped.Y;
     }
@@ -114,6 +121,69 @@ public partial class PetWindow : Window
         if (!_dragging) return;
         _dragging = false;
         PetCanvas.ReleaseMouseCapture();
+    }
+
+    // ── DPI / 屏幕几何 ──────────────────────────────────────────
+    /// <summary>窗口当前 DPI 缩放（物理像素 → DIP）。优先用窗口所在显示器的真实 DPI。</summary>
+    private double DpiScaleForWindow()
+    {
+        try
+        {
+            var h = new WindowInteropHelper(this).Handle;
+            if (h != IntPtr.Zero)
+            {
+                var scale = MaskWindowHost.DpiScaleFor(h);
+                if (scale > 0) return scale;
+            }
+        }
+        catch { }
+
+        var fallback = ScreenMetrics.ScaleFactor();
+        return fallback > 0 ? fallback : 1.0;
+    }
+
+    /// <summary>窗口内位置（DIP）→ 屏幕 DIP（Left/Top 本身就是 DIP，直接相加即可）。</summary>
+    private Point ScreenDip(Point clientDip) => new(Left + clientDip.X, Top + clientDip.Y);
+
+    private System.Drawing.Size WindowSizeDip()
+        => new((int)Math.Round(Width), (int)Math.Round(Height));
+
+    /// <summary>屏幕 DIP 尺寸（物理分辨率 ÷ DPI）。</summary>
+    private System.Drawing.Size ScreenSizeDip()
+    {
+        var physical = ScreenMetrics.PhysicalSize;
+        var scale = DpiScaleForWindow();
+        return new System.Drawing.Size(
+            (int)Math.Round(physical.Width / scale),
+            (int)Math.Round(physical.Height / scale));
+    }
+
+    private void PlaceAtDefaultCorner()
+    {
+        var screenDip = ScreenSizeDip();
+        var size = WindowSizeDip();
+        var p = ClampToScreenDip(
+            new System.Drawing.Point(
+                screenDip.Width - size.Width - (int)Math.Round(CornerInsetX),
+                screenDip.Height - size.Height - (int)Math.Round(CornerInsetY)),
+            size, screenDip);
+        Left = p.X;
+        Top = p.Y;
+    }
+
+    /// <summary>
+    /// DIP 坐标系内的钳位。不能复用 ScreenMetrics.ClampToScreen：
+    /// 那个函数用 PhysicalSize（物理像素）做边界，喂 DIP 进去等于把窗口当物理像素判断。
+    /// </summary>
+    private static System.Drawing.Point ClampToScreenDip(
+        System.Drawing.Point p, System.Drawing.Size windowDip, System.Drawing.Size screenDip)
+    {
+        if (screenDip.Width <= 0 || screenDip.Height <= 0) return p;
+        var maxX = Math.Max(0, screenDip.Width - Math.Min(windowDip.Width, screenDip.Width));
+        var maxY = Math.Max(0, screenDip.Height - Math.Min(windowDip.Height, screenDip.Height));
+        return new System.Drawing.Point(
+            Math.Max(0, Math.Min(p.X, maxX)),
+            Math.Max(0, Math.Min(p.Y, maxY)));
     }
 
     // ── 展开详细面板 ────────────────────────────────────────────
