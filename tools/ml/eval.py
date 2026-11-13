@@ -6,6 +6,7 @@
   · t3_qa （问答） ：实体召回 + 长度。
 门槛写在这里，评不过就不准上线：
   action_rate ≥0.8｜t1_exact ≥0.7｜act_match ≥0.8｜length_ok ≥0.9
+退出码：0=过门｜1=门槛未过｜2=环境/参数问题（adapter 不存在或缺 config、门槛样本 <15）。
 
 用法：
     .mlvenv/Scripts/python.exe tools/ml/eval.py --base Qwen/Qwen2.5-0.5B-Instruct \
@@ -48,6 +49,38 @@ def entities(text: str) -> set:
     return out
 
 
+def first_sentence(text: str) -> str:
+    """金标答案首句（去掉句末标点后的第一段），用来给 t1 样本分组。"""
+    t = (text or "").strip()
+    parts = re.split(r"[。！？；;!?]", t, maxsplit=1)
+    return norm(parts[0]) if parts and parts[0] else norm(t)
+
+
+def holdout_t1(rows):
+    """按「金标答案首句」分组、按组奇偶切成两半后分别重算 t1_exact。
+
+    只作为信息输出（不进门槛）：T1 金标只有 8 种答案，val 答案若在 train 里逐字出现过，
+    整体 t1_exact 会虚高；按答案首句分组切开后，两半的差异能暴露「背题」程度。
+    """
+    groups = {}
+    for gold, pred in rows:
+        groups.setdefault(first_sentence(gold), []).append((gold, pred))
+
+    def exact(items):
+        return round(sum(1 for g, p in items if norm(p) == norm(g)) / len(items), 3) if items else None
+
+    keys = sorted(groups)
+    out = {"groups": len(keys), "by_group": {}, "splits": []}
+    for k in keys:
+        out["by_group"][k] = {"n": len(groups[k]), "t1_exact": exact(groups[k])}
+    for i, ks in enumerate((keys[0::2], keys[1::2]), 1):
+        items = [x for k in ks for x in groups[k]]
+        if items:
+            out["splits"].append({"split": i, "groups": len(ks), "n": len(items),
+                                  "t1_exact": exact(items)})
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", default="Qwen/Qwen2.5-0.5B-Instruct")
@@ -58,9 +91,24 @@ def main() -> int:
     ap.add_argument("--device", default="auto")
     ap.add_argument("--tasks", default="t1_now,t2_team",
                     help="参与评测的任务；门槛只算这些。all = 三类都跑")
+    ap.add_argument("--holdout-report", action="store_true",
+                    help="按金标答案首句分组切分后重算 t1_exact，只打印为 info（不进门槛），"
+                         "用来暴露背题程度")
     args = ap.parse_args()
 
     tasks = None if args.tasks == "all" else set(args.tasks.split(","))
+
+    # --adapter 必须真是模型产物：不存在 / 缺 config.json 与 adapter_config.json 时直接退出 2。
+    # 旧实现会静默退回 base 模型跑评测——等于把「没评到产物」当成「产物达标」。
+    if not os.path.isdir(args.adapter):
+        print(f"[eval] 错误：--adapter 目录不存在：{args.adapter}", file=sys.stderr)
+        return 2
+    is_lora = os.path.exists(os.path.join(args.adapter, "adapter_config.json"))
+    is_full = os.path.exists(os.path.join(args.adapter, "config.json"))
+    if not (is_lora or is_full):
+        print(f"[eval] 错误：--adapter 目录里既没有 adapter_config.json（LoRA）"
+              f"也没有 config.json（全参微调产物）：{args.adapter}", file=sys.stderr)
+        return 2
 
     device = args.device
     if device == "auto":
@@ -68,18 +116,15 @@ def main() -> int:
             "cuda" if torch.cuda.is_available() else "cpu")
     dtype = torch.bfloat16 if device == "xpu" else (torch.float16 if device == "cuda" else torch.float32)
 
-    if os.path.isdir(args.adapter) and os.path.exists(os.path.join(args.adapter, "adapter_config.json")):
+    if is_lora:
         # LoRA 产物：base + adapter
         tok = AutoTokenizer.from_pretrained(args.base, trust_remote_code=True)
         model = AutoModelForCausalLM.from_pretrained(args.base, dtype=dtype, trust_remote_code=True)
         model = PeftModel.from_pretrained(model, args.adapter)
-    elif os.path.isdir(args.adapter) and os.path.exists(os.path.join(args.adapter, "config.json")):
+    else:
         # 全参微调产物：目录本身就是完整模型
         model = AutoModelForCausalLM.from_pretrained(args.adapter, dtype=dtype, trust_remote_code=True)
         tok = AutoTokenizer.from_pretrained(args.adapter, trust_remote_code=True)
-    else:
-        tok = AutoTokenizer.from_pretrained(args.base, trust_remote_code=True)
-        model = AutoModelForCausalLM.from_pretrained(args.base, dtype=dtype, trust_remote_code=True)
     model.to(device).eval()
 
     rows = load_jsonl(os.path.join(args.data, "theater-sft-val.jsonl"))
@@ -91,6 +136,7 @@ def main() -> int:
     t1n = t1hit = 0
     t2n = t2hit = 0
     samples = []
+    t1_rows = []          # (gold, pred)：只在 --holdout-report 时收集
 
     for r in rows:
         if tasks is not None and r.get("task", "") not in tasks:
@@ -123,6 +169,8 @@ def main() -> int:
             t1n += 1
             if norm(text) == norm(gold):
                 t1hit += 1
+            if args.holdout_report:
+                t1_rows.append((gold, text))
         elif task == "t2_team":
             t2n += 1
             names = re.findall(r"[\u4e00-\u9fa5]{2,4}（", gold)
@@ -133,6 +181,17 @@ def main() -> int:
         if len(samples) < 8:
             samples.append({"task": task, "user": msgs[1]["content"],
                             "gold": gold[:160], "pred": text[:160]})
+
+    # 样本数门：参与门槛的样本太少时指标不可信（旧实现照样给 pass/fail）
+    if n < 15:
+        print(f"[eval] 错误：参与门槛的样本数 {n} < 15，结论不可用"
+              f"（检查 --tasks / --limit / data/ml 的 val 集）", file=sys.stderr)
+        return 2
+    if tasks is None or "t1_now" in tasks:
+        if t1n < 15:
+            print(f"[eval] 错误：t1_now 参与门槛但样本只有 {t1n} 条（< 15），t1_exact 不可信",
+                  file=sys.stderr)
+            return 2
 
     report = {
         "n": n,
@@ -150,12 +209,24 @@ def main() -> int:
         "samples": samples,
     }
 
-    gates_hit = {k: (report[k] is not None and report[k] >= v) for k, v in GATES.items()
-                 if report.get(k) is not None}
+    if args.holdout_report:
+        report["holdout_t1"] = holdout_t1(t1_rows)
+
+    # 缺指标 = 判 fail，不跳过（旧实现把 None 的 gate 直接排除，等于少一条门）
+    gates_hit = {k: (report.get(k) is not None and report[k] >= v) for k, v in GATES.items()}
     report["gates"] = gates_hit
-    report["pass"] = all(gates_hit.values()) if gates_hit else False
+    missing = [k for k in GATES if report.get(k) is None]
+    if missing:
+        report["gates_missing"] = missing
+    report["pass"] = all(gates_hit.values())
 
     print(json.dumps(report, ensure_ascii=False, indent=2))
+    if args.holdout_report:
+        h = report["holdout_t1"]
+        desc = "｜".join(f"split{s['split']}（{s['groups']} 组）n={s['n']} t1_exact={s['t1_exact']}"
+                         for s in h["splits"])
+        print(f"[eval] holdout t1（info，不进门槛）：金标首句共 {h['groups']} 组｜{desc}",
+              file=sys.stderr)
     os.makedirs(args.adapter or ".", exist_ok=True)
     with open(os.path.join(args.adapter, "eval-report.json"), "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
