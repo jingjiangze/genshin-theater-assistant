@@ -57,6 +57,17 @@ public partial class MaskWindow : Window
     private int _lineCount;
     private bool _logExpanded;
 
+    // ── 面板等比缩放 ─────────────────────────────────────────────
+    // 参考客户区 = 1920×1080@100%（面板按这个尺度设计，字号/留白都是照它调的）。
+    // 更小的客户区整体缩小：404 DIP 固定宽的面板在 1280×720 上会压住左下角的幕次条带
+    // （条带 x 0.28..0.74 / y 0.828..0.878，即 x 358..947 / y 596..632），
+    // 1280@150%（1920×1080 物理的 DIP 客户区）同理。
+    private const double ReferenceWidth = 1920, ReferenceHeight = 1080;
+    private const double PanelBaseWidth = 404, PanelBaseMarginLeft = 14, PanelBaseMarginBottom = 92;
+    private const double MinPanelScale = 0.5;
+
+    private double _panelScale = double.NaN;   // NaN = 还没应用过
+
     /// <summary>默认点击穿透（遮罩只看不点）。Ctrl+Alt+L 可切换，用于拖动/排查。</summary>
     public bool ClickThrough { get; private set; } = true;
 
@@ -78,6 +89,64 @@ public partial class MaskWindow : Window
         SourceInitialized += (_, _) => ApplyWindowStyles();
         Loaded += (_, _) => ExcludeFromCapture();
         Closed += (_, _) => _logDocument.Dispose();
+
+        // 客户区大小由 MaskWindowHost 跟随游戏窗口设置；这里只负责"面板随客户区等比缩"。
+        // 先按参考尺寸（s=1）初始化，真正的系数在 OnRenderSizeChanged 里按实际尺寸重算。
+        ApplyPanelScale(PanelScaleFor(ReferenceWidth, ReferenceHeight));
+    }
+
+    /// <summary>
+    /// RenderSize 变化时重算面板缩放。用 OnRenderSizeChanged 而不是 SizeChanged 事件：
+    /// 自检里是手工 Measure/Arrange 的（没有真实 HWND 尺寸通知），RenderSize 一定会跟着布局更新。
+    /// </summary>
+    protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+    {
+        base.OnRenderSizeChanged(sizeInfo);
+        ApplyPanelScale(PanelScaleFor(sizeInfo.NewSize.Width, sizeInfo.NewSize.Height));
+    }
+
+    /// <summary>面板缩放系数：s = min(1, min(客户区宽/1920, 客户区高/1080))，下限 0.5。</summary>
+    internal static double PanelScaleFor(double clientWidthDip, double clientHeightDip)
+    {
+        if (clientWidthDip <= 0 || clientHeightDip <= 0) return 1.0;   // 还没布局：先按参考尺寸
+        var s = Math.Min(clientWidthDip / ReferenceWidth, clientHeightDip / ReferenceHeight);
+        return Math.Max(MinPanelScale, Math.Min(1.0, s));
+    }
+
+    /// <summary>面板矩形（窗口 DIP 坐标）。纯函数版本供自检做几何判定：
+    /// 面板左/下贴边并留 14/92 的参考外边距，两者都乘 s；面板高度由调用方给出（折叠态实际布局值）。
+    /// </summary>
+    internal static Rect PanelRectFor(double clientWidthDip, double clientHeightDip, double panelHeightDip)
+    {
+        var s = PanelScaleFor(clientWidthDip, clientHeightDip);
+        return new Rect(
+            PanelBaseMarginLeft * s,
+            clientHeightDip - PanelBaseMarginBottom * s - panelHeightDip * s,
+            PanelBaseWidth * s,
+            panelHeightDip * s);
+    }
+
+    /// <summary>
+    /// 把面板整体缩放到 s（不改内部排版，只缩放最终布局尺寸），外边距同步乘 s——
+    /// 否则字号缩了、留白没缩，面板会显得"贴边"且离屏幕边缘的比例失真。
+    /// </summary>
+    internal void ApplyPanelScale(double scale)
+    {
+        if (double.IsNaN(scale) || scale <= 0) scale = 1.0;
+        if (!double.IsNaN(_panelScale) && Math.Abs(scale - _panelScale) < 1e-6) return;
+        _panelScale = scale;
+
+        if (Panel.LayoutTransform is ScaleTransform st)
+        {
+            st.ScaleX = scale;
+            st.ScaleY = scale;
+        }
+        else
+        {
+            Panel.LayoutTransform = new ScaleTransform(scale, scale);
+        }
+
+        Panel.Margin = new Thickness(PanelBaseMarginLeft * scale, 0, 0, PanelBaseMarginBottom * scale);
     }
 
     private void ApplyWindowStyles()
@@ -220,6 +289,23 @@ public partial class MaskWindow : Window
     }
 
     /// <summary>滚到日志最新一行（自检在 Render 前也会调一次，覆盖重排后的重置）。</summary>
+    /// <summary>
+    /// 应用设置窗的 ui.json（此前这些选项只写不读，等于空转；审计发现）。
+    /// 不透明度作用在整窗（遮罩本就是纯覆盖层），字号只改正文两行，不动标题/页脚。
+    /// </summary>
+    internal void ApplyPrefs(UiPrefs p)
+    {
+        if (p == null) return;
+        try
+        {
+            Opacity = Math.Clamp(p.OpacityPct, 30, 100) / 100.0;
+            AdviceText.FontSize = p.BodyFontPt;
+            GuideText.FontSize = Math.Max(9, p.BodyFontPt - 0.5);
+            StatusChip.Visibility = p.ShowSourceMark ? Visibility.Visible : Visibility.Collapsed;
+        }
+        catch { }
+    }
+
     internal void ScrollLogToEnd() => _logDocument.ScrollToLatest();
 
     /// <summary>同步执行日志裁剪并返回尾部段落 inline 数（自检专用）。</summary>
