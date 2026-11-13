@@ -60,6 +60,17 @@ internal static class DecisionBridge
         try
         {
             DecisionPolicy.Load(AppPaths.Data("decision-policy.json"));
+
+            // ★已验证 / ·规则 两层的内容都在 Playbook 里，而 Playbook 只有 Load 才填充。
+            // 审计发现：WPF 启动链从来没调过它 → 这两层在生产里恒空，「五级兜底」实际只剩三级。
+            try { Playbook.Load(AppPaths.Data("act-playbook.json")); }
+            catch (Exception ex) { Cli.Say("Playbook 加载失败: " + ex.GetType().Name); }
+
+            // 同理：SeasonRegistry.For(0) 在 _all 为空时返回 null，而 For 本身不触发 Load，
+            // 于是 QuantData/TeamSolver 全被跳过 → ◆量化(队伍层) 在生产里恒不可用。
+            try { SeasonRegistry.Load(); }
+            catch (Exception ex) { Cli.Say("赛季登记表加载失败: " + ex.GetType().Name); }
+
             var season = SeasonRegistry.For(0);
             if (season != null)
             {
