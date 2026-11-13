@@ -16,7 +16,6 @@ internal sealed class ActStabilizer
     private int? _committed;
     private int? _pending;
     private int _pendingCount;
-    private bool _pendingFromNone;
 
     /// <summary>需要连续确认的次数（默认 2）。</summary>
     public int MinConfirm { get; set; } = 2;
@@ -43,15 +42,16 @@ internal sealed class ActStabilizer
     private DateTime? _firstMissAt;
 
     /// <summary>
-    /// 连续未识别帧数达到该阈值时，调用方应**弃权**（明确说"暂不判断"），
-    /// 而不是继续沿用旧幕次给指示。实测约 25~30% 帧属于沿用，长期沿用会给出过时指令。
+    /// 连续未识别帧数上限（兜底）：主判据是持续时间，这里防"时钟异常/极慢 tick"时永不弃权。
+    /// 默认 30 帧（tick=1s 时约 30 秒），与持续时间判据同量级；早先代码写 `Math.Max(该值, 30)`，
+    /// 把这个属性变成了摆设（设 3 也不生效），审计已修。
     /// </summary>
-    public int AbstainAfterMisses { get; set; } = 3;
+    public int AbstainAfterMisses { get; set; } = 30;
 
-    /// <summary>是否该弃权：以**持续时间**为准；帧数阈值保留为辅助上限（防极端慢 tick）。</summary>
+    /// <summary>是否该弃权：以**持续时间**为准；帧数阈值只作极端兜底。</summary>
     public bool ShouldAbstain =>
         MissedMilliseconds >= Math.Max(100, AbstainAfterMilliseconds)
-        || ConsecutiveMisses >= Math.Max(AbstainAfterMisses, 30);
+        || ConsecutiveMisses >= Math.Max(1, AbstainAfterMisses);
 
     public int? Committed => _committed;
 
@@ -89,7 +89,6 @@ internal sealed class ActStabilizer
         {
             _pending = act;
             _pendingCount = 1;
-            _pendingFromNone = !_committed.HasValue;
         }
 
         if (plausible || _pendingCount >= Math.Max(1, MinConfirm))
@@ -104,12 +103,15 @@ internal sealed class ActStabilizer
         return _committed;
     }
 
-    /// <summary>新一轮录像/新一局时重置。</summary>
+    /// <summary>新一轮录像/新一局时重置（连未识别计时也一起清，否则新一局一上来就带旧计时）。</summary>
     public void Reset()
     {
         _committed = null;
         _pending = null;
         _pendingCount = 0;
         Rejected = 0;
+        ConsecutiveMisses = 0;
+        MissedMilliseconds = 0;
+        _firstMissAt = null;
     }
 }
