@@ -90,14 +90,25 @@ internal static class DecisionOrchestrator
             var size = Math.Max(0, ctx.TeamSize);
             var target = ctx.TeamTarget > 0 ? ctx.TeamTarget : 4;
             var pick = ChoiceDecider.Decide(ctx.Options, ctx.Act ?? 0, size, target);
-            if (pick?.Pick != null)
+            if (pick?.Pick != null && pick.Certain)
             {
-                d.Lines.Add($"▶ 选第{pick.Pick.Index}张：{pick.Pick.Raw}");
+                // 用 ChoiceDecider 给的说法：它会自己决定「第N张」还是「按卡片名字」
+                d.Lines.Add("▶ " + pick.Sentence);
                 d.Confidence = DecisionPolicy.ConfidenceOf("quant", 0.75);
                 d.Source = "◆量化";
                 d.Provenance.Add($"选项 {ctx.Options.Count} 张已读到 → 本地打分可判");
                 if (ctx.Team != null && !ctx.Team.Full)
                     d.Provenance.Add("池子未知，按通用池");
+                return d;
+            }
+            if (pick?.Pick != null)
+            {
+                // 认不全（只认出 1–2 张）：序号不可信，只给卡名，并明说这次没看全。
+                d.Lines.Add("▶ " + pick.Sentence);
+                d.Randoms.Add($"三选一只认出 {ctx.Options.Count} 张（可能漏读）");
+                d.Source = "·规则";
+                d.Confidence = DecisionPolicy.ConfidenceOf("rule", 0.35);
+                d.Provenance.Add("选项不全 → 不给序号，按卡片名字对");
                 return d;
             }
         }
