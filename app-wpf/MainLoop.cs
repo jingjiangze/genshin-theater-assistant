@@ -30,6 +30,7 @@ internal sealed class MainLoop
     private readonly ActStabilizer _stab = new();
     private string _bucketKey = "";
     private string _cachedText = "";
+    private int _cachedTextTick = -1000;   // 文本缓存写入时的 tick 序号（用 tick 不用墙钟：回放才可复现）
     private int _tickCount;
     private bool _busy;
     private int _teamSize;
@@ -70,6 +71,10 @@ internal sealed class MainLoop
             // OCR 后处理阈值（DropScore / 同排容差）来自策略文件，和自检/CLI 用同一份
             try { OcrTextPipeline.LoadFromPolicy(AppPaths.Data("decision-policy.json")); } catch { }
 
+            // 弃权阈值同样走策略文件（data/decision-policy.json → abstain.abstainAfterSeconds）；
+            // 此前这个字段没有任何读取方，改配置不生效（审计发现）。
+            try { _stab.AbstainAfterMilliseconds = Math.Max(1, DecisionPolicy.AbstainAfterSeconds) * 1000; } catch { }
+
             // 战斗中手法数据（rotations.json）：Routine.Loaded 才会追加「手法·」行
             try { Routine.Load(AppPaths.Data("rotations.json")); }
             catch (Exception ex) { App.LogCrash(ex, "MainLoop.RoutineLoad"); }
@@ -91,6 +96,14 @@ internal sealed class MainLoop
             App.LogCrash(ex, "MainLoop.StartAsync");
         }
         _timer.Start();
+    }
+
+    /// <summary>扫描间隔（设置窗 ui.json → scanIntervalMs）。改的是 DispatcherTimer 的频率，
+    /// 不重建循环：下一次 Tick 就按新间隔排。</summary>
+    public void SetScanInterval(int ms)
+    {
+        try { _timer.Interval = TimeSpan.FromMilliseconds(Math.Clamp(ms, 200, 10000)); }
+        catch (Exception ex) { App.LogCrash(ex, "MainLoop.SetScanInterval"); }
     }
 
     public void Stop()
@@ -184,23 +197,44 @@ internal sealed class MainLoop
             if (_tickCount % heavyEvery == 0)
             {
                 var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame);
-                if (boxes != null && boxes.Count > 0)
+                if (boxes != null)
                 {
-                    var pipelineBoxes = boxes.Select(b => new OcrTextPipeline.Box
+                    if (boxes.Count == 0)
                     {
-                        X = b.Rect.X,
-                        Y = b.Rect.Y,
-                        Score = b.Score,
-                        Text = b.Text,
-                    });
-                    var lines = OcrTextPipeline.ToLines(pipelineBoxes);
-                    if (lines.Count > 0) _cachedText = string.Join("\n", lines);
+                        // 重 OCR 一个文本框都没读到 = 当前界面没有字（已经离开选卡/结算/商店界面）。
+                        // 旧实现只在「读到东西」时才覆盖缓存，于是旧文本（「第N幕」「选第N张」）会无限续命，
+                        // 连弃权都被它压住（审计发现的真缺陷）。
+                        _cachedText = "";
+                        _cachedTextTick = -1000;
+                    }
+                    else
+                    {
+                        var pipelineBoxes = boxes.Select(b => new OcrTextPipeline.Box
+                        {
+                            X = b.Rect.X,
+                            Y = b.Rect.Y,
+                            Score = b.Score,
+                            Text = b.Text,
+                        });
+                        var lines = OcrTextPipeline.ToLines(pipelineBoxes);
+                        if (lines.Count > 0)
+                        {
+                            _cachedText = string.Join("\n", lines);
+                            _cachedTextTick = _tickCount;
+                        }
+                    }
                 }
             }
-            var text = _cachedText;
 
-            // ⑥ 幕次判定：条带优先，其次全帧里的「第N幕/层」（正则与中文数字都由档案决定）
-            int? act = _mode.ParseAct(band) ?? _mode.ParseAct(text);
+            // 文本缓存只保鲜「一个重扫周期 + 1 tick」：过了就不许参与幕次/选项判定 ——
+            // 否则「上一幕」的字会替旧幕次续命，ActStabilizer 的未识别计时永远不增长，
+            // ShouldAbstain 永不触发（审计 P0-3）。用 tick 而不是墙钟：同一段录像回放两次
+            // 必须得到同一份结果，墙钟会让决策随机器负载漂移（实测两次 54/100 与 36/100）。
+            var textFresh = _cachedText.Length > 0 && _tickCount - _cachedTextTick <= heavyEvery + 1;
+            var text = textFresh ? _cachedText : "";
+
+            // ⑥ 幕次判定：条带每帧都刷，优先；全帧文本只在新鲜时参与（正则与中文数字都由档案决定）
+            int? act = _mode.ParseAct(band) ?? (textFresh ? _mode.ParseAct(text) : null);
             var stable = _stab.Push(act);
             LastAct = stable;
 
@@ -253,20 +287,27 @@ internal sealed class MainLoop
                         : (options.Count >= 2 ? "choice"
                         : (hits.Count > 0 ? "ui" : ""));
 
-            // ◇只补「幕内(act)」与「三选一(choice)」：队伍/难度/大堂这类界面答案来自
+            // ◇只补「幕内(act)」与「量化拿不准的三选一(choice)」：队伍/难度/大堂这类界面答案来自
             // playbook 确定性文本，交规则+检索更准（模型训练集只有幕次语境与随机要素）。
-            var wantModel = kindNow is "act" or "choice";
-            if (wantModel && options.Count < 2 && (_brain is { Ready: true } || _llm is { Enabled: true }))
+            // 旧条件写成 `kindNow is "act" or "choice"` 再叠加 `options.Count < 2`，
+            // 而 choice 的定义就是 ≥2 张 → 两个条件互斥，三选一永远问不到模型（审计 P0-2）。
+            var quantPick = options.Count >= 2 ? ChoiceDecider.Decide(options, stable ?? 0, _teamSize, _teamTarget) : null;
+            var quantCertain = quantPick is { Certain: true, Pick: not null };
+            var wantModel = kindNow == "act" || (kindNow == "choice" && !quantCertain);
+            if (wantModel && (_brain is { Ready: true } || _llm is { Enabled: true }))
             {
                 try
                 {
                     var ask = (stable.HasValue ? $"我在剧诗第{stable}幕，难度{diff}。" : "我在剧诗界面，幕次还没认出来。")
                               + (enemy != null && enemy.HasAnyData ? "这是首领关。" : "")
-                              + "一句话概括该干嘛。";
+                              + (options.Count >= 2
+                                    ? "三选一的卡片是：" + string.Join(" / ", options.Take(3).Select(o => o.Raw)) + "。选哪张？一句话。"
+                                    : "一句话概括该干嘛。");
 
                     if (_brain is { Ready: true })
                     {
-                        llmText = _brain.Ask(ask, maxTokens: 72, timeoutMs: 1200);
+                        // 异步版：UI 线程是 DispatcherTimer 回调，同步调用会在冷启动时卡界面数秒
+                        llmText = await _brain.AskAsync(ask, maxTokens: 72, timeoutMs: 1200);
                     }
                     else
                     {
@@ -443,47 +484,30 @@ internal sealed class MainLoop
     private void LoadTemplatesFor(int width, int height)
     {
         var root = AppPaths.TemplatesRoot;
-        if (!Directory.Exists(root)) return;
+        if (!Directory.Exists(root) || width <= 0) return;
 
-        var dir = root;
-        if (width > 0)
-        {
-            var best = Directory.GetDirectories(root)
-                .Select(d => new { Dir = d, Ok = TryParseSize(Path.GetFileName(d), out var dw, out _), W = dw })
-                .Where(x => x.Ok && Math.Abs(x.W - width) <= Math.Max(32, (int)(width * 0.12)))
-                .OrderBy(x => Math.Abs(x.W - width))
-                .FirstOrDefault();
-            if (best != null) dir = best.Dir;
-        }
-
-        var key = dir + "|" + width + "x" + height;
+        // 选桶/加载统一交给 Matcher.LoadTemplatesNearest：
+        //  · 旧逻辑要求 ±12%，1600×900 / 1280×720 / 2560×1440 都选不到桶 → 回落根目录 →
+        //    下划线文件被跳过 → **0 个模板、静默不识别**（审计发现）；
+        //  · 新逻辑按 |W-帧宽| 取最近桶，并把桶宽写进 TemplateEntry.SourceWidth，
+        //    ScanCv 据此把模板缩放到画布比例（此前直接套 960/帧宽，非 1920 窗口必漏检）。
+        var key = "nearest|" + width;
         if (key == _bucketKey) return;
-        _bucketKey = key;
 
+        var loaded = Matcher.LoadTemplatesNearest(root, width);
+        if (loaded.Count == 0) return;      // 加载失败就保留旧模板，下帧再试
+
+        _bucketKey = key;
         foreach (var t in _templates) t.Bitmap.Dispose();
         _templates.Clear();
         _templateSizes.Clear();
-
-        foreach (var f in Directory.GetFiles(dir, "*.png"))
+        foreach (var t in loaded)
         {
-            var name = Path.GetFileNameWithoutExtension(f);
-            if (name.StartsWith('_')) continue;
-            try
-            {
-                var t = new TemplateEntry(name, new Bitmap(f), TemplateEntry.ThresholdFor(name));
-                _templates.Add(t);
-                _templateSizes[name] = (t.Bitmap.Width, t.Bitmap.Height);
-            }
-            catch { }
+            _templates.Add(t);
+            _templateSizes[t.Name] = (t.Bitmap.Width, t.Bitmap.Height);
         }
     }
 
-    private static bool TryParseSize(string s, out int w, out int h)
-    {
-        w = h = 0;
-        var m = System.Text.RegularExpressions.Regex.Match(s, @"(\d{3,4})x(\d{3,4})");
-        return m.Success && int.TryParse(m.Groups[1].Value, out w) && int.TryParse(m.Groups[2].Value, out h);
-    }
 }
 
 /// <summary>模板命中框（帧像素坐标），遮罩据此画识别框。</summary>
