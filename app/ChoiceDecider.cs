@@ -30,6 +30,13 @@ internal static class ChoiceDecider
         public string Sentence = "";   // 可直接照做的一句话
         public string Reason = "";     // 依据（含来源）
         public bool FromModel;
+        /// <summary>
+        /// 是否敢用「第N张」这个说法。只有认出 **3 张以上** 时才敢：
+        /// 解析序号是按「已解析到的行」编号的，某张卡被 DropScore 丢掉后整体前移，
+        /// 说「第 1 张」会让玩家点到另一张（审计实测的真缺陷）。
+        /// 认不全时退化成「选『名字』那张」，宁可不给序号也不给错序号。
+        /// </summary>
+        public bool Certain = true;
     }
 
     private static readonly (string Word, string Element)[] ElementWords =
@@ -121,6 +128,15 @@ internal static class ChoiceDecider
     }
 
     /// <summary>
+    /// 选项的「可执行说法」：认出 ≥3 张才说「第N张」（此时序号与界面槽位一致），
+    /// 否则只说卡片名字 —— 序号是按已解析行编的，漏一张就整体前移。
+    /// </summary>
+    private static string Phrase(Option o, int count) =>
+        count >= 3
+            ? $"选第 {o.Index} 张：{o.Raw}"
+            : $"选「{o.Raw}」那张（这次只认出 {count} 张，按卡片名字找）";
+
+    /// <summary>
     /// 在给定选项里做决定。没有选项返回 null（调用方保持原建议）。
     /// teamSize：当前已编入人数（未知传 0）；targetSize：本幕想达到的人数。
     /// </summary>
@@ -130,8 +146,9 @@ internal static class ChoiceDecider
 
         var (need, why) = NeedOf(act);
         bool bossAct = act is 3 or 6 or 8 or 10;
+        var count = options.Count;
 
-        // 1) 三选一事件：缺人先拿伙伴，否则拿祝福
+        // 1) 三选一事件：缺人先拿伙伴，否则拿祝福（说的是卡名，不涉及序号 → 恒安全）
         var partner = options.FirstOrDefault(o => o.Kind == Kind.Partner);
         var blessing = options.FirstOrDefault(o => o.Kind == Kind.Blessing);
         if (partner != null && teamSize < targetSize)
@@ -139,7 +156,7 @@ internal static class ChoiceDecider
         if (blessing != null && (teamSize >= targetSize || partner == null))
             return new Decision { Pick = blessing, Sentence = "选「辉彩祝福」（提上限，人数已够）", Reason = "人数够时祝福收益最高" };
         var mystery = options.FirstOrDefault(o => o.Kind == Kind.Mystery);
-        if (mystery != null && options.Count == 1)
+        if (mystery != null && count == 1)
             return new Decision { Pick = mystery, Sentence = "选「神秘收获」", Reason = "没有更好的选项时拿随机收益" };
 
         // 2) 买卡界面：首领关优先本幕需要的元素强化
@@ -150,16 +167,18 @@ internal static class ChoiceDecider
                 return new Decision
                 {
                     Pick = match,
-                    Sentence = $"选第 {match.Index} 张：{match.Raw}（{match.Element} 强化）",
+                    Sentence = Phrase(match, count) + $"（{match.Element} 强化）",
                     Reason = why,
+                    Certain = count >= 3,
                 };
             var anyBuff = options.FirstOrDefault(o => o.Kind == Kind.Buff);
             if (anyBuff != null)
                 return new Decision
                 {
                     Pick = anyBuff,
-                    Sentence = $"选第 {anyBuff.Index} 张：{anyBuff.Raw}（本幕没有 {need} 强化，拿通用强化）",
+                    Sentence = Phrase(anyBuff, count) + $"（本幕没有 {need} 强化，拿通用强化）",
                     Reason = why,
+                    Certain = count >= 3,
                 };
         }
 
@@ -169,17 +188,19 @@ internal static class ChoiceDecider
             return new Decision
             {
                 Pick = battle,
-                Sentence = $"选第 {battle.Index} 张：{battle.Raw}（补人/推进）",
+                Sentence = Phrase(battle, count) + "（补人/推进）",
                 Reason = teamSize > 0 ? $"当前 {teamSize}/{targetSize} 人，先补人" : "非首领关优先铺开人数",
+                Certain = count >= 3,
             };
 
-        // 4) 兜底：第一张
+        // 4) 兜底：没有更具体的匹配 → 只说卡名，且标记不确定（不再假装「选第 1 张」）
         var first = options[0];
         return new Decision
         {
             Pick = first,
-            Sentence = $"选第 {first.Index} 张：{first.Raw}",
+            Sentence = Phrase(first, count),
             Reason = "没有更具体的匹配，按最左优先",
+            Certain = count >= 3,
         };
     }
 
@@ -189,11 +210,11 @@ internal static class ChoiceDecider
         if (string.IsNullOrWhiteSpace(answer) || options == null || options.Count == 0) return null;
         var m = Regex.Match(answer, @"第\s*(\d{1,2})\s*(?:张|个|项)?");
         if (m.Success && int.TryParse(m.Groups[1].Value, out var n) && n >= 1 && n <= options.Count)
-            return new Decision { Pick = options[n - 1], Sentence = $"选第 {n} 张：{options[n - 1].Raw}", Reason = "大模型选择", FromModel = true };
+            return new Decision { Pick = options[n - 1], Sentence = Phrase(options[n - 1], options.Count), Reason = "大模型选择", FromModel = true, Certain = options.Count >= 3 };
 
         foreach (var o in options)
             if (answer.Contains(o.Raw, StringComparison.Ordinal))
-                return new Decision { Pick = o, Sentence = $"选第 {o.Index} 张：{o.Raw}", Reason = "大模型选择", FromModel = true };
+                return new Decision { Pick = o, Sentence = Phrase(o, options.Count), Reason = "大模型选择", FromModel = true, Certain = options.Count >= 3 };
 
         return null;   // 说不清就不采纳
     }
