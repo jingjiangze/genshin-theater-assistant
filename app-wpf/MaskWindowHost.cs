@@ -22,6 +22,15 @@ internal readonly struct MaskGameState
     public readonly bool IsActive;
     public readonly bool IsMinimized;
     public readonly bool IsForegroundOwnedByGameOrUs;
+
+    /// <summary>
+    /// 游戏窗口还在不在、还抓不抓得到 —— 只取决于 IsWindowVisible。
+    ///
+    /// 这里**不能**再 `&amp;&amp; !IsMinimized`：最小化窗口的 WS_VISIBLE 仍然置着，它是"可见但最小化"。
+    /// 旧写法把最小化算成"没捕获"，于是 <see cref="MaskPolicy"/> 第一段就直接收起，
+    /// 后面的 `IsMinimized → 保持现状` 永远走不到（文档写"保持"、实际是"隐藏"）。
+    /// 最小化要单独一路交给策略层判断。
+    /// </summary>
     public readonly bool IsCapturing;
 
     public MaskGameState(IntPtr handle, GameWindow.RECT bounds, bool active, bool minimized, bool fgOwned, bool capturing)
@@ -65,7 +74,7 @@ internal readonly struct MaskGameState
         var visible = Native.IsWindowVisible(hWnd);
 
         return new MaskGameState(hWnd, bounds, active, minimized, fgOwned,
-            capturing: visible && !minimized);
+            capturing: visible);
     }
 
     private static class Native
@@ -78,14 +87,20 @@ internal readonly struct MaskGameState
 /// <summary>
 /// 遮罩显隐策略（纯函数，便于断言——上游把这段埋在 EvaluateLocked 里，无法单独测）。
 /// 返回 null 表示「保持现状」，避免游戏窗口短暂失焦时闪烁。
+///
+/// 判据顺序（改过一次，别再动）：
+///   手动隐藏 → 收起；窗口已不可见（关掉/切走）→ 收起；
+///   **最小化 → 保持**（保持的意思是"维持当前显隐"，不是"隐藏"）——最小化的游戏窗口
+///   WS_VISIBLE 仍是 true，所以 IsCapturing 为 true，能走到这一条；
+///   前台 → 显示；前景是游戏子窗或我们自己 → 保持；切到别的程序 → 收起。
 /// </summary>
 internal static class MaskPolicy
 {
     public static bool? Decide(MaskGameState state, bool manualHidden)
     {
         if (manualHidden) return false;        // 用户手动关掉：优先于一切
-        if (!state.IsCapturing) return false;  // 游戏不在/最小化：收起
-        if (state.IsMinimized) return null;
+        if (!state.IsCapturing) return false;  // 游戏窗口不在了：收起
+        if (state.IsMinimized) return null;    // 最小化：保持现状（不要跟着最小化后的假客户区乱跑）
         if (state.IsActive) return true;       // 游戏在前台：显示
         if (state.IsForegroundOwnedByGameOrUs) return null;   // 前景是游戏子窗或我们自己：不闪
         return false;                          // 切到别的程序：收起
@@ -117,8 +132,11 @@ internal sealed class MaskWindowHost
     // 以下只在 UI 线程访问
     private MaskWindow? _window;
     private GameWindow.RECT _appliedBounds;
+    private double _appliedScale;          // 上次摆位用的 DPI 缩放（0 = 还没摆过）
     private DispatcherOperation? _pending;
     private MaskWindow? _created;
+    private HwndSource? _hookedSource;
+    private HwndSourceHook? _dpiHook;
 
     public MaskWindowHost(Func<MaskWindow> windowFactory)
         => _windowFactory = windowFactory ?? throw new ArgumentNullException(nameof(windowFactory));
@@ -154,6 +172,13 @@ internal sealed class MaskWindowHost
         RunOnUiThread(Apply);
     }
 
+    /// <summary>把最新的 ui.json 应用到已存在的遮罩窗（设置窗保存后调用）。</summary>
+    public void ApplyPrefs(UiPrefs prefs)
+    {
+        if (prefs == null) return;
+        try { _window?.ApplyPrefs(prefs); } catch { }
+    }
+
     public void Detach()
     {
         lock (_lock)
@@ -179,6 +204,8 @@ internal sealed class MaskWindowHost
             var w = _window;
             _window = null;
             _appliedBounds = default;
+            _appliedScale = 0;
+            UnhookDpiChanges();
             try { w?.Close(); } catch { }
         });
     }
@@ -225,7 +252,8 @@ internal sealed class MaskWindowHost
         var window = _windowFactory();
         window.Closed += (_, _) =>
         {
-            if (ReferenceEquals(_window, window)) { _window = null; _appliedBounds = default; }
+            UnhookDpiChanges();
+            if (ReferenceEquals(_window, window)) { _window = null; _appliedBounds = default; _appliedScale = 0; }
             if (ReferenceEquals(_created, window)) _created = null;
         };
         _created = window;
@@ -271,8 +299,10 @@ internal sealed class MaskWindowHost
 
         if (!state.IsMinimized) _lastGameActive = state.IsActive;
 
-        if (state.HasBounds && !SameBounds(state.Bounds, _desiredBounds))
+        if (!state.IsMinimized && state.HasBounds && !SameBounds(state.Bounds, _desiredBounds))
         {
+            // 最小化时 GetClientRect/ClientToScreen 给的是"还原尺寸 + 屏外坐标"，跟过去遮罩会跑到 -32000。
+            // 保持现状 = 停在最小化之前的位置，所以只在非最小化时接受新矩形。
             _desiredBounds = state.Bounds;
             changed = true;
         }
@@ -325,25 +355,26 @@ internal sealed class MaskWindowHost
                 var window = EnsureWindow();
                 if (window == null) return;
 
-                var wasVisible = window.IsVisible;
+                var hasBounds = bounds.Right > bounds.Left && bounds.Bottom > bounds.Top;
 
-                // 先按已知 DPI 摆一次（未 Show 时用系统 DPI，可能不准，避免在 0,0 闪一下）
-                if (bounds.Right > bounds.Left && bounds.Bottom > bounds.Top && !SameBounds(bounds, _appliedBounds))
-                {
-                    Position(window, gameHandle, bounds);
-                    _appliedBounds = bounds;
-                    bringToTop = true;
-                }
+                // 先把位置摆好再 Show。`Attach` 只写了 _desiredVisible，_desiredBounds 还是 default：
+                // 那时 Show 会让窗口按 XAML 的 1280×720 在屏幕左上角闪一帧（1280×720@100% 尤其明显）。
+                // 没有客户区就干脆不显示，等第一次 Report 带来客户区再显示。
+                if (hasBounds && PositionIfNeeded(window, gameHandle, bounds)) bringToTop = true;
 
                 if (!ReferenceEquals(_window, window)) _window = window;
-                if (!wasVisible) window.Show();
 
-                // Show 之后再摆一次：此时 HWND 已建、PerMonitorV2 的真实 DPI 已知
-                if (!wasVisible && bounds.Right > bounds.Left && bounds.Bottom > bounds.Top)
+                if (!window.IsVisible)
                 {
-                    Position(window, gameHandle, bounds);
-                    _appliedBounds = bounds;
+                    if (!hasBounds) return;
+
+                    window.Show();
+
+                    // Show 之后 HWND 已建、PerMonitorV2 的真实 DPI 才可用，按真实缩放再摆一次
+                    PositionIfNeeded(window, gameHandle, bounds, force: true);
                 }
+
+                HookDpiChanges(window);
 
                 if (bringToTop) BringToTop(window);
             }
@@ -359,13 +390,114 @@ internal sealed class MaskWindowHost
         }
     }
 
-    private static void Position(Window window, IntPtr gameHandle, GameWindow.RECT bounds)
+    /// <summary>
+    /// 按游戏客户区摆位；bounds 与 DPI 都没变就跳过——
+    /// 写 Left/Top 会触发 WM_WINDOWPOSCHANGING，主循环每秒上报一次，没必要每帧都写。
+    /// </summary>
+    private bool PositionIfNeeded(Window window, IntPtr gameHandle, GameWindow.RECT bounds,
+        bool force = false, double? scaleOverride = null)
     {
-        var scale = DpiScaleFor(gameHandle);
-        window.Left = bounds.Left / scale;
-        window.Top = bounds.Top / scale;
-        window.Width = (bounds.Right - bounds.Left) / scale;
-        window.Height = (bounds.Bottom - bounds.Top) / scale;
+        var scale = scaleOverride is { } s && s > 0 ? s : DpiScaleFor(gameHandle);
+
+        if (!force && _appliedScale > 0
+            && Math.Abs(scale - _appliedScale) < 1e-9
+            && SameBounds(bounds, _appliedBounds))
+            return false;
+
+        var dip = ToDipRect(bounds, scale);
+        window.Left = dip.Left;
+        window.Top = dip.Top;
+        window.Width = dip.Width;
+        window.Height = dip.Height;
+
+        _appliedBounds = bounds;
+        _appliedScale = scale;
+        return true;
+    }
+
+    /// <summary>
+    /// 物理像素客户区 → WPF 的 Left/Top/Width/Height（DIP）。
+    /// 纯函数（不碰窗口），自检直接断言 96/120/144/192 DPI 下的期望值。
+    /// </summary>
+    internal static Rect ToDipRect(GameWindow.RECT bounds, double scale)
+    {
+        if (scale <= 0) scale = 1.0;
+        return new Rect(
+            bounds.Left / scale,
+            bounds.Top / scale,
+            (bounds.Right - bounds.Left) / scale,
+            (bounds.Bottom - bounds.Top) / scale);
+    }
+
+    /// <summary>
+    /// 跟随 DPI 变更。PerMonitorV2 下窗口被拖到另一块缩放不同的显示器时，系统会发 WM_DPICHANGED；
+    /// 只让 WPF 自己改 Width/Height 不够——游戏客户区的**物理**矩形没变，换算后的 DIP 尺寸变了，
+    /// 必须重新摆位，否则遮罩与游戏画面错开（150% 屏上会差出一整块）。
+    /// </summary>
+    private void HookDpiChanges(MaskWindow window)
+    {
+        var hWnd = new WindowInteropHelper(window).Handle;
+        if (hWnd == IntPtr.Zero) return;
+
+        var source = HwndSource.FromHwnd(hWnd);
+        if (source == null || ReferenceEquals(source, _hookedSource)) return;
+
+        UnhookDpiChanges();
+        _dpiHook = OnWindowMessage;
+        source.AddHook(_dpiHook);
+        _hookedSource = source;
+    }
+
+    private void UnhookDpiChanges()
+    {
+        try
+        {
+            if (_hookedSource != null && _dpiHook != null) _hookedSource.RemoveHook(_dpiHook);
+        }
+        catch { }
+        _hookedSource = null;
+        _dpiHook = null;
+    }
+
+    private IntPtr OnWindowMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+    {
+        const int WM_DPICHANGED = 0x02E0;
+        if (msg != WM_DPICHANGED) return IntPtr.Zero;
+
+        // wParam 高 16 位 = 新 DPI（与 X/Y 同值）；这就是"更新缓存 scale"的来源
+        var newDpi = (wParam.ToInt64() >> 16) & 0xFFFF;
+        var scale = newDpi > 0 ? newDpi / 96.0 : _appliedScale;
+
+        GameWindow.RECT bounds;
+        IntPtr gameHandle;
+        lock (_lock)
+        {
+            bounds = _desiredBounds;
+            gameHandle = _gameHandle;
+        }
+
+        if (_window is { } window && bounds.Right > bounds.Left && bounds.Bottom > bounds.Top)
+        {
+            // 按新 scale 重新把遮罩摆回游戏客户区（物理矩形不变、DIP 矩形变了）
+            PositionIfNeeded(window, gameHandle, bounds, force: true, scaleOverride: scale);
+            BringToTop(window);
+        }
+
+        // WPF 自己也会处理 WM_DPICHANGED（可能按 lParam 的建议矩形再调一次窗口），
+        // 所以再投递一次 Normal 优先级的 Apply（早于渲染）：缓存失效后按游戏客户区重新摆位，
+        // 保证这条消息处理完窗口最终落在游戏客户区，而不是系统建议的位置。
+        var dispatcher = Application.Current?.Dispatcher;
+        if (dispatcher != null && !dispatcher.HasShutdownStarted)
+        {
+            dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                _appliedScale = 0;
+                Apply();
+            }));
+        }
+
+        handled = false;
+        return IntPtr.Zero;
     }
 
     private static void BringToTop(Window window)
