@@ -16,7 +16,14 @@ namespace TheaterAssistant;
 ///   · OpenRouter / Groq / Gemini 一类"免费层"都需要注册 key，属于用户自带凭据路径。
 ///
 /// 设计红线（不可放宽）：
-///   1. 默认关闭：`data/llm.json` 不存在或 enabled≠true 时**完全不联网**；
+///   1. 默认关闭（**注释与实现一致**）：只有 `data/llm.json` 存在且 `enabled: true` 才联网。
+///      `data/llm.example.json` 只是"怎么配"的样例（自身 enabled=false），
+///      仅在显式设置环境变量 `TA_LLM_ALLOW_EXAMPLE=1` 时才允许它作为回退配置（此时按"允许启用"
+///      处理；`LLM_ENABLED=0` 仍可一键关闭）。
+///      另一种合法路径是纯环境变量（云端/CI 的 `LLM_ENDPOINT`，凭据不落盘）—— 那是人手动设的，
+///      属于显式同意联网；`LLM_ENABLED=0` 可一键关掉。
+///      旧实现注释写"不存在就完全不联网"、代码却回退到 enabled=true 的 example（4 个第三方端点，
+///      其中 pollinations 的响应还会被第三方缓存），等于默认偷偷联网 —— 已按上面的口径收紧；
 ///   2. 规则引擎永远先算；模型只做"改写/补充"，任何失败都回退规则文本（永不阻断）；
 ///   3. **只发** 幕次 / 首领名 / 本幕机制短句 / 角色池统计数字；
 ///      **绝不发** 截图、像素、选区文本原文、UID、cookie、token、URL；
@@ -161,18 +168,60 @@ internal sealed class LlmAdvisor : IDisposable
     {
         try
         {
-            // 默认开启：本机 data/llm.json 优先（可覆盖或关闭），缺失时回退到仓库内 data/llm.example.json。
-            // 两者都不存在才视为"不联网"。
-            // 必须走 AppPaths.Data：单文件 exe 的 data/ 在解包目录里，只有 Resolve 会两处都找
-            var path = File.Exists(configPath) ? configPath
-                : File.Exists(AppPaths.Data("llm.example.json")) ? AppPaths.Data("llm.example.json")
-                : null;
-            if (path == null) return null;
-            var cfg = ParseConfig(File.ReadAllText(path));
-            ApplyEnvOverrides(cfg);
-            if (!cfg.Enabled || cfg.Endpoints.Count == 0) return null;
-            LastConfigPath = path;
+            var cfg = ResolveConfig(configPath, out var path, out _);
+            if (cfg == null) return null;
+            LastConfigPath = path ?? "(环境变量)";
             return new LlmAdvisor(cfg);
+        }
+        catch { return null; }
+    }
+
+    /// <summary>
+    /// 配置发现（运行时唯一口径）。返回 null = 不联网，来源只有三种：
+    ///   ① data/llm.json 存在且 enabled=true（正常路径）；
+    ///   ② 纯环境变量：{prefix}ENDPOINT 有值（云端/CI，凭据不落盘）+ 未被 {prefix}ENABLED=0 关掉；
+    ///   ③ data/llm.example.json —— 仅当 TA_LLM_ALLOW_EXAMPLE=1（或 allowExampleOverride，
+    ///      只给 RunProbe 这类显式命令用）时作为回退；此时视为已允许启用，{prefix}ENABLED=0 仍可关闭。
+    /// 必须走 AppPaths.Data：单文件 exe 的 data/ 在解包目录里，只有 Resolve 会两处都找。
+    /// </summary>
+    internal static Config ResolveConfig(string configPath, out string path, out bool fromExample,
+        bool allowExampleOverride = false, string envPrefix = "LLM_")
+    {
+        path = null;
+        fromExample = false;
+        try
+        {
+            var allowExample = allowExampleOverride
+                || Environment.GetEnvironmentVariable("TA_LLM_ALLOW_EXAMPLE") == "1";
+            if (File.Exists(configPath))
+            {
+                path = configPath;
+            }
+            else if (allowExample && File.Exists(AppPaths.Data("llm.example.json")))
+            {
+                path = AppPaths.Data("llm.example.json");
+                fromExample = true;
+            }
+            if (path == null)
+            {
+                // 纯环境变量配置（云端/CI：凭据不落盘，见 docs/FLOW.md 的 LLM_ENDPOINT=... 用法）。
+                // 显式给了端点就算显式同意联网 —— 这是人手动设的环境变量，不是随包附带的默认值；
+                // LLM_ENABLED=0 仍然能一键关掉（ApplyEnvOverrides 会直接 return）。
+                var endpointEnv = Environment.GetEnvironmentVariable(envPrefix + "ENDPOINT");
+                if (string.IsNullOrWhiteSpace(endpointEnv)) return null;
+                var envCfg = new Config { Enabled = true };
+                ApplyEnvOverrides(envCfg, envPrefix);
+                return envCfg.Enabled && envCfg.Endpoints.Count > 0 ? envCfg : null;
+            }
+
+            var cfg = ParseConfig(File.ReadAllText(path));
+            ApplyEnvOverrides(cfg, envPrefix);   // 云端只设环境变量，凭据不落盘
+            // example 自身 enabled=false（防止随包默认联网）。既然操作者已用 TA_LLM_ALLOW_EXAMPLE=1
+            // 显式允许它当回退配置，就按"允许启用"处理；{prefix}ENABLED=0 仍然优先（不覆盖关闭）。
+            if (fromExample && Environment.GetEnvironmentVariable(envPrefix + "ENABLED") != "0")
+                cfg.Enabled = true;
+            if (!cfg.Enabled || cfg.Endpoints.Count == 0) return null;
+            return cfg;
         }
         catch { return null; }
     }
@@ -338,16 +387,24 @@ internal sealed class LlmAdvisor : IDisposable
     public static int RunProbe(string configPath, bool dry, bool verifyChannel = false)
     {
         Cli.Attach();
-        // 与 TryLoad 同一套回退：本机 data/llm.json 优先，其次仓库内 data/llm.example.json（默认开启）
-        var path = File.Exists(configPath) ? configPath
-            : File.Exists(AppPaths.Data("llm.example.json")) ? AppPaths.Data("llm.example.json")
-            : null;
-        if (path == null) { Cli.Say("没有任何 llm 配置（data/llm.json 与 data/llm.example.json 都不存在）"); return 4; }
-        Cli.Say("配置文件: " + path);
-        var cfg = ParseConfig(File.ReadAllText(path));
+        // 与 TryLoad 同一套发现逻辑；区别只有一点：**显式探针命令**允许把 example 当回退配置
+        // （运行时默认不读它），免得"想试一下还得先复制文件"。
         // 验证/模拟通道独立：读 LLM_VERIFY_*，可与主通道指向不同模型，互不占配额
         var prefix = verifyChannel ? "LLM_VERIFY_" : "LLM_";
-        ApplyEnvOverrides(cfg, prefix);   // 云端只设环境变量，凭据不落盘
+        var cfg = ResolveConfig(configPath, out var path, out var fromExample,
+            allowExampleOverride: true, envPrefix: prefix);
+        if (cfg == null)
+        {
+            if (path == null)
+                Cli.Say($"没有任何 llm 配置（data/llm.json 不存在；也没有 {prefix}ENDPOINT 环境变量；example 未显式允许）");
+            else
+                Cli.Say($"{path} 不可用（enabled=false 或无端点）"
+                    + (fromExample ? "；example 只是样例，复制成 data/llm.json 并改 enabled=true 才会启用"
+                                   : "；要联网请把 enabled 改成 true"));
+            return 4;
+        }
+        Cli.Say("配置文件: " + (path ?? $"(环境变量 {prefix}ENDPOINT)"));
+        if (fromExample) Cli.Say("注意：用的是 data/llm.example.json（样例文件，不是本机实际配置）");
         Cli.Say($"通道: {prefix}*（{(verifyChannel ? "验证/模拟专用" : "主通道")}）");
         Cli.Say($"enabled={cfg.Enabled} 端点={cfg.Endpoints.Count} 超时={cfg.TimeoutSeconds}s 最小间隔={cfg.MinIntervalSeconds}s 单次会话上限={cfg.MaxPerSession}");
         foreach (var ep in cfg.Endpoints)
