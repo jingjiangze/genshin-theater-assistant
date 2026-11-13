@@ -177,11 +177,13 @@ internal sealed class MainLoop
             // 触发时机也学 BetterGI：轻检查（条带）每帧做，重 OCR 只在「可能有三选一」时做——
             // 幕次未定时每 2 帧一次（要尽快建立上下文）；幕次稳定后每 8 帧一次（1s 节拍下约 8s，
             // 三选一界面停留时间远长于此，不会漏）。
-            var heavyEvery = LastAct.HasValue ? 8 : 2;   // 上一帧已稳定就不必频繁重扫
+            // 稳定后的间隔留了环境变量口子（TA_HEAVY，默认 8）：换 v6 small 后单次 OCR 成本降到 1/3，
+            // 想更勤地刷新三选一/幕次时可调小，实测见 docs/BETTERGI-AUDIT-2026-11-10.md §6.6。
+            var heavyStable = int.TryParse(Environment.GetEnvironmentVariable("TA_HEAVY"), out var hv) && hv > 0 ? hv : 8;
+            var heavyEvery = LastAct.HasValue ? heavyStable : 2;   // 上一帧已稳定就不必频繁重扫
             if (_tickCount % heavyEvery == 0)
             {
-                var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame,
-                    new RectangleF(0.10f, 0.22f, 0.85f, 0.60f));
+                var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame);
                 if (boxes != null && boxes.Count > 0)
                 {
                     var pipelineBoxes = boxes.Select(b => new OcrTextPipeline.Box
