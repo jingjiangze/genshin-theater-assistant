@@ -186,8 +186,10 @@ internal static class Program
                         Cli.Say("引擎状态: " + probe.Status);
                         Cli.Say("执行提供器: " + OcrTuning.EpStatus);
                         Cli.Say($"DirectML 配置: enable={OcrTuning.EnableDirectML} device={OcrTuning.DirectMLDeviceId} threads={(OcrTuning.NumThreads == 0 ? "自动" : OcrTuning.NumThreads.ToString())}");
-                        // 约定：初始化成功即算通过（EP 是 CPU 还是 DirectML 都合法，只要不是崩）
-                        return probe.Status.StartsWith("OCR:") ? 0 : 3;
+                        // 约定：真正加载到中文模型才算通过（EP 是 CPU 还是 DirectML 都合法，只要不是崩）。
+                        // 旧判据是 Status.StartsWith("OCR:")——latin 降级也满足，等于放行；现在看 ModelId。
+                        Cli.Say("模型标识: " + probe.ModelId);
+                        return probe.ModelId is "v6" or "v5" ? 0 : 3;
                     }
 
                 // 决策策略清单（确认决策内容来自数据而非代码）
