@@ -292,3 +292,27 @@ OptStrip = Default with { Padding = 0, ImgResize = 640, DoAngle = false };  // �
 2. RichTextBox 滚到最新必须 **插入符移到 ContentEnd + ScrollToEnd**，且**展开时也要滚一次**；自检渲染前再滚一次（重排会重置）；
 3. 柔光/描边用十六进制 alpha 时，注释里把百分比写对（`0x8C=55%`，`0x55=33%`）；
 4. 自检夹具必须与生产路径同源（条带框、手法截断都要走同一个函数，否则验收的是"另一份代码"）。
+
+### 6.6 换 PP-OCRv6 small（2026-11-13）
+
+上一轮结论是「要再压只能绕开 RapidOcrNet 自组 rec 批或换 v6 small」。两条都摸了：
+
+| 路径 | 结论 |
+|---|---|
+| 自组 det/rec 批 | **不可行（公开 API 不足）**：RapidOcrNet 只暴露 `Detect(bitmap, options)` / `DetectBoxes(...)`，rec 类 `TextRecognizer` 不公开、也没有「给定框做 rec」的入口；要批处理只能反射进内部对象，版本一升就碎 |
+| **换 PP-OCRv6 small** | **可行且直接生效**：`OcrService` 本来就优先 v6（`models/v6` 存在即用），只需把模型取下来 |
+
+**模型**（modelscope RapidAI/RapidOCR v3.10.0，SHA256 校验通过）：
+`PP-OCRv6_det_small.onnx` 9.5MB · `PP-OCRv6_rec_small.onnx` 20.3MB · `ppocrv6_small_dict.txt` 0.1MB
+
+**实测（123 帧真 1080p，生产节拍 pace=700）**：
+
+| 模型 | total p50 | p90 | max | 现在做 | kind 分布 |
+|---|---|---|---|---|---|
+| PP-OCRv5 mobile | 240–274ms | 800–2000ms | ~2.9s | 89/123 | team62/unknown34/act15/theater12 |
+| **PP-OCRv6 small** | **146ms** | **619ms** | **1012ms** | **89/123（不变）** | **完全相同** |
+
+OCR 自身 p90 从 ~1.5s 降到 **465ms**（检测框数 p50 9，v5 是 14–16）。
+即：**同一质量下，最坏帧从 ~2.9s 降到 ~1.0s，中位从 ~270ms 降到 146ms**。
+
+CI 也改成取 v6（`fetch-models.ps1 -V6`，ci 与 e2e 一致），缓存键改 `ocr-models-v56-`。
