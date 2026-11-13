@@ -42,8 +42,8 @@ set HF_ENDPOINT=https://hf-mirror.com
 | 方案 | 量化后体积 | 实测 |
 |---|---|---|
 | Qwen2.5-0.5B-Instruct + LoRA | Q4 ≈ 400MB | 用户判定太大，弃用（val_loss 2.97，1 epoch 24 分钟） |
-| MiniMind2-Small + LoRA(r=8) | fp16 ≈ 52MB | **欠拟合**：loss 卡在 2.7，生成退化成重复串 |
-| **MiniMind2-Small 全参（26M 全部参数）** | fp16 ≈ 52MB | loss 4.1 → 1.0，33 步/3 轮仅 12 分钟 |
+| MiniMind2-Small + LoRA(r=8) | fp16 ≈ 52MB | **欠拟合**：loss 卡在 2.7，生成退化成重复串（33 步/3 轮仅 12 分钟就到平台） |
+| **MiniMind2-Small 全参（26M 全部参数）** | fp16 ≈ 52MB | 88 步 / 8 轮 / 约 15 分钟（4 vCPU 实测 861.7s）/ val_loss 1.02 |
 
 MiniMind2-Small 是标准 `LlamaForCausalLM`（config.json 无自定义代码）+ Qwen 式 chat template，
 训练/评测脚本**原样可用**，不需要 trust_remote_code 的远端实现。
@@ -69,6 +69,9 @@ MiniMind2-Small 是标准 `LlamaForCausalLM`（config.json 无自定义代码）
 | `length_ok_rate` | ≤120 字（超了会挡视野） | ≥0.9 |
 
 评测不过线就不准上线——这是「保证决策效果」的机制：**门槛是硬门，不是参考值**。
+
+> 注：`t1_exact` 高是因为 val 答案在 train 里逐字出现过（T1 只有 8 种答案），不能当泛化证据。
+> 加 `--holdout-report` 会按「金标答案首句」分组切分后重算 t1_exact，只打印为 info、不进门槛，用来看背题程度。
 
 ## 不进 CI
 
