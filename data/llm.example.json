@@ -1,6 +1,6 @@
 {
-  "enabled": true,
-  "_note": "【默认开启】本文件即默认配置，无需复制。要关闭请在 data/llm.json 写 enabled=false（该文件已被 .gitignore 忽略）。",
+  "enabled": false,
+  "_note": "【示例文件，默认不启用】运行时只认 data/llm.json（存在且 enabled=true 才联网）。要启用：复制本文件为 data/llm.json 并改 enabled=true。设置环境变量 TA_LLM_ALLOW_EXAMPLE=1 可让本文件在缺 llm.json 时作为回退配置（此时视为已允许启用，LLM_ENABLED=0 仍可关闭；云端/CI 用）。",
   "_privacy": "只发幕次/首领/机制短句/池子统计；发送前自动脱敏（凭据样式、UID、邮箱、链接、长随机串）。绝不发截图或账号。",
   "_order": "endpoints 按顺序降级：失败自动换下一个。apiKeyEnv 为空表示该端点无需 key。",
   "minIntervalSeconds": 30,
