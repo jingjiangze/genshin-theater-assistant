@@ -24,6 +24,11 @@ tests/run-tests.ps1.bak
 # OCR 模型（体积大；按 models/README.md 自行放置）
 models/**/*.onnx
 models/**/*.txt
+# llama-server 的 sidecar pid（LocalBrain 收养/回收用，运行时生成）
+models/**/.server-*.pid
+# 构建期从 models/ 铺进来的暂存目录（CI 在 publish 前复制，勿入库）
+app/models/
+app-wpf/models/
 !models/README.md
 
 # 编辑器
