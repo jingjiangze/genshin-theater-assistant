@@ -110,7 +110,7 @@ $ bash tools/ci/cloud-all.sh --frames ./frames-sample --sync
 | 1 | 云端 17 步里 **5 步属 C 层**却与 A 层同样标 PASS | 容易误读为"全都验证过了" | **已修**：报告分能力矩阵 + 本文档标注含金量 |
 | 2 | OCR 速度**两次测量结论相反**（上次 v5 更快，本次 v6 更快） | 3 张样本噪声过大，不能下"谁更快"的结论 | **待修**：需 ≥30 帧 + 多轮取中位数 |
 | 3 | `cloud-all.sh` 的 `--push` 依赖 `GH_TOKEN`，云端未常驻配置 | 报告只能留在 box | **待定**：可作为可选步骤（已在代码里） |
-| 4 | 云端无 `.env.local` 时 `--llm-probe` 会用 pollinations 兜底 | 容易把"免 key 兜底通"误当成"自己的端点通" | **已缓解**：报告里打印实际端点名 |
+| 4 | 云端无 `.env.local` 时 `--llm-probe` 曾用 pollinations 兜底 | 容易把"免 key 兜底通"误当成"自己的端点通" | **已修（2026-11-14）**：`data/llm.example.json` 默认 `enabled:false`，只有 `TA_LLM_ALLOW_EXAMPLE=1`（或显式 `LLM_ENDPOINT`）才会联网；报告打印实际端点名 |
 | 5 | 本机 `github.com` 不通，只能靠 Contents API 逐文件提交 | 无法用 git push / 无法推 tag | **已绕过**：`gh-commit.mjs`；tag 仍需 Actions |
 
 ## 5. 不能由云端验证的三件事（明确声明）
