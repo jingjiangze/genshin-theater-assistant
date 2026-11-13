@@ -32,14 +32,14 @@
 | `app-wpf/MaskWindow.xaml(.cs)` | 窗口本体：透明置顶、左下日志面板、状态胶囊 | 三样式 `WS_EX_TRANSPARENT/NOACTIVATE/TOOLWINDOW` + `WDA_EXCLUDEFROMCAPTURE`；**展开日志时必须把插入符移到文末再 ScrollToEnd**（只调 ScrollToEnd 在重排后会被重置，实测停在第 250 行） |
 | `app-wpf/MaskWindowHost.cs` | 显隐、置顶、跟随客户区 | 只接收「事实」，合并后投递一次 Apply；`MaskPolicy.Decide` 是纯函数 |
 | `app-wpf/MaskDrawingLayer.cs` | 识别框 + 标签绘制 | 帧像素 → 窗口 DIP 比例；Pen/Brush 缓存；四角括号 |
-| `app-wpf/OverlayLogDocument.cs` | 日志文档裁剪 | 200 inline / 10000 字符；只在 Background 优先级合并维护一次 |
+| `app-wpf/OverlayLogDocument.cs` | 日志文档裁剪 | 200 inline / 10000 字符；Background 优先级合并维护（展开/追加时另有一次即时维护，避免"展开后才发现超限"） |
 
 数据来自 `MainLoop.Updated`（`TickSnapshot`）：句柄、帧宽高、幕次、来源、弃权毫秒、命中框数组。
 遮罩**不认识**识别/决策内部类型——单向依赖，便于单测。
 
 ## 三、为什么必须 `WDA_EXCLUDEFROMCAPTURE`
 
-主循环用 GDI `CopyFromScreen` 抓游戏客户区，**会把盖在上面的任何窗口一起抓进去**。
+主循环用 GDI `BitBlt(游戏窗口 DC)` 抓游戏客户区（失败才回落 `CopyFromScreen`），**同样会把盖在上面的任何窗口一起抓进去**。
 若不排除，左下角面板的中文日志会进入全帧 OCR 文本，「第N幕」正则可能被日志里的
 「第3幕」直接命中——等于自己给自己喂假信号。所以遮罩必须从捕获里排除。
 
@@ -54,7 +54,8 @@ CI `WPF 自检` 步骤真实实例化并渲染，产物 `wpf-selftest-<sha>`：
 |---|---|
 | `MaskWindow 实例化并渲染` | 1280×720 位图非空像素 > 1% |
 | `遮罩日志有上限` | 写 300 行后 `MaintainNow()` 的 inline 数 ≤ 200 |
-| `遮罩显隐策略` | 前台→显示；别的程序前台→隐藏；最小化→保持；无窗口→隐藏；手动隐藏→隐藏 |
+| `遮罩显隐策略` | 前台→显示；别的程序前台→隐藏；最小化→保持（捕捉态只看可见性，最小化不再算"没抓到"）；无窗口→隐藏；手动隐藏→隐藏 |
+| `遮罩面板几何` | 面板随客户区等比缩放（s = min(1, 宽/1920, 高/1080)，下限 0.5），1280×720 与 1920×1080 都与幕次条带不相交（自检断言） |
 
 真机验收（`PENDING`，需要用户在真游戏窗口上确认）：
 1. 进剧诗，遮罩自动贴住客户区（窗口化/窗口全屏/移动窗口/改分辨率）；
@@ -65,5 +66,5 @@ CI `WPF 自检` 步骤真实实例化并渲染，产物 `wpf-selftest-<sha>`：
 ## 五、已知限制
 
 - 只支持窗口化 / 窗口全屏；独占全屏（Exclusive Fullscreen）下置顶窗会被游戏盖住——这是 Windows 合成器行为，不是 bug。
-- 日志行数上限决定只能看到最近约 55 行（200 inline ÷ 每行 3 inline + 换行），完整日志请看崩溃目录/控制台输出。
+- 日志行数上限决定只能看到最近 **50 行**（200 inline ÷ 每行 3 inline + 1 换行 ≈ 50），完整日志请看崩溃目录/控制台输出。
 - 遮罩跟随用游戏窗口 DPI 换算；混合 DPI 多屏（游戏在 150% 屏、面板在 100% 屏）时以游戏所在屏为准。
