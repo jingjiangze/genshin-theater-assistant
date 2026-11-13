@@ -337,7 +337,9 @@ jobs:
       # 目的：把「1080p 单帧成本」变成 CI 可复现的数字（此前只有本机手动跑），
       # 并设上限防止后续改动把它悄悄拖慢。
       # 门（2026-11-14 收紧）：平均 > 1200ms 失败；同时用 TA_TIMING=1 采每帧 total，
-      # 最慢帧（重 OCR 帧）> 2000ms 也失败——只卡均值会放过「均值达标但个别帧爆表」。
+      # 最慢帧（重 OCR 帧）> 2600ms 也失败——只卡均值会放过「均值达标但个别帧爆表」。
+      # 阈值依据：本机 123 帧 v6 实测 max 1012ms；CI runner（4 vCPU 共享）实测单帧最高 1978ms，
+      # 2000ms 只剩 1% 余量会变成 flaky 门，故放到 2600（仍能拦住 1.5x 以上的退化）。
       # 基线（v6 small，123 帧真 1080p，生产节拍）：total p50 146ms / p90 619ms / max 1012ms。
       - name: 1080p 真实帧回归（耗时门）
         shell: pwsh
@@ -362,13 +364,13 @@ jobs:
             ForEach-Object { [int]$_.Matches[0].Groups[1].Value })
           if ($totals.Count -eq 0) { throw "没采到 [timing] 行（TA_TIMING=1 未生效？），重帧门无法验证" }
           $heavy = ($totals | Measure-Object -Maximum).Maximum
-          Write-Host "平均 $ms ms/帧（门 ≤1200）｜重帧最大 $heavy ms（门 ≤2000，采样 $($totals.Count) 帧）"
+          Write-Host "平均 $ms ms/帧（门 ≤1200）｜重帧最大 $heavy ms（门 ≤2600，采样 $($totals.Count) 帧）"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 1080p 真实帧回归"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $line
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- 平均 $ms ms/帧（门 ≤1200）"
-          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- 重帧最大 $heavy ms（门 ≤2000）"
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "- 重帧最大 $heavy ms（门 ≤2600）"
           if ($ms -gt 1200) { throw "1080p 单帧平均 $ms ms 超过上限 1200ms" }
-          if ($heavy -gt 2000) { throw "1080p 最慢帧 $heavy ms 超过上限 2000ms" }
+          if ($heavy -gt 2600) { throw "1080p 最慢帧 $heavy ms 超过上限 2600ms" }
 
       - name: 悬浮窗渲染自检（画到 bitmap 上断言）
         shell: pwsh
