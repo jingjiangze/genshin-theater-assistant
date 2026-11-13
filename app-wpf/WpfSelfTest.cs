@@ -1,7 +1,10 @@
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 // UseWindowsForms 与 UseWPF 共存时，Application/Size 等类型会二义，显式别名到 WPF 侧
@@ -22,11 +25,24 @@ namespace TheaterAssistant;
 ///   2. OverlayWindow 能实例化（XAML 中的资源引用全部可解析）
 ///   3. SettingsWindow 能实例化
 ///   4. 两者都能渲染成非空白位图（说明控件树真的建起来了）
-///   5. 遮罩窗口能渲染，且日志裁剪守住 200 inline 上限（照抄 BetterGI 的判据）
+///   5. 遮罩窗口能渲染，且日志裁剪守住 200 inline 上限（照抄 BetterGI 的判据），保留的是最新行
 ///   6. 遮罩显隐策略（前台显示 / 别的程序隐藏 / 最小化保持 / 手动隐藏优先）
+///   7. 遮罩窗口扩展样式位（点击穿透 + 不抢焦点 + 不进 Alt+Tab）
+///   8. 面板与幕次条带在 1280×720 / 1920×1080 下不相交（面板随客户区等比缩放）
+///   9. 物理像素 → DIP 换算在 96/120/144/192 DPI 下的期望值（纯函数）
 /// </summary>
 internal static class WpfSelfTest
 {
+    // 与 MaskWindow 相同的口径：GWL_EXSTYLE + 三个点击穿透/不抢焦点的样式位
+    private const int GWL_EXSTYLE = -20;
+    private const int WS_EX_TRANSPARENT = 0x00000020;
+    private const int WS_EX_TOOLWINDOW = 0x00000080;
+    private const int WS_EX_NOACTIVATE = 0x08000000;
+    private const int MaskExStyleExpected = WS_EX_TRANSPARENT | WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW;
+
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
     public static int Run()
     {
         var log = new StringBuilder();
@@ -134,6 +150,20 @@ internal static class WpfSelfTest
             mask.SetAdvice("用雷把怒气条推满，满条后 15 秒内把爆发全打出去");
             mask.SetGuide(App.ShortenGuide("手法·标记期奶满或无敌帧躲，解除后才是输出窗口（伤害 -50%/暴击 -100%）"));   // 走生产同一条截断逻辑（>26 字 + 含「（」）
 
+            // 扩展样式位：点击穿透 + 不抢焦点 + 不进 Alt+Tab 只能靠 Win32 样式，
+            // WPF 属性做不到——这三条一旦漏，遮罩会拦截鼠标或抢走游戏焦点。
+            try
+            {
+                var exStyle = GetWindowLong(new WindowInteropHelper(mask).Handle, GWL_EXSTYLE);
+                var got = exStyle & MaskExStyleExpected;
+                Check("遮罩窗口扩展样式", got == MaskExStyleExpected,
+                    $"ex=0x{exStyle:X8} 命中=0x{got:X8} 期望=0x{MaskExStyleExpected:X8}（TRANSPARENT|NOACTIVATE|TOOLWINDOW）");
+            }
+            catch (Exception ex)
+            {
+                Check("遮罩窗口扩展样式", false, ex.GetType().Name + ": " + ex.Message);
+            }
+
             // 300 行远超上限：裁剪后 inline 数必须 ≤ 200（与上游同一条判据）
             for (var i = 0; i < 300; i++)
                 mask.AppendLog(i % 7 == 0 ? "WRN" : "INF", $"第 {i} 行：合成日志，用于验证裁剪上限");
@@ -141,6 +171,13 @@ internal static class WpfSelfTest
             var inlines = mask.TrimLogsNow();
             Check("遮罩日志有上限", inlines <= OverlayLogDocument.MaximumInlines,
                 $"inline {inlines} / 上限 {OverlayLogDocument.MaximumInlines}；已写入 {mask.LogLineCount} 行");
+
+            // 保留的是**最新**行而不是最早的行：裁剪取尾部，面板里第一行应该接近第 299 行。
+            // 取头会在面板里永远看到开头的旧消息（最新一条永远看不到），这正是这个断言要守的。
+            var firstLine = FirstLogLine(mask);
+            var firstIndex = LeadingLogIndex(firstLine);
+            Check("遮罩日志保留最新行", firstIndex >= 200,
+                $"首行=\"{firstLine}\"（解析到第 {firstIndex} 行；已写入 {mask.LogLineCount} 行）");
 
             mask.SetFrame(new[]
             {
@@ -154,7 +191,53 @@ internal static class WpfSelfTest
             Check("MaskWindow 实例化并渲染", mn > 0.01, $"非空像素 {mn:P1}");
             Save(mb, "selftest-wpf-mask.png");       // 生产默认形态：只有「现在做」
 
-            // 展开日志再渲染一张：验收时两张一起看（默认形态 / 排查形态）
+            // 面板与幕次条带不能相交（只验折叠态；展开态是玩家主动叫出来的排查形态）。
+            // 两个必测尺度：1280×720@100%（面板 404 DIP 固定宽会压条带）与 1920×1080@100%（参考尺度）。
+            // 1920×1080 物理 @150% 的客户区 DIP 正好也是 1280×720，所以这一条同时覆盖了那个常见组合。
+            var band = GameModes.Get("theater") ?? GameModes.Default;
+            foreach (var (w, h) in new[] { (W: 1280, H: 720), (W: 1920, H: 1080) })
+            {
+                // Window 的尺寸最终由系统（HWND）说了算，改 Width/Height 后要给消息泵一次机会，
+                // 再用窗口自己的 RenderSize 做几何判定——直接拿请求值会和真实布局脱节。
+                mask.Width = w;
+                mask.Height = h;
+                mask.UpdateLayout();
+                Pump(60);
+                mask.UpdateLayout();
+
+                var clientW = mask.ActualWidth;
+                var clientH = mask.ActualHeight;
+                var sizeOk = Math.Abs(clientW - w) <= 1.5 && Math.Abs(clientH - h) <= 1.5;
+
+                var panelRect = PanelRectInWindow(mask);
+                var bandRect = new Rect(clientW * band.BandLeft, clientH * band.BandTop,
+                                        clientW * band.BandWidth, clientH * band.BandHeight);
+                var overlapW = Math.Min(panelRect.Right, bandRect.Right) - Math.Max(panelRect.Left, bandRect.Left);
+                var overlapH = Math.Min(panelRect.Bottom, bandRect.Bottom) - Math.Max(panelRect.Top, bandRect.Top);
+                var apart = overlapW <= 0 || overlapH <= 0;
+                var inside = panelRect.Left >= 0 && panelRect.Top >= 0
+                             && panelRect.Right <= clientW + 0.5 && panelRect.Bottom <= clientH + 0.5;
+
+                // 纯函数模型要与真实布局一致（等价于验证 LayoutTransform + 外边距乘 s 的口径没写反）
+                var scale = MaskWindow.PanelScaleFor(clientW, clientH);
+                var model = MaskWindow.PanelRectFor(clientW, clientH, panelRect.Height / scale);
+                var modelDelta = Math.Max(
+                    Math.Max(Math.Abs(model.Left - panelRect.Left), Math.Abs(model.Top - panelRect.Top)),
+                    Math.Max(Math.Abs(model.Width - panelRect.Width), Math.Abs(model.Height - panelRect.Height)));
+
+                // 防"空布局也通过"：面板没真正参与布局时（宽高为 0）这里直接判失败
+                var sane = panelRect.Width > 100 && panelRect.Height > 10;
+
+                Check($"遮罩面板不压条带 {w}×{h}", apart && inside && sizeOk && sane && modelDelta <= 1.5,
+                    $"客户区={clientW:F0}×{clientH:F0}(尺寸吻合={sizeOk}) s={scale:F3} " +
+                    $"面板=({panelRect.Left:F1},{panelRect.Top:F1},{panelRect.Width:F1},{panelRect.Height:F1}) " +
+                    $"条带=({bandRect.Left:F1},{bandRect.Top:F1},{bandRect.Width:F1},{bandRect.Height:F1}) " +
+                    $"重叠={overlapW:F1}×{overlapH:F1} 在客户区内={inside} 模型偏差={modelDelta:F2}");
+            }
+
+            // 展开日志再渲染一张：验收时两张一起看（默认形态 / 排查形态）。截图统一按 1280×720 出。
+            mask.Width = 1280;
+            mask.Height = 720;
             mask.SetLogExpanded(true);
             Pump(60);
             var mb2 = Render(mask, 1280, 720);
@@ -168,28 +251,78 @@ internal static class WpfSelfTest
         }
 
         // ③c 遮罩显隐策略（纯函数：上游把这段埋在 EvaluateLocked 里，没法单独测）
+        //
+        // 构造口径必须与 MaskGameState.Read 一致：capturing = IsWindowVisible ——
+        // 最小化窗口的 WS_VISIBLE 仍然置着，所以 minimized + capturing 是**合法**组合。
+        // 旧自检手拼「minimized:true, capturing:true」而当时 Read 是 `visible && !minimized`，
+        // 那个组合根本产生不出来，于是「最小化 → 保持」分支不可达的回归被掩盖了。
+        // 现在统一经由下面的 State() 构造（= Read 的事实组合），并直接断言 MaskPolicy.Decide。
         try
         {
             var bounds = new GameWindow.RECT { Left = 100, Top = 50, Right = 1380, Bottom = 770 };
-            var active = new MaskGameState(new IntPtr(1), bounds, active: true, minimized: false, fgOwned: true, capturing: true);
-            var otherApp = new MaskGameState(new IntPtr(1), bounds, active: false, minimized: false, fgOwned: false, capturing: true);
-            var minimized = new MaskGameState(new IntPtr(1), bounds, active: false, minimized: true, fgOwned: false, capturing: true);
-            var gone = new MaskGameState(IntPtr.Zero, default, active: false, minimized: false, fgOwned: false, capturing: false);
+
+            MaskGameState State(bool isActive, bool isMinimized, bool isFgOwned, bool isVisible)
+                => new(new IntPtr(1), bounds, isActive, isMinimized, isFgOwned, capturing: isVisible);
+
+            var active = State(isActive: true, isMinimized: false, isFgOwned: true, isVisible: true);
+            var otherApp = State(isActive: false, isMinimized: false, isFgOwned: false, isVisible: true);
+            var minimized = State(isActive: false, isMinimized: true, isFgOwned: false, isVisible: true);
+            var minimizedFront = State(isActive: true, isMinimized: true, isFgOwned: true, isVisible: true);
+            var hidden = State(isActive: false, isMinimized: false, isFgOwned: false, isVisible: false);
+            var gone = MaskGameState.None;
 
             var ok = MaskPolicy.Decide(active, false) == true
                      && MaskPolicy.Decide(otherApp, false) == false
-                     && MaskPolicy.Decide(minimized, false) == null      // 最小化时保持现状，避免闪烁
-                     && MaskPolicy.Decide(gone, false) == false
-                     && MaskPolicy.Decide(active, true) == false;        // 手动隐藏优先于一切
+                     && MaskPolicy.Decide(minimized, false) == null       // 最小化：保持现状（不是隐藏）
+                     && MaskPolicy.Decide(minimizedFront, false) == null   // 最小化时的前台判定不参与
+                     && MaskPolicy.Decide(hidden, false) == false         // 窗口不可见：收起
+                     && MaskPolicy.Decide(gone, false) == false           // 游戏窗口没了：收起
+                     && MaskPolicy.Decide(active, true) == false;         // 手动隐藏优先于一切
 
             Check("遮罩显隐策略", ok,
                 $"前台={MaskPolicy.Decide(active, false)} 别的程序={MaskPolicy.Decide(otherApp, false)} " +
                 $"最小化={MaskPolicy.Decide(minimized, false)?.ToString() ?? "null"} " +
-                $"无窗口={MaskPolicy.Decide(gone, false)} 手动隐藏={MaskPolicy.Decide(active, true)}");
+                $"最小化+前台={MaskPolicy.Decide(minimizedFront, false)?.ToString() ?? "null"} " +
+                $"不可见={MaskPolicy.Decide(hidden, false)} 无窗口={MaskPolicy.Decide(gone, false)} " +
+                $"手动隐藏={MaskPolicy.Decide(active, true)}");
         }
         catch (Exception ex)
         {
             Check("遮罩显隐策略", false, ex.GetType().Name + ": " + ex.Message);
+        }
+
+        // ③c2 DPI 换算（物理像素 → DIP）：Left/Top/Width/Height 四个值在 96/120/144/192 下的期望值。
+        // 纯函数断言，不动任何窗口——这是遮罩跟随游戏客户区、浮球/桌宠定位共用的同一套口径。
+        try
+        {
+            // 1920×1080 的客户区，左上角在物理像素 (120,60)
+            var physical = new GameWindow.RECT { Left = 120, Top = 60, Right = 2040, Bottom = 1140 };
+            var expected = new (double Scale, Rect Dip)[]
+            {
+                (1.00, new Rect(120, 60, 1920, 1080)),
+                (1.25, new Rect(96, 48, 1536, 864)),
+                (1.50, new Rect(80, 40, 1280, 720)),
+                (2.00, new Rect(60, 30, 960, 540)),
+            };
+
+            var ok = true;
+            var detail = new StringBuilder();
+            foreach (var (scale, want) in expected)
+            {
+                var got = MaskWindowHost.ToDipRect(physical, scale);
+                var same = Math.Abs(got.Left - want.Left) < 1e-9
+                           && Math.Abs(got.Top - want.Top) < 1e-9
+                           && Math.Abs(got.Width - want.Width) < 1e-9
+                           && Math.Abs(got.Height - want.Height) < 1e-9;
+                ok &= same;
+                detail.Append($"{scale * 100:F0}%→({got.Left:F0},{got.Top:F0},{got.Width:F0},{got.Height:F0}) ");
+            }
+
+            Check("DPI 换算（物理→DIP）", ok, detail.ToString().TrimEnd());
+        }
+        catch (Exception ex)
+        {
+            Check("DPI 换算（物理→DIP）", false, ex.GetType().Name + ": " + ex.Message);
         }
 
         // ③d 玩法档案（剧诗 / 深渊）：区域数值必须是改造前那四个常量，否则识别位置会悄悄漂
@@ -304,6 +437,47 @@ internal static class WpfSelfTest
         rtb.Render(w);
         rtb.Freeze();
         return rtb;
+    }
+
+    /// <summary>日志文档首行（跳过空行）。自检用：验证裁剪保留的是最新行。</summary>
+    private static string FirstLogLine(MaskWindow mask)
+    {
+        var text = new TextRange(mask.LogTextBox.Document.ContentStart, mask.LogTextBox.Document.ContentEnd).Text;
+        foreach (var line in text.Split('\r', '\n'))
+            if (!string.IsNullOrWhiteSpace(line)) return line.Trim();
+        return "";
+    }
+
+    /// <summary>从 "HH:mm:ss INF 第 234 行：…" 里取出合成日志的行号（取不到返回 -1）。</summary>
+    private static int LeadingLogIndex(string line)
+    {
+        var at = line?.IndexOf("第 ", StringComparison.Ordinal) ?? -1;
+        if (at < 0) return -1;
+
+        var i = at + 2;
+        var value = 0;
+        var digits = 0;
+        while (i < line.Length && char.IsDigit(line[i]))
+        {
+            value = value * 10 + (line[i] - '0');
+            i++;
+            digits++;
+        }
+        return digits > 0 ? value : -1;
+    }
+
+    /// <summary>
+    /// 折叠态面板在窗口 DIP 坐标下的实际矩形。
+    /// TranslatePoint 走的是布局变换之后的坐标；ActualWidth/Height 也是 LayoutTransform 之后的尺寸，
+    /// 所以这里拿到的就是玩家真正看到的矩形（不是 XAML 里的 404 基准宽）。
+    /// </summary>
+    private static Rect PanelRectInWindow(MaskWindow mask)
+    {
+        var origin = mask.Panel.TranslatePoint(new Point(0, 0), mask);
+        // 面板用 LayoutTransform 整体缩放：ActualWidth 是**未缩放**的布局尺寸，
+        // 真实占位要乘 ScaleX（否则几何断言会误判成 404 宽压住条带）。
+        var s = mask.Panel.LayoutTransform is ScaleTransform st ? st.ScaleX : 1.0;
+        return new Rect(origin.X, origin.Y, mask.Panel.ActualWidth * s, mask.Panel.ActualHeight * s);
     }
 
     private static double NonBlankRatio(BitmapSource bmp)
