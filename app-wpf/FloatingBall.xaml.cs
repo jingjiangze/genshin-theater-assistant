@@ -28,8 +28,11 @@ public partial class FloatingBall : Window
     private readonly DispatcherTimer _anim = new() { Interval = TimeSpan.FromMilliseconds(40) };
     private double _t;
     private bool _dragging;
-    private Point _dragStart;
-    private Point _winStart;
+    private Point _dragStart;      // 屏幕 DIP
+    private Point _winStart;       // 窗口 DIP（Left/Top）
+
+    // 右下角留白（参考尺寸，DIP）
+    private const double CornerInsetX = 36, CornerInsetY = 96;
 
     [DllImport("user32.dll")] private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
     [DllImport("user32.dll")] private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
@@ -43,13 +46,10 @@ public partial class FloatingBall : Window
     {
         InitializeComponent();
 
-        // 位置：右下角（照 MapsBalloon 的"屏幕右下角常驻"）
-        var screen = ScreenMetrics.PhysicalSize;
-        var size = new System.Drawing.Size((int)Width, (int)Height);
-        var p = ScreenMetrics.ClampToScreen(
-            new System.Drawing.Point(screen.Width - size.Width - 36, screen.Height - size.Height - 96), size);
-        Left = p.X;
-        Top = p.Y;
+        // 位置：右下角（照 MapsBalloon 的"屏幕右下角常驻"）。
+        // 口径：ScreenMetrics.PhysicalSize 是**物理像素**，Left/Top 是 **DIP** ——
+        // 必须按 DPI 换算成 DIP 再钳位；直接把物理像素塞给 Left/Top，在 150%/200% 屏上球会跑到屏幕外。
+        PlaceAtDefaultCorner();
 
         SourceInitialized += (_, _) =>
         {
@@ -58,6 +58,9 @@ public partial class FloatingBall : Window
             SetWindowLong(h, GWL_EXSTYLE, ex | WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW);
             // 自己不被截进画面（防止被其他程序/反作弊看到）
             SetWindowDisplayAffinity(h, WDA_EXCLUDEFROMCAPTURE);
+
+            // HWND 建立后能拿到窗口所在显示器的真实 DPI（混合 DPI / 副屏），初始位置按它再校正一次
+            PlaceAtDefaultCorner();
         };
 
         Loaded += (_, _) =>
@@ -84,7 +87,7 @@ public partial class FloatingBall : Window
             return;
         }
         _dragging = true;
-        _dragStart = PointToScreen(e.GetPosition(this));
+        _dragStart = ScreenDip(e.GetPosition(this));
         _winStart = new Point(Left, Top);
         Root.CaptureMouse();
     }
@@ -92,11 +95,14 @@ public partial class FloatingBall : Window
     private void OnMouseMove(object sender, MouseEventArgs e)
     {
         if (!_dragging) return;
-        var cur = PointToScreen(e.GetPosition(this));
-        var c = ScreenMetrics.ClampToScreen(
-            new System.Drawing.Point((int)(_winStart.X + cur.X - _dragStart.X),
-                                     (int)(_winStart.Y + cur.Y - _dragStart.Y)),
-            new System.Drawing.Size((int)Width, (int)Height));
+
+        // 全程 DIP：窗口内位置（DIP）+ Left/Top（DIP）= 指针的屏幕 DIP。
+        // 旧代码拿 PointToScreen（物理像素）的增量去加 Left/Top（DIP），150% 屏上拖动会越拖越偏。
+        var cur = ScreenDip(e.GetPosition(this));
+        var c = ClampToScreenDip(
+            new System.Drawing.Point((int)Math.Round(_winStart.X + cur.X - _dragStart.X),
+                                     (int)Math.Round(_winStart.Y + cur.Y - _dragStart.Y)),
+            WindowSizeDip(), ScreenSizeDip());
         Left = c.X;
         Top = c.Y;
     }
@@ -106,6 +112,69 @@ public partial class FloatingBall : Window
         if (!_dragging) return;
         _dragging = false;
         Root.ReleaseMouseCapture();
+    }
+
+    // ── DPI / 屏幕几何 ──────────────────────────────────────────
+    /// <summary>窗口当前 DPI 缩放（物理像素 → DIP）。优先用窗口所在显示器的真实 DPI。</summary>
+    private double DpiScaleForWindow()
+    {
+        try
+        {
+            var h = new WindowInteropHelper(this).Handle;
+            if (h != IntPtr.Zero)
+            {
+                var scale = MaskWindowHost.DpiScaleFor(h);
+                if (scale > 0) return scale;
+            }
+        }
+        catch { }
+
+        var fallback = ScreenMetrics.ScaleFactor();
+        return fallback > 0 ? fallback : 1.0;
+    }
+
+    /// <summary>窗口内位置（DIP）→ 屏幕 DIP（Left/Top 本身就是 DIP，直接相加即可）。</summary>
+    private Point ScreenDip(Point clientDip) => new(Left + clientDip.X, Top + clientDip.Y);
+
+    private System.Drawing.Size WindowSizeDip()
+        => new((int)Math.Round(Width), (int)Math.Round(Height));
+
+    /// <summary>屏幕 DIP 尺寸（物理分辨率 ÷ DPI）。</summary>
+    private System.Drawing.Size ScreenSizeDip()
+    {
+        var physical = ScreenMetrics.PhysicalSize;
+        var scale = DpiScaleForWindow();
+        return new System.Drawing.Size(
+            (int)Math.Round(physical.Width / scale),
+            (int)Math.Round(physical.Height / scale));
+    }
+
+    private void PlaceAtDefaultCorner()
+    {
+        var screenDip = ScreenSizeDip();
+        var size = WindowSizeDip();
+        var p = ClampToScreenDip(
+            new System.Drawing.Point(
+                screenDip.Width - size.Width - (int)Math.Round(CornerInsetX),
+                screenDip.Height - size.Height - (int)Math.Round(CornerInsetY)),
+            size, screenDip);
+        Left = p.X;
+        Top = p.Y;
+    }
+
+    /// <summary>
+    /// DIP 坐标系内的钳位。不能复用 ScreenMetrics.ClampToScreen：
+    /// 那个函数用 PhysicalSize（物理像素）做边界，喂 DIP 进去等于把窗口当物理像素判断。
+    /// </summary>
+    private static System.Drawing.Point ClampToScreenDip(
+        System.Drawing.Point p, System.Drawing.Size windowDip, System.Drawing.Size screenDip)
+    {
+        if (screenDip.Width <= 0 || screenDip.Height <= 0) return p;
+        var maxX = Math.Max(0, screenDip.Width - Math.Min(windowDip.Width, screenDip.Width));
+        var maxY = Math.Max(0, screenDip.Height - Math.Min(windowDip.Height, screenDip.Height));
+        return new System.Drawing.Point(
+            Math.Max(0, Math.Min(p.X, maxX)),
+            Math.Max(0, Math.Min(p.Y, maxY)));
     }
 
     /// <summary>设置状态（决定角标与动画节奏）。</summary>
