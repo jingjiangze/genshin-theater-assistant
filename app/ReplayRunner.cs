@@ -94,7 +94,7 @@ internal static class ReplayRunner
 
                 // 与生产一致的重 OCR 节拍（MainLoop）：幕次未定每 2 帧、已稳定每 8 帧，其余帧复用上次文本。
                 // 回放若每帧都跑整帧 OCR，测出来的不是产品的成本；连续满载还会把 CPU 拖进降频区。
-                var heavyEvery = prevStable > 0 ? 8 : 2;
+                var heavyEvery = prevStable > 0 ? HeavyEveryStable() : 2;
                 var swOcr = System.Diagnostics.Stopwatch.StartNew();
                 if ((frameIndex - 1) % heavyEvery == 0)
                 {
@@ -299,6 +299,10 @@ internal static class ReplayRunner
         Cli.Say(stable ? "PASS 时序稳定（无跨幕跳变）" : "WARN 时序有问题（见报告）");
         return stable ? 0 : 1;
     }
+
+    /// <summary>幕次稳定后的重 OCR 间隔：默认 8，可用 TA_HEAVY 覆盖（与 MainLoop 同一个口子）。</summary>
+    private static int HeavyEveryStable()
+        => int.TryParse(Environment.GetEnvironmentVariable("TA_HEAVY"), out var v) && v > 0 ? v : 8;
 
     private static string Cut(string s, int n)
     {
