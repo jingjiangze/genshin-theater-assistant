@@ -23,6 +23,12 @@ internal static class DecisionPolicy
     public static int TeamSize { get; private set; } = 4;
     public static int CoveragePerElement { get; private set; } = 2;
 
+    /// <summary>
+    /// 幕次连续未识别多久后弃权（秒）。此前 data/decision-policy.json 里写着这个字段，
+    /// 但**全仓没有读取方**（改配置不生效，审计发现）；现在由 ActStabilizer 消费。
+    /// </summary>
+    public static int AbstainAfterSeconds { get; private set; } = 10;
+
     private static readonly Dictionary<string, double> _diffWeights = new(StringComparer.Ordinal);
     private static double _defaultDiffWeight = 0.5;
 
@@ -55,6 +61,9 @@ internal static class DecisionPolicy
                 foreach (var e in dw.EnumerateObject())
                     if (e.Value.ValueKind == JsonValueKind.Number) _diffWeights[e.Name] = e.Value.GetDouble();
             _defaultDiffWeight = NumOf(r, "defaultDifficultyWeight", _defaultDiffWeight);
+
+            if (r.TryGetProperty("abstain", out var ab) && ab.ValueKind == JsonValueKind.Object)
+                AbstainAfterSeconds = Math.Max(1, IntOf(ab, "abstainAfterSeconds", AbstainAfterSeconds));
 
             if (r.TryGetProperty("roleTriggers", out var rt) && rt.ValueKind == JsonValueKind.Object)
             {
