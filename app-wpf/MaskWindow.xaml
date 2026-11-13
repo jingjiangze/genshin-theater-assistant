@@ -32,9 +32,12 @@
 
     <local:MaskDrawingLayer x:Name="DrawLayer"/>
 
+    <!--
+      面板尺寸/外边距不写死：MaskWindow.ApplyPanelScale 按客户区大小写入
+      （LayoutTransform 等比缩放 + 外边距同步乘系数），避免 1280×720 下面板压住左下角幕次条带。
+    -->
     <Border x:Name="Panel"
             HorizontalAlignment="Left" VerticalAlignment="Bottom"
-            Margin="14,0,0,92"
             Width="404"
             CornerRadius="9"
             BorderThickness="1"
