@@ -313,6 +313,7 @@ public partial class SettingsWindow : Wpf.Ui.Controls.FluentWindow
                 ["bodyFontPt"] = (int)_font.Value,
                 ["showSourceMark"] = _showSource.IsChecked == true,
                 ["hideWhenGameMissing"] = _hideWhenMissing.IsChecked == true,
+                ["hotkeyEnable"] = _hotkeyEnable.IsChecked == true,
             }.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
 
             var polPath = AppPaths.Data("decision-policy.json");
