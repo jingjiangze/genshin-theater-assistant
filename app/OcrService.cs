@@ -33,10 +33,15 @@ internal sealed class OcrService : IDisposable
     //   · 长边 1024 对 960 画布没有压缩收益；
     //   · UI 文本都是横排，角度分类（cls）每框多一次模型前向。
     // BGI 的 det 是 limit_type=max（只缩不放）+ 无白边，这里对齐。
-    private static readonly RapidOcrNet.RapidOcrOptions OptImage = RapidOcrNet.RapidOcrOptions.Default;
+    //
+    // 但 v6 不能套 Default：RapidOcrNet 4.2.0 README「Recommended options for v6」明确要求
+    // 用 RapidOcrOptions.PPOCRv6（= PythonCompat，短边自适应 736、无白边），
+    // Default 的 1024 长边 + 50px 白边会把 v6 检测器饿死在低分辨率上 → 漏框/乱码。
+    // 所以两个 preset 改成实例字段，由 InitializeAsync 按实际选中的模型版本决定（见下）。
+    private RapidOcrNet.RapidOcrOptions _optImage = RapidOcrNet.RapidOcrOptions.Default;
 
-    /// <summary>条带（单行小字条）：长边压到 640，足够读「第N幕」，成本再降一档。</summary>
-    private static readonly RapidOcrNet.RapidOcrOptions OptStrip = RapidOcrNet.RapidOcrOptions.Default;
+    /// <summary>条带（单行小字条）：v5/latin 用 Default（长边 1024，足够读「第N幕」）；v6 必须跟 _optImage 一样切 PPOCRv6。</summary>
+    private RapidOcrNet.RapidOcrOptions _optStrip = RapidOcrNet.RapidOcrOptions.Default;
 
     private RapidOcrNet.RapidOcr _ocr;
     private Task _initTask;
@@ -44,6 +49,9 @@ internal sealed class OcrService : IDisposable
     private volatile string _status = "OCR 未就绪";
 
     public string Status => _status;
+
+    /// <summary>实际启用的模型版本："v6" / "v5" / "latin"（初始化完成前为 "none"）。</summary>
+    public string ModelId { get; private set; } = "none";
 
     public Task InitializeAsync(string modelsDir)
     {
@@ -71,22 +79,115 @@ internal sealed class OcrService : IDisposable
                 using var sessionOptions = BuildSessionOptions();
                 var ep = OcrTuning.EpStatus;
 
-                if (File.Exists(v6Det) && File.Exists(v6Rec) && File.Exists(v6Key))
+                // 降级链：每跳过/失败一段都留一条原因，最终并入 Status，避免"静默降级无痕"。
+                var degrade = new List<string>();
+
+                // 单次尝试：失败就把半初始化的实例丢掉重建，保证还能继续试下一档。
+                bool TryInit(string label, string det, string cls, string rec, string key)
                 {
-                    ocr.InitModels(v6Det, File.Exists(v5Cls) ? v5Cls : null, v6Rec, v6Key, sessionOptions);
-                    _status = $"OCR: PP-OCRv6 small（中文）| {ep}";
+                    try
+                    {
+                        ocr.InitModels(det, cls, rec, key, sessionOptions);
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        degrade.Add($"{label} 初始化失败({ex.GetType().Name})");
+                        try { ocr.Dispose(); } catch { }
+                        ocr = new RapidOcrNet.RapidOcr();
+                        return false;
+                    }
                 }
-                else if (File.Exists(v5Det) && File.Exists(v5RecCn) && File.Exists(v5KeyCn))
+
+                // ── 1) v6（多语种）：det+rec+key 齐全，且 cls 必须存在 ──────────────
+                // RapidOcrNet 对 clsPath=null 会抛 FileNotFoundException，旧代码把这个异常
+                // 交给外层 catch 吞掉 → OCR 整体不可用且不回落 v5/latin。
+                // 因此找不到 cls 时不能"传 null 硬上"，而是跳过 v6、按顺序继续降级。
+                var inited = false;
+                // ocr.model 设为 v5 时直接跳过 v6（设置页的「模型」现在真的生效）
+                var preferV5 = string.Equals(OcrTuning.ModelPreference, "v5", StringComparison.OrdinalIgnoreCase);
+                if (!preferV5 && File.Exists(v6Det) && File.Exists(v6Rec) && File.Exists(v6Key))
                 {
-                    ocr.InitModels(v5Det, v5Cls, v5RecCn, v5KeyCn, sessionOptions);
-                    _status = $"OCR: PP-OCRv5 中文 | {ep}";
+                    if (File.Exists(v5Cls))
+                    {
+                        if (TryInit("v6", v6Det, v5Cls, v6Rec, v6Key))
+                        {
+                            // 全帧走 PPOCRv6 preset（短边自适应 736、无白边）——上游明确要求 v6 不能用 Default。
+                            // 条带**例外**：实测同样 6 帧真 1080p，条带用 PPOCRv6 时 band OCR ≈1200–1400ms/帧，
+                            // 用 Default 只要 ≈65–90ms，而「第N幕」的识别结果两者一致（act 4/6、现在做 6/6）。
+                            // 条带本来就是放大 2 倍的小图（大字），不存在上游警告的「小图被饿死」问题。
+                            // preset 选择是**实测**定的，不是照上游抄的（2026-11-14，100 帧真 1080p 实景 A/B）：
+                            //   PPOCRv6 preset：重帧 OCR p50 736–779 / p90 1237–2839，且两次独立运行都出现
+                            //                   12–15s 的离群帧、条带 p90 掉到 ~1.1s（疑似极端尺寸下的重采样）；
+                            //   Default      ：重帧 OCR p50 548–592 / p90 768–955，条带 p90 86–92ms，
+                            //                  质量完全相同（现在做 60/100，kind 分布逐项一致）。
+                            // 上游 README 只警告「小图用 Default 会饿死检测器」，我们的帧是 960 画布全帧 OCR，
+                            // 不属于那个场景。需要复验时用 TA_OCR_PRESET=ppocrv6 切回。
+                            var presetV6 = string.Equals(Environment.GetEnvironmentVariable("TA_OCR_PRESET"), "ppocrv6", StringComparison.OrdinalIgnoreCase);
+                            _optImage = presetV6 ? RapidOcrNet.RapidOcrOptions.PPOCRv6 : RapidOcrNet.RapidOcrOptions.Default;
+                            _optStrip = RapidOcrNet.RapidOcrOptions.Default;
+                            ModelId = "v6";
+                            _status = $"OCR: PP-OCRv6 small（中文）| {Path.GetFileName(v6Rec)} | {ep}";
+                            inited = true;
+                        }
+                    }
+                    else
+                    {
+                        degrade.Add($"v6 缺 cls 分类器（{Path.GetFileName(v5Cls)}）");
+                    }
                 }
                 else
                 {
-                    // NuGet 自带 latin 模型，只能做链路自检
-                    ocr.InitModels(sessionOptions);
-                    _status = $"OCR: latin（缺中文模型，降级）| {ep}";
+                    degrade.Add("v6 模型不全");
                 }
+
+                // ── 2) v5 中文：同样要求 cls 存在 ──────────────────────────────────
+                if (!inited && File.Exists(v5Det) && File.Exists(v5RecCn) && File.Exists(v5KeyCn))
+                {
+                    if (File.Exists(v5Cls))
+                    {
+                        if (TryInit("v5", v5Det, v5Cls, v5RecCn, v5KeyCn))
+                        {
+                            ModelId = "v5";
+                            _status = $"OCR: PP-OCRv5 中文 | {Path.GetFileName(v5RecCn)} | {ep}";
+                            inited = true;
+                        }
+                    }
+                    else
+                    {
+                        degrade.Add($"v5 缺 cls 分类器（{Path.GetFileName(v5Cls)}）");
+                    }
+                }
+                else if (!inited)
+                {
+                    degrade.Add("v5 模型不全");
+                }
+
+                // ── 3) NuGet 自带 latin：只能做链路自检 ────────────────────────────
+                if (!inited)
+                {
+                    try
+                    {
+                        ocr.InitModels(sessionOptions);
+                        ModelId = "latin";
+                        _status = $"OCR: latin（NuGet 内置 latin_PP-OCRv5_rec_mobile_infer.onnx，缺中文模型，降级）| {ep}";
+                        inited = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        degrade.Add("latin 初始化失败(" + ex.GetType().Name + ")");
+                    }
+                }
+
+                if (!inited)
+                {
+                    _status = "OCR 初始化失败: " + string.Join(" → ", degrade);
+                    _ready = false;
+                    return;
+                }
+
+                if (degrade.Count > 0)
+                    _status += " | 降级链: " + string.Join(" → ", degrade);
 
                 _ocr = ocr;
                 _ready = true;
@@ -257,7 +358,7 @@ internal sealed class OcrService : IDisposable
                 using var sk = SKBitmap.Decode(ms.ToArray());
                 if (sk == null) return null;
 
-                var result = _ocr.Detect(sk, OptImage);
+                var result = _ocr.Detect(sk, _optImage);
                 return result?.StrRes ?? "";
             }
             catch
@@ -305,7 +406,7 @@ internal sealed class OcrService : IDisposable
                 using var sk = SKBitmap.Decode(ms.ToArray());
                 if (sk == null) return null;
 
-                var result = _ocr.Detect(sk, OptStrip);
+                var result = _ocr.Detect(sk, _optStrip);
                 return result?.StrRes ?? "";
             }
             catch (Exception ex) { return "OCRERR:" + ex.Message; }
@@ -364,7 +465,7 @@ internal sealed class OcrService : IDisposable
                 using var sk = SKBitmap.Decode(ms.ToArray());
                 if (sk == null) return null;
 
-                var result = _ocr.Detect(sk, OptImage);
+                var result = _ocr.Detect(sk, _optImage);
                 var list = new List<OcrBox>();
                 if (result?.TextBlocks == null) return list;
 
