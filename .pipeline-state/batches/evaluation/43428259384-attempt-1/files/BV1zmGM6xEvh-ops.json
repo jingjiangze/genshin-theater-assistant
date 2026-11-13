@@ -1,0 +1,63 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-13 13:28:51",
+  "bvid": "BV1zmGM6xEvh",
+  "frames": 8,
+  "candidates": 6,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，8幕夏洛蒂（冰对空)9幕自备较强主C+辅助）",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：3幕雷、5幕冰水、6幕冰水、8幕雷",
+      "act": 3,
+      "source": "BV1zmGM6xEvh@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "第8幕:菲林斯+爱诺+夏洛蒂(冰对空)+雷后台先驱秘源统辖阵列",
+      "act": 8,
+      "source": "BV1zmGM6xEvh@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色：5幕行秋，7幕自备较弱主c+辅助，&幕夏洛蒂（冰对控），9幕自备较强主o+辅助",
+      "act": 5,
+      "source": "BV1zmGM6xEvh@1079s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：铁角色买角色缺buf买buf",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@1079s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：亚林斯+爱诺+雷+挂件",
+      "act": 0,
+      "source": "BV1zmGM6xEvh@1079s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

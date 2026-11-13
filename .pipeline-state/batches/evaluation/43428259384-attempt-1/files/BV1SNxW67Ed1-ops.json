@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-13 13:23:05",
+  "bvid": "BV1SNxW67Ed1",
+  "frames": 1,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "ps：多带挂元素和奶妈角，圣牌2和第10关需要奶！！第8要大剑/岩角/钟离，记得留！！！！！",
+      "act": 0,
+      "source": "BV1SNxW67Ed1@0s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    }
+  ]
+}

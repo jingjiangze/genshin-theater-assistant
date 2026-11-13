@@ -1,0 +1,27 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-13 13:23:30",
+  "bvid": "BV1oi6pBtEjA",
+  "frames": 8,
+  "candidates": 2,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "所以我们需要第一波流血狗到这个位置。",
+      "act": 0,
+      "source": "BV1oi6pBtEjA@s",
+      "creator_id": "3494365880126366",
+      "creator_name": "仙帝归来兮",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "这里纠结是多选个挂件火，还是选水神，",
+      "act": 0,
+      "source": "BV1oi6pBtEjA@s",
+      "creator_id": "3494365880126366",
+      "creator_name": "仙帝归来兮",
+      "needsReview": true
+    }
+  ]
+}
