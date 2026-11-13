@@ -191,8 +191,8 @@ GGUF 转出链路（含两个坑）：
 ② 把 26M 的 det/rec 换成更小的专用模型（BGI 是 PP-OCRv6 det/rec small，我们 v5 mobile 同档）。
 
 **CI 1080p 门（2026-11-11 上线）**：仓库新增 `testdata/frames1080`（6 张真 1080p，13MB，覆盖 act/team/choice/theater/unknown），
-`ci` 新增步骤「1080p 真实帧回归（耗时门）」——打印 `总耗时` 并断言 **≤1500ms/帧**。
-首次运行（GitHub runner 4 核 + OCR 6 线程，存在超订）：**1025ms/帧**，通过。
+`ci` 新增步骤「1080p 真实帧回归（耗时门）」——打印 `总耗时` 并断言 **≤1200ms/帧（2026-11-14 收紧）**。
+首次运行（v5 期数据；GitHub runner 4 核 + OCR 6 线程，存在超订）：**1025ms/帧**，通过。
 这条门的意义：窗口化 1080p 是常态分辨率，此前的 CI 回归只覆盖 960×540，1080p 的性能退化没人拦。
 
 **本地时间线（123 帧真 1080p，i5-13400F / 6 线程 OCR）**：
@@ -238,7 +238,7 @@ OptStrip = Default with { Padding = 0, ImgResize = 640, DoAngle = false };  // �
 
 | 版本 | 1080p 单帧 |
 |---|---|
-| OpenCV + ROI + 960 画布 | 1025ms |
+| OpenCV + ROI + 960 画布 | 1025ms（v5 期） |
 | **+ det 参数对齐（无白边/960/无 cls）** | **529ms** |
 
 **1.9 倍**，且「真机模拟实测 10/10」「WPF 自检 14/14」全过（OCR 能力未被参数调整削弱）。
@@ -338,3 +338,20 @@ v6 把单次 OCR 压到 ~0.5s 后，自然要问：能不能把「稳定后每 8
 方法论补充（踩过）：**冷跑第一轮不能采信**。同一批帧、同一参数，首轮重帧 OCR 出现 3–8s，
 隔几分钟重跑即降到 0.5–0.7s（杀软扫描新构建的 DLL / 文件缓存全冷）。所有数字都要跑两轮取第二轮；
 这次首轮 8607ms 与复跑 790ms 是同一帧、同一模型。
+
+#### 6.6.2 OCR preset：v6 模型到底该配哪个 preset（2026-11-14 实测改默认）
+
+上游 RapidOcrNet README 要求 v6 配 `RapidOcrOptions.PPOCRv6`（`Default` 会"饿死"小图检测器）。
+我们按上游改成 PPOCRv6 后，在 100 帧真 1080p 实景上做了 A/B（`TA_OCR_PRESET=ppocrv6|default`）：
+
+| preset（全帧 OCR） | 重帧 OCR p50 / p90 / max | 条带 OCR p90 | 质量（现在做 / kind 分布） |
+|---|---|---|---|
+| PPOCRv6 | 736–779 / 1237–2839 / 12100–13854ms | 1065–1138ms | 60/100；team44/unknown40/theater10/act6 |
+| **Default** | **548–592 / 768–955 / 2247–4823ms** | **86–92ms** | **完全一致** |
+
+两次独立运行里 PPOCRv6 都出现 12–15s 的离群帧，条带（小图）也慢 12 倍 —— 与我们这种
+「960 画布全帧 OCR + 条带放大 2 倍」的用法相反，上游的警告场景是小字检测，不是这里。
+**结论：默认 Default，`TA_OCR_PRESET=ppocrv6` 保留给复验。** 这条与上游口径相反，是实测定的。
+
+同时修掉：条带 OCR 与全帧 OCR 各自选 preset（条带恒 Default）、v6 缺 cls 时不再传 null
+（旧行为是 `FileNotFoundException` 被吞掉 → OCR 整体不可用且不回落 v5/latin）。
