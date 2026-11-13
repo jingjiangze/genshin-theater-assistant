@@ -272,13 +272,20 @@ internal static class Matcher
                 using var tplGray = new OpenCvSharp.Mat();
                 OpenCvSharp.Cv2.CvtColor(tplSrc, tplGray, OpenCvSharp.ColorConversionCodes.BGRA2GRAY);
 
+                // 模板像素基准是 templates\<宽x高> 桶的宽度（如 1920x1080），不是当前帧宽。
+                // 正确缩放 = k × (帧宽 / 模板源宽)：
+                //   · 模板在 1920 窗口里占 W/1920，画布再把帧乘 k，合起来 tk = (W/1920)×k；
+                //   · 旧代码 tk = sc × k，非 1920 帧上会把模板放大 20%–50%（1280 下 0.75 vs 0.5）→ 漏检。
+                // SourceWidth==0 表示根目录模板（源宽未知），退化为 tk = sc × k，保持旧行为。
+                var tplBase = k * (t.SourceWidth > 0 ? frame.Width / (double)t.SourceWidth : 1.0);
+
                 var roiRect = RoiFor(t.Name, canvas.Cols, canvas.Rows);
                 using var region = new OpenCvSharp.Mat(canvas, roiRect);
 
                 Hit best = null;
                 foreach (var sc in scales)
                 {
-                    var tk = sc * k;
+                    var tk = sc * tplBase;
                     using var tplScaled = new OpenCvSharp.Mat();
                     if (Math.Abs(tk - 1.0) > 1e-6)
                         OpenCvSharp.Cv2.Resize(tplGray, tplScaled,
@@ -496,5 +503,62 @@ internal static class Matcher
         }
 
         return bytes;
+    }
+
+    /// <summary>
+    /// 按窗口宽度就近加载模板（替代调用方"±12% 命中否则回根目录"的逻辑）。
+    ///
+    /// 在 <paramref name="templatesRoot"/> 下找 `<宽x高>` 命名的桶，按 |桶宽 − frameWidth| 最小挑一个
+    /// （不再限制 ±12%：窗口缩放/DPI 变化时也能落到最近的桶，避免 0 模板静默）；
+    /// 同时把该桶的宽高写回 <see cref="TemplateEntry.SourceWidth"/>/<see cref="TemplateEntry.SourceHeight"/>，
+    /// 供 ScanCv 按正确基准缩放模板。找不到任何桶时回根目录（旧行为，SourceWidth=0 表示源宽未知）。
+    /// 调用方负责 Dispose 返回的 Bitmap。
+    /// </summary>
+    public static List<TemplateEntry> LoadTemplatesNearest(string templatesRoot, int frameWidth)
+    {
+        var list = new List<TemplateEntry>();
+        if (string.IsNullOrWhiteSpace(templatesRoot) || !Directory.Exists(templatesRoot)) return list;
+
+        var dir = templatesRoot;
+        int sourceW = 0, sourceH = 0;
+        int bestDelta = int.MaxValue;
+
+        // frameWidth<=0 表示还没拿到窗口尺寸（如窗体初始化首帧）：不猜桶，直接回根目录。
+        if (frameWidth > 0)
+        {
+            foreach (var d in Directory.GetDirectories(templatesRoot))
+            {
+                var m = System.Text.RegularExpressions.Regex.Match(
+                    Path.GetFileName(d), @"^(\d{3,5})x(\d{3,5})$");
+                if (!m.Success) continue;
+                if (!int.TryParse(m.Groups[1].Value, out int w) || !int.TryParse(m.Groups[2].Value, out int h)) continue;
+
+                int delta = Math.Abs(w - frameWidth);
+                // 距离相同取更小的桶：结果稳定可复现，不依赖磁盘枚举顺序
+                if (delta < bestDelta || (delta == bestDelta && w < sourceW))
+                {
+                    bestDelta = delta;
+                    dir = d;
+                    sourceW = w;
+                    sourceH = h;
+                }
+            }
+        }
+
+        foreach (var f in Directory.GetFiles(dir, "*.png"))
+        {
+            var name = Path.GetFileNameWithoutExtension(f);
+            if (name.StartsWith('_')) continue;
+            try
+            {
+                list.Add(new TemplateEntry(name, new Bitmap(f), TemplateEntry.ThresholdFor(name))
+                {
+                    SourceWidth = sourceW,
+                    SourceHeight = sourceH,
+                });
+            }
+            catch { }
+        }
+        return list;
     }
 }
