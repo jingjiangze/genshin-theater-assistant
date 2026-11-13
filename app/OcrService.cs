@@ -127,7 +127,7 @@ internal sealed class OcrService : IDisposable
                             _optImage = presetV6 ? RapidOcrNet.RapidOcrOptions.PPOCRv6 : RapidOcrNet.RapidOcrOptions.Default;
                             _optStrip = RapidOcrNet.RapidOcrOptions.Default;
                             ModelId = "v6";
-                            _status = $"OCR: PP-OCRv6 small（中文）| {Path.GetFileName(v6Rec)} | {ep}";
+                            _status = $"PP-OCRv6 small（中文）| {Path.GetFileName(v6Rec)} | {ep}";
                             inited = true;
                         }
                     }
@@ -149,7 +149,7 @@ internal sealed class OcrService : IDisposable
                         if (TryInit("v5", v5Det, v5Cls, v5RecCn, v5KeyCn))
                         {
                             ModelId = "v5";
-                            _status = $"OCR: PP-OCRv5 中文 | {Path.GetFileName(v5RecCn)} | {ep}";
+                            _status = $"PP-OCRv5 中文 | {Path.GetFileName(v5RecCn)} | {ep}";
                             inited = true;
                         }
                     }
@@ -170,7 +170,7 @@ internal sealed class OcrService : IDisposable
                     {
                         ocr.InitModels(sessionOptions);
                         ModelId = "latin";
-                        _status = $"OCR: latin（NuGet 内置 latin_PP-OCRv5_rec_mobile_infer.onnx，缺中文模型，降级）| {ep}";
+                        _status = $"latin（NuGet 内置 latin_PP-OCRv5_rec_mobile_infer.onnx，缺中文模型，降级）| {ep}";
                         inited = true;
                     }
                     catch (Exception ex)
