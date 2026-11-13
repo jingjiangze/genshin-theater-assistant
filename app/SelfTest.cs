@@ -344,11 +344,13 @@ internal static class SelfTest
         Playbook.Load(AppPaths.Data("act-playbook.json"));
         var legacyRoutine = Routine.LinesFor(0, 10);
         var inGameRoutine = Routine.LinesFor(3, 10);
+        // 2026-11-14 口径变更：前缀统一「手法·」（调用侧只认这个前缀，旧前缀让 8/12 幕的
+        // 手法行被整条过滤掉），「是不是验证过的」改写成正文附注「（历史候选）」。
         Check("知识治理·旧视频/社区经验降级为历史候选",
-            legacyRoutine.Any(x => x.Contains("历史候选手法")),
+            legacyRoutine.Any(x => x.StartsWith("手法·") && x.Contains("（历史候选）")),
             string.Join(" | ", legacyRoutine.Take(2)));
         Check("知识治理·游戏内机制基线保留",
-            inGameRoutine.Any(x => x.StartsWith("手法·")) && inGameRoutine.All(x => !x.Contains("历史候选手法")),
+            inGameRoutine.Any(x => x.StartsWith("手法·")) && inGameRoutine.All(x => !x.Contains("（历史候选）")),
             string.Join(" | ", inGameRoutine.Take(2)));
 
         // 操作提取分类（纯函数）：连招 / 购买 / 配队 / 行动
@@ -833,8 +835,9 @@ internal static class SelfTest
             Act = actNoVerified, Team = generic,
             Options = new[]
             {
-                new ChoiceDecider.Option { Index = 1, Raw = "战斗·普通" },
-                new ChoiceDecider.Option { Index = 2, Raw = "伙伴" },
+                new ChoiceDecider.Option { Index = 1, Raw = "战斗·普通", Kind = ChoiceDecider.Kind.Battle },
+                new ChoiceDecider.Option { Index = 2, Raw = "伙伴", Kind = ChoiceDecider.Kind.Partner },
+                new ChoiceDecider.Option { Index = 3, Raw = "辉彩祝福", Kind = ChoiceDecider.Kind.Blessing },
             },
         });
         var dLlm = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
@@ -853,6 +856,20 @@ internal static class SelfTest
             && dLlm.Lines.Any(l => l.StartsWith("◇"))
             && (dNone.Source == "·规则" || dNone.Source == "○语料"),
             $"{dOpt.Source} / {dLlm.Source} / {dNone.Source}");
+        // 只认出 2 张时不允许说「第 1 张」：序号是按已解析行编的，漏一张就会整体前移（审计 P1）。
+        var dPartial = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
+        {
+            Act = actNoVerified, Team = generic,
+            Options = new[]
+            {
+                new ChoiceDecider.Option { Index = 1, Raw = "战斗·普通", Kind = ChoiceDecider.Kind.Battle },
+                new ChoiceDecider.Option { Index = 2, Raw = "神秘收获", Kind = ChoiceDecider.Kind.Mystery },
+            },
+        });
+        Check("编排·选项不全时不给序号",
+            dPartial.Lines.Count > 0 && !dPartial.Lines[0].Contains("第 1 张") && dPartial.Lines[0].Contains("只认出 2 张"),
+            dPartial.Lines.Count > 0 ? dPartial.Lines[0] : "无输出");
+
         Check("编排·随机要素显式标注",
             dNone.Randoms.Count >= 2 && dOpt.Randoms.Any(r => r.Contains("角色池")),
             dNone.Randoms.Count == 0 ? "未标注（错误）" : string.Join("；", dNone.Randoms.Take(3)));
