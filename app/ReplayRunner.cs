@@ -71,6 +71,7 @@ internal static class ReplayRunner
         var steps = new List<Step>();
         var frameIndex = 0;
         var lastText = "";
+        var lastTextFrame = -1000;   // 文本缓存写入时的帧序号（用帧号不用墙钟：同一录像必须可复现）
         var lastBoxCount = 0;
         var prevStable = 0;
         var stab = new ActStabilizer();
@@ -99,16 +100,55 @@ internal static class ReplayRunner
                 if ((frameIndex - 1) % heavyEvery == 0)
                 {
                     var boxes = ocr.RecognizeBoxesAsync(ocrImg, null, ocrImg.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
-                    lastText = string.Join(Environment.NewLine, (boxes ?? new List<OcrBox>()).Select(b => b.Text));
                     lastBoxCount = boxes?.Count ?? 0;
+                    if (boxes == null)
+                    {
+                        // OCR 失败：保留上次文本（与生产一致）
+                    }
+                    else if (boxes.Count == 0)
+                    {
+                        // 一个框都没有 = 界面没字：清空缓存，别让旧幕次/旧选项续命（与生产一致）
+                        lastText = "";
+                        lastTextFrame = -1000;
+                    }
+                    else
+                    {
+                        // 与生产同一套后处理（DropScore + 同排按 X 排序），否则回放测不到「选第N张」的顺序
+                        var pb = boxes.Select(b => new OcrTextPipeline.Box
+                        {
+                            X = b.Rect.X,
+                            Y = b.Rect.Y,
+                            Score = b.Score,
+                            Text = b.Text,
+                        });
+                        var textLines = OcrTextPipeline.ToLines(pb);
+                        if (textLines.Count > 0)
+                        {
+                            lastText = string.Join(Environment.NewLine, textLines);
+                            lastTextFrame = frameIndex;
+                        }
+                    }
                 }
                 swOcr.Stop();
-                var text = lastText;
+                // 同生产的保鲜口径：一个重扫周期 + 1 帧；过期文本不参与幕次判定
+                var textFresh = lastText.Length > 0 && frameIndex - lastTextFrame <= heavyEvery + 1;
+                var text = textFresh ? lastText : "";
 
                 bool actFromTemplate = hits.Any(h => System.Text.RegularExpressions.Regex.IsMatch(h.Name, @"^act\d{1,2}$"));
                 var swBand = System.Diagnostics.Stopwatch.StartNew();
-                string band = actFromTemplate ? null
-                    : ocr.RecognizeRegionAsync(ocrImg, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 3).GetAwaiter().GetResult();
+                // 条带放大倍数与生产一致（MainLoop 用 2）；ROI 也取玩法档案而不是硬编码
+                string band = null;
+                var profile = GameModes.Default;
+                if (profile != null && profile.HasBand)
+                {
+                    band = ocr.RecognizeRegionAsync(ocrImg, new RectangleF(
+                        (float)profile.BandLeft, (float)profile.BandTop,
+                        (float)profile.BandWidth, (float)profile.BandHeight), 2).GetAwaiter().GetResult();
+                }
+                else if (!actFromTemplate)
+                {
+                    band = ocr.RecognizeRegionAsync(ocrImg, new RectangleF(0.28f, 0.828f, 0.46f, 0.05f), 2).GetAwaiter().GetResult();
+                }
                 swBand.Stop();
 
                 var advice = TheaterLogic.Evaluate(hits, text, theater, roster, band);
@@ -311,31 +351,11 @@ internal static class ReplayRunner
         return s.Length <= n ? s : s[..n] + "…";
     }
 
+    /// <summary>
+    /// 模板加载与生产同源（Matcher.LoadTemplatesNearest）：按宽度取最近桶，并把桶宽写进
+    /// TemplateEntry.SourceWidth —— 回放此前用的是「±12% 才认桶」，非 1920 帧会拿到 0 个模板，
+    /// 测出来的时序跟生产不是一回事。
+    /// </summary>
     private static List<TemplateEntry> LoadTemplates(int width)
-    {
-        var list = new List<TemplateEntry>();
-        var root = AppPaths.TemplatesRoot;
-        if (!Directory.Exists(root)) return list;
-
-        var dir = root;
-        var best = Directory.GetDirectories(root)
-            .Select(d => new { Dir = d, W = ParseWidth(Path.GetFileName(d)) })
-            .Where(x => x.W > 0 && Math.Abs(x.W - width) <= Math.Max(32, (int)(width * 0.12)))
-            .OrderBy(x => Math.Abs(x.W - width)).FirstOrDefault();
-        if (best != null) dir = best.Dir;
-
-        foreach (var f in Directory.GetFiles(dir, "*.png"))
-        {
-            var name = Path.GetFileNameWithoutExtension(f);
-            if (name.StartsWith('_')) continue;
-            try { list.Add(new TemplateEntry(name, new Bitmap(f), TemplateEntry.ThresholdFor(name))); } catch { }
-        }
-        return list;
-    }
-
-    private static int ParseWidth(string name)
-    {
-        var m = System.Text.RegularExpressions.Regex.Match(name, @"^(\d{3,5})x\d{3,5}$");
-        return m.Success ? int.Parse(m.Groups[1].Value) : 0;
-    }
+        => Matcher.LoadTemplatesNearest(AppPaths.TemplatesRoot, width);
 }
