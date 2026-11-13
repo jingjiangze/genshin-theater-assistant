@@ -57,12 +57,17 @@ jobs:
       - name: 缓存 OCR 模型（省去每次 ~1 分钟下载）
         uses: actions/cache@v4
         with:
-          path: models/v5
-          key: ocr-models-v5-${{ hashFiles('models/fetch-models.ps1') }}
+          path: |
+            models/v5
+            models/v6
+          key: ocr-models-v56-${{ hashFiles('models/fetch-models.ps1') }}
 
       - name: 拉取中文 OCR 模型（带 SHA256 校验）
         shell: pwsh
-        run: .\models\fetch-models.ps1
+        run: |
+          .\models\fetch-models.ps1
+          # v6 small 才是生产用：det 9.5MB / rec 20.3MB，实测 1080p OCR p90 465ms（v5 要 1.5s+）
+          .\models\fetch-models.ps1 -V6
 
       - name: 同步随包资源到 app/
         shell: pwsh
