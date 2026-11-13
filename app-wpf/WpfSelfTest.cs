@@ -208,6 +208,9 @@ internal static class WpfSelfTest
                 var clientW = mask.ActualWidth;
                 var clientH = mask.ActualHeight;
                 var sizeOk = Math.Abs(clientW - w) <= 1.5 && Math.Abs(clientH - h) <= 1.5;
+                // CI 跑在 1024×768 的虚拟桌面上，窗口改不到 1280×720；这时不能判失败，
+                // 只能"按实际客户区验几何"，参考尺寸另行用纯函数断言（见下面的 1280/1920 两条）。
+                var desktopCap = clientW < w - 1.5 || clientH < h - 1.5;
 
                 var panelRect = PanelRectInWindow(mask);
                 var bandRect = new Rect(clientW * band.BandLeft, clientH * band.BandTop,
@@ -228,11 +231,22 @@ internal static class WpfSelfTest
                 // 防"空布局也通过"：面板没真正参与布局时（宽高为 0）这里直接判失败
                 var sane = panelRect.Width > 100 && panelRect.Height > 10;
 
-                Check($"遮罩面板不压条带 {w}×{h}", apart && inside && sizeOk && sane && modelDelta <= 1.5,
-                    $"客户区={clientW:F0}×{clientH:F0}(尺寸吻合={sizeOk}) s={scale:F3} " +
+                Check($"遮罩面板不压条带 {w}×{h}", apart && inside && (sizeOk || desktopCap) && sane && modelDelta <= 1.5,
+                    $"客户区={clientW:F0}×{clientH:F0}(尺寸吻合={sizeOk} 桌面受限={desktopCap}) s={scale:F3} " +
                     $"面板=({panelRect.Left:F1},{panelRect.Top:F1},{panelRect.Width:F1},{panelRect.Height:F1}) " +
                     $"条带=({bandRect.Left:F1},{bandRect.Top:F1},{bandRect.Width:F1},{bandRect.Height:F1}) " +
                     $"重叠={overlapW:F1}×{overlapH:F1} 在客户区内={inside} 模型偏差={modelDelta:F2}");
+            }
+
+            // 参考尺寸的纯函数几何：面板右边界必须小于条带左边界（横向分离即矩形不相交，
+            // 与面板高度无关）——这条不依赖窗口真的能被改到那么大，CI 桌面 1024×768 也能跑。
+            foreach (var (w, h) in new[] { (W: 1280, H: 720), (W: 1920, H: 1080) })
+            {
+                var sRef = MaskWindow.PanelScaleFor(w, h);
+                var panelRight = (14 + 404) * sRef;      // 左边距 + 基准宽，都乘 s
+                var bandLeft = band.BandLeft * w;
+                Check($"面板几何模型 {w}×{h}", panelRight < bandLeft - 8,
+                    $"面板右={panelRight:F1} 条带左={bandLeft:F1} s={sRef:F3}");
             }
 
             // 展开日志再渲染一张：验收时两张一起看（默认形态 / 排查形态）。截图统一按 1280×720 出。
