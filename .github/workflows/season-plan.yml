@@ -37,15 +37,15 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: 构建
-        shell: pwsh
-        run: |
-          # csproj 的 Content 路径是相对工程目录（app/data、app/templates），必须先同步过去，
-          # 否则发布目录没有 data/，--seasons 会报"没有发现 data/season*.json"（实测踩过）
-          New-Item -ItemType Directory -Force app/data, app/templates | Out-Null
-          Copy-Item data/* app/data -Recurse -Force
-          Copy-Item templates/* app/templates -Recurse -Force
-          dotnet publish app/TheaterAssistant.csproj -c Release -o dist
+      # csproj 的 Content 路径是相对工程目录（app/data、app/templates），必须先同步过去，
+      # 否则发布目录没有 data/，--seasons 会报"没有发现 data/season*.json"（实测踩过）
+      - name: 同步随包资源到 app/
+        uses: ./.github/actions/sync-assets
+        with:
+          targets: app
+
+      - name: 构建 exe（目录输出）
+        run: dotnet publish app/TheaterAssistant.csproj -c Release -o dist
 
       - name: 列出赛季（自动发现）
         shell: pwsh
@@ -110,7 +110,8 @@ jobs:
           git config user.email "theater-automation[bot]@users.noreply.github.com"
           git add data/team-plans-season*.json data/global-alloc-season*.json
           git diff --cached --quiet; if ($LASTEXITCODE -eq 0) { Write-Host "无变化"; exit 0 }
-          git commit -m "data: 自动生成通用最优配队（赛季无关，$(Get-Date -Format yyyy-MM-dd)）"
+          # [skip ci] 避免自触发全量 Windows ci（只更新配队数据，不需要重编译 + 重跑自检）
+          git commit -m "data: 自动生成通用最优配队（赛季无关，$(Get-Date -Format yyyy-MM-dd)） [skip ci]"
           for ($i=1; $i -le 5; $i++) {
             git push origin HEAD:main
             if ($LASTEXITCODE -eq 0) { break }
