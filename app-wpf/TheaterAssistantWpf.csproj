@@ -74,6 +74,8 @@
     <Compile Include="..\app\GuideIndex.cs" Link="logic\GuideIndex.cs" />
     <!-- 硬件画像：线程数等按机器自适应（此前写死 6，4 核机上会过订阅） -->
     <Compile Include="..\app\HardwareInfo.cs" Link="logic\HardwareInfo.cs" />
+    <!-- 记录库（SQLite）：识别/决策/耗时的持久化，微调取样从这里导出 -->
+    <Compile Include="..\app\RecordStore.cs" Link="logic\RecordStore.cs" />
     <Compile Include="..\app\GuideNotes.cs" Link="logic\GuideNotes.cs" />
     <!-- 玩法档案：剧诗/深渊的识别区域与时间轴规则（data/modes.json 驱动） -->
     <Compile Include="..\app\GameMode.cs" Link="logic\GameMode.cs" />
@@ -126,6 +128,8 @@
 
   <ItemGroup>
     <!-- 与 WinForms 版一致：RapidOcrNet 提供 PP-OCR 推理 -->
+    <!-- 记录库（SQLite）：运行时把每帧的识别/决策/耗时落盘，供对账与小模型微调取样 -->
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
     <PackageReference Include="RapidOcrNet" Version="4.2.0" />
     <PackageReference Include="SkiaSharp" Version="3.119.1" />
     <!-- Fluent 控件与主题：BetterGI 的观感九成来自它（FluentWindow/TitleBar/ToggleSwitch/CardControl）。
