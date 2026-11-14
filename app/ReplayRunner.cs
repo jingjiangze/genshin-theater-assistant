@@ -349,7 +349,7 @@ internal static class ReplayRunner
 
     /// <summary>幕次稳定后的重 OCR 间隔：默认 8，可用 TA_HEAVY 覆盖（与 MainLoop 同一个口子）。</summary>
     private static int HeavyEveryStable()
-        => int.TryParse(Environment.GetEnvironmentVariable("TA_HEAVY"), out var v) && v > 0 ? v : 8;
+        => int.TryParse(Environment.GetEnvironmentVariable("TA_HEAVY"), out var v) && v > 0 ? v : OcrTuning.HeavyEveryStable;
 
     private static string Cut(string s, int n)
     {
