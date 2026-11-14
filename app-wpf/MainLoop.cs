@@ -30,7 +30,9 @@ internal sealed class MainLoop
     private readonly ActStabilizer _stab = new();
     private string _bucketKey = "";
     private string _cachedText = "";
-    private int _cachedTextTick = -1000;   // 文本缓存写入时的 tick 序号（用 tick 不用墙钟：回放才可复现）
+    private int _cachedTextTick = -1000;
+    private int _heavySeq;                    // 重扫序号：每 4 次留一次全帧
+    private int _bandEmptyStreak;             // 条带连续没读出字的次数（用于退避）
     private int _tickCount;
     private bool _busy;
     private int _teamSize;
@@ -88,6 +90,7 @@ internal sealed class MainLoop
 
             await _ocr.InitializeAsync(AppPaths.ModelsRoot);
             LastStatus = _ocr.Status;
+            _ocr.Warmup();   // 首帧不吃 warmup 成本
             _ball.SetState(FloatingBall.BallState.Idle);
         }
         catch (Exception ex)
@@ -199,10 +202,14 @@ internal sealed class MainLoop
             var hits = Matcher.Scan(bmp, _templates);
 
             // ④ 条带 OCR（幕次）：ROI 来自玩法档案（剧诗默认 0.28/0.828/0.46/0.05），快且准
-            var band = _mode.HasBand
+            // 条带（「第N幕」徽章）实测是装饰字，v6 常常读不出；连续空就退避到每 3 个 tick 一次，
+            // 省下 ~120ms/帧；一旦读出过就恢复每帧（真实幕次变化仍能尽快抓到）。
+            var bandDue = _bandEmptyStreak < 5 || _tickCount % 3 == 0;
+            var band = _mode.HasBand && bandDue
                 ? await _ocr.RecognizeRegionAsync(ocrFrame, new RectangleF(
                     (float)_mode.BandLeft, (float)_mode.BandTop, (float)_mode.BandWidth, (float)_mode.BandHeight), 2)
                 : "";
+            if (bandDue) _bandEmptyStreak = string.IsNullOrWhiteSpace(band) ? _bandEmptyStreak + 1 : 0;
 
             // ⑤ 选项区 OCR（不再全帧扫）：BetterGI 的识别对象都自带区域，全帧 OCR 只在必要时做。
             //    选项/商店卡片集中在画面中段，取 0.10–0.95 x / 0.22–0.82 y（约 60% 宽 × 60% 高），
@@ -217,7 +224,16 @@ internal sealed class MainLoop
             var heavyEvery = LastAct.HasValue ? heavyStable : 2;   // 上一帧已稳定就不必频繁重扫
             if (_tickCount % heavyEvery == 0)
             {
-                var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame);
+                // 学 BetterGI：每次识别只在自己的小 rect 上跑。选项/商店卡片集中在画面中段，
+                // 取 0.10–0.95 x / 0.22–0.82 y（面积约 36%），单次成本约 1/3；
+                // 每 4 次重扫留一次**全帧**，用来抓队伍人数/结算这类分散文本（缓存兜住）。
+                // 幕次未知时必须全帧（要在任意位置找「第N幕」）；幕次已稳时 3/4 次只扫选项区，
+                // 每 4 次留一次全帧，用来刷新队伍人数/结算这类分散文本。
+                // TA_ROI=0 可关闭（A/B 用，见 docs §6.7）。
+                var roiOn = Environment.GetEnvironmentVariable("TA_ROI") != "0";
+                var useRoi = roiOn && LastAct.HasValue && (_heavySeq++ % 4) != 0;
+                var region = useRoi ? new RectangleF(0.10f, 0.22f, 0.85f, 0.60f) : (RectangleF?)null;
+                var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame, region);
                 if (boxes != null)
                 {
                     if (boxes.Count == 0)
@@ -307,10 +323,16 @@ internal sealed class MainLoop
             // 本帧界面类型（供 ◇ 调用条件与编排器共用，避免两处口径不一致）
             // 大堂（hall 模板命中）单独认成 theater：Playbook.kinds 里就有「点演出准备进本」这句，
             // 早先一律落到 "ui" → kinds 查不到 → 大堂也显示"暂无该幕资料"（忠实预览比对发现的）。
-            var kindNow = stable.HasValue ? "act"
-                        : (hits.Any(h => string.Equals(h.Name, "hall", StringComparison.OrdinalIgnoreCase)) ? "theater"
-                        : (options.Count >= 2 ? "choice"
-                        : (hits.Count > 0 ? "ui" : "")));
+            // 「演出详情 / 确认选择」这类界面没有幕次标签，但有明确该做的事（确认出战角色）
+            var detailScreen = text.Contains("演出详情", StringComparison.Ordinal)
+                            || text.Contains("确认选择", StringComparison.Ordinal);
+            string kindNow;
+            if (stable.HasValue) kindNow = "act";
+            else if (detailScreen) kindNow = "detail";
+            else if (hits.Any(h => string.Equals(h.Name, "hall", StringComparison.OrdinalIgnoreCase))) kindNow = "theater";
+            else if (options.Count >= 2) kindNow = "choice";
+            else if (hits.Count > 0) kindNow = "ui";
+            else kindNow = "";
 
             // ◇只补「幕内(act)」与「量化拿不准的三选一(choice)」：队伍/难度/大堂这类界面答案来自
             // playbook 确定性文本，交规则+检索更准（模型训练集只有幕次语境与随机要素）。
