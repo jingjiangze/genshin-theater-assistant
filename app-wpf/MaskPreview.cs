@@ -105,6 +105,17 @@ internal static class MaskPreview
         var options = ChoiceDecider.ParseOptions(lines);
         var diff = QuantData.Difficulties.LastOrDefault() ?? "";
         var enemy = stable.HasValue ? QuantData.Enemy(stable.Value, diff) : null;
+        // 与 MainLoop.kindNow 逐条一致（otherwise 预览与生产会判出不同结论 —— 这正是"预览不可信"的来源）
+        var detailScreen = text.Contains("演出详情", StringComparison.Ordinal)
+                        || text.Contains("确认选择", StringComparison.Ordinal);
+        string kind;
+        if (stable.HasValue) kind = "act";
+        else if (detailScreen) kind = "detail";
+        else if (hits.Any(h => string.Equals(h.Name, "hall", StringComparison.OrdinalIgnoreCase))) kind = "theater";
+        else if (options.Count >= 2) kind = "choice";
+        else if (hits.Count > 0) kind = "ui";
+        else kind = "";
+
         var d = DecisionOrchestrator.Decide(new DecisionOrchestrator.Context
         {
             Act = stable,
@@ -112,9 +123,7 @@ internal static class MaskPreview
             Enemy = enemy,
             Team = TeamSolver.AsTeamProfile(),
             Options = options,
-            Kind = stable.HasValue ? "act"
-                 : (hits.Any(h => string.Equals(h.Name, "hall", StringComparison.OrdinalIgnoreCase)) ? "theater"
-                 : (options.Count >= 2 ? "choice" : (hits.Count > 0 ? "ui" : ""))),
+            Kind = kind,
         });
 
         var advice = d.Lines.FirstOrDefault() ?? "";
@@ -168,9 +177,7 @@ internal static class MaskPreview
             ["bandText"] = band ?? "",
             ["rawAct"] = act ?? 0,
             ["stableAct"] = stable ?? 0,
-            ["kind"] = stable.HasValue ? "act"
-                     : (hits.Any(h => string.Equals(h.Name, "hall", StringComparison.OrdinalIgnoreCase)) ? "theater"
-                     : (options.Count >= 2 ? "choice" : (hits.Count > 0 ? "ui" : ""))),
+            ["kind"] = kind,
             ["optionCount"] = options.Count,
             ["options"] = options.Select(o => o.Raw).ToList(),
             ["source"] = source,
