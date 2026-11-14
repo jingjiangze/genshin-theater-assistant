@@ -176,8 +176,13 @@ internal static class DecisionOrchestrator
         if (d.Lines.Count == 0)
         {
             // 不依赖 TheaterLogic（它带 OCR/WinForms 依赖，会让 Linux CLI 编译不进来）：
-            // 直接查幕内知识数据；查不到就如实说"暂无资料"。
-            var next = Playbook.Next("act", ctx.Act) ?? Playbook.Missing;
+            // 直接查知识数据。act 已知就查该幕；**未知则按界面类型查 kinds**
+            // （theater=大堂/choice/team/difficulty/result），都不行才说"暂无资料"。
+            // 此前无条件查 Next("act") → 大堂界面明明有「点演出准备进本」也显示"暂无该幕资料"。
+            var next = ctx.Act.HasValue
+                ? Playbook.Next("act", ctx.Act)
+                : (string.IsNullOrEmpty(ctx.Kind) ? null : Playbook.Next(ctx.Kind, null));
+            next ??= ctx.Act.HasValue ? Playbook.Missing : Playbook.Missing;
             d.Lines.Add("· " + (string.IsNullOrEmpty(next) ? "按屏幕提示推进，别交主力耐力" : next));
             d.Source = "·规则";
             d.Confidence = DecisionPolicy.ConfidenceOf("rule", 0.3);
