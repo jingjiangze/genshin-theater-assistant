@@ -10,23 +10,16 @@ permissions:
   contents: write
 
 jobs:
-  # 编译/发布交给 reusable（NuGet 缓存 + OCR 模型缓存 + 随包资源同步都在里面）：
-  # release 不再自己 publish、也不再重跑 ci 已覆盖的自检，只负责版本号 → 打包 → 发布。
   build:
-    uses: ./.github/workflows/windows-build.yml
-    with:
-      wpf: true
-      config: Release
-
-  publish:
-    needs: build
     runs-on: windows-latest
     steps:
-      - name: 取回构建产物（dist/、dist-wpf/）
-        uses: actions/download-artifact@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
         with:
-          name: windows-build-${{ github.sha }}
-          path: .
+          dotnet-version: '8.0.x'
+
+      - name: 拉取中文 OCR 模型（带 SHA256 校验）
+        uses: ./.github/actions/fetch-models
 
       - name: 计算版本号
         shell: pwsh
@@ -38,8 +31,57 @@ jobs:
           Add-Content -Path $env:GITHUB_ENV -Value "TA_VERSION=$v"
           Write-Host "版本号: $v"
 
+      - name: 同步随包资源到 app/ 与 app-wpf/
+        uses: ./.github/actions/sync-assets
+        with:
+          targets: app, app-wpf
+
       # 两个 csproj 都是 PublishSingleFile=false：publish 产出的是目录（exe + dll + 原生库），
       # 只把 exe 当资产发出去，用户下载后跑不起来。必须先 publish 到目录再整包压缩。
+      - name: publish（WinForms，目录输出）
+        run: dotnet publish app/TheaterAssistant.csproj -c Release -r win-x64 --self-contained true -o dist
+
+      - name: 发布前自检（不通过就不发）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest --with-ocr' -Wait -PassThru
+          if (Test-Path .\dist\selftest-report.txt) { Get-Content .\dist\selftest-report.txt -Encoding UTF8 }
+          if ($p.ExitCode -ne 0) { throw "自检失败，拒绝发布 (exit $($p.ExitCode))" }
+
+      - name: 发布前渲染自检（悬浮窗画到 bitmap 断言）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest-visual' -Wait -PassThru
+          if (Test-Path .\dist\selftest-visual-report.txt) { Get-Content .\dist\selftest-visual-report.txt -Encoding UTF8 }
+          if ($p.ExitCode -ne 0) { throw "渲染自检失败，拒绝发布 (exit $($p.ExitCode))" }
+
+      - name: 发布前真机模拟实测（抓屏为空则跳过，不算失败）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest-live --size 1600x900' -Wait -PassThru
+          if (Test-Path .\dist\selftest-live-report.txt) { Get-Content .\dist\selftest-live-report.txt -Encoding UTF8 }
+          if ($p.ExitCode -eq 4) { Write-Host "::warning::真机模拟被跳过（无桌面会话）" }
+          elseif ($p.ExitCode -ne 0) { throw "真机模拟失败，拒绝发布 (exit $($p.ExitCode))" }
+
+      - name: publish（WPF，目录输出）
+        shell: pwsh
+        run: |
+          dotnet publish app-wpf/TheaterAssistantWpf.csproj -c Release -o dist-wpf
+          if ($LASTEXITCODE -ne 0) { throw "WPF publish 失败 (exit $LASTEXITCODE)" }
+          if (-not (Test-Path dist-wpf/TheaterAssistantWpf.exe)) { throw "WPF 发布目录里没有 TheaterAssistantWpf.exe" }
+          Get-ChildItem dist-wpf -File | Select-Object Name, Length
+
+      - name: 发布前 WPF 自检（XAML 错误只有运行时才炸）
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          $p = Start-Process -FilePath .\dist-wpf\TheaterAssistantWpf.exe -ArgumentList '--selftest-wpf' -Wait -PassThru
+          if (Test-Path .\dist-wpf\selftest-wpf-report.txt) { Get-Content .\dist-wpf\selftest-wpf-report.txt -Encoding UTF8 }
+          if ($p.ExitCode -ne 0) { throw "WPF 自检失败，拒绝发布 (exit $($p.ExitCode))" }
+
       - name: 打包（WinForms / WPF 各一个 zip + SHA256）
         shell: pwsh
         run: |
