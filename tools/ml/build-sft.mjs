@@ -170,6 +170,22 @@ const valCount = Math.max(1, Math.round(samples.length * VAL_RATIO));
 const val = samples.slice(0, valCount);
 const train = samples.slice(valCount);
 
+// ── 合并运行时记录样本（可选）────────────────────────────────────
+// `node tools/ml/import-records.mjs` 会产出 records-{train,val}.jsonl（真实运行 + 人工标注）。
+// 有就并进来，没有就跳过——合成样本永远是主体，真实记录只做补充，避免分布被少数几局带偏。
+const extraStats = { train: 0, val: 0 };
+const readJsonl = (p) => (fs.existsSync(p)
+  ? fs.readFileSync(p, 'utf8').split(String.fromCharCode(10)).filter(Boolean).map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean)
+  : []);
+for (const [file, bucket] of [['records-train.jsonl', train], ['records-val.jsonl', val]]) {
+  const add2 = readJsonl(path.join(ROOT, OUT, file));
+  for (const r of add2) {
+    if (!r?.messages || r.messages.length !== 3) continue;
+    bucket.push(r);
+    extraStats[file.includes('train') ? 'train' : 'val']++;
+  }
+}
+
 // ── 校验（结构 + 去重 + 长度）────────────────────────────────────
 const problems = [];
 const seen = new Set();
@@ -198,6 +214,7 @@ const manifest = {
   builtAt: new Date().toISOString(),
   seed: SEED,
   valRatio: VAL_RATIO,
+  recordsExtra: extraStats,
   total: samples.length,
   train: train.length,
   val: val.length,
