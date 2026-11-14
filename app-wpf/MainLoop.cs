@@ -33,6 +33,12 @@ internal sealed class MainLoop
     private int _cachedTextTick = -1000;
     private int _heavySeq;                    // 重扫序号：每 4 次留一次全帧
     private int _bandEmptyStreak;             // 条带连续没读出字的次数（用于退避）
+    private int _backgroundTicks;             // 连续非前台 tick 数（后台降频用）
+
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    private static extern bool IsIconic(IntPtr hWnd);
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    private static extern IntPtr GetForegroundWindow();
     private int _tickCount;
     private bool _busy;
     private int _teamSize;
@@ -156,6 +162,20 @@ internal sealed class MainLoop
                 return;
             }
 
+            // ①b 最小化/切到后台时不做识别：
+            //   · 最小化：BitBlt 拿到的是黑帧，跑 OCR 纯烧 CPU（旧行为会一直空转到弃权）
+            //   · 非前台：遮罩本来就隐藏（MaskPolicy），识别结果没人看
+            // 两者都保留窗口句柄，遮罩按 MaskPolicy 自己决定隐藏还是保持。
+            if (IsIconic(win))
+            {
+                LastStatus = "游戏已最小化，暂停识别";
+                Emit(new TickSnapshot { GameHandle = win, Status = LastStatus, Act = LastAct, Source = LastSource, Lines = LastLines });
+                return;
+            }
+            var foreground = GetForegroundWindow() == win;
+            var idleTicks = foreground ? 0 : ++_backgroundTicks;
+            if (foreground) _backgroundTicks = 0;
+
             // ② 抓屏（只读）
             using var bmp = ScreenCapture.CaptureClient(win);
             if (bmp == null)
@@ -220,7 +240,11 @@ internal sealed class MainLoop
             // 三选一界面停留时间远长于此，不会漏）。
             // 稳定后的间隔留了环境变量口子（TA_HEAVY，默认 8）：换 v6 small 后单次 OCR 成本降到 1/3，
             // 想更勤地刷新三选一/幕次时可调小，实测见 docs/BETTERGI-AUDIT-2026-11-10.md §6.6。
-            var heavyStable = int.TryParse(Environment.GetEnvironmentVariable("TA_HEAVY"), out var hv) && hv > 0 ? hv : 8;
+            // 默认走 data/decision-policy.json 的 ocr.heavyEveryStable（低配机可调大），TA_HEAVY 优先
+            var heavyStable = int.TryParse(Environment.GetEnvironmentVariable("TA_HEAVY"), out var hv) && hv > 0
+                ? hv : OcrTuning.HeavyEveryStable;
+            // 后台（非前台）时重扫间隔翻倍：遮罩隐藏着，刷新快了也没人看；回来前台立刻恢复。
+            if (idleTicks > 3) heavyStable = Math.Min(heavyStable * 2, 60);
             var heavyEvery = LastAct.HasValue ? heavyStable : 2;   // 上一帧已稳定就不必频繁重扫
             if (_tickCount % heavyEvery == 0)
             {
