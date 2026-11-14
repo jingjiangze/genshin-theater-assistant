@@ -28,7 +28,7 @@ internal static class MaskPreview
     /// <summary>渲染宽度：与 1080p 帧同尺寸，保证 1 DIP = 1 px，叠上去不失真。</summary>
     private const int RefWidth = 1920, RefHeight = 1080;
 
-    public static int Run(string frameDir, string outDir)
+    public static int Run(string frameDir, string outDir, bool continuous = false)
     {
         if (string.IsNullOrEmpty(frameDir) || !Directory.Exists(frameDir))
         {
@@ -60,7 +60,8 @@ internal static class MaskPreview
         // 生产里可能仍显示旧幕次 —— 这是设计，不是预览失真。
         foreach (var f in frames)
         {
-            stab.Reset();
+            // 默认逐帧独立；--seq 时按连续录像跑（幕次沿用上一帧，等价真机连续游玩）
+            if (!continuous) stab.Reset();
             try { AnalyzeOne(f, outDir, ocr, templates, mode, stab); }
             catch (Exception ex) { Cli.Say($"跳过 {Path.GetFileName(f)}: {ex.GetType().Name} {ex.Message}"); }
         }
@@ -108,8 +109,11 @@ internal static class MaskPreview
         // 与 MainLoop.kindNow 逐条一致（otherwise 预览与生产会判出不同结论 —— 这正是"预览不可信"的来源）
         var detailScreen = text.Contains("演出详情", StringComparison.Ordinal)
                         || text.Contains("确认选择", StringComparison.Ordinal);
+        var combatScreen = text.Contains("击败敌人", StringComparison.Ordinal)
+                        || text.Contains("剩余时间", StringComparison.Ordinal);
         string kind;
-        if (stable.HasValue) kind = "act";
+        if (combatScreen) kind = "combat";
+        else if (stable.HasValue) kind = "act";
         else if (detailScreen) kind = "detail";
         else if (hits.Any(h => string.Equals(h.Name, "hall", StringComparison.OrdinalIgnoreCase))) kind = "theater";
         else if (options.Count >= 2) kind = "choice";
@@ -127,10 +131,14 @@ internal static class MaskPreview
         });
 
         var advice = d.Lines.FirstOrDefault() ?? "";
+        // 与 App 同口径：手法行按「（」截断（战斗短路时它就是第一条）
+        if (advice.Contains("手法·", StringComparison.Ordinal)) advice = Shorten(advice);
         // 与 MainLoop 同条件：只有「幕内且没读到选项」才追加手法行
-        var guide = stable.HasValue && options.Count == 0
+        var guide = stable.HasValue && options.Count < 2
             ? (Routine.LinesFor(stable, 3).FirstOrDefault(l => l.StartsWith("手法·")) ?? "")
             : "";
+        // 战斗短路时第一条本身就是手法，第二行不再重复
+        if (guide.Length > 0 && advice.Contains(guide)) guide = "";
         var source = string.IsNullOrEmpty(d.Source) ? "·" : d.Source;
 
         // ⑦ 渲染遮罩（与生产同样的 Set* 调用顺序）
