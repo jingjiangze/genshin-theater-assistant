@@ -67,14 +67,14 @@ public partial class OverlayWindow : Window
         SetWindowLong(h, GWL_EXSTYLE, ex);
     }
 
-    /// <summary>切换点击穿透（Ctrl+Alt+L 拖动时需要关掉，否则收不到鼠标）。</summary>
+    /// <summary>切换点击穿透（详情面板需要能点按钮，所以默认不穿透；方法保留给排查用）。</summary>
     public void SetClickThrough(bool on)
     {
         _clickThrough = on;
         ApplyWindowStyles();
         FootText.Text = on
-            ? "Ctrl+Alt+L 拖动 · Ctrl+Alt+H 显隐 · Ctrl+Alt+D 存帧 · Ctrl+Alt+G 攻略"
-            : "拖动中（穿透已关）· Ctrl+Alt+L 恢复穿透";
+            ? "Ctrl+Alt+H 遮罩 · Ctrl+Alt+M 日志 · Ctrl+Alt+D 存帧 · Ctrl+Alt+G 面板"
+            : "穿透已关 · Ctrl+Alt+G 收起面板";
     }
 
     public void SetStatus(string s) => StatusText.Text = s ?? "";
