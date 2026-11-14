@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-13T14:17:42.207Z",
+  "generatedAt": "2026-11-14T13:16:55.812Z",
   "period": "2026-11",
   "criteria": "纯净度(pure100/likely60/mixed20) + 高难(月谕80/卓越60/困难30) + 当期季节+40 + 文本量 + 时长 + 纯净特征+25；short/excluded 淘汰",
   "total": 23,
   "thisRun": {
-    "candidates": 12,
-    "added": 1,
+    "candidates": 11,
+    "added": 0,
     "updated": 11
   },
   "sources": [
@@ -18,7 +18,7 @@
       "textLines": 28,
       "score": 292,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1G86xBFEk5",
@@ -29,7 +29,7 @@
       "textLines": 31,
       "score": 256.5,
       "firstSeenAt": "2026-11-09T13:51:55.036Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1saaz6qEbH",
@@ -40,7 +40,7 @@
       "textLines": 30,
       "score": 255,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1hXTv6uECJ",
@@ -84,7 +84,7 @@
       "textLines": 20,
       "score": 215,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1YRxn6jEhu",
@@ -128,7 +128,7 @@
       "textLines": 10,
       "score": 185,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1aBto6DE3X",
@@ -161,7 +161,7 @@
       "textLines": 2,
       "score": 173,
       "firstSeenAt": "2026-11-09T13:51:55.036Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1qphuz7EjD",
@@ -183,7 +183,7 @@
       "textLines": 2,
       "score": 158,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1euhHzyEeW",
@@ -216,7 +216,7 @@
       "textLines": 12,
       "score": 118,
       "firstSeenAt": "2026-11-11T13:52:20.974Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1Z5Gg6dE5U",
@@ -227,7 +227,7 @@
       "textLines": 10,
       "score": 115,
       "firstSeenAt": "2026-11-11T13:52:20.974Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1YL7TzTEz6",
@@ -238,7 +238,7 @@
       "textLines": 22,
       "score": 113,
       "firstSeenAt": "2026-11-08T15:50:25.064Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1PXXLBmEPq",
@@ -249,7 +249,7 @@
       "textLines": 1,
       "score": 101.5,
       "firstSeenAt": "2026-11-11T13:52:20.974Z",
-      "lastSeenAt": "2026-11-13T14:17:42.207Z"
+      "lastSeenAt": "2026-11-14T13:16:55.812Z"
     },
     {
       "bv": "BV1QsYP67EHQ",
