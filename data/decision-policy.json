@@ -54,13 +54,16 @@
     "sameLineTolerance": 10,
     "enableDirectML": true,
     "directMLDeviceId": 0,
-    "numThreads": 6,
-    "_note": "dropScore/sameLineTolerance 来自 BetterGI 实测；enableDirectML 需引用 DirectML 包否则反射探测回退 CPU。numThreads=6 是 2026-11-10 混合架构实测：0(自动,ORT 用满 16 逻辑核跨 E 核)=5.0s/帧、6(P核)=1.56s/帧、8(6P+2E)=3.8s/帧 —— 钉到物理 P 核数，剩下的核留给游戏",
+    "numThreads": 0,
+    "_note": "dropScore/sameLineTolerance 来自 BetterGI 实测；enableDirectML 需引用 DirectML 包否则反射探测回退 CPU。numThreads=0 = 按硬件自适应（HardwareInfo：逻辑核/2，夹在 [2,6]），也可用 TA_OCR_THREADS 临时覆盖。2026-11-10 实测（i5-13400F 6P+4E）：ORT 自动档吃满 16 逻辑核=5.0s/帧、钉 6(P 核)=1.56s/帧、钉 8(6P+2E)=3.8s/帧 —— 结论是「别跨 E 核、别和游戏抢核」，不是线程越多越快；写死 6 在 4/2 核机上会过订阅。",
     "preprocess": {
       "mode": "off",
       "whiteLow": 210,
       "_note": "OCR 预处理（BetterGI D5 白字掩膜）。off=不处理；boost=白字提纯+背景压暗（推荐）；mask=只留白字。D3竖排/D4透视 RapidOcrNet 已内置，无需配置。"
-    }
+    },
+    "referenceCanvas": 960,
+    "heavyEveryStable": 8,
+    "_perf_note": "referenceCanvas: OCR/模板共用参考画布长边（960 为基准；低配机可降到 800，代价是小字漏检）。heavyEveryStable: 幕次稳定后的重扫间隔（tick 数，默认 8=8 秒；低配机可调 12）。"
   },
   "qualityGates": {
     "teamSize": 4,
