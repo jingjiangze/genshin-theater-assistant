@@ -42,6 +42,26 @@ public sealed class GameModeProfile
     private Regex _actRegexCache;
 
     /// <summary>从一段文字里取时间轴编号（幕/层）。认阿拉伯数字与「一二三…十二」。</summary>
+    /// <summary>
+    /// 从**逐行**文本里解析幕次：只认「整行基本就是幕次标记」的行（去掉空白与装饰符后长度 ≤ 10）。
+    /// 为什么不能直接对整段文本跑正则：实测演出详情界面正文里有一句「…通过第十幕的演出挑战…」，
+    /// 整段匹配会把当前幕次误判成第 10 幕（忠实预览逐帧核对时抓到的）。
+    /// 幕次标记本身是独立的一行（「第4幕」/「第 12 幕」），所以这条约束不会漏真信号。
+    /// </summary>
+    public int? ParseActLines(IEnumerable<string> lines)
+    {
+        if (lines == null) return null;
+        foreach (var raw in lines)
+        {
+            if (string.IsNullOrWhiteSpace(raw)) continue;
+            var line = raw.Trim().Trim('·', '・', '.', '|', '-', '—', '【', '】', '[', ']', '(', ')', '（', '）');
+            if (line.Length == 0 || line.Length > 10) continue;
+            var act = ParseAct(line);
+            if (act.HasValue) return act;
+        }
+        return null;
+    }
+
     public int? ParseAct(string text)
     {
         if (string.IsNullOrWhiteSpace(text)) return null;
