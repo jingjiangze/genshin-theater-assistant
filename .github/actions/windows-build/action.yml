@@ -1,0 +1,83 @@
+name: windows-build
+description: 装 .NET、缓存 NuGet/OCR 模型、同步随包资源并发布 WinForms（可选 WPF）——ci 与 release 共用这一份
+
+# 为什么是 composite 而不是 reusable workflow：
+#   reusable（workflow_call）是 **job 级**复用，后续自检只能放到另一个 job，
+#   于是产物必须 upload/download artifact 走一圈。实测（2026-11-15）：
+#   拆成 2 job 后 ci 墙钟 253s，比单 job 的 150–190s 还慢 ~70s —— 省下的重复构建抵不过几百 MB 的传输。
+#   composite 在同一个 job 里跑，既去掉 7 处重复，又不多一次往返。
+#
+# 调用方负责 checkout；本 action 结束时 dist/ 与 dist-wpf/ 就在工作区里。
+
+inputs:
+  wpf:
+    description: 是否同时发布 WPF 版（dist-wpf）
+    required: false
+    default: 'true'
+  config:
+    description: 构建配置
+    required: false
+    default: Release
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    # 此前每个工作流都裸跑 restore（22~23s）；csproj 不变就复用同一份包缓存
+    - name: 缓存 NuGet 包
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          nuget-${{ runner.os }}-
+
+    - name: 拉取中文 OCR 模型
+      uses: ./.github/actions/fetch-models
+
+    - name: 同步随包资源到 app/
+      uses: ./.github/actions/sync-assets
+      with:
+        targets: app
+
+    - name: 还原
+      shell: pwsh
+      run: |
+        dotnet restore app/TheaterAssistant.csproj
+        if ($LASTEXITCODE -ne 0) { throw "restore 失败 (exit $LASTEXITCODE)" }
+
+    - name: 编译
+      shell: pwsh
+      run: |
+        dotnet build app/TheaterAssistant.csproj -c ${{ inputs.config }} --no-restore
+        if ($LASTEXITCODE -ne 0) { throw "build 失败 (exit $LASTEXITCODE)" }
+
+    # 两个 csproj 都是 PublishSingleFile=false：publish 产出的是目录（exe + dll + 原生库）
+    - name: 发布（WinForms，目录输出）
+      shell: pwsh
+      run: |
+        dotnet publish app/TheaterAssistant.csproj -c ${{ inputs.config }} -r win-x64 --self-contained true -o dist --no-restore
+        if ($LASTEXITCODE -ne 0) { throw "WinForms publish 失败 (exit $LASTEXITCODE)" }
+        if (-not (Test-Path dist/TheaterAssistant.exe)) { throw "没有产出 exe" }
+        Get-ChildItem dist | Select-Object Name, Length
+
+    - name: 同步随包资源到 app-wpf/
+      if: ${{ inputs.wpf == 'true' }}
+      uses: ./.github/actions/sync-assets
+      with:
+        targets: app-wpf
+
+    - name: 发布（WPF，目录输出）
+      if: ${{ inputs.wpf == 'true' }}
+      shell: pwsh
+      run: |
+        dotnet publish app-wpf/TheaterAssistantWpf.csproj -c ${{ inputs.config }} -o dist-wpf
+        if ($LASTEXITCODE -ne 0) { throw "WPF publish 失败 (exit $LASTEXITCODE)" }
+        $exe = "dist-wpf/TheaterAssistantWpf.exe"
+        if (-not (Test-Path $exe)) { throw "WPF 发布失败：没有产出 exe" }
+        $sz = [math]::Round((Get-Item $exe).Length / 1MB, 1)
+        Write-Host "WPF 发布成功: $sz MB（目录发布）"
+        Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版发布：成功（$sz MB，目录输出）"
