@@ -326,8 +326,13 @@ internal sealed class MainLoop
             // 「演出详情 / 确认选择」这类界面没有幕次标签，但有明确该做的事（确认出战角色）
             var detailScreen = text.Contains("演出详情", StringComparison.Ordinal)
                             || text.Contains("确认选择", StringComparison.Ordinal);
+            // 战斗界面：有"击败敌人 x/y"或"剩余时间"这类战斗 HUD 文本
+            var combatScreen = text.Contains("击败敌人", StringComparison.Ordinal)
+                            || text.Contains("剩余时间", StringComparison.Ordinal)
+                            || text.Contains("挑战剩余时间", StringComparison.Ordinal);
             string kindNow;
-            if (stable.HasValue) kindNow = "act";
+            if (combatScreen) kindNow = "combat";
+            else if (stable.HasValue) kindNow = "act";
             else if (detailScreen) kindNow = "detail";
             else if (hits.Any(h => string.Equals(h.Name, "hall", StringComparison.OrdinalIgnoreCase))) kindNow = "theater";
             else if (options.Count >= 2) kindNow = "choice";
@@ -392,10 +397,11 @@ internal sealed class MainLoop
             // 不顶掉首行的「现在做」；选人参考行不掺和（那是配队层的事）。
             // 只在「幕内、且没读到选项」时追加：选卡/演出详情界面显示「先清小怪再打大怪」是噪声
             // （忠实预览逐帧比对时发现的）。
-            if (stable.HasValue && options.Count == 0 && Routine.Loaded)
+            if (stable.HasValue && options.Count < 2 && Routine.Loaded)
             {
                 var technique = Routine.LinesFor(stable, 3).FirstOrDefault(l => l.StartsWith("手法·"));
-                if (!string.IsNullOrWhiteSpace(technique) && !d.Lines.Contains(technique))
+                // 去重：战斗短路时手法已经是第一条（带 ▶ 前缀），不能再用「整串相等」判断
+                if (!string.IsNullOrWhiteSpace(technique) && !d.Lines.Any(l => l.Contains(technique)))
                     d.Lines.Add(technique);
             }
 
