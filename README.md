@@ -9,7 +9,7 @@
 
 | 方式 | 做法 |
 |---|---|
-| 下载 exe（推荐） | 打开 [Releases](https://github.com/jingjiangze/genshin-theater-assistant/releases/latest)，下 `TheaterAssistantWpf.exe`（单文件，双击即用，无需装 .NET） |
+| 下载 zip（推荐） | 打开 [Releases](https://github.com/jingjiangze/genshin-theater-assistant/releases/latest)，下 `TheaterAssistant-*-wpf-win-x64.zip`，解压后双击 `TheaterAssistantWpf.exe`（自包含，无需装 .NET；**别只拿 exe，缺同目录 dll 跑不起来**） |
 | 从源码跑 | `dotnet publish app-wpf/TheaterAssistantWpf.csproj -c Release -o out`，跑 `out/TheaterAssistantWpf.exe` |
 
 首次运行会在 `%LOCALAPPDATA%\TheaterAssistant\` 建配置与日志目录。
@@ -90,7 +90,20 @@ TheaterAssistant.exe --selftest            # 155 条逻辑断言（WinForms 版�
 TheaterAssistant.exe --frame your.png      # 单帧诊断：识别到什么、会给什么建议
 TheaterAssistant.exe --replay frames\      # 一段录像抽的帧按时序跑，出时间线报告
 TheaterAssistant.exe --quant frames\       # 帧驱动量化对照（指示 vs 界面事实）
+
+TheaterAssistantWpf.exe --silent            # 无窗口静默运行：不出悬浮球/遮罩/桌宠，只识别 + 记账
+TheaterAssistantWpf.exe --db-export out.jsonl   # 导出运行记录（微调/对账用）
+TheaterAssistantWpf.exe --db-prune 30       # 只保留最近 30 天记录
 ```
+
+**静默运行说明**（无窗口、不打扰前台）：
+- `--silent` 不创建任何窗口；托盘图标保留，用于退出/开设置。
+- 只要你切到别的窗口（看视频、开会），主循环**立刻停止抓屏与 OCR**，切回游戏 1 秒内恢复。
+- 进程优先级自动降到 BelowNormal，不和游戏/播放器抢 CPU。
+
+**运行记录**（本机 `records.db`，SQLite）：
+- 每帧记「识别到啥 / 给了啥 / 花了多久」；不存截图，不上传。
+- 觉得哪句建议不对，按 `Ctrl+Alt+B` 标错（只写本地库），下次 `--db-export` 导出时会被过滤掉，可用来纠正/微调。
 
 ## 九、它不做什么
 
