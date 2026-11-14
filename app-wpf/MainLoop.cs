@@ -98,6 +98,27 @@ internal sealed class MainLoop
         _timer.Start();
     }
 
+    /// <summary>
+    /// Ctrl+Alt+D：把当前帧存成 PNG（排查识别问题时用）。
+    /// 单独抓一次屏，不复用 tick 里那张——那张每帧都 Dispose，拿不到稳定句柄。
+    /// </summary>
+    public string SaveFrame()
+    {
+        try
+        {
+            var win = GameWindow.Find("原神", 0);
+            if (win == IntPtr.Zero) win = GameWindow.Find("GenshinImpact", 0);
+            using var bmp = win != IntPtr.Zero ? ScreenCapture.CaptureClient(win) : null;
+            if (bmp == null) return null;
+            var dir = Path.Combine(AppPaths.Dir, "captures");
+            Directory.CreateDirectory(dir);
+            var path = Path.Combine(dir, $"frame-{DateTime.Now:yyyyMMdd-HHmmss}.png");
+            bmp.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+            return path;
+        }
+        catch (Exception ex) { App.LogCrash(ex, "MainLoop.SaveFrame"); return null; }
+    }
+
     /// <summary>扫描间隔（设置窗 ui.json → scanIntervalMs）。改的是 DispatcherTimer 的频率，
     /// 不重建循环：下一次 Tick 就按新间隔排。</summary>
     public void SetScanInterval(int ms)
