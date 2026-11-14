@@ -255,7 +255,8 @@ internal sealed class MainLoop
             var text = textFresh ? _cachedText : "";
 
             // ⑥ 幕次判定：条带每帧都刷，优先；全帧文本只在新鲜时参与（正则与中文数字都由档案决定）
-            int? act = _mode.ParseAct(band) ?? (textFresh ? _mode.ParseAct(text) : null);
+            // 逐行解析（只认「整行就是幕次标记」），避免正文里的「…通过第十幕…」把幕次判错
+            int? act = _mode.ParseAct(band) ?? (textFresh ? _mode.ParseActLines(text.Split((char)10, StringSplitOptions.RemoveEmptyEntries)) : null);
             var stable = _stab.Push(act);
             LastAct = stable;
 
