@@ -152,7 +152,14 @@ internal static class ChoiceDecider
         var partner = options.FirstOrDefault(o => o.Kind == Kind.Partner);
         var blessing = options.FirstOrDefault(o => o.Kind == Kind.Blessing);
         if (partner != null && teamSize < targetSize)
-            return new Decision { Pick = partner, Sentence = $"选「伙伴」（补人：当前 {teamSize}/{targetSize}）", Reason = "人数不足先补人，避免后续幕凑不齐" };
+            return new Decision
+            {
+                Pick = partner,
+                Sentence = teamSize > 0
+                    ? $"选「伙伴」（补人：当前 {teamSize}/{targetSize}）"
+                    : "选「伙伴」（人数还没读到，保守先补人）",
+                Reason = "人数不足先补人，避免后续幕凑不齐",
+            };
         if (blessing != null && (teamSize >= targetSize || partner == null))
             return new Decision { Pick = blessing, Sentence = "选「辉彩祝福」（提上限，人数已够）", Reason = "人数够时祝福收益最高" };
         var mystery = options.FirstOrDefault(o => o.Kind == Kind.Mystery);
