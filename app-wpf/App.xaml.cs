@@ -152,7 +152,11 @@ public partial class App : System.Windows.Application
 
             var okH = _hotkeys.Register(0x101, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x48 /*H*/, ToggleMask);
             var okM = _hotkeys.Register(0x102, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x4D /*M*/, ToggleMaskLog);
-            if (!okH || !okM) LogCrash(new InvalidOperationException($"热键注册失败 H={okH} M={okM}"), "InitHotkeys");
+            // D 存帧 / G 详情面板：以前界面上宣传了但**根本没注册**（审计发现），现在补上。
+            var okD = _hotkeys.Register(0x104, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x44 /*D*/, SaveFrameHotkey);
+            var okG = _hotkeys.Register(0x107, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x47 /*G*/, OpenDetail);
+            if (!okH || !okM || !okD || !okG)
+                LogCrash(new InvalidOperationException($"热键注册失败 H={okH} M={okM} D={okD} G={okG}"), "InitHotkeys");
         }
         catch (Exception ex)
         {
@@ -174,6 +178,18 @@ public partial class App : System.Windows.Application
             InitHotkeys();
         }
         catch (Exception ex) { LogCrash(ex, "ReloadPrefs"); }
+    }
+
+    /// <summary>Ctrl+Alt+D：存当前帧到 captures/（识别排查用）。</summary>
+    private void SaveFrameHotkey()
+    {
+        try
+        {
+            var path = _loop?.SaveFrame();
+            _maskHost?.Report(MaskGameState.None);   // 不改变状态，仅保证 UI 不被阻塞
+            if (!string.IsNullOrEmpty(path)) Console.WriteLine("存帧: " + path);
+        }
+        catch (Exception ex) { LogCrash(ex, "SaveFrameHotkey"); }
     }
 
     /// <summary>Ctrl+Alt+M：展开/收起遮罩日志（默认收起，只留「现在做」）。</summary>
@@ -204,6 +220,19 @@ public partial class App : System.Windows.Application
     {
         try { UpdateMask(s); }
         catch (Exception ex) { LogCrash(ex, "OnLoopUpdated"); }
+
+        // 详情面板此前只显示构造时的占位文字——从来没被喂过内容（审计 P2）。
+        // 现在只在面板**可见**时更新，隐藏时不产生任何开销。
+        try
+        {
+            if (_detail is { IsVisible: true })
+            {
+                var src = string.IsNullOrEmpty(s.Source) ? "规则" : s.Source;
+                _detail.SetLines((s.Lines ?? Array.Empty<string>()).Select(l => (l, src)));
+                _detail.SetStatus(s.Act is int a ? $"第{a}幕 · {src}" : src);
+            }
+        }
+        catch (Exception ex) { LogCrash(ex, "OnLoopUpdated.Detail"); }
     }
 
     /// <summary>
