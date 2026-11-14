@@ -65,6 +65,7 @@ internal static class ReplayRunner
 
         using var ocr = new OcrService();
         ocr.InitializeAsync(AppPaths.ModelsRoot).GetAwaiter().GetResult();
+        ocr.Warmup();   // 预热：让首帧不再背模型 warmup（生产同样在 StartAsync 里做）
         Cli.Say("OCR: " + ocr.Status + "｜语料 " + GuideIndex.Count + " 条｜帧 " + files.Count
                 + (brain != null ? "｜◇模型: 内嵌 llama-server" : llm != null ? "｜◇模型: HTTP " + llm.Health : "｜◇模型: 未启用"));
 
@@ -73,6 +74,7 @@ internal static class ReplayRunner
         var lastText = "";
         var lastTextFrame = -1000;   // 文本缓存写入时的帧序号（用帧号不用墙钟：同一录像必须可复现）
         var lastBoxCount = 0;
+        var heavySeq = 0;
         var prevStable = 0;
         var stab = new ActStabilizer();
         var sw = System.Diagnostics.Stopwatch.StartNew();
@@ -99,7 +101,12 @@ internal static class ReplayRunner
                 var swOcr = System.Diagnostics.Stopwatch.StartNew();
                 if ((frameIndex - 1) % heavyEvery == 0)
                 {
-                    var boxes = ocr.RecognizeBoxesAsync(ocrImg, null, ocrImg.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
+                    // 与生产同一条：幕次已稳时 3/4 次只扫选项区（0.10–0.95 × 0.22–0.82），每 4 次留一次全帧。
+                    // TA_ROI=0 关闭（A/B 用）。
+                    var roiOn = Environment.GetEnvironmentVariable("TA_ROI") != "0";
+                    var useRoi = roiOn && prevStable > 0 && (heavySeq++ % 4) != 0;
+                    var region = useRoi ? new RectangleF(0.10f, 0.22f, 0.85f, 0.60f) : (RectangleF?)null;
+                    var boxes = ocr.RecognizeBoxesAsync(ocrImg, region, ocrImg.Width < 900 ? 2 : 1).GetAwaiter().GetResult();
                     lastBoxCount = boxes?.Count ?? 0;
                     if (boxes == null)
                     {
