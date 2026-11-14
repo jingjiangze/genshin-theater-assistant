@@ -1,0 +1,30 @@
+name: checkout-ledger
+description: 检出长期数据账本分支（automation-data）到工作区子目录
+
+# knowledge-extract / video-ingest / corpus-refresh / video-eval / auto-release 都手写了同一段
+# 「actions/checkout@v4 + ref: automation-data + path: .pipeline-state + fetch-depth: 0」，
+# 抽成 composite 免得各工作流的 fetch-depth / 目录名慢慢漂移。
+
+inputs:
+  ref:
+    description: 账本分支
+    required: false
+    default: automation-data
+  path:
+    description: 检出到哪个子目录
+    required: false
+    default: .pipeline-state
+  fetch-depth:
+    description: 历史深度（0 = 全量，持久化脚本要读历史必须全量）
+    required: false
+    default: '0'
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout durable batch ledger（automation-data）
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.ref }}
+        path: ${{ inputs.path }}
+        fetch-depth: ${{ inputs.fetch-depth }}
