@@ -68,7 +68,7 @@ public partial class MaskWindow : Window
 
     private double _panelScale = double.NaN;   // NaN = 还没应用过
 
-    /// <summary>默认点击穿透（遮罩只看不点）。Ctrl+Alt+L 可切换，用于拖动/排查。</summary>
+    /// <summary>默认点击穿透（遮罩只看不点）。全仓没有调用方——遮罩恒穿透；方法留给排查用。</summary>
     public bool ClickThrough { get; private set; } = true;
 
     /// <summary>已写入的日志行数（自检断言用；裁剪不影响这个计数）。</summary>
@@ -178,7 +178,7 @@ public partial class MaskWindow : Window
         ApplyWindowStyles();
         FootText.Text = on
             ? "Ctrl+Alt+M 收起日志"
-            : "穿透已关（可拖动/排查）· Ctrl+Alt+L 恢复";
+            : "穿透已关（排查模式）";
     }
 
     /// <summary>面板标题跟随玩法（剧诗/深渊…）。</summary>
