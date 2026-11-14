@@ -29,6 +29,7 @@ models/**/.server-*.pid
 # 构建期从 models/ 铺进来的暂存目录（CI 在 publish 前复制，勿入库）
 app/models/
 app-wpf/models/
+app-wpf/templates/
 !models/README.md
 
 # 编辑器
