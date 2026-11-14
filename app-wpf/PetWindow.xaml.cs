@@ -58,8 +58,8 @@ public partial class PetWindow : Window
         InitializeComponent();
 
         // 位置：右下角（桌宠惯例）。
-        // 口径：ScreenMetrics.PhysicalSize 是物理像素，Left/Top 是 DIP —— 先按窗口所在屏的 DPI
-        // 换算成 DIP（物理分辨率 ÷ scale）再钳位，否则 150%/200% 上桌宠会贴到屏幕外。
+        // 口径：显示器工作区（rcWork）是物理像素，Left/Top 是 DIP —— 先按窗口所在屏的 DPI
+        // 换算成 DIP（工作区 ÷ scale）再钳位，否则 150%/200% 上桌宠会贴到屏幕外。
         PlaceAtDefaultCorner();
 
         SourceInitialized += (_, _) =>
@@ -108,10 +108,17 @@ public partial class PetWindow : Window
         // 全程 DIP：窗口内位置 + Left/Top。旧代码把 PointToScreen（物理像素）的增量
         // 加到 Left/Top（DIP）上，非 100% 缩放下拖动会跟手不一致。
         var cur = ScreenDip(e.GetPosition(this));
-        var clamped = ClampToScreenDip(
+        // 钳位基准 = **指针所在显示器**的工作区：用窗口自己那块屏会卡在主屏边界拖不过去，
+        // 用指针位置才能把桌宠拖到副屏；副屏在主屏左侧时 rcWork.X 为负也原样允许。
+        var scale = DpiScaleForWindow();
+        var area = ScreenMetrics.WorkAreaDip(
+            ScreenMetrics.WorkAreaOf(new System.Drawing.Point(
+                (int)Math.Round(cur.X * scale), (int)Math.Round(cur.Y * scale))),
+            scale);
+        var clamped = ScreenMetrics.ClampToAreaDip(
             new System.Drawing.Point((int)Math.Round(_winStart.X + cur.X - _dragStart.X),
                                      (int)Math.Round(_winStart.Y + cur.Y - _dragStart.Y)),
-            WindowSizeDip(), ScreenSizeDip());
+            WindowSizeDip(), area);
         Left = clamped.X;
         Top = clamped.Y;
     }
@@ -148,42 +155,21 @@ public partial class PetWindow : Window
     private System.Drawing.Size WindowSizeDip()
         => new((int)Math.Round(Width), (int)Math.Round(Height));
 
-    /// <summary>屏幕 DIP 尺寸（物理分辨率 ÷ DPI）。</summary>
-    private System.Drawing.Size ScreenSizeDip()
-    {
-        var physical = ScreenMetrics.PhysicalSize;
-        var scale = DpiScaleForWindow();
-        return new System.Drawing.Size(
-            (int)Math.Round(physical.Width / scale),
-            (int)Math.Round(physical.Height / scale));
-    }
-
     private void PlaceAtDefaultCorner()
     {
-        var screenDip = ScreenSizeDip();
+        // 工作区（rcWork，已排除任务栏）而不是主屏全屏：桌宠停在任务栏上方。
+        // 无句柄时 MonitorFromWindow 回主屏，行为与旧实现一致；有句柄后按窗口自己那块屏重算。
+        var scale = DpiScaleForWindow();
+        var area = ScreenMetrics.WorkAreaDip(
+            ScreenMetrics.WorkAreaOf(new WindowInteropHelper(this).Handle), scale);
         var size = WindowSizeDip();
-        var p = ClampToScreenDip(
+        var p = ScreenMetrics.ClampToAreaDip(
             new System.Drawing.Point(
-                screenDip.Width - size.Width - (int)Math.Round(CornerInsetX),
-                screenDip.Height - size.Height - (int)Math.Round(CornerInsetY)),
-            size, screenDip);
+                area.X + area.W - size.Width - (int)Math.Round(CornerInsetX),
+                area.Y + area.H - size.Height - (int)Math.Round(CornerInsetY)),
+            size, area);
         Left = p.X;
         Top = p.Y;
-    }
-
-    /// <summary>
-    /// DIP 坐标系内的钳位。不能复用 ScreenMetrics.ClampToScreen：
-    /// 那个函数用 PhysicalSize（物理像素）做边界，喂 DIP 进去等于把窗口当物理像素判断。
-    /// </summary>
-    private static System.Drawing.Point ClampToScreenDip(
-        System.Drawing.Point p, System.Drawing.Size windowDip, System.Drawing.Size screenDip)
-    {
-        if (screenDip.Width <= 0 || screenDip.Height <= 0) return p;
-        var maxX = Math.Max(0, screenDip.Width - Math.Min(windowDip.Width, screenDip.Width));
-        var maxY = Math.Max(0, screenDip.Height - Math.Min(windowDip.Height, screenDip.Height));
-        return new System.Drawing.Point(
-            Math.Max(0, Math.Min(p.X, maxX)),
-            Math.Max(0, Math.Min(p.Y, maxY)));
     }
 
     // ── 展开详细面板 ────────────────────────────────────────────
@@ -286,7 +272,7 @@ public partial class PetWindow : Window
         {
             case PetState.Thinking:   // 快速浮动
                 y = Math.Sin(_t * 5.0) * 6;
-                scale = 1.0;
+                scale = 1.0f;
                 break;
             case PetState.Waiting:    // 慢速左右晃
                 y = Math.Sin(_t * 1.2) * 3;
@@ -298,7 +284,7 @@ public partial class PetWindow : Window
                 break;
             case PetState.Sleeping:   // 几乎不动
                 y = Math.Sin(_t * 0.6) * 1.5;
-                scale = 1.0;
+                scale = 1.0f;
                 break;
             default:                  // Idle：轻微呼吸
                 y = Math.Sin(_t * 1.6) * 3;
