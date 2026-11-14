@@ -76,12 +76,62 @@ internal static class AppPaths
 
     public static string Data(string name) => Resolve(Path.Combine("data", name));
 
-    public static string TemplatesRoot => Resolve("templates");
+    /// <summary>
+    /// 模板根目录。**必须能解包**：WPF 版把 templates/ 打成 EmbeddedResource，
+    /// 而 Resolve 的嵌入兜底只覆盖 data//models/ —— 早先这里直接返回 exe 同级 templates/（不存在），
+    /// 结果生产里模板数恒为 0、模板匹配整层静默失效（2026-11-14 用忠实预览发现）。
+    /// </summary>
+    public static string TemplatesRoot
+    {
+        get
+        {
+            var p = Resolve("templates");
+            if (Directory.Exists(p) && Directory.GetFiles(p, "*.png", SearchOption.AllDirectories).Length > 0)
+                return p;
+            return ExtractTree("templates") ?? p;
+        }
+    }
 
     public static string ModelsRoot => Resolve("models");
 
     /// <summary>内嵌小模型的 GGUF 路径（EmbeddedResource 解包 → 或 exe 同级 models/llm/）。</summary>
     public static string LocalModelPath => Resolve(Path.Combine("models", "llm", "minimind-26m-q8.gguf"));
+
+    /// <summary>
+    /// 把 `TheaterAssistant.res.&lt;prefix&gt;.*` 这类**目录树**资源整体解包到
+    /// %LOCALAPPDATA%\TheaterAssistant\&lt;prefix&gt;\（保留子目录）。
+    /// 名字里的分隔符是反斜杠（MSBuild 的 %(RecursiveDir)），这里按原样还原成目录。
+    /// </summary>
+    private static string? ExtractTree(string prefix)
+    {
+        try
+        {
+            var asm = Assembly.GetExecutingAssembly();
+            var head = "TheaterAssistant.res." + prefix + ".";
+            var wrote = 0;
+            foreach (var name in asm.GetManifestResourceNames())
+            {
+                if (!name.StartsWith(head, StringComparison.OrdinalIgnoreCase)) continue;
+                var rel = name[head.Length..].Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+                if (string.IsNullOrEmpty(rel) || !Path.HasExtension(rel)) continue;   // 跳过目录占位
+                var target = Path.Combine(ExtractRoot, prefix, rel);
+                try { Directory.CreateDirectory(Path.GetDirectoryName(target)!); } catch { }
+                using var src = asm.GetManifestResourceStream(name);
+                if (src == null) continue;
+                if (!File.Exists(target) || new FileInfo(target).Length != src.Length)
+                {
+                    using var fs = File.Create(target);
+                    src.CopyTo(fs);
+                    wrote++;
+                }
+            }
+            var root = Path.Combine(ExtractRoot, prefix);
+            if (Directory.Exists(root) && Directory.GetFiles(root, "*", SearchOption.AllDirectories).Length > 0)
+                return root;
+            return null;
+        }
+        catch { return null; }
+    }
 
     // ── 嵌入资源解包 ────────────────────────────────────────────
     private static string TryExtract(string relative)
