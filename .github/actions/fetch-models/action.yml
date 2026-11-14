@@ -1,0 +1,24 @@
+name: fetch-models
+description: 缓存并拉取中文 OCR 模型（v5 全链 + v6 small，脚本内做 SHA256 校验）
+
+# 7 个工作流此前逐字重复「缓存 + 两条 fetch」：抽成 composite 后只在这里改一次。
+# 缓存 key 沿用 ocr-models-v56-<fetch-models.ps1 的哈希>：脚本里的清单/校验和一变就自动换 key。
+
+runs:
+  using: composite
+  steps:
+    - name: 缓存 OCR 模型（省去每次 ~1 分钟下载）
+      uses: actions/cache@v4
+      with:
+        path: |
+          models/v5
+          models/v6
+        key: ocr-models-v56-${{ hashFiles('models/fetch-models.ps1') }}
+
+    - name: 拉取中文 OCR 模型（带 SHA256 校验）
+      shell: pwsh
+      run: |
+        # 两条链各自断言退出码：旧写法只有最后一条决定成败，v5 失败会被 v6 成功掩盖
+        .\models\fetch-models.ps1; if ($LASTEXITCODE -ne 0) { throw "v5 模型获取失败" }
+        # v6 small 才是生产/标注用：det 9.5MB / rec 20.3MB，实测 1080p OCR p90 465ms（v5 要 1.5s+）
+        .\models\fetch-models.ps1 -V6; if ($LASTEXITCODE -ne 0) { throw "v6 模型获取失败" }
