@@ -21,6 +21,10 @@ internal sealed class MainLoop
 {
     private readonly FloatingBall _ball;
     private readonly GameModeProfile _mode;
+    /// <summary>静默模式：不驱动悬浮球/任何窗口，只识别 + 记账（用户前台看视频时也不打扰）。</summary>
+    private readonly bool _silent;
+    /// <summary>记录库（失败为 null，绝不影响识别）。</summary>
+    public RecordStore Records { get; private set; }
     private LlmAdvisor _llm;
     private LocalBrain _brain;
     private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromSeconds(1) };
@@ -34,6 +38,7 @@ internal sealed class MainLoop
     private int _heavySeq;                    // 重扫序号：每 4 次留一次全帧
     private int _bandEmptyStreak;             // 条带连续没读出字的次数（用于退避）
     private int _backgroundTicks;             // 连续非前台 tick 数（后台降频用）
+    private int _lastMsOcr;                   // 最近一次重 OCR 耗时（记账用）
 
     [System.Runtime.InteropServices.DllImport("user32.dll")]
     private static extern bool IsIconic(IntPtr hWnd);
@@ -48,6 +53,7 @@ internal sealed class MainLoop
     private ulong _lastFrameHash;
     private int _lastDecideTick;
     private int? _lastStable;
+    private int? _lastRawAct;
     private string _lastBandText = "";
     private IReadOnlyList<MaskHit> _lastHits = Array.Empty<MaskHit>();
 
@@ -62,10 +68,11 @@ internal sealed class MainLoop
     public string LastSource { get; private set; } = "";
     public List<string> LastLines { get; private set; } = new();
 
-    public MainLoop(FloatingBall ball, GameModeProfile mode = null)
+    public MainLoop(FloatingBall ball, GameModeProfile mode = null, bool silent = false)
     {
         _ball = ball;
         _mode = mode ?? GameModes.Default;
+        _silent = silent;
         _timer.Tick += async (_, _) => await TickAsync();
     }
 
@@ -97,7 +104,17 @@ internal sealed class MainLoop
             await _ocr.InitializeAsync(AppPaths.ModelsRoot);
             LastStatus = _ocr.Status;
             _ocr.Warmup();   // 首帧不吃 warmup 成本
-            _ball.SetState(FloatingBall.BallState.Idle);
+
+            // 记录库：默认为开（用户要"数据库存储记录"）；打不开就静默降级，不影响识别。
+            try
+            {
+                Records = RecordStore.TryOpen();
+                Records?.BeginSession(
+                    typeof(MainLoop).Assembly.GetName().Version?.ToString() ?? "",
+                    _ocr.ModelId, 0, 0, _mode.Id);
+            }
+            catch (Exception ex) { App.LogCrash(ex, "MainLoop.Records"); }
+            SetBallState(FloatingBall.BallState.Idle);
         }
         catch (Exception ex)
         {
@@ -136,8 +153,63 @@ internal sealed class MainLoop
         catch (Exception ex) { App.LogCrash(ex, "MainLoop.SetScanInterval"); }
     }
 
+    /// <summary>落一条正常 tick（失败静默，绝不阻塞主循环）。</summary>
+    private void RecordTick(IntPtr win, int w, int h, int? stable, string kind, DecisionOrchestrator.Decision d,
+                            string band, int msTotal, int msMatch, int msOcr, int msBand,
+                            int boxes, int textLen, ulong frameHash)
+    {
+        if (Records == null) return;
+        try
+        {
+            Records.AddTick(new RecordStore.TickRecord
+            {
+                Session = Records.SessionId,
+                TsUtc = DateTime.UtcNow,
+                Tick = _tickCount,
+                Act = _lastRawAct,
+                StableAct = stable,
+                Kind = kind,
+                Source = d?.Source ?? "",
+                Advice = d?.Lines != null && d.Lines.Count > 0 ? d.Lines[0] : "",
+                Guide = d?.Lines != null ? d.Lines.Skip(1).FirstOrDefault() ?? "" : "",
+                OcrLines = textLen,
+                Boxes = boxes,
+                FrameSha = frameHash.ToString("x16"),
+                MsTotal = msTotal, MsMatch = msMatch, MsOcr = msOcr, MsBand = msBand,
+                Skipped = false,
+            });
+        }
+        catch { }
+    }
+
+    /// <summary>落一条"没识别"的 tick（暂停/跳过），便于统计真实占用。</summary>
+    private void RecordSkipped(IntPtr win, int w, int h)
+    {
+        if (Records == null) return;
+        try
+        {
+            Records.AddTick(new RecordStore.TickRecord
+            {
+                Session = Records.SessionId,
+                TsUtc = DateTime.UtcNow,
+                Tick = _tickCount,
+                Kind = "paused",
+                Skipped = true,
+            });
+        }
+        catch { }
+    }
+
+    /// <summary>静默模式下没有悬浮球可驱动。</summary>
+    private void SetBallState(FloatingBall.BallState state)
+    {
+        if (_silent) return;
+        try { _ball.SetState(state); } catch { }
+    }
+
     public void Stop()
     {
+        try { Records?.Dispose(); Records = null; } catch { }
         _timer.Stop();
         try { _brain?.Dispose(); } catch { }
         try { _llm?.Dispose(); } catch { }
@@ -147,6 +219,7 @@ internal sealed class MainLoop
     {
         if (_busy) return;     // 上一帧还没跑完就跳过，避免堆积
         _busy = true;
+        var swAll = System.Diagnostics.Stopwatch.StartNew();
         try
         {
             _tickCount++;
@@ -157,7 +230,7 @@ internal sealed class MainLoop
             if (win == IntPtr.Zero)
             {
                 LastStatus = "未找到游戏窗口，等待中…";
-                _ball.SetState(FloatingBall.BallState.Waiting);
+                SetBallState(FloatingBall.BallState.Waiting);
                 Emit(new TickSnapshot { GameHandle = IntPtr.Zero, Status = LastStatus });
                 return;
             }
@@ -176,12 +249,30 @@ internal sealed class MainLoop
             var idleTicks = foreground ? 0 : ++_backgroundTicks;
             if (foreground) _backgroundTicks = 0;
 
+            // ①c 前台不是游戏 → **完全不抓屏、不 OCR**（用户可能在用别的窗口看视频/开会）。
+            // 只保留 2 个 tick 的缓冲，避免 alt-tab 抖动导致频繁启停。
+            if (idleTicks > 2)
+            {
+                LastStatus = "前台不是游戏，已暂停识别（不占用资源）";
+                RecordSkipped(win, 0, 0);
+                Emit(new TickSnapshot
+                {
+                    GameHandle = win,
+                    Status = LastStatus,
+                    Act = LastAct,
+                    Source = LastSource,
+                    Lines = LastLines,
+                    Skipped = true,
+                });
+                return;
+            }
+
             // ② 抓屏（只读）
             using var bmp = ScreenCapture.CaptureClient(win);
             if (bmp == null)
             {
                 LastStatus = "抓屏失败";
-                _ball.SetState(FloatingBall.BallState.Waiting);
+                SetBallState(FloatingBall.BallState.Waiting);
                 Emit(new TickSnapshot { GameHandle = win, Status = LastStatus });
                 return;
             }
@@ -218,18 +309,22 @@ internal sealed class MainLoop
             var ocrFrame = canvasScaled ? canvas : (pre ?? bmp);
 
             // ③ 模板：分辨率变了就重载
+            var swMatch = System.Diagnostics.Stopwatch.StartNew();
             LoadTemplatesFor(bmp.Width, bmp.Height);
             var hits = Matcher.Scan(bmp, _templates);
+            swMatch.Stop();
 
             // ④ 条带 OCR（幕次）：ROI 来自玩法档案（剧诗默认 0.28/0.828/0.46/0.05），快且准
             // 条带（「第N幕」徽章）实测是装饰字，v6 常常读不出；连续空就退避到每 3 个 tick 一次，
             // 省下 ~120ms/帧；一旦读出过就恢复每帧（真实幕次变化仍能尽快抓到）。
+            var swBand = System.Diagnostics.Stopwatch.StartNew();
             var bandDue = _bandEmptyStreak < 5 || _tickCount % 3 == 0;
             var band = _mode.HasBand && bandDue
                 ? await _ocr.RecognizeRegionAsync(ocrFrame, new RectangleF(
                     (float)_mode.BandLeft, (float)_mode.BandTop, (float)_mode.BandWidth, (float)_mode.BandHeight), 2)
                 : "";
             if (bandDue) _bandEmptyStreak = string.IsNullOrWhiteSpace(band) ? _bandEmptyStreak + 1 : 0;
+            swBand.Stop();
 
             // ⑤ 选项区 OCR（不再全帧扫）：BetterGI 的识别对象都自带区域，全帧 OCR 只在必要时做。
             //    选项/商店卡片集中在画面中段，取 0.10–0.95 x / 0.22–0.82 y（约 60% 宽 × 60% 高），
@@ -257,7 +352,10 @@ internal sealed class MainLoop
                 var roiOn = Environment.GetEnvironmentVariable("TA_ROI") != "0";
                 var useRoi = roiOn && LastAct.HasValue && (_heavySeq++ % 4) != 0;
                 var region = useRoi ? new RectangleF(0.10f, 0.22f, 0.85f, 0.60f) : (RectangleF?)null;
+                var swOcr = System.Diagnostics.Stopwatch.StartNew();
                 var boxes = await _ocr.RecognizeBoxesAsync(ocrFrame, region);
+                swOcr.Stop();
+                _lastMsOcr = (int)swOcr.ElapsedMilliseconds;
                 if (boxes != null)
                 {
                     if (boxes.Count == 0)
@@ -297,6 +395,7 @@ internal sealed class MainLoop
             // ⑥ 幕次判定：条带每帧都刷，优先；全帧文本只在新鲜时参与（正则与中文数字都由档案决定）
             // 逐行解析（只认「整行就是幕次标记」），避免正文里的「…通过第十幕…」把幕次判错
             int? act = _mode.ParseAct(band) ?? (textFresh ? _mode.ParseActLines(text.Split((char)10, StringSplitOptions.RemoveEmptyEntries)) : null);
+            _lastRawAct = act;
             var stable = _stab.Push(act);
             LastAct = stable;
 
@@ -306,7 +405,7 @@ internal sealed class MainLoop
                 LastStatus = $"幕次未识别 {_stab.MissedMilliseconds}ms";
                 LastLines = new List<string> { "· 暂不判断：请在剧诗界面停留一下（或切换幕次）" };
                 LastSource = "·";
-                _ball.SetState(FloatingBall.BallState.Waiting);
+                SetBallState(FloatingBall.BallState.Waiting);
                 Emit(new TickSnapshot
                 {
                     GameHandle = win,
@@ -438,13 +537,19 @@ internal sealed class MainLoop
             LastStatus = stable.HasValue ? $"第{stable}幕 · {d.Source}" : d.Source;
 
             // ⑨ 驱动悬浮球：状态色 + 角标
-            _ball.SetState(d.Source switch
+            SetBallState(d.Source switch
             {
                 var s when s.StartsWith("★") => FloatingBall.BallState.Done,
                 var s when s.StartsWith("◆") => FloatingBall.BallState.Idle,
                 var s when s.StartsWith("◇") => FloatingBall.BallState.Thinking,
                 _ => FloatingBall.BallState.Idle,
             });
+
+            // ⑨b 记账（数据库存储记录：这一帧看到什么、决定了什么、花了多久）
+            RecordTick(win, bmp.Width, bmp.Height, stable, kindNow, d,
+                       band ?? "", (int)swAll.ElapsedMilliseconds,
+                       (int)swMatch.ElapsedMilliseconds, _lastMsOcr, (int)swBand.ElapsedMilliseconds,
+                       hits?.Count ?? 0, _cachedText?.Length ?? 0, frameHash);
 
             // ⑩ 遮罩快照（日志 + 识别框都由这里驱动，见 MaskWindowHost）
             Emit(new TickSnapshot
