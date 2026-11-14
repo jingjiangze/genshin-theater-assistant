@@ -66,6 +66,21 @@ internal static class WpfSelfTest
             Application.Current?.Resources.Count > 0,
             $"资源数 {Application.Current?.Resources.Count ?? 0}");
 
+        // ①b 模板必须能解析到（WPF 版把 templates/ 打成嵌入资源，
+        //     早先 AppPaths 的解包兜底只覆盖 data//models/ → 生产里模板数恒为 0、模板匹配整层静默失效）
+        try
+        {
+            var tplDir = AppPaths.TemplatesRoot;
+            var tplCount = Directory.Exists(tplDir) ? Directory.GetFiles(tplDir, "*.png", SearchOption.AllDirectories).Length : 0;
+            var tpls = Matcher.LoadTemplatesNearest(AppPaths.TemplatesRoot, 1920);
+            Check("模板可解析（非 0）", tpls.Count > 0 && tplCount > 0,
+                $"目录={tplDir} 文件={tplCount} 加载={tpls.Count}");
+        }
+        catch (Exception ex)
+        {
+            Check("模板可解析（非 0）", false, ex.GetType().Name + ": " + ex.Message);
+        }
+
         // ② 悬浮窗实例化 + 渲染
         try
         {
