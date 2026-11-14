@@ -69,7 +69,7 @@
       <!-- 页脚 -->
       <TextBlock Grid.Row="2" x:Name="FootText" Style="{StaticResource FootText}"
                  Margin="14,6,14,10"
-                 Text="Ctrl+Alt+L 拖动 · H 显隐 · D 存帧 · G 攻略"/>
+                 Text="Ctrl+Alt+H 遮罩 · Ctrl+Alt+M 日志 · Ctrl+Alt+D 存帧 · Ctrl+Alt+G 面板"/>
     </Grid>
   </Border>
 </Window>
