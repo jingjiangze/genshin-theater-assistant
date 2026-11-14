@@ -65,6 +65,11 @@ public partial class App : System.Windows.Application
                 return;
             }
 
+            // 与游戏共机时的取舍：把本进程降到 BelowNormal，宁可我慢一点，也不抢游戏的帧。
+            // （实测背景：持续满负荷时连纯 OpenCV 匹配都会从 50ms 涨到 300ms，抢核得不偿失。）
+            try { System.Diagnostics.Process.GetCurrentProcess().PriorityClass = System.Diagnostics.ProcessPriorityClass.BelowNormal; }
+            catch (Exception ex) { LogCrash(ex, "PriorityClass"); }
+
             // 决策层初始化（失败不阻塞悬浮窗）
             try { DecisionBridge.Init(); } catch (Exception ex) { LogCrash(ex, "DecisionBridge.Init"); }
 
