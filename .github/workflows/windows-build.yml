@@ -1,0 +1,99 @@
+name: windows-build
+
+# 复用构建（workflow_call）：ci / release 共用同一套
+#   装 .NET → NuGet 缓存 → 拉 OCR 模型 → 同步随包资源 → publish（WinForms + 可选 WPF）
+# 产物以 artifact `windows-build-<sha>` 交回调用方：调用方用 actions/download-artifact@v4
+# 取回 dist/ 与 dist-wpf/，再跑自检或打包（不再各自重编译、重跑全部自检）。
+#
+# 注意：artifact 在**同一次 run** 内产出，download-artifact 才能直接按名字取到；
+# 跨 run 复用需要 actions: read 权限并按 run-id 下载。
+
+on:
+  workflow_call:
+    inputs:
+      wpf:
+        description: 是否同时构建 WPF 版（dist-wpf）
+        required: false
+        type: boolean
+        default: true
+      config:
+        description: 构建配置
+        required: false
+        type: string
+        default: Release
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # 此前每个工作流都裸跑 restore（22~23s）；csproj 不变就复用同一份包缓存
+      - name: 缓存 NuGet 包
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
+
+      - name: 拉取中文 OCR 模型
+        uses: ./.github/actions/fetch-models
+
+      - name: 同步随包资源到 app/
+        uses: ./.github/actions/sync-assets
+        with:
+          targets: app
+
+      # 两个 csproj 都是 PublishSingleFile=false：publish 产出的是目录（exe + dll + 原生库）。
+      - name: 发布（WinForms，目录输出）
+        shell: pwsh
+        run: |
+          dotnet publish app/TheaterAssistant.csproj -c ${{ inputs.config }} -r win-x64 --self-contained true -o dist
+          if ($LASTEXITCODE -ne 0) { throw "WinForms publish 失败 (exit $LASTEXITCODE)" }
+          if (-not (Test-Path dist/TheaterAssistant.exe)) { throw "没有产出 exe" }
+          Get-ChildItem dist | Select-Object Name, Length
+
+      # WPF 版（v0.60 起，解决 WinForms 观感问题）。与 WinForms 版并存，验收后再删旧的。
+      # 注意：v0.61 起 WPF 构建**必须过**——它已经是交付形态，再 continue-on-error
+      # 会让编译错误静默通过（此前确实发生过：XAML 类型错误只在运行时炸）。
+      # data/templates/models 是静态 EmbeddedResource，必须在 publish 之前就位。
+      - name: 同步随包资源到 app-wpf/
+        if: ${{ inputs.wpf }}
+        uses: ./.github/actions/sync-assets
+        with:
+          targets: app-wpf
+
+      - name: 发布（WPF，目录输出）
+        if: ${{ inputs.wpf }}
+        shell: pwsh
+        run: |
+          chcp 65001 > $null
+          dotnet publish app-wpf/TheaterAssistantWpf.csproj -c ${{ inputs.config }} -o dist-wpf 2>&1 | Select-Object -Last 20
+          if ($LASTEXITCODE -ne 0) { throw "WPF publish 失败 (exit $LASTEXITCODE)" }
+          # 验证 data 真的作为嵌入资源进了 dll（前几次都栽在这）
+          $dll = "dist-wpf/TheaterAssistantWpf.dll"
+          if (Test-Path $dll) {
+            $bytes = [System.IO.File]::ReadAllBytes($dll)
+            $text = [System.Text.Encoding]::UTF8.GetString($bytes)
+            $n = ([regex]::Matches($text, "TheaterAssistant\.res\.data\.")).Count
+            Write-Host "嵌入资源数(dll 内 TheaterAssistant.res.data.*): $n"
+          }
+          if (-not (Test-Path "dist-wpf/TheaterAssistantWpf.exe")) { throw "WPF 发布失败：没有产出 exe" }
+          $sz = [math]::Round((Get-Item "dist-wpf/TheaterAssistantWpf.exe").Length / 1MB, 1)
+          Write-Host "WPF 发布成功: $sz MB（目录发布）"
+
+      # 归档根目录是工作区根（两条 path 的最小公共祖先），取回时仍是 dist/ 与 dist-wpf/
+      - name: 上传构建产物（dist/、dist-wpf/）
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build-${{ github.sha }}
+          path: |
+            dist/
+            dist-wpf/
+          retention-days: 7
+          if-no-files-found: warn
