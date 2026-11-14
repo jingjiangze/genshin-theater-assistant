@@ -24,6 +24,7 @@ public partial class App : System.Windows.Application
     private MaskWindowHost _maskHost;
     private GlobalHotkeys _hotkeys;
     private UiPrefs _prefs = new();
+    private bool _silent;
     private IntPtr _maskGameHandle;
     private string _maskLogKey = "";
 
@@ -48,6 +49,28 @@ public partial class App : System.Windows.Application
             // WPF 自检：在 CI 里真实实例化两个窗口并渲染成 PNG。
             // 这样 XamlParseException 这类"只有运行时才炸"的问题在 CI 就能暴露，
             // 而不是等用户双击时才看到崩溃弹窗（本次踩过：Color 当 Brush 用）。
+            // 记录库导出/清理（离线工具，不需要游戏窗口）
+            if (Array.IndexOf(e.Args, "--db-export") >= 0)
+            {
+                var i = Array.IndexOf(e.Args, "--db-export");
+                var outPath = i + 1 < e.Args.Length ? e.Args[i + 1] : Path.Combine(AppPaths.Dir, "records-export.jsonl");
+                using var st = RecordStore.TryOpen();
+                var n = st?.ExportJsonl(outPath) ?? 0;
+                Console.WriteLine($"导出 {n} 条 → {outPath}");
+                Shutdown(n > 0 ? 0 : 2);
+                return;
+            }
+            if (Array.IndexOf(e.Args, "--db-prune") >= 0)
+            {
+                var i = Array.IndexOf(e.Args, "--db-prune");
+                var days = i + 1 < e.Args.Length && int.TryParse(e.Args[i + 1], out var dv) ? dv : 30;
+                using var st = RecordStore.TryOpen();
+                var n = st?.Prune(days) ?? 0;
+                Console.WriteLine($"清理 {n} 行（保留 {days} 天）");
+                Shutdown(0);
+                return;
+            }
+
             // 忠实预览：真实帧 → 生产同一套识别+决策 → 渲染遮罩 PNG + 字段清单
             if (Array.IndexOf(e.Args, "--mask-preview") >= 0)
             {
@@ -79,21 +102,31 @@ public partial class App : System.Windows.Application
             // 设置窗的 ui.json 现在真的会被读（此前只写不读）：扫描间隔 / 不透明度 / 正文字号 / 热键开关
             _prefs = UiPrefs.Load();
 
-            _ball = new FloatingBall();
-            _ball.Show();
+            // --silent：无窗口静默运行（不出悬浮球/遮罩/桌宠），只识别 + 记账。
+            // 用户前台看视频时也不会有任何窗口挡着；托盘图标保留，用来退出/开设置。
+            _silent = Array.IndexOf(e.Args, "--silent") >= 0;
+
+            if (!_silent)
+            {
+                _ball = new FloatingBall();
+                _ball.Show();
+            }
             InitTray();
             InitHotkeys();
 
             // 遮罩宿主（全屏透明窗 + 左下日志 + 识别框）。窗口按需创建，由游戏窗口事实驱动。
-            _maskHost = new MaskWindowHost(() =>
+            if (!_silent)
             {
-                var w = new MaskWindow();
-                w.ApplyPrefs(_prefs);
-                return w;
-            });
+                _maskHost = new MaskWindowHost(() =>
+                {
+                    var w = new MaskWindow();
+                    w.ApplyPrefs(_prefs);
+                    return w;
+                });
+            }
 
             // 主循环：抓屏 → 识别 → 决策 → 驱动悬浮球 + 遮罩
-            _loop = new MainLoop(_ball, GameModes.Default);
+            _loop = new MainLoop(_ball, GameModes.Default, _silent);
             _loop.Updated += OnLoopUpdated;
             _loop.SetScanInterval(_prefs.ScanIntervalMs);
             _ = _loop.StartAsync();
@@ -144,6 +177,7 @@ public partial class App : System.Windows.Application
     /// <summary>托盘/菜单入口：展开或收起详细面板。</summary>
     private void ToggleOverlay()
     {
+        if (_silent) return;   // 静默模式没有任何窗口可开关
         try
         {
             if (_detail != null && _detail.IsVisible) { _detail.Hide(); return; }
@@ -171,8 +205,11 @@ public partial class App : System.Windows.Application
             // D 存帧 / G 详情面板：以前界面上宣传了但**根本没注册**（审计发现），现在补上。
             var okD = _hotkeys.Register(0x104, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x44 /*D*/, SaveFrameHotkey);
             var okG = _hotkeys.Register(0x107, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x47 /*G*/, OpenDetail);
-            if (!okH || !okM || !okD || !okG)
-                LogCrash(new InvalidOperationException($"热键注册失败 H={okH} M={okM} D={okD} G={okG}"), "InitHotkeys");
+            // Ctrl+Alt+B：把"刚才那条建议"标成错的（微调监督信号），
+            // 只写本地 records.db 的 feedback 表，不联网、不上传。
+            var okB = _hotkeys.Register(0x10A, GlobalHotkeys.MOD_CONTROL | GlobalHotkeys.MOD_ALT, 0x42 /*B*/, MarkLastBad);
+            if (!okH || !okM || !okD || !okG || !okB)
+                LogCrash(new InvalidOperationException($"热键注册失败 H={okH} M={okM} D={okD} G={okG} B={okB}"), "InitHotkeys");
         }
         catch (Exception ex)
         {
@@ -194,6 +231,13 @@ public partial class App : System.Windows.Application
             InitHotkeys();
         }
         catch (Exception ex) { LogCrash(ex, "ReloadPrefs"); }
+    }
+
+    /// <summary>Ctrl+Alt+B：把最近一条建议标成「判错」（写本地记录库，供微调取样）。</summary>
+    private void MarkLastBad()
+    {
+        try { _loop?.Records?.AddFeedback(0, "wrong_advice", "热键标注"); }
+        catch (Exception ex) { LogCrash(ex, "MarkLastBad"); }
     }
 
     /// <summary>Ctrl+Alt+D：存当前帧到 captures/（识别排查用）。</summary>
@@ -259,7 +303,7 @@ public partial class App : System.Windows.Application
     /// </summary>
     private void UpdateMask(MainLoop.TickSnapshot s)
     {
-        if (_maskHost == null) return;
+        if (_silent || _maskHost == null) return;
 
         if (s.GameHandle == IntPtr.Zero)
         {
