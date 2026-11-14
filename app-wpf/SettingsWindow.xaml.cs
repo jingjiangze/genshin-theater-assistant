@@ -75,7 +75,7 @@ public partial class SettingsWindow : Wpf.Ui.Controls.FluentWindow
             _llmOn,
             Hint("说明：D3 竖排 / D4 透视裁剪 RapidOcrNet 已内置，无需配置。")));
         AddPage("悬浮窗", Stack(_showSource, _hideWhenMissing,
-            Hint("热键：Ctrl+Alt+M 展开/收起遮罩日志 · Ctrl+Alt+H 显隐 · L 拖动 · D 存帧 · G 攻略")));
+            Hint("热键：Ctrl+Alt+H 显隐遮罩 · Ctrl+Alt+M 日志 · Ctrl+Alt+D 存帧 · Ctrl+Alt+G 详情面板")));
         AddPage("热键", HotkeyPanel());
         AddPage("角色池", Stack(
             Label("游戏 UID（留空=自动从画面读）"), _uid,
@@ -224,11 +224,12 @@ public partial class SettingsWindow : Wpf.Ui.Controls.FluentWindow
     {
         _hotkeyList.Text = string.Join("\n", new[]
         {
-            "Ctrl + Alt + H　　显示 / 隐藏悬浮球",
-            "Ctrl + Alt + L　　切换拖动模式（关闭点击穿透）",
+            "Ctrl + Alt + H　　显示 / 隐藏游戏内遮罩",
+            "Ctrl + Alt + M　　展开 / 收起遮罩日志",
             "Ctrl + Alt + D　　保存当前帧（排查识别问题用）",
-            "Ctrl + Alt + G　　打开攻略面板",
-            "双击悬浮球　　　 打开本设置窗口",
+            "Ctrl + Alt + G　　打开 / 关闭详情面板",
+            "拖动悬浮球　　　 移动悬浮球位置",
+            "双击悬浮球　　　 打开详情面板",
         });
         return Stack(Label("全局热键（Win32 RegisterHotKey，不注入不模拟）"), _hotkeyEnable, _hotkeyList);
     }
