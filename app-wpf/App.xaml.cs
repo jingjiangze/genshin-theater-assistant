@@ -55,7 +55,7 @@ public partial class App : System.Windows.Application
                 var dir = i + 1 < e.Args.Length ? e.Args[i + 1] : null;
                 var oi = Array.IndexOf(e.Args, "--out");
                 var outDir = oi > 0 && oi + 1 < e.Args.Length ? e.Args[oi + 1] : Path.Combine(AppPaths.Dir, "mask-preview");
-                Shutdown(MaskPreview.Run(dir, outDir));
+                Shutdown(MaskPreview.Run(dir, outDir, Array.IndexOf(e.Args, "--seq") >= 0));
                 return;
             }
 
@@ -306,8 +306,11 @@ public partial class App : System.Windows.Application
         }
         else
         {
-            w.SetAdvice(s.Lines.Count == 0 ? "" : StripMarker(s.Lines[0]));
-            w.SetGuide(ShortenGuide(s.Lines.FirstOrDefault(l => l.StartsWith("手法·"))));
+            // 战斗短路时第一条就是手法：同样按「（」截断，否则一句话两行把面板撑高
+            var adv = s.Lines.Count == 0 ? "" : StripMarker(s.Lines[0]);
+            if (adv.Contains("手法·", StringComparison.Ordinal)) adv = ShortenGuide(adv);
+            w.SetAdvice(adv);
+            w.SetGuide(ShortenGuide(s.Lines.FirstOrDefault(l => l.Contains("手法·"))));
         }
 
         var key = $"{s.Act}|{s.Source}|{s.Abstained}|{s.Status}";
