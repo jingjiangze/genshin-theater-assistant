@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <!-- Apache-2.0；PP-OCRv5/v6 ONNX 管线（SkiaSharp + OnnxRuntime），跨平台，AOT 友好 -->
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
     <PackageReference Include="RapidOcrNet" Version="4.2.0" />
     <!-- 模板匹配换 OpenCV matchTemplate（SIMD C++），与 BetterGI 同引擎 -->
     <PackageReference Include="OpenCvSharp4" Version="4.13.0.20261107" />
@@ -53,11 +54,9 @@
         dotnet publish -p:DirectMLVersion=1.29.0
       即可让同一份代码自动切到 DirectML(gpu0)，无需改代码。
     -->
-    <PackageReference Include="Microsoft.ML.OnnxRuntime.DirectML" Version="$(DirectMLVersion)"
-                      Condition="'$(DirectMLVersion)' != ''" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime.DirectML" Version="$(DirectMLVersion)" Condition="'$(DirectMLVersion)' != ''" />
     <!-- 启用 DirectML 时屏蔽传递引入的纯 CPU 原生库，避免两份 onnxruntime.dll 冲突 -->
-    <PackageReference Update="Microsoft.ML.OnnxRuntime" ExcludeAssets="runtime"
-                      Condition="'$(DirectMLVersion)' != ''" />
+    <PackageReference Update="Microsoft.ML.OnnxRuntime" ExcludeAssets="runtime" Condition="'$(DirectMLVersion)' != ''" />
     <!-- 内嵌 B站官方播放器 / BWIKI 页面；缺失运行时自动退回系统浏览器 -->
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4314.35" />
   </ItemGroup>
