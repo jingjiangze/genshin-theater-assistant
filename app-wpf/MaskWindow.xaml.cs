@@ -213,7 +213,11 @@ public partial class MaskWindow : Window
     /// <summary>右上角状态胶囊：幕次 + 决策来源（颜色跟来源标记走）。</summary>
     public void SetStatus(string actText, string source, string extra = "")
     {
-        var text = string.IsNullOrEmpty(actText) ? source : $"{actText} · {source}";
+        // 决策层的来源字符串自带标记（◆量化/★已验证/○语料/·规则），
+        // 直接拼会变成「第4幕 · ·规则」；这里去掉首字符标记，样式交给 StatusText.Foreground。
+        var src = (source ?? "").Trim();
+        if (src.Length > 0 && "◆◇★○·".IndexOf(src[0]) >= 0) src = src[1..].Trim();
+        var text = string.IsNullOrEmpty(actText) ? src : $"{actText} · {src}";
         if (!string.IsNullOrEmpty(extra)) text += " · " + extra;
         StatusText.Text = string.IsNullOrEmpty(text) ? "待识别…" : text;
         StatusText.Foreground = SourceBrush(source);
