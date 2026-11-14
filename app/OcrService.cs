@@ -81,6 +81,9 @@ internal sealed class OcrService : IDisposable
 
                 // 降级链：每跳过/失败一段都留一条原因，最终并入 Status，避免"静默降级无痕"。
                 var degrade = new List<string>();
+                // 缺 VC++ 运行库会让 onnxruntime.dll 加载失败（DllNotFoundException/BadImageFormat），
+                // 上层只能看到"初始化失败" → 玩家不知道要装什么。这里单独记一笔，最终给可执行文案。
+                var missingRuntime = false;
 
                 // 单次尝试：失败就把半初始化的实例丢掉重建，保证还能继续试下一档。
                 bool TryInit(string label, string det, string cls, string rec, string key)
@@ -93,6 +96,7 @@ internal sealed class OcrService : IDisposable
                     catch (Exception ex)
                     {
                         degrade.Add($"{label} 初始化失败({ex.GetType().Name})");
+                        missingRuntime |= IsMissingRuntimeException(ex);
                         try { ocr.Dispose(); } catch { }
                         ocr = new RapidOcrNet.RapidOcr();
                         return false;
@@ -176,12 +180,16 @@ internal sealed class OcrService : IDisposable
                     catch (Exception ex)
                     {
                         degrade.Add("latin 初始化失败(" + ex.GetType().Name + ")");
+                        missingRuntime |= IsMissingRuntimeException(ex);
                     }
                 }
 
                 if (!inited)
                 {
-                    _status = "OCR 初始化失败: " + string.Join(" → ", degrade);
+                    // 缺 VC++ 运行库时逐档都会失败，但异常类型只说明"加载不了" —— 给可执行文案。
+                    _status = missingRuntime
+                        ? MissingRuntimeHint
+                        : "OCR 初始化失败: " + string.Join(" → ", degrade);
                     _ready = false;
                     return;
                 }
@@ -194,10 +202,37 @@ internal sealed class OcrService : IDisposable
             }
             catch (Exception ex)
             {
-                _status = "OCR 初始化失败: " + ex.Message;
+                // onnxruntime.dll 硬依赖 MSVCP140/VCRUNTIME140*：缺 redist 时异常只说"初始化失败"，
+                // 玩家看不出是缺运行库 → 这里换成明确可执行的文案；其他异常保持原文案。
+                _status = IsMissingRuntimeException(ex)
+                    ? MissingRuntimeHint
+                    : "OCR 初始化失败: " + ex.Message;
                 _ready = false;
             }
         });
+    }
+
+    /// <summary>缺 VC++ 运行库时的状态文案（要能让用户直接照做）。</summary>
+    private const string MissingRuntimeHint = "OCR 初始化失败：缺 VC++ 2015-2022 运行库（请装 vc_redist.x64.exe）";
+
+    /// <summary>
+    /// 判断异常是不是「缺 VC++ 运行库」（onnxruntime.dll 的硬依赖）。
+    /// 表现形式：DllNotFoundException（找不到依赖模块）、BadImageFormatException（位数不符）、
+    /// 或消息里带 MSVCP140 / VCRUNTIME140 / 0x8007007E（ERROR_MOD_NOT_FOUND）。
+    /// 会顺着 InnerException 往下找（TypeInitializationException 常把真因包一层）。
+    /// </summary>
+    private static bool IsMissingRuntimeException(Exception ex)
+    {
+        for (var e = ex; e != null; e = e.InnerException)
+        {
+            if (e is DllNotFoundException || e is BadImageFormatException) return true;
+            var m = e.Message ?? "";
+            if (m.IndexOf("MSVCP140", StringComparison.OrdinalIgnoreCase) >= 0
+                || m.IndexOf("VCRUNTIME140", StringComparison.OrdinalIgnoreCase) >= 0
+                || m.IndexOf("0x8007007E", StringComparison.OrdinalIgnoreCase) >= 0)
+                return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -281,7 +316,9 @@ internal sealed class OcrService : IDisposable
                 new[] { typeof(int) });
             if (m == null)
             {
-                OcrTuning.EpStatus = "CPU（当前包无 DirectML EP）";
+                // 随包的是 CPU 版 onnxruntime：方法根本不存在，enableDirectML 这个开关是空转的，
+                // 写清楚以免用户以为已经在用 GPU。
+                OcrTuning.EpStatus = "CPU（当前包无 DirectML EP，enableDirectML 无效）";
                 return op;
             }
             m.Invoke(op, new object[] { OcrTuning.DirectMLDeviceId });
@@ -307,9 +344,9 @@ internal sealed class OcrService : IDisposable
         scaled = false;
         if (frame == null) return null;
         var maxSide = Math.Max(frame.Width, frame.Height);
-        if (maxSide <= 960) return frame;
+        if (maxSide <= OcrTuning.ReferenceCanvas) return frame;
 
-        var k = 960f / maxSide;
+        var k = (float)OcrTuning.ReferenceCanvas / maxSide;
         var w = Math.Max(16, (int)(frame.Width * k));
         var h = Math.Max(16, (int)(frame.Height * k));
         var small = new Bitmap(w, h);
