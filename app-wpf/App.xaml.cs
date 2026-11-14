@@ -48,6 +48,17 @@ public partial class App : System.Windows.Application
             // WPF 自检：在 CI 里真实实例化两个窗口并渲染成 PNG。
             // 这样 XamlParseException 这类"只有运行时才炸"的问题在 CI 就能暴露，
             // 而不是等用户双击时才看到崩溃弹窗（本次踩过：Color 当 Brush 用）。
+            // 忠实预览：真实帧 → 生产同一套识别+决策 → 渲染遮罩 PNG + 字段清单
+            if (Array.IndexOf(e.Args, "--mask-preview") >= 0)
+            {
+                var i = Array.IndexOf(e.Args, "--mask-preview");
+                var dir = i + 1 < e.Args.Length ? e.Args[i + 1] : null;
+                var oi = Array.IndexOf(e.Args, "--out");
+                var outDir = oi > 0 && oi + 1 < e.Args.Length ? e.Args[oi + 1] : Path.Combine(AppPaths.Dir, "mask-preview");
+                Shutdown(MaskPreview.Run(dir, outDir));
+                return;
+            }
+
             if (Array.IndexOf(e.Args, "--selftest-wpf") >= 0)
             {
                 Shutdown(WpfSelfTest.Run());
