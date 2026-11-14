@@ -55,8 +55,12 @@ internal static class MaskPreview
         var frames = Directory.GetFiles(frameDir, "*.png").OrderBy(x => x, StringComparer.Ordinal).ToList();
         Cli.Say($"帧数: {frames.Count}");
 
+        // 预览是**逐帧独立判定**：每帧都从干净的稳定器开始，回答「这一屏会显示什么」。
+        // 生产是连续时间轴（上一帧的幕次会沿用，跨幕需要连续 2 帧确认），所以同一帧在
+        // 生产里可能仍显示旧幕次 —— 这是设计，不是预览失真。
         foreach (var f in frames)
         {
+            stab.Reset();
             try { AnalyzeOne(f, outDir, ocr, templates, mode, stab); }
             catch (Exception ex) { Cli.Say($"跳过 {Path.GetFileName(f)}: {ex.GetType().Name} {ex.Message}"); }
         }
@@ -94,7 +98,7 @@ internal static class MaskPreview
         var text = string.Join("\n", lines);
 
         // ⑤ 幕次 → 稳定器（生产同一套）
-        var act = mode.ParseAct(band) ?? mode.ParseAct(text);
+        var act = mode.ParseAct(band) ?? mode.ParseActLines(lines);
         var stable = stab.Push(act);
 
         // ⑥ 决策（同一个 orchestrator；◇ 模型这次不参与，预览只验确定性层）
