@@ -30,6 +30,7 @@ models/**/.server-*.pid
 app/models/
 app-wpf/models/
 app-wpf/templates/
+app-wpf/data/
 !models/README.md
 
 # 编辑器
@@ -70,3 +71,8 @@ roster-enka.json
 cache/
 .mlvenv/
 out/
+# 运行时记录库与导出（本地产物，不入库）
+records.db*
+records-export.jsonl
+data/ml/records-train.jsonl
+data/ml/records-val.jsonl
