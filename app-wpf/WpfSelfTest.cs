@@ -70,6 +70,16 @@ internal static class WpfSelfTest
         try
         {
             var w = new OverlayWindow();
+            // 喂一段真实形状的内容再渲染：面板的生产数据来自 MainLoop.TickSnapshot
+            // （此前自检渲染的是构造函数里的占位文字，看不出真实观感）。
+            w.SetLines(new[]
+            {
+                ("▶ 选第1张：战斗·守护桥段", "量化"),
+                ("★ 第4幕已验证：先用雷把怒气条推满再爆发", "已验证"),
+                ("○ 攻略：守护桥段优先铺治疗，别在减益期换人", "语料"),
+                ("手法·标记时就奶满或无敌帧躲开，解除后才是输出窗口", "规则"),
+            });
+            w.SetStatus("第4幕 · 量化");
             w.Show();
             var bmp = Render(w, 640, 300);
             var nonBlank = NonBlankRatio(bmp);
