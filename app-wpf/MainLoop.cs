@@ -304,9 +304,12 @@ internal sealed class MainLoop
             string llmText = null;
             var llmAttempted = false;
             // 本帧界面类型（供 ◇ 调用条件与编排器共用，避免两处口径不一致）
+            // 大堂（hall 模板命中）单独认成 theater：Playbook.kinds 里就有「点演出准备进本」这句，
+            // 早先一律落到 "ui" → kinds 查不到 → 大堂也显示"暂无该幕资料"（忠实预览比对发现的）。
             var kindNow = stable.HasValue ? "act"
+                        : (hits.Any(h => string.Equals(h.Name, "hall", StringComparison.OrdinalIgnoreCase)) ? "theater"
                         : (options.Count >= 2 ? "choice"
-                        : (hits.Count > 0 ? "ui" : ""));
+                        : (hits.Count > 0 ? "ui" : "")));
 
             // ◇只补「幕内(act)」与「量化拿不准的三选一(choice)」：队伍/难度/大堂这类界面答案来自
             // playbook 确定性文本，交规则+检索更准（模型训练集只有幕次语境与随机要素）。
@@ -364,7 +367,9 @@ internal sealed class MainLoop
             // 审计发现：WinForms 版有这条（OverlayForm 调 Routine.LinesFor），WPF 迁移时丢了——
             // 玩家在战斗里看到的是"该上谁"，缺"手该怎么按"。取第一条「手法·」行，放最后，
             // 不顶掉首行的「现在做」；选人参考行不掺和（那是配队层的事）。
-            if (stable.HasValue && Routine.Loaded)
+            // 只在「幕内、且没读到选项」时追加：选卡/演出详情界面显示「先清小怪再打大怪」是噪声
+            // （忠实预览逐帧比对时发现的）。
+            if (stable.HasValue && options.Count == 0 && Routine.Loaded)
             {
                 var technique = Routine.LinesFor(stable, 3).FirstOrDefault(l => l.StartsWith("手法·"));
                 if (!string.IsNullOrWhiteSpace(technique) && !d.Lines.Contains(technique))
