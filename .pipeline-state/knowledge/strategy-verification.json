@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "evaluation_id": "eval-strategy-holdout-v1",
-  "created_at": "2026-11-13T15:39:02.917514+00:00",
+  "created_at": "2026-11-14T13:17:32.924804+00:00",
   "holdout_samples": 22,
   "min_holdout_samples": 20,
   "baseline_rate": 0.5,
-  "evaluated": 2,
+  "evaluated": 3,
   "promoted": 2,
-  "rejected": 0,
+  "rejected": 1,
   "details": [
     {
       "candidate_id": "a75fed69d918cc511b233c76135db64f83f767bd60f76be97b0f029e0b29193d",
@@ -20,6 +20,19 @@
       "success_rate": 1.0,
       "baseline_rate": 0.5,
       "beats_baseline": true,
+      "no_unacceptable": true
+    },
+    {
+      "candidate_id": "b53790bbee270eaf6cb47bfe61c069e00c530a27c1dcdf69481f15b033a5148c",
+      "evaluated": true,
+      "act": 3,
+      "role": "菲林斯",
+      "holdout_cases": 2,
+      "acceptable_count": 0,
+      "unacceptable_count": 0,
+      "success_rate": 0.0,
+      "baseline_rate": 0.5,
+      "beats_baseline": false,
       "no_unacceptable": true
     },
     {
