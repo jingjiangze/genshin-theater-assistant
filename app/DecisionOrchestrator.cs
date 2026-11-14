@@ -84,6 +84,23 @@ internal static class DecisionOrchestrator
             return d;
         }
 
+        // ---- 0b) 战斗中：只该说"手怎么按"，不该说"该带谁 / 语料统计" ----
+        // 实测背景（真实战斗帧）：act 已知时 ○语料 会把"烟绯出场 1 个视频 2%"顶到第一条，
+        // 而玩家在打怪时唯一有用的是 rotations.json 的手法步骤。这里让 combat 短路。
+        if (string.Equals(ctx.Kind, "combat", StringComparison.OrdinalIgnoreCase))
+        {
+            var steps = Routine.LinesFor(ctx.Act, 2);
+            var tech = steps.FirstOrDefault(l => l.StartsWith("手法·"));
+            if (!string.IsNullOrEmpty(tech))
+            {
+                d.Lines.Add("▶ " + tech);
+                d.Source = "·手法";
+                d.Confidence = DecisionPolicy.ConfidenceOf("rule", 0.5);
+                d.Provenance.Add(ctx.Act.HasValue ? $"战斗中 → 第{ctx.Act}幕手法" : "战斗中 → 通用手法");
+                return d;
+            }
+        }
+
         // ---- 1) 量化优先：选项已知就本地打分，置信度够就直接出 ----
         if (ctx.Options.Count >= 2)
         {
