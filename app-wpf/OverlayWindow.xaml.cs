@@ -40,13 +40,16 @@ public partial class OverlayWindow : Window
     {
         InitializeComponent();
 
-        // 位置：按物理像素钳制（高 DPI 下 WinForms/WPF 的 Size 都会被虚拟化）
-        var size = new System.Drawing.Size((int)Width, (int)Height);
-        var p = ScreenMetrics.ClampToScreen(new System.Drawing.Point(40, 80), size);
-        Left = p.X;
-        Top = p.Y;
+        // 位置：所在显示器工作区左上角偏移 (40,80)，口径是 DIP。
+        // rcWork 是物理像素、Left/Top 是 DIP —— 先按 DPI 换算再钳；
+        // 副屏在主屏左侧时工作区 X 为负，这里允许负坐标（旧实现用主屏边界会把面板拽回主屏）。
+        PlaceAtDefault();
 
-        SourceInitialized += (_, _) => ApplyWindowStyles();
+        SourceInitialized += (_, _) =>
+        {
+            ApplyWindowStyles();
+            PlaceAtDefault();   // HWND 建立后可拿到真实显示器，再校正一次
+        };
         Loaded += (_, _) => SetWindowDisplayAffinity(new WindowInteropHelper(this).Handle, WDA_EXCLUDEFROMCAPTURE);
 
         // 首帧占位，避免空白卡片（真实内容由 OnTick 驱动，下一步接入）
@@ -56,6 +59,27 @@ public partial class OverlayWindow : Window
             ("· 只读像素，不注入 / 不读内存 / 不模拟键鼠", "规则"),
         });
         SetStatus("就绪");
+    }
+
+    /// <summary>
+    /// 按窗口所在显示器的工作区（rcWork）定位：(40,80) DIP 偏移，钳在工作区内。
+    /// 无句柄时 MonitorFromWindow 回主屏（旧行为）；副屏在主屏左侧时 X 为负，允许。
+    /// </summary>
+    private void PlaceAtDefault()
+    {
+        try
+        {
+            var h = new WindowInteropHelper(this).Handle;
+            var scale = ScreenMetrics.ScaleFactor(h);
+            if (scale <= 0) scale = 1.0f;
+            var area = ScreenMetrics.WorkAreaDip(ScreenMetrics.WorkAreaOf(h), scale);
+            var size = new System.Drawing.Size((int)Math.Round(Width), (int)Math.Round(Height));
+            var p = ScreenMetrics.ClampToAreaDip(
+                new System.Drawing.Point(area.X + 40, area.Y + 80), size, area);
+            Left = p.X;
+            Top = p.Y;
+        }
+        catch { }   // 定位失败绝不能让面板起不来
     }
 
     private void ApplyWindowStyles()
