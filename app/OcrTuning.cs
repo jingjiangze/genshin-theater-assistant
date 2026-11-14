@@ -56,6 +56,9 @@ internal static class OcrTuning
                 DirectMLDeviceId = dev.GetInt32();
             if (ocr.TryGetProperty("numThreads", out var nt) && nt.ValueKind == JsonValueKind.Number)
                 NumThreads = nt.GetInt32();
+            // 环境变量覆盖（排查/AB 用，不改仓库配置）：TA_OCR_MODEL=v5|v6|auto
+            var envModel = (Environment.GetEnvironmentVariable("TA_OCR_MODEL") ?? "").Trim().ToLowerInvariant();
+            if (envModel is "v5" or "v6" or "auto") ModelPreference = envModel;
             if (ocr.TryGetProperty("model", out var m) && m.ValueKind == JsonValueKind.String)
             {
                 var v = (m.GetString() ?? "").Trim().ToLowerInvariant();
