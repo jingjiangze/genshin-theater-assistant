@@ -66,23 +66,16 @@ jobs:
           npm i playwright-core@1.64.1 --no-audit --no-fund
           node node_modules/playwright-core/cli.js install chromium
 
-      - name: 拉 OCR 模型并构建 exe
-        shell: pwsh
-        run: |
-          # 两条链各自断言退出码：旧写法只有最后一条决定成败，v5 失败会被 v6 成功掩盖
-          .\models\fetch-models.ps1; if ($LASTEXITCODE -ne 0) { throw "v5 模型获取失败" }
-          .\models\fetch-models.ps1 -V6; if ($LASTEXITCODE -ne 0) { throw "v6 模型获取失败" }
-          # v6 small 才是生产/标注用（与 ci 一致，避免两套模型测出两套数）
-          New-Item -ItemType Directory -Force app/data, app/templates, app/models | Out-Null
-          Copy-Item data/* app/data -Recurse -Force
-          Copy-Item templates/* app/templates -Recurse -Force
-          foreach ($v in 'v5','v6') {
-            if (Test-Path "models/$v") {
-              New-Item -ItemType Directory -Force "app/models/$v" | Out-Null
-              Copy-Item "models/$v/*" "app/models/$v" -Force
-            }
-          }
-          dotnet publish app/TheaterAssistant.csproj -c Release -o dist
+      - name: 拉取中文 OCR 模型（v5 + v6 small，带缓存）
+        uses: ./.github/actions/fetch-models
+
+      - name: 同步随包资源到 app/
+        uses: ./.github/actions/sync-assets
+        with:
+          targets: app
+
+      - name: 构建 exe（目录输出）
+        run: dotnet publish app/TheaterAssistant.csproj -c Release -o dist
 
       - name: 搜 B站新视频（cookie 只从 secret 读）
         shell: pwsh
@@ -177,11 +170,7 @@ jobs:
 
       - name: 连接长期数据账本
         if: ${{ github.event_name == 'schedule' || github.event.inputs.commit != 'false' }}
-        uses: actions/checkout@v4
-        with:
-          ref: automation-data
-          path: .pipeline-state
-          fetch-depth: 0
+        uses: ./.github/actions/checkout-ledger
 
       - name: 持久化候选语料（不直接发布到 main）
         if: ${{ github.event_name == 'schedule' || github.event.inputs.commit != 'false' }}
