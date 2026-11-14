@@ -44,8 +44,19 @@ jobs:
           .\tests\run-tests.ps1
           if ($LASTEXITCODE -ne 0) { throw "测试失败 (exit $LASTEXITCODE)" }
 
+  # 编译/发布抽到 reusable workflow（.github/workflows/windows-build.yml）：
+  # 装 .NET、NuGet 缓存、OCR 模型缓存、同步随包资源、publish 只在那里写一次；
+  # 产物以 artifact windows-build-<sha> 交回下面的 self-check 取用。
   build-csharp:
     name: C# 编译（目录发布）
+    uses: ./.github/workflows/windows-build.yml
+    with:
+      wpf: true
+      config: Release
+
+  self-check:
+    name: 产物自检（WinForms + WPF）
+    needs: build-csharp
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -54,51 +65,12 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: 缓存 OCR 模型（省去每次 ~1 分钟下载）
-        uses: actions/cache@v4
+      # 取回 windows-build 产出的 dist/ 与 dist-wpf/（归档根目录是工作区根，落回同名目录）
+      - name: 取回构建产物（dist/、dist-wpf/）
+        uses: actions/download-artifact@v4
         with:
-          path: |
-            models/v5
-            models/v6
-          key: ocr-models-v56-${{ hashFiles('models/fetch-models.ps1') }}
-
-      - name: 拉取中文 OCR 模型（带 SHA256 校验）
-        shell: pwsh
-        run: |
-          # 两条链各自断言退出码：旧写法只有最后一条决定成败，v5 失败会被 v6 成功掩盖
-          .\models\fetch-models.ps1; if ($LASTEXITCODE -ne 0) { throw "v5 模型获取失败" }
-          # v6 small 才是生产用：det 9.5MB / rec 20.3MB，实测 1080p OCR p90 465ms（v5 要 1.5s+）
-          .\models\fetch-models.ps1 -V6; if ($LASTEXITCODE -ne 0) { throw "v6 模型获取失败" }
-
-      - name: 同步随包资源到 app/
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force app/data, app/templates, app/models | Out-Null
-          Copy-Item data/* app/data -Recurse -Force
-          Copy-Item templates/* app/templates -Recurse -Force
-          foreach ($v in 'v5','v6') {
-            if (Test-Path "models/$v") {
-              New-Item -ItemType Directory -Force "app/models/$v" | Out-Null
-              Copy-Item "models/$v/*" "app/models/$v" -Force
-            }
-          }
-          # 内嵌小模型（GGUF）：WinForms 版按 Content 目录带出去，replay/live 才用得上
-          if (Test-Path "models/llm") {
-            New-Item -ItemType Directory -Force "app/models/llm" | Out-Null
-            Copy-Item "models/llm/*" "app/models/llm" -Force
-          }
-          Get-ChildItem app/models -Recurse -File | Measure-Object Length -Sum | ForEach-Object { "模型总大小 {0:N1} MB" -f ($_.Sum/1MB) }
-
-      - name: 还原
-        run: dotnet restore app/TheaterAssistant.csproj
-
-      - name: 编译
-        run: dotnet build app/TheaterAssistant.csproj -c Release --no-restore
-
-      - name: 发布（目录输出）
-        run: >
-          dotnet publish app/TheaterAssistant.csproj -c Release -r win-x64
-          --self-contained true -o dist --no-restore
+          name: windows-build-${{ github.sha }}
+          path: .
 
       - name: 产物信息
         shell: pwsh
@@ -128,57 +100,6 @@ jobs:
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### 通用最优配队（假设全角色选本季元素）"
           Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value ('```' + [Environment]::NewLine + ($lines -join [Environment]::NewLine) + [Environment]::NewLine + '```')
           if ($p.ExitCode -ne 0) { throw "配队求解失败 exit=$($p.ExitCode)" }
-
-      # DirectML 是可选加速：默认构建不带它（保体积/离线）。这里验证"能编译"，
-      # 但不把成功当必过——runner 无 GPU，EP 能否真正启用只能在玩家真机验证。
-      # 已知上游停更（DirectML 包 1.24.4 vs 依赖 1.29.0），默认不跑，避免每次白耗 1 分钟 + 报错噪音。
-      # 需要验证时手动触发本工作流并勾选检查，或本地 dotnet build -p:DirectMLVersion=...
-      # WPF 版（v0.60 起，解决 WinForms 观感问题）。与 WinForms 版并存，验收后再删旧的。
-      # 注意：v0.61 起 WPF 构建**必须过**——它已经是交付形态，再 continue-on-error
-      # 会让编译错误静默通过（此前确实发生过：XAML 类型错误只在运行时炸）。
-      - name: 构建 WPF 版（Windows）
-        shell: pwsh
-        run: |
-          chcp 65001 > $null
-          New-Item -ItemType Directory -Force app-wpf/data, app-wpf/templates, app-wpf/models | Out-Null
-          Copy-Item data/* app-wpf/data -Recurse -Force -ErrorAction SilentlyContinue
-          Copy-Item templates/* app-wpf/templates -Recurse -Force -ErrorAction SilentlyContinue
-          foreach ($v in "v5","v6") {
-            if (Test-Path "models/$v") {
-              New-Item -ItemType Directory -Force "app-wpf/models/$v" | Out-Null
-              Copy-Item "models/$v/*" "app-wpf/models/$v" -Recurse -Force
-            }
-          }
-          # 内嵌小模型（GGUF）：会被 EmbeddedResource 打进程序集
-          if (Test-Path "models/llm") {
-            New-Item -ItemType Directory -Force app-wpf/models/llm | Out-Null
-            Copy-Item "models/llm/*" "app-wpf/models/llm" -Force
-            Write-Host "GGUF: $((Get-ChildItem app-wpf/models/llm -File | Measure-Object Length -Sum).Sum/1MB) MB"
-          }
-          # 诊断：确认 data 复制成功、且真的进了发布目录
-          Write-Host "app-wpf/data 文件数: $((Get-ChildItem app-wpf/data -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count)"
-          if (Test-Path "app-wpf/data/guide-corpus.json") {
-            $gc = Get-Content "app-wpf/data/guide-corpus.json" -Raw | ConvertFrom-Json
-            Write-Host "源语料条数: $($gc.entries.Count)"
-          } else { Write-Host "⚠ app-wpf/data/guide-corpus.json 不存在" }
-
-          # build 只产出框架依赖版；要"下载即用"必须 publish 成自包含目录（PublishSingleFile=false）
-          dotnet publish app-wpf/TheaterAssistantWpf.csproj -c Release -o dist-wpf 2>&1 | Select-Object -Last 20
-          if ($LASTEXITCODE -ne 0) { throw "WPF publish 失败 (exit $LASTEXITCODE)" }
-          # 验证 data 真的作为嵌入资源进了 dll（前几次都栽在这）
-          $dll = "dist-wpf/TheaterAssistantWpf.dll"
-          if (Test-Path $dll) {
-            $bytes = [System.IO.File]::ReadAllBytes($dll)
-            $text = [System.Text.Encoding]::UTF8.GetString($bytes)
-            $n = ([regex]::Matches($text, "TheaterAssistant\.res\.data\.")).Count
-            Write-Host "嵌入资源数(dll 内 TheaterAssistant.res.data.*): $n"
-          }
-          Write-Host "dist-wpf/data 文件数: $((Get-ChildItem dist-wpf/data -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count)"
-          $exe = "dist-wpf/TheaterAssistantWpf.exe"
-          if (-not (Test-Path $exe)) { throw "WPF 发布失败：没有产出 exe" }
-          $sz = [math]::Round((Get-Item $exe).Length / 1MB, 1)
-          Write-Host "WPF 发布成功: $sz MB（目录发布）"
-          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "### WPF 版发布：成功（$sz MB，目录输出）"
 
       # WPF 自检：真实实例化窗口并渲染（XamlParseException 这类只有运行时才炸的问题靠它兜住）
       # 渲染出的 PNG 一并上传，供视觉验收（遮罩/悬浮窗/桌宠/设置页的实际样子）。
@@ -228,6 +149,10 @@ jobs:
           retention-days: 30
           if-no-files-found: warn
 
+      # DirectML 是可选加速：默认构建不带它（保体积/离线）。这里验证"能编译"，
+      # 但不把成功当必过——runner 无 GPU，EP 能否真正启用只能在玩家真机验证。
+      # 已知上游停更（DirectML 包 1.24.4 vs 依赖 1.29.0），默认不跑，避免每次白耗 1 分钟 + 报错噪音。
+      # 需要验证时手动触发本工作流并勾选检查，或本地 dotnet build -p:DirectMLVersion=...
       - name: 尝试 DirectML 构建（仅手动触发，失败不阻断）
         if: ${{ github.event_name == 'workflow_dispatch' }}
         continue-on-error: true
