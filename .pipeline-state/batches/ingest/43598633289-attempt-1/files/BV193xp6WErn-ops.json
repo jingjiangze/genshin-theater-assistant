@@ -1,0 +1,159 @@
+{
+ "note": "bilibili 视频文本语料候选（yt-dlp 字幕/章节/评论/弹幕），等待自动证据与回归门禁",
+ "generatedAt": "2026-11-14 13:15:28",
+ "bvid": "BV193xp6WErn",
+ "frames": 0,
+ "candidates": 15,
+ "ops": [
+  {
+   "kind": "buy",
+   "text": "需要选出角色：5幕自备较弱主C+辅助，8幕好友高练主C，9幕自备较强主C+辅助，月谕2治疗角色",
+   "act": 0,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "action",
+   "text": "需要留的后台角色：6幕雷+岩、8幕破岩盾",
+   "act": 0,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 钟离",
+   "act": 1,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 菲谢尔",
+   "act": 1,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第1幕 推荐 卡齐娜",
+   "act": 1,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 夜兰",
+   "act": 2,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第2幕 推荐 钟离",
+   "act": 2,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 菲林斯",
+   "act": 3,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 爱诺",
+   "act": 3,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第3幕 推荐 卡齐娜",
+   "act": 3,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第4幕 推荐 菲谢尔",
+   "act": 4,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第4幕 推荐 夜兰",
+   "act": 4,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 菲林斯",
+   "act": 6,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第6幕 推荐 爱诺",
+   "act": 6,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  },
+  {
+   "kind": "act_team",
+   "text": "第8幕 推荐 强力外援",
+   "act": 8,
+   "source": "bilibili:BV193xp6WErn",
+   "channel": "description",
+   "status": "CANDIDATE",
+   "creator_id": "431073645",
+   "creator_name": "你的影月月"
+  }
+ ]
+}
