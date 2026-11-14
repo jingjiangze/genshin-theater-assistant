@@ -10,21 +10,23 @@ permissions:
   contents: write
 
 jobs:
+  # 编译/发布交给 reusable（NuGet 缓存 + OCR 模型缓存 + 随包资源同步都在里面）：
+  # release 不再自己 publish、也不再重跑 ci 已覆盖的自检，只负责版本号 → 打包 → 发布。
   build:
+    uses: ./.github/workflows/windows-build.yml
+    with:
+      wpf: true
+      config: Release
+
+  publish:
+    needs: build
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - name: 取回构建产物（dist/、dist-wpf/）
+        uses: actions/download-artifact@v4
         with:
-          dotnet-version: '8.0.x'
-
-      - name: 拉取中文 OCR 模型（带 SHA256 校验）
-        shell: pwsh
-        run: |
-          # 两条链各自断言退出码：旧写法只有最后一条决定成败，v5 失败会被 v6 成功掩盖
-          .\models\fetch-models.ps1; if ($LASTEXITCODE -ne 0) { throw "v5 模型获取失败" }
-          # 生产/标注都用 v6 small（与 ci 一致，避免两套模型测出两套数）
-          .\models\fetch-models.ps1 -V6; if ($LASTEXITCODE -ne 0) { throw "v6 模型获取失败" }
+          name: windows-build-${{ github.sha }}
+          path: .
 
       - name: 计算版本号
         shell: pwsh
@@ -36,86 +38,8 @@ jobs:
           Add-Content -Path $env:GITHUB_ENV -Value "TA_VERSION=$v"
           Write-Host "版本号: $v"
 
-      - name: 同步随包资源到 app/ 与 app-wpf/
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force app/data, app/templates, app/models | Out-Null
-          Copy-Item data/* app/data -Recurse -Force
-          Copy-Item templates/* app/templates -Recurse -Force
-          foreach ($v in 'v5','v6') {
-            if (Test-Path "models/$v") {
-              New-Item -ItemType Directory -Force "app/models/$v" | Out-Null
-              Copy-Item "models/$v/*" "app/models/$v" -Force
-            }
-          }
-          # 内嵌小模型（GGUF，26.4MB，已入库）：此前漏拷，发布包缺 ◇ 层本地模型
-          if (Test-Path "models/llm") {
-            New-Item -ItemType Directory -Force "app/models/llm" | Out-Null
-            Copy-Item "models/llm/*" "app/models/llm" -Force
-          }
-          # WPF 版：data/templates/models 是静态 EmbeddedResource，必须在 publish 之前就位
-          New-Item -ItemType Directory -Force app-wpf/data, app-wpf/templates, app-wpf/models | Out-Null
-          Copy-Item data/* app-wpf/data -Recurse -Force -ErrorAction SilentlyContinue
-          Copy-Item templates/* app-wpf/templates -Recurse -Force -ErrorAction SilentlyContinue
-          foreach ($v in 'v5','v6') {
-            if (Test-Path "models/$v") {
-              New-Item -ItemType Directory -Force "app-wpf/models/$v" | Out-Null
-              Copy-Item "models/$v/*" "app-wpf/models/$v" -Force
-            }
-          }
-          if (Test-Path "models/llm") {
-            New-Item -ItemType Directory -Force "app-wpf/models/llm" | Out-Null
-            Copy-Item "models/llm/*" "app-wpf/models/llm" -Force
-          }
-          Get-ChildItem app/models -Recurse -File | Measure-Object Length -Sum | ForEach-Object { "WinForms 模型总大小 {0:N1} MB" -f ($_.Sum/1MB) }
-          Get-ChildItem app-wpf/models -Recurse -File | Measure-Object Length -Sum | ForEach-Object { "WPF 模型总大小 {0:N1} MB" -f ($_.Sum/1MB) }
-
       # 两个 csproj 都是 PublishSingleFile=false：publish 产出的是目录（exe + dll + 原生库），
       # 只把 exe 当资产发出去，用户下载后跑不起来。必须先 publish 到目录再整包压缩。
-      - name: publish（WinForms，目录输出）
-        run: dotnet publish app/TheaterAssistant.csproj -c Release -r win-x64 --self-contained true -o dist
-
-      - name: 发布前自检（不通过就不发）
-        shell: pwsh
-        run: |
-          chcp 65001 > $null
-          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest --with-ocr' -Wait -PassThru
-          if (Test-Path .\dist\selftest-report.txt) { Get-Content .\dist\selftest-report.txt -Encoding UTF8 }
-          if ($p.ExitCode -ne 0) { throw "自检失败，拒绝发布 (exit $($p.ExitCode))" }
-
-      - name: 发布前渲染自检（悬浮窗画到 bitmap 断言）
-        shell: pwsh
-        run: |
-          chcp 65001 > $null
-          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest-visual' -Wait -PassThru
-          if (Test-Path .\dist\selftest-visual-report.txt) { Get-Content .\dist\selftest-visual-report.txt -Encoding UTF8 }
-          if ($p.ExitCode -ne 0) { throw "渲染自检失败，拒绝发布 (exit $($p.ExitCode))" }
-
-      - name: 发布前真机模拟实测（抓屏为空则跳过，不算失败）
-        shell: pwsh
-        run: |
-          chcp 65001 > $null
-          $p = Start-Process -FilePath .\dist\TheaterAssistant.exe -ArgumentList '--selftest-live --size 1600x900' -Wait -PassThru
-          if (Test-Path .\dist\selftest-live-report.txt) { Get-Content .\dist\selftest-live-report.txt -Encoding UTF8 }
-          if ($p.ExitCode -eq 4) { Write-Host "::warning::真机模拟被跳过（无桌面会话）" }
-          elseif ($p.ExitCode -ne 0) { throw "真机模拟失败，拒绝发布 (exit $($p.ExitCode))" }
-
-      - name: publish（WPF，目录输出）
-        shell: pwsh
-        run: |
-          dotnet publish app-wpf/TheaterAssistantWpf.csproj -c Release -o dist-wpf
-          if ($LASTEXITCODE -ne 0) { throw "WPF publish 失败 (exit $LASTEXITCODE)" }
-          if (-not (Test-Path dist-wpf/TheaterAssistantWpf.exe)) { throw "WPF 发布目录里没有 TheaterAssistantWpf.exe" }
-          Get-ChildItem dist-wpf -File | Select-Object Name, Length
-
-      - name: 发布前 WPF 自检（XAML 错误只有运行时才炸）
-        shell: pwsh
-        run: |
-          chcp 65001 > $null
-          $p = Start-Process -FilePath .\dist-wpf\TheaterAssistantWpf.exe -ArgumentList '--selftest-wpf' -Wait -PassThru
-          if (Test-Path .\dist-wpf\selftest-wpf-report.txt) { Get-Content .\dist-wpf\selftest-wpf-report.txt -Encoding UTF8 }
-          if ($p.ExitCode -ne 0) { throw "WPF 自检失败，拒绝发布 (exit $($p.ExitCode))" }
-
       - name: 打包（WinForms / WPF 各一个 zip + SHA256）
         shell: pwsh
         run: |
