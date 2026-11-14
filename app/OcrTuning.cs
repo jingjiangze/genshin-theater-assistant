@@ -24,6 +24,7 @@ internal static class OcrTuning
     public static bool EnableDirectML { get; private set; } = true;
     public static int DirectMLDeviceId { get; private set; } = 0;
     /// <summary>0 = 交给 ONNX Runtime 自己决定（BetterGI 的 numThread 语义）。</summary>
+    /// <summary>推理线程数。0 = 按硬件画像自适应（HardwareInfo.SuggestThreads）。</summary>
     public static int NumThreads { get; private set; } = 0;
     public static string Source { get; private set; } = "(未加载，用内置默认)";
 
@@ -38,6 +39,12 @@ internal static class OcrTuning
     /// 此前这个字段**只写不读**（审计发现），设置页切了也不生效。
     /// </summary>
     public static string ModelPreference { get; private set; } = "auto";
+
+    /// <summary>参考画布长边（OCR 与模板匹配共用）。低配机调小（如 800）能省算力，代价是小字漏检。</summary>
+    public static int ReferenceCanvas { get; private set; } = 960;
+
+    /// <summary>幕次稳定后的重扫间隔（tick 数，1 tick = 扫描间隔）。低配机调大（如 12）。</summary>
+    public static int HeavyEveryStable { get; private set; } = 8;
 
     public static void Load(string policyPath)
     {
@@ -56,6 +63,19 @@ internal static class OcrTuning
                 DirectMLDeviceId = dev.GetInt32();
             if (ocr.TryGetProperty("numThreads", out var nt) && nt.ValueKind == JsonValueKind.Number)
                 NumThreads = nt.GetInt32();
+
+            // 环境变量优先于配置文件（换机型/压测时不必改仓库文件）：TA_OCR_THREADS=4
+            if (int.TryParse(Environment.GetEnvironmentVariable("TA_OCR_THREADS"), out var envThreads) && envThreads > 0)
+                NumThreads = envThreads;
+
+            // 0 = 自适应；上限按可用核夹住，避免 4 核机上配 6 反而过订阅
+            if (ocr.TryGetProperty("referenceCanvas", out var rc) && rc.ValueKind == JsonValueKind.Number)
+                ReferenceCanvas = Math.Clamp(rc.GetInt32(), 640, 1280);
+            if (ocr.TryGetProperty("heavyEveryStable", out var he) && he.ValueKind == JsonValueKind.Number)
+                HeavyEveryStable = Math.Clamp(he.GetInt32(), 2, 60);
+
+            if (NumThreads <= 0) NumThreads = HardwareInfo.SuggestThreads();
+            NumThreads = Math.Clamp(NumThreads, 1, HardwareInfo.Cores);
             // 环境变量覆盖（排查/AB 用，不改仓库配置）：TA_OCR_MODEL=v5|v6|auto
             var envModel = (Environment.GetEnvironmentVariable("TA_OCR_MODEL") ?? "").Trim().ToLowerInvariant();
             if (envModel is "v5" or "v6" or "auto") ModelPreference = envModel;
@@ -75,7 +95,8 @@ internal static class OcrTuning
         Cli.Attach();
         Load(AppPaths.Data("decision-policy.json"));
         Cli.Say($"OCR 调优来源: {Source}");
-        Cli.Say($"  enableDirectML={EnableDirectML} deviceId={DirectMLDeviceId} numThreads={(NumThreads == 0 ? "自动" : NumThreads.ToString())} model={ModelPreference}");
+        Cli.Say($"  enableDirectML={EnableDirectML} deviceId={DirectMLDeviceId} numThreads={NumThreads} model={ModelPreference}");
+        Cli.Say($"  硬件画像: {HardwareInfo.Describe()}");
         Cli.Say($"  实际执行提供器: {EpStatus}");
         return 0;
     }
