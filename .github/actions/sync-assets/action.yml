@@ -1,0 +1,52 @@
+name: sync-assets
+description: 把随包资源（data/templates/models v5·v6·llm）同步到 app/ 或 app-wpf/
+
+# 各工作流此前各自手写 8~40 行 Copy-Item：csproj 的 Content/EmbeddedResource 路径都是相对工程目录
+# （app/data、app/models），所以必须在 publish 之前把资源就位，否则发布包里没有 data、OCR 也没有模型。
+# 这里统一实现：Test-Path 保护 + 文件计数输出（拷漏了能在日志里看出来）。
+
+inputs:
+  targets:
+    description: 目标目录，空格或逗号分隔；可选 app / app-wpf / 两者都写
+    required: false
+    default: app
+
+runs:
+  using: composite
+  steps:
+    - name: 同步随包资源
+      shell: pwsh
+      run: |
+        $targets = @("${{ inputs.targets }}" -split '[\s,]+' | Where-Object { $_ })
+        if ($targets.Count -eq 0) { $targets = @('app') }
+        foreach ($t in $targets) {
+          $t = $t.TrimEnd('/', '\')
+          Write-Host "=== 同步随包资源 → $t/ ==="
+          New-Item -ItemType Directory -Force "$t/data", "$t/templates", "$t/models" | Out-Null
+          if (Test-Path 'data') {
+            Copy-Item data/* "$t/data" -Recurse -Force -ErrorAction SilentlyContinue
+          } else { Write-Host "::warning::data/ 不存在，$t/data 将为空" }
+          if (Test-Path 'templates') {
+            Copy-Item templates/* "$t/templates" -Recurse -Force -ErrorAction SilentlyContinue
+          } else { Write-Host "::warning::templates/ 不存在，$t/templates 将为空" }
+          foreach ($v in 'v5','v6') {
+            if (Test-Path "models/$v") {
+              New-Item -ItemType Directory -Force "$t/models/$v" | Out-Null
+              Copy-Item "models/$v/*" "$t/models/$v" -Recurse -Force -ErrorAction SilentlyContinue
+            } else { Write-Host "::warning::models/$v 不存在（没拉模型？）" }
+          }
+          # 内嵌小模型（GGUF）：WinForms 版按 Content 带出去，WPF 版按 EmbeddedResource 打进程序集
+          if (Test-Path 'models/llm') {
+            New-Item -ItemType Directory -Force "$t/models/llm" | Out-Null
+            Copy-Item 'models/llm/*' "$t/models/llm" -Force
+          } else { Write-Host "::warning::models/llm 不存在（发布包会缺少内嵌小模型）" }
+
+          $dataCount = (Get-ChildItem "$t/data" -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count
+          $tplCount = (Get-ChildItem "$t/templates" -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count
+          $modelSize = (Get-ChildItem "$t/models" -Recurse -File -ErrorAction SilentlyContinue | Measure-Object Length -Sum).Sum
+          Write-Host ("$t/data 文件数: $dataCount；$t/templates 文件数: $tplCount；$t/models 总大小 {0:N1} MB" -f ($modelSize / 1MB))
+          if (Test-Path "$t/data/guide-corpus.json") {
+            $gc = Get-Content "$t/data/guide-corpus.json" -Raw | ConvertFrom-Json
+            Write-Host "$t/data/guide-corpus.json 源语料条数: $($gc.entries.Count)"
+          } else { Write-Host "::warning::$t/data/guide-corpus.json 不存在" }
+        }
