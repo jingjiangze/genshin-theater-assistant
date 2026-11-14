@@ -237,15 +237,25 @@ internal static class Matcher
     public static string CvFallbackReason { get; private set; } = "";
 
     /// <summary>
-    /// 参考画布 + OpenCV：整帧按宽度归一到一个固定画布（>1100 缩到 960），
+    /// 参考画布 + OpenCV：整帧按长边归一到一个固定画布（> 参考画布长边就缩，默认 960），
     /// 模板按同样比例缩放后做 CCoeffNormed，坐标再映射回原分辨率。
     /// 为什么这样做：1080p 上自写 RMSE 全帧精比要 2.2s/帧（实测占整帧 74%），
     /// 而 OpenCV 在 960 画布上 8 个模板 x 2 档缩放约 40-80ms，且阈值语义与 BetterGI 一致。
     /// </summary>
     private static List<Hit> ScanCv(Bitmap frame, IEnumerable<TemplateEntry> templates)
     {
-        const int CanvasW = 960;
-        var k = frame.Width > 1100 ? CanvasW / (double)frame.Width : 1.0;
+        // 与 OCR 同一参考画布（可配置）：两边不一致会让模板与文本的缩放基准打架
+        var CanvasW = OcrTuning.ReferenceCanvas;
+        // 画布缩放：长边归一到 ≤960。横向长边就是宽度，故 16:9 下与旧的「按宽」完全一致。
+        // 阈值跟着可配置画布走：写死 1100 时，若 referenceCanvas > 1100，会出现「模板缩了、OCR 没缩」的基准打架
+        var k = Math.Max(frame.Width, frame.Height) > CanvasW
+            ? CanvasW / (double)Math.Max(frame.Width, frame.Height)
+            : 1.0;
+        // UI 像素尺寸跟**高度**走：21:9 的 3440x1080 里 HUD 像素高度与 1920x1080 完全相同，
+        // 所以内容缩放基准取「高 / 1080」与「宽 / 1920」中较小者（宽度只是兜底，防止极窄比例越界）。
+        // 16:9 下两者恒等（1280/1600/1920/2560 均满足 H/1080 == W/1920），因此与旧公式逐位等价；
+        // 3440x1080 下旧代码按宽算成 1.79 倍、模板被放大 1.79 倍 → 漏检，这里得 1.0。
+        double scaleRef = Math.Min(frame.Height / 1080.0, frame.Width / 1920.0);
         var list = new List<Hit>();
 
         using var src = OpenCvSharp.Extensions.BitmapConverter.ToMat(frame);
@@ -273,11 +283,13 @@ internal static class Matcher
                 OpenCvSharp.Cv2.CvtColor(tplSrc, tplGray, OpenCvSharp.ColorConversionCodes.BGRA2GRAY);
 
                 // 模板像素基准是 templates\<宽x高> 桶的宽度（如 1920x1080），不是当前帧宽。
-                // 正确缩放 = k × (帧宽 / 模板源宽)：
+                // 正确缩放 = 画布缩放 k × 内容缩放 scaleRef ÷ 模板源桶缩放：
                 //   · 模板在 1920 窗口里占 W/1920，画布再把帧乘 k，合起来 tk = (W/1920)×k；
                 //   · 旧代码 tk = sc × k，非 1920 帧上会把模板放大 20%–50%（1280 下 0.75 vs 0.5）→ 漏检。
+                // 16:9 下 scaleRef/(SW/1920) == frame.Width/SourceWidth，与旧公式同值。
                 // SourceWidth==0 表示根目录模板（源宽未知），退化为 tk = sc × k，保持旧行为。
-                var tplBase = k * (t.SourceWidth > 0 ? frame.Width / (double)t.SourceWidth : 1.0);
+                var sourceScale = t.SourceWidth > 0 ? t.SourceWidth / 1920.0 : 0.0;
+                var tplBase = sourceScale > 0 ? k * scaleRef / sourceScale : k;
 
                 var roiRect = RoiFor(t.Name, canvas.Cols, canvas.Rows);
                 using var region = new OpenCvSharp.Mat(canvas, roiRect);
