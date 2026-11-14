@@ -1,0 +1,36 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-14 12:23:15",
+  "bvid": "BV1SH4y1o7se",
+  "frames": 1,
+  "candidates": 3,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "，正午时来到溪边却听不见山寺的钟声。若说不遇是一种惆怅，而此向悠悠山色便是一种补偿。别让匆匆的",
+      "act": 0,
+      "source": "BV1SH4y1o7se@0s",
+      "creator_id": "651552892",
+      "creator_name": "作文素材a",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "脚步，错失了沿途的风景：别让心中的雾霾，遮蔽了看风录的眼睛。",
+      "act": 0,
+      "source": "BV1SH4y1o7se@0s",
+      "creator_id": "651552892",
+      "creator_name": "作文素材a",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "12砌下落梅如雪亂，拂了一身還滿。——李煜《清平乐·别来春半》阶下落梅就像飘飞",
+      "act": 0,
+      "source": "BV1SH4y1o7se@0s",
+      "creator_id": "651552892",
+      "creator_name": "作文素材a",
+      "needsReview": true
+    }
+  ]
+}

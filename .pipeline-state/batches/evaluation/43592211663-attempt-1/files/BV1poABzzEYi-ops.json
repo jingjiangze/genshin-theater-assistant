@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-14 12:27:51",
+  "bvid": "BV1poABzzEYi",
+  "frames": 7,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "雷风祝福已升级，请选择一个分支",
+      "act": 0,
+      "source": "BV1poABzzEYi@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    }
+  ]
+}

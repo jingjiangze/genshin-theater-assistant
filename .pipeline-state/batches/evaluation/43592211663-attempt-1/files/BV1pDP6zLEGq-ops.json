@@ -1,0 +1,45 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-14 12:28:18",
+  "bvid": "BV1pDP6zLEGq",
+  "frames": 8,
+  "candidates": 4,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "出战选取&借角色",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@0s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "出战角色(优先级左高右低，无特殊说明默认0+0，有专戴专)",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "必选：克洛琳德/伊涅芙/菲林斯/影宝/神子/皇女/伊安珊/欧洛伦/久岐忍",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "想拿明星挑战需要360秒内击杀18只",
+      "act": 0,
+      "source": "BV1pDP6zLEGq@s",
+      "creator_id": "",
+      "creator_name": "",
+      "needsReview": true
+    }
+  ]
+}

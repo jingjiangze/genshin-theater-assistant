@@ -1,0 +1,198 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-14 12:24:06",
+  "bvid": "BV1hXTv6uECJ",
+  "frames": 8,
+  "candidates": 21,
+  "ops": [
+    {
+      "kind": "buy",
+      "text": "需要选出角色：4幕自备嘲讽角色，5幕菲谢尔，7幕自备较弱主c+辅助，8幕自备较强主C+辅助",
+      "act": 4,
+      "source": "BV1hXTv6uECJ@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：8幕高频火、10幕弓箭手",
+      "act": 8,
+      "source": "BV1hXTv6uECJ@0s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "需要选出角色:4幕自备嘲讽角色，5幕菲谢尔，7幕自备较弱主c+辅助，8幕自备较强主c+辅助",
+      "act": 4,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：8幕高频火、10幕弓箭手00:43",
+      "act": 8,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：找角色",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：大灵显化身",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "开局：缺啥找啥",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色：8幕高频火、10幕弓箭手03:16",
+      "act": 8,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：纳塔龙众",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：自备较弱主c+辅助",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开品：买3日号1操件",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：甘雨+北斗+班尼特+摸件",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买角色",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：赛诺+甘雨+北斗+挂件",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色:8幕高频火、10幕弓箭手01:32",
+      "act": 8,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "买超载buff",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：自备嘲识角色+挂件",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "action",
+      "text": "需要留的后台角色:8幕高频火、10幕弓箭手00:35",
+      "act": 8,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "开局：买2超载buff",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "buy",
+      "text": "选关：滋水幻灵",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    },
+    {
+      "kind": "team",
+      "text": "队伍：阿蓄奇诺+雷后台+2挂件",
+      "act": 0,
+      "source": "BV1hXTv6uECJ@s",
+      "creator_id": "431073645",
+      "creator_name": "你的影月月",
+      "needsReview": true
+    }
+  ]
+}

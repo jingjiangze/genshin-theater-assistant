@@ -1,0 +1,29 @@
+﻿{
+  "frames": 1,
+  "jumps": [],
+  "flips": [],
+  "llm": {
+    "ok": 0,
+    "total": 0,
+    "health": ""
+  },
+  "steps": [
+    {
+      "Frame": "BV1SH4y1o7se-0s-480x853",
+      "Act": 0,
+      "StableAct": 0,
+      "RawAct": 0,
+      "TruthAct": 0,
+      "BandText": "",
+      "Kind": "unknown",
+      "Header": "剧诗助手 · 等待识别",
+      "NextAction": "",
+      "Source": "act=?, src=—",
+      "TopHit": "第16期 详情(14.16)",
+      "WouldSpeak": "没认出幕次（模板命中: 无）",
+      "Llm": "",
+      "Boxes": 40,
+      "Ms": 4096
+    }
+  ]
+}

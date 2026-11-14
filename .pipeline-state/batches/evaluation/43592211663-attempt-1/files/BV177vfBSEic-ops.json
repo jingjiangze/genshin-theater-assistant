@@ -1,0 +1,18 @@
+﻿{
+  "note": "视频里提取的操作用法候选（连招/购买/配队/行动），需人工复核后并入 data/rotations.json。",
+  "generatedAt": "2026-11-14 12:23:52",
+  "bvid": "BV177vfBSEic",
+  "frames": 8,
+  "candidates": 1,
+  "ops": [
+    {
+      "kind": "action",
+      "text": "时先含河bilibi",
+      "act": 0,
+      "source": "BV177vfBSEic@0s",
+      "creator_id": "502136236",
+      "creator_name": "时光含河",
+      "needsReview": true
+    }
+  ]
+}
