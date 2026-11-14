@@ -82,11 +82,21 @@ internal sealed class LocalBrain : IDisposable
     /// 只做「文件在不在」的检查，不启动进程（避免启动即吃内存）。
     /// serverExe 缺省时在 exe 同级 llama-server\ 下找。
     /// </summary>
-    public static LocalBrain TryLoad(string ggufPath, string serverExe = null, int threads = 6, int ctxSize = 1024)
+    /// <param name="threads">0 = 按硬件画像自适应（HardwareInfo.SuggestThreads）</param>
+    public static LocalBrain TryLoad(string ggufPath, string serverExe = null, int threads = 0, int ctxSize = 1024)
     {
         try
         {
             LastLoadError = "";
+
+            // 随包的 llama-server 是 avx2 构建：CPU 不支持时直接禁用模型层（走 HTTP/无模型），
+            // 而不是等子进程崩在 TypeInitialization/0xC000001D 上 —— 那是老 CPU 上最常见的"打不开"。
+            if (!HardwareInfo.HasAvx2)
+            {
+                LastLoadError = "CPU 不支持 AVX2：随包 llama-server 不可用（已禁用内置模型，仍可用 data/llm.json 端点）";
+                return null;
+            }
+
             if (string.IsNullOrWhiteSpace(ggufPath) || !File.Exists(ggufPath))
             {
                 LastLoadError = "GGUF 不存在：" + ggufPath;
@@ -105,7 +115,8 @@ internal sealed class LocalBrain : IDisposable
                 return null;
             }
 
-            return new LocalBrain(ggufPath, exe, threads, ctxSize);
+            if (threads <= 0) threads = HardwareInfo.SuggestThreads();
+            return new LocalBrain(ggufPath, exe, Math.Clamp(threads, 1, HardwareInfo.Cores), ctxSize);
         }
         catch (Exception ex)
         {
