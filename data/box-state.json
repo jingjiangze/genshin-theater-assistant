@@ -1,7 +1,8 @@
 {
   "lastWakeAt": "2026-11-15T05:04:34.989Z",
   "lastResult": "wake-failed",
-  "lastState": "hibernated",
+  "lastState": "running",
   "hibernateAfterMinutes": 20,
-  "lastAttemptAt": "2026-11-15T13:32:32.939Z"
+  "lastAttemptAt": "2026-11-15T13:32:32.939Z",
+  "lastCheckedAt": "2026-11-15T13:44:15.103Z"
 }
