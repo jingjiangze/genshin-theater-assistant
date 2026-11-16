@@ -1,0 +1,546 @@
+﻿{
+  "note": "由 --corpus-scan 从视频帧 OCR 抽出，自动过滤界面文案；合并进检索语料前建议人工扫一眼。",
+  "generatedAt": "2026-11-16 12:27:32",
+  "bvid": "BV193xp6WErn,BV1bKABzCENY",
+  "entries": [
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1067s-1",
+      "act": 1,
+      "tags": [
+        "第1幕",
+        "视频OCR"
+      ],
+      "title": "BUFF：雷岩2左4左、水雷2左…",
+      "text": "BUFF：雷岩2左4左、水雷2左4左、水岩2左4左、1幕需2雷岩、3幕需2水雷、6幕需4水雷",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1067s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1067s-2",
+      "act": 5,
+      "tags": [
+        "第5幕",
+        "视频OCR"
+      ],
+      "title": "需要选出角色：5幕自备较弱主C+…",
+      "text": "需要选出角色：5幕自备较弱主C+辅助，8幕好友高练主C，9幕自备较强主C+辅助，月谕2治疗角色",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1067s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1067s-3",
+      "act": 6,
+      "tags": [
+        "第6幕",
+        "视频OCR"
+      ],
+      "title": "需要留的后台角色：6幕雷+岩、8…",
+      "text": "需要留的后台角色：6幕雷+岩、8幕破岩盾",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1067s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1067s-4",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "角色：较弱主c+辅助",
+      "text": "角色：较弱主c+辅助",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1067s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1184s-5",
+      "act": 1,
+      "tags": [
+        "第1幕",
+        "视频OCR"
+      ],
+      "title": "BUFF：雷岩2左4左、水雷2左…",
+      "text": "BUFF：雷岩2左4左、水雷2左4、水岩2左4左、1幕需2雷岩、3幕需2水雷、6幕需4水雷",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1184s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1184s-6",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "开局：缺角色买角色",
+      "text": "开局：缺角色买角色",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1184s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1184s-7",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "队伍：强力外援+辅助+破盾",
+      "text": "队伍：强力外援+辅助+破盾",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1184s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1301s-8",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "祝福等级19:演出挑战中，角色",
+      "text": "祝福等级19:演出挑战中，角色",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1301s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1301s-9",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "队伍：自备较强主c+辅助",
+      "text": "队伍：自备较强主c+辅助",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1301s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1301s-10",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "特盟角色获得的祝福等级效果",
+      "text": "特盟角色获得的祝福等级效果",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1301s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-1301s-11",
+      "act": 10,
+      "tags": [
+        "第10幕",
+        "视频OCR"
+      ],
+      "title": "剧演强敌·第10幕",
+      "text": "剧演强敌·第10幕",
+      "source": "BV193xp6WErn,BV1bKABzCENY@1301s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-132s-12",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "自备1：高练治疗角色",
+      "text": "自备1：高练治疗角色",
+      "source": "BV193xp6WErn,BV1bKABzCENY@132s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-132s-13",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "自备2：较弱主c+辅助",
+      "text": "自备2：较弱主c+辅助",
+      "source": "BV193xp6WErn,BV1bKABzCENY@132s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-132s-14",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "自备3：强力主c+辅助",
+      "text": "自备3：强力主c+辅助",
+      "source": "BV193xp6WErn,BV1bKABzCENY@132s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-132s-15",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "强力外援：龙王>伊涅夫",
+      "text": "强力外援：龙王>伊涅夫",
+      "source": "BV193xp6WErn,BV1bKABzCENY@132s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-132s-16",
+      "act": 8,
+      "tags": [
+        "第8幕",
+        "视频OCR"
+      ],
+      "title": "剧演强敌·第8幕",
+      "text": "剧演强敌·第8幕",
+      "source": "BV193xp6WErn,BV1bKABzCENY@132s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-249s-17",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "开编：买2管号2矮件",
+      "text": "开编：买2管号2矮件",
+      "source": "BV193xp6WErn,BV1bKABzCENY@249s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-249s-18",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "最好有1雷挂件",
+      "text": "最好有1雷挂件",
+      "source": "BV193xp6WErn,BV1bKABzCENY@249s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-249s-19",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "队伍：钟离+菲谢尔+卡齐娜+挂件",
+      "text": "队伍：钟离+菲谢尔+卡齐娜+挂件",
+      "source": "BV193xp6WErn,BV1bKABzCENY@249s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-366s-20",
+      "act": 5,
+      "tags": [
+        "第5幕",
+        "视频OCR"
+      ],
+      "title": "需要选出角色：5幕自备较弱主+辅…",
+      "text": "需要选出角色：5幕自备较弱主+辅助，8幕好友高练主C，9幕自备较强主C+辅助，月谕2治疗角色",
+      "source": "BV193xp6WErn,BV1bKABzCENY@366s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-366s-21",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "开局：买2级水雷bufi",
+      "text": "开局：买2级水雷bufi",
+      "source": "BV193xp6WErn,BV1bKABzCENY@366s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-366s-22",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "强力外援+较弱主c",
+      "text": "强力外援+较弱主c",
+      "source": "BV193xp6WErn,BV1bKABzCENY@366s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-366s-23",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "队伍：夜兰+钟离+2挂件",
+      "text": "队伍：夜兰+钟离+2挂件",
+      "source": "BV193xp6WErn,BV1bKABzCENY@366s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-483s-24",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "开局：确保有2挂件",
+      "text": "开局：确保有2挂件",
+      "source": "BV193xp6WErn,BV1bKABzCENY@483s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-483s-25",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "买角色：强力外援>弱c+辅助>治…",
+      "text": "买角色：强力外援>弱c+辅助>治疗",
+      "source": "BV193xp6WErn,BV1bKABzCENY@483s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-483s-26",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "队伍：菲谢尔+夜兰+2挂件",
+      "text": "队伍：菲谢尔+夜兰+2挂件",
+      "source": "BV193xp6WErn,BV1bKABzCENY@483s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-483s-27",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "强力外援>弱c+辅助>治疗",
+      "text": "强力外援>弱c+辅助>治疗",
+      "source": "BV193xp6WErn,BV1bKABzCENY@483s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-717s-28",
+      "act": 1,
+      "tags": [
+        "第1幕",
+        "视频OCR"
+      ],
+      "title": "BUFF：雷岩2左4左、水雷2左…",
+      "text": "BUFF：雷岩2左4左、水雷2左4、水岩2左4、1幕需2雷岩、3幕需2水雷、6幕需4水雷",
+      "source": "BV193xp6WErn,BV1bKABzCENY@717s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-717s-29",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "队伍：较弱主c+水雷岩排件",
+      "text": "队伍：较弱主c+水雷岩排件",
+      "source": "BV193xp6WErn,BV1bKABzCENY@717s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-717s-30",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "强力外援>治疗>强力主c",
+      "text": "强力外援>治疗>强力主c",
+      "source": "BV193xp6WErn,BV1bKABzCENY@717s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-834s-31",
+      "act": 1,
+      "tags": [
+        "第1幕",
+        "视频OCR"
+      ],
+      "title": "BUFF：雷岩2左4、水雷2左4…",
+      "text": "BUFF：雷岩2左4、水雷2左4左、水岩2左4左、1幕需2雷岩、3幕需2水雷、6幕需4水雷",
+      "source": "BV193xp6WErn,BV1bKABzCENY@834s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-834s-32",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "强力外提>治疗>强力主c",
+      "text": "强力外提>治疗>强力主c",
+      "source": "BV193xp6WErn,BV1bKABzCENY@834s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-834s-33",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "队伍：菲林斯+爱诺+雷+岩",
+      "text": "队伍：菲林斯+爱诺+雷+岩",
+      "source": "BV193xp6WErn,BV1bKABzCENY@834s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-834s-34",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "强力外援>治疗>较强主c+辅助",
+      "text": "强力外援>治疗>较强主c+辅助",
+      "source": "BV193xp6WErn,BV1bKABzCENY@834s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-35",
+      "act": 1,
+      "tags": [
+        "第1幕",
+        "视频OCR"
+      ],
+      "title": "BUFF：超导2右4左、风雷2左…",
+      "text": "BUFF：超导2右4左、风雷2左4右、风冰2左4右、1幕需2超导、3幕需2超导、5幕需4超导、8幕需2风雷",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-36",
+      "act": 4,
+      "tags": [
+        "第4幕",
+        "视频OCR"
+      ],
+      "title": "需要选出角色：4幕聚怪或副c、6…",
+      "text": "需要选出角色：4幕聚怪或副c、6幕风套角色、7幕自备主c+破机制辅、8幕风系聚怪、9幕自备主c",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-37",
+      "act": 6,
+      "tags": [
+        "第6幕",
+        "视频OCR"
+      ],
+      "title": "需要留的后台角色：6幕冰",
+      "text": "需要留的后台角色：6幕冰",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-38",
+      "act": 1,
+      "tags": [
+        "第1幕",
+        "视频OCR"
+      ],
+      "title": "第1幕：优菈+米卡+2挂件愚人众",
+      "text": "第1幕：优菈+米卡+2挂件愚人众",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-39",
+      "act": 2,
+      "tags": [
+        "第2幕",
+        "视频OCR"
+      ],
+      "title": "第2幕：优菈+多莉+2挂件愚人众",
+      "text": "第2幕：优菈+多莉+2挂件愚人众",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-40",
+      "act": 3,
+      "tags": [
+        "第3幕",
+        "视频OCR"
+      ],
+      "title": "第3幕：瓦雷莎+闲云+早柚+米卡…",
+      "text": "第3幕：瓦雷莎+闲云+早柚+米卡翠翎恐蕈",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-41",
+      "act": 4,
+      "tags": [
+        "第4幕",
+        "视频OCR"
+      ],
+      "title": "第4幕:4挂件(自备聚怪角色或副…",
+      "text": "第4幕:4挂件(自备聚怪角色或副C清怪)",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-42",
+      "act": 5,
+      "tags": [
+        "第5幕",
+        "视频OCR"
+      ],
+      "title": "第5幕：早柚+多莉+冰挂件+1挂…",
+      "text": "第5幕：早柚+多莉+冰挂件+1挂件遗迹守卫",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-43",
+      "act": 6,
+      "tags": [
+        "第6幕",
+        "视频OCR"
+      ],
+      "title": "第6幕：瓦雷莎+闲云+风套+冰挂…",
+      "text": "第6幕：瓦雷莎+闲云+风套+冰挂件穿浪之梭",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-44",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "月谕1:好友高练度C+辅助或挂件…",
+      "text": "月谕1:好友高练度C+辅助或挂件(随时可以打，当骰子用)",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-45",
+      "act": 0,
+      "tags": [
+        "通用",
+        "视频OCR"
+      ],
+      "title": "月谕2:好友高练度C+辅助或挂件…",
+      "text": "月谕2:好友高练度C+辅助或挂件(随时可以打，当骰子用)",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-46",
+      "act": 7,
+      "tags": [
+        "第7幕",
+        "视频OCR"
+      ],
+      "title": "第7幕：自备主c+破机制辅助霜月…",
+      "text": "第7幕：自备主c+破机制辅助霜月灵嗣",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-47",
+      "act": 8,
+      "tags": [
+        "第8幕",
+        "视频OCR"
+      ],
+      "title": "第8幕：自备主c+聚怪风系角色曼…",
+      "text": "第8幕：自备主c+聚怪风系角色曼陀草",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-48",
+      "act": 9,
+      "tags": [
+        "第9幕",
+        "视频OCR"
+      ],
+      "title": "第9幕：自备主c+主c辅助愚人众…",
+      "text": "第9幕：自备主c+主c辅助愚人众机械",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    },
+    {
+      "id": "scan-BV193xp6WErn,BV1bKABzCENY-13s-49",
+      "act": 10,
+      "tags": [
+        "第10幕",
+        "视频OCR"
+      ],
+      "title": "第10幕：自备主c+主c辅助恒常…",
+      "text": "第10幕：自备主c+主c辅助恒常机关阵列",
+      "source": "BV193xp6WErn,BV1bKABzCENY@13s"
+    }
+  ]
+}
