@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-15T14:55:54.605948+00:00",
+  "updated_at": "2026-11-16T15:17:15.794517+00:00",
   "candidate_count": 1164,
   "verified_count": 2,
   "candidates": [
@@ -27,7 +27,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -202,7 +203,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -361,7 +363,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1SH4y1o7se",
           "platform": "bilibili",
@@ -853,7 +856,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -958,7 +962,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Wf4y1G7nG",
           "platform": "bilibili",
@@ -1137,7 +1142,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1SH4y1o7se",
           "platform": "bilibili",
@@ -1409,7 +1415,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -1922,7 +1929,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1XSAdzTE3S",
           "platform": "unknown",
@@ -1984,7 +1992,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -2036,7 +2045,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -2862,7 +2872,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1Z5Gg6dE5U",
           "platform": "bilibili",
@@ -2889,7 +2900,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1tLtM6GErx",
           "platform": "bilibili",
@@ -2953,7 +2965,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -3589,7 +3602,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -3699,7 +3713,8 @@
           "evidence_id": "0a8de26130445bdb1e5fb0bfc8c921929fc19e06d647628a474a2364f68d1c48",
           "batch_id": "43713926094-attempt-1",
           "observed_batches": [
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1XSAdzTE3S",
           "platform": "unknown",
@@ -3925,7 +3940,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -4174,7 +4190,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -4229,7 +4246,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -4315,7 +4333,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1pDP6zLEGq",
           "platform": "unknown",
@@ -4984,7 +5003,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -5286,7 +5306,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -5419,7 +5440,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1Z5Gg6dE5U",
           "platform": "bilibili",
@@ -5446,7 +5468,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1tLtM6GErx",
           "platform": "bilibili",
@@ -5856,7 +5879,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -6163,7 +6187,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -6823,7 +6848,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1poABzzEYi",
           "platform": "unknown",
@@ -7087,7 +7113,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -7524,7 +7551,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -7575,7 +7603,8 @@
           "evidence_id": "0a96ce25e15479aa1dbbae1fe42d44dbae6a64d5fabdf5db76a36c3577763a11",
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -7688,7 +7717,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -7829,7 +7859,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -7950,7 +7981,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -8339,7 +8371,8 @@
           "evidence_id": "c5ff33a70547d161351c55b26cca4f5e519fe117bf5efe2724cdf7fef4d6d31a",
           "batch_id": "43713926094-attempt-1",
           "observed_batches": [
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1pDP6zLEGq",
           "platform": "unknown",
@@ -8458,7 +8491,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -8724,7 +8758,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -8787,7 +8822,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -8852,7 +8888,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -9639,7 +9676,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -9704,7 +9742,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -9815,7 +9854,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -10092,7 +10132,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -10127,7 +10168,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -10290,7 +10332,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -10394,7 +10437,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV177vfBSEic",
           "platform": "bilibili",
@@ -10462,7 +10506,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV14Q4ce3EEE",
           "platform": "unknown",
@@ -11087,7 +11132,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -11144,7 +11190,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -11783,7 +11830,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1XSAdzTE3S",
           "platform": "unknown",
@@ -11843,7 +11891,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -12108,7 +12157,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1pDP6zLEGq",
           "platform": "unknown",
@@ -12224,7 +12274,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -12424,7 +12475,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -12547,7 +12599,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -12606,7 +12659,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -12661,7 +12715,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -13293,7 +13348,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -13409,7 +13465,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -13821,7 +13878,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -14119,7 +14177,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -14286,7 +14345,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -14354,7 +14414,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -14586,7 +14647,8 @@
           "evidence_id": "87a5b6147ca3d37e3c7ecf1e4e4d0b42b29c1ccaeac37058d903f772f6c349e4",
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -14866,7 +14928,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -15078,7 +15141,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -15139,7 +15203,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -15406,7 +15471,8 @@
           "evidence_id": "46b97e440506057322faae755f068aa95088d6425288e0e2b6179d0b1adb9e36",
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -16085,7 +16151,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -16293,7 +16360,8 @@
           "evidence_id": "b596f056b3aaf7927e34693854adc13c84c46953929c269471a19c0f45c0ff16",
           "batch_id": "43713926094-attempt-1",
           "observed_batches": [
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -16510,7 +16578,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV14Q4ce3EEE",
           "platform": "unknown",
@@ -16730,7 +16799,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -16785,7 +16855,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -17218,7 +17289,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1pDP6zLEGq",
           "platform": "unknown",
@@ -17889,7 +17961,8 @@
             "42822432369-attempt-1",
             "43019744524-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -18056,7 +18129,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -18173,7 +18247,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV14Q4ce3EEE",
           "platform": "unknown",
@@ -18471,7 +18546,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -18639,7 +18715,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -18978,7 +19055,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -19355,7 +19433,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -19760,7 +19839,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -20056,7 +20136,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -20119,7 +20200,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -20182,7 +20264,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -20498,7 +20581,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -21165,7 +21249,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -21230,7 +21315,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -21543,7 +21629,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -21650,7 +21737,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Z5Gg6dE5U",
           "platform": "bilibili",
@@ -22089,7 +22177,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -22234,7 +22323,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -22481,7 +22571,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -22801,7 +22892,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -23174,7 +23266,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -23288,7 +23381,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ThRyBGECJ",
           "platform": "bilibili",
@@ -24286,7 +24380,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -24455,7 +24550,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1KSiqBGERh",
           "platform": "bilibili",
@@ -24575,7 +24671,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -24689,7 +24786,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -25012,7 +25110,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -25076,7 +25175,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -25203,7 +25303,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -25739,7 +25840,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LZYP6dE9u",
           "platform": "unknown",
@@ -25948,7 +26050,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -26157,7 +26260,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -26430,7 +26534,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -26913,7 +27018,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -26983,7 +27089,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -27070,7 +27177,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -27562,7 +27670,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -27772,7 +27881,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -27981,7 +28091,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -28160,7 +28271,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ynvvBbEkn",
           "platform": "bilibili",
@@ -28384,7 +28496,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -28500,7 +28613,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -28830,7 +28944,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -28886,7 +29001,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -28956,7 +29072,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -29067,7 +29184,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1pDP6zLEGq",
           "platform": "unknown",
@@ -29339,7 +29457,8 @@
             "42368280660-attempt-1",
             "42377289804-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -29395,7 +29514,8 @@
             "42352882298-attempt-1",
             "42377289804-attempt-1",
             "42822432369-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -29586,7 +29706,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -29955,7 +30076,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ynvvBbEkn",
           "platform": "bilibili",
@@ -30018,7 +30140,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -30070,7 +30193,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -30700,7 +30824,8 @@
             "42352882298-attempt-1",
             "42377289804-attempt-1",
             "42822432369-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -30803,7 +30928,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -31130,7 +31256,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ZTiLB8ETt",
           "platform": "unknown",
@@ -31767,7 +31894,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -31827,7 +31955,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -32009,7 +32138,8 @@
             "42368280660-attempt-1",
             "42377289804-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -32330,7 +32460,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -32436,7 +32567,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -32870,7 +33002,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -32939,7 +33072,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -33113,7 +33247,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -33148,7 +33283,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -33938,7 +34074,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -34002,7 +34139,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -34061,7 +34199,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -34188,7 +34327,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -34590,7 +34730,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -34973,7 +35114,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -35248,7 +35390,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -35577,7 +35720,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -35639,7 +35783,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -36139,7 +36284,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -36357,7 +36503,8 @@
             "42352882298-attempt-1",
             "42377289804-attempt-1",
             "42822432369-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -36418,7 +36565,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Z5Gg6dE5U",
           "platform": "bilibili",
@@ -36482,7 +36630,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -36595,7 +36744,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -36698,7 +36848,8 @@
           "evidence_id": "75c303ceddbfcafa9145df8777702583a1ac4758c957d9620404c226281c8443",
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -36762,7 +36913,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -36830,7 +36982,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -36889,7 +37042,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -37302,7 +37456,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -37417,7 +37572,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -37522,7 +37678,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -38136,7 +38293,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -38812,7 +38970,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1YL7TzTEz6",
           "platform": "bilibili",
@@ -39029,7 +39188,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1XSAdzTE3S",
           "platform": "unknown",
@@ -39200,7 +39360,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -39262,7 +39423,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -39380,7 +39542,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -39735,7 +39898,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -39948,7 +40112,8 @@
             "42476664880-attempt-1",
             "42822432369-attempt-1",
             "43227785525-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -39999,7 +40164,8 @@
           "evidence_id": "09d5b94be3a73765b3881fdb8700f2f2cc31f687dd9f6502ab44c8cce6c412b3",
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -40051,7 +40217,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ynvvBbEkn",
           "platform": "bilibili",
@@ -40536,7 +40703,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -40971,7 +41139,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -41191,7 +41360,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -41622,7 +41792,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ynvvBbEkn",
           "platform": "bilibili",
@@ -41674,7 +41845,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ynvvBbEkn",
           "platform": "bilibili",
@@ -42199,7 +42371,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ynvvBbEkn",
           "platform": "bilibili",
@@ -42479,7 +42652,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -42646,7 +42820,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -42911,7 +43086,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -42974,7 +43150,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -43477,7 +43654,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -43593,7 +43771,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV14Q4ce3EEE",
           "platform": "unknown",
@@ -43698,7 +43877,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -44379,7 +44559,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -44414,7 +44595,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -44697,7 +44879,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -45505,7 +45688,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1SH4y1o7se",
           "platform": "bilibili",
@@ -45831,7 +46015,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -46110,7 +46295,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -46422,7 +46608,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -46533,7 +46720,8 @@
             "42492427847-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -46858,7 +47046,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -46919,7 +47108,8 @@
             "42822432369-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -46988,7 +47178,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -47085,7 +47276,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -47120,7 +47312,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -47141,7 +47334,7 @@
         }
       ],
       "independent_creator_count": 2,
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "confidence": null,
       "counter_evidence": [],
       "status_reason": "season/version context + independent creators for the same claim; excluded from decisive runtime use until strategy holdout passes",
@@ -47404,7 +47597,8 @@
             "42822432369-attempt-1",
             "43019744524-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -47461,7 +47655,8 @@
             "42368280660-attempt-1",
             "42372738210-attempt-1",
             "42822432369-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -47786,7 +47981,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -47821,7 +48017,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -48250,7 +48447,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -48522,7 +48720,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -48799,7 +48998,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -48921,7 +49121,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -50112,7 +50313,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -50171,7 +50373,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1zmGM6xEvh",
           "platform": "bilibili",
@@ -50502,7 +50705,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -50833,7 +51037,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -50896,7 +51101,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -51349,7 +51555,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -51467,7 +51674,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -51798,7 +52006,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -52210,7 +52419,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -52245,7 +52455,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -53175,7 +53386,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ynvvBbEkn",
           "platform": "bilibili",
@@ -53496,7 +53708,8 @@
             "42372738210-attempt-1",
             "42377289804-attempt-1",
             "42822432369-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -53864,7 +54077,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -54031,7 +54245,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -54519,7 +54734,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -54640,7 +54856,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -54692,7 +54909,8 @@
           "evidence_id": "02b2b3c134de774d063b8ef0261209d4eef26ec87c794440c527dbf34e7183e5",
           "batch_id": "43713926094-attempt-1",
           "observed_batches": [
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1XSAdzTE3S",
           "platform": "unknown",
@@ -54757,7 +54975,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -54847,7 +55066,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -55013,7 +55233,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -55561,7 +55782,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -55596,7 +55818,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1R3xp6WEKz",
           "platform": "bilibili",
@@ -55677,7 +55900,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -55900,7 +56124,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -56046,7 +56271,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -56110,7 +56336,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -56238,7 +56465,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -56825,7 +57053,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -56877,7 +57106,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -56985,7 +57215,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1Z5Gg6dE5U",
           "platform": "bilibili",
@@ -57012,7 +57243,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1tLtM6GErx",
           "platform": "bilibili",
@@ -57281,7 +57513,8 @@
             "42476664880-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -57334,7 +57567,8 @@
           "observed_batches": [
             "42476664880-attempt-1",
             "43227785525-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -57561,7 +57795,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -58102,7 +58337,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -58190,7 +58426,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -58779,7 +59016,8 @@
             "42476664880-attempt-1",
             "42822432369-attempt-1",
             "43227785525-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -58902,7 +59140,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -58985,7 +59224,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -59041,7 +59281,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ZTiLB8ETt",
           "platform": "unknown",
@@ -59380,7 +59621,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -59527,7 +59769,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -59793,7 +60036,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -60015,7 +60259,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -60128,7 +60373,8 @@
             "42822432369-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -60179,7 +60425,8 @@
           "evidence_id": "7877c7e6aedf057aee47b2d64aa1d01536792340e646d2f21906334942021de4",
           "batch_id": "43713926094-attempt-1",
           "observed_batches": [
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1pDP6zLEGq",
           "platform": "unknown",
@@ -60301,7 +60548,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -60389,7 +60637,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -60455,7 +60704,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -60752,7 +61002,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -60914,7 +61165,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1YL7TzTEz6",
           "platform": "bilibili",
@@ -60977,7 +61229,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -61432,7 +61685,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1gMuF6gEqs",
           "platform": "unknown",
@@ -61642,7 +61896,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -62001,7 +62256,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -62056,7 +62312,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -62108,7 +62365,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1ynvvBbEkn",
           "platform": "bilibili",
@@ -62223,7 +62481,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -62295,7 +62554,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1saaz6qEbH",
           "platform": "bilibili",
@@ -62487,7 +62747,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -62547,7 +62808,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV1YL7TzTEz6",
           "platform": "bilibili",
@@ -62963,7 +63225,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -63269,7 +63532,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Hc9LBjEmQ",
           "platform": "bilibili",
@@ -63332,7 +63596,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -63731,7 +63996,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1hXTv6uECJ",
           "platform": "bilibili",
@@ -63848,7 +64114,8 @@
             "43019744524-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1G86xBFEk5",
           "platform": "bilibili",
@@ -63907,7 +64174,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1SNxW67Ed1",
           "platform": "unknown",
@@ -64015,7 +64283,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1XSAdzTE3S",
           "platform": "unknown",
@@ -64230,7 +64499,8 @@
             "42377289804-attempt-1",
             "42822432369-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1LwRKBmE2n",
           "platform": "bilibili",
@@ -64942,7 +65212,8 @@
             "43241535837-attempt-1",
             "43440733500-attempt-1",
             "43598633289-attempt-1",
-            "43720189851-attempt-1"
+            "43720189851-attempt-1",
+            "43893941711-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -65204,7 +65475,8 @@
           "evidence_id": "5337af11ea1699100ed10233acbe037a1df6a7f5de7cc41f7a2c4c2c1eb6dc63",
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV172Vd6xEKn",
           "platform": "unknown",
@@ -65269,7 +65541,8 @@
             "43227785525-attempt-1",
             "43428259384-attempt-1",
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV193xp6WErn",
           "platform": "bilibili",
@@ -66158,7 +66431,8 @@
             "42476664880-attempt-1",
             "42822432369-attempt-1",
             "43227785525-attempt-1",
-            "43592211663-attempt-1"
+            "43592211663-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1kUtu6BEin",
           "platform": "bilibili",
@@ -66777,7 +67051,8 @@
           "batch_id": "43592211663-attempt-1",
           "observed_batches": [
             "43592211663-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1Z5Gg6dE5U",
           "platform": "bilibili",
@@ -66925,7 +67200,8 @@
             "43019744524-attempt-1",
             "43227785525-attempt-1",
             "43428259384-attempt-1",
-            "43713926094-attempt-1"
+            "43713926094-attempt-1",
+            "43874523687-attempt-1"
           ],
           "video_id": "BV1pDP6zLEGq",
           "platform": "unknown",
