@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "release_id": "rel-9da36bf27b3fe4cd",
-  "previous_release": "rel-0ee5e3d3f925a30b",
+  "release_id": "rel-5a6f95eaa41a2393",
+  "previous_release": "rel-9da36bf27b3fe4cd",
   "status": "ACTIVE",
-  "activated_at": "2026-11-17T15:46:21.105297+00:00",
-  "source_registry_sha256": "95245b7974fec526e3e1071c4eeda7743bb03cc7b3e8a8b2063827546558f2ce"
+  "activated_at": "2026-11-17T17:02:22.008385+00:00",
+  "source_registry_sha256": "aeedf7b99ebdf62e0577d61f3168251c328199e1f2c37a853dcbe434d9318dab"
 }
