@@ -1,6 +1,7 @@
 {
   "lastWakeAt": "2026-11-18T15:13:42.303Z",
-  "lastResult": "cloud-video=PASS,cloud-all=ERROR",
-  "lastState": "running",
-  "hibernateAfterMinutes": 20
+  "lastResult": "wake-failed",
+  "lastState": "hibernated",
+  "hibernateAfterMinutes": 20,
+  "lastAttemptAt": "2026-11-18T23:58:55.451Z"
 }
